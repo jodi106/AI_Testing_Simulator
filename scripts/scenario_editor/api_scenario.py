@@ -33,7 +33,20 @@ def spawn_entities(world, transform_list, entity_type):
 
     return entity_list
 
-def transform_coordinates(coords_list):
+def transform_coordinates(df):
+    df = df
+    cars = df[df["EntityType"]=="C"][["xCoord","yCoord","zCoord"]]
+    passenger = df[df["EntityType"]=="P"][["xCoord","yCoord","zCoord"]]
+
+    coord_cars, coord_pass = [],[]
+
+    for x in range(len(cars)):
+        coord_cars.append([list(cars.iloc[x]), "C"])
+
+    for x in range(len(passenger)):
+        coord_pass.append([list(passenger.iloc[x]), "P"])
+
+
     return transform_list
 
 def read_gui_input(path):
