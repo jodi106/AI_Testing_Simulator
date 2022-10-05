@@ -3,6 +3,7 @@ import carla
 import math 
 import random 
 import time 
+import pandas as pd
 
 def setup_world():
 
@@ -37,22 +38,40 @@ def spawn_entities(client, transform_list, entity_type):
     return entity_list
 
 def transform_coordinates(df):
-
-
-
-    cars = df[df["EntityType"]=="C"][["xCoord","yCoord","zCoord"]]
-    passenger = df[df["EntityType"]=="P"][["xCoord","yCoord","zCoord"]]
+    cars = df[df["EntityType"]=="C"][["xCoord","yCoord","zCoord", "rotationDeg"]]
+    passenger = df[df["EntityType"]=="P"][["xCoord","yCoord","zCoord","rotationDeg"]]
 
     coord_cars, coord_pass = [],[]
 
     for x in range(len(cars)):
-        coord_cars.append([list(cars.iloc[x]), "C"])
+        coord_cars.append(list(cars.iloc[x]))
 
     for x in range(len(passenger)):
-        coord_pass.append([list(passenger.iloc[x]), "P"])
+        coord_pass.append(list(passenger.iloc[x]))
 
 
-    return transform_list
+    transform_cars = []
+    
+    for element in  coord_cars:
+
+        Location = carla.Location(x = element[0], y = element[2], z = element[4])
+        Rotation = carla.Rotation(element[3], 0, 0)
+        transform = carla.Transform(Location, Rotation)
+
+        transform_cars.append(transform)
+
+
+    transform_pass = []
+    
+    for element in  coord_pass:
+
+        Location = carla.Location(x = element[0], y = element[2], z = element[4])
+        Rotation = carla.Rotation(element[3], 0, 0)
+        transform = carla.Transform(Location, Rotation)
+
+        transform_pass.append(transform)
+
+    return transform_cars, transform_pass
 
 def read_gui_input(path):
     df = pd.read_csv(path)   
