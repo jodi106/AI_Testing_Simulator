@@ -18,15 +18,18 @@ def setup_world():
         spectator = world.get_spectator()
         spectator.set_location(carla.Location(x = 255, y=-173, z=40))
 
+    return client
 
-def spawn_entities(world, transform_list, entity_type):
+
+def spawn_entities(client, transform_list, entity_type):
+    world = client.get_world()
     bp_lib = world.get_blueprint_library() 
   
     entity_list = []
     for transform in transform_list:
-        if entity_type == "c":
+        if entity_type == "C":
             entity_bp = random.choice(bp_lib.filter('vehicle'))
-        elif entity_type == "p":
+        elif entity_type == "P":
             entity_bp = random.choice(bp_lib.filter('passenger'))
         entity =  world.try_spawn_actor(entity_bp, transform)
         entity_list.append(entity) 
@@ -34,7 +37,9 @@ def spawn_entities(world, transform_list, entity_type):
     return entity_list
 
 def transform_coordinates(df):
-    df = df
+
+
+
     cars = df[df["EntityType"]=="C"][["xCoord","yCoord","zCoord"]]
     passenger = df[df["EntityType"]=="P"][["xCoord","yCoord","zCoord"]]
 
@@ -54,17 +59,27 @@ def read_gui_input(path):
 
     return df
 
-def control_dummy_car(vehicle_list):
-    for car in vehicle_list:
+def control_cars(vehicles):
+    for car in vehicles[1]:
         car.apply_control(carla.VehicleControl(throttle = 0.5))
 
-def control_dummy_passenger(passenger_list):
-    for passenger in passenger_list:
+    start_autopilot(vehicles[0])
+
+def control_dummy_passenger(passengers):
+    for passenger in passengers:
         passenger.apply_control(carla.WalkerControl(speed = 0.55))
 
 def start_autopilot(vehicle):
     vehicle.set_autopilot(True)
 
 
-setup_world()
+client = setup_world()
+df = read_gui_input("data\\AllEntitiesSet.txt")
+vehicle_list, passenger_list = transform_coordinates(df) 
+control_cars(spawn_entities(client, vehicle_list, "C"))
+control_dummy_passenger(spawn_entities(client, passenger_list, "P"))
 
+def recorder():
+    # execute python file
+    # check output
+    # szenario was succesfull or not
