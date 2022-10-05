@@ -1,0 +1,6 @@
+{
+    "startCameraPositionX": 255.15794372558594,
+    "startCameraPositionY": -173.17591857910156,
+    "startCameraPositionZ": 43.156455993652344,
+    "how_to_use_startCameraPosition": "Deserialize as Carla.location(x=startCameraPositionX , y = startCameraPositionY, z = startCameraPositionz"
+}
