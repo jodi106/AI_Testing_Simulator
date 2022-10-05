@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Import the CARLA Python API library and some utils
 import carla 
 import math 
