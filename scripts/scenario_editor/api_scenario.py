@@ -73,6 +73,17 @@ def transform_coordinates(df):
 
     return transform_cars, transform_pass
 
+def scale_coords(df):
+    carla_urx, carla_ury = 256.63, -170.97
+    carla_difx, carla_dify = 30, 30
+    
+    df[["xCoord", "yCoord"]] = df[["xCoord", "yCoord"]] / 400
+
+    df["xCoord"] = df["xCoord"] * carla_difx + carla_urx
+    df["yCoord"] = df["yCoord"] * carla_dify + carla_ury
+
+    return df
+
 def read_gui_input(path):
     df = pd.read_csv(path)   
 
@@ -99,6 +110,7 @@ control_cars(spawn_entities(client, vehicle_list, "C"))
 control_dummy_passenger(spawn_entities(client, passenger_list, "P"))
 
 def recorder():
+    pass
     # execute python file
     # check output
     # szenario was succesfull or not
