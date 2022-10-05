@@ -19,17 +19,6 @@ def setup_world():
         spectator = world.get_spectator()
         spectator.set_location(carla.Location(x = 255, y=-173, z=40))
 
-        
-
-def spawn_vehicle():
-=======
-import carla 
-import random 
-import pandas as pd
-
-def setup_world():
->>>>>>> 00f253397eeb8d39d0df202c1dcea4fc3d9f0e98
-    pass
 
 def spawn_entities(world, transform_list, entity_type):
     bp_lib = world.get_blueprint_library() 
@@ -65,21 +54,5 @@ def start_autopilot(vehicle):
     vehicle.set_autopilot(True)
 
 
-# Connect to the client and get the world object
-client = carla.Client('localhost', 2000) 
-world = client.get_world() 
-
-
-
-
-# Set the all vehicles in motion using the Traffic Manager
-
-<<<<<<< HEAD
-def start_autopilot():
-    pass
-
-
 setup_world()
 
-=======
->>>>>>> 00f253397eeb8d39d0df202c1dcea4fc3d9f0e98
