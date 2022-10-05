@@ -3,6 +3,7 @@ import carla
 import math 
 import random 
 import time 
+import pandas as pd
 
 def setup_world():
 
@@ -34,6 +35,13 @@ def spawn_entities(world, transform_list, entity_type):
     return entity_list
 
 def transform_coordinates(coords_list):
+
+    
+
+    entity_type, list_coordinates = coords_list
+
+    entity_type = 
+
     return transform_list
 
 def read_gui_input(path):
@@ -53,5 +61,6 @@ def start_autopilot(vehicle):
     vehicle.set_autopilot(True)
 
 
+read_gui_input(scripts\scenario_editor\data\AllEntitiesSet.txt)
 setup_world()
 
