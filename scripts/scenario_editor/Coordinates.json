@@ -1,6 +1,30 @@
 {
+
+    "map" : "Town04",
     "startCameraPositionX": 255.15794372558594,
     "startCameraPositionY": -173.17591857910156,
     "startCameraPositionZ": 43.156455993652344,
-    "how_to_use_startCameraPosition": "Deserialize as Carla.location(x=startCameraPositionX , y = startCameraPositionY, z = startCameraPositionz"
+
+    "How_To_Use_Coordinates": "Deserialize as Carla.location(x=startCameraPositionX , y = startCameraPositionY, z = startCameraPositionz",
+
+    "middleOfCrossingX": 256.6278076171875,
+    "middleOfCrossingY": -170.9705810546875, 
+    "middleOfCrossingZ": 0.3,
+
+    "leftStartingPositionX": 228.34771728515625,
+    "leftStartingPositionY": -169.23974609375,
+    "leftStartingPositionZ": 0.3,
+
+    "rightStartingPositionX": 228.34771728515625,
+    "rightStartingPositionY": -169.23974609375,
+    "rightStartingPositionZ": 0.3,
+
+
+
+
+
+
+
+
+
 }
