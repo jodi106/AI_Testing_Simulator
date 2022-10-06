@@ -113,7 +113,8 @@ def start_autopilot(vehicle):
 
 def start_recording():
     # start a recording for t= 30+5sec. Save recording in file "recording01.log", spawn n=0 cars
-    path = "C:\\Users\\Natalie\\Desktop\\Carla\\WindowsNoEditor"
+    #path = "C:\\Users\\Natalie\\Desktop\\Carla\\WindowsNoEditor"
+    path = "C:\\Users\\stefan.stingl\\CARLA_0.9.13\\WindowsNoEditor"
     s1 = "cd " + path + "\\PythonAPI\\examples" + " && "
     s1 = s1 + "python start_recording.py -f " + path + "\\recording01.log -n 0 -t 30" 
     print(s1)
@@ -123,11 +124,13 @@ def replay_recording():
     client.stop_recorder()
     
     #print(client.replay_file("C:\\Users\\Natalie\\Desktop\\recording01.log", 0.0, 30.0, 0, 0))
-    path = "C:\\Users\\Natalie\\Desktop\\Carla\\WindowsNoEditor\\recording01.log"
-    print(client.replay_file(path)) # replay the session
+    #path = "C:\\Users\\Natalie\\Desktop\\Carla\\WindowsNoEditor\\recording01.log"
+    path = "C:\\Users\stefan.stingl\\CARLA_0.9.13\\WindowsNoEditor\\recording01.log"
+    print(client.replay_file(path, 0.0, 0, 0)) # replay the session
 
     # show collisions
-    print(client.show_recorder_collisions(path, "v", "a"))
+    print(client.show_recorder_collisions(path, "a", "a"))
+    #print(client.show_recorder_actors_blocked(path, 0, 0))
 
 client = setup_world()
 df = read_gui_input("data\\AlleRechts.txt")
