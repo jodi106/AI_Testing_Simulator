@@ -5,6 +5,8 @@ import random
 import time 
 import pandas as pd
 
+from scripts.scenario_editor.send_to_carla import run
+
 def setup_world():
     
     
@@ -109,6 +111,23 @@ def start_autopilot(vehicle):
     vehicle.set_autopilot(True)
 
 
+def start_recording():
+    # start a recording for t= 30+5sec. Save recording in file "recording01.log", spawn n=0 cars
+    path = "C:\\Users\\Natalie\\Desktop\\Carla\\WindowsNoEditor"
+    s1 = "cd " + path + "\\PythonAPI\\examples" + " && "
+    s1 = s1 + "python start_recording.py -f " + path + "\\recording01.log -n 0 -t 30" 
+    print(s1)
+    run(s1)
+
+def replay_recording():
+    client.stop_recorder()
+    
+    #print(client.replay_file("C:\\Users\\Natalie\\Desktop\\recording01.log", 0.0, 30.0, 0, 0))
+    path = "C:\\Users\\Natalie\\Desktop\\Carla\\WindowsNoEditor\\recording01.log"
+    print(client.replay_file(path)) # replay the session
+
+    # show collisions
+    print(client.show_recorder_collisions(path, "v", "a"))
 
 client = setup_world()
 df = read_gui_input("data\\AlleRechts.txt")
@@ -119,4 +138,3 @@ peds = spawn_entities(client, passenger_list, "P")
 
 control_cars(cars)
 control_dummy_passenger(peds)
-
