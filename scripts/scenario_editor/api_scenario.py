@@ -84,8 +84,16 @@ def transform_coordinates(df):
 def scale_coords(df):
     carla_urx, carla_ury = 256.63, -170.97
     carla_difx, carla_dify = 28.28, 28.28
-    
-    df[["xCoord", "yCoord"]] = df[["xCoord", "yCoord"]] / 400
+
+    cppmax_x_up, cpmax_x_down, cpmax_y_up, cpmax_y_down = 380, -420, 480, -320
+
+
+    # Größer 0
+    df.loc[df["xCoord"]>=0, ["xCoord"]] = df.loc[df["xCoord"]>=0, ["xCoord"]] /cppmax_x_up
+    df.loc[df["yCoord"]>=0, ["yCoord"]] = df.loc[df["yCoord"]>=0, ["yCoord"]] /cpmax_y_up
+    # kleiner 0
+    df.loc[df["xCoord"]<0, ["xCoord"]] = df.loc[df["xCoord"]<0, ["xCoord"]]/cpmax_x_down
+    df.loc[df["yCoord"]<0, ["yCoord"]] = df.loc[df["yCoord"]<0, ["yCoord"]] /cpmax_y_down
 
     df["xCoord"] = df["xCoord"] * carla_difx + carla_urx
     df["yCoord"] = df["yCoord"] * carla_dify + carla_ury
