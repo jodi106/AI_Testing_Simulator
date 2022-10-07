@@ -1,104 +1,169 @@
-import sys
 import pygame
-from pygame.locals import *
+from pygame import *
 
-# Import additional modules here.
-from PyGame.Entities.BackGround import Background
+from Entities import BackGround
 
-# Feel free to edit these constants to suit your requirements.
-FRAME_RATE = 60.0
-SCREEN_SIZE = (640, 480)
-
-def pygame_modules_have_loaded():
-    success = True
-
-    if not pygame.display.get_init:
-        success = False
-    if not pygame.font.get_init():
-        success = False
-    if not pygame.mixer.get_init():
-        success = False
-
-    return success
-
-pygame.mixer.pre_init(44100, -16, 2, 512)
-pygame.init()
-pygame.font.init()
-
-if pygame_modules_have_loaded():
-    game_screen = pygame.display.set_mode(SCREEN_SIZE, RESIZABLE)
-    infoObject = pygame.display.Info()
-
-    pygame.display.set_caption('Test')
-    clock = pygame.time.Clock()
+SCREEN_SIZE = pygame.Rect((0, 0, 1920, 1080))
+scale = 8
+MAP_SIZE = [scale * 410.68] * 2
+MAP_RECT = pygame.Rect((0, 0, scale * 410.68, scale * 410.68))
+TILE_SIZE = 32
+GRAVITY = pygame.Vector2((0, 0))
 
 
-    def declare_globals():
-        # The class(es) that will be tested should be declared and initialized
-        # here with the global keyword.
-        # Yes, globals are evil, but for a confined test script they will make
-        # everything much easier. This way, you can access the class(es) from
-        # all three of the methods provided below.
-        pass
+class CameraAwareLayeredUpdates(pygame.sprite.LayeredUpdates):
+    def __init__(self, target, world_size, image):
+        super().__init__()
+        self.target = target
+        self.cam = pygame.Vector2(0, 0)
+        self.world_size = world_size
+        self.image = image
+        if self.target:
+            self.add(target)
 
+    def update(self, *args):
+        super().update(*args)
+        if self.target:
+            x = -self.target.rect.center[0] + SCREEN_SIZE.width / 2
+            y = -self.target.rect.center[1] + SCREEN_SIZE.height / 2
+            self.cam += (pygame.Vector2((x, y)) - self.cam) * 0.05
+            self.cam.x = max(-(self.world_size.width - SCREEN_SIZE.width), min(0, self.cam.x))
+            self.cam.y = max(-(self.world_size.height - SCREEN_SIZE.height), min(0, self.cam.y))
 
-    def prepare_test():
-        # Add in any code that needs to be run before the game loop starts.
-        pass
-
-
-    def handle_input(key_name):
-        # Add in code for input handling.
-        # key_name provides the String name of the key that was pressed.
-        pass
-
-
-    def update(screen, time):
-        # Add in code to be run during each update cycle.
-        # screen provides the PyGame Surface for the game window.
-        # time provides the seconds elapsed since the last update.
-        pygame.display.update()
-
-
-    def CreateWindow(width, height):
-        '''Updates the window width and height '''
-        pygame.display.set_caption("Press ESC to quit")
-        game_screen = pygame.display.set_mode((width, height), RESIZABLE)
-        game_screen.fill([255, 255, 255])
-
-
-    # Add additional methods here.
-
-    def main():
-        declare_globals()
-        prepare_test()
-        backGround = Background('MapImages/Town10HD.png', [0, 0])
-
-        while True:
-            game_screen.fill([255, 255, 255])
-            game_screen.blit(backGround.image, backGround.rect)
-
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-                if event.type == KEYDOWN:
-                    key_name = pygame.key.name(event.key)
-                    handle_input(key_name)
-
-                if event.type == VIDEORESIZE:
-                    CreateWindow(event.w, event.h)
-
-            milliseconds = clock.tick(FRAME_RATE)
-            seconds = milliseconds / 1000.0
-            update(game_screen, seconds)
-
-            sleep_time = (1000.0 / FRAME_RATE) - milliseconds
-            if sleep_time > 0.0:
-                pygame.time.wait(int(sleep_time))
+    def draw(self, surface):
+        spritedict = self.spritedict
+        surface_blit = surface.blit
+        dirty = self.lostsprites
+        self.lostsprites = []
+        dirty_append = dirty.append
+        init_rect = self._init_rect
+        for spr in self.sprites():
+            rec = spritedict[spr]
+            newrect = surface_blit(self.image, spr.rect.move(self.cam))
+            if rec is init_rect:
+                dirty_append(newrect)
             else:
-                pygame.time.wait(1)
+                if newrect.colliderect(rec):
+                    dirty_append(newrect.union(rec))
+                else:
+                    dirty_append(newrect)
+                    dirty_append(rec)
+            spritedict[spr] = newrect
+        return dirty
 
 
+def main():
+    pygame.init()
+
+    image = pygame.image.load("MapImages/Town10HD.png")
+    image = pygame.transform.scale(image, MAP_SIZE)
+
+    screen = pygame.display.set_mode(SCREEN_SIZE.size)
+
+    pygame.display.set_caption("Use arrows to move!")
+    timer = pygame.time.Clock()
+
+    platforms = pygame.sprite.Group()
+    player = Player(platforms, (TILE_SIZE, TILE_SIZE))
+    entities = CameraAwareLayeredUpdates(player, MAP_RECT, image)
+
+    while 1:
+        for e in pygame.event.get():
+            if e.type == QUIT:
+                return
+            if e.type == KEYDOWN and e.key == K_ESCAPE:
+                return
+
+        entities.update()
+
+        entities.draw(screen)
+        pygame.display.update()
+        timer.tick(60)
+
+
+class Entity(pygame.sprite.Sprite):
+    def __init__(self, color, pos, *groups):
+        super().__init__(*groups)
+        self.image = Surface((TILE_SIZE, TILE_SIZE))
+        self.image.fill(color)
+        self.rect = self.image.get_rect(topleft=pos)
+
+
+class Player(Entity):
+    def __init__(self, platforms, pos, *groups):
+        super().__init__(Color("#0000FF"), pos)
+        self.vel = pygame.Vector2((0, 0))
+        self.onGround = False
+        self.platforms = platforms
+        self.speed = 8
+        self.jump_strength = 10
+
+    def update(self):
+        pressed = pygame.key.get_pressed()
+        up = pressed[K_UP]
+        left = pressed[K_LEFT]
+        right = pressed[K_RIGHT]
+        down = pressed[K_DOWN]
+        running = pressed[K_SPACE]
+
+        if up:
+            # only jump if on the ground
+            self.vel.y = +self.speed
+        if left:
+            self.vel.x = +self.speed
+        if right:
+            self.vel.x = -self.speed
+        if down:
+            self.vel.y = -self.speed
+        if running:
+            self.vel.x *= 1.5
+        if not self.onGround:
+            # only accelerate with gravity if in the air
+            self.vel += GRAVITY
+            # max falling speed
+            if self.vel.y > 100: self.vel.y = 100
+        print(self.vel.y)
+        if not (left or right):
+            self.vel.x = 0
+        if not (up or down):
+            self.vel.y = 0
+        # increment in x direction
+        self.rect.left += self.vel.x
+        # do x-axis collisions
+        self.collide(self.vel.x, 0, self.platforms)
+        # increment in y direction
+        self.rect.top += self.vel.y
+        # assuming we're in the air
+        self.onGround = False;
+        # do y-axis collisions
+        self.collide(0, self.vel.y, self.platforms)
+
+    def collide(self, xvel, yvel, platforms):
+        for p in platforms:
+            if pygame.sprite.collide_rect(self, p):
+                if isinstance(p, ExitBlock):
+                    pygame.event.post(pygame.event.Event(QUIT))
+                if xvel > 0:
+                    self.rect.right = p.rect.left
+                if xvel < 0:
+                    self.rect.left = p.rect.right
+                if yvel > 0:
+                    self.rect.bottom = p.rect.top
+                    self.onGround = True
+                    self.vel.y = 0
+                if yvel < 0:
+                    self.rect.top = p.rect.bottom
+
+
+class Platform(Entity):
+    def __init__(self, pos, *groups):
+        super().__init__(Color("#DDDDDD"), pos, *groups)
+
+
+class ExitBlock(Entity):
+    def __init__(self, pos, *groups):
+        super().__init__(Color("#0033FF"), pos, *groups)
+
+
+if __name__ == "__main__":
     main()
