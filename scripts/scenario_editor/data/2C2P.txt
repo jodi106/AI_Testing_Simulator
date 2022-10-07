@@ -1,0 +1,5 @@
+EntityType,xCoord,yCoord,zCoord,rotationDeg
+C,25,-260,0.3,90
+C,-236,-25,0.3,0
+P,18,-101,0.3,270
+P,-71,78,0.3,0

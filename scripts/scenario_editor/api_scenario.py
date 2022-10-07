@@ -5,7 +5,7 @@ import random
 import time 
 import pandas as pd
 
-from scripts.scenario_editor.send_to_carla import run
+from send_to_carla import run
 
 def setup_world():
     
@@ -22,10 +22,14 @@ def setup_world():
         client.load_world("Town04")
         world = client.get_world() 
         #Setting Spectator Camera Position to the 4-Way Intersection
-        spectator = world.get_spectator()
-        spectator.set_transform(carla.Transform(carla.Location(x = 255, y=-173, z=40),
-        carla.Rotation(pitch=-88.918983, yaw=-89.502739, roll=-0.001539)))
-        
+
+    spectator = world.get_spectator()
+    
+    spectator.set_transform(carla.Transform(carla.Location(x=267.260406, y=-182.479721, z=17.611162), carla.Rotation(pitch=-47.555298, yaw=133.529037, roll=-0.000673)))
+    
+    #spectator.set_transform(carla.Transform(carla.Location(x = 255, y=-173, z=40),
+    #carla.Rotation(pitch=-88.918983, yaw=-89.502739, roll=-0.001539)))
+    
 
     return client
 
@@ -43,6 +47,7 @@ def spawn_entities(client, transform_list, entity_type):
         entity =  world.try_spawn_actor(entity_bp, transform)
         entity_list.append(entity) 
 
+    print(entity_list)
     return entity_list
 
 def transform_coordinates(df):
@@ -85,14 +90,14 @@ def scale_coords(df):
     carla_urx, carla_ury = 256.63, -170.97
     carla_difx, carla_dify = 28.28, 28.28
 
-    cppmax_x_up, cpmax_x_down, cpmax_y_up, cpmax_y_down = 380, -420, 480, -320
+    cppmax_x_up, cpmax_x_down, cpmax_y_up, cpmax_y_down = 380, 420, 480, 320
 
 
     # Größer 0
     df.loc[df["xCoord"]>=0, ["xCoord"]] = df.loc[df["xCoord"]>=0, ["xCoord"]] /cppmax_x_up
     df.loc[df["yCoord"]>=0, ["yCoord"]] = df.loc[df["yCoord"]>=0, ["yCoord"]] /cpmax_y_up
     # kleiner 0
-    df.loc[df["xCoord"]<0, ["xCoord"]] = df.loc[df["xCoord"]<0, ["xCoord"]]/cpmax_x_down
+    df.loc[df["xCoord"]<0, ["xCoord"]] = df.loc[df["xCoord"]<0, ["xCoord"]] /cpmax_x_down
     df.loc[df["yCoord"]<0, ["yCoord"]] = df.loc[df["yCoord"]<0, ["yCoord"]] /cpmax_y_down
 
     df["xCoord"] = df["xCoord"] * carla_difx + carla_urx
@@ -141,7 +146,7 @@ def replay_recording():
     #print(client.show_recorder_actors_blocked(path, 0, 0))
 
 client = setup_world()
-df = read_gui_input("data\\AlleRechts.txt")
+df = read_gui_input("data\\AllEntitiesSet.txt")
 df = scale_coords(df)
 vehicle_list, passenger_list = transform_coordinates(df) 
 cars = spawn_entities(client, vehicle_list, "C")
