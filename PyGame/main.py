@@ -1,18 +1,13 @@
-"""This module contains all of the necessary PyGame components for
-running a simplified game loop.
-Use it for test cases on PyGame-related code.
-"""
 import sys
 import pygame
 from pygame.locals import *
 
 # Import additional modules here.
-
+from PyGame.Entities.BackGround import Background
 
 # Feel free to edit these constants to suit your requirements.
 FRAME_RATE = 60.0
 SCREEN_SIZE = (640, 480)
-
 
 def pygame_modules_have_loaded():
     success = True
@@ -26,13 +21,14 @@ def pygame_modules_have_loaded():
 
     return success
 
-
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
 pygame.font.init()
 
 if pygame_modules_have_loaded():
-    game_screen = pygame.display.set_mode(SCREEN_SIZE)
+    game_screen = pygame.display.set_mode(SCREEN_SIZE, RESIZABLE)
+    infoObject = pygame.display.Info()
+
     pygame.display.set_caption('Test')
     clock = pygame.time.Clock()
 
@@ -64,13 +60,24 @@ if pygame_modules_have_loaded():
         pygame.display.update()
 
 
+    def CreateWindow(width, height):
+        '''Updates the window width and height '''
+        pygame.display.set_caption("Press ESC to quit")
+        game_screen = pygame.display.set_mode((width, height), RESIZABLE)
+        game_screen.fill([255, 255, 255])
+
+
     # Add additional methods here.
 
     def main():
         declare_globals()
         prepare_test()
+        backGround = Background('MapImages/Town10HD.png', [0, 0])
 
         while True:
+            game_screen.fill([255, 255, 255])
+            game_screen.blit(backGround.image, backGround.rect)
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
@@ -79,6 +86,9 @@ if pygame_modules_have_loaded():
                 if event.type == KEYDOWN:
                     key_name = pygame.key.name(event.key)
                     handle_input(key_name)
+
+                if event.type == VIDEORESIZE:
+                    CreateWindow(event.w, event.h)
 
             milliseconds = clock.tick(FRAME_RATE)
             seconds = milliseconds / 1000.0
