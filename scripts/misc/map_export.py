@@ -20,6 +20,8 @@ import weakref
 import math
 import random
 import hashlib
+
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 
 # ==============================================================================
@@ -136,9 +138,9 @@ class MapImage(object):
     """Class encharged of rendering a 2D image from top view of a carla world. Please note that a cache system is used, so if the OpenDrive content
     of a Carla town has not changed, it will read and use the stored image if it was rendered in a previous execution"""
 
-    def __init__(self, carla_world, carla_map, pixels_per_meter, show_triggers, show_connections, show_spawn_points):
+    def __init__(self, carla_world, carla_map, show_triggers, show_connections, show_spawn_points):
         """ Renders the map image generated based on the world, its map and additional flags that provide extra information about the road network"""
-        self._pixels_per_meter = pixels_per_meter
+        self._pixels_per_meter = PIXELS_PER_METER
         self.show_triggers = show_triggers
         self.show_connections = show_connections
         self.show_spawn_points = show_spawn_points
@@ -149,7 +151,8 @@ class MapImage(object):
         min_x = min(waypoints, key=lambda x: x.transform.location.x).transform.location.x
         min_y = min(waypoints, key=lambda x: x.transform.location.y).transform.location.y
 
-        self.width = max(max_x - min_x, max_y - min_y)
+        self.width = max_x - min_x
+        self.height = max_y - min_y
         
         print(min_x)
         print(max_x)
@@ -158,29 +161,15 @@ class MapImage(object):
 
         self._world_offset = (min_x, min_y)
 
-        # Maximum size of a Pygame surface
-        width_in_pixels = (1 << 14) - 1
+        print(self._pixels_per_meter)
 
-        # Adapt Pixels per meter to make world fit in surface
-        surface_pixel_per_meter = int(width_in_pixels / self.width)
-        if surface_pixel_per_meter > PIXELS_PER_METER:
-            surface_pixel_per_meter = PIXELS_PER_METER
-
-        self._pixels_per_meter = surface_pixel_per_meter
         width_in_pixels = int(self._pixels_per_meter * self.width)
+        height_in_pixels = int(self._pixels_per_meter * self.height)
 
-        self.big_map_surface = pygame.Surface((width_in_pixels, width_in_pixels)).convert()
-
-        # Load OpenDrive content
-        opendrive_content = carla_map.to_opendrive()
-
-        # Get hash based on content
-        hash_func = hashlib.sha1()
-        hash_func.update(opendrive_content.encode("UTF-8"))
-        opendrive_hash = str(hash_func.hexdigest())
+        self.big_map_surface = pygame.Surface((width_in_pixels, height_in_pixels)).convert()
 
         # Build path for saving or loading the cached rendered map
-        filename = carla_map.name.split('/')[-1] + "_" + opendrive_hash + ".png"
+        filename = carla_map.name.split('/')[-1] + ".png"
         dirname = os.path.join("cache", "no_rendering_mode")
         full_path = str(os.path.join(dirname, filename))
 
@@ -517,9 +506,6 @@ class MapImage(object):
         topology = carla_map.get_topology()
         draw_topology(topology, 0)
 
-
-        pygame.draw.rect(map_surface, COLOR_ORANGE_0, (0,0,10,10))
-
         if self.show_spawn_points:
             for sp in carla_map.get_spawn_points():
                 draw_arrow(map_surface, sp, color=COLOR_CHOCOLATE_0)
@@ -599,7 +585,6 @@ def start(args):
     MapImage(
         carla_world=world,
         carla_map=town_map,
-        pixels_per_meter=PIXELS_PER_METER,
         show_triggers=args.show_triggers,
         show_connections=args.show_connections,
         show_spawn_points=args.show_spawn_points)
