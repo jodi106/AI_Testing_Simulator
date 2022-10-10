@@ -67,7 +67,7 @@
 					<PrivateAction>
 						<TeleportAction>
 							<Position>
-								<WorldPosition h="1,57" x="110" y="52" z="0.3"/>
+								<WorldPosition h="1,57" x="-13" y="357" z="0.3"/>
 							</Position>
 						</TeleportAction>
 					</PrivateAction>
@@ -95,7 +95,7 @@
 					<PrivateAction>
 						<TeleportAction>
 							<Position>
-								<WorldPosition h="1.57" x="120" y="52" z="0.3"/>
+								<WorldPosition h="1.57" x="363" y="16" z="0.3"/>
 							</Position>
 						</TeleportAction>
 					</PrivateAction>
@@ -104,12 +104,38 @@
 					<PrivateAction>
 						<TeleportAction>
 							<Position>
-								<WorldPosition h="1.57" x="130" y="52" z="0.3"/>
+								<WorldPosition h="1.57" x="26" y="-217" z="0.3"/>
 							</Position>
 						</TeleportAction>
 					</PrivateAction>
 				</Private>
 			</Actions>
 		</Init>
+		<Story name="MyStory">
+			<Act name="Behavior">
+				<ManeuverGroup maximumExecutionCount="1" name="ManeuverSequence">
+					<Actors selectTriggeringEntities="false">
+						<EntityRef entityRef="adversary0"/>
+						<EntityRef entityRef="adversary1"/>
+					</Actors>
+					<Maneuver name="AccelerateManeuver">
+						<Event name="AdversaryAccelerates" priority="overwrite">
+							<Action name="AdversaryAccelerates">
+								<PrivateAction>
+									<LongitudinalAction>
+										<SpeedAction>
+											<SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="50"/>
+											<SpeedActionTarget>
+												<AbsoluteTargetSpeed value="5.0"/>
+											</SpeedActionTarget>
+										</SpeedAction>
+									</LongitudinalAction>
+								</PrivateAction>
+							</Action>
+						</Event>
+					</Maneuver>
+				</ManeuverGroup>
+			</Act>
+		</Story>
 	</Storyboard>
 </OpenSCENARIO>

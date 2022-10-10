@@ -1,15 +1,15 @@
 
-def add_storyboard(root, open_scenario, number_of_simulation_cars, x, y, z, h, control_mode):
+def add_init(root, storyboard, number_of_simulation_cars, x, y, z, h, control_mode):
     # Add tags
-    storyboard = root.createElement('Storyboard')
     init = root.createElement('Init')
     actions = root.createElement('Actions')
     add_actions(root, actions, number_of_simulation_cars, x, y, z, h, control_mode)
 
     # Hierarchy
-    open_scenario.appendChild(storyboard)
     storyboard.appendChild(init)
     init.appendChild(actions)
+
+    return storyboard
 
 
 def add_actions(root, actions, number_of_simulation_cars, x, y, z, h, control_mode):

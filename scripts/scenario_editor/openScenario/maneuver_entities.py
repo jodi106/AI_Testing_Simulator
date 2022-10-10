@@ -1,4 +1,50 @@
-class Maneuver:
-    
-     def __init__(self):
-         pass
+def accelerate_all_simulation_cars(root, storyboard, number_of_sim_cars):
+    story = root.createElement('Story')
+    story.setAttribute('name', 'MyStory')
+    act = root.createElement('Act')
+    act.setAttribute('name', 'Behavior')
+    maneuver_group = root.createElement('ManeuverGroup')
+    maneuver_group.setAttribute('maximumExecutionCount', '1')
+    maneuver_group.setAttribute('name', 'ManeuverSequence')
+    actors = root.createElement('Actors')
+    actors.setAttribute('selectTriggeringEntities', 'false')
+    for n in range(0, number_of_sim_cars): # which vehicles are affected (all sim. cars)
+        entity_ref = root.createElement('EntityRef')
+        entity_ref.setAttribute('entityRef', 'adversary'+str(n))
+        actors.appendChild(entity_ref)
+    maneuver = root.createElement('Maneuver')
+    maneuver.setAttribute('name', 'AccelerateManeuver')
+
+    event = root.createElement('Event')
+    event.setAttribute('name', 'AdversaryAccelerates')
+    event.setAttribute('priority', 'overwrite')
+    action = root.createElement('Action')
+    action.setAttribute('name', 'AdversaryAccelerates')
+    private_action = root.createElement('PrivateAction')
+    longitudinal_action = root.createElement('LongitudinalAction')
+    speed_action = root.createElement('SpeedAction')
+    speed_action_dynamics = root.createElement('SpeedActionDynamics')
+    speed_action_dynamics.setAttribute('dynamicsShape', 'step')
+    speed_action_dynamics.setAttribute('value', '50')
+    speed_action_dynamics.setAttribute('dynamicsDimension', 'distance')
+    speed_action_target = root.createElement('SpeedActionTarget')
+    absolute_target_speed = root.createElement('AbsoluteTargetSpeed')
+    absolute_target_speed.setAttribute('value', '5.0')
+
+    # Hierarchy
+    storyboard.appendChild(story)
+    story.appendChild(act)
+    act.appendChild(maneuver_group)
+    maneuver_group.appendChild(actors)
+    # for n in range(0, number_of_sim_cars):
+    #     actors.appendChild(entity_ref[n])
+    maneuver_group.appendChild(maneuver)
+    maneuver.appendChild(event)
+    event.appendChild(action)
+    action.appendChild(private_action)
+    private_action.appendChild(longitudinal_action)
+    longitudinal_action.appendChild(speed_action)
+    speed_action.appendChild(speed_action_dynamics)
+    speed_action.appendChild(speed_action_target)
+    speed_action_target.appendChild(absolute_target_speed)
+

@@ -22,11 +22,20 @@ control_mode = "external_control" # var 2
 def create_xosc_file():
     root = minidom.Document()
     open_scenario = root.createElement('OpenSCENARIO')  
-  
+    
+    # Define entities which are used (cars, pedestrians, bicicles, ...)
     define_entities.add_basic_tags(root, open_scenario, map)
     define_entities.add_entities(root, open_scenario, number_of_simulation_cars, vehicle_model_ego, vehicle_model_simulation)
-    init_entities.add_storyboard(root, open_scenario, number_of_simulation_cars, x, y, z, h, control_mode)
+
+    storyboard = root.createElement('Storyboard')
+    open_scenario.appendChild(storyboard)
+
+    # Place the defined entities at specific coordinates on the map
+    init_entities.add_init(root, storyboard, number_of_simulation_cars, x, y, z, h, control_mode)
     
+    # Start moving the entities: Todo make this more dynamic. It is hardcoded.
+    maneuver_entities.accelerate_all_simulation_cars(root, storyboard, number_of_simulation_cars)
+
     xml_str = root.toprettyxml(indent ="\t") 
     save_path_file = "OurScenario.xosc"
     with open(save_path_file, "w") as f:
