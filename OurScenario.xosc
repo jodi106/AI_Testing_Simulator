@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO>
+	<FileHeader author="" date="" description="" revMajor="1" revMinor="0"/>
+	<ParameterDeclarations/>
+	<CatalogLocations/>
+	<RoadNetwork>
+		<LogicFile filepath="Town04"/>
+		<SceneGraphFile filepath=""/>
+	</RoadNetwork>
+	<Entities>
+		<ScenarioObject name="hero">
+			<Vehicle name="vehicle.volkswagen.t2" vehicleCategory="car">
+				<ParameterDeclarations/>
+				<Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+				<BoundingBox>
+					<Center x="1.5" y="0.0" z="0.9"/>
+					<Dimensions height="1.8" length="4.5" width="2.1"/>
+				</BoundingBox>
+				<Axles>
+					<FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+					<RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+				</Axles>
+				<Properties>
+					<Property name="type" value="ego_vehicle"/>
+				</Properties>
+			</Vehicle>
+		</ScenarioObject>
+		<ScenarioObject name="adversary0">
+			<Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+				<ParameterDeclarations/>
+				<Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+				<BoundingBox>
+					<Center x="1.5" y="0.0" z="0.9"/>
+					<Dimensions height="1.8" length="4.5" width="2.1"/>
+				</BoundingBox>
+				<Axles>
+					<FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+					<RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+				</Axles>
+				<Properties>
+					<Property name="type" value="simulation"/>
+				</Properties>
+			</Vehicle>
+		</ScenarioObject>
+		<ScenarioObject name="adversary1">
+			<Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+				<ParameterDeclarations/>
+				<Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+				<BoundingBox>
+					<Center x="1.5" y="0.0" z="0.9"/>
+					<Dimensions height="1.8" length="4.5" width="2.1"/>
+				</BoundingBox>
+				<Axles>
+					<FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+					<RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+				</Axles>
+				<Properties>
+					<Property name="type" value="simulation"/>
+				</Properties>
+			</Vehicle>
+		</ScenarioObject>
+	</Entities>
+	<Storyboard>
+		<Init>
+			<Actions>
+				<Private entityRef="hero">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<WorldPosition h="1,57" x="-13" y="357" z="0.3"/>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+					<PrivateAction>
+						<ControllerAction>
+							<AssignControllerAction>
+								<Controller name="HeroAgent">
+									<Properties>
+										<Property name="module" value="external_control"/>
+									</Properties>
+								</Controller>
+							</AssignControllerAction>
+							<OverrideControllerValueAction>
+								<Throttle active="false" value="0"/>
+								<Brake active="false" value="0"/>
+								<Clutch active="false" value="0"/>
+								<ParkingBrake active="false" value="0"/>
+								<SteeringWheel active="false" value="0"/>
+								<Gear active="false" number="0"/>
+							</OverrideControllerValueAction>
+						</ControllerAction>
+					</PrivateAction>
+				</Private>
+				<Private entityRef="adversary0">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<WorldPosition h="1.57" x="363" y="16" z="0.3"/>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+				</Private>
+				<Private entityRef="adversary1">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<WorldPosition h="1.57" x="26" y="-217" z="0.3"/>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+				</Private>
+			</Actions>
+		</Init>
+		<Story name="MyStory">
+			<Act name="Behavior">
+				<ManeuverGroup maximumExecutionCount="1" name="ManeuverSequence">
+					<Actors selectTriggeringEntities="false">
+						<EntityRef entityRef="adversary0"/>
+						<EntityRef entityRef="adversary1"/>
+					</Actors>
+					<Maneuver name="AccelerateManeuver">
+						<Event name="AdversaryAccelerates" priority="overwrite">
+							<Action name="AdversaryAccelerates">
+								<PrivateAction>
+									<LongitudinalAction>
+										<SpeedAction>
+											<SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="50"/>
+											<SpeedActionTarget>
+												<AbsoluteTargetSpeed value="5.0"/>
+											</SpeedActionTarget>
+										</SpeedAction>
+									</LongitudinalAction>
+								</PrivateAction>
+							</Action>
+						</Event>
+					</Maneuver>
+				</ManeuverGroup>
+			</Act>
+		</Story>
+	</Storyboard>
+</OpenSCENARIO>
