@@ -3,3 +3,4 @@ carla
 math 
 random 
 time 
+pygame~=2.1.2
