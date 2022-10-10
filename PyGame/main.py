@@ -1,23 +1,19 @@
 import pygame
 from pygame import *
 
-from Entities import BackGround
-
-SCREEN_SIZE = pygame.Rect((0, 0, 1920, 1080))
-scale = 8
-MAP_SIZE = [scale * 410.68] * 2
-MAP_RECT = pygame.Rect((0, 0, scale * 410.68, scale * 410.68))
+SCREEN_SIZE = pygame.Rect((0, 0, 640, 480))
+scale = 4
+MAP_SIZE = [scale * 410, 68] * 2
 TILE_SIZE = 32
 GRAVITY = pygame.Vector2((0, 0))
 
 
 class CameraAwareLayeredUpdates(pygame.sprite.LayeredUpdates):
-    def __init__(self, target, world_size, image):
+    def __init__(self, target, world_size):
         super().__init__()
         self.target = target
         self.cam = pygame.Vector2(0, 0)
         self.world_size = world_size
-        self.image = image
         if self.target:
             self.add(target)
 
@@ -39,7 +35,7 @@ class CameraAwareLayeredUpdates(pygame.sprite.LayeredUpdates):
         init_rect = self._init_rect
         for spr in self.sprites():
             rec = spritedict[spr]
-            newrect = surface_blit(self.image, spr.rect.move(self.cam))
+            newrect = surface_blit(spr.image, spr.rect.move(self.cam))
             if rec is init_rect:
                 dirty_append(newrect)
             else:
@@ -54,20 +50,57 @@ class CameraAwareLayeredUpdates(pygame.sprite.LayeredUpdates):
 
 def main():
     pygame.init()
-
-    image = pygame.image.load("MapImages/Town10HD.png")
-    image = pygame.transform.scale(image, MAP_SIZE)
-
     screen = pygame.display.set_mode(SCREEN_SIZE.size)
-
     pygame.display.set_caption("Use arrows to move!")
     timer = pygame.time.Clock()
 
+    level = [
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "P                                          P",
+        "P                                          P",
+        "P                                          P",
+        "P                    PPPPPPPPPPP           P",
+        "P                                          P",
+        "P                                          P",
+        "P                                          P",
+        "P    PPPPPPPP                              P",
+        "P                                          P",
+        "P                          PPPPPPP         P",
+        "P                 PPPPPP                   P",
+        "P                                          P",
+        "P         PPPPPPP                          P",
+        "P                                          P",
+        "P                     PPPPPP               P",
+        "P                                          P",
+        "P   PPPPPPPPPPP                            P",
+        "P                                          P",
+        "P                 PPPPPPPPPPP              P",
+        "P                                          P",
+        "P                                          P",
+        "P                                          P",
+        "P                                          P",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", ]
+
     platforms = pygame.sprite.Group()
     player = Player(platforms, (TILE_SIZE, TILE_SIZE))
-    entities = CameraAwareLayeredUpdates(player, MAP_RECT, image)
+    level_width = len(level[0]) * TILE_SIZE
+    level_height = len(level) * TILE_SIZE
+    entities = CameraAwareLayeredUpdates(player, pygame.Rect(0, 0, level_width, level_height))
+
+    # build the level
+    x = y = 0
+    for row in level:
+        for col in row:
+            if col == "P":
+                Platform((x, y), platforms, entities)
+            if col == "E":
+                ExitBlock((x, y), platforms, entities)
+            x += TILE_SIZE
+        y += TILE_SIZE
+        x = 0
 
     while 1:
+
         for e in pygame.event.get():
             if e.type == QUIT:
                 return
@@ -76,6 +109,7 @@ def main():
 
         entities.update()
 
+        screen.fill((0, 0, 0))
         entities.draw(screen)
         pygame.display.update()
         timer.tick(60)
@@ -108,13 +142,13 @@ class Player(Entity):
 
         if up:
             # only jump if on the ground
-            self.vel.y = +self.speed
-        if left:
-            self.vel.x = +self.speed
-        if right:
-            self.vel.x = -self.speed
-        if down:
             self.vel.y = -self.speed
+        if left:
+            self.vel.x = -self.speed
+        if right:
+            self.vel.x = self.speed
+        if down:
+            self.vel.y = self.speed
         if running:
             self.vel.x *= 1.5
         if not self.onGround:
