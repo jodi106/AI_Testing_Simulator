@@ -31,7 +31,7 @@ class CameraAwareLayeredUpdates(pygame.sprite.LayeredUpdates):
 def main():
     pygame.init()
 
-    map = pygame.transform.scale(pygame.image.load("MapImages/Town10HD.png"), MAP_SIZE)
+    map = pygame.transform.scale(pygame.image.load("../img/Town10HD.png"), MAP_SIZE)
 
     screen = pygame.display.set_mode(SCREEN_SIZE.size)
 

@@ -7,6 +7,8 @@
 # For a copy, see <https://opensource.org/licenses/MIT>.
 
 import glob
+import json
+from json import JSONEncoder
 import os
 import sys
 
@@ -14,12 +16,6 @@ import carla
 from carla import TrafficLightState as tls
 
 import argparse
-import logging
-import datetime
-import weakref
-import math
-import random
-import hashlib
 
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
@@ -69,12 +65,11 @@ COLOR_ALUMINIUM_4 = pygame.Color(85, 87, 83)
 COLOR_ALUMINIUM_4_5 = pygame.Color(66, 62, 64)
 COLOR_ALUMINIUM_5 = pygame.Color(46, 52, 54)
 
-
 COLOR_WHITE = pygame.Color(255, 255, 255)
 COLOR_BLACK = pygame.Color(0, 0, 0)
 
-
 PIXELS_PER_METER = 25
+
 
 # ==============================================================================
 # -- Util -----------------------------------------------------------
@@ -95,6 +90,7 @@ class Util(object):
         t = actor.get_transform()
         t.transform(corners)
         return corners
+
 
 # ==============================================================================
 # -- TrafficLightSurfaces ------------------------------------------------------
@@ -134,6 +130,7 @@ class TrafficLightSurfaces(object):
         }
         self.surfaces = dict(self._original_surfaces)
 
+
 class MapImage(object):
     """Class encharged of rendering a 2D image from top view of a carla world. Please note that a cache system is used, so if the OpenDrive content
     of a Carla town has not changed, it will read and use the stored image if it was rendered in a previous execution"""
@@ -142,7 +139,7 @@ class MapImage(object):
         """ Renders the map image generated based on the world, its map and additional flags that provide extra information about the road network"""
         self._pixels_per_meter = PIXELS_PER_METER
         self.show_triggers = show_triggers
-        self.show_connections = show_connections
+        self.show_connections = True
         self.show_spawn_points = show_spawn_points
 
         waypoints = carla_map.generate_waypoints(2)
@@ -153,7 +150,7 @@ class MapImage(object):
 
         self.width = max_x - min_x
         self.height = max_y - min_y
-        
+
         print(min_x)
         print(max_x)
         print(min_y)
@@ -189,6 +186,12 @@ class MapImage(object):
             os.remove(town_filename)
         # Save rendered map for next executions of same map
         pygame.image.save(self.big_map_surface, full_path)
+
+        waypoints = carla_map.generate_waypoints(1.0)
+        filename = carla_map.name.split('/')[-1] + ".json"
+        with open(str(os.path.join(dirname, filename)), "w") as f:
+            transforms = [wp.transform for wp in waypoints]
+            json.dump(transforms, f, cls=TransformEncoder)
 
         self.surface = self.big_map_surface
 
@@ -501,7 +504,6 @@ class MapImage(object):
                     for n, wp in enumerate(waypoints):
                         if ((n + 1) % 400) == 0:
                             draw_arrow(map_surface, wp.transform)
-        
 
         topology = carla_map.get_topology()
         draw_topology(topology, 0)
@@ -511,10 +513,13 @@ class MapImage(object):
                 draw_arrow(map_surface, sp, color=COLOR_CHOCOLATE_0)
 
         if self.show_connections:
-            dist = 1.5
+            dist = 1
 
-            def to_pixel(wp): return world_to_pixel(wp.transform.location)
-            for wp in carla_map.generate_waypoints(dist):
+            def to_pixel(wp):
+                return world_to_pixel(wp.transform.location)
+
+            waypoints = carla_map.generate_waypoints(dist)
+            for wp in waypoints:
                 col = (0, 255, 255) if wp.is_junction else (0, 255, 0)
                 for nxt in wp.next(dist):
                     pygame.draw.line(map_surface, col, to_pixel(wp), to_pixel(nxt), 2)
@@ -560,6 +565,7 @@ class MapImage(object):
         """Converts the world units to pixel units"""
         return int(self._pixels_per_meter * width)
 
+
 def get_data_from_carla(args):
     """Retrieves the data from the server side"""
     try:
@@ -575,6 +581,7 @@ def get_data_from_carla(args):
         print(ex)
         exit_game()
 
+
 def start(args):
     """Build the map image, stores the needed modules and prepares rendering in Hero Mode"""
     world, town_map = get_data_from_carla(args)
@@ -589,10 +596,22 @@ def start(args):
         show_connections=args.show_connections,
         show_spawn_points=args.show_spawn_points)
 
+
 def exit_game():
     """Shuts down program and PyGame"""
     pygame.quit()
     sys.exit()
+
+
+class TransformEncoder(JSONEncoder):
+    def default(self, transform):
+        return {
+            'x': transform.location.x,
+            'y': transform.location.y,
+            'z': transform.location.z,
+            'rotation': transform.rotation.yaw
+        }
+
 
 # ==============================================================================
 # -- Main --------------------------------------------------------------------
