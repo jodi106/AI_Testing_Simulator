@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO>
-	<FileHeader author="" date="" description="" revMajor="1" revMinor="0"/>
+	<FileHeader author="" date="2022-09-24T12:00:00" description="CARLA:ourScenario" revMajor="1" revMinor="0"/>
 	<ParameterDeclarations/>
 	<CatalogLocations/>
 	<RoadNetwork>
@@ -63,11 +63,24 @@
 	<Storyboard>
 		<Init>
 			<Actions>
+				<GlobalAction>
+					<EnvironmentAction>
+						<Environment name="Environment1">
+							<TimeOfDay animation="false" dateTime="2019-06-25T12:00:00"/>
+							<Weather cloudState="free">
+								<Sun azimuth="0" elevation="1.31" intensity="0.85"/>
+								<Fog visualRange="100000.0"/>
+								<Precipitation intensity="0.0" precipitationType="dry"/>
+							</Weather>
+							<RoadCondition frictionScaleFactor="1.0"/>
+						</Environment>
+					</EnvironmentAction>
+				</GlobalAction>
 				<Private entityRef="hero">
 					<PrivateAction>
 						<TeleportAction>
 							<Position>
-								<WorldPosition h="1,57" x="-13" y="357" z="0.3"/>
+								<WorldPosition h="200" x="255.7" y="-145.7" z="0.3"/>
 							</Position>
 						</TeleportAction>
 					</PrivateAction>
@@ -76,7 +89,7 @@
 							<AssignControllerAction>
 								<Controller name="HeroAgent">
 									<Properties>
-										<Property name="module" value="external_control"/>
+										<Property name="module" value="carla_auto_pilot_control"/>
 									</Properties>
 								</Controller>
 							</AssignControllerAction>
@@ -95,7 +108,7 @@
 					<PrivateAction>
 						<TeleportAction>
 							<Position>
-								<WorldPosition h="1.57" x="363" y="16" z="0.3"/>
+								<WorldPosition h="180" x="290" y="-172" z="0.3"/>
 							</Position>
 						</TeleportAction>
 					</PrivateAction>
@@ -104,7 +117,7 @@
 					<PrivateAction>
 						<TeleportAction>
 							<Position>
-								<WorldPosition h="1.57" x="26" y="-217" z="0.3"/>
+								<WorldPosition h="90" x="255" y="-190" z="0.3"/>
 							</Position>
 						</TeleportAction>
 					</PrivateAction>
@@ -126,16 +139,36 @@
 										<SpeedAction>
 											<SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="50"/>
 											<SpeedActionTarget>
-												<AbsoluteTargetSpeed value="5.0"/>
+												<AbsoluteTargetSpeed value="3.0"/>
 											</SpeedActionTarget>
 										</SpeedAction>
 									</LongitudinalAction>
 								</PrivateAction>
 							</Action>
+							<StartTrigger>
+								<ConditionGroup>
+									<Condition conditionEdge="rising" delay="0" name="StartTime">
+										<ByValueCondition>
+											<SimulationTimeCondition rule="greaterThan" value="1"/>
+										</ByValueCondition>
+									</Condition>
+								</ConditionGroup>
+							</StartTrigger>
 						</Event>
 					</Maneuver>
 				</ManeuverGroup>
+				<StartTrigger/>
+				<StopTrigger>
+					<ConditionGroup>
+						<Condition conditionEdge="rising" delay="0" name="StopTime">
+							<ByValueCondition>
+								<SimulationTimeCondition rule="greaterThan" value="20"/>
+							</ByValueCondition>
+						</Condition>
+					</ConditionGroup>
+				</StopTrigger>
 			</Act>
 		</Story>
+		<StopTrigger/>
 	</Storyboard>
 </OpenSCENARIO>
