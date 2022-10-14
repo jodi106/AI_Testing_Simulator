@@ -7,7 +7,8 @@ from create_xosc_gui_helper import get_number_of_cars_without_ego, get_vehicle_l
 
 
 # Needed values (todo get it from scenario_editor)
-number_of_simulation_cars = get_number_of_cars_without_ego() # 0 - 99
+#number_of_simulation_cars = get_number_of_cars_without_ego() # 0 - 99
+number_of_simulation_cars = 2
 vehicle_model_ego = "vehicle.volkswagen.t2"
 vehicle_model_simulation = "vehicle.audi.tt"
 map = "Town04"
