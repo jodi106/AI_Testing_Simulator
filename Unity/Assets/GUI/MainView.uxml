@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/MainView.uss?fileID=7433441132597879392&amp;guid=13baa8e69d75c7246a6eaea7ddea10d7&amp;type=3#MainView" />
+    <ui:VisualElement name="background" style="width: 300px; height: 100%; right: 0; top: 0; position: absolute;">
+        <ui:ListView name="character-list" fixed-item-height="0" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="None" style="height: 100%; min-height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.41);" />
+    </ui:VisualElement>
+</ui:UXML>

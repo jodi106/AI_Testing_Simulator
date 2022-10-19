@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/ListEntry.uss?fileID=7433441132597879392&amp;guid=3a72a2d292a78994c9798c53a6f646a8&amp;type=3#ListEntry" />
+    <ui:VisualElement name="box" style="background-color: rgb(164, 27, 27); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-bottom: 4px; margin-left: 4px; margin-right: 4px; margin-top: 4px;">
+        <ui:Label text="Event/Action Name" display-tooltip-when-elided="true" name="label" style="display: flex; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&apos;); -unity-font-style: bold;" />
+        <ui:Foldout text="Start Triggers" name="startTriggers" style="color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&apos;);" />
+    </ui:VisualElement>
+</ui:UXML>
