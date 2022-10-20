@@ -9,7 +9,6 @@ public class MainView : MonoBehaviour
     void OnEnable()
     {
         var uiDocument = GetComponent<UIDocument>();
-
         var eventListController = new EventListController();
         eventListController.InitializeEventsList(uiDocument.rootVisualElement, eventEntryTemplate);
     }

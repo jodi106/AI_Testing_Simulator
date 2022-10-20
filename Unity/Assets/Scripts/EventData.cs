@@ -1,6 +1,6 @@
     using UnityEngine;
 
-    [CreateAssetMenu]
+    [CreateAssetMenu]   
     public class EventData : ScriptableObject
     {
         public string label;
