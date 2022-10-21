@@ -8,19 +8,21 @@ class InitEntities
         this.root = root;
     }
 
-    public void AddInit(XmlNode storyboard, int number_of_simulation_cars, String[] x, String[] y, String[] z, String[] h, String control_mode)
+    public void AddInit(XmlNode storyboard, int number_of_simulation_cars, String[] x, String[] y, String[] z, String[] h, String control_mode, 
+        int number_of_pedestrians, String[] x_ped, String[] y_ped, String[] z_ped, String[] h_ped)
     {
         // Add tags
         XmlNode init = root.CreateElement("Init");
         XmlNode actions = root.CreateElement("Actions");
-        AddActions(actions, number_of_simulation_cars, x, y, z, h, control_mode);
+        AddActions(actions, number_of_simulation_cars, x, y, z, h, control_mode, number_of_pedestrians, x_ped, y_ped, z_ped, h_ped);
 
         // Hierarchy
         storyboard.AppendChild(init);
         init.AppendChild(actions);
     }
 
-    private void AddActions(XmlNode actions, int number_of_simulation_cars, String[] x, String[] y, String[] z, String[] h, String control_mode)
+    private void AddActions(XmlNode actions, int number_of_simulation_cars, String[] x, String[] y, String[] z, String[] h, String control_mode,
+        int number_of_pedestrians, String[] x_ped, String[] y_ped, String[] z_ped, String[] h_ped)
     {
         // Spawn ego vehicle at requested coordinates
         SpawnVehicleEgo(actions, x[0], y[0], z[0], h[0], control_mode);
@@ -28,6 +30,11 @@ class InitEntities
         // Spawn simulation vehicles at requested coordinates
         for (int n = 0; n < number_of_simulation_cars; n++) {
             SpawnVehiclesSimulation(actions, n, x[n + 1], y[n + 1], z[n + 1], h[n + 1]);
+        }
+
+        // Spawn pedestrians at requested coordinates
+        for (int n = 0; n < number_of_pedestrians; n++) {
+            SpawnPedestrian(actions, n, x_ped[n], y_ped[n], z_ped[n], h_ped[n]);
         }
     }
 
@@ -114,6 +121,28 @@ class InitEntities
         override_controller_value_action.AppendChild(steering_wheel);
         override_controller_value_action.AppendChild(gear);
     }
+
+    private void SpawnPedestrian(XmlNode actions, int n, String x, String y, String z, String h)
+    {
+        XmlNode _private = root.CreateElement("Private");
+        SetAttribute("entityRef", "adversary_pedestrian" + n.ToString(), _private);
+        XmlNode private_action = root.CreateElement("PrivateAction");
+        XmlNode teleport_action = root.CreateElement("TeleportAction");
+        XmlNode position = root.CreateElement("Position");
+        XmlNode world_position = root.CreateElement("WorldPosition");
+        SetAttribute("x", x, world_position);
+        SetAttribute("y", y, world_position);
+        SetAttribute("z", z, world_position);
+        SetAttribute("h", h, world_position);
+
+        //Hierarchy
+        actions.AppendChild(_private);
+        _private.AppendChild(private_action);
+        private_action.AppendChild(teleport_action);
+        teleport_action.AppendChild(position);
+        position.AppendChild(world_position);
+    }
+
     private void SetAttribute(String name, String value, XmlNode element)
     {
         XmlAttribute attribute = root.CreateAttribute(name);

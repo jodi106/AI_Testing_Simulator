@@ -59,6 +59,18 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
+    <ScenarioObject name="adversary_pedestrian0">
+      <Pedestrian model="walker.pedestrian.0001" mass="90.0" name="walker.pedestrian.0001" pedestrianCategory="pedestrian">
+        <ParameterDeclarations />
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9" />
+          <Dimensions width="2.1" length="4.5" height="1.8" />
+        </BoundingBox>
+        <Properties>
+          <Property name="type" value="simulation" />
+        </Properties>
+      </Pedestrian>
+    </ScenarioObject>
   </Entities>
   <Storyboard>
     <Init>
@@ -105,6 +117,15 @@
             <TeleportAction>
               <Position>
                 <WorldPosition x="255" y="-190" z="0.3" h="90" />
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="adversary_pedestrian0">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition x="260" y="-150" z="0.3" h="200" />
               </Position>
             </TeleportAction>
           </PrivateAction>

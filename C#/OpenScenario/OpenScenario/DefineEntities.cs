@@ -36,17 +36,32 @@ class DefineEntities
         road_network.AppendChild(scene_graph_file);
     }
 
-    public void AddEntities(XmlNode open_scenario, int number_of_simulation_cars, String vehicle_model_ego, String vehicle_model_sim)
+    public void AddEntities(XmlNode open_scenario, int number_of_simulation_cars, 
+        String vehicle_model_ego, String vehicle_model_sim, int number_of_pedestrians)
     {
         XmlNode entities = root.CreateElement("Entities");
+        AddVehicles(entities, number_of_simulation_cars, vehicle_model_ego, vehicle_model_sim);
+        AddPedestrians(entities, number_of_pedestrians);
+        // Hierarchy
+        open_scenario.AppendChild(entities);
+    }
+
+    private void AddVehicles(XmlNode entities, int number_of_simulation_cars, String vehicle_model_ego, String vehicle_model_sim)
+    {
         // ego-vehicle
         AddVehicle(entities, "hero", vehicle_model_ego, "ego_vehicle");
         // other vehicles
         for (int n = 0; n < number_of_simulation_cars; n++) {
             AddVehicle(entities, "adversary" + n.ToString(), vehicle_model_sim, "simulation");
         }
-        // Hierarchy
-        open_scenario.AppendChild(entities);
+    }
+
+    private void AddPedestrians(XmlNode entities, int number_of_pedestrians)
+    {
+        for (int n = 0; n < number_of_pedestrians; n++)
+        {
+            AddPedestrian(entities, "adversary_pedestrian" + n.ToString());
+        }
     }
 
     private void AddVehicle(XmlNode entities, String sc_name, String vehicle_model, String value)
@@ -102,6 +117,42 @@ class DefineEntities
         vehicle.AppendChild(properties);
         properties.AppendChild(property);
     }
+
+    private void AddPedestrian(XmlNode entities, String sc_name)
+    {
+        XmlNode scenario_object = root.CreateElement("ScenarioObject");
+        SetAttribute("name", sc_name, scenario_object);
+        XmlNode pedestrian = root.CreateElement("Pedestrian");
+        SetAttribute("model", "walker.pedestrian.0001", pedestrian);
+        SetAttribute("mass", "90.0", pedestrian);
+        SetAttribute("name", "walker.pedestrian.0001", pedestrian);
+        SetAttribute("pedestrianCategory", "pedestrian", pedestrian);
+        XmlNode parameter_declarations = root.CreateElement("ParameterDeclarations");
+        XmlNode bounding_box = root.CreateElement("BoundingBox");
+        XmlNode center = root.CreateElement("Center");
+        SetAttribute("x", "1.5", center);
+        SetAttribute("y", "0.0", center);
+        SetAttribute("z", "0.9", center);
+        XmlNode dimensions = root.CreateElement("Dimensions");
+        SetAttribute("width", "2.1", dimensions);
+        SetAttribute("length", "4.5", dimensions);
+        SetAttribute("height", "1.8", dimensions);
+        XmlNode properties = root.CreateElement("Properties");
+        XmlNode property = root.CreateElement("Property");
+        SetAttribute("name", "type", property);
+        SetAttribute("value", "simulation", property);
+
+        // Hierarchy
+        entities.AppendChild(scenario_object);
+        scenario_object.AppendChild(pedestrian);
+        pedestrian.AppendChild(parameter_declarations);
+        pedestrian.AppendChild(bounding_box);
+        bounding_box.AppendChild(center);
+        bounding_box.AppendChild(dimensions);
+        pedestrian.AppendChild(properties);
+        properties.AppendChild(property);
+    }
+
     private void SetAttribute(String name, String value, XmlNode element)
     {
         XmlAttribute attribute = root.CreateAttribute(name);
