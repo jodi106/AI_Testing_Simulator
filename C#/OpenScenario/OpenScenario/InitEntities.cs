@@ -24,6 +24,9 @@ class InitEntities
     private void AddActions(XmlNode actions, int number_of_simulation_cars, String[] x, String[] y, String[] z, String[] h, String control_mode,
         int number_of_pedestrians, String[] x_ped, String[] y_ped, String[] z_ped, String[] h_ped)
     {
+        //Set Weather TODO make it dynamically. At the moment only option: sunny
+        setWeatherSun(actions);
+
         // Spawn ego vehicle at requested coordinates
         SpawnVehicleEgo(actions, x[0], y[0], z[0], h[0], control_mode);
 
@@ -141,6 +144,41 @@ class InitEntities
         private_action.AppendChild(teleport_action);
         teleport_action.AppendChild(position);
         position.AppendChild(world_position);
+    }
+
+    private void setWeatherSun(XmlNode actions)
+    {
+        XmlNode global_action = root.CreateElement("GlobalAction");
+        XmlNode environment_action = root.CreateElement("EnvironmentAction");
+        XmlNode environment = root.CreateElement("Environment");
+        SetAttribute("name", "Environment1", environment);
+        XmlNode time_of_day = root.CreateElement("TimeOfDay");
+        SetAttribute("animation", "false", time_of_day);
+        SetAttribute("dateTime", "2019-06-25T12:00:00", time_of_day);
+        XmlNode weather = root.CreateElement("Weather");
+        SetAttribute("cloudState", "free", weather);
+        XmlNode sun = root.CreateElement("Sun");
+        SetAttribute("intensity", "0.85", sun);
+        SetAttribute("azimuth", "0", sun);
+        SetAttribute("elevation", "1.31", sun);
+        XmlNode fog = root.CreateElement("Fog");
+        SetAttribute("visualRange", "100000.0", fog);
+        XmlNode precipitation = root.CreateElement("Precipitation");
+        SetAttribute("precipitationType", "dry", precipitation);
+        SetAttribute("intensity", "0.0", precipitation);
+        XmlNode road_condition = root.CreateElement("RoadCondition");
+        SetAttribute("frictionScaleFactor", "1.0", road_condition);
+
+        // Hierarchy
+        actions.AppendChild(global_action);
+        global_action.AppendChild(environment_action);
+        environment_action.AppendChild(environment);
+        environment.AppendChild(time_of_day);
+        environment.AppendChild(weather);  
+        weather.AppendChild(sun);
+        weather.AppendChild(fog);
+        weather.AppendChild(precipitation);
+        environment.AppendChild(road_condition);
     }
 
     private void SetAttribute(String name, String value, XmlNode element)
