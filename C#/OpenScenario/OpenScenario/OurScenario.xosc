@@ -138,7 +138,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="260" y="-150" z="0.3" h="200" />
+                <WorldPosition x="265" y="-165.1" z="0.3" h="200" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -147,7 +147,7 @@
     </Init>
     <Story name="MyStory">
       <Act name="Behavior">
-        <ManeuverGroup maximumExecutionCount="1" name="ManeuverSequence">
+        <ManeuverGroup maximumExecutionCount="1" name="ManeuverSequence1">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="adversary0" />
             <EntityRef entityRef="adversary1" />

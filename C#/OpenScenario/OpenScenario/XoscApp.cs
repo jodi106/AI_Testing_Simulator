@@ -47,7 +47,7 @@ void CreateXoscFile()
 
     // Start moving the entities: Todo make this more dynamic to be able to handle more different maneuvers.
     ManeuverEntities maneuverEntities = new ManeuverEntities(root);
-    maneuverEntities.AccelerateAllSimulationCars(storyboard, number_of_simulation_cars, speed, start_after_x_seconds, stop_after_x_seconds);
+    maneuverEntities.AddStoryAndAct(storyboard, number_of_simulation_cars, number_of_pedestrians, stop_after_x_seconds);
 
     root.Save("..\\..\\..\\OurScenario.xosc");
     root.Save(Console.Out);
