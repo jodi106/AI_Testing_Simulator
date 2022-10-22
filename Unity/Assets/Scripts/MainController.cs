@@ -1,23 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-public class EventListController
+public class MainController : MonoBehaviour
 {
-    private VisualTreeAsset eventEntryTemplate;
+    public VisualTreeAsset eventEntryTemplate;
+
+    private VisualElement editorGUI;
     private ListView eventList;
     private List<EventData> events;
+    private Button button;
 
-    public void InitializeEventsList(VisualElement root, VisualTreeAsset listElementTemplate)
+    void Start()
     {
         events = new List<EventData>();
         events.AddRange(Resources.LoadAll<EventData>("Events"));
 
-        // Store a reference to the template for the list entries
-        eventEntryTemplate = listElementTemplate;
+        editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
         // Store a reference to the character list element
-        eventList = root.Q<ListView>("character-list");
+        eventList = editorGUI.Q<ListView>("character-list");
 
         // Set up a make item function for a list entry
         eventList.makeItem = () =>
@@ -48,6 +51,19 @@ public class EventListController
 
         // Register to get a callback when an item is selected
         eventList.onSelectionChange += OnCharacterSelected;
+
+        button = editorGUI.Q<Button>("button");
+
+        button.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            Debug.Log("Button Clicked");
+            EventManager.TriggerEvent("sampleEvent");
+        });
+
+        EventManager.StartListening("sampleEvent", new UnityAction(() =>
+        {
+            Debug.Log("Event Triggered");
+        }));
     }
 
     void OnCharacterSelected(IEnumerable<object> selectedItems)
