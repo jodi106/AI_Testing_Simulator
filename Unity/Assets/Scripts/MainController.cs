@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,6 +7,7 @@ using UnityEngine.UIElements;
 public class MainController : MonoBehaviour
 {
     public VisualTreeAsset eventEntryTemplate;
+    public GameObject carPrefab;
 
     private VisualElement editorGUI;
     private ListView eventList;
@@ -57,13 +59,16 @@ public class MainController : MonoBehaviour
         button.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             Debug.Log("Button Clicked");
-            EventManager.TriggerEvent("sampleEvent");
+            var pos = Input.mousePosition;
+            pos.z = -0.1f;
+            Instantiate(carPrefab, pos, Quaternion.identity);
         });
 
-        EventManager.StartListening("sampleEvent", new UnityAction(() =>
+        EventManager.StartListening(typeof(VehicleMovedAction), x =>
         {
-            Debug.Log("Event Triggered");
-        }));
+            var action = new VehicleMovedAction(x);
+            Debug.Log(action.Car);
+        });
     }
 
     void OnCharacterSelected(IEnumerable<object> selectedItems)

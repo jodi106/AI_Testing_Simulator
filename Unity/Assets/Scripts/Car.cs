@@ -1,22 +1,41 @@
+using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-
-// PointerEventDrag.dragging example.
-
-
-//
-// Create a 2D Project and add a Canvas and an Image as a child. Position the Image in the center
-// of the Canvas. Resize the Image to approximately a quarter of the height and width. Create a
-// Resources folder and add a sprite. Set the sprite to the Image component. Then add this script
-// to the Image. Then press the Play button. The Image should be clickable and moved with the
-// mouse or trackpad.
 
 public class Car : MonoBehaviour
 {
+
+    private SpriteRenderer renderer;
+    private Boolean placed = false;
+
+    public void Start()
+    {
+        renderer = gameObject.GetComponent<SpriteRenderer>();
+        renderer.color = new Color(1, 1, 1, 0.5f);
+    }
+
     public void OnMouseDrag()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         transform.Translate(mousePosition);
     }
+
+    public void Update()
+    {
+        if (!placed)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            transform.Translate(mousePosition);
+        }
+    }
+
+    public void OnMouseDown()
+    {
+        if (!placed)
+        {
+            placed = true;
+            renderer.color = new Color(1, 1, 1, 1);
+            EventManager.TriggerEvent(new VehicleMovedAction((Vector2)Input.mousePosition, this));
+        }
+    }
+
 }
