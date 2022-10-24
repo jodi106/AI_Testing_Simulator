@@ -1,6 +1,7 @@
+using Entities;
 using UnityEngine.UIElements;
 
-public class EventListEntryController
+public class VehicleListEntryController
 {
     Label label;
 
@@ -9,8 +10,8 @@ public class EventListEntryController
         label = visualElement.Q<Label>("label");
     }
 
-    public void setEventData(EventData characterData)
+    public void setEventData(Vehicle vehicle)
     {
-        label.text = characterData.label;
+        label.text = vehicle.Options.Category + " " + vehicle.Id;
     }
 }
