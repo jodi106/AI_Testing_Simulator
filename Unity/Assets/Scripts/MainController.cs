@@ -1,10 +1,8 @@
+using Assets.Enums;
 using Entities;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class MainController : MonoBehaviour
@@ -33,9 +31,8 @@ public class MainController : MonoBehaviour
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
 
             var vehiclePosition = new Coord3D(pos.x, pos.y, 0, 0);
-            var VehicleOptions = new VehicleOptions("default", VehicleCategory.car);
             var path = new Path(new List<Entities.Event>());
-            Vehicle v = new Vehicle(vehicleGameObject.GetInstanceID(), vehiclePosition, VehicleOptions, path);
+            Vehicle v = new Vehicle(vehiclePosition, VehicleCategory.Car, path);
             model.vehicles.Add(v);
         });
 

@@ -12,6 +12,6 @@ public class VehicleListEntryController
 
     public void setEventData(Vehicle vehicle)
     {
-        label.text = vehicle.Options.Category + " " + vehicle.Id;
+        label.text = vehicle.Category + " " + vehicle.Id;
     }
 }
