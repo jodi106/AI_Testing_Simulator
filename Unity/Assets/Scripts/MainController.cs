@@ -1,5 +1,8 @@
+using Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -9,18 +12,42 @@ public class MainController : MonoBehaviour
     public VisualTreeAsset eventEntryTemplate;
     public GameObject carPrefab;
 
-    private VisualElement editorGUI;
     private ListView eventList;
-    private List<EventData> events;
     private Button button;
+
+    private Model model;
 
     void Start()
     {
-        events = new List<EventData>();
-        events.AddRange(Resources.LoadAll<EventData>("Events"));
+        this.model = new Model();
+        var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
-        editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
+        initiateEventList(editorGUI);
 
+        button = editorGUI.Q<Button>("button");
+
+        button.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            var pos = Input.mousePosition;
+            pos.z = -0.1f;
+            var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
+
+            var vehiclePosition = new Coord3D(pos.x, pos.y, 0, 0);
+            var VehicleOptions = new VehicleOptions("default", VehicleCategory.car);
+            var path = new Path(new List<Entities.Event>());
+            Vehicle v = new Vehicle(vehicleGameObject.GetInstanceID(), vehiclePosition, VehicleOptions, path);
+            model.vehicles.Add(v);
+        });
+
+        EventManager.StartListening(typeof(VehicleMovedAction), x =>
+        {
+            var action = new VehicleMovedAction(x);
+            Debug.Log(action.Car);
+        });
+    }
+
+    private void initiateEventList(VisualElement editorGUI)
+    {
         // Store a reference to the character list element
         eventList = editorGUI.Q<ListView>("character-list");
 
@@ -31,7 +58,7 @@ public class MainController : MonoBehaviour
             var newListEntry = eventEntryTemplate.Instantiate();
 
             // Instantiate a controller for the data
-            var entryController = new EventListEntryController();
+            var entryController = new VehicleListEntryController();
 
             // Assign the controller script to the visual element
             newListEntry.userData = entryController;
@@ -46,31 +73,20 @@ public class MainController : MonoBehaviour
         // Set up bind function for a specific list entry
         eventList.bindItem = (item, index) =>
         {
-            (item.userData as EventListEntryController).setEventData(events[index]);
+            (item.userData as VehicleListEntryController).setEventData(model.vehicles[index]);
         };
 
-        eventList.itemsSource = events;
+        model.vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        {
+            this.eventList.Rebuild();
+        };
+
+        eventList.itemsSource = model.vehicles;
 
         // Register to get a callback when an item is selected
         eventList.onSelectionChange += OnCharacterSelected;
-
-        button = editorGUI.Q<Button>("button");
-
-        button.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            Debug.Log("Button Clicked");
-            var pos = Input.mousePosition;
-            pos.z = -0.1f;
-            Instantiate(carPrefab, pos, Quaternion.identity);
-        });
-
-        EventManager.StartListening(typeof(VehicleMovedAction), x =>
-        {
-            var action = new VehicleMovedAction(x);
-            Debug.Log(action.Car);
-        });
     }
 
     void OnCharacterSelected(IEnumerable<object> selectedItems)
-    {}
+    { }
 }
