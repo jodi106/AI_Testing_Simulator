@@ -1,14 +1,24 @@
-﻿namespace Entities
+﻿using Assets.Enums;
+
+namespace Entities
 {
     public class Pedestrian : BaseEntity
     {
-        public Pedestrian(int id, Coord3D spawnPoint, PedestrianOptions options, Path path) : base(id, spawnPoint)
+
+        public Pedestrian(Coord3D spawnPoint, PedestrianType type, Path path) : base(spawnPoint)
         {
-            Options = options;
+            Type = type;
+            Path = path;
+        }
+        public Pedestrian(Coord3D spawnPoint, EntityModel model, PedestrianType type, Path path) : base(spawnPoint)
+        {
+            Model = model;
+            Type = type;
             Path = path;
         }
 
-        public PedestrianOptions Options { get; set; }
+        public EntityModel Model { get; }
+        public PedestrianType Type { get; }
         public Path Path { get; set; }
     }
 

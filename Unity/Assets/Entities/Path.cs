@@ -5,6 +5,10 @@ namespace Entities
 {
     public class Path
     {
+        public Path()
+        {
+        }
+
         public Path(List<Event> eventList)
         {
             EventList = eventList;

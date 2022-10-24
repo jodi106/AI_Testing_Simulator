@@ -1,12 +1,20 @@
-﻿namespace Entities
+﻿using Assets.Enums;
+
+namespace Entities
 {
     public class Ego : BaseEntity
     {
-        public Ego(int id, Coord3D spawnPoint,VehicleOptions options) : base(id, spawnPoint)
+        public Ego(Coord3D spawnPoint, VehicleCategory category) : base(spawnPoint)
         {
-            Options = options;
+            Category = category;
+        }
+        public Ego(Coord3D spawnPoint, EntityModel model, VehicleCategory category) : base(spawnPoint)
+        {
+            Model = model;
+            Category = category;
         }
 
-        public VehicleOptions Options { get; set; }
+        public EntityModel Model { get; }
+        public VehicleCategory Category { get; }
     }
 }

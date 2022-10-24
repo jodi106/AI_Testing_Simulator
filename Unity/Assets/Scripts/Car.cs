@@ -1,3 +1,4 @@
+using Entities;
 using System;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class Car : MonoBehaviour
 
     private SpriteRenderer renderer;
     private Boolean placed = false;
+    private Vehicle vehicle = new Vehicle(); 
 
     public void Start()
     {
@@ -16,6 +18,7 @@ public class Car : MonoBehaviour
     public void OnMouseDrag()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        vehicle.SpawnPoint = new Coord3D(mousePosition.x, mousePosition.y, 0, 0);
         transform.Translate(mousePosition);
     }
 
@@ -24,6 +27,7 @@ public class Car : MonoBehaviour
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            vehicle.SpawnPoint = new Coord3D(mousePosition.x, mousePosition.y, 0, 0);
             transform.Translate(mousePosition);
         }
     }

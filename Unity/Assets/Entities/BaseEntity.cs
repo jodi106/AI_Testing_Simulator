@@ -2,9 +2,15 @@
 {
     public class BaseEntity
     {
-        public BaseEntity(int id, Coord3D spawnPoint)
+        private static int autoIncrementId = 0;
+        public BaseEntity()
         {
-            Id = id;
+            Id = autoIncrementId++;
+        }
+
+        public BaseEntity(Coord3D spawnPoint)
+        {
+            Id = autoIncrementId++;
             SpawnPoint = spawnPoint;
         }
 

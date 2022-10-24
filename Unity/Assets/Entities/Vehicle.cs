@@ -1,14 +1,28 @@
-﻿namespace Entities
+﻿using Assets.Enums;
+
+namespace Entities
 {
     public class Vehicle : BaseEntity
     {
-        public Vehicle(int id, Coord3D spawnPoint, VehicleOptions options, Path path) : base(id, spawnPoint)
+        public Vehicle() : base()
         {
-            Options = options;
+        }
+
+        public Vehicle(Coord3D spawnPoint, VehicleCategory category, Path path) : base(spawnPoint)
+        {
+            Category = category;
             Path = path;
         }
 
-        public VehicleOptions Options { get; set; }
+        public Vehicle(Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(spawnPoint)
+        {
+            Model = model;
+            Category = category;
+            Path = path;
+        }
+
+        public EntityModel Model { get; }
+        public VehicleCategory Category { get; }
         public Path Path { get; set; }
     }
 }
