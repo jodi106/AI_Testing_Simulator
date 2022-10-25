@@ -1,3 +1,141 @@
+class BuildEvent
+/// Class to Build Events. Uses BuildAction and BuildTrigger
+{
+
+}
+
+class BuildTrigger
+{
+
+    /// class to create a trigger with a condtition group containing one or multiple conditions. Uses Conditions
+    
+    /*
+              <StartTrigger OR StopTrigger>
+                <ConditionGroup>
+                  <Condition name="AfterAdversaryAcceleratesAgain" delay="0" conditionEdge="rising">
+
+                    /// space for condition, use class Conditions
+
+                  </Condition>
+                  IF MORE THAN ONE CONTIDITION ADD ANOTHER CONDITION BLOCK
+                </ConditionGroup>
+              </StartTrigger>    
+    
+    */
+
+}
+
+class Conditions
+/// Class to create conditions for Start and Stop Triggers. Used in BuildTrigger class
+{
+    public string name;
+    public int delay;
+    public string edge;
+    public string xmlBrick;
+
+    public Conditions(string conditionName)
+    {
+        name = conditionName;
+        delay = 0;
+        edge = "rising";
+        xmlBrick = ///   <Condition name="AfterAdversaryAcceleratesAgain" delay="0" conditionEdge="rising">
+                   ///   </Condition>
+    }
+    public void ByValueCondition(string ValueCondition, dict args)
+    {
+        /* All Value Conditions
+        <!-- parameterCondition -->
+        <!-- timeOfDayCondition -->
+        <!-- IMPLEMENTED simulationTimeCondition params: value(float), rule (enum(less, greater, equal))-->
+        <!-- IMPLEMENTED storyboardElementStateCondition params: storyboardElementType(enum(6 options)), storyboardElementRef(string), state (enum(7 options))-->
+        <!-- userDefinedValueCondition -->
+        <!-- trafficSignalCondition -->
+        <!-- trafficSignalControllerCondition -->
+        */
+        
+        xmlBrick.append/*
+        <ByValueCondition>
+            
+            //Space for value condition
+
+        </ByValueCondition>
+        */
+
+        if (ValueCondition == "StoryboardElementStateCondition")
+        {
+            xmlBrick.append
+            /*
+            <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="STORY_BOARD_ELEMENT_NAME" state="completeState"/>
+            */
+        }
+
+        if (ValueCondition == "SimulationTimeCondition")
+        {
+            /*
+            <SimulationTimeCondition value="2.0" rule="greaterThan"/>
+            */
+        }
+
+
+
+    }
+
+    public void ByEntityCondition(string EntityRef, string EntityCondition, dict args)
+    {
+        /* All EntityConditions
+        <!-- endOfRoadCondition-->
+        <!-- collisionCondition-->
+        <!-- offroadCondition-->
+        <!-- timeHeadwayCondition-->
+        <!-- timeToCollisionCondition-->
+        <!-- accelerationCondition-->
+        <!-- standStillCondition-->
+        <!-- speedCondition-->
+        <!-- relativeSpeedCondition-->
+        <!-- traveledDistanceCondition params-->
+        <!-- IMPLEMETED reachPositionCondition params: tolerance(float), WorldPosition (WorldPosition CREATE STRING FROM X,Y,Z,H)  -->
+        <!-- distanceCondition params-->
+        <!-- relativeDistanceCondition-->
+        */
+
+        xmlBrick.append
+        /*
+        <ByEntityCondition>
+            <TriggeringEntities triggeringEntitiesRule="any">
+                <EntityRef entityRef="adversary0"/>
+            </TriggeringEntities>
+                <EntityCondition>
+
+                    //Space for entity condition
+
+                </EntityCondition>
+        </ByEntityCondition>
+        */
+        if (EntityCondition == "ReachPositionCondition")
+        {
+            /*
+            <ReachPositionCondition tolerance="2.0">
+                <Position>
+                <WorldPosition x="402" y="-150" z="0.3" h="29.9"/>
+                </Position>
+            </ReachPositionCondition>
+            */
+        }
+
+        if (EntityCondition == "DistanceCondition")
+        {
+            /*
+
+            */
+        }
+
+
+
+
+
+    }
+}
+
 class WorldSettings
 {
     public void create_world_settings(XmlNode Actions, TimeOfDay, ...)
@@ -21,6 +159,12 @@ class WorldSettings
 
 }
 
+
+class BuildAction
+/// Class to build actions
+{
+
+}
 
 class RoutingAction
 {
@@ -102,93 +246,3 @@ class LateralAction
         */
     }
 }
-
-class Trigger
-{
-    public void ByValueCondition(string ValueCondition, dict args)
-    {
-        
-        if (ValueCondition == "StoryboardElementStateCondition")
-        {
-            /*
-            <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="STORY_BOARD_ELEMENT_NAME" state="completeState"/>
-            */
-        }
-
-        if (ValueCondition == "SimulationTimeCondition")
-        {
-            /*
-            <SimulationTimeCondition value="2.0" rule="greaterThan"/>
-            */
-        }
-        /* All Value Conditions
-        <!-- parameterCondition -->
-        <!-- timeOfDayCondition -->
-        <!-- simulationTimeCondition -->
-        <!-- storyboardElementStateCondition -->
-        <!-- userDefinedValueCondition -->
-        <!-- trafficSignalCondition -->
-        <!-- trafficSignalControllerCondition -->
-        */
-
-        /*
-        <ByValueCondition>
-            
-            //Space for value condition
-
-        </ByValueCondition>
-        */
-    }
-
-    public void ByEntityCondition(string EntityRef, string EntityCondition, dict args)
-    {
-        if (EntityCondition == "ReachPositionCondition")
-        {
-            /*
-            <ReachPositionCondition tolerance="2.0">
-                <Position>
-                <WorldPosition x="402" y="-150" z="0.3" h="29.9"/>
-                </Position>
-            </ReachPositionCondition>
-            */
-        }
-
-        if (EntityCondition == "DistanceCondition")
-        {
-            /*
-
-            */
-        }
-
-        /* All EntityConditions
-        <!-- endOfRoadCondition-->
-        <!-- collisionCondition-->
-        <!-- offroadCondition-->
-        <!-- timeHeadwayCondition-->
-        <!-- timeToCollisionCondition-->
-        <!-- accelerationCondition-->
-        <!-- standStillCondition-->
-        <!-- speedCondition-->
-        <!-- relativeSpeedCondition-->
-        <!-- traveledDistanceCondition-->
-        <!-- reachPositionCondition-->
-        <!-- distanceCondition-->
-        <!-- relativeDistanceCondition-->
-        */
-
-
-        /*
-        <ByEntityCondition>
-            <TriggeringEntities triggeringEntitiesRule="any">
-                <EntityRef entityRef="adversary0"/>
-            </TriggeringEntities>
-                <EntityCondition>
-
-                    //Space for entity condition
-
-                </EntityCondition>
-        </ByEntityCondition>
-        */
-    }
-}
-
