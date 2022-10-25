@@ -2,9 +2,9 @@
 {
     public class WorldOptions
     {
-        public WorldOptions(float rainIntersity, float fogIntensity)
+        public WorldOptions(float rainIntensity, float fogIntensity)
         {
-            RainIntersity = rainIntersity;
+            RainIntersity = rainIntensity;
             FogIntensity = fogIntensity;
         }
 
