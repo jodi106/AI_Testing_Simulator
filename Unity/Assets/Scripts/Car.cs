@@ -34,6 +34,11 @@ public class Car : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if(placed)
+        {
+            Debug.Log("Clicked: "+this.name);
+            GameObject.Find("CarSettingsPopUp").GetComponent<GameObject>().SetActive(true);
+        }
         if (!placed)
         {
             placed = true;
