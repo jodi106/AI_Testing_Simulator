@@ -37,7 +37,7 @@ public class Car : MonoBehaviour
         if(placed)
         {
             Debug.Log("Clicked: "+this.name);
-            GameObject.Find("CarSettingsPopUp").GetComponent<GameObject>().SetActive(true);
+            //GameObject.Find("CarSettingsPopUp").GetComponent<GameObject>().SetActive(true);
         }
         if (!placed)
         {
