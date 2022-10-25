@@ -13,11 +13,11 @@ public class MainController : MonoBehaviour
     private ListView eventList;
     private Button button;
 
-    private Model model;
+    private ScenarioInfo info;
 
     void Start()
     {
-        this.model = new Model();
+        this.info = new ScenarioInfo();
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
         initiateEventList(editorGUI);
@@ -33,7 +33,7 @@ public class MainController : MonoBehaviour
             var vehiclePosition = new Coord3D(pos.x, pos.y, 0, 0);
             var path = new Path(new List<Entities.Event>());
             Vehicle v = new Vehicle(vehiclePosition, VehicleCategory.Car, path);
-            model.vehicles.Add(v);
+            info.Vehicles.Add(v);
         });
 
         EventManager.StartListening(typeof(VehicleMovedAction), x =>
@@ -70,15 +70,15 @@ public class MainController : MonoBehaviour
         // Set up bind function for a specific list entry
         eventList.bindItem = (item, index) =>
         {
-            (item.userData as VehicleListEntryController).setEventData(model.vehicles[index]);
+            (item.userData as VehicleListEntryController).setEventData(info.Vehicles[index]);
         };
 
-        model.vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
             this.eventList.Rebuild();
         };
 
-        eventList.itemsSource = model.vehicles;
+        eventList.itemsSource = info.Vehicles;
 
         // Register to get a callback when an item is selected
         eventList.onSelectionChange += OnCharacterSelected;
