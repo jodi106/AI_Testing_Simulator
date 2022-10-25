@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System;
 using Entities;
@@ -46,6 +47,10 @@ public class ScenarioInfoExample1{
         adversaryAcceleratesEvent.ActionType = "AccelerateManeuver";
         adversaryAcceleratesEvent.InvolvedEntities.Add(adversary0);
         adversaryAcceleratesEvent.InvolvedEntities.Add(adversary1);
+
+        adversary0.Path = new List<Event> {adversaryAcceleratesEvent};
+        adversary1.Path = new List<Event> {adversaryAcceleratesEvent};
+
         //TODO ActionType, hwo should we define them? F.e. StartTime, Acceleareate, How Conditions? 
 
         m_exampleScenario1.EgoVehicle = EgoVehicleHero;
