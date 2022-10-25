@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour
@@ -23,8 +25,10 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private Text debugger;
 
+    //Function Awake is called at Run
     public void Awake()
     {
+        //Calculating the Edges for the Map(Background)
         mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;
         mapMaxX = mapRenderer.transform.position.x + mapRenderer.bounds.size.x / 2f;
 
@@ -35,57 +39,68 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(cam.orthographic)
+        //Verify if the Camera Size is in valid range
+        if (cam.orthographicSize<maxCamSize && cam.orthographicSize>minCamSize)
         {
-            cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-        }
-        else
-        {
-            cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            if(cam.orthographic)
+            {
+                //If the camera can be resized simply (the normal size of the camera is changed)
+                //Normal Case
+                cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            }
+            else
+            {
+                //If the camera can't be resized simply (increase the field of view)
+                //(Exception Case)
+                cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            }
         }
 
+        //Verifies if the Camera is moved on every frame
         PanCamera();
+        //Prints mouse position on every frame
         print_mouse_position();
     }
 
     private void PanCamera()
     {
+        //Function that moves the map background
         if(Input.GetMouseButtonDown(0))
         {
+            //Set Mouse Start Position 
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
         }
 
         if(Input.GetMouseButton(0))
         {
+            //Calculate the amount of movement
             Vector3 diffrence = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
 
-            /// print("origin " + dragOrigin + " new Position " + cam.ScreenToWorldPoint(Input.mousePosition) + " =diffrence " + diffrence);
-
+            //Set the actual camera to new position using ClampCameraFunction
             cam.transform.position = ClampCamera(cam.transform.position + diffrence);
-
-            ///print("Camera Position: " + cam.transform.position);
         }
     }
 
     public void ZoomIn()
     {
-        /// print("ZoomIn");
-
+        //Simple Function for Only Zoom In
+        //Currently Not In Use
         float newSize = cam.orthographicSize - zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
-
+        
         cam.transform.position = ClampCamera(cam.transform.position);
     }
 
     public void ZoomOut()
     {
-        /// print("ZoomOut");
-
+        //Simple Function for Zoom Out
+        //Currently Not In Use
         float newSize = cam.orthographicSize + zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
 
@@ -94,12 +109,13 @@ public class CameraMovement : MonoBehaviour
 
     public void print_mouse_position()
     {
-
+        //Printing Mouse Positions to Screen 
         debugger.text = "Mouse Coords: (" + Input.mousePosition.x + " , " + Input.mousePosition.y + ")"; 
     }
 
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
+        //Moves the actual camera to target position
         float camHeight = cam.orthographicSize;
         float camWidth = cam.orthographicSize * cam.aspect;
 
@@ -115,7 +131,7 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(newX, newY, targetPosition.z);
     }
 
-    /// Button Clicks
+    /// Map Clicks
     
     [SerializeField]
     private GameObject WelcomeCanvas;
@@ -161,7 +177,9 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(true);
         WelcomeBackground.SetActive(true);
 
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MainBackground").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 
@@ -177,9 +195,9 @@ public class CameraMovement : MonoBehaviour
         EditorCanvas.SetActive(true);
         EditorBackgroundMap1.SetActive(true);
 
-        
-
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MapBackgroundTown1").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 
@@ -195,7 +213,9 @@ public class CameraMovement : MonoBehaviour
         EditorCanvas.SetActive(true);
         EditorBackgroundMap2.SetActive(true);
 
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MapBackgroundTown2").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 
@@ -211,7 +231,9 @@ public class CameraMovement : MonoBehaviour
         EditorCanvas.SetActive(true);
         EditorBackgroundMap3.SetActive(true);
 
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MapBackgroundTown3").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 
@@ -227,7 +249,9 @@ public class CameraMovement : MonoBehaviour
         EditorCanvas.SetActive(true);
         EditorBackgroundMap4.SetActive(true);
 
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MapBackgroundTown4").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 
@@ -243,7 +267,9 @@ public class CameraMovement : MonoBehaviour
         EditorCanvas.SetActive(true);
         EditorBackgroundMap5.SetActive(true);
 
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MapBackgroundTown5").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 
@@ -259,7 +285,9 @@ public class CameraMovement : MonoBehaviour
         EditorCanvas.SetActive(true);
         EditorBackgroundMap6.SetActive(true);
 
+        //Set the new image as the new Map
         mapRenderer = GameObject.Find("MapBackgroundTown10").GetComponent<SpriteRenderer>();
+        //Recalculate Screen Edges
         Awake();
     }
 }
