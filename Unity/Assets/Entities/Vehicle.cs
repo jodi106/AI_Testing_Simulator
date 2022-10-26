@@ -1,4 +1,6 @@
 ﻿using Assets.Enums;
+using System.Transactions;
+using UnityEditor;
 
 namespace Entities
 {
@@ -21,8 +23,15 @@ namespace Entities
             Path = path;
         }
 
+        public void setPosition(float x, float y)
+        {
+            SpawnPoint = new Coord3D(x, y, 0, 0);
+            View?.onChangePosition(SpawnPoint);
+        }
+
+        public IVehicleView View { get; set; }
         public EntityModel Model { get; set; }
-        public VehicleCategory Category { get; set;}
+        public VehicleCategory Category { get; set; }
         public Path Path { get; set; }
     }
 }

@@ -33,13 +33,12 @@ public class MainController : MonoBehaviour
             var vehiclePosition = new Coord3D(pos.x, pos.y, 0, 0);
             var path = new Path(new List<Entities.Event>());
             Vehicle v = new Vehicle(vehiclePosition, VehicleCategory.Car, path);
-            info.Vehicles.Add(v);
-        });
 
-        EventManager.StartListening(typeof(VehicleMovedAction), x =>
-        {
-            var action = new VehicleMovedAction(x);
-            Debug.Log(action.Car);
+            var viewController = vehicleGameObject.GetComponent<VehicleViewController>();
+            v.View = viewController;
+            viewController.vehicle = v;
+
+            info.Vehicles.Add(v);
         });
     }
 
