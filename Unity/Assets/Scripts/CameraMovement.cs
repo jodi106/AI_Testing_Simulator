@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
         EventManager.StartListening(typeof(MapPanAction), x =>
         {
             var action = new MapPanAction(x);
-            PanCamera(action.difference);
+            PanCamera(action.origin);
         });
     }
 

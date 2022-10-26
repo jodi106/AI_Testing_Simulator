@@ -14,6 +14,6 @@ public class MapController : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        EventManager.TriggerEvent(new MapPanAction(origin, origin));
+        EventManager.TriggerEvent(new MapPanAction(origin));
     }
 }

@@ -3,26 +3,22 @@ using UnityEngine;
 
 public class MapPanAction : IAction
 {
-    public Vector3 difference { get; }
-    public Vector3 DragPosition { get; }
+    public Vector3 origin { get; }
 
-    public MapPanAction(Vector3 dragOrigin, Vector3 dragPosition)
+    public MapPanAction(Vector3 dragOrigin)
     {
-        this.difference = dragOrigin;
-        this.DragPosition = dragPosition;
+        this.origin = dragOrigin;
     }
     public MapPanAction(Dictionary<string, object> dict)
     {
-        this.difference = (Vector3)dict.GetValueOrDefault("dragOrigin");
-        this.DragPosition = (Vector3)dict.GetValueOrDefault("dragPosition");
+        this.origin = (Vector3)dict.GetValueOrDefault("origin");
     }
 
     public Dictionary<string, object> toDict()
     {
         return new Dictionary<string, object>
         {
-            {"dragOrigin", this.difference },
-            {"dragPosition", this.DragPosition },
+            {"origin", this.origin },
         };
     }
 }
