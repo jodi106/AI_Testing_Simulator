@@ -34,7 +34,14 @@ public class CameraMovement : MonoBehaviour
 
         mapMinY = mapRenderer.transform.position.y - mapRenderer.bounds.size.y / 2f;
         mapMaxY = mapRenderer.transform.position.y + mapRenderer.bounds.size.y / 2f;
+
+        EventManager.StartListening(typeof(MapPanAction), x =>
+        {
+            var action = new MapPanAction(x);
+            PanCamera(action.difference);
+        });
     }
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,29 +69,15 @@ public class CameraMovement : MonoBehaviour
             }
         }
 
-        //Verifies if the Camera is moved on every frame
-        PanCamera();
         //Prints mouse position on every frame
         print_mouse_position();
     }
 
-    private void PanCamera()
+    private void PanCamera(Vector3 origin)
     {
-        //Function that moves the map background
-        if(Input.GetMouseButtonDown(0))
-        {
-            //Set Mouse Start Position 
-            dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
-        }
-
-        if(Input.GetMouseButton(0))
-        {
-            //Calculate the amount of movement
-            Vector3 diffrence = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
-
-            //Set the actual camera to new position using ClampCameraFunction
-            cam.transform.position = ClampCamera(cam.transform.position + diffrence);
-        }
+        //Set the actual camera to new position using ClampCameraFunction
+        Vector3 diff = origin - cam.ScreenToWorldPoint(Input.mousePosition);
+        cam.transform.position = ClampCamera(cam.transform.position + diff);
     }
 
     public void ZoomIn()

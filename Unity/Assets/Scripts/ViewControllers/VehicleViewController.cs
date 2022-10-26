@@ -9,6 +9,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView
     private SpriteRenderer sprite;
     private Boolean placed = false;
     public Vehicle vehicle { get; set; } = new Vehicle();
+    Vector2 difference = Vector2.zero;
 
     public void Awake()
     {
@@ -34,6 +35,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView
 
     public void OnMouseDown()
     {
+        difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         if (!placed)
         {
             placed = true;
@@ -43,7 +45,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView
 
     public void onChangePosition(Coord3D v)
     {
-        transform.position = new Vector3(v.X, v.Y, -0.1f);
+        transform.position = new Vector3(v.X, v.Y, -0.1f) - (Vector3) difference;
     }
 
     public void onChangeType(VehicleCategory cat)
