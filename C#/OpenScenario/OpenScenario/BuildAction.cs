@@ -30,7 +30,7 @@ class BuildAction
         */
     }  
 
-    public void AssignRouteAction(list Waypoints, string routeStrategy)
+    public void AssignRouteAction(List<string> Waypoints, string routeStrategy)
     /// Creates AssignRouteAction
     {
         /*
@@ -78,7 +78,7 @@ class BuildAction
         */
     }
 
-    public voud LaneChangeAction(string dynamicsShape, float value, string dynamicsDimension, string entityRef, int value)
+    public void LaneChangeAction(string dynamicsShape, float value, string dynamicsDimension, string entityRef, int value2)
     /// Creates LaneChangeAction
     {
         /*
