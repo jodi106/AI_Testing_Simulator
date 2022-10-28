@@ -29,22 +29,27 @@ class BuildEntities
         // TODO Variables that need to be inside ScenarioInfo class TODO
         int number_of_simulation_cars = 3; // excluding ego_vehicle !!!
         int number_of_pedestrians = 2;
-        string vehicle_model_ego = "vehicle.volkswagen.t2";
-        string vehicle_model_simulation = "vehicle.audi.tt";
-        string pedestrian_model = "walker.pedestrian.0001";
+        List<string> vehicle_model = new List<string>();
+        vehicle_model.Add("vehicle.volkswagen.t2");
+        vehicle_model.Add("vehicle.audi.tt");
+        vehicle_model.Add("vehicle.audi.tt");
+        vehicle_model.Add("vehicle.audi.tt");
+        List<string> pedestrian_model = new List<string>(); 
+        pedestrian_model.Add("walker.pedestrian.0001");
+        pedestrian_model.Add("walker.pedestrian.0002");
 
         // ego-vehicle
-        BuildVehicle(vehicle_model_ego, "hero", "ego_vehicle");
+        BuildVehicle(vehicle_model[0], "hero", "ego_vehicle");
         // other vehicles
-        for (int n = 0; n < number_of_simulation_cars; n++)
+        for (int n = 1; n < number_of_simulation_cars; n++)
         {
-            BuildVehicle(vehicle_model_simulation, "adversary" + n.ToString(), "simulation");
+            BuildVehicle(vehicle_model[n], "adversary" + n.ToString(), "simulation");
         }
 
         // pedestrians
         for (int n = 0; n < number_of_pedestrians; n++)
         {
-            BuildPedestrian(pedestrian_model, "adversary_pedestrian" + n.ToString());
+            BuildPedestrian(pedestrian_model[n], "adversary_pedestrian" + n.ToString());
         }
 
 

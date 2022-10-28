@@ -30,7 +30,9 @@ class BuildXML
 
         BuildEntities entities = new BuildEntities(scenarioInfo, root, openScenario);
         entities.CombineEntities();
-        
+
+        BuildInit init = new BuildInit(scenarioInfo, root, openScenario);
+        init.CombineInit();
 
         ExportXML();
     }
