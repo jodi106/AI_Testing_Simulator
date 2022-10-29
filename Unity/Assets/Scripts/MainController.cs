@@ -13,7 +13,9 @@ public class MainController : MonoBehaviour
     public GameObject carPrefab;
 
     private ListView eventList;
-    private Button button;
+    private Button addEntityButton;
+    private Button removeEntityButton;
+    private Button editEntityButton;
 
     private ScenarioInfoModel info;
 
@@ -40,6 +42,11 @@ public class MainController : MonoBehaviour
         {
             var action = new ChangeSelectedEntityAction(x);
             this.setSelectedEntity(action.entity);
+            if(action.entity is null)
+            {
+                removeEntityButton.style.display = DisplayStyle.None;
+                editEntityButton.style.display = DisplayStyle.None;
+            }
         });
     }
 
@@ -97,13 +104,17 @@ public class MainController : MonoBehaviour
         }
         
         this.selectedEntity?.select();
+        this.removeEntityButton.style.display = DisplayStyle.Flex;
+        this.editEntityButton.style.display = DisplayStyle.Flex;
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
     {
-        button = editorGUI.Q<Button>("button");
+        addEntityButton = editorGUI.Q<Button>("addEntityButton");
+        removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
+        editEntityButton = editorGUI.Q<Button>("editEntityButton");
 
-        button.RegisterCallback<ClickEvent>((ClickEvent) =>
+        addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             var pos = Input.mousePosition;
             pos.z = -0.1f;
