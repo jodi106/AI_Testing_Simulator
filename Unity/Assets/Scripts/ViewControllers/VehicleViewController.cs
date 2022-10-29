@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityController
 {
+    public Material selectionMaterial;
+    public Material defaultMaterial;
 
     private SpriteRenderer sprite;
     private Boolean placed = false;
@@ -18,6 +20,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         vehicle.View = this; 
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.color = new Color(1, 1, 1, 0.5f);
+        defaultMaterial = sprite.material;
     }
 
     public void OnMouseDrag()
@@ -63,11 +66,13 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     {
         this.selected = true;
         sprite.transform.Translate(0, 0, -0.1f);
+        sprite.material = selectionMaterial;
     }
 
     public void deselect()
     {
         this.selected = false;
         sprite.transform.Translate(0, 0, 0.1f);
+        sprite.material = defaultMaterial;
     }
 }
