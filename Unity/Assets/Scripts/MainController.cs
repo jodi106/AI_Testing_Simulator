@@ -1,7 +1,9 @@
 using Assets.Enums;
 using Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,13 +17,33 @@ public class MainController : MonoBehaviour
 
     private ScenarioInfo info;
 
+    private IBaseEntityController selectedEntity;
+
     void Start()
     {
         this.info = new ScenarioInfo();
+        this.selectedEntity = null;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
-        initiateEventList(editorGUI);
+        initializeEventList(editorGUI);
+        initializeButtonBar(editorGUI);
 
+        EventManager.StartListening(typeof(ChangeSelectedEntityAction), x =>
+        {
+            var action = new ChangeSelectedEntityAction(x);
+            this.setSelectedEntity(action.entity);
+        });
+    }
+
+    private void setSelectedEntity(IBaseEntityController entity)
+    {
+        this.selectedEntity?.deselect();
+        this.selectedEntity = entity;
+        this.selectedEntity?.select();
+    }
+
+    private void initializeButtonBar(VisualElement editorGUI)
+    {
         button = editorGUI.Q<Button>("button");
 
         button.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -38,11 +60,13 @@ public class MainController : MonoBehaviour
             v.View = viewController;
             viewController.vehicle = v;
 
+            setSelectedEntity(viewController);
+
             info.Vehicles.Add(v);
         });
     }
 
-    private void initiateEventList(VisualElement editorGUI)
+    private void initializeEventList(VisualElement editorGUI)
     {
         // Store a reference to the character list element
         eventList = editorGUI.Q<ListView>("character-list");

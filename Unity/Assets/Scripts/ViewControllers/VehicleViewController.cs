@@ -3,11 +3,12 @@ using Entities;
 using System;
 using UnityEngine;
 
-public class VehicleViewController : MonoBehaviour, IVehicleView
+public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityController
 {
 
     private SpriteRenderer sprite;
     private Boolean placed = false;
+    private Boolean selected = true;
     public Vehicle vehicle { get; set; } = new Vehicle();
     Vector2 difference = Vector2.zero;
 
@@ -41,15 +42,31 @@ public class VehicleViewController : MonoBehaviour, IVehicleView
             placed = true;
             sprite.color = new Color(1, 1, 1, 1);
         }
+        if(!selected)
+        {
+            EventManager.TriggerEvent(new ChangeSelectedEntityAction(this));
+        }
     }
 
     public void onChangePosition(Coord3D v)
     {
-        transform.position = new Vector3(v.X, v.Y, -0.1f) - (Vector3) difference;
+        transform.position = new Vector3(v.X, v.Y, transform.position.z) - (Vector3) difference;
     }
 
     public void onChangeType(VehicleCategory cat)
     {
         throw new NotImplementedException();
+    }
+
+    public void select()
+    {
+        this.selected = true;
+        sprite.transform.Translate(0, 0, -0.1f);
+    }
+
+    public void deselect()
+    {
+        this.selected = false;
+        sprite.transform.Translate(0, 0, 0.1f);
     }
 }
