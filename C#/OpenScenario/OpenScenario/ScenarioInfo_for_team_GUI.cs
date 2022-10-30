@@ -52,5 +52,28 @@ Information about the weather:
 - string precipitationType = "dry"; // possible values: dry, rain, snow
 - double precipitationIntensity = 0.0; // 0.0 no rain
 
+-----------------------------------------
+
+ACTIONS
+
+Route:
+- List<string[]> waypoints, the 'points' on a route of a vehicle or pedestrian
+  string[] has always length 4. It contains the coordinates x,y,z,h
+
+Speed:  
+    If you want to change the speed of a vehicle/pedestrian.
+    Or If you want to start/stop a vehicle/pedestrian.
+- double speedActionDynamicsValue = "2.0" // steps how fast to change the speed. 
+                              // The higher the value the faster the vehicle will be at the target speed
+- double absoluteTargetSpeedValue = "0.0" // how fast the vehicle/pedestrian should be. 0 is stop.
+
+Lane Change of a vehicle:
+- double laneChangeActionDynamicsValue = "25.0" // how fast to change the lane
+- string entityRef = "adversary0" // which vehicle will change the lane
+- int relativeTargetLaneValue = "-1" // example: -1 change one lane
+
+Acquire Position:
+- coordinates x,y,z,h
+- ?
 
 */

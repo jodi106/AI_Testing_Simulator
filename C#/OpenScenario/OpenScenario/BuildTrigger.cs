@@ -3,11 +3,12 @@ using System.Xml;
 
 class BuildTrigger
 {
-    public string xmlBLock { get; set;}
+    //public string xmlBLock { get; set;}
+    private XmlDocument root;
 
-    public BuildTrigger()
+    public BuildTrigger(XmlDocument root)
     {
-
+        this.root = root;
     }
 
     public void CombineTrigger()
@@ -18,7 +19,9 @@ class BuildTrigger
         ///if StopStrigger{xml = <StopTrigger></StopTrigger><ConditionGroup></ConditionGroup> }
     }
 
-    public void ByValueCondition(string ValueCondition, dict args)
+    //public void ByValueCondition(string ValueCondition, dict args)
+    public void ByValueCondition(string ValueCondition, string dict_args) // original: dict args
+        
     {
         /* All Value Conditions
         <!-- parameterCondition -->
@@ -58,7 +61,8 @@ class BuildTrigger
 
     }
 
-    public void ByEntityCondition(string EntityRef, string EntityCondition, dict args)
+    //public void ByEntityCondition(string EntityRef, string EntityCondition, dict args)
+    public void ByEntityCondition(string EntityRef, string EntityCondition, string dict_args) // original: dict args
     {
         /* All EntityConditions
         <!-- endOfRoadCondition-->
@@ -107,5 +111,13 @@ class BuildTrigger
             */
         }
 
+    }
+
+    /// helper
+    private void SetAttribute(String name, String value, XmlNode element)
+    {
+        XmlAttribute attribute = root.CreateAttribute(name);
+        attribute.Value = value;
+        element.Attributes.Append(attribute);
     }
 }
