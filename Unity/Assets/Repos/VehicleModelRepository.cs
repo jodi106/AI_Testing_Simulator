@@ -63,7 +63,7 @@ namespace Assets.Repos
 
         }
 
-        public IEnumerable<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
+        public List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
         {
             return _EntityModels[category];
         }

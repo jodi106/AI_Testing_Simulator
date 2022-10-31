@@ -79,7 +79,7 @@ namespace Assets.Repos
 
         }
 
-        public IEnumerable<EntityModel> GetModelsBasedOnType(PedestrianType type)
+        public List<EntityModel> GetModelsBasedOnType(PedestrianType type)
         {
             return _pedestrianModels[type];
         }

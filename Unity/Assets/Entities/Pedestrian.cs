@@ -5,7 +5,7 @@ namespace Entities
 {
     public class Pedestrian : BaseEntity
     {
-
+        public Pedestrian() : base() { }
         public Pedestrian(Coord3D spawnPoint, PedestrianType type, Path path) : base(spawnPoint)
         {
             Type = type;
@@ -32,8 +32,8 @@ namespace Entities
             Path = path;
         }
 
-        public EntityModel Model { get; }
-        public PedestrianType Type { get; }
+        public EntityModel Model { get; set; }
+        public PedestrianType Type { get; set; }
         public Path Path { get; set; }
     }
 

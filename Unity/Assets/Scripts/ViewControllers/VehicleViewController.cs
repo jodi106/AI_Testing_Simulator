@@ -51,7 +51,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
 
     public void onChangePosition(Coord3D v)
     {
-        transform.position = new Vector3(v.X, v.Y, transform.position.z) - (Vector3) difference;
+        transform.position = new Vector3((float)v.X, (float)v.Y, transform.position.z) - (Vector3) difference;
     }
 
     public void onChangeType(VehicleCategory cat)

@@ -5,6 +5,7 @@ namespace Entities
 {
     public class Ego : BaseEntity
     {
+        public Ego() : base() { }
         public Ego(Coord3D spawnPoint, VehicleCategory category) : base(spawnPoint)
         {
             Category = category;

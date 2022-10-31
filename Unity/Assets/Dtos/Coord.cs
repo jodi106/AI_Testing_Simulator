@@ -2,26 +2,26 @@
 {
     public class Coord
     {
-        public Coord(float x, float y)
+        public Coord(double x, double y)
         {
             X = x;
             Y = y;
         }
 
-        public float X { get; set; }
-        public float Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
     }
 
     public class Coord3D : Coord
     {
-        public Coord3D(float x, float y, float z, float rot) : base(x,y)
+        public Coord3D(double x, double y, double z, double rot) : base(x,y)
         {
             Z = z;
             Rot = rot;
         }
 
-        public float Z { get; set; }
-        public float Rot { get; set; }
+        public double Z { get; set; }
+        public double Rot { get; set; }
     }
 
 }

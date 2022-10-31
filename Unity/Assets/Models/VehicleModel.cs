@@ -1,10 +1,9 @@
 ﻿using Assets.Enums;
 using Dtos;
-using Entities;
 
 namespace Models
 {
-    public class VehicleModel : BaseEntity
+    public class VehicleModel : BaseModel
     {
         public VehicleModel() : base()
         {

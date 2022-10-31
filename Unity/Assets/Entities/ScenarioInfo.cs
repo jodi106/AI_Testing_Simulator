@@ -5,6 +5,10 @@ namespace Entities
 {
     public class ScenarioInfo
     {
+        public ScenarioInfo()
+        {
+        }
+
         public ScenarioInfo(string name, List<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, List<Vehicle> vehicles)
         {
             Name = name;

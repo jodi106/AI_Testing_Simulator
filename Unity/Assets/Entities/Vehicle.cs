@@ -5,9 +5,7 @@ namespace Entities
 {
     public class Vehicle : BaseEntity
     {
-        public Vehicle() : base()
-        {
-        }
+        public Vehicle() : base() { }
 
         public Vehicle(Coord3D spawnPoint, VehicleCategory category, Path path) : base(spawnPoint)
         {
@@ -35,8 +33,8 @@ namespace Entities
             Path = path;
         }
 
-        public EntityModel Model { get; }
-        public VehicleCategory Category { get; }
+        public EntityModel Model { get; set; }
+        public VehicleCategory Category { get; set; }
         public Path Path { get; set; }
     }
 }

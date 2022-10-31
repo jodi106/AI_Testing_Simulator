@@ -10,8 +10,8 @@ namespace Dtos
             Url = url;
         }
 
-        public Coord TopLeft { get; }
-        public Coord BottomRight { get; }
-        public string Url { get; }
+        public Coord TopLeft { get; set; }
+        public Coord BottomRight { get; set; }
+        public string Url { get; set; }
     }
 }

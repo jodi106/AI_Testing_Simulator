@@ -16,6 +16,6 @@ namespace Dtos
         public int Id { get; set; }
         public Coord Position { get; set; }
         public List<BaseEntity> InvolvedEntities { get; }
-        public string ActionType { get; }
+        public string ActionType { get; set; }
     }
 }
