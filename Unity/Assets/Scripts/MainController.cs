@@ -16,13 +16,15 @@ public class MainController : MonoBehaviour
     private Button addEntityButton;
     private Button removeEntityButton;
     private Button editEntityButton;
+    private Button worldSettingsButton;
 
     private ScenarioInfoModel info;
 
     private IBaseEntityController selectedEntity;
 
     [SerializeField]
-    GameObject SettingsPopup;
+    GameObject VehicleSettingsPopup;
+    public GameObject WorldSettingsPopup;
 
     private Button SaveButton;
 
@@ -37,6 +39,7 @@ public class MainController : MonoBehaviour
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
+        initializeWorldSettingsPopUp();
 
         EventManager.StartListening(typeof(ChangeSelectedEntityAction), x =>
         {
@@ -60,15 +63,15 @@ public class MainController : MonoBehaviour
         if (selectedEntity != null)
         {
             //Enabling PopUp
-            SettingsPopup.SetActive(true);
+            VehicleSettingsPopup.SetActive(true);
             //Finding Popup
-            var ThePopup = SettingsPopup.GetComponent<UIDocument>().rootVisualElement;
+            var ThePopup = VehicleSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
             //Finding EXIT Button From popup
             ExitButton = ThePopup.Q<Button>("Exit");
             //adding callback function to exit
             ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
-                SettingsPopup.SetActive(false);
+                VehicleSettingsPopup.SetActive(false);
             });
             //Finding SAVE Button From popup
             SaveButton = ThePopup.Q<Button>("Save");
@@ -100,7 +103,6 @@ public class MainController : MonoBehaviour
             //Setting value of the field
             Vector2 TestValue = new Vector2(125, 350);
             SpawnPointField.SetValueWithoutNotify(TestValue);
-
         }
 
         this.selectedEntity?.select();
@@ -113,6 +115,7 @@ public class MainController : MonoBehaviour
         addEntityButton = editorGUI.Q<Button>("addEntityButton");
         removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
         editEntityButton = editorGUI.Q<Button>("editEntityButton");
+        worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
 
         addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -143,6 +146,11 @@ public class MainController : MonoBehaviour
             }
             selectedEntity.destroy();
             setSelectedEntity(null);
+        });
+
+        worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.Flex;
         });
     }
 
@@ -189,4 +197,18 @@ public class MainController : MonoBehaviour
 
     void OnCharacterSelected(IEnumerable<object> selectedItems)
     { }
+
+    void initializeWorldSettingsPopUp()
+    {
+        WorldSettingsPopup.SetActive(true);
+        var popup = WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
+        var exitButton = popup.Q<Button>("Exit");
+
+        exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        });
+
+        WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+    }
 }
