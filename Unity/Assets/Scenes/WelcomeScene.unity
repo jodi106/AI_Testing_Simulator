@@ -848,6 +848,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
+  mapNames:
+  - MapBackgroundTown1
+  - MapBackgroundTown2
+  - MapBackgroundTown3
+  - MapBackgroundTown4
+  - MapBackgroundTown5
+  - MapBackgroundTown10
   zoomStep: 1
   minCamSize: 1
   maxCamSize: 10
@@ -939,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventEntryTemplate: {fileID: 9197481963319205126, guid: 1f97b6f639429e0458518f50d02a1f8d, type: 3}
   carPrefab: {fileID: 2646168225723092246, guid: a3cd1f6cecf5124428c0cc82fb352700, type: 3}
+  SettingsPopup: {fileID: 1970144233}
 --- !u!1 &530691995
 GameObject:
   m_ObjectHideFlags: 0
@@ -3966,7 +3974,7 @@ Transform:
   m_GameObject: {fileID: 1970144233}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1478537649}

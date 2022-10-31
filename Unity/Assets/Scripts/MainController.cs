@@ -3,6 +3,7 @@ using Dtos;
 using Models;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,11 +19,19 @@ public class MainController : MonoBehaviour
 
     private IBaseEntityController selectedEntity;
 
+    [SerializeField]
+    GameObject SettingsPopup;
+
+    private Button SaveButton;
+
+    private Button ExitButton;
+
     void Start()
     {
         this.info = new ScenarioInfoModel();
         this.selectedEntity = null;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
+        
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
@@ -38,6 +47,55 @@ public class MainController : MonoBehaviour
     {
         this.selectedEntity?.deselect();
         this.selectedEntity = entity;
+
+        //Debug.Log(this.selectedEntity);
+
+        if(selectedEntity != null)
+        {
+            //Enabling PopUp
+            SettingsPopup.SetActive(true);
+            //Finding Popup
+            var ThePopup = SettingsPopup.GetComponent<UIDocument>().rootVisualElement;
+            //Finding EXIT Button From popup
+            ExitButton = ThePopup.Q<Button>("Exit");
+            //adding callback function to exit
+            ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+            {
+                SettingsPopup.SetActive(false);
+            });
+            //Finding SAVE Button From popup
+            SaveButton = ThePopup.Q<Button>("Save");
+            //adding callback function to save
+            ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+            {
+                ///!!!!!!!
+                ///!!!!!!!
+                ///!!!!!!!
+                ///!!!!!!!
+                ///Code for saving the data to scenarioInfoFile later on...
+                ///!!!!!!!
+                ///!!!!!!!
+                ///!!!!!!!
+                ///!!!!!!!
+                Debug.Log("Saving Data of the Vehicle with id:" + selectedEntity);
+            });
+
+            //These lines should be later switched to entity properties.
+            //These are only for visual purposes
+
+            //Finding the Id Field
+            IntegerField iDField = ThePopup.Q<IntegerField>("ID");
+            //Setting value of the field
+            iDField.SetValueWithoutNotify(1);
+
+            //Finding the SpawnPointField
+            Vector2Field SpawnPointField = ThePopup.Q<Vector2Field>("SpawnPoint");
+            //Setting value of the field
+            Vector2 TestValue = new Vector2(125, 350);
+            SpawnPointField.SetValueWithoutNotify(TestValue);
+            
+        }
+        
         this.selectedEntity?.select();
     }
 
