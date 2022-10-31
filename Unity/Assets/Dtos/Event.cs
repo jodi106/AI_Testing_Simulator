@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Entities;
+using System.Collections.Generic;
 
-namespace Entities
+namespace Dtos
 {
     public class Event
     {

@@ -1,6 +1,5 @@
 ﻿using Assets.Enums;
-using Entities;
-using UnityEditor;
+using Dtos;
 
 public interface IVehicleView
 {

@@ -1,4 +1,4 @@
-using Entities;
+using Models;
 using UnityEngine.UIElements;
 
 public class VehicleListEntryController
@@ -10,7 +10,7 @@ public class VehicleListEntryController
         label = visualElement.Q<Label>("label");
     }
 
-    public void setEventData(Vehicle vehicle)
+    public void setEventData(VehicleModel vehicle)
     {
         label.text = vehicle.Category + " " + vehicle.Id;
     }

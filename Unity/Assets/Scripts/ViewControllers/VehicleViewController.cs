@@ -1,5 +1,6 @@
 using Assets.Enums;
-using Entities;
+using Dtos;
+using Models;
 using System;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     private SpriteRenderer sprite;
     private Boolean placed = false;
     private Boolean selected = true;
-    public Vehicle vehicle { get; set; } = new Vehicle();
+    public VehicleModel vehicle { get; set; } = new VehicleModel();
     Vector2 difference = Vector2.zero;
 
     public void Awake()

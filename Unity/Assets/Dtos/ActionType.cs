@@ -1,4 +1,4 @@
-namespace Entities
+namespace Dtos
 {
     public class ActionType
     {

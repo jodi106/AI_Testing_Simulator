@@ -1,5 +1,5 @@
 ﻿using Assets.Enums;
-using Entities;
+using Dtos;
 using System.Collections.Generic;
 
 namespace Assets.Repos
@@ -21,6 +21,7 @@ namespace Assets.Repos
                 new EntityModel(6,"BmwIsetta"),
                 new EntityModel(7,"CarlaCola"),
                 new EntityModel(8,"ChevroletImpala"),
+                new EntityModel(9,"CitroenC3"),
                 new EntityModel(9,"CitroenC3"),
                 new EntityModel(10,"Cybertruck"),
                 new EntityModel(11,"DodgeCharger2020"),

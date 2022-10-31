@@ -1,4 +1,4 @@
-﻿namespace Entities
+﻿namespace Dtos
 {
     public class EntityModel
     {
@@ -15,9 +15,9 @@
             DisplayName = displayName;
         }
 
-        public int Id { get; }
-        public string Name { get; }
-        public string DisplayName { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
     }
 
 }

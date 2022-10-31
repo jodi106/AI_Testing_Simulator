@@ -1,6 +1,5 @@
 ﻿using Assets.Enums;
-using System.Transactions;
-using UnityEditor;
+using Dtos;
 
 namespace Entities
 {
@@ -16,6 +15,12 @@ namespace Entities
             Path = path;
         }
 
+        public Vehicle(int id, Coord3D spawnPoint, VehicleCategory category, Path path) : base(id, spawnPoint)
+        {
+            Category = category;
+            Path = path;
+        }
+
         public Vehicle(Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(spawnPoint)
         {
             Model = model;
@@ -23,15 +28,15 @@ namespace Entities
             Path = path;
         }
 
-        public void setPosition(float x, float y)
+        public Vehicle(int id, Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(id, spawnPoint)
         {
-            SpawnPoint = new Coord3D(x, y, 0, 0);
-            View?.onChangePosition(SpawnPoint);
+            Model = model;
+            Category = category;
+            Path = path;
         }
 
-        public IVehicleView View { get; set; }
-        public EntityModel Model { get; set; }
-        public VehicleCategory Category { get; set; }
+        public EntityModel Model { get; }
+        public VehicleCategory Category { get; }
         public Path Path { get; set; }
     }
 }

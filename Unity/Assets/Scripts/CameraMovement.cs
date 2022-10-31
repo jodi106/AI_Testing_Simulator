@@ -1,12 +1,14 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
     private Camera cam;
+
+    [SerializeField]
+    private List<string> mapNames = new List<string>() { "MapBackgroundTown1", "MapBackgroundTown2", "MapBackgroundTown3", "MapBackgroundTown4", "MapBackgroundTown5", "MapBackgroundTown10" };
 
     [SerializeField]
     private float zoomStep, minCamSize, maxCamSize;
@@ -18,12 +20,14 @@ public class CameraMovement : MonoBehaviour
     public SpriteRenderer mapRenderer;
 
     [SerializeField]
-    private float mapMinX,mapMaxX,mapMinY,mapMaxY;
+    private float mapMinX, mapMaxX, mapMinY, mapMaxY;
 
     private Vector3 dragOrigin;
 
     [SerializeField]
     private Text debugger;
+
+
 
     //Function Awake is called at Run
     public void Awake()
@@ -53,9 +57,9 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         //Verify if the Camera Size is in valid range
-        if (cam.orthographicSize<maxCamSize && cam.orthographicSize>minCamSize)
+        if (cam.orthographicSize < maxCamSize && cam.orthographicSize > minCamSize)
         {
-            if(cam.orthographic)
+            if (cam.orthographic)
             {
                 //If the camera can be resized simply (the normal size of the camera is changed)
                 //Normal Case
@@ -86,7 +90,7 @@ public class CameraMovement : MonoBehaviour
         //Currently Not In Use
         float newSize = cam.orthographicSize - zoomStep;
         cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
-        
+
         cam.transform.position = ClampCamera(cam.transform.position);
     }
 
@@ -103,7 +107,7 @@ public class CameraMovement : MonoBehaviour
     public void print_mouse_position()
     {
         //Printing Mouse Positions to Screen 
-        debugger.text = "Mouse Coords: (" + Input.mousePosition.x + " , " + Input.mousePosition.y + ")"; 
+        debugger.text = "Mouse Coords: (" + Input.mousePosition.x + " , " + Input.mousePosition.y + ")";
     }
 
     private Vector3 ClampCamera(Vector3 targetPosition)
@@ -125,7 +129,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     /// Map Clicks
-    
+
     [SerializeField]
     private GameObject WelcomeCanvas;
 
@@ -182,7 +186,7 @@ public class CameraMovement : MonoBehaviour
         /// Switch Welcome Background Off
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
-        
+
         /// Switch Editor On
         /// Switch Editor Background On
         EditorCanvas.SetActive(true);

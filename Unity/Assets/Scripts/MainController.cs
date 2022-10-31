@@ -1,9 +1,8 @@
 using Assets.Enums;
-using Entities;
-using System;
+using Dtos;
+using Models;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,13 +14,13 @@ public class MainController : MonoBehaviour
     private ListView eventList;
     private Button button;
 
-    private ScenarioInfo info;
+    private ScenarioInfoModel info;
 
     private IBaseEntityController selectedEntity;
 
     void Start()
     {
-        this.info = new ScenarioInfo();
+        this.info = new ScenarioInfoModel();
         this.selectedEntity = null;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
@@ -53,8 +52,8 @@ public class MainController : MonoBehaviour
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
 
             var vehiclePosition = new Coord3D(pos.x, pos.y, 0, 0);
-            var path = new Path(new List<Entities.Event>());
-            Vehicle v = new Vehicle(vehiclePosition, VehicleCategory.Car, path);
+            var path = new Path(new List<Dtos.Event>());
+            VehicleModel v = new(vehiclePosition, VehicleCategory.Car, path);
 
             var viewController = vehicleGameObject.GetComponent<VehicleViewController>();
             v.View = viewController;

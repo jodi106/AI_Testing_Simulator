@@ -1,22 +1,22 @@
 ﻿using Dtos;
 
-namespace Entities
+namespace Models
 {
-    public class BaseEntity
+    public class BaseModel
     {
         private static int autoIncrementId = 0;
-        public BaseEntity()
+        public BaseModel()
         {
             Id = autoIncrementId++;
         }
 
-        public BaseEntity(Coord3D spawnPoint)
+        public BaseModel(Coord3D spawnPoint)
         {
             Id = autoIncrementId++;
             SpawnPoint = spawnPoint;
         }
 
-        public BaseEntity(int id, Coord3D spawnPoint)
+        public BaseModel(int id, Coord3D spawnPoint)
         {
             Id = id;
             SpawnPoint = spawnPoint;

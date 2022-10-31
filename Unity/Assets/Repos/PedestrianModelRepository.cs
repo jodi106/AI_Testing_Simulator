@@ -1,5 +1,5 @@
 ﻿using Assets.Enums;
-using Entities;
+using Dtos;
 using System.Collections.Generic;
 
 namespace Assets.Repos
