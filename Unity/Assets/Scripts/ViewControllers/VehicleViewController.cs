@@ -17,7 +17,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
 
     public void Awake()
     {
-        vehicle.View = this; 
+        vehicle.View = this;
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
@@ -46,7 +46,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
             placed = true;
             sprite.color = new Color(1, 1, 1, 1);
         }
-        if(!selected)
+        if (!selected)
         {
             EventManager.TriggerEvent(new ChangeSelectedEntityAction(this));
         }
@@ -54,7 +54,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
 
     public void onChangePosition(Coord3D v)
     {
-        transform.position = new Vector3((float)v.X, (float)v.Y, transform.position.z) - (Vector3) difference;
+        transform.position = new Vector3((float)v.X, (float)v.Y, transform.position.z) - (Vector3)difference;
     }
 
     public void onChangeType(VehicleCategory cat)
@@ -74,5 +74,15 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         this.selected = false;
         sprite.transform.Translate(0, 0, 0.1f);
         sprite.material = defaultMaterial;
+    }
+
+    public BaseModel getEntity()
+    {
+        return vehicle;
+    }
+
+    public void destroy()
+    {
+        Destroy(gameObject);
     }
 }

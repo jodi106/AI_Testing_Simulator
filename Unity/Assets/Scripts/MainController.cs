@@ -33,7 +33,7 @@ public class MainController : MonoBehaviour
         this.info = new ScenarioInfoModel();
         this.selectedEntity = null;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
-        
+
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
@@ -42,7 +42,7 @@ public class MainController : MonoBehaviour
         {
             var action = new ChangeSelectedEntityAction(x);
             this.setSelectedEntity(action.entity);
-            if(action.entity is null)
+            if (action.entity is null)
             {
                 removeEntityButton.style.display = DisplayStyle.None;
                 editEntityButton.style.display = DisplayStyle.None;
@@ -57,7 +57,7 @@ public class MainController : MonoBehaviour
 
         //Debug.Log(this.selectedEntity);
 
-        if(selectedEntity != null)
+        if (selectedEntity != null)
         {
             //Enabling PopUp
             SettingsPopup.SetActive(true);
@@ -100,9 +100,9 @@ public class MainController : MonoBehaviour
             //Setting value of the field
             Vector2 TestValue = new Vector2(125, 350);
             SpawnPointField.SetValueWithoutNotify(TestValue);
-            
+
         }
-        
+
         this.selectedEntity?.select();
         this.removeEntityButton.style.display = DisplayStyle.Flex;
         this.editEntityButton.style.display = DisplayStyle.Flex;
@@ -132,12 +132,24 @@ public class MainController : MonoBehaviour
 
             info.Vehicles.Add(v);
         });
+
+        removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            BaseModel entity = selectedEntity.getEntity();
+            //TODO: check how to prevent type checking here
+            if (entity is VehicleModel vehicle)
+            {
+                info.Vehicles.Remove(vehicle);
+            }
+            selectedEntity.destroy();
+            setSelectedEntity(null);
+        });
     }
 
     private void initializeEventList(VisualElement editorGUI)
     {
         // Store a reference to the character list element
-        eventList = editorGUI.Q<ListView>("character-list");
+        eventList = editorGUI.Q<ListView>("vehicle-list");
 
         // Set up a make item function for a list entry
         eventList.makeItem = () =>
