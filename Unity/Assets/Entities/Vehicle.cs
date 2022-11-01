@@ -1,5 +1,4 @@
 ﻿using Assets.Enums;
-using Dtos;
 
 namespace Entities
 {
@@ -7,34 +6,29 @@ namespace Entities
     {
         public Vehicle() : base() { }
 
-        public Vehicle(Coord3D spawnPoint, VehicleCategory category, Path path) : base(spawnPoint)
+        public Vehicle(Coord3D spawnPoint, Path path) : base(spawnPoint)
         {
-            Category = category;
             Path = path;
         }
 
-        public Vehicle(int id, Coord3D spawnPoint, VehicleCategory category, Path path) : base(id, spawnPoint)
+        public Vehicle(int id, Coord3D spawnPoint, Path path) : base(id, spawnPoint)
         {
-            Category = category;
             Path = path;
         }
 
-        public Vehicle(Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(spawnPoint)
+        public Vehicle(Coord3D spawnPoint, EntityModel model,  Path path) : base(spawnPoint)
         {
             Model = model;
-            Category = category;
             Path = path;
         }
 
-        public Vehicle(int id, Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(id, spawnPoint)
+        public Vehicle(int id, Coord3D spawnPoint, EntityModel model,  Path path) : base(id, spawnPoint)
         {
             Model = model;
-            Category = category;
             Path = path;
         }
 
         public EntityModel Model { get; set; }
-        public VehicleCategory Category { get; set; }
         public Path Path { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Dtos
+﻿namespace Entities
 {
     public class Coord
     {

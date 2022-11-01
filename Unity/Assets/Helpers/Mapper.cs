@@ -3,26 +3,36 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Helpers
 {
     public static class Mapper
     {
-        public static ScenarioInfo MapScenarioInfo(ScenarioInfoModel scenarioInfoModel)
+        public static Entities.ScenarioInfo MapScenarioInfo(Models.ScenarioInfo scenarioInfoModel)
         {
-            var scenarioInfo = new ScenarioInfo
+            var scenarioInfo = new Entities.ScenarioInfo
             {
                 Name = scenarioInfoModel.Name,
-                Pedestrians = MapModelToEntity<Pedestrian, PedestrianModel>(scenarioInfoModel.Pedestrians.ToList()),
+                Pedestrians = MapModelToEntity<Entities.Pedestrian, Models.Pedestrian>(scenarioInfoModel.Pedestrians.ToList()),
                 MapURL = scenarioInfoModel.MapURL,
-                WorldOptions = scenarioInfoModel.WorldOptions,
-                EgoVehicle = MapModelToEntity<Ego, EgoModel>(scenarioInfoModel.EgoVehicle),
-                Vehicles = MapModelToEntity<Vehicle, VehicleModel>(scenarioInfoModel.Vehicles.ToList())
+                WorldOptions = MapModelToEntity(scenarioInfoModel.WorldOptions),
+                EgoVehicle = MapModelToEntity<Entities.Ego, Models.Ego>(scenarioInfoModel.EgoVehicle),
+                Vehicles = MapModelToEntity<Entities.Vehicle, Models.Vehicle>(scenarioInfoModel.Vehicles.ToList())
             };
 
             return scenarioInfo;
+        }
+
+        private static Entities.WorldOptions MapModelToEntity(Models.WorldOptions model)
+        {
+            return new Entities.WorldOptions(
+                model.RainIntersity,
+                model.FogIntensity,
+                model.SunIntensity,
+                model.CloudState,
+                model.PrecipitationTypes,
+                model.PrecipitationIntensity
+            );
         }
 
         private static E MapModelToEntity<E, M>(M model) where E : BaseEntity, new() where M : BaseModel

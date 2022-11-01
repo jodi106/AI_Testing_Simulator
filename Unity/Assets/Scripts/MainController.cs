@@ -1,5 +1,4 @@
 using Assets.Enums;
-using Dtos;
 using Models;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -18,7 +17,7 @@ public class MainController : MonoBehaviour
     private Button editEntityButton;
     private Button worldSettingsButton;
 
-    private ScenarioInfoModel info;
+    private ScenarioInfo info;
 
     private IBaseEntityController selectedEntity;
 
@@ -32,7 +31,7 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
-        this.info = new ScenarioInfoModel();
+        this.info = new ScenarioInfo();
         this.selectedEntity = null;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
@@ -123,9 +122,9 @@ public class MainController : MonoBehaviour
             pos.z = -0.1f;
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
 
-            var vehiclePosition = new Coord3D(pos.x, pos.y, 0, 0);
-            var path = new Path(new List<Dtos.Event>());
-            VehicleModel v = new(vehiclePosition, VehicleCategory.Car, path);
+            var vehiclePosition = new Location(pos.x, pos.y, 0, 0);
+            var path = new Path(new List<Waypoint>());
+            Vehicle v = new(vehiclePosition, VehicleCategory.Car, path);
 
             var viewController = vehicleGameObject.GetComponent<VehicleViewController>();
             v.View = viewController;
@@ -140,7 +139,7 @@ public class MainController : MonoBehaviour
         {
             BaseModel entity = selectedEntity.getEntity();
             //TODO: check how to prevent type checking here
-            if (entity is VehicleModel vehicle)
+            if (entity is Vehicle vehicle)
             {
                 info.Vehicles.Remove(vehicle);
             }

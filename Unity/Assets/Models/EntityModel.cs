@@ -1,14 +1,14 @@
-﻿namespace Dtos
+﻿namespace Models
 {
-    public class EntityModel
+    public class Model
     {
-        public EntityModel(int id, string name)
+        public Model(int id, string name)
         {
             Id = id;
             Name = name;
             DisplayName = name;
         }
-        public EntityModel(int id, string name, string displayName)
+        public Model(int id, string name, string displayName)
         {
             Id = id;
             Name = name;

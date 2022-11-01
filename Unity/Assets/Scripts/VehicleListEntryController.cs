@@ -13,7 +13,7 @@ public class VehicleListEntryController
         category = visualElement.Q<Label>("category");
     }
 
-    public void setEventData(VehicleModel vehicle)
+    public void setEventData(Vehicle vehicle)
     {
         label.text = "" + vehicle.Id;
         category.text = "" + vehicle.Category;

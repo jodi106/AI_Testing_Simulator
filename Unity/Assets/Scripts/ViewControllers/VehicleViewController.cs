@@ -1,5 +1,4 @@
 using Assets.Enums;
-using Dtos;
 using Models;
 using System;
 using UnityEngine;
@@ -12,7 +11,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     private SpriteRenderer sprite;
     private Boolean placed = false;
     private Boolean selected = true;
-    public VehicleModel vehicle { get; set; } = new VehicleModel();
+    public Vehicle vehicle { get; set; } = new Vehicle();
     Vector2 difference = Vector2.zero;
 
     public void Awake()
@@ -52,9 +51,9 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         }
     }
 
-    public void onChangePosition(Coord3D v)
+    public void onChangePosition(Location l)
     {
-        transform.position = new Vector3((float)v.X, (float)v.Y, transform.position.z) - (Vector3)difference;
+        transform.position = new Vector3(l.Vector3.X, l.Vector3.Y, transform.position.z) - (Vector3)difference;
     }
 
     public void onChangeType(VehicleCategory cat)

@@ -1,27 +1,26 @@
-﻿using Dtos;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace Models
 {
-    public class ScenarioInfoModel
+    public class ScenarioInfo
     {
         public string Name { get; set; }
-        public ObservableCollection<PedestrianModel> Pedestrians { get; set; }
+        public ObservableCollection<Pedestrian> Pedestrians { get; set; }
         public string MapURL { get; set; }
         public WorldOptions WorldOptions { get; set; }
-        public EgoModel EgoVehicle { get; set; }
-        public ObservableCollection<VehicleModel> Vehicles { get; set; }
+        public Ego EgoVehicle { get; set; }
+        public ObservableCollection<Vehicle> Vehicles { get; set; }
 
-        public ScenarioInfoModel()
+        public ScenarioInfo()
         {
             Name = null;
-            Pedestrians = new ObservableCollection<PedestrianModel>();
+            Pedestrians = new ObservableCollection<Pedestrian>();
             MapURL = null;
             WorldOptions = new WorldOptions(0, 0, 0.5f, "free", "dry", 0);
             EgoVehicle = null;
-            Vehicles = new ObservableCollection<VehicleModel>();
+            Vehicles = new ObservableCollection<Vehicle>();
         }
-        public ScenarioInfoModel(string name, ObservableCollection<PedestrianModel> pedestrians, string mapURL, WorldOptions worldOptions, EgoModel egoVehicle, ObservableCollection<VehicleModel> vehicles)
+        public ScenarioInfo(string name, ObservableCollection<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Vehicle> vehicles)
         {
             Name = name;
             Pedestrians = pedestrians;

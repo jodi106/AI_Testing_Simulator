@@ -1,8 +1,8 @@
-namespace Dtos
+namespace Models
 {
     public class ActionType
     {
-        public ActionType()
+        public ActionType(string name, double speed)
         {
             //TODO
         }

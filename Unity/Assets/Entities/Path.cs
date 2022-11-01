@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dtos
+namespace Entities
 {
     public class Path
     {
@@ -9,14 +9,14 @@ namespace Dtos
         {
         }
 
-        public Path(List<Event> eventList)
+        public Path(List<Waypoint> eventList)
         {
             EventList = eventList;
         }
 
-        public List<Event> EventList { get; }
+        public List<Waypoint> EventList { get; }
 
-        public Event getEventById(int id)
+        public Waypoint getEventById(int id)
         {
             throw new NotImplementedException();
         }

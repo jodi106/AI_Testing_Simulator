@@ -1,4 +1,4 @@
-﻿using Dtos;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Entities
@@ -25,5 +25,6 @@ namespace Entities
         public WorldOptions WorldOptions { get; set; }
         public Ego EgoVehicle { get; set; }
         public List<Vehicle> Vehicles { get; set; }
+
     }
 }

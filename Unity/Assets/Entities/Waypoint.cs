@@ -1,11 +1,11 @@
 ﻿using Entities;
 using System.Collections.Generic;
 
-namespace Dtos
+namespace Entities
 {
-    public class Event
+    public class Waypoint
     {
-        public Event(int id, Coord position, List<BaseEntity> involvedEntities, string actionType)
+        public Waypoint(int id, Coord position, List<BaseEntity> involvedEntities, string actionType)
         {
             Id = id;
             Position = position;
@@ -15,7 +15,7 @@ namespace Dtos
 
         public int Id { get; set; }
         public Coord Position { get; set; }
-        public List<BaseEntity> InvolvedEntities { get; }
+        public List<BaseEntity> InvolvedEntities { get; set; }
         public string ActionType { get; set; }
     }
 }

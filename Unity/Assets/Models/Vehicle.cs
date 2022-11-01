@@ -1,34 +1,33 @@
 ﻿using Assets.Enums;
-using Dtos;
 
 namespace Models
 {
-    public class VehicleModel : BaseModel
+    public class Vehicle : BaseModel
     {
-        public VehicleModel() : base()
+        public Vehicle() : base()
         {
         }
 
-        public VehicleModel(Coord3D spawnPoint, VehicleCategory category, Path path) : base(spawnPoint)
-        {
-            Category = category;
-            Path = path;
-        }
-
-        public VehicleModel(int id, Coord3D spawnPoint, VehicleCategory category, Path path) : base(id, spawnPoint)
+        public Vehicle(Location spawnPoint, VehicleCategory category, Path path) : base(spawnPoint)
         {
             Category = category;
             Path = path;
         }
 
-        public VehicleModel(Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(spawnPoint)
+        public Vehicle(int id, Location spawnPoint, VehicleCategory category, Path path) : base(id, spawnPoint)
+        {
+            Category = category;
+            Path = path;
+        }
+
+        public Vehicle(Location spawnPoint, Model model, VehicleCategory category, Path path) : base(spawnPoint)
         {
             Model = model;
             Category = category;
             Path = path;
         }
 
-        public VehicleModel(int id, Coord3D spawnPoint, EntityModel model, VehicleCategory category, Path path) : base(id, spawnPoint)
+        public Vehicle(int id, Location spawnPoint, Model model, VehicleCategory category, Path path) : base(id, spawnPoint)
         {
             Model = model;
             Category = category;
@@ -37,12 +36,12 @@ namespace Models
 
         public void setPosition(float x, float y)
         {
-            SpawnPoint = new Coord3D(x, y, 0, 0);
+            SpawnPoint = new Location(x, y, 0, 0);
             View?.onChangePosition(SpawnPoint);
         }
 
         public IVehicleView View { get; set; }
-        public EntityModel Model { get; set; }
+        public Model Model { get; set; }
         public VehicleCategory Category { get; set; }
         public Path Path { get; set; }
     }

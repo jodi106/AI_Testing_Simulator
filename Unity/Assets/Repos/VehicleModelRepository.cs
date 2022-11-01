@@ -1,69 +1,69 @@
 ﻿using Assets.Enums;
-using Dtos;
+using Models;
 using System.Collections.Generic;
 
 namespace Assets.Repos
 {
     public class EntityModelRepository
     {
-        private readonly Dictionary<VehicleCategory, List<EntityModel>> _EntityModels;
+        private readonly Dictionary<VehicleCategory, List<Model>> _EntityModels;
         public EntityModelRepository()
         {
-            _EntityModels = new Dictionary<VehicleCategory, List<EntityModel>>();
+            _EntityModels = new Dictionary<VehicleCategory, List<Model>>();
 
-            _EntityModels.Add(VehicleCategory.Car, new List<EntityModel>
+            _EntityModels.Add(VehicleCategory.Car, new List<Model>
             {
-                new EntityModel(1,"Ambulance"),
-                new EntityModel(2,"AudiA2"),
-                new EntityModel(3,"AudiETron"),
-                new EntityModel(4,"AudiTT"),
-                new EntityModel(5,"BmwGrandTourer"),
-                new EntityModel(6,"BmwIsetta"),
-                new EntityModel(7,"CarlaCola"),
-                new EntityModel(8,"ChevroletImpala"),
-                new EntityModel(9,"CitroenC3"),
-                new EntityModel(9,"CitroenC3"),
-                new EntityModel(10,"Cybertruck"),
-                new EntityModel(11,"DodgeCharger2020"),
-                new EntityModel(12,"DodgeChargerPolice"),
-                new EntityModel(13,"FireTruck"),
-                new EntityModel(14,"Ford_Crown"),
-                new EntityModel(15,"JeepWranglerRubicon"),
-                new EntityModel(16,"LincolnMKZ2017"),
-                new EntityModel(17,"LincolnMKZ2020"),
-                new EntityModel(18,"Mercedes"),
-                new EntityModel(19,"Mini"),
-                new EntityModel(20,"Mini2021"),
-                new EntityModel(21,"Mustang"),
-                new EntityModel(22,"NissanMicra"),
-                new EntityModel(23,"NissanPatrol"),
-                new EntityModel(24,"NissanPatrol2021"),
-                new EntityModel(25,"SeatLeon"),
-                new EntityModel(26,"Sprinter"),
-                new EntityModel(27,"Tesla"),
-                new EntityModel(28,"ToyotaPrius"),
-                new EntityModel(29,"VolkswagenT2"),
-                new EntityModel(30,"Volkswagen_T2_2021"),
+                new Model(1,"Ambulance"),
+                new Model(2,"AudiA2"),
+                new Model(3,"AudiETron"),
+                new Model(4,"AudiTT"),
+                new Model(5,"BmwGrandTourer"),
+                new Model(6,"BmwIsetta"),
+                new Model(7,"CarlaCola"),
+                new Model(8,"ChevroletImpala"),
+                new Model(9,"CitroenC3"),
+                new Model(9,"CitroenC3"),
+                new Model(10,"Cybertruck"),
+                new Model(11,"DodgeCharger2020"),
+                new Model(12,"DodgeChargerPolice"),
+                new Model(13,"FireTruck"),
+                new Model(14,"Ford_Crown"),
+                new Model(15,"JeepWranglerRubicon"),
+                new Model(16,"LincolnMKZ2017"),
+                new Model(17,"LincolnMKZ2020"),
+                new Model(18,"Mercedes"),
+                new Model(19,"Mini"),
+                new Model(20,"Mini2021"),
+                new Model(21,"Mustang"),
+                new Model(22,"NissanMicra"),
+                new Model(23,"NissanPatrol"),
+                new Model(24,"NissanPatrol2021"),
+                new Model(25,"SeatLeon"),
+                new Model(26,"Sprinter"),
+                new Model(27,"Tesla"),
+                new Model(28,"ToyotaPrius"),
+                new Model(29,"VolkswagenT2"),
+                new Model(30,"Volkswagen_T2_2021"),
             });
 
-            _EntityModels.Add(VehicleCategory.Bike, new List<EntityModel>
+            _EntityModels.Add(VehicleCategory.Bike, new List<Model>
             {
-                new EntityModel(31, "CrossBike"),
-                new EntityModel(32, "LeisureBike"),
-                new EntityModel(33, "RoadBike"),
+                new Model(31, "CrossBike"),
+                new Model(32, "LeisureBike"),
+                new Model(33, "RoadBike"),
             });
 
-            _EntityModels.Add(VehicleCategory.Motorcycle, new List<EntityModel>
+            _EntityModels.Add(VehicleCategory.Motorcycle, new List<Model>
             {
-                new EntityModel(34, "Harle,"),
-                new EntityModel(35, "KawasakiNinja"),
-                new EntityModel(36, "Yamaha"),
-                new EntityModel(37, "Vespa"),
+                new Model(34, "Harle,"),
+                new Model(35, "KawasakiNinja"),
+                new Model(36, "Yamaha"),
+                new Model(37, "Vespa"),
             });
 
         }
 
-        public List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
+        public List<Model> GetModelsBasedOnCategory(VehicleCategory category)
         {
             return _EntityModels[category];
         }

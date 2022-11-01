@@ -1,6 +1,4 @@
-﻿using Dtos;
-
-namespace Entities
+﻿namespace Entities
 {
     public class BaseEntity
     {

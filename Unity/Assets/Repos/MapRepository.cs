@@ -1,6 +1,6 @@
-﻿using Assets.Enums;
-using Dtos;
+﻿using Models;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Assets.Repos
 {
@@ -11,12 +11,12 @@ namespace Assets.Repos
         {
             _maps = new List<Map>()
             {
-                new Map(new Coord(-2.059906005859375,396.3791809082031), new Coord(-2.0499608516693115,330.6099853515625), "Town01"),
-                new Map(new Coord(-7.459729194641113,193.74075317382812), new Coord(105.3907470703125,306.55999755859375),"Town02"),
-                new Map(new Coord(-149.0638427734375,248.99356079101562), new Coord(-209.27125549316406,207.6337432861328),"Town03"),
-                new Map(new Coord(-515.26904296875,414.145751953125), new Coord(-396.1461181640625,436.00714111328125),"Town04"),
-                new Map(new Coord(-276.0445251464844,211.0635528564453), new Coord(-207.87509155273438,209.06625366210938),"Town05"),
-                new Map(new Coord(-114.59522247314453,109.97942352294922), new Coord(-68.72904205322266,141.21044921875),"Town10HD")
+                new Map(new Vector2((float)-2.06,(float)396.38), new Vector2((float)-2.04,(float)330.61), "Town01"),
+                new Map(new Vector2((float)-7.46,(float)193.74), new Vector2((float)105.39,(float)306.56),"Town02"),
+                new Map(new Vector2((float)-149.06,(float)248.99), new Vector2((float)-209.27,(float)207.63),"Town03"),
+                new Map(new Vector2((float)-515.27,(float)414.14), new Vector2((float)-396.14,(float)436.0),"Town04"),
+                new Map(new Vector2((float)-276.04,(float)211.06), new Vector2((float)-207.87,(float)209.06),"Town05"),
+                new Map(new Vector2((float)-114.59,(float)109.97), new Vector2((float)-68.73,(float)141.21),"Town10HD")
             };
         }
 
