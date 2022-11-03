@@ -9,8 +9,12 @@ using UnityEngine.UIElements;
 public class MainController : MonoBehaviour
 {
     public VisualTreeAsset eventEntryTemplate;
+    //Spawned Cars
     public GameObject carPrefab;
+    //List of Spawned Cars;
+    public List<VehicleViewController> spawnedVehicles;
 
+    //Event Bar (Center Bottom)
     private ListView eventList;
     private Button addEntityButton;
     private Button removeEntityButton;
@@ -21,13 +25,11 @@ public class MainController : MonoBehaviour
 
     private IBaseEntityController selectedEntity;
 
+    //Car Settings Popup
     [SerializeField]
     GameObject VehicleSettingsPopup;
+
     public GameObject WorldSettingsPopup;
-
-    private Button SaveButton;
-
-    private Button ExitButton;
 
     void Start()
     {
@@ -54,59 +56,25 @@ public class MainController : MonoBehaviour
 
     private void setSelectedEntity(IBaseEntityController entity)
     {
-        this.selectedEntity?.deselect();
-        this.selectedEntity = entity;
-
-        //Debug.Log(this.selectedEntity);
-
-        if (selectedEntity != null)
+        if(entity != null)
         {
-            //Enabling PopUp
-            VehicleSettingsPopup.SetActive(true);
-            //Finding Popup
-            var ThePopup = VehicleSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
-            //Finding EXIT Button From popup
-            ExitButton = ThePopup.Q<Button>("Exit");
-            //adding callback function to exit
-            ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-            {
-                VehicleSettingsPopup.SetActive(false);
-            });
-            //Finding SAVE Button From popup
-            SaveButton = ThePopup.Q<Button>("Save");
-            //adding callback function to save
-            ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-            {
-                ///!!!!!!!
-                ///!!!!!!!
-                ///!!!!!!!
-                ///!!!!!!!
-                ///Code for saving the data to scenarioInfoFile later on...
-                ///!!!!!!!
-                ///!!!!!!!
-                ///!!!!!!!
-                ///!!!!!!!
-                Debug.Log("Saving Data of the Vehicle with id:" + selectedEntity);
-            });
+            this.selectedEntity?.deselect();
+            this.selectedEntity = entity;
 
-            //These lines should be later switched to entity properties.
-            //These are only for visual purposes
-
-            //Finding the Id Field
-            IntegerField iDField = ThePopup.Q<IntegerField>("ID");
-            //Setting value of the field
-            iDField.SetValueWithoutNotify(1);
-
-            //Finding the SpawnPointField
-            Vector2Field SpawnPointField = ThePopup.Q<Vector2Field>("SpawnPoint");
-            //Setting value of the field
-            Vector2 TestValue = new Vector2(125, 350);
-            SpawnPointField.SetValueWithoutNotify(TestValue);
+            this.selectedEntity?.select();
+            this.removeEntityButton.style.display = DisplayStyle.Flex;
+            this.editEntityButton.style.display = DisplayStyle.Flex;
         }
+        else
+        {
+            this.selectedEntity?.deselect();
+            this.selectedEntity = null;
 
-        this.selectedEntity?.select();
-        this.removeEntityButton.style.display = DisplayStyle.Flex;
-        this.editEntityButton.style.display = DisplayStyle.Flex;
+            this.selectedEntity?.select();
+            removeEntityButton.style.display = DisplayStyle.None;
+            editEntityButton.style.display = DisplayStyle.None;
+        }
+        
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -131,6 +99,8 @@ public class MainController : MonoBehaviour
             viewController.vehicle = v;
 
             setSelectedEntity(viewController);
+            
+            spawnedVehicles.Add(viewController);
 
             info.Vehicles.Add(v);
         });
@@ -145,6 +115,50 @@ public class MainController : MonoBehaviour
             }
             selectedEntity.destroy();
             setSelectedEntity(null);
+        });
+
+        editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            //Enabling PopUp
+            VehicleSettingsPopup.SetActive(true);
+            //Finding Popup
+            var ThePopup = VehicleSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
+            //Finding EXIT Button From popup
+            Button ExitButton = ThePopup.Q<Button>("Exit");
+            //adding callback function to exit
+            ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+            {
+                VehicleSettingsPopup.SetActive(false);
+            });
+            //Finding SAVE Button From popup
+            Button SaveButton = ThePopup.Q<Button>("Save");
+            //adding callback function to save
+            SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+            {
+                ///!!!!!!!
+                ///Code for saving the data to scenarioInfoFile later on...
+                ///!!!!!!!
+                Debug.Log("Saving Data of the Vehicle with id:" + selectedEntity);
+            });
+            //Getting Entity
+            BaseModel entity = selectedEntity.getEntity();
+
+            //Finding the Id Field
+            IntegerField iDField = ThePopup.Q<IntegerField>("ID");
+            //Setting value of the field
+            iDField.SetValueWithoutNotify(entity.Id);
+
+            
+            Debug.Log(entity.Id);
+            Debug.Log(entity.SpawnPoint);
+            Debug.Log(entity.ToString());
+
+            //Finding the SpawnPointField
+            Vector3Field SpawnPointField = ThePopup.Q<Vector3Field>("SpawnPoint");
+            //Setting value of the field
+            SpawnPointField.SetValueWithoutNotify(entity.SpawnPoint.Vector3);
+
+
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>

@@ -72,7 +72,40 @@ public class CameraMovement : MonoBehaviour
                 cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
             }
         }
-
+        //Verify if Camera is in max Position
+        //If yes , you can only zoom in (YOU CAN'T ZOOM OUT)
+        if (cam.orthographicSize == maxCamSize && (Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed)>0)
+        {
+            if (cam.orthographic)
+            {
+                //If the camera can be resized simply (the normal size of the camera is changed)
+                //Normal Case
+                cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            }
+            else
+            {
+                //If the camera can't be resized simply (increase the field of view)
+                //(Exception Case)
+                cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            }
+        }
+        //Verify if Camera is in min Position
+        //If yes , you can only zoom out (YOU CAN'T ZOOM IN)
+        if (cam.orthographicSize == minCamSize && Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed<0)
+        {
+            if (cam.orthographic)
+            {
+                //If the camera can be resized simply (the normal size of the camera is changed)
+                //Normal Case
+                cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            }
+            else
+            {
+                //If the camera can't be resized simply (increase the field of view)
+                //(Exception Case)
+                cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            }
+        }
         //Prints mouse position on every frame
         print_mouse_position();
     }
