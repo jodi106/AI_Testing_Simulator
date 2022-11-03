@@ -7,17 +7,14 @@ namespace ExportScenario.XMLBuilder
 {
     internal class BuildEntities
     {
-        public string xmlBLock { get; set; }
-        private DummyScenarioInfo scenarioInfo;
+        private ScenarioInfo scenarioInfo;
         private XmlDocument root;
         private XmlNode openScenario;
         private XmlNode entities;
 
-        public BuildEntities(DummyScenarioInfo scenarioInfo, XmlDocument root, XmlNode openScenario)
+        public BuildEntities(ScenarioInfo scenarioInfo, XmlDocument root, XmlNode openScenario)
         /// Constructor 
         {
-            /// xmlBlock = <Entities></Entities> 
-            xmlBLock = "null"; // ??
 
             this.scenarioInfo = scenarioInfo;
             this.root = root;
@@ -31,6 +28,7 @@ namespace ExportScenario.XMLBuilder
         /// Combines ScenarioObject xml blocks
         {
             // TODO Variables that need to be inside ScenarioInfo class TODO
+            /*
             int number_of_simulation_cars = 3; // excluding ego_vehicle !!!
             int number_of_pedestrians = 2;
             List<string> vehicle_model = new List<string>();
@@ -41,19 +39,23 @@ namespace ExportScenario.XMLBuilder
             List<string> pedestrian_model = new List<string>();
             pedestrian_model.Add("walker.pedestrian.0001");
             pedestrian_model.Add("walker.pedestrian.0002");
+            */
+
+            // Build Cars           
 
             // ego-vehicle
-            BuildVehicle(vehicle_model[0], "hero", "ego_vehicle");
+            BuildVehicle(scenarioInfo.EgoVehicle.Model.Name, "hero", "ego_vehicle");
             // other vehicles
-            for (int n = 1; n < number_of_simulation_cars; n++)
+            for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildVehicle(vehicle_model[n], "adversary" + n.ToString(), "simulation");
+                BuildVehicle(scenarioInfo.Vehicles[i].Model.Name, "adversary" + i.ToString(), "simulation");
             }
+            
 
             // pedestrians
-            for (int n = 0; n < number_of_pedestrians; n++)
+            for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
-                BuildPedestrian(pedestrian_model[n], "adversary_pedestrian" + n.ToString());
+                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.Name, "adversary_pedestrian" + i.ToString());
             }
 
 
@@ -120,15 +122,15 @@ namespace ExportScenario.XMLBuilder
             properties.AppendChild(property);
         }
 
-        public void BuildPedestrian(string model, string scenarioObjectName, double mass = 90.0)
+        public void BuildPedestrian(string model, string scenarioObjectName, string mass = "90.0")
         /// Creates Pedestrian xml block
         {
             XmlNode scenario_object = root.CreateElement("ScenarioObject");
             SetAttribute("name", scenarioObjectName, scenario_object);
             XmlNode pedestrian = root.CreateElement("Pedestrian");
-            SetAttribute("model", "walker.pedestrian.0001", pedestrian);
-            SetAttribute("mass", "90.0", pedestrian);
-            SetAttribute("name", "walker.pedestrian.0001", pedestrian);
+            SetAttribute("model", model, pedestrian);
+            SetAttribute("mass", mass, pedestrian);
+            SetAttribute("name", model, pedestrian);
             SetAttribute("pedestrianCategory", "pedestrian", pedestrian);
             XmlNode parameter_declarations = root.CreateElement("ParameterDeclarations");
             XmlNode bounding_box = root.CreateElement("BoundingBox");
