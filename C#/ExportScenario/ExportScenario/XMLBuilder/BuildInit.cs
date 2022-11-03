@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Xml;
 
 namespace ExportScenario.XMLBuilder
 {
     internal class BuildInit
     {
-        public string xmlBLock { get; set; }
-        private DummyScenarioInfo scenarioInfo;
+        private ScenarioInfo scenarioInfo;
         private XmlDocument root;
         private XmlNode openScenario;
         private XmlNode init;
         private XmlNode actions;
 
-        public BuildInit(DummyScenarioInfo scenarioInfo, XmlDocument root, XmlNode openScenario)
+        public BuildInit(ScenarioInfo scenarioInfo, XmlDocument root, XmlNode openScenario)
         /// Constructor
         {
-            /// xml = <Init><Actions>  </Actions></Init>
-            xmlBLock = "null"; // ??/// 
 
             this.scenarioInfo = scenarioInfo;
             this.root = root;
@@ -35,6 +33,11 @@ namespace ExportScenario.XMLBuilder
         /// Combines GlobalAction and Private xml blocks 
         {
             // TODO Variables that need to be inside ScenarioInfo class TODO
+
+
+
+            //
+
             int number_of_simulation_cars = 3;
             int number_of_pedestrians = 2;
             string[] x = { "255.7", "290", "255", "255" }; // index 0 is ego, index 1+ is simulation vehicle position
@@ -54,7 +57,8 @@ namespace ExportScenario.XMLBuilder
             BuildPrivate("hero", x[0], y[0], z[0], h[0], true, control_mode);
 
             // Spawn simulation vehicles at requested coordinates
-            for (int n = 0; n < number_of_simulation_cars; n++)
+            // for (int n = 0; n < number_of_simulation_cars; n++)
+            for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
                 BuildPrivate("adversary" + n.ToString(), x[n + 1], y[n + 1], z[n + 1], h[n + 1], false);
             }

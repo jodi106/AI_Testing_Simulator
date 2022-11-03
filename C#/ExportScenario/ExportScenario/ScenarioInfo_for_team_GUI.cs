@@ -2,6 +2,8 @@
 ScenarioInfo needs to have these variables:
 Map Information:
 - string map, e.g. "Town04"
+- string scenario_name, A name for the created scneario
+
 -------------------------------------------
 VEHICLES
 Information about vehicles:
