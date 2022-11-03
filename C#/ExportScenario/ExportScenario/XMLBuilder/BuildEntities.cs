@@ -45,13 +45,13 @@ namespace ExportScenario.XMLBuilder
 
             // ego-vehicle
             BuildVehicle(scenarioInfo.EgoVehicle.Model.Name, "hero", "ego_vehicle");
+
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
                 BuildVehicle(scenarioInfo.Vehicles[i].Model.Name, "adversary" + i.ToString(), "simulation");
             }
             
-
             // pedestrians
             for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
@@ -59,12 +59,6 @@ namespace ExportScenario.XMLBuilder
             }
 
 
-        }
-
-        public void BuildScenarioObject(string nameRef)
-        /// Creates ScenarioObject xml Block
-        {
-            // I dont need this :/
         }
 
         public void BuildVehicle(string model, string scenarioObjectName, string propertyValue)
