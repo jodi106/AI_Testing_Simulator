@@ -11,6 +11,8 @@ namespace ExportScenario
     {
         public static void Main()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
             WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, "free", "dry", 0, 1.0);
 
             Ego egoVehicle = new Ego(0, new Coord3D(255.7, -145.7, 0.3, 200), new EntityModel(0, "vehicle.volkswagen.t2", "notRelevant"));
