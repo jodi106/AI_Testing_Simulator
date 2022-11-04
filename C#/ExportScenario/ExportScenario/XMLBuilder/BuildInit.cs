@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using ExportScenario.Entities;
 
 namespace ExportScenario.XMLBuilder
 {
