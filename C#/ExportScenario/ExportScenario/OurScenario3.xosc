@@ -79,7 +79,7 @@
           <Environment name="Environment1">
             <TimeOfDay animation="false" dateTime="2022-09-24T12:00:00" />
             <Weather cloudState="free">
-              <Sun intensity="0,850000023841858" azimuth="0" elevation="1,31" />
+              <Sun intensity="0.850000023841858" azimuth="0" elevation="1.31" />
               <Fog visualRange="100000" />
               <Precipitation precipitationType="dry" intensity="0" />
             </Weather>
@@ -110,7 +110,7 @@
         <PrivateAction>
           <TeleportAction>
             <Position>
-              <WorldPosition x="255,7" y="-145,7" z="0,3" h="180" />
+              <WorldPosition x="255.7" y="-145.7" z="0.3" h="180" />
             </Position>
           </TeleportAction>
         </PrivateAction>
@@ -127,7 +127,7 @@
         <PrivateAction>
           <TeleportAction>
             <Position>
-              <WorldPosition x="300" y="-172" z="0,3" h="180" />
+              <WorldPosition x="300" y="-172" z="0.3" h="180" />
             </Position>
           </TeleportAction>
         </PrivateAction>
@@ -144,7 +144,7 @@
         <PrivateAction>
           <TeleportAction>
             <Position>
-              <WorldPosition x="255" y="-190" z="0,3" h="180" />
+              <WorldPosition x="255" y="-190" z="0.3" h="180" />
             </Position>
           </TeleportAction>
         </PrivateAction>
@@ -161,7 +161,7 @@
         <PrivateAction>
           <TeleportAction>
             <Position>
-              <WorldPosition x="255" y="-190" z="0,8" h="180" />
+              <WorldPosition x="255" y="-190" z="0.8" h="180" />
             </Position>
           </TeleportAction>
         </PrivateAction>

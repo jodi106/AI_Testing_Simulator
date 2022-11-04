@@ -2,31 +2,80 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using ExportScenario.Entities;
 
 namespace ExportScenario.XMLBuilder
 {
     internal class BuildTrigger
     {
-        //public string xmlBLock { get; set;}
         private XmlDocument root;
+        private ScenarioInfo scenarioInfo;
+        private int conditionNr = 0;
 
-        public BuildTrigger(XmlDocument root)
+        public BuildTrigger(XmlDocument root, ScenarioInfo scenarioInfo)
         {
             this.root = root;
+            this.scenarioInfo = scenarioInfo;
         }
 
-        public void CombineTrigger()
+        public void CombineTrigger(bool start, XmlNode parentNode)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group 
         {
-            ///if StartTrigger{xml = <StartTrigger></StartTrigger><ConditionGroup></ConditionGroup>}
+            XmlNode trigger;
+            if (start)
+            {
+                ///if StartTrigger{xml = <StartTrigger></StartTrigger><ConditionGroup></ConditionGroup>}
+                trigger = root.CreateElement("StartTrigger");
 
-            ///if StopStrigger{xml = <StopTrigger></StopTrigger><ConditionGroup></ConditionGroup> }
+            }
+            else
+            {
+                ///if StopStrigger{xml = <StopTrigger></StopTrigger><ConditionGroup></ConditionGroup> }
+                trigger = root.CreateElement("StopTrigger");
+            }
+            XmlNode conditionGroup = root.CreateElement("ConditionGroup");
+
+            parentNode.AppendChild(trigger);
+            trigger.AppendChild(conditionGroup);
+
+
         }
 
         //public void ByValueCondition(string ValueCondition, dict args)
-        public void ByValueCondition(string ValueCondition, string dict_args) // original: dict args
+        public void ByValueCondition(XmlNode conditionGroup, string ValueCondition, string dict_args) // original: dict args
 
         {
+            // TODO ScenarioInfo
+            string conditionEdge = "rising"; // possible string values: "rising" , "falling" , "none" , "risingOrFalling"
+            // doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/ConditionEdge.html
+
+            // SimulationTimeCondition
+            double simulationTimeValue = 1;
+            
+
+            XmlNode condition = root.CreateElement("Condition");
+            SetAttribute("name", "condition" + conditionNr.ToString(), condition);
+            conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted.
+            SetAttribute("delay", "0", condition);
+            SetAttribute("conditionEdge", conditionEdge, condition);
+            XmlNode byValueCondition = root.CreateElement("ByValueCondition");
+
+            conditionGroup.AppendChild(condition);
+            condition.AppendChild(byValueCondition);
+
+            if (ValueCondition.Equals("SimulationTimeCondition"))
+            {
+                XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
+                SetAttribute("value", simulationTimeValue.ToString(), simulationTimeCondition);
+                // continue...
+
+            } else if (ValueCondition.Equals("StoryboardElementStateCondition"))
+            {
+
+            } else
+            {
+                Console.WriteLine("Naming error in value condition. This name is not supported.");
+            }
             /* All Value Conditions
             <!-- parameterCondition -->
             <!-- timeOfDayCondition -->
@@ -39,6 +88,7 @@ namespace ExportScenario.XMLBuilder
 
             //xmlBrick.append
             /*
+            <ConditionName>
             <ByValueCondition>
 
                 //Space for value condition
