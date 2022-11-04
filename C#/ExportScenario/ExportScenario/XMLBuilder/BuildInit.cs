@@ -34,36 +34,26 @@ namespace ExportScenario.XMLBuilder
         public void CombineInit()
         /// Combines GlobalAction and Private xml blocks 
         {
-            /*
-            int number_of_simulation_cars = 3;
-            int number_of_pedestrians = 2;
-            string[] x = { "255.7", "290", "255", "255" }; // index 0 is ego, index 1+ is simulation vehicle position
-            string[] y = { "-145.7", "-172", "-190", "-210" };
-            string[] z = { "0.3", "0.3", "0.3", "0.3" };
-            string[] h = { "200", "180", "90", "90" };
-            string[] x_ped = { "265", "266" };
-            string[] y_ped = { "-165.1", "-164" };
-            string[] z_ped = { "0.3", "0.3" };
-            string[] h_ped = { "200", "90" };
-            */
+
+            // TODO implement InitialSpeed Attirbute for entities
 
             double rotation = 180.0; // TODO either expand SpawnPoint to 4 values or add rotation attribute to vehicles
             string control_mode = "carla_auto_pilot_control"; // other value: external_control 
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
             // Spawn ego vehicle at requested coordinates
-            BuildPrivate("hero", scenarioInfo.EgoVehicle.SpawnPoint, rotation, true, control_mode);
+            BuildPrivate("hero", scenarioInfo.EgoVehicle.SpawnPoint, rotation, 0, true, control_mode);
 
             // Spawn simulation vehicles at requested coordinates
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
-                BuildPrivate("adversary" + n.ToString(), scenarioInfo.Vehicles[n].SpawnPoint, rotation);
+                BuildPrivate("adversary" + n.ToString(), scenarioInfo.Vehicles[n].SpawnPoint, rotation, 20);
             }
 
             // Spawn pedestrians at requested coordinates
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate("adversary_pedestrian" + n.ToString(), scenarioInfo.Pedestrians[n].SpawnPoint, rotation);
+                BuildPrivate("adversary_pedestrian" + n.ToString(), scenarioInfo.Pedestrians[n].SpawnPoint, rotation, 0);
             }
 
         }
@@ -115,41 +105,21 @@ namespace ExportScenario.XMLBuilder
             environment.AppendChild(road_condition);
         }
 
-        public void BuildPrivate(string entityRef, Coord3D spawnPoint, double rotation, bool isEgoVehicle = false, string controlMode = "simulation")
+        public void BuildPrivate(string entityRef, Coord3D spawnPoint, double rotation, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
         /// Builds Private xml block
         {
-            // initial position
+            // ToDO add controllerAction to BuildAction
+
             XmlNode _private = root.CreateElement("Private");
             SetAttribute("entityRef", entityRef, _private);
             XmlNode private_action1 = root.CreateElement("PrivateAction");
-            XmlNode teleport_action = root.CreateElement("TeleportAction");
-            XmlNode position = root.CreateElement("Position");
-            XmlNode world_position = root.CreateElement("WorldPosition");
-
-            SetAttribute("x", spawnPoint.X.ToString(), world_position);
-            SetAttribute("y", spawnPoint.Y.ToString(), world_position);
-            SetAttribute("z", spawnPoint.Z.ToString(), world_position);
-            SetAttribute("h", rotation.ToString(), world_position);
-            /*
-            SetAttribute("x", x, world_position);
-            SetAttribute("y", y, world_position);
-            SetAttribute("z", z, world_position);
-            SetAttribute("h", h, world_position);
-            */
-
-            // initial speed
-            // TODO implement speed action method instead of hard coding
             XmlNode private_action2 = root.CreateElement("PrivateAction");
-            XmlNode speed_action = root.CreateElement("SpeedAction");
-            XmlNode SpeedActionDynamics = root.CreateElement("SpeedActionDynamics");
-            XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
-            XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
 
-            SetAttribute("dynamicsShape", "step", SpeedActionDynamics);
-            SetAttribute("value", "0", SpeedActionDynamics);
-            SetAttribute("dynamicsDimension", "time", SpeedActionDynamics);
-
-            SetAttribute("value", "20.0", AbsoluteTargetSpeed);
+            BuildAction buildAction = new BuildAction(root, "BuildPrivate");
+            // initial position
+            buildAction.TeleportAction(spawnPoint, private_action1, rotation);
+            // initial speed
+            buildAction.SpeedAction(initialSpeed, private_action2);
 
             if (isEgoVehicle)
             {
@@ -201,15 +171,7 @@ namespace ExportScenario.XMLBuilder
             // Hierarchy
             actions.AppendChild(_private);
             _private.AppendChild(private_action1);
-            private_action1.AppendChild(teleport_action);
-            teleport_action.AppendChild(position);
-            position.AppendChild(world_position);
-
             _private.AppendChild(private_action2);
-            private_action2.AppendChild(speed_action);
-            speed_action.AppendChild(SpeedActionDynamics);
-            speed_action.AppendChild(SpeedActionTarget);
-            SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
 
         }
 

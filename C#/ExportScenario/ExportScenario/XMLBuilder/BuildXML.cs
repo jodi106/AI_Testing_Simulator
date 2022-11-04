@@ -8,7 +8,6 @@ namespace ExportScenario.XMLBuilder
 {
     public class BuildXML
     {
-        public string xmlBLock { get; set; }
 
         private XmlDocument root;
         private XmlNode openScenario;

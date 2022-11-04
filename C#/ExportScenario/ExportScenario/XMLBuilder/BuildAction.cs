@@ -117,35 +117,27 @@ namespace ExportScenario.XMLBuilder
             */
         }
 
-        public void SpeedAction(double speedActionDynamicsValue, double absoluteTargetSpeedValue, XmlNode privateAction)
+        public void SpeedAction(double absoluteTargetSpeedValue, XmlNode privateAction, string speedActionDynamics = "step", double speedActionDynamicsValue = 0, string dynamicsDimension = "time")
         /// Creates Speed Action
         {
+
             XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
             XmlNode speedAction = root.CreateElement("SpeedAction");
-            XmlNode speedActionDynamics = root.CreateElement("SpeedActionDynamics");
-            SetAttribute("dynamicsShape", "step", speedActionDynamics);
-            SetAttribute("value", speedActionDynamicsValue.ToString(), speedActionDynamics);
-            SetAttribute("dynamicsDimension", "distance", speedActionDynamics);
-            XmlNode speedActionTarget = root.CreateElement("SpeedActionTarget");
-            XmlNode absoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
-            SetAttribute("value", absoluteTargetSpeedValue.ToString(), absoluteTargetSpeed);
+            XmlNode SpeedActionDynamics = root.CreateElement("SpeedActionDynamics");
+            XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
+            XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
+
+            SetAttribute("dynamicsShape", speedActionDynamics, SpeedActionDynamics);
+            SetAttribute("value", speedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("dynamicsDimension", dynamicsDimension, SpeedActionDynamics);
+            SetAttribute("value", absoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);
 
             privateAction.AppendChild(longitudinalAction);
-            longitudinalAction.AppendChild(speedAction);
-            speedAction.AppendChild(speedActionDynamics);
-            speedAction.AppendChild(speedActionTarget);
-            speedActionTarget.AppendChild(absoluteTargetSpeed);
+            longitudinalAction.AppendChild(speedAction);           
+            speedAction.AppendChild(SpeedActionDynamics);
+            speedAction.AppendChild(SpeedActionTarget);
+            SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
 
-            /*
-            <LongitudinalAction>
-            <SpeedAction>
-                <SpeedActionDynamics dynamicsShape="step" value="10" dynamicsDimension="time"/>
-                <SpeedActionTarget>
-                    <AbsoluteTargetSpeed value="0.0"/>
-                </SpeedActionTarget>
-            </SpeedAction>
-            </LongitudinalAction>        
-            */
         }
 
         public void LaneChangeAction(double laneChangeActionDynamicsValue, string entityRef, int relativeTargetLaneValue, XmlNode privateAction)
@@ -177,6 +169,27 @@ namespace ExportScenario.XMLBuilder
             </LaneChangeAction>
             </LateralAction>
             */
+        }
+
+        public void TeleportAction(Coord3D spawnPoint, XmlNode privateAction, double rotation)
+        {
+            XmlNode teleport_action = root.CreateElement("TeleportAction");
+            XmlNode position = root.CreateElement("Position");
+            XmlNode world_position = root.CreateElement("WorldPosition");
+
+            SetAttribute("x", spawnPoint.X.ToString(), world_position);
+            SetAttribute("y", spawnPoint.Y.ToString(), world_position);
+            SetAttribute("z", spawnPoint.Z.ToString(), world_position);
+            SetAttribute("h", rotation.ToString(), world_position);
+
+            privateAction.AppendChild(teleport_action);
+            teleport_action.AppendChild(position);
+            position.AppendChild(world_position);
+        }
+
+        public void ControllerAction()
+        {
+            // wip
         }
 
         /// helper
