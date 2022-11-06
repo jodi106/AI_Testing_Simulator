@@ -11,8 +11,6 @@ public class MainController : MonoBehaviour
     public VisualTreeAsset eventEntryTemplate;
     //Spawned Cars
     public GameObject carPrefab;
-    //List of Spawned Cars;
-    public List<VehicleViewController> spawnedVehicles;
 
     //Event Bar (Center Bottom)
     private ListView eventList;
@@ -99,8 +97,6 @@ public class MainController : MonoBehaviour
             viewController.vehicle = v;
 
             setSelectedEntity(viewController);
-            
-            spawnedVehicles.Add(viewController);
 
             info.Vehicles.Add(v);
         });
