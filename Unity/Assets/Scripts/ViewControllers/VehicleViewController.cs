@@ -24,16 +24,38 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
 
     public void OnMouseDrag()
     {
+        var snapController = Camera.main.GetComponent<SnapController>();
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        vehicle.setPosition(mousePosition.x, mousePosition.y);
+        JsonWaypoint waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (waypoint is not null)
+        {
+            difference = Vector2.zero;
+            vehicle.setPosition(waypoint.x, waypoint.y);
+            gameObject.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
+        }
+        else
+        {
+            vehicle.setPosition(mousePosition.x, mousePosition.y);
+        }
     }
 
     public void Update()
     {
         if (!placed)
         {
+            var snapController = Camera.main.GetComponent<SnapController>();
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            vehicle.setPosition(mousePosition.x, mousePosition.y);
+            JsonWaypoint waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (waypoint is not null)
+            {
+                difference = Vector2.zero;
+                vehicle.setPosition(waypoint.x, waypoint.y);
+                gameObject.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
+            }
+            else
+            {
+                vehicle.setPosition(mousePosition.x, mousePosition.y);
+            }
         }
     }
 
