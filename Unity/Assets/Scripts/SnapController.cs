@@ -7,7 +7,7 @@ using UnityEngine;
 public class SnapController : MonoBehaviour
 {
     public GameObject circlePrefab;
-    private List<JsonWaypoint> waypoints;
+    private Dictionary<string, List<JsonWaypoint>> waypoints;
     void Start()
     {
         EventManager.StartListening(typeof(MapChangeAction), x =>
@@ -20,12 +20,15 @@ public class SnapController : MonoBehaviour
     void loadWaypoints(string mapName)
     {
         var text = Resources.Load<TextAsset>("Waypoints/" + mapName);
-        waypoints = JsonConvert.DeserializeObject<List<JsonWaypoint>>(text.text);
-        foreach (JsonWaypoint waypoint in waypoints)
+        waypoints = JsonConvert.DeserializeObject<Dictionary<string, List<JsonWaypoint>>>(text.text);
+        foreach (KeyValuePair<string, List<JsonWaypoint>> entry in waypoints)
         {
-            waypoint.x = (waypoint.x - -114.59522247314453f) * 25 / 100;
-            waypoint.y = (waypoint.y - -68.72904205322266f) * 25 / 100 * (-1);
-            Instantiate(circlePrefab, new Vector3(waypoint.x, waypoint.y, -0.05f), Quaternion.identity);
+            foreach (JsonWaypoint waypoint in entry.Value)
+            {
+                waypoint.x = (waypoint.x - -114.59522247314453f) * 25 / 100;
+                waypoint.y = (waypoint.y - -68.72904205322266f) * 25 / 100 * (-1);
+                Instantiate(circlePrefab, new Vector3(waypoint.x, waypoint.y, -0.05f), Quaternion.identity);
+            }
 
         }
     }
@@ -39,13 +42,16 @@ public class SnapController : MonoBehaviour
     {
         JsonWaypoint closestWaypoint = null;
         double distance = double.MaxValue;
-        foreach(JsonWaypoint waypoint in waypoints)
+        foreach (KeyValuePair<string, List<JsonWaypoint>> entry in waypoints)
         {
-            double currDistance = Math.Sqrt(Math.Pow(waypoint.x - pos.x, 2) + Math.Pow(waypoint.y - pos.y, 2));
-            if(currDistance < distance)
+            foreach (JsonWaypoint waypoint in entry.Value)
             {
-                closestWaypoint = waypoint;
-                distance = currDistance;
+                double currDistance = Math.Sqrt(Math.Pow(waypoint.x - pos.x, 2) + Math.Pow(waypoint.y - pos.y, 2));
+                if (currDistance < distance)
+                {
+                    closestWaypoint = waypoint;
+                    distance = currDistance;
+                }
             }
         }
         return closestWaypoint;
