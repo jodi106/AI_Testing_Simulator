@@ -140,7 +140,7 @@ public class CameraMovement : MonoBehaviour
     public void print_mouse_position()
     {
         //Printing Mouse Positions to Screen 
-        debugger.text = "Mouse Coords: (" + Input.mousePosition.x + " , " + Input.mousePosition.y + ")";
+        debugger.text = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToString();
     }
 
     private Vector3 ClampCamera(Vector3 targetPosition)
@@ -319,5 +319,6 @@ public class CameraMovement : MonoBehaviour
         mapRenderer = GameObject.Find("MapBackgroundTown10").GetComponent<SpriteRenderer>();
         //Recalculate Screen Edges
         Awake();
+        EventManager.TriggerEvent(new MapChangeAction("Town10HD"));
     }
 }
