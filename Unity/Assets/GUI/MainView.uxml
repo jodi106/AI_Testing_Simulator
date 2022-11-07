@@ -1,5 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/GUI/MainView.uss?fileID=7433441132597879392&amp;guid=13baa8e69d75c7246a6eaea7ddea10d7&amp;type=3#MainView" />
+    <ui:VisualElement name="background" style="width: 300px; height: 100%; right: 0; top: 0; position: absolute;">
+        <ui:ListView name="vehicle-list" fixed-item-height="0" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="None" style="height: 100%; min-height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.39); position: absolute;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="actionButtons" style="height: 80px; background-color: rgba(0, 0, 0, 0.39); border-top-left-radius: 50px; border-bottom-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; flex-direction: row; align-items: center; justify-content: center; position: absolute; top: 50%;">
+        <ui:Button display-tooltip-when-elided="true" name="setPathButton" style="width: 50px; height: 50px; border-top-left-radius: 25px; border-bottom-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; margin-left: 12.5px; margin-right: 12.5px; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px; margin-top: 0; margin-bottom: 0;">
+            <ui:VisualElement style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/plus.png?fileID=2800000&amp;guid=c91ff3940d22d254c868307986182c22&amp;type=3#plus&apos;); -unity-background-scale-mode: scale-to-fit;" />
+        </ui:Button>
+    </ui:VisualElement>
     <ui:VisualElement name="buttons" style="position: relative; height: 80px; background-color: rgba(0, 0, 0, 0.39); border-top-left-radius: 50px; border-bottom-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: 25px; flex-direction: row; align-items: center; justify-content: center; padding-right: 6px; padding-left: 6px;">
         <ui:Button display-tooltip-when-elided="true" name="addEntityButton" style="width: 50px; height: 50px; border-top-left-radius: 25px; border-bottom-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; margin-left: 12.5px; margin-right: 12.5px; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px; margin-top: 0; margin-bottom: 0;">
             <ui:VisualElement style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/plus.png?fileID=2800000&amp;guid=c91ff3940d22d254c868307986182c22&amp;type=3#plus&apos;); -unity-background-scale-mode: scale-to-fit;" />
@@ -13,8 +21,5 @@
         <ui:Button name="worldSettingsButton" style="width: 50px; height: 50px; border-top-left-radius: 25px; border-bottom-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; margin-left: 12.5px; margin-right: 12.5px; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px; margin-top: 0; margin-bottom: 0; display: flex;">
             <ui:VisualElement style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Icons/world.png?fileID=2800000&amp;guid=d62a3b095fedc1045b9a3e0ead61ea7e&amp;type=3#world&apos;); -unity-background-scale-mode: scale-to-fit;" />
         </ui:Button>
-    </ui:VisualElement>
-    <ui:VisualElement name="background" style="width: 300px; height: 100%; right: 0; top: 0; position: absolute;">
-        <ui:ListView name="vehicle-list" fixed-item-height="0" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="None" style="height: 100%; min-height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.39);" />
     </ui:VisualElement>
 </ui:UXML>

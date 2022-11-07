@@ -27,7 +27,6 @@ namespace ExportScenario.XMLBuilder
             {
                 ///if StartTrigger{xml = <StartTrigger></StartTrigger><ConditionGroup></ConditionGroup>}
                 trigger = root.CreateElement("StartTrigger");
-
             }
             else
             {
@@ -35,6 +34,16 @@ namespace ExportScenario.XMLBuilder
                 trigger = root.CreateElement("StopTrigger");
             }
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
+
+            // TODO change "String" to Object
+            foreach (String c in byValueCondition)
+            {
+                ByValueCondition(conditionGroup, "SimulationTimeCondition", c);
+            } 
+            foreach (String c in byEntityCondition)
+            {
+                ByEntityCondition(conditionGroup, "", null, c);
+            }
 
             parentNode.AppendChild(trigger);
             trigger.AppendChild(conditionGroup);
@@ -67,12 +76,25 @@ namespace ExportScenario.XMLBuilder
 
         {
             // TODO ScenarioInfo
+
             string conditionEdge = "rising"; // possible string values: "rising" , "falling" , "none" , "risingOrFalling"
             // doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/ConditionEdge.html
 
             // SimulationTimeCondition
             double simulationTimeValue = 1;
-            
+            string simulationTimeRule = "greaterThan"; // "equalTo" , "greaterThan" , "lessThan" ,
+                                                       // (not sure if supported) "greaterOrEqual" , "lessOrEqual" , "notEqualTo"
+
+            // StoryBoardElementStateCondition
+            string storyboardElementRef = "STORY_BOARD_ELEMENT_NAME"; // story, act, maneuverGroup, maneuver, event, or action name
+            string storyboardElementType = "action"; // "story", "act", "maneuverGroup", "maneuver", "event", "action" 
+                                               // This variable must have the same type as the storyboardElementRef name is referring to.
+                                               // e.g. storyboardElementRef = "StartCar". This is of type action --> storyboardElementType = "action";
+            string storyboardState = "completeState"; // "completeState", "endTransition", "runningState", "skipTransition", 
+                                                      // "standbyState", "startTransition", "stopTransition"
+                                                      // Doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/StoryboardElementState.html
+
+            // -----------------------------------------------------------------------------------------
 
             XmlNode condition = root.CreateElement("Condition");
             SetAttribute("name", "condition", condition);
@@ -88,16 +110,110 @@ namespace ExportScenario.XMLBuilder
             {
                 XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
                 SetAttribute("value", simulationTimeValue.ToString(), simulationTimeCondition);
-                // continue...
-
-            } else if (ValueCondition.Equals("StoryboardElementStateCondition"))
+                SetAttribute("rule", simulationTimeRule, simulationTimeCondition);
+                byValueCondition.AppendChild(simulationTimeCondition);
+            } 
+            else if (ValueCondition.Equals("StoryboardElementStateCondition"))
             {
-
+                XmlNode storyboardElementStateCondition = root.CreateElement("StoryboardElementStateCondition");
+                SetAttribute("storyboardElementRef", storyboardElementRef, storyboardElementStateCondition);
+                SetAttribute("storyboardElementType", storyboardElementType, storyboardElementStateCondition);
+                SetAttribute("state", storyboardState, storyboardElementStateCondition);
+                byValueCondition.AppendChild(storyboardElementStateCondition);
             } else
             {
                 Console.WriteLine("Naming error in value condition. This name is not supported.");
             }
-            /* All Value Conditions
+        }
+
+        /**
+         <Condition>
+           <ByEntityCondition>
+               <TriggeringEntities>
+                   <EntityRef entityRef="adversary0"/>
+               </TriggeringEntities>
+                   <EntityCondition>
+                       //Space for entity condition
+                   </EntityCondition>
+           </ByEntityCondition>
+         <Condition>
+        */
+        public void ByEntityCondition(XmlNode conditionGroup, string EntityCondition, List<string> allEntityRefs, string dict_args) // original: Dict args
+        {
+            // TODO ScenarioInfo
+
+            string conditionEdge = "rising"; // possible string values: "rising" , "falling" , "none" , "risingOrFalling"
+            // doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/ConditionEdge.html
+
+            List<string> allEntityRefs_; // contains strings like "adversary0" , "adversary0" , "hero", ...
+
+            // ReachPositionCondition
+            double tolerance = 3.0;
+
+            //DistanceCondition
+            bool freespace = false; // True: distance is measured between closest bounding box points. False: reference point distance is used.
+            string rule = "greaterThan"; // "equalTo", "greaterThan", "lessThan", (not sure if supported) "greaterOrEqual", "lessOrEqual", "notEqualTo"
+            double value = 3.0; // The distance value. Unit: [m]. Range: [0..inf[.
+            string routingAlgorithm = "fastest"; // "undefined", "fastest" , "shortest" , ... (these 2 are the relevant options)
+
+            // -----------------------------------------------------------------------
+
+            XmlNode condition = root.CreateElement("Condition");
+            SetAttribute("name", "condition" + conditionNr.ToString(), condition);
+            conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted.
+            SetAttribute("delay", "0", condition);
+            SetAttribute("conditionEdge", conditionEdge, condition);
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            
+            foreach (string r in allEntityRefs)
+            {
+                XmlNode entityRef = root.CreateElement("EntityRef");
+                SetAttribute("entityRef", r, entityRef);
+                triggeringEntities.AppendChild(entityRef);
+            }
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+
+            conditionGroup.AppendChild(condition);
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+
+            if (EntityCondition.Equals("DistanceCondition"))
+            {
+                XmlNode distanceCondition = root.CreateElement("DistanceCondition");
+                SetAttribute("freespace", freespace.ToString(), distanceCondition);
+                SetAttribute("rule", rule, distanceCondition);
+                SetAttribute("value", value.ToString(), distanceCondition);
+                SetAttribute("routingAlgorithm", routingAlgorithm, distanceCondition);
+                entityCondition.AppendChild(distanceCondition);
+            }
+            else if (EntityCondition.Equals("ReachPositionCondition"))
+            {
+                XmlNode reachPositionCondition = root.CreateElement("ReachPositionCondition");
+                SetAttribute("tolerance", tolerance.ToString(), reachPositionCondition);
+                entityCondition.AppendChild(reachPositionCondition);
+            }
+            else
+            {
+                Console.WriteLine("Naming error in Entity condition. This name is not supported.");
+            }
+        }
+
+        /// helper
+        private void SetAttribute(string name, string value, XmlNode element)
+        {
+            XmlAttribute attribute = root.CreateAttribute(name);
+            attribute.Value = value;
+            element.Attributes.Append(attribute);
+        }
+    }
+}
+
+
+/* All Value Conditions
             <!-- parameterCondition -->
             <!-- timeOfDayCondition -->
             <!-- IMPLEMENTED simulationTimeCondition params: value(float), rule (enum(less, greater, equal))-->
@@ -107,38 +223,7 @@ namespace ExportScenario.XMLBuilder
             <!-- trafficSignalControllerCondition -->
             */
 
-            //xmlBrick.append
-            /*
-            <ConditionName>
-            <ByValueCondition>
-
-                //Space for value condition
-            </ByValueCondition>
-            */
-
-            if (ValueCondition == "StoryboardElementStateCondition")
-            {
-                //xmlBrick.append
-                /*
-                <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="STORY_BOARD_ELEMENT_NAME" state="completeState"/>
-                */
-            }
-
-            if (ValueCondition == "SimulationTimeCondition")
-            {
-                /*
-                <SimulationTimeCondition value="2.0" rule="greaterThan"/>
-                */
-            }
-
-
-
-        }
-
-        //public void ByEntityCondition(string EntityRef, string EntityCondition, dict args)
-        public void ByEntityCondition(string EntityRef, string EntityCondition, string dict_args) // original: dict args
-        {
-            /* All EntityConditions
+/* All EntityConditions
             <!-- endOfRoadCondition-->
             <!-- collisionCondition-->
             <!-- offroadCondition-->
@@ -153,43 +238,3 @@ namespace ExportScenario.XMLBuilder
             <!-- distanceCondition params-->
             <!-- relativeDistanceCondition-->
             */
-
-            /// xmlBrick.append
-            /*
-            <ByEntityCondition>
-                <TriggeringEntities triggeringEntitiesRule="any">
-                    <EntityRef entityRef="adversary0"/>
-                </TriggeringEntities>
-                    <EntityCondition>
-                        //Space for entity condition
-                    </EntityCondition>
-            </ByEntityCondition>
-            */
-            if (EntityCondition == "ReachPositionCondition")
-            {
-                /*
-                <ReachPositionCondition tolerance="2.0">
-                    <Position>
-                    <WorldPosition x="402" y="-150" z="0.3" h="29.9"/>
-                    </Position>
-                </ReachPositionCondition>
-                */
-            }
-
-            if (EntityCondition == "DistanceCondition")
-            {
-                /*
-                */
-            }
-
-        }
-
-        /// helper
-        private void SetAttribute(string name, string value, XmlNode element)
-        {
-            XmlAttribute attribute = root.CreateAttribute(name);
-            attribute.Value = value;
-            element.Attributes.Append(attribute);
-        }
-    }
-}
