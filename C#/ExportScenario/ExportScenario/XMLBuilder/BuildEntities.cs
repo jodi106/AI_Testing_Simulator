@@ -29,19 +29,6 @@ namespace ExportScenario.XMLBuilder
         /// Combines ScenarioObject xml blocks
         {
             // TODO Variables that need to be inside ScenarioInfo class TODO
-            /*
-            int number_of_simulation_cars = 3; // excluding ego_vehicle !!!
-            int number_of_pedestrians = 2;
-            List<string> vehicle_model = new List<string>();
-            vehicle_model.Add("vehicle.volkswagen.t2");
-            vehicle_model.Add("vehicle.audi.tt");
-            vehicle_model.Add("vehicle.audi.tt");
-            vehicle_model.Add("vehicle.audi.tt");
-            List<string> pedestrian_model = new List<string>();
-            pedestrian_model.Add("walker.pedestrian.0001");
-            pedestrian_model.Add("walker.pedestrian.0002");
-            */
-
             // Build Cars           
 
             // ego-vehicle
@@ -50,13 +37,13 @@ namespace ExportScenario.XMLBuilder
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildVehicle(scenarioInfo.Vehicles[i].Model.Name, "adversary" + i.ToString(), "simulation");
+                BuildVehicle(scenarioInfo.Vehicles[i].Model.Name, "adversary" + scenarioInfo.Vehicles[i].Id, "simulation");
             }
             
             // pedestrians
             for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
-                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.Name, "adversary_pedestrian" + i.ToString());
+                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.Name, "adversary_pedestrian" + scenarioInfo.Pedestrians[i].Id);
             }
 
 

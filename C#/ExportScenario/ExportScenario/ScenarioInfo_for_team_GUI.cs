@@ -16,10 +16,15 @@ PEDESTRIAN
 -----------------------------------------
 OTHER
 Information about the weather:
-- string cloudState = "free"; // possible values: cloudy, free, overcast, rainy
-- double sunIntensity = 0.85; // the higher the more sun
-- string precipitationType = "dry"; // possible values: dry, rain, snow
-- double precipitationIntensity = 0.0; // 0.0 no rain
+- string cloudState = worldOptions.CloudState; // possible values: cloudy, free, overcast, rainy
+- double sunIntensity = worldOptions.SunIntensity; // Illuminance of the sun, direct sunlight is around 100,00 lx. Unit: lux; Range: [0..inf[.
+- string precipitationType = worldOptions.PrecipitationTypes; // possible values: dry, rain, snow
+- double precipitationIntensity = worldOptions.PrecipitationIntensity; // 0.0 no rain
+- string dateTime = worldOptions.Date_Time; // Format: "2019-06-25T12:00:00"
+- double sunAzimuth = worldOptions.SunAzimuth; // Azimuth of the sun, counted counterclockwise, 0=north, PI/2 = east, PI=south, 3/2 PI=west. Unit: radian; Range: [0..2PI].
+- double sunElevation = worldOptions.SunElevation; // Solar elevation angle, 0=x/y plane, PI/2=zenith. Unit: rad; Range: [-PI..PI].
+- double fogVisualRange = worldOptions.FogVisualRange; // Unit: m; Range: [0..inf[.
+- double frictionScaleFactor = worldOptions.FrictionScaleFactor; // Friction scale factor. Range: [0..inf[
 
 NEW
 - string dateTime = "2019-06-25T12:00:00";
