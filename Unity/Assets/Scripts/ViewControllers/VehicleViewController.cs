@@ -26,12 +26,12 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     {
         var snapController = Camera.main.GetComponent<SnapController>();
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        JsonWaypoint waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (waypoint is not null)
         {
             difference = Vector2.zero;
-            vehicle.setPosition(waypoint.x, waypoint.y);
-            gameObject.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
+            vehicle.setPosition(waypoint.transform.position.x, waypoint.transform.position.y);
+            gameObject.transform.eulerAngles = waypoint.transform.eulerAngles;
         }
         else
         {
@@ -45,12 +45,12 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         {
             var snapController = Camera.main.GetComponent<SnapController>();
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            JsonWaypoint waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                vehicle.setPosition(waypoint.x, waypoint.y);
-                gameObject.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
+                vehicle.setPosition(waypoint.transform.position.x, waypoint.transform.position.y);
+                gameObject.transform.eulerAngles = waypoint.transform.eulerAngles;
             }
             else
             {
@@ -63,12 +63,12 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     public void OnMouseUp()
     {
         var snapController = Camera.main.GetComponent<SnapController>();
-        JsonWaypoint waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if(waypoint is not null)
         {
             difference = Vector2.zero;
-            vehicle.setPosition(waypoint.x, waypoint.y);
-            gameObject.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
+            vehicle.setPosition(waypoint.transform.position.x, waypoint.transform.position.y);
+            gameObject.transform.eulerAngles = waypoint.transform.eulerAngles;
         }
     }
 
