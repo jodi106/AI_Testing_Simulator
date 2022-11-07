@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Cryptography;
 using System.Xml;
 
 namespace ExportScenario.XMLBuilder
@@ -11,7 +12,8 @@ namespace ExportScenario.XMLBuilder
 
         private XmlDocument root;
         private XmlNode openScenario;
-        private ScenarioInfo scenarioInfo; // Currently initialised in BuildXML
+        private ScenarioInfo scenarioInfo;
+        private XmlNode storyBoard;
 
         public BuildXML(ScenarioInfo scenarioInfo)
         /// Constructor to initializes BuildXML object with head section
@@ -25,6 +27,7 @@ namespace ExportScenario.XMLBuilder
             openScenario = root.CreateElement("OpenSCENARIO");
             root.AppendChild(openScenario);
 
+
         }
 
         public void CombineXML()
@@ -34,9 +37,7 @@ namespace ExportScenario.XMLBuilder
 
             BuildEntities entities = new BuildEntities(scenarioInfo, root, openScenario);
             entities.CombineEntities();
-
-            BuildInit init = new BuildInit(scenarioInfo, root, openScenario);
-            init.CombineInit();
+            BuildStoryBoard();
 
             ExportXML(scenarioInfo.Name);
         }
@@ -49,6 +50,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         private void BuildFirstOpenScenarioElements(string scenario_name = "MyScenario", string map = "Town04") // you can rename this method
+        /// Creates first ScenarioElements
         {
             // TODO Variables that need to be inside ScenarioInfo class TODO
             string dateTime = "2022-09-24T12:00:00"; // TODO create datetime string of current time
@@ -80,20 +82,77 @@ namespace ExportScenario.XMLBuilder
         public void BuildStoryBoard()
         /// Combines Init block and Story blocks
         {
+            storyBoard = root.CreateElement("StoryBoard");
+            openScenario.AppendChild(storyBoard);
+            BuildInit init = new BuildInit(scenarioInfo, root, storyBoard);
+            init.CombineInit();
+
+            for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
+            {
+                BuildStories(scenarioInfo.Vehicles[i]);
+            }
+
 
         }
 
-        public void BuildStories()
+        public void BuildStories(Vehicle vehicle = null, Pedestrian pedestrian = null)
         /// Creates Stories from story head and Events
         {
+            // ToDo implement either new BuildStories function for pedestrians or create variable code below
 
+            XmlNode story = root.CreateElement("Story");
+            SetAttribute("name", "Adversary" + vehicle.Id + "_Story", story);
+            XmlNode act = root.CreateElement("Act");
+            SetAttribute("name", "Adversary" + vehicle.Id + "_Act", act);
+            XmlNode maneuverGroup = root.CreateElement("ManeuverGroup");
+            SetAttribute("maximumExecutionCount", "1", maneuverGroup);
+            SetAttribute("name", "Adversary" + vehicle.Id + "Sequence", maneuverGroup);
+            XmlNode actors = root.CreateElement("Actors");
+            SetAttribute("selectTriggeringEntities", "false", actors);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", "adversary" + vehicle.Id, entityRef);
+            XmlNode maneuver = root.CreateElement("Maneuver");
+            SetAttribute("name", "Adversary" + vehicle.Id + "_Maneuver", maneuverGroup);
+
+
+            // ToDo add EventList entries to ScenarioInfoExample
+            /*
+            for (int i = 0; i < vehicle.Path.EventList.Count; i++)
+            {
+                BuildEvents(vehicle.Path.EventList[i]);
+            }
+            */
+
+            // hierarchy
+            storyBoard.AppendChild(story);
+            story.AppendChild(act);
+            act.AppendChild(maneuverGroup);
+            maneuverGroup.AppendChild(actors);
+            actors.AppendChild(entityRef);
+            maneuverGroup.AppendChild(maneuver);
+
+
+            // ToDo implement using StopTrigger from BuildTrigger.
+            XmlNode stopTrigger = root.CreateElement("StopTrigger");
+            storyBoard.AppendChild(stopTrigger);
         }
 
-        public void BuildEvents()
+        public void BuildEvents(Waypoint waypoint)
         /// Creates Events by combining Actions and Triggers and combines them to one XML Block
         {
+            XmlNode new_event = root.CreateElement("Event");
+            SetAttribute("name", waypoint.ActionType, new_event);
+
+
+            // ToDo implement Event and Trigger building
+            BuildAction buildEvent = new BuildAction(root, "buildEvent");
+
+            BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
+
 
         }
+
+        
 
         // Helper
         private void SetAttribute(string name, string value, XmlNode element)

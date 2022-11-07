@@ -17,7 +17,6 @@ namespace ExportScenario.XMLBuilder
         {
             this.root = root;
             this.name = name;
-            ///xmlBlock = <Action name="REFERENZ_NAME"><PrivateAction> </PrivateAction></Action>
         }
 
         public void CombineAction() { }
@@ -187,9 +186,84 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(world_position);
         }
 
-        public void ControllerAction()
+        public void ControllerAction(XmlNode privateAction, string controlMode = "simulation", string propertyName = "module", string controllerName = "HeroAgent")
         {
-            // wip
+            
+            XmlNode controller_action = root.CreateElement("ControllerAction");
+            XmlNode assign_controller_action = root.CreateElement("AssignControllerAction");
+            XmlNode controller = root.CreateElement("Controller");
+            SetAttribute("name", controllerName, controller);
+            XmlNode properties = root.CreateElement("Properties");
+            XmlNode property = root.CreateElement("Property");
+            SetAttribute("name", propertyName, property);
+            SetAttribute("value", controlMode, property);
+            XmlNode override_controller_value_action = root.CreateElement("OverrideControllerValueAction");
+            XmlNode throttle = root.CreateElement("Throttle");
+            SetAttribute("value", "0", throttle);
+            SetAttribute("active", "false", throttle);
+            XmlNode brake = root.CreateElement("Brake");
+            SetAttribute("value", "0", brake);
+            SetAttribute("active", "false", brake);
+            XmlNode clutch = root.CreateElement("Clutch");
+            SetAttribute("value", "0", clutch);
+            SetAttribute("active", "false", clutch);
+            XmlNode parking_brake = root.CreateElement("ParkingBrake");
+            SetAttribute("value", "0", parking_brake);
+            SetAttribute("active", "false", parking_brake);
+            XmlNode steering_wheel = root.CreateElement("SteeringWheel");
+            SetAttribute("value", "0", steering_wheel);
+            SetAttribute("active", "false", steering_wheel);
+            XmlNode gear = root.CreateElement("Gear");
+            SetAttribute("number", "0", gear);
+            SetAttribute("active", "false", gear);
+
+            // Hierarchy
+            privateAction.AppendChild(controller_action);
+            controller_action.AppendChild(assign_controller_action);
+            assign_controller_action.AppendChild(controller);
+            controller.AppendChild(properties);
+            properties.AppendChild(property);
+            controller_action.AppendChild(override_controller_value_action);
+            override_controller_value_action.AppendChild(throttle);
+            override_controller_value_action.AppendChild(brake);
+            override_controller_value_action.AppendChild(clutch);
+            override_controller_value_action.AppendChild(parking_brake);
+            override_controller_value_action.AppendChild(steering_wheel);
+            override_controller_value_action.AppendChild(gear);
+        }
+
+        // Public Actions
+        public void EnvironmentAction(WorldOptions worldOptions, XmlNode globalAction) 
+        {
+            XmlNode environment_action = root.CreateElement("EnvironmentAction");
+            XmlNode environment = root.CreateElement("Environment");
+            SetAttribute("name", "Environment1", environment);
+            XmlNode time_of_day = root.CreateElement("TimeOfDay");
+            SetAttribute("animation", "false", time_of_day);
+            SetAttribute("dateTime", worldOptions.Date_Time, time_of_day);
+            XmlNode weather = root.CreateElement("Weather");
+            SetAttribute("cloudState", worldOptions.CloudState, weather);
+            XmlNode sun = root.CreateElement("Sun");
+            SetAttribute("intensity", worldOptions.SunIntensity.ToString(), sun);
+            SetAttribute("azimuth", worldOptions.SunAzimuth.ToString(), sun);
+            SetAttribute("elevation", worldOptions.SunElevation.ToString(), sun);
+            XmlNode fog = root.CreateElement("Fog");
+            SetAttribute("visualRange", worldOptions.FogVisualRange.ToString(), fog);
+            XmlNode precipitation = root.CreateElement("Precipitation");
+            SetAttribute("precipitationType", worldOptions.PrecipitationTypes, precipitation);
+            SetAttribute("intensity", worldOptions.PrecipitationIntensity.ToString(), precipitation);
+            XmlNode road_condition = root.CreateElement("RoadCondition");
+            SetAttribute("frictionScaleFactor", worldOptions.FrictionScaleFactor.ToString(), road_condition);
+
+            // Hierarchy
+            globalAction.AppendChild(environment_action);
+            environment_action.AppendChild(environment);
+            environment.AppendChild(time_of_day);
+            environment.AppendChild(weather);
+            weather.AppendChild(sun);
+            weather.AppendChild(fog);
+            weather.AppendChild(precipitation);
+            environment.AppendChild(road_condition);
         }
 
         /// helper
