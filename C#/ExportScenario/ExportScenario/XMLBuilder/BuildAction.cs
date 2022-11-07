@@ -22,36 +22,26 @@ namespace ExportScenario.XMLBuilder
         public void CombineAction() { }
         /// ---Probably not necessary as Action only has one xmlBlock---
 
-        public void AcquirePositionAction(XmlNode routingAction)
+        public void AcquirePositionAction(XmlNode action, Coord3D destination, double rotation = 180)
         /// Creates AcquirePositionAction
         {
-            // TODO Variables that need to be inside ScenarioInfo class TODO
-            string x = "0.0";
-            string y = "0.0";
-            string z = "0.0";
-            string h = "0.0";
-
+            XmlNode privateAction = root.CreateElement("PrivateAction");
+            XmlNode routingAction = root.CreateElement("RoutingAction");
             XmlNode acquirePositionAction = root.CreateElement("AcquirePositionAction");
             XmlNode position = root.CreateElement("position");
             XmlNode worldPosition = root.CreateElement("WorldPosition");
-            SetAttribute("x", x, worldPosition);
-            SetAttribute("y", y, worldPosition);
-            SetAttribute("z", z, worldPosition);
-            SetAttribute("h", h, worldPosition);
+            SetAttribute("x", destination.X.ToString(), worldPosition);
+            SetAttribute("y", destination.Y.ToString(), worldPosition);
+            SetAttribute("z", destination.Z.ToString(), worldPosition);
+            SetAttribute("h", rotation.ToString(), worldPosition);
 
             // Hierarchy
+            action.AppendChild(privateAction);
+            privateAction.AppendChild(routingAction);
             routingAction.AppendChild(acquirePositionAction);
             acquirePositionAction.AppendChild(position);
             position.AppendChild(worldPosition);
-            /*
-                    <RoutingAction>
-                    <AcquirePositionAction>
-                        <Position>
-                        <WorldPosition x="402" y="-150" z="0.3" h="29.9"/>
-                        </Position>
-                    </AcquirePositionAction>
-                    </RoutingAction>
-            */
+
         }
 
         public void AssignRouteAction(List<string[]> waypoints, XmlNode privateAction)

@@ -10,7 +10,7 @@ namespace ExportScenario.XMLBuilder
     {
         private XmlDocument root;
         private ScenarioInfo scenarioInfo;
-        private int conditionNr = 0;
+        // private int conditionNr = 0;
 
         public BuildTrigger(XmlDocument root, ScenarioInfo scenarioInfo)
         {
@@ -18,9 +18,10 @@ namespace ExportScenario.XMLBuilder
             this.scenarioInfo = scenarioInfo;
         }
 
-        public void CombineTrigger(bool start, XmlNode parentNode)
+        public void CombineTrigger(bool start, XmlNode parentNode, string triggerType) //ToDO change input to TriggerInfo object
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group 
-        {
+        {   
+
             XmlNode trigger;
             if (start)
             {
@@ -38,10 +39,30 @@ namespace ExportScenario.XMLBuilder
             parentNode.AppendChild(trigger);
             trigger.AppendChild(conditionGroup);
 
+            // ToDo implement possibility to create multiple triggers in one contition group by looping over TriggerInfo list (list needs to be implemented, see Waypoint class)
+                // ToDo implement Calling a function from triggerType string 
+
+
 
         }
 
-        //public void ByValueCondition(string ValueCondition, dict args)
+        public void SimulationTimeCondition(XmlNode conditionGroup, Waypoint waypoint) 
+        {
+            XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
+            SetAttribute("value", waypoint.Trigger_Info.SimulationTime.ToString(), simulationTimeCondition);
+            // continue...
+        }
+
+
+
+
+        // ToDo create designated methods for all relevant triggers instead of only ByValueCondition and ByEntityCondition
+        // <ConditionGroup><Condition name = "AfterAdversaryAccelerates" delay="0" conditionEdge="rising"> needs to be added to CombineTrigger
+
+
+
+
+
         public void ByValueCondition(XmlNode conditionGroup, string ValueCondition, string dict_args) // original: dict args
 
         {
@@ -54,8 +75,8 @@ namespace ExportScenario.XMLBuilder
             
 
             XmlNode condition = root.CreateElement("Condition");
-            SetAttribute("name", "condition" + conditionNr.ToString(), condition);
-            conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted.
+            SetAttribute("name", "condition", condition);
+            // conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted. -> does not need new name
             SetAttribute("delay", "0", condition);
             SetAttribute("conditionEdge", conditionEdge, condition);
             XmlNode byValueCondition = root.CreateElement("ByValueCondition");

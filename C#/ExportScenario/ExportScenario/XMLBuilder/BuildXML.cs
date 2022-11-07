@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Xml;
 
@@ -141,14 +142,27 @@ namespace ExportScenario.XMLBuilder
         /// Creates Events by combining Actions and Triggers and combines them to one XML Block
         {
             XmlNode new_event = root.CreateElement("Event");
-            SetAttribute("name", waypoint.ActionType, new_event);
-
+            SetAttribute("name", waypoint.ActionType + waypoint.Id, new_event);
+            SetAttribute("priority", waypoint.Priority, new_event);
+            XmlNode action = root.CreateElement("Action");
+            SetAttribute("name", waypoint.ActionType + waypoint.Id, action);
+            
 
             // ToDo implement Event and Trigger building
             BuildAction buildEvent = new BuildAction(root, "buildEvent");
 
-            BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
+            if (waypoint.ActionType == "AcquirePositionAction")
+            {
+                buildEvent.AcquirePositionAction(action, waypoint.Position);
+            }
+            new_event.AppendChild(action);
 
+            // ToDo implement Trigger building
+            BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
+            //buildTrigger.CombineTrigger(true, new_event, waypoint.Trigger_Info.TriggerType);
+            
+            
+            
 
         }
 
