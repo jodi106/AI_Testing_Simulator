@@ -7,19 +7,25 @@ public class MapController : MonoBehaviour
 
     Vector3 origin = Vector3.zero;
     private float downClickTime;
+    private SnapController snapController;
+
+    private void Start()
+    {
+        snapController = Camera.main.GetComponent<SnapController>();
+    }
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (shouldIgnoreMouseAction())
         {
             return;
         }
-        origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         downClickTime = Time.time;
     }
 
     private void OnMouseUp()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (shouldIgnoreMouseAction())
         {
             return;
         }
@@ -31,10 +37,14 @@ public class MapController : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (shouldIgnoreMouseAction())
         {
             return;
         }
         EventManager.TriggerEvent(new MapPanAction(origin));
+    }
+
+    public bool shouldIgnoreMouseAction() {
+        return EventSystem.current.IsPointerOverGameObject() || snapController.isBusy();
     }
 }

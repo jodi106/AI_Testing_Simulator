@@ -19,6 +19,10 @@ public class MainController : MonoBehaviour
     private Button editEntityButton;
     private Button worldSettingsButton;
 
+    //Action Buttons (Center Left)
+    private VisualElement actionButtons;
+    private Button setPathButton;
+
     private ScenarioInfo info;
 
     private IBaseEntityController selectedEntity;
@@ -38,17 +42,13 @@ public class MainController : MonoBehaviour
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
+        initializeEventButtons(editorGUI);
         initializeWorldSettingsPopUp();
 
         EventManager.StartListening(typeof(ChangeSelectedEntityAction), x =>
         {
             var action = new ChangeSelectedEntityAction(x);
             this.setSelectedEntity(action.entity);
-            if (action.entity is null)
-            {
-                removeEntityButton.style.display = DisplayStyle.None;
-                editEntityButton.style.display = DisplayStyle.None;
-            }
         });
     }
 
@@ -58,19 +58,18 @@ public class MainController : MonoBehaviour
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = entity;
-
             this.selectedEntity?.select();
             this.removeEntityButton.style.display = DisplayStyle.Flex;
             this.editEntityButton.style.display = DisplayStyle.Flex;
+            this.actionButtons.style.display = DisplayStyle.Flex;
         }
         else
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = null;
-
-            this.selectedEntity?.select();
             removeEntityButton.style.display = DisplayStyle.None;
             editEntityButton.style.display = DisplayStyle.None;
+            this.actionButtons.style.display = DisplayStyle.None;
         }
         
     }
@@ -161,6 +160,19 @@ public class MainController : MonoBehaviour
         {
             WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.Flex;
         });
+    }
+
+    private void initializeEventButtons(VisualElement editorGUI)
+    {
+        setPathButton = editorGUI.Q<Button>("setPathButton");
+        actionButtons = editorGUI.Q<VisualElement>("actionButtons");
+
+        setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            this.selectedEntity.triggerPathRequest();
+        });
+
+        actionButtons.style.display = DisplayStyle.None;
     }
 
     private void initializeEventList(VisualElement editorGUI)

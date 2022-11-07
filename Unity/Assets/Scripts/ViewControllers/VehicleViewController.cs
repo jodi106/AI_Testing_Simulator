@@ -1,6 +1,8 @@
 using Assets.Enums;
 using Models;
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityController
@@ -11,11 +13,15 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     private SpriteRenderer sprite;
     private Boolean placed = false;
     private Boolean selected = true;
+    private Boolean expectingPath = false;
     public Vehicle vehicle { get; set; } = new Vehicle();
     private Vector2 difference = Vector2.zero;
+    private Vector2 lastClickPos = Vector2.zero;
 
+    private SnapController snapController;
     public void Awake()
     {
+        this.snapController = Camera.main.GetComponent<SnapController>();
         vehicle.View = this;
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.color = new Color(1, 1, 1, 0.5f);
@@ -24,8 +30,11 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
 
     public void OnMouseDrag()
     {
-        var snapController = Camera.main.GetComponent<SnapController>();
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
+        {
+            return;
+        }
         GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (waypoint is not null)
         {
@@ -43,7 +52,6 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     {
         if (!placed)
         {
-            var snapController = Camera.main.GetComponent<SnapController>();
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
@@ -59,22 +67,10 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         }
     }
 
-
-    public void OnMouseUp()
-    {
-        var snapController = Camera.main.GetComponent<SnapController>();
-        GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if(waypoint is not null)
-        {
-            difference = Vector2.zero;
-            vehicle.setPosition(waypoint.transform.position.x, waypoint.transform.position.y);
-            gameObject.transform.eulerAngles = waypoint.transform.eulerAngles;
-        }
-    }
-
     public void OnMouseDown()
     {
         difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        lastClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (!placed)
         {
             placed = true;
@@ -108,6 +104,10 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         this.selected = false;
         sprite.transform.Translate(0, 0, 0.1f);
         sprite.material = defaultMaterial;
+        if(expectingPath)
+        {
+            snapController.cancelPathSelection();        
+        }
     }
 
     public BaseModel getEntity()
@@ -117,6 +117,23 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
 
     public void destroy()
     {
+        if (expectingPath)
+        {
+            snapController.cancelPathSelection();
+        }
         Destroy(gameObject);
+    }
+
+    public void triggerPathRequest()
+    {
+        var snapController = Camera.main.GetComponent<SnapController>();
+        snapController.getPathFor(this);
+        expectingPath = true;
+    }
+
+    public void submitPath(Path path)
+    {
+        vehicle.Path = path;
+        expectingPath = false;
     }
 }

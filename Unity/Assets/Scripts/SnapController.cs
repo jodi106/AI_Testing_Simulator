@@ -1,6 +1,8 @@
+using Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class SnapController : MonoBehaviour
@@ -10,7 +12,7 @@ public class SnapController : MonoBehaviour
 
     public bool highlight { get; set; }
     private GameObject waypoint;
-    private System.Random rnd = new System.Random();
+    private IBaseEntityController requestingEntity;
 
     void Start()
     {
@@ -45,10 +47,6 @@ public class SnapController : MonoBehaviour
 
     public void Update()
     {
-        if (rnd.Next() % 3 != 0)
-        {
-            return;
-        }
         if (waypoint is not null)
         {
             var sprite = waypoint.GetComponent<SpriteRenderer>();
@@ -64,7 +62,16 @@ public class SnapController : MonoBehaviour
                 waypoint.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             }
         }
-
+        //TODO combine with mapcontroller to allow for pan between triggering path request and submission and registering ui clicks
+        if (requestingEntity is not null)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log(Input.mousePosition);
+                requestingEntity.submitPath(null);
+                requestingEntity = null;
+            }
+        }
     }
 
     /*
@@ -89,6 +96,21 @@ public class SnapController : MonoBehaviour
             }
         }
         return closestWaypoint;
+    }
+
+    public void getPathFor(IBaseEntityController requestingEntity)
+    {
+        this.requestingEntity = requestingEntity;
+    }
+
+    public void cancelPathSelection()
+    {
+        this.requestingEntity = null;
+    }
+
+    public bool isBusy()
+    {
+        return this.requestingEntity != null;
     }
 
 }
