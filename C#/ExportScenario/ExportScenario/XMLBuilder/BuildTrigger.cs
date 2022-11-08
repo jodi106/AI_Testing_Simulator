@@ -18,7 +18,8 @@ namespace ExportScenario.XMLBuilder
             this.scenarioInfo = scenarioInfo;
         }
 
-        public void CombineTrigger(bool start, XmlNode parentNode, string triggerType) //ToDO change input to TriggerInfo object
+        // public void CombineTrigger(bool start, XmlNode parentNode, string triggerType) //ToDO change input to TriggerInfo object
+        public void CombineTrigger(bool start, XmlNode parentNode, List<String> byValueCondition, List<String> byEntityCondition)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group 
         {   
 
@@ -159,8 +160,8 @@ namespace ExportScenario.XMLBuilder
             // -----------------------------------------------------------------------
 
             XmlNode condition = root.CreateElement("Condition");
-            SetAttribute("name", "condition" + conditionNr.ToString(), condition);
-            conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted.
+            SetAttribute("name", "condition", condition);
+            //conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted.
             SetAttribute("delay", "0", condition);
             SetAttribute("conditionEdge", conditionEdge, condition);
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");

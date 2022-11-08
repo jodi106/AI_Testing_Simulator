@@ -7,6 +7,7 @@ Map Information:
 -------------------------------------------
 VEHICLES
 - initial Speed
+- rotatio
 How to control the ego vehicle:
 - In the future we want to add the AI here
 - string control_mode = "carla_auto_pilot_control"; // other value: "external_control"
