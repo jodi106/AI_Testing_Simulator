@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static UnityEditor.PlayerSettings;
 
 public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityController
@@ -27,6 +28,10 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
+
+        EventManager.StartListening(typeof(CancelPathSelectionAction), x => {
+            expectingPath = false;
+        });
     }
 
     public void OnMouseDrag()
@@ -107,7 +112,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         sprite.material = defaultMaterial;
         if (expectingPath)
         {
-            //TODO
+            EventManager.TriggerEvent(new CancelPathSelectionAction());
         }
     }
 
@@ -120,7 +125,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     {
         if (expectingPath)
         {
-            //TODO
+            EventManager.TriggerEvent(new CancelPathSelectionAction());
         }
         Destroy(gameObject);
     }

@@ -7,12 +7,6 @@ public class MapController : MonoBehaviour
 
     Vector3 origin = Vector3.zero;
     private float downClickTime;
-    private SnapController snapController;
-
-    private void Start()
-    {
-        snapController = Camera.main.GetComponent<SnapController>();
-    }
     private void OnMouseDown()
     {
         origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);

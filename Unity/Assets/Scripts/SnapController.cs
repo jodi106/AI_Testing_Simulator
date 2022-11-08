@@ -20,6 +20,14 @@ public class SnapController : MonoBehaviour
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
             var action = new MapChangeAction(x);
+
+            foreach (KeyValuePair<string, List<GameObject>> entry in waypoints)
+            {
+                foreach (GameObject waypoint in entry.Value)
+                {
+                    Destroy(waypoint);
+                }
+            }
             loadWaypoints(action.name);
         });
     }

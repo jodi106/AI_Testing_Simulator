@@ -22,6 +22,7 @@ public class MainController : MonoBehaviour
     //Action Buttons (Center Left)
     private VisualElement actionButtons;
     private Button setPathButton;
+    private Button cancelPathButton;
 
     private ScenarioInfo info;
 
@@ -165,11 +166,25 @@ public class MainController : MonoBehaviour
     private void initializeEventButtons(VisualElement editorGUI)
     {
         setPathButton = editorGUI.Q<Button>("setPathButton");
+        cancelPathButton = editorGUI.Q<Button>("cancelPathButton");
         actionButtons = editorGUI.Q<VisualElement>("actionButtons");
 
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             this.selectedEntity.triggerPathRequest();
+            setPathButton.style.display = DisplayStyle.None;
+            cancelPathButton.style.display = DisplayStyle.Flex;
+        });
+
+        cancelPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            EventManager.TriggerEvent(new CancelPathSelectionAction());
+        });
+
+        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
+        {
+            setPathButton.style.display = DisplayStyle.Flex;
+            cancelPathButton.style.display = DisplayStyle.None;
         });
 
         actionButtons.style.display = DisplayStyle.None;
@@ -211,13 +226,7 @@ public class MainController : MonoBehaviour
         };
 
         eventList.itemsSource = info.Vehicles;
-
-        // Register to get a callback when an item is selected
-        eventList.onSelectionChange += OnCharacterSelected;
     }
-
-    void OnCharacterSelected(IEnumerable<object> selectedItems)
-    { }
 
     void initializeWorldSettingsPopUp()
     {

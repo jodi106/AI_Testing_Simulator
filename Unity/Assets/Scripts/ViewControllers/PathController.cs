@@ -13,6 +13,14 @@ public class PathController : MonoBehaviour
     {
         lr = gameObject.GetComponent<LineRenderer>();
         building = true;
+
+        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
+        {
+            if(building)
+            {
+                Destroy(gameObject);
+            }
+        });
     }
 
     public void setEntityController(IBaseEntityController controller)
@@ -23,7 +31,7 @@ public class PathController : MonoBehaviour
 
     public void Update()
     {
-        if(building)
+        if (building)
         {
             lr.SetPosition(len, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
