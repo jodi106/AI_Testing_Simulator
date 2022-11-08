@@ -32,10 +32,13 @@ How to use
 Credits
 #######
 
-This project started in March 2022 at the University of Mannheim.
+This project started in September 2022 as a cooperation of University of Mannheim and UBB Cluj.
 The team consists of:
 
-* `Felix <>`__
+* `Armin <https://github.com/ArminT28/>`__
+* `David <https://github.com/tropper26/>`__
+* `Felix <https://github.com/felixkroemer/>`__
 * `Jonas <https://github.com/jodi106/>`__
-* `Natalie <>`__
+* `Natalie <https://github.com/Natalie-UniMA/>`__
 * `Stefan <https://github.com/StayFN/>`__
+
