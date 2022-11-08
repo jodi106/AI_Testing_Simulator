@@ -54,7 +54,7 @@ public class MainController : MonoBehaviour
 
     private void setSelectedEntity(IBaseEntityController entity)
     {
-        if(entity != null)
+        if (entity != null)
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = entity;
@@ -71,7 +71,7 @@ public class MainController : MonoBehaviour
             editEntityButton.style.display = DisplayStyle.None;
             this.actionButtons.style.display = DisplayStyle.None;
         }
-        
+
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -143,7 +143,7 @@ public class MainController : MonoBehaviour
             //Setting value of the field
             iDField.SetValueWithoutNotify(entity.Id);
 
-            
+
             Debug.Log(entity.Id);
             Debug.Log(entity.SpawnPoint);
             Debug.Log(entity.ToString());

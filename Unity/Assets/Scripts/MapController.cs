@@ -45,6 +45,6 @@ public class MapController : MonoBehaviour
     }
 
     public bool shouldIgnoreMouseAction() {
-        return EventSystem.current.IsPointerOverGameObject() || snapController.isBusy();
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }

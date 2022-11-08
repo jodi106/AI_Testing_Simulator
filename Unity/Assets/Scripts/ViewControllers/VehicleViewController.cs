@@ -4,17 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityController
 {
     public Material selectionMaterial;
-    public Material defaultMaterial;
+    public GameObject pathPrefab;
 
+    private Material defaultMaterial;
     private SpriteRenderer sprite;
     private Boolean placed = false;
     private Boolean selected = true;
     private Boolean expectingPath = false;
-    public Vehicle vehicle { get; set; } = new Vehicle();
+    public Vehicle vehicle { get; set; }
     private Vector2 difference = Vector2.zero;
     private Vector2 lastClickPos = Vector2.zero;
 
@@ -22,7 +24,6 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     public void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
-        vehicle.View = this;
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
@@ -31,7 +32,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     public void OnMouseDrag()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if(mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
+        if (mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
         {
             return;
         }
@@ -104,9 +105,9 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         this.selected = false;
         sprite.transform.Translate(0, 0, 0.1f);
         sprite.material = defaultMaterial;
-        if(expectingPath)
+        if (expectingPath)
         {
-            snapController.cancelPathSelection();        
+            //TODO
         }
     }
 
@@ -119,15 +120,16 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     {
         if (expectingPath)
         {
-            snapController.cancelPathSelection();
+            //TODO
         }
         Destroy(gameObject);
     }
 
     public void triggerPathRequest()
     {
-        var snapController = Camera.main.GetComponent<SnapController>();
-        snapController.getPathFor(this);
+        var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
+        PathController pathController = pathGameObject.GetComponent<PathController>();
+        pathController.setEntityController(this);
         expectingPath = true;
     }
 
@@ -135,5 +137,10 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
     {
         vehicle.Path = path;
         expectingPath = false;
+    }
+
+    public Vector2 getPosition()
+    {
+        return gameObject.transform.position;
     }
 }
