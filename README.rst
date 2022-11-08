@@ -1,7 +1,9 @@
 AI Testing Simulator
 ------------------------------------------
 
-Team Project University of Mannheim
+Joint team project of University of Mannheim and the University Babeș-Bolyai of Cluj-Napoca
+
+
 
 Table of Contents
 #################
