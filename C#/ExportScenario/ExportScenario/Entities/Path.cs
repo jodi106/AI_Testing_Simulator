@@ -6,8 +6,11 @@ namespace ExportScenario.Entities
 {
     public class Path
     {
+        
+
         public Path()
         {
+            EventList = new List<Waypoint>();
         }
 
         public Path(List<Waypoint> eventList)

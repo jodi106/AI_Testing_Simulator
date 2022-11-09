@@ -120,13 +120,12 @@ namespace ExportScenario.XMLBuilder
 
             // ToDo add EventList entries to ScenarioInfoExample
 
-            /*
-            for (int i = 0; i < waypoint.ActionTypeInfo.Positions.Count; i++)
+
+            
             for (int i = 0; i < vehicle.Path.EventList.Count; i++)
             {
                 BuildEvents(vehicle.Path.EventList[i]);
             }
-            */
 
             // hierarchy
             storyBoard.AppendChild(story);
