@@ -7,10 +7,15 @@ namespace ExportScenario.Entities
     public class TriggerInfo
     /// Contains information regarding the Trigger of an ActionType in a Waypoint
     {
-        public TriggerInfo(string triggerType, int simulationTime = 1, Waypoint afterAction = null)
+        public TriggerInfo(string triggerType, int simulationTime)
         {
             TriggerType = triggerType;
             SimulationTime = simulationTime;
+        }
+
+        public TriggerInfo(string triggerType, Waypoint afterAction)
+        {
+            TriggerType = triggerType;
             AfterAction = afterAction;
         }
 

@@ -53,16 +53,15 @@ namespace ExportScenario.XMLBuilder
                 // ToDo implement Calling a function from triggerType string 
 
 
-
+            // mi.Execute(Objekt)
         }
 
         public void SimulationTimeCondition(XmlNode conditionGroup, Waypoint waypoint) 
         {
-            XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
-            SetAttribute("value", waypoint.Trigger_Info.SimulationTime.ToString(), simulationTimeCondition);
-            // continue...
+            //ToDo
         }
 
+        // AccelerationCondition(XmlNode conditionGroup, Waypoint waypoint)
 
 
 

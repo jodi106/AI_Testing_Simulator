@@ -96,9 +96,11 @@ namespace ExportScenario.XMLBuilder
 
         }
 
-        public void BuildStories(Vehicle vehicle = null, Pedestrian pedestrian = null)
+        public void BuildStories(Vehicle vehicle)//, Pedestrian pedestrian)
         /// Creates Stories from story head and Events
         {
+
+
             // ToDo implement either new BuildStories function for pedestrians or create variable code below
 
             XmlNode story = root.CreateElement("Story");
@@ -117,7 +119,9 @@ namespace ExportScenario.XMLBuilder
 
 
             // ToDo add EventList entries to ScenarioInfoExample
+
             /*
+            for (int i = 0; i < waypoint.ActionTypeInfo.Positions.Count; i++)
             for (int i = 0; i < vehicle.Path.EventList.Count; i++)
             {
                 BuildEvents(vehicle.Path.EventList[i]);
@@ -142,19 +146,21 @@ namespace ExportScenario.XMLBuilder
         /// Creates Events by combining Actions and Triggers and combines them to one XML Block
         {
             XmlNode new_event = root.CreateElement("Event");
-            SetAttribute("name", waypoint.ActionType + waypoint.Id, new_event);
+            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, new_event);
             SetAttribute("priority", waypoint.Priority, new_event);
             XmlNode action = root.CreateElement("Action");
-            SetAttribute("name", waypoint.ActionType + waypoint.Id, action);
+            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, action);
             
 
             // ToDo implement Event and Trigger building
-            BuildAction buildEvent = new BuildAction(root, "buildEvent");
+            BuildAction buildAction = new BuildAction(root, "buildAction");
 
-            if (waypoint.ActionType == "AcquirePositionAction")
-            {
-                buildEvent.AcquirePositionAction(action, waypoint.Position);
-            }
+            //Get the method information using the method info class
+            MethodInfo mi = this.GetType().GetMethod(waypoint.ActionTypeInfo.Name);
+            
+            mi.Invoke(buildAction, new object[] { action, waypoint });
+
+
             new_event.AppendChild(action);
 
             // ToDo implement Trigger building

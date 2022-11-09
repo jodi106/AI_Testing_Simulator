@@ -7,28 +7,29 @@ namespace ExportScenario.Entities
 {
     public class Waypoint
     {
-        public Waypoint(int id, Coord3D position, List<BaseEntity> involvedEntities, string actionType, string priority, TriggerInfo triggerInfo)
+        public Waypoint(int id, Coord3D position, List<BaseEntity> involvedEntities, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
             Id = id;
             Position = position;
             InvolvedEntities = involvedEntities;
-            ActionType = actionType;
+            ActionTypeInfo = actionTypeInfo; 
             Priority = priority;
-            Trigger_Info = triggerInfo;
+            TriggerList = triggerList;
+
         }
 
         public int Id { get; set; }
         public Coord3D Position { get; set; }
         public List<BaseEntity> InvolvedEntities { get; set; }
-        public string ActionType { get; set; }
+        public ActionType ActionTypeInfo { get; set; }
         public string Priority { get; set; }
         /* Priority types
         overwrite: All other Events in the scope are stopped and the Event starts.
         skip: The Event does not leave the standbyState until other Events have finished.
         parallel: The Event starts without taking into consideration already running Events.
          */
-        public TriggerInfo Trigger_Info { get; set; }
-        // consider creating a list of TriggerInfo objects to allow multiple triggers for one ActionType
-        // TriggerInfo requires new class containing info about trigger attirbutes of an ActionType
+        public List<TriggerInfo> TriggerList { get; set; }
+        // One Waypoint can have mutliple triggers for an event
+
     }
 }

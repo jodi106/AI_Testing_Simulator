@@ -24,6 +24,12 @@ namespace ExportScenario
             vehicles.Add(new Vehicle(2, new Coord3D(255, -190, 0.3, 90), new EntityModel(2, "vehicle.audi.tt"), path_veh_2));
 
             Path path_ped_1 = new Path();
+            //Waypoint w1
+            //Waypoint w2
+            //Actions
+            //Triggerlist
+            //...
+
             List<Pedestrian> ped = new List<Pedestrian>();
             ped.Add(new Pedestrian(1, new Coord3D(255, -190, 0.8, 90), new EntityModel(1, "walker.pedestrian.0001"), path_ped_1));
 

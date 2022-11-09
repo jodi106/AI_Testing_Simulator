@@ -15,7 +15,8 @@ namespace ExportScenario.Entities
             EventList = eventList;
         }
 
-        public List<Waypoint> EventList { get; }
+        public List<Waypoint> EventList { get; set; }
+        
 
         public Waypoint getEventById(int id)
         {

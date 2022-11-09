@@ -38,23 +38,22 @@ namespace ExportScenario.XMLBuilder
 
             // TODO implement InitialSpeed Attirbute for entities
 
-            double rotation = 180.0; // TODO either expand SpawnPoint to 4 values or add rotation attribute to vehicles
             string control_mode = "carla_auto_pilot_control"; // other value: external_control 
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
             // Spawn ego vehicle at requested coordinates
-            BuildPrivate("hero", scenarioInfo.EgoVehicle.SpawnPoint, rotation, 0, true, control_mode);
+            BuildPrivate("hero", scenarioInfo.EgoVehicle.SpawnPoint, 0, true, control_mode);
 
             // Spawn simulation vehicles at requested coordinates
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
-                BuildPrivate("adversary" + n.ToString(), scenarioInfo.Vehicles[n].SpawnPoint, rotation, 20);
+                BuildPrivate("adversary" + n.ToString(), scenarioInfo.Vehicles[n].SpawnPoint, 20);
             }
 
             // Spawn pedestrians at requested coordinates
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate("adversary_pedestrian" + n.ToString(), scenarioInfo.Pedestrians[n].SpawnPoint, rotation, 0);
+                BuildPrivate("adversary_pedestrian" + n.ToString(), scenarioInfo.Pedestrians[n].SpawnPoint, 0);
             }
 
         }
@@ -64,13 +63,13 @@ namespace ExportScenario.XMLBuilder
         {
             XmlNode global_action = root.CreateElement("GlobalAction");
             BuildAction buildPublicAction = new BuildAction(root, "BuildPublic");
-            buildPublicAction.EnvironmentAction(worldOptions, global_action);
+            buildPublicAction.EnvironmentAction(global_action, worldOptions);
             // Hierarchy
             actions.AppendChild(global_action);
 
         }
 
-        public void BuildPrivate(string entityRef, Coord3D spawnPoint, double rotation, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
+        public void BuildPrivate(string entityRef, Coord3D spawnPoint, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
         /// Builds Private xml block
         {
             XmlNode _private = root.CreateElement("Private");
@@ -80,9 +79,9 @@ namespace ExportScenario.XMLBuilder
 
             BuildAction buildPrivateAction = new BuildAction(root, "BuildPrivate");
             // initial position
-            buildPrivateAction.TeleportAction(spawnPoint, private_action1, rotation);
+            buildPrivateAction.TeleportAction(private_action1, spawnPoint);
             // initial speed
-            buildPrivateAction.SpeedAction(initialSpeed, private_action2);
+            buildPrivateAction.InitialSpeedAction(private_action2, initialSpeed);
 
             if (isEgoVehicle)
             {
