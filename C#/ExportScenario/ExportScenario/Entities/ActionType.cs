@@ -6,14 +6,16 @@ namespace ExportScenario.Entities
 {
     public class ActionType
     {
-
+        private static int autoIncrementId = 0;
         public ActionType(string name)
         {
+            ID = autoIncrementId++;
             Name = name;
         }
         public ActionType(string name, double speed, double absoluteTargetSpeedValue, string speedActionDynamics = "step", double speedActionDynamicsValue = 0, string dynamicsDimension = "time")
         /// for SpeedAction
         {
+            ID = autoIncrementId++;
             Name = name;
             Speed = speed;
             AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
@@ -25,6 +27,7 @@ namespace ExportScenario.Entities
         public ActionType(string name, List<Coord3D> positions)
         /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
         {
+            ID = autoIncrementId++;
             Name = name;
             Positions = positions;
         }
@@ -32,6 +35,7 @@ namespace ExportScenario.Entities
         public ActionType(string name, double laneChangeActionDynamicsValue, string entityRef, int relativeTargetLaneValue)
         /// for LaneChangeAction
         {
+            ID = autoIncrementId++;
             Name = name;
             LaneChangeActionDynamicsValue = laneChangeActionDynamicsValue;
             EntityRef = entityRef; //specify the entity which is referenzed for relative lane change (can be same entity as executing entity)
@@ -39,6 +43,7 @@ namespace ExportScenario.Entities
         }
         
 
+        public int ID { get; private set; }
         public string Name { get; set; }
         public double Speed { get; set; }
         public double AbsoluteTargetSpeedValue { get; set; }

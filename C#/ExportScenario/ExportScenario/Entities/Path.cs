@@ -13,11 +13,13 @@ namespace ExportScenario.Entities
             EventList = new List<Waypoint>();
         }
 
-        public Path(List<Waypoint> eventList)
+        public Path(TriggerInfo overallStartTrigger, List<Waypoint> eventList)
         {
+            OverallStartTrigger = overallStartTrigger;
             EventList = eventList;
         }
 
+        public TriggerInfo OverallStartTrigger { get; set; }
         public List<Waypoint> EventList { get; set; }
         
 

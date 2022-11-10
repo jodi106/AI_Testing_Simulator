@@ -96,13 +96,25 @@ namespace ExportScenario.XMLBuilder
 
         }
 
-        public void BuildStories(Vehicle vehicle)//, Pedestrian pedestrian)
+        public void BuildStories(Vehicle vehicle)//, Pedestrian pedestrian = null)
         /// Creates Stories from story head and Events
         {
-
-
-            // ToDo implement either new BuildStories function for pedestrians or create variable code below
-
+            // ToDo implement ability to either use Vehicle or Pedestrian Objekt in Method
+            /*
+            if (vehicle == null)
+            {
+                Pedestrian storyEntity = pedestrian;
+            }
+            else
+            {
+                Vehicle storyEntity = vehicle;
+            }
+            // implement exception for both inputs bein null
+            if (vehicle == null && pedestrian == null)
+            {
+                throw new
+            }
+            */
             XmlNode story = root.CreateElement("Story");
             SetAttribute("name", "Adversary" + vehicle.Id + "_Story", story);
             XmlNode act = root.CreateElement("Act");
@@ -117,14 +129,15 @@ namespace ExportScenario.XMLBuilder
             XmlNode maneuver = root.CreateElement("Maneuver");
             SetAttribute("name", "Adversary" + vehicle.Id + "_Maneuver", maneuverGroup);
 
+            // ToDo Modify Combine Trigger so that it takes Path instead of Waypoint
+            /*
+            BuildTrigger actTrigger = new BuildTrigger(root, scenarioInfo);
+            actTrigger.CombineTrigger(act, Path path);
+            */
 
-            // ToDo add EventList entries to ScenarioInfoExample
-
-
-            
             for (int i = 0; i < vehicle.Path.EventList.Count; i++)
             {
-                BuildEvents(vehicle.Path.EventList[i]);
+                BuildEvents(maneuver, vehicle.Path.EventList[i]);
             }
 
             // hierarchy
@@ -135,40 +148,31 @@ namespace ExportScenario.XMLBuilder
             actors.AppendChild(entityRef);
             maneuverGroup.AppendChild(maneuver);
 
-
             // ToDo implement using StopTrigger from BuildTrigger.
             XmlNode stopTrigger = root.CreateElement("StopTrigger");
             storyBoard.AppendChild(stopTrigger);
         }
 
-        public void BuildEvents(Waypoint waypoint)
+        public void BuildEvents(XmlNode maneuver, Waypoint waypoint)
         /// Creates Events by combining Actions and Triggers and combines them to one XML Block
         {
             XmlNode new_event = root.CreateElement("Event");
             SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, new_event);
             SetAttribute("priority", waypoint.Priority, new_event);
             XmlNode action = root.CreateElement("Action");
-            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, action);
+            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, action);
             
-
-            // ToDo implement Event and Trigger building
+            // Create Action
             BuildAction buildAction = new BuildAction(root, "buildAction");
-
-            //Get the method information using the method info class
-            MethodInfo mi = this.GetType().GetMethod(waypoint.ActionTypeInfo.Name);
-            
+            MethodInfo mi = this.GetType().GetMethod(waypoint.ActionTypeInfo.Name);           
             mi.Invoke(buildAction, new object[] { action, waypoint });
-
-
             new_event.AppendChild(action);
 
-            // ToDo implement Trigger building
+            // Create Trigger(s)
             BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
-            //buildTrigger.CombineTrigger(true, new_event, waypoint.Trigger_Info.TriggerType);
-            
-            
-            
+            buildTrigger.CombineTrigger(new_event, true, waypoint);
 
+            maneuver.AppendChild(new_event);
         }
 
         

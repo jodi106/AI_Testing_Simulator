@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using ExportScenario.Entities;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ExportScenario.XMLBuilder
 {
@@ -19,46 +22,46 @@ namespace ExportScenario.XMLBuilder
         }
 
         // public void CombineTrigger(bool start, XmlNode parentNode, string triggerType) //ToDO change input to TriggerInfo object
-        public void CombineTrigger(bool start, XmlNode parentNode, List<String> byValueCondition, List<String> byEntityCondition)
+        public void CombineTrigger(XmlNode parentNode, bool start, Waypoint waypoint)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group 
         {   
 
             XmlNode trigger;
             if (start)
             {
-                ///if StartTrigger{xml = <StartTrigger></StartTrigger><ConditionGroup></ConditionGroup>}
                 trigger = root.CreateElement("StartTrigger");
             }
             else
             {
-                ///if StopStrigger{xml = <StopTrigger></StopTrigger><ConditionGroup></ConditionGroup> }
                 trigger = root.CreateElement("StopTrigger");
             }
+            
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
-
-            // TODO change "String" to Object
-            foreach (String c in byValueCondition)
+            for (int i = 0; i < waypoint.TriggerList.Count; i++)
             {
-                ByValueCondition(conditionGroup, "SimulationTimeCondition", c);
-            } 
-            foreach (String c in byEntityCondition)
-            {
-                ByEntityCondition(conditionGroup, "", null, c);
+                XmlNode condition = root.CreateElement("Condition");
+                SetAttribute("name", waypoint.TriggerList[i].TriggerType + waypoint.TriggerList[i].ID, condition);
+                SetAttribute("delay", waypoint.TriggerList[i].Delay.ToString(), condition);
+                SetAttribute("conditionEdge", waypoint.TriggerList[i].ConditionEdge, condition);
+                
+                MethodInfo mi = this.GetType().GetMethod(waypoint.TriggerList[i].TriggerType);
+                mi.Invoke(this, new object[] { condition, waypoint.TriggerList[i] });
+                conditionGroup.AppendChild(condition);
             }
 
             parentNode.AppendChild(trigger);
             trigger.AppendChild(conditionGroup);
-
-            // ToDo implement possibility to create multiple triggers in one contition group by looping over TriggerInfo list (list needs to be implemented, see Waypoint class)
-                // ToDo implement Calling a function from triggerType string 
-
-
-            // mi.Execute(Objekt)
         }
 
-        public void SimulationTimeCondition(XmlNode conditionGroup, Waypoint waypoint) 
+        public void SimulationTimeCondition(XmlNode condition, TriggerInfo triggerInfo) 
         {
-            //ToDo
+
+            XmlNode byValueCondition = root.CreateElement("ByValueCondition");
+            condition.AppendChild(byValueCondition);
+            XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
+            SetAttribute("value", triggerInfo.SimulationTime.ToString(), simulationTimeCondition);
+            SetAttribute("rule", "equalTo", simulationTimeCondition);
+            byValueCondition.AppendChild(simulationTimeCondition);
         }
 
         // AccelerationCondition(XmlNode conditionGroup, Waypoint waypoint)
@@ -66,7 +69,7 @@ namespace ExportScenario.XMLBuilder
 
 
         // ToDo create designated methods for all relevant triggers instead of only ByValueCondition and ByEntityCondition
-        // <ConditionGroup><Condition name = "AfterAdversaryAccelerates" delay="0" conditionEdge="rising"> needs to be added to CombineTrigger
+
 
 
 
