@@ -19,7 +19,8 @@ namespace ExportScenario
 
             Path path_veh_1 = new Path();
             Path path_veh_2 = new Path();
-            List<Vehicle> vehicles = new List<Vehicle>();
+            //ToDo create OverallStartTrigger for Path
+            List <Vehicle> vehicles = new List<Vehicle>();
             vehicles.Add(new Vehicle(1, new Coord3D(300, -172, 0.3, 160), new EntityModel(1, "vehicle.audi.tt"), path_veh_1));
             vehicles.Add(new Vehicle(2, new Coord3D(255, -190, 0.3, 90), new EntityModel(2, "vehicle.audi.tt"), path_veh_2));
 

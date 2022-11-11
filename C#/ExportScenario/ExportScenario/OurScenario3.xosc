@@ -126,7 +126,7 @@
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="adversary0">
+        <Private entityRef="adversary1">
           <PrivateAction>
             <TeleportAction>
               <Position>
@@ -145,7 +145,7 @@
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="adversary1">
+        <Private entityRef="adversary2">
           <PrivateAction>
             <TeleportAction>
               <Position>
@@ -164,7 +164,7 @@
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="adversary_pedestrian0">
+        <Private entityRef="adversary_pedestrian1">
           <PrivateAction>
             <TeleportAction>
               <Position>
@@ -185,25 +185,39 @@
         </Private>
       </Actions>
     </Init>
-    <Story name="Adversary1_Story">
-      <Act name="Adversary1_Act">
-        <ManeuverGroup maximumExecutionCount="1" name="Adversary1_Maneuver">
+    <Story name="adversary1_Story">
+      <Act name="adversary1_Act">
+        <ManeuverGroup maximumExecutionCount="1" name="adversary1_Maneuver">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="adversary1" />
           </Actors>
           <Maneuver />
         </ManeuverGroup>
+        <StartTrigger />
       </Act>
     </Story>
     <StopTrigger />
-    <Story name="Adversary2_Story">
-      <Act name="Adversary2_Act">
-        <ManeuverGroup maximumExecutionCount="1" name="Adversary2_Maneuver">
+    <Story name="adversary2_Story">
+      <Act name="adversary2_Act">
+        <ManeuverGroup maximumExecutionCount="1" name="adversary2_Maneuver">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="adversary2" />
           </Actors>
           <Maneuver />
         </ManeuverGroup>
+        <StartTrigger />
+      </Act>
+    </Story>
+    <StopTrigger />
+    <Story name="adversary_pedestrian1_Story">
+      <Act name="adversary_pedestrian1_Act">
+        <ManeuverGroup maximumExecutionCount="1" name="adversary_pedestrian1_Maneuver">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="adversary_pedestrian1" />
+          </Actors>
+          <Maneuver />
+        </ManeuverGroup>
+        <StartTrigger />
       </Act>
     </Story>
     <StopTrigger />

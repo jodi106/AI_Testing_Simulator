@@ -90,50 +90,34 @@ namespace ExportScenario.XMLBuilder
 
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildStories(scenarioInfo.Vehicles[i]);
+                BuildVehicleStories(scenarioInfo.Vehicles[i]);
+            }
+
+            for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
+            {
+                BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
             }
 
 
         }
 
-        public void BuildStories(Vehicle vehicle)//, Pedestrian pedestrian = null)
+        public void BuildVehicleStories(Vehicle vehicle)
         /// Creates Stories from story head and Events
         {
-            // ToDo implement ability to either use Vehicle or Pedestrian Objekt in Method
-            /*
-            if (vehicle == null)
-            {
-                Pedestrian storyEntity = pedestrian;
-            }
-            else
-            {
-                Vehicle storyEntity = vehicle;
-            }
-            // implement exception for both inputs bein null
-            if (vehicle == null && pedestrian == null)
-            {
-                throw new
-            }
-            */
+
             XmlNode story = root.CreateElement("Story");
-            SetAttribute("name", "Adversary" + vehicle.Id + "_Story", story);
+            SetAttribute("name", "adversary" + vehicle.Id + "_Story", story);
             XmlNode act = root.CreateElement("Act");
-            SetAttribute("name", "Adversary" + vehicle.Id + "_Act", act);
+            SetAttribute("name", "adversary" + vehicle.Id + "_Act", act);
             XmlNode maneuverGroup = root.CreateElement("ManeuverGroup");
             SetAttribute("maximumExecutionCount", "1", maneuverGroup);
-            SetAttribute("name", "Adversary" + vehicle.Id + "Sequence", maneuverGroup);
+            SetAttribute("name", "adversary" + vehicle.Id + "Sequence", maneuverGroup);
             XmlNode actors = root.CreateElement("Actors");
             SetAttribute("selectTriggeringEntities", "false", actors);
             XmlNode entityRef = root.CreateElement("EntityRef");
             SetAttribute("entityRef", "adversary" + vehicle.Id, entityRef);
             XmlNode maneuver = root.CreateElement("Maneuver");
-            SetAttribute("name", "Adversary" + vehicle.Id + "_Maneuver", maneuverGroup);
-
-            // ToDo Modify Combine Trigger so that it takes Path instead of Waypoint
-            /*
-            BuildTrigger actTrigger = new BuildTrigger(root, scenarioInfo);
-            actTrigger.CombineTrigger(act, Path path);
-            */
+            SetAttribute("name", "adversary" + vehicle.Id + "_Maneuver", maneuverGroup);
 
             for (int i = 0; i < vehicle.Path.EventList.Count; i++)
             {
@@ -144,6 +128,56 @@ namespace ExportScenario.XMLBuilder
             storyBoard.AppendChild(story);
             story.AppendChild(act);
             act.AppendChild(maneuverGroup);
+            // ToDo create OverallStartTrigger for Path
+            /*BuildTrigger actTrigger = new BuildTrigger(root, scenarioInfo);
+            actTrigger.CombineTrigger(act, true, vehicle.Path.OverallStartTrigger);
+            */
+            XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+            act.AppendChild(actStartTrigger);
+            maneuverGroup.AppendChild(actors);
+            actors.AppendChild(entityRef);
+            maneuverGroup.AppendChild(maneuver);
+
+            // ToDo implement using StopTrigger from BuildTrigger.
+            XmlNode stopTrigger = root.CreateElement("StopTrigger");
+            storyBoard.AppendChild(stopTrigger);
+        }
+
+        public void BuildPedestrianStories(Pedestrian pedestrian)
+        /// Creates Stories from story head and Events
+        {
+            XmlNode story = root.CreateElement("Story");
+            SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Story", story);
+            XmlNode act = root.CreateElement("Act");
+            SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Act", act);
+            XmlNode maneuverGroup = root.CreateElement("ManeuverGroup");
+            SetAttribute("maximumExecutionCount", "1", maneuverGroup);
+            SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "Sequence", maneuverGroup);
+            XmlNode actors = root.CreateElement("Actors");
+            SetAttribute("selectTriggeringEntities", "false", actors);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", "adversary_pedestrian" + pedestrian.Id, entityRef);
+            XmlNode maneuver = root.CreateElement("Maneuver");
+            SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Maneuver", maneuverGroup);
+
+
+
+            for (int i = 0; i < pedestrian.Path.EventList.Count; i++)
+            {
+                BuildEvents(maneuver, pedestrian.Path.EventList[i]);
+            }
+
+            // hierarchy
+            storyBoard.AppendChild(story);
+            story.AppendChild(act);
+            act.AppendChild(maneuverGroup);
+            // ToDo create OverallStartTrigger for Path
+            /*BuildTrigger actTrigger = new BuildTrigger(root, scenarioInfo);
+            actTrigger.CombineTrigger(act, true, pedestrian.Path.OverallStartTrigger);
+            */
+            XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+            act.AppendChild(actStartTrigger);
+
             maneuverGroup.AppendChild(actors);
             actors.AppendChild(entityRef);
             maneuverGroup.AppendChild(maneuver);
