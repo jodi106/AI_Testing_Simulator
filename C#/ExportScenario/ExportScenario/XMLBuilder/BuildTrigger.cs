@@ -154,7 +154,6 @@ namespace ExportScenario.XMLBuilder
             double tolerance = 3.0;
 
             //DistanceCondition
-            bool freespace = false; // True: distance is measured between closest bounding box points. False: reference point distance is used.
             string rule = "greaterThan"; // "equalTo", "greaterThan", "lessThan", (not sure if supported) "greaterOrEqual", "lessOrEqual", "notEqualTo"
             double value = 3.0; // The distance value. Unit: [m]. Range: [0..inf[.
             string routingAlgorithm = "fastest"; // "undefined", "fastest" , "shortest" , ... (these 2 are the relevant options)
@@ -187,17 +186,33 @@ namespace ExportScenario.XMLBuilder
             if (EntityCondition.Equals("DistanceCondition"))
             {
                 XmlNode distanceCondition = root.CreateElement("DistanceCondition");
-                SetAttribute("freespace", freespace.ToString(), distanceCondition);
+                SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
                 SetAttribute("rule", rule, distanceCondition);
                 SetAttribute("value", value.ToString(), distanceCondition);
                 SetAttribute("routingAlgorithm", routingAlgorithm, distanceCondition);
+                XmlNode position = root.CreateAttribute("Position");
+                XmlNode worldposition = root.CreateElement("WorldPosition");
+                SetAttribute("x", "300.0", worldposition);
+                SetAttribute("y", "300.0", worldposition);
+                SetAttribute("z", "0.3", worldposition);
+                SetAttribute("h", "90", worldposition);
                 entityCondition.AppendChild(distanceCondition);
+                distanceCondition.AppendChild(position);
+                position.AppendChild(worldposition);
             }
             else if (EntityCondition.Equals("ReachPositionCondition"))
             {
                 XmlNode reachPositionCondition = root.CreateElement("ReachPositionCondition");
                 SetAttribute("tolerance", tolerance.ToString(), reachPositionCondition);
+                XmlNode position = root.CreateAttribute("Position");
+                XmlNode worldposition = root.CreateElement("WorldPosition");
+                SetAttribute("x", "300.0", worldposition);
+                SetAttribute("y", "300.0", worldposition);
+                SetAttribute("z", "0.3", worldposition);
+                SetAttribute("h", "90", worldposition);
                 entityCondition.AppendChild(reachPositionCondition);
+                reachPositionCondition.AppendChild(position);
+                position.AppendChild(worldposition);
             }
             else
             {
