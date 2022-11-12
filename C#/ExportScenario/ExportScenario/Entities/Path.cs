@@ -4,10 +4,8 @@ using System.Text;
 
 namespace ExportScenario.Entities
 {
-    public class Path
+    public class Path // Story in .xosc
     {
-        
-
         public Path()
         {
             EventList = new List<Waypoint>();
@@ -19,8 +17,6 @@ namespace ExportScenario.Entities
             OverallStopTrigger = overallStopTrigger;
             EventList = eventList;
         }
-
-
 
         public Waypoint OverallStartTrigger { get; set; } // A Waypoint Object containing Info regarding the overall start trigger of an act
         public Waypoint OverallStopTrigger { get; set; }

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ExportScenario.Entities
 {
-    public class Waypoint
+    public class Waypoint // Event in .xosc
     {
-        public Waypoint(int id, Coord3D position, List<BaseEntity> involvedEntities, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
+        public Waypoint(int id, Coord3D position, List<EntityModel> involvedEntities, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
             Id = id;
             Position = position;
@@ -20,7 +20,7 @@ namespace ExportScenario.Entities
 
         public int Id { get; set; }
         public Coord3D Position { get; set; }
-        public List<BaseEntity> InvolvedEntities { get; set; }
+        public List<EntityModel> InvolvedEntities { get; set; }
         public ActionType ActionTypeInfo { get; set; }
         public string Priority { get; set; }
         /* Priority types

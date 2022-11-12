@@ -11,7 +11,7 @@ namespace ExportScenario.Entities
         public TriggerInfo(string triggerType, double delay, string conditionEdge, int simulationTime)
         {
             ID = autoIncrementId++;
-            TriggerType = triggerType;
+            TriggerType = triggerType; // "StartTrigger" or "StopTrigger"
             Delay = delay;
             ConditionEdge = conditionEdge;
             SimulationTime = simulationTime;
@@ -21,7 +21,7 @@ namespace ExportScenario.Entities
         /// for StoryboardElementStateCondition
         {
             ID = autoIncrementId++;
-            TriggerType = triggerType;
+            TriggerType = triggerType; // "StartTrigger" or "StopTrigger"
             Delay = delay;
             ConditionEdge = conditionEdge;
             AfterAction = afterAction; // use ActionType.Name + ActionType.ID
