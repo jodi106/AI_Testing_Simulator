@@ -198,8 +198,9 @@ namespace ExportScenario.XMLBuilder
             
             // Create Action
             BuildAction buildAction = new BuildAction(root, "buildAction");
-            MethodInfo mi = this.GetType().GetMethod(waypoint.ActionTypeInfo.Name);           
-            mi.Invoke(buildAction, new object[] { action, waypoint });
+            Type type = typeof(BuildAction);
+            MethodInfo mi = type.GetMethod(waypoint.ActionTypeInfo.Name);           
+            mi.Invoke(buildAction, new object[2] { action, waypoint });
             new_event.AppendChild(action);
 
             // Create Trigger(s)
@@ -209,7 +210,6 @@ namespace ExportScenario.XMLBuilder
             maneuver.AppendChild(new_event);
         }
 
-        
 
         // Helper
         private void SetAttribute(string name, string value, XmlNode element)
