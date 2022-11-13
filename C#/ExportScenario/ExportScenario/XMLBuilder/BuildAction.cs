@@ -28,7 +28,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
             XmlNode acquirePositionAction = root.CreateElement("AcquirePositionAction");
-            XmlNode position = root.CreateElement("position");
+            XmlNode position = root.CreateElement("Position");
             XmlNode worldPosition = root.CreateElement("WorldPosition");
             SetAttribute("x", waypoint.ActionTypeInfo.Positions[0].X.ToString(), worldPosition);
             SetAttribute("y", waypoint.ActionTypeInfo.Positions[0].Y.ToString(), worldPosition);
@@ -44,12 +44,13 @@ namespace ExportScenario.XMLBuilder
 
         }
 
-        public void AssignRouteAction(XmlNode privateAction, Waypoint waypoint)
+        public void AssignRouteAction(XmlNode action, Waypoint waypoint)
         /// Creates AssignRouteAction
         {
             // routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
             string routeStrategy = "fastest";
 
+            XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
             XmlNode assignRouteAction = root.CreateElement("AssignRouteAction");
             XmlNode route = root.CreateElement("Route");
@@ -60,7 +61,7 @@ namespace ExportScenario.XMLBuilder
             {
                 XmlNode _waypoint = root.CreateElement("Waypoint");
                 SetAttribute("routeStrategy", routeStrategy, _waypoint);
-                XmlNode position = root.CreateElement("position");
+                XmlNode position = root.CreateElement("Position");
                 XmlNode worldPosition = root.CreateElement("WorldPosition");
                 SetAttribute("x", waypoint.ActionTypeInfo.Positions[i].X.ToString(), worldPosition);
                 SetAttribute("y", waypoint.ActionTypeInfo.Positions[i].Y.ToString(), worldPosition);
@@ -72,6 +73,7 @@ namespace ExportScenario.XMLBuilder
                 position.AppendChild(worldPosition);
             }
 
+            action.AppendChild(privateAction);
             privateAction.AppendChild(routingAction);
             routingAction.AppendChild(assignRouteAction);
             assignRouteAction.AppendChild(route);
@@ -200,7 +202,7 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(world_position);
         }
 
-        public void ControllerAction(XmlNode privateAction, string controlMode = "simulation", string propertyName = "module", string controllerName = "HeroAgent")
+        public void ControllerAction(XmlNode privateAction, string controlMode = "external_control", string propertyName = "module", string controllerName = "HeroAgent")
         {
             
             XmlNode controller_action = root.CreateElement("ControllerAction");

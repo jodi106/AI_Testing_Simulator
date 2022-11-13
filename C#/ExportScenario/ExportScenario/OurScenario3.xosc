@@ -43,7 +43,7 @@
       </Vehicle>
     </ScenarioObject>
     <ScenarioObject name="adversary2">
-      <Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+      <Vehicle name="vehicle.lincoln.mkz_2017" vehicleCategory="car">
         <ParameterDeclarations />
         <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0" />
         <BoundingBox>
@@ -72,7 +72,7 @@
       </Pedestrian>
     </ScenarioObject>
   </Entities>
-  <StoryBoard>
+  <Storyboard>
     <Init>
       <Actions>
         <GlobalAction>
@@ -94,7 +94,7 @@
               <AssignControllerAction>
                 <Controller name="HeroAgent">
                   <Properties>
-                    <Property name="module" value="simulation" />
+                    <Property name="module" value="external_control" />
                   </Properties>
                 </Controller>
               </AssignControllerAction>
@@ -149,7 +149,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="255" y="-190" z="0.3" h="90" />
+                <WorldPosition x="239" y="-169" z="0.3" h="0" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -185,41 +185,84 @@
         </Private>
       </Actions>
     </Init>
-    <Story name="adversary1_Story">
-      <Act name="adversary1_Act">
-        <ManeuverGroup maximumExecutionCount="1" name="adversary1_Maneuver">
-          <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="adversary1" />
-          </Actors>
-          <Maneuver />
-        </ManeuverGroup>
-        <StartTrigger />
-      </Act>
-    </Story>
-    <StopTrigger />
     <Story name="adversary2_Story">
       <Act name="adversary2_Act">
-        <ManeuverGroup maximumExecutionCount="1" name="adversary2_Maneuver">
+        <ManeuverGroup maximumExecutionCount="1" name="adversary2Sequence">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="adversary2" />
           </Actors>
-          <Maneuver />
+          <Maneuver name="adversary2_Maneuver">
+            <Event name="AssignRouteAction1" priority="overwrite">
+              <Action name="AssignRouteAction0">
+                <PrivateAction>
+                  <RoutingAction>
+                    <AssignRouteAction>
+                      <Route name="Route" closed="false">
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="239" y="-169" z="0.3" h="0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="300" y="-169" z="0.3" h="90" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="311" y="-158" z="0.3" h="180" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="311" y="-83" z="0.3" h="180" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="346" y="-65" z="0.3" h="90" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="381" y="38" z="0.3" h="180" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="323" y="10" z="0.3" h="270" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="17" y="10" z="0.3" h="270" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="-23" y="10" z="0.3" h="270" />
+                          </Position>
+                        </Waypoint>
+                      </Route>
+                    </AssignRouteAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="SimulationTimeCondition0" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0" rule="greaterThan" />
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
         </ManeuverGroup>
         <StartTrigger />
       </Act>
     </Story>
     <StopTrigger />
-    <Story name="adversary_pedestrian1_Story">
-      <Act name="adversary_pedestrian1_Act">
-        <ManeuverGroup maximumExecutionCount="1" name="adversary_pedestrian1_Maneuver">
-          <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="adversary_pedestrian1" />
-          </Actors>
-          <Maneuver />
-        </ManeuverGroup>
-        <StartTrigger />
-      </Act>
-    </Story>
-    <StopTrigger />
-  </StoryBoard>
+  </Storyboard>
 </OpenSCENARIO>

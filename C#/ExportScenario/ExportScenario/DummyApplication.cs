@@ -33,19 +33,18 @@ namespace ExportScenario
             routeAdversary2.Add(new Coord3D(-23, 10, 0.3, 270));
 
             List<TriggerInfo> triggerW1 = new List<TriggerInfo>();
-            triggerW1.Add(new TriggerInfo("StartTrigger", 0, "rising", 0));
+            triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan", 0, "rising"));
 
             List<Waypoint> storyAdversary2 = new List<Waypoint>();
-            storyAdversary2.Add(new Waypoint(1, new Coord3D(239, -169, 0.3, 0), new List<EntityModel> { adversary2 }, new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
-            //Path path_veh_1 = new Path(null, storyAdversary2); // TODO natalie
+            storyAdversary2.Add(new Waypoint(1, null, new List<EntityModel> { adversary2 }, new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
             Path path_veh_1 = new Path();
-            Path path_veh_2 = new Path();
+            Path path_veh_2 = new Path(null, storyAdversary2, null);
             
 
             //ToDo create OverallStartTrigger for Path
             List <Vehicle> vehicles = new List<Vehicle>();
             vehicles.Add(new Vehicle(1, new Coord3D(300, -172, 0.3, 160), adversary1, path_veh_1));
-            vehicles.Add(new Vehicle(2, new Coord3D(255, -190, 0.3, 90), adversary2, path_veh_2));
+            vehicles.Add(new Vehicle(2, new Coord3D(239, -169, 0.3, 0), adversary2, path_veh_2));
 
             Path path_ped_1 = new Path();
             //Waypoint w1
