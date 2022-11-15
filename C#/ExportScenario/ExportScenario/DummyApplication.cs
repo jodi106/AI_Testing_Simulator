@@ -15,7 +15,7 @@ namespace ExportScenario
 
             WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, "free", "dry", 0, 1.0);
 
-            Ego egoVehicle = new Ego(0, new Coord3D(255.7, -145.7, 0.3, 200), new EntityModel(0, "vehicle.volkswagen.t2", "notRelevant"));
+            Ego egoVehicle = new Ego(0, new Coord3D(255.7, -145.7, 0.3, 200), new EntityModel(0, "vehicle.volkswagen.t2"));
 
             EntityModel adversary1 = new EntityModel(1, "vehicle.audi.tt");
             EntityModel adversary2 = new EntityModel(2, "vehicle.lincoln.mkz_2017");
@@ -33,32 +33,27 @@ namespace ExportScenario
             routeAdversary2.Add(new Coord3D(-23, 10, 0.3, 270));
 
             List<TriggerInfo> triggerW1 = new List<TriggerInfo>();
-            triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan", 0, "rising"));
-
+            triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan"));
             List<TriggerInfo> triggerW2 = new List<TriggerInfo>();
-            triggerW2.Add(new TriggerInfo("DistanceCondition", 0, "lessThan", 0, "rising"));
+            triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Coord3D(250, 10, 0.3, 270)));
+            List<TriggerInfo> triggerW3 = new List<TriggerInfo>();
+            triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Coord3D(100, 10, 0.3, 270)));
 
             List<Waypoint> storyAdversary2 = new List<Waypoint>();
-            storyAdversary2.Add(new Waypoint(1, null, new List<EntityModel> { adversary2 }, new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
-            storyAdversary2.Add(new Waypoint(2, new Coord3D(250, 10, 0.3, 270), new List<EntityModel> { adversary2}, new ActionType("LaneChangeAction"), triggerW2));
+            storyAdversary2.Add(new Waypoint(1, new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
+            storyAdversary2.Add(new Waypoint(2, new ActionType("LaneChangeAction", 25, "adversary2", 1), triggerW2));
+            storyAdversary2.Add(new Waypoint(3, new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
+            
             Path path_veh_1 = new Path();
             Path path_veh_2 = new Path(null, storyAdversary2, null);
             
-
-            //ToDo create OverallStartTrigger for Path
             List <Vehicle> vehicles = new List<Vehicle>();
-            vehicles.Add(new Vehicle(1, new Coord3D(300, -172, 0.3, 160), adversary1, path_veh_1));
-            vehicles.Add(new Vehicle(2, new Coord3D(239, -169, 0.3, 0), adversary2, path_veh_2));
+            vehicles.Add(new Vehicle(1, new Coord3D(300, -172, 0.3, 160), adversary1, path_veh_1, 20.0));
+            vehicles.Add(new Vehicle(2, new Coord3D(239, -169, 0.3, 0), adversary2, path_veh_2, 15.0));
 
             Path path_ped_1 = new Path();
-            //Waypoint w1
-            //Waypoint w2
-            //Actions
-            //Triggerlist
-            //...
-
             List<Pedestrian> ped = new List<Pedestrian>();
-            ped.Add(new Pedestrian(1, new Coord3D(255, -190, 0.8, 90), new EntityModel(1, "walker.pedestrian.0001"), path_ped_1));
+            ped.Add(new Pedestrian(1, new Coord3D(255, -190, 0.8, 90), new EntityModel(1, "walker.pedestrian.0001"), path_ped_1, 1));
 
             ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town04", worldOptions, egoVehicle, vehicles);
             BuildXML doc = new BuildXML(dummy);
@@ -66,4 +61,12 @@ namespace ExportScenario
         }
 
     }
+
+    // A path has:
+    //Waypoint w1
+    //Waypoint w2
+    //Actions
+    //Triggerlist
+    //...
+    //ToDo create OverallStartTrigger for Path ?? i did this?
 }

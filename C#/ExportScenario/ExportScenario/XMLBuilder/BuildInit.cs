@@ -47,13 +47,13 @@ namespace ExportScenario.XMLBuilder
             // Spawn simulation vehicles at requested coordinates
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
-                BuildPrivate("adversary" + scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].SpawnPoint, 20);
+                BuildPrivate("adversary" + scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].SpawnPoint, scenarioInfo.Vehicles[n].InitialSpeed);
             }
 
             // Spawn pedestrians at requested coordinates
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate("adversary_pedestrian" + scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].SpawnPoint, 0);
+                BuildPrivate("adversary_pedestrian" + scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].SpawnPoint, scenarioInfo.Pedestrians[n].InitialSpeed);
             }
 
         }

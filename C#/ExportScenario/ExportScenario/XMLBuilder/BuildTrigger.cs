@@ -25,7 +25,6 @@ namespace ExportScenario.XMLBuilder
         public void CombineTrigger(XmlNode parentNode, bool start, Waypoint waypoint)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group 
         {   
-
             XmlNode trigger;
             if (start)
             {
@@ -69,20 +68,20 @@ namespace ExportScenario.XMLBuilder
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
             SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
             XmlNode entityRef = root.CreateElement("EntityRef");
-            SetAttribute("entityRef", "todo", entityRef);
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
 
             XmlNode entityCondition = root.CreateElement("EntityCondition");
             XmlNode distanceCondition = root.CreateElement("DistanceCondition");
             SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
             SetAttribute("rule", triggerInfo.Rule, distanceCondition);
-            SetAttribute("value", "todo", distanceCondition);
+            SetAttribute("value", triggerInfo.Value.ToString(), distanceCondition);
             SetAttribute("alongRoute", "false", distanceCondition);
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
-            SetAttribute("x", "300.0", worldposition);
-            SetAttribute("y", "300.0", worldposition);
-            SetAttribute("z", "0.3", worldposition);
-            SetAttribute("h", "90", worldposition);
+            SetAttribute("x", triggerInfo.WorldPosition.X.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPosition.Y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPosition.Z.ToString(), worldposition);
+            SetAttribute("h", triggerInfo.WorldPosition.Rot.ToString(), worldposition);
 
             // hierarchy
             condition.AppendChild(byEntityCondition);
@@ -215,20 +214,20 @@ namespace ExportScenario.XMLBuilder
 
             if (EntityCondition.Equals("DistanceCondition"))
             {
-                XmlNode distanceCondition = root.CreateElement("DistanceCondition");
-                SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
-                SetAttribute("rule", rule, distanceCondition);
-                SetAttribute("value", value.ToString(), distanceCondition);
-                SetAttribute("routingAlgorithm", routingAlgorithm, distanceCondition);
-                XmlNode position = root.CreateAttribute("Position");
-                XmlNode worldposition = root.CreateElement("WorldPosition");
-                SetAttribute("x", "300.0", worldposition);
-                SetAttribute("y", "300.0", worldposition);
-                SetAttribute("z", "0.3", worldposition);
-                SetAttribute("h", "90", worldposition);
-                entityCondition.AppendChild(distanceCondition);
-                distanceCondition.AppendChild(position);
-                position.AppendChild(worldposition);
+                //XmlNode distanceCondition = root.CreateElement("DistanceCondition");
+                //SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
+                //SetAttribute("rule", rule, distanceCondition);
+                //SetAttribute("value", value.ToString(), distanceCondition);
+                //SetAttribute("routingAlgorithm", routingAlgorithm, distanceCondition);
+                //XmlNode position = root.CreateAttribute("Position");
+                //XmlNode worldposition = root.CreateElement("WorldPosition");
+                //SetAttribute("x", "300.0", worldposition);
+                //SetAttribute("y", "300.0", worldposition);
+                //SetAttribute("z", "0.3", worldposition);
+                //SetAttribute("h", "90", worldposition);
+                //entityCondition.AppendChild(distanceCondition);
+                //distanceCondition.AppendChild(position);
+                //position.AppendChild(worldposition);
             }
             else if (EntityCondition.Equals("ReachPositionCondition"))
             {
