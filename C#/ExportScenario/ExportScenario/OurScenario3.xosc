@@ -158,7 +158,7 @@
               <SpeedAction>
                 <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time" />
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="20" />
+                  <AbsoluteTargetSpeed value="15" />
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
@@ -177,7 +177,7 @@
               <SpeedAction>
                 <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time" />
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="0" />
+                  <AbsoluteTargetSpeed value="1" />
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
@@ -254,6 +254,70 @@
                     <ByValueCondition>
                       <SimulationTimeCondition value="0" rule="greaterThan" />
                     </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="LaneChangeAction2" priority="overwrite">
+              <Action name="LaneChangeAction1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="linear" value="25" dynamicsDimension="distance" />
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="adversary2" value="1" />
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceCondition1" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="adversary2" />
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <DistanceCondition freespace="false" rule="lessThan" value="20" alongRoute="false">
+                          <Position>
+                            <WorldPosition x="250" y="10" z="0.3" h="270" />
+                          </Position>
+                        </DistanceCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event name="SpeedAction3" priority="overwrite">
+              <Action name="SpeedAction2">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="10" dynamicsDimension="time" />
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0" />
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceCondition2" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="adversary2" />
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <DistanceCondition freespace="false" rule="lessThan" value="20" alongRoute="false">
+                          <Position>
+                            <WorldPosition x="100" y="10" z="0.3" h="270" />
+                          </Position>
+                        </DistanceCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>

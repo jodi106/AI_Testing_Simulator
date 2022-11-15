@@ -12,12 +12,11 @@ namespace ExportScenario.Entities
             ID = autoIncrementId++;
             Name = name;
         }
-        public ActionType(string name, double speed, double absoluteTargetSpeedValue, string speedActionDynamics = "step", double speedActionDynamicsValue = 0, string dynamicsDimension = "time")
+        public ActionType(string name, double absoluteTargetSpeedValue, string speedActionDynamics = "step", double speedActionDynamicsValue = 0.0, string dynamicsDimension = "time")
         /// for SpeedAction
         {
             ID = autoIncrementId++;
             Name = name;
-            Speed = speed;
             AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
             SpeedActionDynamics = speedActionDynamics;
             SpeedActionDynamicsValue = speedActionDynamicsValue;
@@ -33,7 +32,7 @@ namespace ExportScenario.Entities
         }
 
         public ActionType(string name, double laneChangeActionDynamicsValue, string entityRef, int relativeTargetLaneValue)
-        /// for LaneChangeAction
+        /// for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
         {
             ID = autoIncrementId++;
             Name = name;
@@ -45,7 +44,6 @@ namespace ExportScenario.Entities
 
         public int ID { get; private set; }
         public string Name { get; set; }
-        public double Speed { get; set; }
         public double AbsoluteTargetSpeedValue { get; set; }
         public string SpeedActionDynamics { get; set; }
         public double SpeedActionDynamicsValue { get; set; }

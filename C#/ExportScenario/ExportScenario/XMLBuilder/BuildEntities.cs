@@ -49,7 +49,7 @@ namespace ExportScenario.XMLBuilder
 
         }
 
-        public void BuildVehicle(string model, string scenarioObjectName, string propertyValue)
+        public void BuildVehicle(string model, string scenarioObjectName, string propertyValue, double maxSpeed = 69.444)
         /// Creates vehicle xml block
         {
             XmlNode scenario_object = root.CreateElement("ScenarioObject");
@@ -59,7 +59,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("vehicleCategory", "car", vehicle);
             XmlNode parameter_declarations = root.CreateElement("ParameterDeclarations");
             XmlNode performance = root.CreateElement("Performance");
-            SetAttribute("maxSpeed", "69.444", performance);
+            SetAttribute("maxSpeed", maxSpeed.ToString(), performance);
             SetAttribute("maxAcceleration", "200", performance);
             SetAttribute("maxDeceleration", "10.0", performance);
             XmlNode bounding_box = root.CreateElement("BoundingBox");

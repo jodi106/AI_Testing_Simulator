@@ -23,13 +23,15 @@ namespace ExportScenario.Entities
             Path = path;
         }
 
-        public Pedestrian(int id, Coord3D spawnPoint, EntityModel model, Path path) : base(id, spawnPoint)
+        public Pedestrian(int id, Coord3D spawnPoint, EntityModel model, Path path, double initialSpeed) : base(id, spawnPoint)
         {
             Model = model;
             Path = path;
+            InitialSpeed = initialSpeed;
         }
 
         public EntityModel Model { get; set; }
         public Path Path { get; set; }
+        public double InitialSpeed { get; set; }
     }
 }

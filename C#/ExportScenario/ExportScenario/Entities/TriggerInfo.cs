@@ -9,15 +9,31 @@ namespace ExportScenario.Entities
     {
         private static int autoIncrementId = 0;
 
-        // Constructor for "SimulationTimeCondition"
+        
         public TriggerInfo(string triggerType, int simulationTime, string rule, double delay=0, string conditionEdge="rising")
+        /// Constructor for "SimulationTimeCondition"
         {
             ID = autoIncrementId++;
             TriggerType = triggerType; 
-            Delay = delay;
-            ConditionEdge = conditionEdge;
             SimulationTime = simulationTime;
             Rule = rule;
+
+            Delay = delay;
+            ConditionEdge = conditionEdge;
+        }
+
+        public TriggerInfo(string triggerType, string entityRef, string rule, double value, Coord3D worldPosition, double delay = 0, string conditionEdge = "rising")
+        /// Constructor for "DistanceCondition"
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Rule = rule;
+            Value = value;
+            WorldPosition = worldPosition;
+
+            Delay = delay;
+            ConditionEdge = conditionEdge;
         }
 
         public TriggerInfo(string triggerType, double delay, string conditionEdge, ActionType afterAction)
@@ -34,8 +50,11 @@ namespace ExportScenario.Entities
         public string TriggerType { get; set; } // "examples: SimulationTimeCondition", "DistanceCondition"
         public double Delay { get; set; } // default: 0
         public string ConditionEdge { get; set; } // default: "rising"
+        public string EntityRef {  get; set; }
         public int SimulationTime { get; set; }
+        public double Value {  get; set; }
         public string Rule {  get; set; } // "equalTo" , "greaterThan" , "lessThan"
+        public Coord3D WorldPosition { get;set; } 
         public ActionType AfterAction { get; set; }  // corresponds to a previously executed ActionType
     }
 }
