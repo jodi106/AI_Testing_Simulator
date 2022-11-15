@@ -35,8 +35,12 @@ namespace ExportScenario
             List<TriggerInfo> triggerW1 = new List<TriggerInfo>();
             triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan", 0, "rising"));
 
+            List<TriggerInfo> triggerW2 = new List<TriggerInfo>();
+            triggerW2.Add(new TriggerInfo("DistanceCondition", 0, "lessThan", 0, "rising"));
+
             List<Waypoint> storyAdversary2 = new List<Waypoint>();
             storyAdversary2.Add(new Waypoint(1, null, new List<EntityModel> { adversary2 }, new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
+            storyAdversary2.Add(new Waypoint(2, new Coord3D(250, 10, 0.3, 270), new List<EntityModel> { adversary2}, new ActionType("LaneChangeAction"), triggerW2));
             Path path_veh_1 = new Path();
             Path path_veh_2 = new Path(null, storyAdversary2, null);
             

@@ -108,9 +108,10 @@ namespace ExportScenario.XMLBuilder
             */
         }
 
-        public void SpeedAction(XmlNode privateAction, Waypoint waypoint)
+        public void SpeedAction(XmlNode action, Waypoint waypoint)
         /// Creates Speed Action
         {
+            XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
             XmlNode speedAction = root.CreateElement("SpeedAction");
             XmlNode SpeedActionDynamics = root.CreateElement("SpeedActionDynamics");
@@ -122,6 +123,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("dynamicsDimension", waypoint.ActionTypeInfo.DynamicDimensions, SpeedActionDynamics);
             SetAttribute("value", waypoint.ActionTypeInfo.AbsoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);
 
+            action.AppendChild(privateAction);
             privateAction.AppendChild(longitudinalAction);
             longitudinalAction.AppendChild(speedAction);
             speedAction.AppendChild(SpeedActionDynamics);
@@ -132,9 +134,10 @@ namespace ExportScenario.XMLBuilder
 
 
 
-        public void LaneChangeAction(XmlNode privateAction, Waypoint waypoint)
+        public void LaneChangeAction(XmlNode action, Waypoint waypoint)
         /// Creates LaneChangeAction double laneChangeActionDynamicsValue, string entityRef, int relativeTargetLaneValue, 
         {
+            XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode lateralAction = root.CreateElement("LateralAction");
             XmlNode laneChangeAction = root.CreateElement("LaneChangeAction");
             XmlNode laneChangeActionDynamics = root.CreateElement("LaneChangeActionDynamics");
@@ -146,6 +149,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("entityRef", waypoint.ActionTypeInfo.EntityRef, relativeTargetLane);
             SetAttribute("value", waypoint.ActionTypeInfo.RelativeTargetLaneValue.ToString(), relativeTargetLane);
 
+            action.AppendChild(privateAction);
             privateAction.AppendChild(lateralAction);
             lateralAction.AppendChild(laneChangeAction);
             laneChangeAction.AppendChild(laneChangeActionDynamics);

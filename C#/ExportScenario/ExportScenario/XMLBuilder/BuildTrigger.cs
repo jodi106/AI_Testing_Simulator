@@ -63,6 +63,37 @@ namespace ExportScenario.XMLBuilder
             byValueCondition.AppendChild(simulationTimeCondition);
         }
 
+        public void DistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", "todo", entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode distanceCondition = root.CreateElement("DistanceCondition");
+            SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
+            SetAttribute("rule", triggerInfo.Rule, distanceCondition);
+            SetAttribute("value", "todo", distanceCondition);
+            SetAttribute("alongRoute", "false", distanceCondition);
+            XmlNode position = root.CreateElement("Position");
+            XmlNode worldposition = root.CreateElement("WorldPosition");
+            SetAttribute("x", "300.0", worldposition);
+            SetAttribute("y", "300.0", worldposition);
+            SetAttribute("z", "0.3", worldposition);
+            SetAttribute("h", "90", worldposition);
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);   
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(distanceCondition);
+            distanceCondition.AppendChild(position);
+            position.AppendChild(worldposition);
+        }
+
         // AccelerationCondition(XmlNode conditionGroup, Waypoint waypoint)
 
 

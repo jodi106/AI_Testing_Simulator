@@ -258,6 +258,38 @@
                 </ConditionGroup>
               </StartTrigger>
             </Event>
+            <Event name="LaneChangeAction2" priority="overwrite">
+              <Action name="LaneChangeAction1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="linear" value="0" dynamicsDimension="distance" />
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="" value="0" />
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceCondition1" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="todo" />
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <DistanceCondition freespace="false" rule="lessThan" value="todo" alongRoute="false">
+                          <Position>
+                            <WorldPosition x="300.0" y="300.0" z="0.3" h="90" />
+                          </Position>
+                        </DistanceCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
           </Maneuver>
         </ManeuverGroup>
         <StartTrigger />
