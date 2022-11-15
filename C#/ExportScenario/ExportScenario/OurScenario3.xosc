@@ -193,7 +193,7 @@
           </Actors>
           <Maneuver name="adversary2_Maneuver">
             <Event name="AssignRouteAction1" priority="overwrite">
-              <Action name="AssignRouteAction0">
+              <Action name="AssignRouteAction1">
                 <PrivateAction>
                   <RoutingAction>
                     <AssignRouteAction>
@@ -205,42 +205,12 @@
                         </Waypoint>
                         <Waypoint routeStrategy="fastest">
                           <Position>
-                            <WorldPosition x="300" y="-169" z="0.3" h="90" />
+                            <WorldPosition x="250" y="10" z="0.3" h="270" />
                           </Position>
                         </Waypoint>
                         <Waypoint routeStrategy="fastest">
                           <Position>
-                            <WorldPosition x="311" y="-158" z="0.3" h="180" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
-                            <WorldPosition x="311" y="-83" z="0.3" h="180" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
-                            <WorldPosition x="346" y="-65" z="0.3" h="90" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
-                            <WorldPosition x="381" y="38" z="0.3" h="180" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
-                            <WorldPosition x="323" y="10" z="0.3" h="270" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
-                            <WorldPosition x="17" y="10" z="0.3" h="270" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
-                            <WorldPosition x="-23" y="10" z="0.3" h="270" />
+                            <WorldPosition x="100" y="10" z="0.3" h="270" />
                           </Position>
                         </Waypoint>
                       </Route>
@@ -259,7 +229,7 @@
               </StartTrigger>
             </Event>
             <Event name="LaneChangeAction2" priority="overwrite">
-              <Action name="LaneChangeAction1">
+              <Action name="LaneChangeAction2">
                 <PrivateAction>
                   <LateralAction>
                     <LaneChangeAction>
@@ -291,7 +261,7 @@
               </StartTrigger>
             </Event>
             <Event name="SpeedAction3" priority="overwrite">
-              <Action name="SpeedAction2">
+              <Action name="SpeedAction3">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>

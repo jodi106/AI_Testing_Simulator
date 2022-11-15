@@ -201,7 +201,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, new_event);
             SetAttribute("priority", waypoint.Priority, new_event);
             XmlNode action = root.CreateElement("Action");
-            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, action);
+            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, action);
             
             // Create Action
             BuildAction buildAction = new BuildAction(root, "buildAction");
