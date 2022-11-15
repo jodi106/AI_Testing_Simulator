@@ -28,8 +28,6 @@ namespace ExportScenario.XMLBuilder
             root.AppendChild(xmlVersion);
             openScenario = root.CreateElement("OpenSCENARIO");
             root.AppendChild(openScenario);
-
-
         }
 
         public void CombineXML()
@@ -98,8 +96,6 @@ namespace ExportScenario.XMLBuilder
             {
                 BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
             }
-
-
         }
 
         public void BuildVehicleStories(Vehicle vehicle)

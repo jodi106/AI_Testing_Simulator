@@ -23,6 +23,7 @@ namespace ExportScenario.Entities
             Path = path;
         }
 
+        // TODO auto increment id
         public Pedestrian(int id, Coord3D spawnPoint, EntityModel model, Path path, double initialSpeed) : base(id, spawnPoint)
         {
             Model = model;

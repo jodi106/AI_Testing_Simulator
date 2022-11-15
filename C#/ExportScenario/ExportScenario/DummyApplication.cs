@@ -20,6 +20,7 @@ namespace ExportScenario
             EntityModel adversary1 = new EntityModel(1, "vehicle.audi.tt");
             EntityModel adversary2 = new EntityModel(2, "vehicle.lincoln.mkz_2017");
 
+            // TODO add method to create List<Coord3D> from all waypoint positions and give this List<Coord3D> as parameter to AssignRouteAction
             // Info: A waypoint object is not a waypoint from the .xosc
             List<Coord3D> routeAdversary2 = new List<Coord3D>();
             routeAdversary2.Add(new Coord3D(239, -169, 0.3, 0));
@@ -40,9 +41,9 @@ namespace ExportScenario
             triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Coord3D(100, 10, 0.3, 270)));
 
             List<Waypoint> storyAdversary2 = new List<Waypoint>();
-            storyAdversary2.Add(new Waypoint(1, new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
-            storyAdversary2.Add(new Waypoint(2, new ActionType("LaneChangeAction", 25, "adversary2", 1), triggerW2));
-            storyAdversary2.Add(new Waypoint(3, new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
+            storyAdversary2.Add(new Waypoint(1, new Coord3D(239, -169, 0.3, 0), new ActionType("AssignRouteAction", routeAdversary2), triggerW1));
+            storyAdversary2.Add(new Waypoint(2, new Coord3D(250, 10, 0.3, 270), new ActionType("LaneChangeAction", 25, "adversary2", 1), triggerW2));
+            storyAdversary2.Add(new Waypoint(3, new Coord3D(100, 10, 0.3, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
             
             Path path_veh_1 = new Path();
             Path path_veh_2 = new Path(null, storyAdversary2, null);
@@ -61,12 +62,4 @@ namespace ExportScenario
         }
 
     }
-
-    // A path has:
-    //Waypoint w1
-    //Waypoint w2
-    //Actions
-    //Triggerlist
-    //...
-    //ToDo create OverallStartTrigger for Path ?? i did this?
 }
