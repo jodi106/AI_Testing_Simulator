@@ -7,23 +7,23 @@ using ExportScenario.Entities;
 namespace ExportScenario.XMLBuilder
 {
     internal class BuildAction
+    /// <summary>Class to create OpenScenario Actions for Stories and Init.</summary>
     {
         private XmlDocument root;
-
         public string name { get; set; }
-
         public BuildAction(XmlDocument root, string name)
         // Constructor
         {
             this.root = root;
             this.name = name;
         }
-
         public void CombineAction() { }
         /// ---Probably not necessary as Action only has one xmlBlock---
 
+        //---------------------------------- StoryActions -----------------------------------------
+        // Input always has to be XmlNode action, Waypoint waypoint
         public void AcquirePositionAction(XmlNode action, Waypoint waypoint)
-        /// Creates AcquirePositionAction
+        /// Creates AcquirePositionAction. Defines specific position to go to for a scenario entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
@@ -41,11 +41,10 @@ namespace ExportScenario.XMLBuilder
             routingAction.AppendChild(acquirePositionAction);
             acquirePositionAction.AppendChild(position);
             position.AppendChild(worldPosition);
-
         }
 
         public void AssignRouteAction(XmlNode action, Waypoint waypoint)
-        /// Creates AssignRouteAction
+        /// Creates AssignRouteAction. Defines entire route with multiple postisions for a scenario entity.
         {
             // routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
             string routeStrategy = "fastest";
@@ -72,44 +71,14 @@ namespace ExportScenario.XMLBuilder
                 _waypoint.AppendChild(position);
                 position.AppendChild(worldPosition);
             }
-
             action.AppendChild(privateAction);
             privateAction.AppendChild(routingAction);
             routingAction.AppendChild(assignRouteAction);
             assignRouteAction.AppendChild(route);
-
-            /*
-            <RoutingAction>
-            <AssignRouteAction>
-                <Route name = "TestRoute" closed = "false">
-                    <Waypoint routeStrategy = "fastest">
-                        <Position>
-                        <WorldPosition x="412" y="-100" z="0.3" h="29.9"/>
-                        </Position>
-                    </Waypoint>
-                    <Waypoint routeStrategy = "fastest">
-                        <Position>
-                        <WorldPosition x="402" y="-150" z="0.3" h="29.9"/>
-                        </Position>
-                    </Waypoint>					  
-                    <Waypoint routeStrategy = "fastest">
-                        <Position>
-                        <WorldPosition x="412" y="-200" z="0.3" h="29.9"/>
-                        </Position>
-                    </Waypoint>	
-                    <Waypoint routeStrategy = "fastest">
-                        <Position>
-                        <WorldPosition x="390" y="-300" z="0.3" h="29.9"/>
-                        </Position>
-                    </Waypoint>
-                </Route>
-            </AssignRouteAction>
-            </RoutingAction>
-            */
         }
 
         public void SpeedAction(XmlNode action, Waypoint waypoint)
-        /// Creates Speed Action
+        /// Creates SpeedAction. Defines speed for a scenario entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
@@ -129,13 +98,10 @@ namespace ExportScenario.XMLBuilder
             speedAction.AppendChild(SpeedActionDynamics);
             speedAction.AppendChild(SpeedActionTarget);
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
-
         }
 
-
-
         public void LaneChangeAction(XmlNode action, Waypoint waypoint)
-        /// Creates LaneChangeAction double laneChangeActionDynamicsValue, string entityRef, int relativeTargetLaneValue, 
+        /// Creates LaneChangeAction. Defines amount of lanes to change for a scenario entity relative to a specified entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode lateralAction = root.CreateElement("LateralAction");
@@ -155,23 +121,12 @@ namespace ExportScenario.XMLBuilder
             laneChangeAction.AppendChild(laneChangeActionDynamics);
             laneChangeAction.AppendChild(laneChangeTarget);
             laneChangeTarget.AppendChild(relativeTargetLane);
-            /*
-            <LateralAction>
-            <LaneChangeAction>
-                <LaneChangeActionDynamics dynamicsShape="linear" value="25" dynamicsDimension="distance"/>
-                <LaneChangeTarget>
-                    <RelativeTargetLane entityRef="adversary" value="-1"/>
-                </LaneChangeTarget>
-            </LaneChangeAction>
-            </LateralAction>
-            */
         }
 
-        // Init Actions
+        //---------------------------------- InitActions -----------------------------------------
         public void InitialSpeedAction(XmlNode privateAction, double absoluteTargetSpeedValue, string speedActionDynamics = "step", double speedActionDynamicsValue = 0, string dynamicsDimension = "time")
-        /// Creates Speed Action for BuildInit
+        /// Creates SpeedAction for BuildInit. Defines initial speed of scenario entities.
         {
-
             XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
             XmlNode speedAction = root.CreateElement("SpeedAction");
             XmlNode SpeedActionDynamics = root.CreateElement("SpeedActionDynamics");
@@ -188,9 +143,9 @@ namespace ExportScenario.XMLBuilder
             speedAction.AppendChild(SpeedActionDynamics);
             speedAction.AppendChild(SpeedActionTarget);
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
-
         }
         public void TeleportAction(XmlNode privateAction, Coord3D spawnPoint)
+        /// Creates TeleportAction. Defines start position for scenario entities.
         {
             XmlNode teleport_action = root.CreateElement("TeleportAction");
             XmlNode position = root.CreateElement("Position");
@@ -207,8 +162,9 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void ControllerAction(XmlNode privateAction, string controlMode = "external_control", string propertyName = "module", string controllerName = "HeroAgent")
+        /// Creates ControllerAction for Ego Vehicle Init.
+        // ToDo: validate whether this is necessary for Ego Intit
         {
-            
             XmlNode controller_action = root.CreateElement("ControllerAction");
             XmlNode assign_controller_action = root.CreateElement("AssignControllerAction");
             XmlNode controller = root.CreateElement("Controller");

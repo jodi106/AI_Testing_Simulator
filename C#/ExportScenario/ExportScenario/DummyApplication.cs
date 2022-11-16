@@ -15,12 +15,11 @@ namespace ExportScenario
 
             WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, "free", "dry", 0, 1.0);
 
-            Ego egoVehicle = new Ego(0, new Coord3D(255.7, -145.7, 0.3, 200), new EntityModel(0, "vehicle.volkswagen.t2"));
+            Ego egoVehicle = new Ego(new Coord3D(255.7, -145.7, 0.3, 200), new EntityModel("vehicle.volkswagen.t2"), 0);
 
-            EntityModel adversary1 = new EntityModel(1, "vehicle.audi.tt");
-            EntityModel adversary2 = new EntityModel(2, "vehicle.lincoln.mkz_2017");
+            EntityModel adversary1 = new EntityModel("vehicle.audi.tt");
+            EntityModel adversary2 = new EntityModel("vehicle.lincoln.mkz_2017");
 
-            // TODO add method to create List<Coord3D> from all waypoint positions and give this List<Coord3D> as parameter to AssignRouteAction
             /*
             // Info: A waypoint object is not a waypoint from the .xosc
             List<Coord3D> routeAdversary2 = new List<Coord3D>();
@@ -64,7 +63,7 @@ namespace ExportScenario
 
             Path path_ped_1 = new Path();
             List<Pedestrian> ped = new List<Pedestrian>();
-            ped.Add(new Pedestrian(new Coord3D(255, -190, 0.8, 90), new EntityModel(1, "walker.pedestrian.0001"), path_ped_1, 1));
+            ped.Add(new Pedestrian(new Coord3D(255, -190, 0.8, 90), new EntityModel("walker.pedestrian.0001"), path_ped_1, 1));
 
             ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town04", worldOptions, egoVehicle, vehicles);
             BuildXML doc = new BuildXML(dummy);

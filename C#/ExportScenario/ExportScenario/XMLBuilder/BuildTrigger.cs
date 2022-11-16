@@ -10,20 +10,18 @@ using static System.Collections.Specialized.BitVector32;
 namespace ExportScenario.XMLBuilder
 {
     internal class BuildTrigger
+    /// Class to create Tiggers. Trigger allow to define start or stop conditions for Storys or Events.
     {
         private XmlDocument root;
         private ScenarioInfo scenarioInfo;
-        // private int conditionNr = 0;
-
         public BuildTrigger(XmlDocument root, ScenarioInfo scenarioInfo)
         {
             this.root = root;
             this.scenarioInfo = scenarioInfo;
         }
 
-        // public void CombineTrigger(bool start, XmlNode parentNode, string triggerType) //ToDO change input to TriggerInfo object
         public void CombineTrigger(XmlNode parentNode, bool start, Waypoint waypoint)
-        /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group 
+        /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group.
         {   
             XmlNode trigger;
             if (start)
@@ -43,16 +41,17 @@ namespace ExportScenario.XMLBuilder
                 SetAttribute("delay", waypoint.TriggerList[i].Delay.ToString(), condition);
                 SetAttribute("conditionEdge", waypoint.TriggerList[i].ConditionEdge, condition);
                 
+                // Invokes a Method for specified object with specified inputs via a String
                 MethodInfo mi = this.GetType().GetMethod(waypoint.TriggerList[i].TriggerType);
                 mi.Invoke(this, new object[] { condition, waypoint.TriggerList[i] });
                 conditionGroup.AppendChild(condition);
             }
-
             parentNode.AppendChild(trigger);
             trigger.AppendChild(conditionGroup);
         }
 
         public void SimulationTimeCondition(XmlNode condition, TriggerInfo triggerInfo) 
+        /// Creates SimulationTimeCondition. Triggers after simulation ran for specified time.
         {
             XmlNode byValueCondition = root.CreateElement("ByValueCondition");
             condition.AppendChild(byValueCondition);
@@ -63,6 +62,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void DistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -96,18 +96,15 @@ namespace ExportScenario.XMLBuilder
         // AccelerationCondition(XmlNode conditionGroup, Waypoint waypoint)
 
 
-
+        // ---------------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------
         // ToDo create designated methods for all relevant triggers instead of only ByValueCondition and ByEntityCondition
-
-
         // ---------------------------------------------------------------------------------------------------------------------
         // ---------------------------------------------------------------------------------------------------------------------
         // ---------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
+        /*
         public void ByValueCondition(XmlNode conditionGroup, string ValueCondition, string dict_args) // original: dict args
 
         {
@@ -162,7 +159,6 @@ namespace ExportScenario.XMLBuilder
             }
         }
 
-        /**
          <Condition>
            <ByEntityCondition>
                <TriggeringEntities>
@@ -173,7 +169,7 @@ namespace ExportScenario.XMLBuilder
                    </EntityCondition>
            </ByEntityCondition>
          <Condition>
-        */
+
         public void ByEntityCondition(XmlNode conditionGroup, string EntityCondition, List<string> allEntityRefs, string dict_args) // original: Dict args
         {
             // TODO ScenarioInfo
@@ -252,6 +248,7 @@ namespace ExportScenario.XMLBuilder
                 Console.WriteLine("Naming error in Entity condition. This name is not supported.");
             }
         }
+        */
 
         /// helper
         private void SetAttribute(string name, string value, XmlNode element)

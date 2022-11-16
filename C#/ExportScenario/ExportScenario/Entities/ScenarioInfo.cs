@@ -5,6 +5,7 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class ScenarioInfo
+    /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
     {
         public ScenarioInfo()
         {

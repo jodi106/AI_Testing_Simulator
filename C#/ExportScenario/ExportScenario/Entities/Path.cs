@@ -5,6 +5,7 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class Path // Story in .xosc
+    /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
     {
         public Path()
         {
@@ -25,13 +26,8 @@ namespace ExportScenario.Entities
         public List<Waypoint> EventList { get; set; }
         public List<Coord3D> RoutePositions { get; set; }
 
-
-        public Waypoint getEventById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Coord3D> getRoutePositions()
+        /// Creates a List of all Waypoint.Positions in the Path to define the Entities Route via a AssignRouteAction
         {
             List<Coord3D> routePositions = new List<Coord3D>();
             for (int i = 0; i < EventList.Count; i++)
@@ -40,6 +36,10 @@ namespace ExportScenario.Entities
             }
 
             return routePositions;
+        }
+        public Waypoint getEventById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

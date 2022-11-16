@@ -9,6 +9,7 @@ using ExportScenario.Entities;
 namespace ExportScenario.XMLBuilder
 {
     internal class BuildInit
+    /// <summary>Class to init Carla World Environment and Entities</summary>
     {
         private ScenarioInfo scenarioInfo;
         private XmlDocument root;
@@ -33,33 +34,29 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void CombineInit()
-        /// Combines GlobalAction and Private xml blocks 
+        /// Combines GlobalAction and Private xml blocks .
         {
-
-            // TODO implement InitialSpeed Attirbute for entities
-
             string control_mode = "carla_auto_pilot_control"; // other value: external_control 
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
-            // Spawn ego vehicle at requested coordinates
-            BuildPrivate("hero", scenarioInfo.EgoVehicle.SpawnPoint, 0, true, control_mode);
+            // Spawn ego vehicle at requested coordinates and speed
+            BuildPrivate("hero", scenarioInfo.EgoVehicle.SpawnPoint, scenarioInfo.EgoVehicle.InitialSpeed, true, control_mode);
 
-            // Spawn simulation vehicles at requested coordinates
+            // Spawn simulation vehicles at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
                 BuildPrivate("adversary" + scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].SpawnPoint, scenarioInfo.Vehicles[n].InitialSpeed);
             }
 
-            // Spawn pedestrians at requested coordinates
+            // Spawn pedestrians at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
                 BuildPrivate("adversary_pedestrian" + scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].SpawnPoint, scenarioInfo.Pedestrians[n].InitialSpeed);
             }
-
         }
 
         public void BuildGlobalAction(WorldOptions worldOptions)
-        /// Creates GlobalAction EnvironmentAction xml block (only Environment Action implemented)
+        /// Creates GlobalAction EnvironmentAction xml block (only EnvironmentAction implemented).
         {
             XmlNode global_action = root.CreateElement("GlobalAction");
             BuildAction buildPublicAction = new BuildAction(root, "BuildPublic");
@@ -70,7 +67,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void BuildPrivate(string entityRef, Coord3D spawnPoint, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
-        /// Builds Private xml block
+        /// Builds Private xml block. Specifies Spawnpostition and speed for scenario entities.
         {
             XmlNode _private = root.CreateElement("Private");
             SetAttribute("entityRef", entityRef, _private);

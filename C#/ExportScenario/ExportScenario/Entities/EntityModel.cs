@@ -5,17 +5,19 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class EntityModel
+    /// <summary>Creates EntityModel object which contains informations about Model from Carla Blueprints</summary>
     {
-        public EntityModel(int id, string modelName)
+        private static int autoIncrementId = 1;
+        public EntityModel(string modelName)
         {
-            Id = id;
+            Id = autoIncrementId++;
             Name = modelName;
             DisplayName = modelName;
         }
 
-        public EntityModel(int id, string modelName, string displayName)
+        public EntityModel(string modelName, string displayName)
         {
-            Id = id;
+            Id = autoIncrementId++;
             Name = modelName;
             DisplayName = displayName;
         }

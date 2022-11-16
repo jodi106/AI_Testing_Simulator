@@ -5,6 +5,7 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class ActionType
+    /// <summary>Defines a user specified action for a Waypoint object</summary>
     {
         private static int autoIncrementId = 0;
         public ActionType(string name)

@@ -7,6 +7,7 @@ using ExportScenario.Entities;
 namespace ExportScenario.XMLBuilder
 {
     internal class BuildEntities
+    /// <summary>Class to create scenario entities.</summary>
     {
         private ScenarioInfo scenarioInfo;
         private XmlDocument root;
@@ -16,11 +17,9 @@ namespace ExportScenario.XMLBuilder
         public BuildEntities(ScenarioInfo scenarioInfo, XmlDocument root, XmlNode openScenario)
         /// Constructor 
         {
-
             this.scenarioInfo = scenarioInfo;
             this.root = root;
             this.openScenario = openScenario;
-
             entities = root.CreateElement("Entities");
             openScenario.AppendChild(entities);
         }
@@ -28,29 +27,23 @@ namespace ExportScenario.XMLBuilder
         public void CombineEntities()
         /// Combines ScenarioObject xml blocks
         {
-            // TODO Variables that need to be inside ScenarioInfo class TODO
             // Build Cars           
-
             // ego-vehicle
             BuildVehicle(scenarioInfo.EgoVehicle.Model.Name, "hero", "ego_vehicle");
-
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
                 BuildVehicle(scenarioInfo.Vehicles[i].Model.Name, "adversary" + scenarioInfo.Vehicles[i].Id, "simulation");
-            }
-            
+            }         
             // pedestrians
             for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
                 BuildPedestrian(scenarioInfo.Pedestrians[i].Model.Name, "adversary_pedestrian" + scenarioInfo.Pedestrians[i].Id);
             }
-
-
         }
 
         public void BuildVehicle(string model, string scenarioObjectName, string propertyValue, double maxSpeed = 69.444)
-        /// Creates vehicle xml block
+        /// Creates vehicle entity.
         {
             XmlNode scenario_object = root.CreateElement("ScenarioObject");
             SetAttribute("name", scenarioObjectName, scenario_object);
@@ -105,7 +98,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void BuildPedestrian(string model, string scenarioObjectName, string mass = "90.0")
-        /// Creates Pedestrian xml block
+        /// Creates Pedestrian entity.
         {
             XmlNode scenario_object = root.CreateElement("ScenarioObject");
             SetAttribute("name", scenarioObjectName, scenario_object);

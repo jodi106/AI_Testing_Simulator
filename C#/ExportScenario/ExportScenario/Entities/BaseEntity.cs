@@ -5,6 +5,7 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class BaseEntity
+    /// <summary>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped)</summary>
     {
         public BaseEntity()
         {
@@ -15,11 +16,13 @@ namespace ExportScenario.Entities
             SpawnPoint = spawnPoint;
         }
 
-        public BaseEntity(int id, Coord3D spawnPoint)
+        public BaseEntity(Coord3D spawnPoint, double initialSpeed)
         {
             SpawnPoint = spawnPoint;
+            InitialSpeed = initialSpeed;
         }
 
         public Coord3D SpawnPoint { get; set; }
+        public double InitialSpeed { get; set; }
     }
 }

@@ -10,15 +10,15 @@ using System.Xml;
 namespace ExportScenario.XMLBuilder
 {
     public class BuildXML
+    /// <summary>Class to create an combine all relevant XML Blocks to final OpenScenario file.</summary>
     {
-
         private XmlDocument root;
         private XmlNode openScenario;
         private ScenarioInfo scenarioInfo;
         private XmlNode storyBoard;
 
         public BuildXML(ScenarioInfo scenarioInfo)
-        /// Constructor to initializes BuildXML object with head section
+        /// Constructor to initializes BuildXML object with head section.
         {
             Console.WriteLine("Hello");
             this.scenarioInfo = scenarioInfo;
@@ -31,7 +31,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void CombineXML()
-        /// Combines all xml blocks 
+        /// Combines all xml blocks.
         {
             BuildFirstOpenScenarioElements(scenarioInfo.Name, scenarioInfo.MapURL);
 
@@ -43,16 +43,15 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void ExportXML(string scenario_name = "MyScenario")
-        /// Exports the finished OpenScenario file to defined path
+        /// Exports the finished OpenScenario file to defined path.
         {
             root.Save("..\\..\\..\\" + scenario_name + ".xosc");
             root.Save(Console.Out);
         }
 
         private void BuildFirstOpenScenarioElements(string scenario_name = "MyScenario", string map = "Town04") // you can rename this method
-        /// Creates first ScenarioElements
+        /// Creates first ScenarioElements: FileHeader, ParameterDeclarations(EMPTY), CatalogLocations(EMPTY), RoadNetwork.
         {
-            // TODO Variables that need to be inside ScenarioInfo class TODO
             string dateTime = "2022-09-24T12:00:00"; // TODO create datetime string of current time
 
             // add elements
@@ -80,7 +79,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void BuildStoryboard()
-        /// Combines Init block and Story blocks
+        /// Combines Init block and all Entity Story blocks. Every Entity has one seperate Story.
         {
             storyBoard = root.CreateElement("Storyboard");
             openScenario.AppendChild(storyBoard);
@@ -99,9 +98,8 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void BuildVehicleStories(Vehicle vehicle)
-        /// Creates Stories from story head and Events
+        /// Creates Vehicle Stories from story head and Events.
         {
-            // Update: Carla does not allow Story with empty Maneuver or whatever. So we need to avoid to create a small Story.
             bool isNullOrEmpty = vehicle.Path.EventList?.Any() != true;
             if (!isNullOrEmpty)
             {
@@ -128,24 +126,22 @@ namespace ExportScenario.XMLBuilder
                 storyBoard.AppendChild(story);
                 story.AppendChild(act);
                 act.AppendChild(maneuverGroup);
-                // ToDo create OverallStartTrigger for Path
-                /*BuildTrigger actTrigger = new BuildTrigger(root, scenarioInfo);
-                actTrigger.CombineTrigger(act, true, vehicle.Path.OverallStartTrigger);
-                */
+
+                // ToDo implement using OverallStartTrigger from Path
                 XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+                
                 act.AppendChild(actStartTrigger);
                 maneuverGroup.AppendChild(actors);
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
 
-                // ToDo implement using StopTrigger from BuildTrigger.
+                // ToDo implement using OverallStopTrigger from Path.
                 XmlNode stopTrigger = root.CreateElement("StopTrigger");
                 storyBoard.AppendChild(stopTrigger);
             }
         }
-
         public void BuildPedestrianStories(Pedestrian pedestrian)
-        /// Creates Stories from story head and Events
+        /// Creates Pedestrian Stories from story head and Events.
         {
             bool isNullOrEmpty = pedestrian.Path.EventList?.Any() != true;
             if (!isNullOrEmpty)
@@ -173,29 +169,23 @@ namespace ExportScenario.XMLBuilder
                 storyBoard.AppendChild(story);
                 story.AppendChild(act);
                 act.AppendChild(maneuverGroup);
-                
-                // ToDo create OverallStartTrigger for Path
-                /*BuildTrigger actTrigger = new BuildTrigger(root, scenarioInfo);
-                actTrigger.CombineTrigger(act, true, vehicle.Path.OverallStartTrigger);
-                */
+
+                // ToDo implement using OverallStartTrigger from Path
                 XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+
                 act.AppendChild(actStartTrigger);
                 maneuverGroup.AppendChild(actors);
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
 
-                // ToDo implement using StopTrigger from BuildTrigger.
+                // ToDo implement using OverallStopTrigger from Path.
                 XmlNode stopTrigger = root.CreateElement("StopTrigger");
                 storyBoard.AppendChild(stopTrigger);
             }
         }
 
-        private void BuildStoryBeginning(BaseEntity vehicleOrPed, Waypoint waypoint)
-        {
-        }
-
         public void BuildEvents(XmlNode maneuver, Waypoint waypoint)
-        /// Creates Events by combining Actions and Triggers and combines them to one XML Block
+        /// Creates Events by combining Actions and Triggers and combines them to one XML Block. One Event corresponds to one Waypoint Object in the Path.
         {
             XmlNode new_event = root.CreateElement("Event");
             SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, new_event);

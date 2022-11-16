@@ -5,6 +5,7 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class WorldOptions
+    /// <summary>Creates WorldOptions Object. Contains user specified world settings for the scenario</summary>
     {
         public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, string cloudState, string precipitationTypes, float precipitationIntensity, double frictionScaleFactor)
         {

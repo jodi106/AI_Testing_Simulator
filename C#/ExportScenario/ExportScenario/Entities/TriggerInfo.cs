@@ -5,11 +5,10 @@ using System.Text;
 namespace ExportScenario.Entities
 {
     public class TriggerInfo
-    /// Contains information regarding the Trigger of an ActionType in a Waypoint
+    /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
     {
         private static int autoIncrementId = 0;
-
-        
+               
         public TriggerInfo(string triggerType, int simulationTime, string rule, double delay=0, string conditionEdge="rising")
         /// Constructor for "SimulationTimeCondition"
         {
@@ -17,7 +16,6 @@ namespace ExportScenario.Entities
             TriggerType = triggerType; 
             SimulationTime = simulationTime;
             Rule = rule;
-
             Delay = delay;
             ConditionEdge = conditionEdge;
         }
@@ -31,7 +29,6 @@ namespace ExportScenario.Entities
             Rule = rule;
             Value = value;
             WorldPosition = worldPosition;
-
             Delay = delay;
             ConditionEdge = conditionEdge;
         }
