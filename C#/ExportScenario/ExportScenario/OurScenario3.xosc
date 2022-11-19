@@ -111,7 +111,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="255.7" y="-145.7" z="0.3" h="200" />
+                <WorldPosition x="258" y="-145.7" z="0.3" h="30" />
               </Position>
             </TeleportAction>
           </PrivateAction>
