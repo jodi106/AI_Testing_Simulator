@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Assets.Repos
 {
-    public class EntityModelRepository
+    public class VehicleModelRepository
     {
         private readonly Dictionary<VehicleCategory, List<Model>> _EntityModels;
-        public EntityModelRepository()
+        public VehicleModelRepository()
         {
             _EntityModels = new Dictionary<VehicleCategory, List<Model>>();
 

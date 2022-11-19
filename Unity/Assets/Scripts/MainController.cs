@@ -1,5 +1,7 @@
 using Assets.Enums;
+using Assets.Repos;
 using Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEditor.UIElements;
@@ -115,44 +117,70 @@ public class MainController : MonoBehaviour
 
         editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            //Enabling PopUp
             VehicleSettingsPopup.SetActive(true);
-            //Finding Popup
             var ThePopup = VehicleSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
-            //Finding EXIT Button From popup
-            Button ExitButton = ThePopup.Q<Button>("Exit");
-            //adding callback function to exit
+
+            Button ExitButton = ThePopup.Q<Button>("ExitButton");
             ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 VehicleSettingsPopup.SetActive(false);
             });
-            //Finding SAVE Button From popup
-            Button SaveButton = ThePopup.Q<Button>("Save");
-            //adding callback function to save
+
+            Button SaveButton = ThePopup.Q<Button>("SaveButton");
             SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 ///!!!!!!!
                 ///Code for saving the data to scenarioInfoFile later on...
                 ///!!!!!!!
                 Debug.Log("Saving Data of the Vehicle with id:" + selectedEntity);
+                VehicleSettingsPopup.SetActive(false);
             });
-            //Getting Entity
-            BaseModel entity = selectedEntity.getEntity();
 
-            //Finding the Id Field
-            IntegerField iDField = ThePopup.Q<IntegerField>("ID");
-            //Setting value of the field
-            iDField.SetValueWithoutNotify(entity.Id);
+            //Vehicle vehicle = selectedEntity.getEntity();
+            var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
+            var vehicleModelRepo = new VehicleModelRepository();
 
-            Debug.Log(entity.Id);
-            Debug.Log(entity.SpawnPoint);
-            Debug.Log(entity.ToString());
+            var vehicleModels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
 
-            //Finding the SpawnPointField
+            Vehicle vehicle = new Vehicle(spawnPoint,vehicleModels[1], VehicleCategory.Car, null);
+
+            var iDField = ThePopup.Q<IntegerField>("ID");
+            iDField.SetValueWithoutNotify(vehicle.Id);
+
+            iDField.RegisterCallback<InputEvent>((InputEvent) =>
+            {
+                vehicle.Id = Int32.Parse(InputEvent.newData);
+            });
+
             Vector3Field SpawnPointField = ThePopup.Q<Vector3Field>("SpawnPoint");
-            //Setting value of the field
-            SpawnPointField.SetValueWithoutNotify(entity.SpawnPoint.Vector3);
+
+            var x = SpawnPointField.Children();
+
+            foreach (var y in x)
+            {
+                Debug.Log(y);
+            }
+
+            //FloatField xInput = ThePopup.Q<IntegerField>("unity-x-input");
+
+            SpawnPointField.SetValueWithoutNotify(vehicle.SpawnPoint.Vector3);
+
+            SpawnPointField.RegisterCallback<InputEvent>((InputEvent) =>
+            {
+                Debug.Log(InputEvent.newData);
+                Debug.Log(SpawnPointField.Children().ToString());
+             
+            });
+
+            var vehicleModelList = ThePopup.Q<ListView>("VehicleModelList");
+
+
+            //foreach(var vehicleModel in vehicleModels)
+            //{
+            //    //vehicleModelList.Add(vehicleModel.DisplayName);
+
+            //}
 
 
         });
