@@ -8,9 +8,12 @@ public class PathController : MonoBehaviour
     private bool building;
     int len = 1;
     private IBaseEntityController entityController;
+    private SnapController snapController;
 
     private void Awake()
     {
+        this.snapController = Camera.main.GetComponent<SnapController>();
+
         lr = gameObject.GetComponent<LineRenderer>();
         building = true;
 
@@ -30,7 +33,8 @@ public class PathController : MonoBehaviour
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             var action = new MouseClickAction(x);
-            addWaypoint(action.position);
+            GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            addWaypoint(waypoint.transform.position);
         });
     }
 
@@ -44,7 +48,8 @@ public class PathController : MonoBehaviour
     {
         if (building)
         {
-            lr.SetPosition(len, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            lr.SetPosition(len, waypoint.transform.position);
         }
     }
     //TODO: change to Waypoint model

@@ -9,6 +9,7 @@ public class SnapController : MonoBehaviour
 {
     public GameObject circlePrefab;
     private Dictionary<string, List<GameObject>> waypoints;
+    private Dictionary<string, List<string>> topology;
 
     public bool highlight { get; set; }
     private GameObject waypoint;
@@ -16,6 +17,7 @@ public class SnapController : MonoBehaviour
     void Start()
     {
         waypoints = new Dictionary<string, List<GameObject>>();
+        topology = new Dictionary<string, List<string>>();
         highlight = true;
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
@@ -29,6 +31,7 @@ public class SnapController : MonoBehaviour
                 }
             }
             loadWaypoints(action.name);
+            loadTopology(action.name);
         });
     }
 
@@ -50,6 +53,21 @@ public class SnapController : MonoBehaviour
             }
 
         }
+    }
+
+    void loadTopology(string mapName)
+    {
+        var text = Resources.Load<TextAsset>("Waypoints/" + mapName + "_topology");
+        Dictionary<string, List<string>> jsonEntries = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(text.text);
+        foreach (KeyValuePair<string, List<string>> entry in jsonEntries)
+        {
+            topology[entry.Key] = new List<string>();
+            foreach (string lane in entry.Value)
+            {
+                topology[entry.Key].Add(lane);
+            }
+        }
+
     }
 
     public void Update()
@@ -93,6 +111,11 @@ public class SnapController : MonoBehaviour
             }
         }
         return closestWaypoint;
+    }
+
+    public List<GameObject> findPath(GameObject start, GameObject end)
+    {
+        return null;
     }
 
 }
