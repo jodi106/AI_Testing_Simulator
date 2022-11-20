@@ -21,6 +21,17 @@ public class PathController : MonoBehaviour
                 Destroy(gameObject);
             }
         });
+
+        EventManager.StartListening(typeof(SubmitPathSelectionAction), x =>
+        {
+            this.complete();
+        });
+
+        EventManager.StartListening(typeof(MouseClickAction), x =>
+        {
+            var action = new MouseClickAction(x);
+            addWaypoint(action.position);
+        });
     }
 
     public void setEntityController(IBaseEntityController controller)

@@ -29,6 +29,7 @@ public class MainController : MonoBehaviour
     private ScenarioInfo info;
 
     private IBaseEntityController selectedEntity;
+    private bool preventDeselection;
 
     //Car Settings Popup
     [SerializeField]
@@ -40,6 +41,7 @@ public class MainController : MonoBehaviour
     {
         this.info = new ScenarioInfo();
         this.selectedEntity = null;
+        this.preventDeselection = false;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
 
@@ -52,6 +54,19 @@ public class MainController : MonoBehaviour
         {
             var action = new ChangeSelectedEntityAction(x);
             this.setSelectedEntity(action.entity);
+        });
+
+        EventManager.StartListening(typeof(MouseClickAction), x =>
+        {
+            if(!preventDeselection)
+            {
+                EventManager.TriggerEvent(new ChangeSelectedEntityAction(ChangeSelectedEntityAction.NONE));
+            }
+        });
+
+        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
+        {
+            this.preventDeselection = false;
         });
     }
 
@@ -200,6 +215,7 @@ public class MainController : MonoBehaviour
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             this.selectedEntity.triggerPathRequest();
+            this.preventDeselection = true;
             setPathButton.style.display = DisplayStyle.None;
             cancelPathButton.style.display = DisplayStyle.Flex;
         });

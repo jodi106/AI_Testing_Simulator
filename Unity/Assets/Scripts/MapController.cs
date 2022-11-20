@@ -7,6 +7,7 @@ public class MapController : MonoBehaviour
 
     Vector3 origin = Vector3.zero;
     private float downClickTime;
+
     private void OnMouseDown()
     {
         origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -25,7 +26,7 @@ public class MapController : MonoBehaviour
         }
         if (Time.time - downClickTime <= 0.3f)
         {
-            EventManager.TriggerEvent(new ChangeSelectedEntityAction(ChangeSelectedEntityAction.NONE));
+            EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
     }
 
