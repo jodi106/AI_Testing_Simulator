@@ -1,4 +1,5 @@
 using Models;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PathController : MonoBehaviour
@@ -6,7 +7,6 @@ public class PathController : MonoBehaviour
     private LineRenderer lr;
     public Path path { get; set; }
     private bool building;
-    int len = 1;
     private IBaseEntityController entityController;
     private SnapController snapController;
 
@@ -49,16 +49,19 @@ public class PathController : MonoBehaviour
         if (building)
         {
             GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            lr.SetPosition(len, waypoint.transform.position);
+            lr.SetPosition(lr.positionCount - 1, waypoint.transform.position);
         }
     }
     //TODO: change to Waypoint model
     public void addWaypoint(Vector2 wp)
     {
         //path.addWaypoint(wp) ...
-        lr.positionCount++;
-        lr.SetPosition(lr.positionCount, wp);
-        len++;
+        List<GameObject> path = snapController.findPath(lr.GetPosition(lr.positionCount - 2), wp);
+        foreach(GameObject go in path)
+        {
+            lr.positionCount++;
+            lr.SetPosition(lr.positionCount - 2, go.transform.position);
+        }
     }
 
     public void complete()

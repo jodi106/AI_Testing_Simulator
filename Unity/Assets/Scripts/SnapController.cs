@@ -113,9 +113,85 @@ public class SnapController : MonoBehaviour
         return closestWaypoint;
     }
 
-    public List<GameObject> findPath(GameObject start, GameObject end)
+    //TODO improve
+    public string findLane(Vector2 position)
     {
+        GameObject closestWaypoint = findNearestWaypoint(position);
+        foreach (KeyValuePair<string, List<GameObject>> entry in waypoints)
+        {
+            foreach (GameObject wp in entry.Value)
+            {
+                if(wp == closestWaypoint)
+                {
+                    return entry.Key;
+                }
+            }
+        }
         return null;
+    }
+
+    public List<GameObject> findPath(Vector2 start, Vector2 end)
+    {
+        string startLane = findLane(start);
+        string endLane = findLane(end);
+
+        var visited = new HashSet<string>();
+        var queue = new Queue<string>();
+        Dictionary<string, string> pred = new Dictionary<string, string>();
+
+        queue.Enqueue(startLane);
+
+        bool found = false;
+        while (queue.Count > 0)
+        {
+            if(found)
+            {
+                break;
+            }
+            var vertex = queue.Dequeue();
+            visited.Add(vertex);
+            foreach(var neighboar in topology[vertex]) {
+                if(visited.Contains(neighboar))
+                {
+                    continue;
+                } else
+                {
+                    pred[neighboar] = vertex;
+                    queue.Enqueue(neighboar);
+                    if(neighboar.Equals(endLane))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(found)
+        {
+            List<string> lanePath = new List<string>();
+            List<GameObject> path = new List<GameObject>();
+            lanePath.Add(endLane);
+            string p = pred[endLane];
+            lanePath.Insert(0, p);
+            Debug.Log(p);
+            while(p != startLane)
+            {
+                p = pred[p];
+                lanePath.Insert(0, p);
+                Debug.Log(p);
+            }
+            foreach(string lane in lanePath)
+            {
+                if (lane.Equals(startLane) || lane.Equals(endLane)) continue;
+                path.AddRange(waypoints[lane]);
+            }
+
+            return path;
+        } else
+        {
+            return null;
+        }
     }
 
 }
