@@ -158,7 +158,7 @@ public class MainController : MonoBehaviour
 
             var vehicleModels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
 
-            Vehicle vehicle = new Vehicle(spawnPoint,vehicleModels[1], VehicleCategory.Car, null);
+            Vehicle vehicle = new Vehicle(spawnPoint, vehicleModels[1], VehicleCategory.Car, null);
 
             var iDField = ThePopup.Q<IntegerField>("ID");
             iDField.SetValueWithoutNotify(vehicle.Id);
@@ -168,36 +168,89 @@ public class MainController : MonoBehaviour
                 vehicle.Id = Int32.Parse(InputEvent.newData);
             });
 
-            Vector3Field SpawnPointField = ThePopup.Q<Vector3Field>("SpawnPoint");
+            var CarSpeed = ThePopup.Q<IntegerField>("CarSpeed");
 
-            var x = SpawnPointField.Children();
-
-            foreach (var y in x)
+            CarSpeed.RegisterCallback<InputEvent>((InputEvent) =>
             {
-                Debug.Log(y);
+                if (CarSpeed.value >= 500)
+                {
+                    Debug.Log("HEHE! TO BIG VALUE FOR CAR SPEED , WE DON'T HAVE BUGATTI'S HERE! ONLY AUDI'S...");
+                }
+                else if (CarSpeed.value < 0)
+                {
+                    Debug.Log("HEHE! TO SMALL FOR CAR SPEED , WE DON'T HAVE TURTLES HERE! ONLY AUDI'S...");
+                }
+                else
+                {
+                    Debug.Log("Set Car Speed at: " + CarSpeed.value);
+                }
+            });
+            //METHOD WITH RADIO GROUP
+            var group = ThePopup.Q<RadioButtonGroup>("AllPossibleModels");
+            var allmodels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
+            foreach(var model in allmodels)
+            {
+                var newRadio = new RadioButton(model.DisplayName);
+                group.Add(newRadio);
             }
 
-            //FloatField xInput = ThePopup.Q<IntegerField>("unity-x-input");
+            /*
+            //METHOD WITH LIST VIEW
+            // Store a reference to the character list element
+            var listView = ThePopup.Q<ListView>("AllPossibleModels");
+            var allModels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
+            
+            // Set up a make item function for a list entry
+            listView.makeItem = () =>
+            {
+                // Instantiate the UXML template for the entry
+                var newListEntry = eventEntryTemplate.Instantiate();
+
+                // Instantiate a controller for the data
+                var entryController = new Label();
+
+                // Assign the controller script to the visual element
+                newListEntry.userData = entryController;
+
+                // Initialize the controller script
+                entryController.text = "B";
+
+                // Return the root of the instantiated visual tree
+                return newListEntry;
+            };
+
+            // Set up bind function for a specific list entry
+            listView.bindItem = (item, index) =>
+            {
+                (item.userData as Label).text = "A"+index;
+            };
+
+            info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+            {
+                listView.Rebuild();
+            };
+
+            listView.itemsSource = allModels;*/
+
+
+            Vector3Field SpawnPointField = ThePopup.Q<Vector3Field>("SpawnPoint");
 
             SpawnPointField.SetValueWithoutNotify(vehicle.SpawnPoint.Vector3);
 
             SpawnPointField.RegisterCallback<InputEvent>((InputEvent) =>
             {
-                Debug.Log(InputEvent.newData);
-                Debug.Log(SpawnPointField.Children().ToString());
-             
+                Debug.Log("spawnpoint " + InputEvent.newData);
+
             });
 
+            var xcoord = SpawnPointField.Q<FloatField>("unity-x-input");
+
+            xcoord.RegisterCallback<InputEvent>((InputEvent) =>
+            {
+                Debug.Log("xfield " + InputEvent.newData);
+
+            });
             var vehicleModelList = ThePopup.Q<ListView>("VehicleModelList");
-
-
-            //foreach(var vehicleModel in vehicleModels)
-            //{
-            //    //vehicleModelList.Add(vehicleModel.DisplayName);
-
-            //}
-
-
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
