@@ -200,11 +200,6 @@
                       <Route name="Route" closed="false">
                         <Waypoint routeStrategy="fastest">
                           <Position>
-                            <WorldPosition x="239" y="-169" z="0.3" h="0" />
-                          </Position>
-                        </Waypoint>
-                        <Waypoint routeStrategy="fastest">
-                          <Position>
                             <WorldPosition x="250" y="10" z="0.3" h="270" />
                           </Position>
                         </Waypoint>
@@ -220,7 +215,7 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition name="SimulationTimeCondition0" delay="0" conditionEdge="rising">
+                  <Condition name="SimulationTimeCondition3" delay="0" conditionEdge="rising">
                     <ByValueCondition>
                       <SimulationTimeCondition value="0" rule="greaterThan" />
                     </ByValueCondition>
