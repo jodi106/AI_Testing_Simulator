@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Entities
+namespace ExportScenario.Entities
 {
     public class ScenarioInfo
+    /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
     {
         public ScenarioInfo()
         {

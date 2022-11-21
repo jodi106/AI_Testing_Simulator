@@ -1,23 +1,30 @@
-﻿namespace Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ExportScenario.Entities
 {
     public class EntityModel
+    /// <summary>Creates EntityModel object which contains informations about Model from Carla Blueprints</summary>
     {
-        public EntityModel(int id, string name)
+        private static int autoIncrementId = 1;
+        public EntityModel(string modelName)
         {
-            Id = id;
-            Name = name;
-            DisplayName = name;
+            Id = autoIncrementId++;
+            Name = modelName;
+            DisplayName = modelName;
         }
-        public EntityModel(int id, string name, string displayName)
+
+        public EntityModel(string modelName, string displayName)
         {
-            Id = id;
-            Name = name;
+            Id = autoIncrementId++;
+            Name = modelName;
             DisplayName = displayName;
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-    }
+        public string Name { get; set; } // Name of the model: example "vehicle.lincoln.mkz_2017"
+        public string DisplayName { get; set; } // Not relevant for us
 
+    }
 }

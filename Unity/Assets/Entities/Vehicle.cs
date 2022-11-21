@@ -1,34 +1,25 @@
-﻿using Assets.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Entities
+namespace ExportScenario.Entities
 {
     public class Vehicle : BaseEntity
+    /// <summary>Create Vehicle Object. Contains all Vehicle-Entity specific info created by Gui-User.</summary>
     {
+        private static int autoIncrementId = 1;
         public Vehicle() : base() { }
 
-        public Vehicle(Coord3D spawnPoint, Path path) : base(spawnPoint)
+        // TODO auto increment id
+        public Vehicle(Coord3D spawnPoint, EntityModel model, Path path, double initialSpeed) : base(spawnPoint, initialSpeed)
         {
-            Path = path;
-        }
-
-        public Vehicle(int id, Coord3D spawnPoint, Path path) : base(id, spawnPoint)
-        {
-            Path = path;
-        }
-
-        public Vehicle(Coord3D spawnPoint, EntityModel model,  Path path) : base(spawnPoint)
-        {
+            Id = autoIncrementId++;
             Model = model;
             Path = path;
         }
 
-        public Vehicle(int id, Coord3D spawnPoint, EntityModel model,  Path path) : base(id, spawnPoint)
-        {
-            Model = model;
-            Path = path;
-        }
-
+        //
         public EntityModel Model { get; set; }
-        public Path Path { get; set; }
+        public Path Path { get; set; }    
     }
 }
