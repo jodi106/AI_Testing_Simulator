@@ -22,6 +22,7 @@ namespace ExportScenario.Entities
             InitialSpeed = initialSpeed;
         }
 
+        public int Id { get; set; }
         public Coord3D SpawnPoint { get; set; }
         public double InitialSpeed { get; set; }
     }

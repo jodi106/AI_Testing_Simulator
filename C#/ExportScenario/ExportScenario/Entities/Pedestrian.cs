@@ -29,7 +29,6 @@ namespace ExportScenario.Entities
             Path = path;
         }
 
-        public int Id { get; set; }
         public EntityModel Model { get; set; }
         public Path Path { get; set; }
     }

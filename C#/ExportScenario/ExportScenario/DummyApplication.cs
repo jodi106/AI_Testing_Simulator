@@ -33,7 +33,6 @@ namespace ExportScenario
 
             // Define what can happen on each Waypoint
             List<Waypoint> eventListAdversary2 = new List<Waypoint>();
-            eventListAdversary2.Add(new Waypoint(1, new Coord3D(239, -169, 0.3, 0), new ActionType("AssignRouteAction", new List<Coord3D>()), triggerW1));
             eventListAdversary2.Add(new Waypoint(2, new Coord3D(250, 10, 0.3, 270), new ActionType("LaneChangeAction", 25, "adversary2", 1), triggerW2));
             eventListAdversary2.Add(new Waypoint(3, new Coord3D(100, 10, 0.3, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
 
@@ -45,7 +44,7 @@ namespace ExportScenario
             // Set the Positions for AssignRouteAction. When first creating the Waypoint containing the AssignRouteAction, this is not possible as the other waypoints are not yet created.
             // This is why Waypoint1's ActionType "AssignRouteAction" is initialized with an empty list of Coordinates
             // With the current structure, AssignRouteAction always has to be the first Waypoint
-            path_veh_2.EventList[0].ActionTypeInfo.Positions = path_veh_2.RoutePositions;
+            //path_veh_2.EventList[0].ActionTypeInfo.Positions = path_veh_2.getRoutePositions();
             // ToDo: Discuss how to effiently execute the process in line 56 when connecting gui and export. 
 
             // Spawn Simulation Vehicles with settings from above
