@@ -43,9 +43,9 @@ public class SnapController : MonoBehaviour
             waypoints[entry.Key] = new List<GameObject>();
             foreach (JsonWaypoint waypoint in entry.Value)
             {
-                waypoint.x = (waypoint.x - -114.59522247314453f) * 25 / 100;
-                waypoint.y = (waypoint.y - -68.72904205322266f) * 25 / 100 * (-1);
-                var n = Instantiate(circlePrefab, new Vector3(waypoint.x, waypoint.y, -0.05f), Quaternion.identity);
+                waypoint.x = (waypoint.x - -114.59522247314453f) / 4;
+                waypoint.y = (waypoint.y - -68.72904205322266f) / 4 * (-1);
+                var n = Instantiate(circlePrefab, new Vector3(waypoint.x - 28.077075f, waypoint.y + 26.24f, -0.05f), Quaternion.identity);
                 n.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
                 waypoints[entry.Key].Add(n);
             }
