@@ -1,8 +1,6 @@
-using Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class SnapController : MonoBehaviour
@@ -135,6 +133,15 @@ public class SnapController : MonoBehaviour
         string startLane = findLane(start);
         string endLane = findLane(end);
 
+        GameObject startWP = findNearestWaypoint(start);
+        GameObject endWP = findNearestWaypoint(end);
+
+        // TODO: detect lane changes
+        if (startLane.Equals(endLane))
+        {
+
+        }
+
         var visited = new HashSet<string>();
         var queue = new Queue<string>();
         Dictionary<string, string> pred = new Dictionary<string, string>();
@@ -178,7 +185,7 @@ public class SnapController : MonoBehaviour
             while(p != startLane)
             {
                 p = pred[p];
-                lanePath.Insert(0, p);
+                lanePath.Insert(0, p);                                      
                 Debug.Log(p);
             }
             foreach(string lane in lanePath)
@@ -186,6 +193,11 @@ public class SnapController : MonoBehaviour
                 if (lane.Equals(startLane) || lane.Equals(endLane)) continue;
                 path.AddRange(waypoints[lane]);
             }
+
+            int startIndex = waypoints[startLane].FindIndex(x => x == startWP);
+            int endIndex = waypoints[endLane].FindIndex(x => x == endWP);
+            path.InsertRange(0, waypoints[startLane].GetRange(startIndex, waypoints[startLane].Count - startIndex));
+            path.AddRange(waypoints[endLane].GetRange(0, endIndex + 1));
 
             return path;
         } else
