@@ -28,9 +28,9 @@ namespace Entity
         public string Name { get; set; }
         public ObservableCollection<Pedestrian> Pedestrians { get; set; }
         public string MapURL { get; set; }
-        public WorldOptions WorldOptions { get; set; }
+        public WorldOptions WorldOptions { get; set; } // MapRepository.cs has possible Maps. 
         public Ego EgoVehicle { get; set; }
         public ObservableCollection<Vehicle> Vehicles { get; set; }
-
+        
     }
 }
