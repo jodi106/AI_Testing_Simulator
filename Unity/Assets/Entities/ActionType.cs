@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExportScenario.Entities
+namespace Entity
 {
     public class ActionType
     /// <summary>Defines a user specified action for a Waypoint object</summary>
@@ -24,7 +24,7 @@ namespace ExportScenario.Entities
             DynamicDimensions = dynamicsDimension;
         }
 
-        public ActionType(string name, List<Coord3D> positions)
+        public ActionType(string name, List<Location> positions)
         /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
         {
             ID = autoIncrementId++;
@@ -49,7 +49,7 @@ namespace ExportScenario.Entities
         public string SpeedActionDynamics { get; set; }
         public double SpeedActionDynamicsValue { get; set; }
         public string DynamicDimensions { get; set; }
-        public List<Coord3D> Positions { get; set; }
+        public List<Location> Positions { get; set; }
         public double LaneChangeActionDynamicsValue { get; set; }
         public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
         public int RelativeTargetLaneValue { get; set; }

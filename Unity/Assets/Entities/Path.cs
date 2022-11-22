@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace ExportScenario.Entities
+namespace Entity
 {
     public class Path // Story in .xosc
     /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
@@ -32,20 +31,16 @@ namespace ExportScenario.Entities
 
         public Waypoint AssignRouteWaypoint { get; set; }
 
-        public List<Coord3D> getRoutePositions()
+        public List<Location> getRoutePositions()
         /// Creates a List of all Waypoint.Positions in the Path to define the Entities Route via a AssignRouteAction
         {
-            List<Coord3D> routePositions = new List<Coord3D>();
+            List<Location> routePositions = new List<Location>();
             for (int i = 0; i < EventList.Count; i++)
             {
                 routePositions.Add(EventList[i].Position);
             }
 
             return routePositions;
-        }
-        public Waypoint getEventById(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

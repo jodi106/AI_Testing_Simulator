@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
-using ExportScenario.Entities;
+using Entity;
 using ExportScenario.XMLBuilder;
 
 namespace ExportScenario
@@ -18,7 +19,7 @@ namespace ExportScenario
             WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, "free", "dry", 0, 1.0);
 
             // Spawn AI Ego Vehicle
-            Ego egoVehicle = new Ego(new Coord3D(258.0, -145.7, 0.3, 30), new EntityModel("vehicle.volkswagen.t2"), 0);
+            Ego egoVehicle = new Ego(new Location(258.0f, -145.7f, 0.3f, 30), new EntityModel("vehicle.volkswagen.t2"), 0);
 
 
             // SIMULATION VEHICLES:
@@ -27,14 +28,14 @@ namespace ExportScenario
             List<TriggerInfo> triggerW1 = new List<TriggerInfo>();
             triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan"));
             List<TriggerInfo> triggerW2 = new List<TriggerInfo>();
-            triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Coord3D(250, 10, 0.3, 270)));
+            triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Location(250f, 10f, 0.3f, 270)));
             List<TriggerInfo> triggerW3 = new List<TriggerInfo>();
-            triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Coord3D(100, 10, 0.3, 270)));
+            triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Location(100f, 10f, 0.3f, 270)));
 
             // Define what can happen on each Waypoint
             List<Waypoint> eventListAdversary2 = new List<Waypoint>();
-            eventListAdversary2.Add(new Waypoint(2, new Coord3D(250, 10, 0.3, 270), new ActionType("LaneChangeAction", 25, "adversary2", 1), triggerW2));
-            eventListAdversary2.Add(new Waypoint(3, new Coord3D(100, 10, 0.3, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
+            eventListAdversary2.Add(new Waypoint(2, new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", 25, "adversary2", 1), triggerW2));
+            eventListAdversary2.Add(new Waypoint(3, new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
 
             // Add the Waypoint List to the Path of a Vehicle
             Path path_veh_1 = new Path();
@@ -48,16 +49,16 @@ namespace ExportScenario
             // ToDo: Discuss how to effiently execute the process in line 56 when connecting gui and export. 
 
             // Spawn Simulation Vehicles with settings from above
-            List <Vehicle> vehicles = new List<Vehicle>();
-            vehicles.Add(new Vehicle(new Coord3D(300, -172, 0.3, 160), new EntityModel("vehicle.audi.tt"), path_veh_1, 20.0));
-            vehicles.Add(new Vehicle(new Coord3D(239, -169, 0.3, 0), new EntityModel("vehicle.lincoln.mkz_2017"), path_veh_2, 15.0));
+            var vehicles = new ObservableCollection<Vehicle>();
+            vehicles.Add(new Vehicle(new Location(300, -172, 0.3f, 160), new EntityModel("vehicle.audi.tt"), path_veh_1, initialSpeed:20));
+            vehicles.Add(new Vehicle(new Location(239, -169, 0.3f, 0), new EntityModel("vehicle.lincoln.mkz_2017"), path_veh_2, initialSpeed:15.0));
 
 
             // SIMULATION PEDESTRIANS:
 
             Path path_ped_1 = new Path();
-            List<Pedestrian> ped = new List<Pedestrian>();
-            ped.Add(new Pedestrian(new Coord3D(255, -190, 0.8, 90), new EntityModel("walker.pedestrian.0001"), path_ped_1, 1));
+            var ped = new ObservableCollection<Pedestrian>();
+            ped.Add(new Pedestrian(new Location(255, -190, 0.8f, 90), new EntityModel("walker.pedestrian.0001"), path_ped_1, initialSpeed:1));
 
 
             // Combine every information into one ScenarioInfo Instance

@@ -1,5 +1,5 @@
 using Assets.Enums;
-using Models;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -116,7 +116,7 @@ public class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityCon
         }
     }
 
-    public BaseModel getEntity()
+    public BaseEntity getEntity()
     {
         return vehicle;
     }

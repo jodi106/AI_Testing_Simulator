@@ -4,6 +4,8 @@ namespace Assets.Enums
 {
     public enum PedestrianType
     {
+        [Description("Null")]
+        Null,
         [Description("Girl")]
         Girl,
         [Description("Boy")]

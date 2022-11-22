@@ -1,31 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using UnityEngine;
 
-namespace ExportScenario.Entities
+namespace Entity
 {
-    public class Coord
+    public class Location
     {
-        public Coord(double x, double y)
+        public Location(Vector3 vector3, double rot)
         {
-            X = x;
-            Y = y;
-        }
-
-        public double X { get; set; }
-        public double Y { get; set; }
-    }
-
-    public class Coord3D : Coord
-    /// <summary>Create Coord3D object corresponsing to global Carla coordinates and rotation</summary>
-    {
-        public Coord3D(double x, double y, double z, double rot) : base(x, y)
-        {
-            Z = z;
+            Vector3 = vector3;
             Rot = rot;
         }
 
-        public double Z { get; set; }
+        public Location(float x, float y, float z, double rot)
+        {
+            Vector3 = new Vector3(x, y, z);
+            Rot = rot;
+        }
+
+        public Vector3 Vector3 { get; set; }
         public double Rot { get; set; }
     }
 

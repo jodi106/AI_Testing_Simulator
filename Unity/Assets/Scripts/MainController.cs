@@ -1,6 +1,6 @@
 using Assets.Enums;
 using Assets.Repos;
-using Models;
+using Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -107,7 +107,7 @@ public class MainController : MonoBehaviour
 
             var vehiclePosition = new Location(pos.x, pos.y, 0, 0);
             var path = new Path(new List<Waypoint>());
-            Vehicle v = new(vehiclePosition, VehicleCategory.Car, path);
+            Vehicle v = new(vehiclePosition, path, category:VehicleCategory.Car);
 
             var viewController = vehicleGameObject.GetComponent<VehicleViewController>();
             v.View = viewController;
@@ -120,7 +120,7 @@ public class MainController : MonoBehaviour
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            BaseModel entity = selectedEntity.getEntity();
+            var entity = selectedEntity.getEntity();
             //TODO: check how to prevent type checking here
             if (entity is Vehicle vehicle)
             {
@@ -158,7 +158,7 @@ public class MainController : MonoBehaviour
 
             var vehicleModels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
 
-            Vehicle vehicle = new Vehicle(spawnPoint, vehicleModels[1], VehicleCategory.Car, null);
+            Vehicle vehicle = new Vehicle(spawnPoint, vehicleModels[1], VehicleCategory.Car);
 
             var iDField = ThePopup.Q<IntegerField>("ID");
             iDField.SetValueWithoutNotify(vehicle.Id);

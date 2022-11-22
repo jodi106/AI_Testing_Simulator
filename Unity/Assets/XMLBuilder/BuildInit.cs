@@ -1,10 +1,9 @@
-﻿using ExportScenario.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Xml;
-using ExportScenario.Entities;
+using Entity;
 
 namespace ExportScenario.XMLBuilder
 {
@@ -66,7 +65,7 @@ namespace ExportScenario.XMLBuilder
 
         }
 
-        public void BuildPrivate(string entityRef, Coord3D spawnPoint, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
+        public void BuildPrivate(string entityRef, Location spawnPoint, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
         /// Builds Private xml block. Specifies Spawnpostition and speed for scenario entities.
         {
             XmlNode _private = root.CreateElement("Private");

@@ -1,25 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Assets.Enums;
 
-namespace ExportScenario.Entities
+namespace Entity
 {
     public class Vehicle : BaseEntity
-    /// <summary>Create Vehicle Object. Contains all Vehicle-Entity specific info created by Gui-User.</summary>
     {
-        private static int autoIncrementId = 1;
-        public Vehicle() : base() { }
+        private static int autoIncrementId = 0;
+        public Vehicle() : base(++autoIncrementId) { }
 
-        // TODO auto increment id
-        public Vehicle(Coord3D spawnPoint, EntityModel model, Path path, double initialSpeed) : base(spawnPoint, initialSpeed)
+        public Vehicle(Location spawnPoint, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0) : base(++autoIncrementId,spawnPoint, initialSpeed)
         {
-            Id = autoIncrementId++;
-            Model = model;
-            Path = path;
+            Category = category;
         }
 
-        //
+        public Vehicle(Location spawnPoint, Path path, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0) : base(++autoIncrementId, spawnPoint, initialSpeed)
+        {
+            Path = path;
+            Category = category;
+        }
+
+        public Vehicle(Location spawnPoint, EntityModel model, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0) : base(++autoIncrementId, spawnPoint, initialSpeed)
+        {
+            Model = model;
+            Category = category;
+        }
+
+
+        public Vehicle(Location spawnPoint, EntityModel model, Path path, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0) : base(++autoIncrementId, spawnPoint, initialSpeed)
+        {
+            Model = model;
+            Path = path;
+            Category = category;
+
+        }
+
+
+        public void setPosition(float x, float y)
+        {
+            SpawnPoint = new Location(x, y, 0, 0);
+            View?.onChangePosition(SpawnPoint);
+        }
+        public IVehicleView View { get; set; }
         public EntityModel Model { get; set; }
-        public Path Path { get; set; }    
+        public VehicleCategory Category { get; set; }
+        public Path Path { get; set; }
     }
 }
