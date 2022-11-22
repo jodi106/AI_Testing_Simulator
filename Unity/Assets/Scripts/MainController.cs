@@ -1,12 +1,16 @@
 using Assets.Enums;
+using Assets.Helpers;
 using Assets.Repos;
 using Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
+using ExportScenario.XMLBuilder;
 
 public class MainController : MonoBehaviour
 {
@@ -16,15 +20,15 @@ public class MainController : MonoBehaviour
 
     //Event Bar (Center Bottom)
     private ListView eventList;
-    private Button addEntityButton;
-    private Button removeEntityButton;
-    private Button editEntityButton;
-    private Button worldSettingsButton;
+    private UnityEngine.UIElements.Button addEntityButton;
+    private UnityEngine.UIElements.Button removeEntityButton;
+    private UnityEngine.UIElements.Button editEntityButton;
+    private UnityEngine.UIElements.Button worldSettingsButton;
 
     //Action Buttons (Center Left)
     private VisualElement actionButtons;
-    private Button setPathButton;
-    private Button cancelPathButton;
+    private UnityEngine.UIElements.Button setPathButton;
+    private UnityEngine.UIElements.Button cancelPathButton;
 
     private ScenarioInfo info;
 
@@ -34,6 +38,10 @@ public class MainController : MonoBehaviour
     //Car Settings Popup
     [SerializeField]
     GameObject VehicleSettingsPopup;
+
+    //ExportButton
+    [SerializeField]
+    public UnityEngine.UI.Button exportButton;
 
     public GameObject WorldSettingsPopup;
 
@@ -68,6 +76,9 @@ public class MainController : MonoBehaviour
         {
             this.preventDeselection = false;
         });
+
+        UnityEngine.UI.Button btn = exportButton.GetComponent<UnityEngine.UI.Button>();
+        btn.onClick.AddListener(ExportOnClick);
     }
 
     private void setSelectedEntity(IBaseEntityController entity)
@@ -94,10 +105,10 @@ public class MainController : MonoBehaviour
 
     private void initializeButtonBar(VisualElement editorGUI)
     {
-        addEntityButton = editorGUI.Q<Button>("addEntityButton");
-        removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
-        editEntityButton = editorGUI.Q<Button>("editEntityButton");
-        worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
+        addEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("addEntityButton");
+        removeEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("removeEntityButton");
+        editEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("editEntityButton");
+        worldSettingsButton = editorGUI.Q<UnityEngine.UIElements.Button>("worldSettingsButton");
 
         addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -135,13 +146,13 @@ public class MainController : MonoBehaviour
             VehicleSettingsPopup.SetActive(true);
             var ThePopup = VehicleSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
 
-            Button ExitButton = ThePopup.Q<Button>("ExitButton");
+            UnityEngine.UIElements.Button ExitButton = ThePopup.Q<UnityEngine.UIElements.Button>("ExitButton");
             ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 VehicleSettingsPopup.SetActive(false);
             });
 
-            Button SaveButton = ThePopup.Q<Button>("SaveButton");
+            UnityEngine.UIElements.Button SaveButton = ThePopup.Q<UnityEngine.UIElements.Button>("SaveButton");
             SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 ///!!!!!!!
@@ -185,52 +196,40 @@ public class MainController : MonoBehaviour
                     Debug.Log("Set Car Speed at: " + CarSpeed.value);
                 }
             });
+
             //METHOD WITH RADIO GROUP
             var group = ThePopup.Q<RadioButtonGroup>("AllPossibleModels");
             var allmodels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
-            foreach(var model in allmodels)
+            foreach (var model in allmodels)
             {
                 var newRadio = new RadioButton(model.DisplayName);
                 group.Add(newRadio);
             }
 
-            /*
-            //METHOD WITH LIST VIEW
-            // Store a reference to the character list element
-            var listView = ThePopup.Q<ListView>("AllPossibleModels");
-            var allModels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
-            
-            // Set up a make item function for a list entry
-            listView.makeItem = () =>
+            var categoriesGroup = ThePopup.Q<RadioButtonGroup>("AllPossibleCategories");
+            List<VehicleCategory> allcateogires = new List<VehicleCategory>();
+            allcateogires.Add(VehicleCategory.Car);
+            allcateogires.Add(VehicleCategory.Bike);
+            allcateogires.Add(VehicleCategory.Motorcycle);
+            foreach (var category in allcateogires)
             {
-                // Instantiate the UXML template for the entry
-                var newListEntry = eventEntryTemplate.Instantiate();
+                var newRadio = new RadioButton(category.GetDescription());
+                categoriesGroup.Add(newRadio);
+            }
 
-                // Instantiate a controller for the data
-                var entryController = new Label();
+            categoriesGroup.HandleEvent(ClickEvent);
 
-                // Assign the controller script to the visual element
-                newListEntry.userData = entryController;
-
-                // Initialize the controller script
-                entryController.text = "B";
-
-                // Return the root of the instantiated visual tree
-                return newListEntry;
-            };
-
-            // Set up bind function for a specific list entry
-            listView.bindItem = (item, index) =>
+            categoriesGroup.RegisterCallback<ChangeEvent<MouseCaptureEvent>>((ChangeEvent) =>
             {
-                (item.userData as Label).text = "A"+index;
-            };
-
-            info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
-            {
-                listView.Rebuild();
-            };
-
-            listView.itemsSource = allModels;*/
+                //METHOD WITH RADIO GROUP
+                var group = ThePopup.Q<RadioButtonGroup>("AllPossibleModels");
+                var allmodels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Bike);
+                foreach(var model in allmodels)
+                {
+                    var newRadio = new RadioButton(model.DisplayName);
+                    group.Add(newRadio);
+                }
+            });
 
 
             Vector3Field SpawnPointField = ThePopup.Q<Vector3Field>("SpawnPoint");
@@ -261,8 +260,8 @@ public class MainController : MonoBehaviour
 
     private void initializeEventButtons(VisualElement editorGUI)
     {
-        setPathButton = editorGUI.Q<Button>("setPathButton");
-        cancelPathButton = editorGUI.Q<Button>("cancelPathButton");
+        setPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("setPathButton");
+        cancelPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("cancelPathButton");
         actionButtons = editorGUI.Q<VisualElement>("actionButtons");
 
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -329,7 +328,7 @@ public class MainController : MonoBehaviour
     {
         WorldSettingsPopup.SetActive(true);
         var popup = WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
-        var exitButton = popup.Q<Button>("Exit");
+        var exitButton = popup.Q<UnityEngine.UIElements.Button>("Exit");
 
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -337,5 +336,15 @@ public class MainController : MonoBehaviour
         });
 
         WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+    }
+
+    void ExportOnClick()
+    {
+        //This Function is bind with the "Export button"
+        //The actual binding is made in the Start function of the script
+        //Make sure to change this function to export the desired version or desired files.
+        //Anything written here will be run at the time of pressing "Export" Button
+        BuildXML exporter = new BuildXML(this.info);
+        exporter.CombineXML();
     }
 }
