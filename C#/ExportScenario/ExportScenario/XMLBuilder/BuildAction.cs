@@ -87,7 +87,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
             XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
 
-            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.SpeedActionDynamics, SpeedActionDynamics);
+            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.SpeedActionDynamicsShape, SpeedActionDynamics);
             SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
             SetAttribute("dynamicsDimension", waypoint.ActionTypeInfo.DynamicDimensions, SpeedActionDynamics);
             SetAttribute("value", waypoint.ActionTypeInfo.AbsoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);

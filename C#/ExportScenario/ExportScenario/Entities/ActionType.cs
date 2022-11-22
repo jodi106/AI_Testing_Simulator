@@ -19,7 +19,7 @@ namespace ExportScenario.Entities
             ID = autoIncrementId++;
             Name = name;
             AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
-            SpeedActionDynamics = speedActionDynamics;
+            SpeedActionDynamicsShape = speedActionDynamics;
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
         }
@@ -46,7 +46,7 @@ namespace ExportScenario.Entities
         public int ID { get; private set; }
         public string Name { get; set; }
         public double AbsoluteTargetSpeedValue { get; set; }
-        public string SpeedActionDynamics { get; set; }
+        public string SpeedActionDynamicsShape { get; set; }
         public double SpeedActionDynamicsValue { get; set; }
         public string DynamicDimensions { get; set; }
         public List<Coord3D> Positions { get; set; }
