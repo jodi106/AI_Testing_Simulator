@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ExportScenario.Entities
+﻿namespace Entity
 {
     public class TriggerInfo
     /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
@@ -20,7 +16,7 @@ namespace ExportScenario.Entities
             ConditionEdge = conditionEdge;
         }
 
-        public TriggerInfo(string triggerType, string entityRef, string rule, double value, Coord3D worldPosition, double delay = 0, string conditionEdge = "rising")
+        public TriggerInfo(string triggerType, string entityRef, string rule, double value, Location worldPosition, double delay = 0, string conditionEdge = "rising")
         /// Constructor for "DistanceCondition"
         {
             ID = autoIncrementId++;
@@ -51,7 +47,7 @@ namespace ExportScenario.Entities
         public int SimulationTime { get; set; }
         public double Value {  get; set; }
         public string Rule {  get; set; } // "equalTo" , "greaterThan" , "lessThan"
-        public Coord3D WorldPosition { get;set; } 
+        public Location WorldPosition { get;set; } 
         public ActionType AfterAction { get; set; }  // corresponds to a previously executed ActionType
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ExportScenario.Entities
-{
+﻿namespace Entity
+{ 
     public class EntityModel
     /// <summary>Creates EntityModel object which contains informations about Model from Carla Blueprints</summary>
     {

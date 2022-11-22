@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ExportScenario.Entities
-{
+﻿namespace Entity
+{ 
     public class WorldOptions
     /// <summary>Creates WorldOptions Object. Contains user specified world settings for the scenario</summary>
     {

@@ -4,6 +4,8 @@ namespace Assets.Enums
 {
     public enum VehicleCategory
     {
+        [Description("Null")]
+        Null,
         [Description("Car")]
         Car,
         [Description("Bike")]

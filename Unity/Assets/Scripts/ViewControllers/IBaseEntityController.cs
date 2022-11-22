@@ -1,4 +1,4 @@
-﻿using Models;
+﻿using Entity;
 using UnityEngine;
 
 public interface IBaseEntityController
@@ -12,7 +12,7 @@ public interface IBaseEntityController
 
     public void submitPath(Path path);
 
-    public BaseModel getEntity();
+    public BaseEntity getEntity();
 
     public void destroy();
 }

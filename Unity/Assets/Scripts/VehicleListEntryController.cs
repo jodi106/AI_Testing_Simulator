@@ -1,4 +1,4 @@
-using Models;
+using Entity;
 using System.ComponentModel;
 using UnityEngine.UIElements;
 

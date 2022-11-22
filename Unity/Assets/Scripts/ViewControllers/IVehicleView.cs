@@ -1,5 +1,5 @@
 ﻿using Assets.Enums;
-using Models;
+using Entity;
 
 public interface IVehicleView
 {

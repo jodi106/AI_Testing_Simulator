@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mail;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace ExportScenario.Entities
-{
+
+namespace Entity
+{ 
     public class Waypoint // Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
-        public Waypoint(int id, Coord3D position, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
+        public Waypoint(int id, Location position, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
             Id = id;
             Position = position;
@@ -18,7 +16,7 @@ namespace ExportScenario.Entities
         }
 
         public int Id { get; set; }
-        public Coord3D Position { get; set; }
+        public Location Position { get; set; }
         public ActionType ActionTypeInfo { get; set; }
         public string Priority { get; set; }
         public List<TriggerInfo> TriggerList { get; set; }
