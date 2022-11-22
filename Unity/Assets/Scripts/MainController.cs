@@ -120,9 +120,9 @@ public class MainController : MonoBehaviour
             var path = new Path(new List<Waypoint>());
             Vehicle v = new(vehiclePosition, path, category:VehicleCategory.Car);
 
-            var viewController = vehicleGameObject.GetComponent<VehicleViewController>();
+            var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
             v.View = viewController;
-            viewController.vehicle = v;
+            viewController.setVehicle(v);
 
             setSelectedEntity(viewController);
 
@@ -266,10 +266,14 @@ public class MainController : MonoBehaviour
 
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            this.selectedEntity.triggerPathRequest();
-            this.preventDeselection = true;
-            setPathButton.style.display = DisplayStyle.None;
-            cancelPathButton.style.display = DisplayStyle.Flex;
+            if(selectedEntity is IBaseEntityWithPathController)
+            {
+                var selected = (IBaseEntityWithPathController)selectedEntity;
+                selected.triggerPathRequest();
+                this.preventDeselection = true;
+                setPathButton.style.display = DisplayStyle.None;
+                cancelPathButton.style.display = DisplayStyle.Flex;
+            }
         });
 
         cancelPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
