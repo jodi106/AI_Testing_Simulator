@@ -18,9 +18,8 @@
             SpawnPoint = spawnPoint;
         }
 
-        public BaseEntity(Location spawnPoint, double initialSpeed)
+        public BaseEntity( Location spawnPoint, double initialSpeed)
         {
-            Id = id;
             SpawnPoint = spawnPoint;
             InitialSpeed = initialSpeed;
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Xml;
-using ExportScenario.Entities;
+using Entity;
 using static System.Collections.Specialized.BitVector32;
 
 namespace ExportScenario.XMLBuilder
@@ -78,9 +78,9 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("alongRoute", "false", distanceCondition);
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
-            SetAttribute("x", triggerInfo.WorldPosition.X.ToString(), worldposition);
-            SetAttribute("y", triggerInfo.WorldPosition.Y.ToString(), worldposition);
-            SetAttribute("z", triggerInfo.WorldPosition.Z.ToString(), worldposition);
+            SetAttribute("x", triggerInfo.WorldPosition.Vector3.x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPosition.Vector3.y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPosition.Vector3.z.ToString(), worldposition);
             SetAttribute("h", triggerInfo.WorldPosition.Rot.ToString(), worldposition);
 
             // hierarchy

@@ -11,6 +11,13 @@
             DisplayName = modelName;
         }
 
+        public EntityModel(int id, string modelName)
+        {
+            Id = autoIncrementId++;
+            Name = modelName;
+            DisplayName = modelName;
+        }
+
         public EntityModel(string modelName, string displayName)
         {
             Id = autoIncrementId++;
