@@ -9,12 +9,12 @@ namespace ExportScenario.Entities
     {
         private static int autoIncrementId = 0;
                
-        public TriggerInfo(string triggerType, int simulationTime, string rule, double delay=0, string conditionEdge="rising")
+        public TriggerInfo(string triggerType, double simulationTimeValue, string rule, double delay=0, string conditionEdge="rising")
         /// Constructor for "SimulationTimeCondition"
         {
             ID = autoIncrementId++;
             TriggerType = triggerType; 
-            SimulationTime = simulationTime;
+            SimulationTimeValue = simulationTimeValue; // TODO change to Value?
             Rule = rule;
             Delay = delay;
             ConditionEdge = conditionEdge;
@@ -44,13 +44,13 @@ namespace ExportScenario.Entities
         }
 
         public int ID { get; set; }
-        public string TriggerType { get; set; } // "examples: SimulationTimeCondition", "DistanceCondition"
-        public double Delay { get; set; } // default: 0
-        public string ConditionEdge { get; set; } // default: "rising"
-        public string EntityRef {  get; set; }
-        public int SimulationTime { get; set; }
-        public double Value {  get; set; }
-        public string Rule {  get; set; } // "equalTo" , "greaterThan" , "lessThan"
+        public string TriggerType { get; set; } // has enum; can be extended; "examples: SimulationTimeCondition", "DistanceCondition"
+        public double Delay { get; set; } // double: 0 to infinitive, unit: seconds, default: 0 (for most cases 0 fits)
+        public string ConditionEdge { get; set; } // has enum; default: "rising"; only in advanced settings
+        public string EntityRef {  get; set; } // example: "adversary2" --> "adversary"+id
+        public double SimulationTimeValue { get; set; } // double: 0 to infinitive, unit: seconds, atm only needed for TriggerType = "SimulationTimeCondition"
+        public double Value {  get; set; } // 0 to infinitive, unit: seconds, atm needed for DistanceCondition
+        public string Rule {  get; set; } // has enum: "equalTo" , "greaterThan" , "lessThan"
         public Coord3D WorldPosition { get;set; } 
         public ActionType AfterAction { get; set; }  // corresponds to a previously executed ActionType
     }

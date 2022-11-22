@@ -5,12 +5,12 @@ namespace Assets.Enums
     public enum CloudState
     {
         [Description("cloudy")]
-        cloudy,
+        Cloudy,
         [Description("free")]
-        free,
+        Free,
         [Description("overcast")]
-        overcast,
+        Overcast,
         [Description("rainy")]
-        rainy
+        Rainy
     }
 }

@@ -56,7 +56,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode byValueCondition = root.CreateElement("ByValueCondition");
             condition.AppendChild(byValueCondition);
             XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
-            SetAttribute("value", triggerInfo.SimulationTime.ToString(), simulationTimeCondition);
+            SetAttribute("value", triggerInfo.SimulationTimeValue.ToString(), simulationTimeCondition);
             SetAttribute("rule", triggerInfo.Rule, simulationTimeCondition);
             byValueCondition.AppendChild(simulationTimeCondition);
         }

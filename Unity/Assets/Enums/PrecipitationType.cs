@@ -2,11 +2,11 @@
 
 namespace Assets.Enums
 {
-    public enum PrecipitationTypes
+    public enum PrecipitationType
     {
         [Description("dry")]
-        dry,
+        Dry,
         [Description("rain")]
-        rain
+        Rain
     }
 }

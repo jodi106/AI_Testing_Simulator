@@ -44,14 +44,14 @@ namespace ExportScenario.Entities
         
 
         public int ID { get; private set; }
-        public string Name { get; set; }
-        public double AbsoluteTargetSpeedValue { get; set; }
+        public string Name { get; set; } // Todo rename?; has enum ActionTypeName; examples: SpeedAction, LaneChangeAction, AssignRouteAction
+        public double AbsoluteTargetSpeedValue { get; set; } // double from 0 to infinitive; unit: meter per second; needed for SpeedAction
         public string SpeedActionDynamics { get; set; }
         public double SpeedActionDynamicsValue { get; set; }
         public string DynamicDimensions { get; set; }
         public List<Coord3D> Positions { get; set; }
         public double LaneChangeActionDynamicsValue { get; set; }
-        public string EntityRef { get; set; }
+        public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
         public int RelativeTargetLaneValue { get; set; }
 
     }

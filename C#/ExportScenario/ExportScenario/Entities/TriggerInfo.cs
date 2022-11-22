@@ -48,7 +48,7 @@ namespace ExportScenario.Entities
         public double Delay { get; set; } // default: 0
         public string ConditionEdge { get; set; } // default: "rising"
         public string EntityRef {  get; set; }
-        public int SimulationTime { get; set; }
+        public double SimulationTime { get; set; }
         public double Value {  get; set; }
         public string Rule {  get; set; } // "equalTo" , "greaterThan" , "lessThan"
         public Coord3D WorldPosition { get;set; } 
