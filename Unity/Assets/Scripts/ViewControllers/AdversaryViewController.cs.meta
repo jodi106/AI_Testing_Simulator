@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - selectionMaterial: {instanceID: 0}
+  - selectionMaterial: {fileID: 2100000, guid: fa2676c1dc2f0084d9c9b375841b5fb9, type: 2}
   - pathPrefab: {fileID: 1295733925915742048, guid: 4e0d28c99b622c841884eb5fa62b9fe8, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
