@@ -7,7 +7,7 @@ public class PathController : MonoBehaviour
     private LineRenderer lr;
     public Path path { get; set; }
     private bool building;
-    private IBaseEntityController entityController;
+    private IBaseEntityWithPathController entityController;
     private SnapController snapController;
 
     private void Awake()
@@ -38,7 +38,7 @@ public class PathController : MonoBehaviour
         });
     }
 
-    public void setEntityController(IBaseEntityController controller)
+    public void setEntityController(IBaseEntityWithPathController controller)
     {
         this.entityController = controller;
         lr.SetPosition(0, controller.getPosition());

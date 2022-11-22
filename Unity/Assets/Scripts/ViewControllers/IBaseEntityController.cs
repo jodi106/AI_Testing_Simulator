@@ -1,16 +1,13 @@
 ﻿using Entity;
 using UnityEngine;
 
+//Vehicle, Pedestrian, Ego
 public interface IBaseEntityController
 {
     public void select();
     public void deselect();
 
     public Vector2 getPosition();
-
-    public void triggerPathRequest();
-
-    public void submitPath(Path path);
 
     public BaseEntity getEntity();
 
