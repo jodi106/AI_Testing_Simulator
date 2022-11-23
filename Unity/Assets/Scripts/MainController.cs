@@ -138,7 +138,7 @@ public class MainController : MonoBehaviour
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
 
             var vehiclePosition = new Location(pos.x, pos.y, 0, 0);
-            var path = new Path(new List<Waypoint>());
+            var path = new Path();
             Vehicle v = new(vehiclePosition, path, category: VehicleCategory.Car);
 
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();

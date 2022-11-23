@@ -13,6 +13,7 @@ public class PathController : MonoBehaviour
     private void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
+        this.path = new Path();
 
         lr = gameObject.GetComponent<LineRenderer>();
         building = true;
@@ -55,10 +56,11 @@ public class PathController : MonoBehaviour
             lr.SetPosition(lr.positionCount - 1, waypoint.transform.position);
         }
     }
-    //TODO: change to Waypoint model
     public void addWaypoint(Vector2 wp)
     {
-        //path.addWaypoint(wp) ...
+        //TODO get angle and fix waypoint
+        Waypoint waypoint = new Waypoint(new Location(wp, 0), new ActionType("defaultAction"), new List<TriggerInfo>());
+        this.path.EventList.Add(waypoint);
         List<GameObject> path = snapController.findPath(lr.GetPosition(lr.positionCount - 2), wp);
         foreach(GameObject go in path)
         {

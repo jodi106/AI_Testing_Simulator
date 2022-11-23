@@ -6,9 +6,8 @@ namespace Entity
     public class Waypoint // Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
-        public Waypoint(int id, Location position, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
+        public Waypoint(Location position, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
-            Id = id;
             Position = position;
             ActionTypeInfo = actionTypeInfo;
             Priority = priority;

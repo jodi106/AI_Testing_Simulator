@@ -34,8 +34,8 @@ namespace ExportScenario
 
             // Define what can happen on each Waypoint
             List<Waypoint> eventListAdversary2 = new List<Waypoint>();
-            eventListAdversary2.Add(new Waypoint(2, new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", "adversary2", 1, "linear", 25, "distance"), triggerW2));
-            eventListAdversary2.Add(new Waypoint(3, new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
+            eventListAdversary2.Add(new Waypoint(new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", "adversary2", 1, "linear", 25, "distance"), triggerW2));
+            eventListAdversary2.Add(new Waypoint(new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
 
             // Add the Waypoint List to the Path of a Vehicle
             Path path_veh_1 = new Path();

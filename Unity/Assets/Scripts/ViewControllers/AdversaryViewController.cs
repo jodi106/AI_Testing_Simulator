@@ -101,7 +101,13 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
 
     public override bool hasAction()
     {
-        return !this.vehicle.Path.EventList.Any();
+        if(this.vehicle.Path is null)
+        {
+            return false;
+        } else
+        {
+            return this.vehicle.Path.EventList.Count != 0;
+        }
     }
 
     public override void deleteAction()

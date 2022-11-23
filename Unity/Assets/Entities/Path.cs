@@ -10,6 +10,7 @@ namespace Entity
         {
             EventList = new List<Waypoint>();
             //RoutePositions = new List<Coord3D>();
+
              
         }
 
@@ -18,7 +19,7 @@ namespace Entity
             OverallStartTrigger = overallStartTrigger;
             OverallStopTrigger = overallStopTrigger;
             EventList = eventList;
-            AssignRouteWaypoint = new Waypoint(1, 
+            AssignRouteWaypoint = new Waypoint(
                     null, 
                     new ActionType("AssignRouteAction", getRoutePositions()),
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan")});
