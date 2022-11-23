@@ -32,9 +32,12 @@ public class PathController : MonoBehaviour
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
-            var action = new MouseClickAction(x);
-            GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            addWaypoint(waypoint.transform.position);
+            if (building)
+            {
+                var action = new MouseClickAction(x);
+                GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                addWaypoint(waypoint.transform.position);
+            }
         });
     }
 

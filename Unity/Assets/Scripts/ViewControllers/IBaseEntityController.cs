@@ -12,4 +12,9 @@ public interface IBaseEntityController
     public BaseEntity getEntity();
 
     public void destroy();
+
+    //IBaseEntitWithPathController has path, Ego has Destination
+    public bool hasAction();
+
+    public void deleteAction();
 }

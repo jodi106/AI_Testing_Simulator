@@ -28,7 +28,9 @@ public class MainController : MonoBehaviour
     //Action Buttons (Center Left)
     private VisualElement actionButtons;
     private UnityEngine.UIElements.Button setPathButton;
+    private UnityEngine.UIElements.Button deletePathButton;
     private UnityEngine.UIElements.Button cancelPathButton;
+    private UnityEngine.UIElements.Button submitPathButton;
 
     private ScenarioInfo info;
 
@@ -66,7 +68,7 @@ public class MainController : MonoBehaviour
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
-            if(!preventDeselection)
+            if (!preventDeselection)
             {
                 EventManager.TriggerEvent(new ChangeSelectedEntityAction(ChangeSelectedEntityAction.NONE));
             }
@@ -75,6 +77,14 @@ public class MainController : MonoBehaviour
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
         {
             this.preventDeselection = false;
+        });
+
+        EventManager.StartListening(typeof(SubmitPathSelectionAction), x =>
+        {
+            this.preventDeselection = false;
+            deletePathButton.style.display = DisplayStyle.Flex;
+            submitPathButton.style.display = DisplayStyle.None;
+            cancelPathButton.style.display = DisplayStyle.None;
         });
 
         UnityEngine.UI.Button btn = exportButton.GetComponent<UnityEngine.UI.Button>();
@@ -91,6 +101,17 @@ public class MainController : MonoBehaviour
             this.removeEntityButton.style.display = DisplayStyle.Flex;
             this.editEntityButton.style.display = DisplayStyle.Flex;
             this.actionButtons.style.display = DisplayStyle.Flex;
+            if(entity.hasAction())
+            {
+                this.setPathButton.style.display = DisplayStyle.None;
+                this.deletePathButton.style.display = DisplayStyle.Flex;
+            } else
+            {
+                this.setPathButton.style.display = DisplayStyle.Flex;
+                this.deletePathButton.style.display = DisplayStyle.None;
+            }
+            this.submitPathButton.style.display = DisplayStyle.None;
+            this.cancelPathButton.style.display = DisplayStyle.None;
         }
         else
         {
@@ -118,7 +139,7 @@ public class MainController : MonoBehaviour
 
             var vehiclePosition = new Location(pos.x, pos.y, 0, 0);
             var path = new Path(new List<Waypoint>());
-            Vehicle v = new(vehiclePosition, path, category:VehicleCategory.Car);
+            Vehicle v = new(vehiclePosition, path, category: VehicleCategory.Car);
 
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
             v.View = viewController;
@@ -224,7 +245,7 @@ public class MainController : MonoBehaviour
                 //METHOD WITH RADIO GROUP
                 var group = ThePopup.Q<RadioButtonGroup>("AllPossibleModels");
                 var allmodels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Bike);
-                foreach(var model in allmodels)
+                foreach (var model in allmodels)
                 {
                     var newRadio = new RadioButton(model.DisplayName);
                     group.Add(newRadio);
@@ -261,19 +282,30 @@ public class MainController : MonoBehaviour
     private void initializeEventButtons(VisualElement editorGUI)
     {
         setPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("setPathButton");
+        deletePathButton = editorGUI.Q<UnityEngine.UIElements.Button>("deletePathButton");
         cancelPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("cancelPathButton");
+        submitPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("submitPathButton");
+
         actionButtons = editorGUI.Q<VisualElement>("actionButtons");
 
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if(selectedEntity is IBaseEntityWithPathController)
+            if (selectedEntity is IBaseEntityWithPathController)
             {
                 var selected = (IBaseEntityWithPathController)selectedEntity;
                 selected.triggerPathRequest();
                 this.preventDeselection = true;
                 setPathButton.style.display = DisplayStyle.None;
                 cancelPathButton.style.display = DisplayStyle.Flex;
+                submitPathButton.style.display = DisplayStyle.Flex;
             }
+        });
+
+        deletePathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            this.selectedEntity.deleteAction();
+            setPathButton.style.display = DisplayStyle.Flex;
+            deletePathButton.style.display = DisplayStyle.None;
         });
 
         cancelPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -281,10 +313,17 @@ public class MainController : MonoBehaviour
             EventManager.TriggerEvent(new CancelPathSelectionAction());
         });
 
+        submitPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            EventManager.TriggerEvent(new SubmitPathSelectionAction());
+        });
+
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
         {
+
             setPathButton.style.display = DisplayStyle.Flex;
             cancelPathButton.style.display = DisplayStyle.None;
+            submitPathButton.style.display = DisplayStyle.None;
         });
 
         actionButtons.style.display = DisplayStyle.None;

@@ -1,10 +1,12 @@
 ﻿using Entity;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 public class AdversaryViewController : VehicleViewController, IBaseEntityWithPathController
 {
     public GameObject pathPrefab;
     private Vehicle vehicle;
+    private PathController pathController;
     public new void Awake()
     {
         base.Awake();
@@ -17,8 +19,8 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public void triggerPathRequest()
     {
         var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
-        PathController pathController = pathGameObject.GetComponent<PathController>();
-        pathController.setEntityController(this);
+        this.pathController = pathGameObject.GetComponent<PathController>();
+        this.pathController.setEntityController(this);
         expectingPath = true;
     }
 
@@ -90,5 +92,21 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public void setVehicle(Vehicle vehicle)
     {
         this.vehicle = vehicle;
+    }
+
+    public void setPathController(PathController controller)
+    {
+        this.pathController = controller;
+    }
+
+    public override bool hasAction()
+    {
+        return !this.vehicle.Path.EventList.Any();
+    }
+
+    public override void deleteAction()
+    {
+        this.vehicle.Path = null;
+        Destroy(this.pathController.gameObject);
     }
 }
