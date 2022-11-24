@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
+using System.Drawing;
 
 public class MainController : MonoBehaviour
 {
@@ -145,6 +146,9 @@ public class MainController : MonoBehaviour
             pos.z = -0.1f;
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
+            UnityEngine.Color color = UnityEngine.Random.ColorHSV();
+            color = new UnityEngine.Color(color.r, color.g, color.b, 1);
+            viewController.setColor(color);
             setSelectedEntity(viewController);
         });
 

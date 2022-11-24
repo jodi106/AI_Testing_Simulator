@@ -70,4 +70,6 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
     public abstract bool hasAction();
     public abstract void deleteAction();
     public abstract void triggerActionSelection();
+
+    public abstract void setColor(Color color);
 }
