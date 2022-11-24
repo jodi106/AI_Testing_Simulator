@@ -442,8 +442,10 @@ public class MainController : MonoBehaviour
         {
             veh.Model = new EntityModel("vehicle.audi.tt");
             var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
+            var CarlaRot = SnapController.UnityRotToRadians(veh.SpawnPoint.Rot);
 
             veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
+            veh.SpawnPoint.Rot = CarlaRot;
         }
 
         // Combine every information into one ScenarioInfo Instance

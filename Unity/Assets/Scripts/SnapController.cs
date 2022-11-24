@@ -238,6 +238,10 @@ public class SnapController : MonoBehaviour
         return (x, y);
     }
 
+    public static double UnityRotToRadians(double rotation)
+    {
+        return Math.PI / 180 * rotation;
+    }
 
 }
 
