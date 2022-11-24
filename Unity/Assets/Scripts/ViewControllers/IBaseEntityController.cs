@@ -17,4 +17,6 @@ public interface IBaseEntityController
     public bool hasAction();
 
     public void deleteAction();
+
+    public void triggerActionSelection();
 }

@@ -67,9 +67,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
     }
 
     public abstract BaseEntity getEntity();
-
     public abstract bool hasAction();
-
     public abstract void deleteAction();
-
+    public abstract void triggerActionSelection();
 }

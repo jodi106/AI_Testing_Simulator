@@ -16,7 +16,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         });
     }
 
-    public void triggerPathRequest()
+    public override void triggerActionSelection()
     {
         var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
         this.pathController = pathGameObject.GetComponent<PathController>();

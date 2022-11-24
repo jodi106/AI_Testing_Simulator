@@ -101,11 +101,12 @@ public class MainController : MonoBehaviour
             this.removeEntityButton.style.display = DisplayStyle.Flex;
             this.editEntityButton.style.display = DisplayStyle.Flex;
             this.actionButtons.style.display = DisplayStyle.Flex;
-            if(entity.hasAction())
+            if (entity.hasAction())
             {
                 this.setPathButton.style.display = DisplayStyle.None;
                 this.deletePathButton.style.display = DisplayStyle.Flex;
-            } else
+            }
+            else
             {
                 this.setPathButton.style.display = DisplayStyle.Flex;
                 this.deletePathButton.style.display = DisplayStyle.None;
@@ -290,15 +291,11 @@ public class MainController : MonoBehaviour
 
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (selectedEntity is IBaseEntityWithPathController)
-            {
-                var selected = (IBaseEntityWithPathController)selectedEntity;
-                selected.triggerPathRequest();
-                this.preventDeselection = true;
-                setPathButton.style.display = DisplayStyle.None;
-                cancelPathButton.style.display = DisplayStyle.Flex;
-                submitPathButton.style.display = DisplayStyle.Flex;
-            }
+            this.selectedEntity.triggerActionSelection();
+            this.preventDeselection = true;
+            setPathButton.style.display = DisplayStyle.None;
+            cancelPathButton.style.display = DisplayStyle.Flex;
+            submitPathButton.style.display = DisplayStyle.Flex;
         });
 
         deletePathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
