@@ -126,6 +126,12 @@ public class MainController : MonoBehaviour
 
     }
 
+    public void addVehicle(Vehicle vehicle)
+    {
+        Debug.Log("Vehicle added");
+        this.info.Vehicles.Add(vehicle);
+    }
+
     private void initializeButtonBar(VisualElement editorGUI)
     {
         addEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("addEntityButton");
@@ -138,18 +144,8 @@ public class MainController : MonoBehaviour
             var pos = Input.mousePosition;
             pos.z = -0.1f;
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
-
-            var vehiclePosition = new Location(pos.x, pos.y, 0, 0);
-            var path = new Path();
-            Vehicle v = new(vehiclePosition, path, category: VehicleCategory.Car);
-
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            v.View = viewController;
-            viewController.setVehicle(v);
-
             setSelectedEntity(viewController);
-
-            info.Vehicles.Add(v);
         });
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>

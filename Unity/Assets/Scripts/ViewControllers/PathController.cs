@@ -19,7 +19,6 @@ public class PathController : MonoBehaviour
 
         lr = gameObject.GetComponent<LineRenderer>();
         previewRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
-        previewRenderer.positionCount = 2;
         building = true;
 
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
@@ -93,6 +92,11 @@ public class PathController : MonoBehaviour
             lr.positionCount++;
             lr.SetPosition(0, wp);
         }
+    }
+
+    public void moveWaypoint(Waypoint waypoint, Vector2 position)
+    {
+
     }
 
     public void complete()
