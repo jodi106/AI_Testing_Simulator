@@ -131,6 +131,7 @@ public class MainController : MonoBehaviour
     {
         Debug.Log("Vehicle added");
         this.info.Vehicles.Add(vehicle);
+        this.preventDeselection = false;
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -146,10 +147,11 @@ public class MainController : MonoBehaviour
             pos.z = -0.1f;
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            UnityEngine.Color color = UnityEngine.Random.ColorHSV();
+            UnityEngine.Color color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new UnityEngine.Color(color.r, color.g, color.b, 1);
             viewController.setColor(color);
             setSelectedEntity(viewController);
+            this.preventDeselection = true;
         });
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>

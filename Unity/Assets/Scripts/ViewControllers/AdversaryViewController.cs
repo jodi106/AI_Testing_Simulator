@@ -1,5 +1,6 @@
 ﻿using Assets.Enums;
 using Entity;
+using ExportScenario.XMLBuilder;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -25,6 +26,16 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
         {
             expectingPath = false;
+        });
+
+        EventManager.StartListening(typeof(MouseClickAction), x =>
+        {
+            if (!placed)
+            {
+                placed = true;
+                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
+                mainController.addVehicle(this.vehicle);
+            }
         });
     }
 
