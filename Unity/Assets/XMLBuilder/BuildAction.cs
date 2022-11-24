@@ -153,7 +153,7 @@ namespace ExportScenario.XMLBuilder
 
             SetAttribute("x", spawnPoint.Vector3.x.ToString(), world_position);
             SetAttribute("y", spawnPoint.Vector3.y.ToString(), world_position);
-            SetAttribute("z", spawnPoint.Vector3.y.ToString(), world_position);
+            SetAttribute("z", spawnPoint.Vector3.z.ToString(), world_position);
             SetAttribute("h", spawnPoint.Rot.ToString(), world_position);
 
             privateAction.AppendChild(teleport_action);

@@ -205,6 +205,39 @@ public class SnapController : MonoBehaviour
             return null;
         }
     }
+    public static (float x, float y) CarlaToUnity(float x, float y)
+    {
+
+        //Convert to Mouse Coordinates
+        x = (x - -114.59522247314453f) / 4;
+        y = (y - -68.72904205322266f) / 4 * (-1);
+
+
+        //Handle Offset, so that 0,0 is in the middle
+        x = x + -28.077075f;
+        y = y + 26.24f;
+
+        return (x, y);
+    }
+
+
+    //Only for Town06 later do as extension method for Vector3 or Location
+    public static (float x, float y) UnityToCarla(float x, float y)
+    {
+
+        x = x + 28.077075f;
+        y = y + -26.24f;
+
+        x = x * 4;
+        y = y * 4 * (-1);
+
+
+        x = (x + -114.59522247314453f);
+        y = (y + -68.72904205322266f);
+
+        return (x, y);
+    }
+
 
 }
 
@@ -214,3 +247,4 @@ public class JsonWaypoint
     public float y { get; set; }
     public float rot { get; set; }
 }
+
