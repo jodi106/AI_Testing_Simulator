@@ -100,6 +100,28 @@ namespace ExportScenario.XMLBuilder
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
         }
 
+        public void BreakAction(XmlNode action, Waypoint waypoint)
+        /// Creates SpeedAction. Defines speed for a scenario entity.
+        {
+            XmlNode privateAction = root.CreateElement("PrivateAction");
+            XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
+            XmlNode speedAction = root.CreateElement("SpeedAction");
+            XmlNode SpeedActionDynamics = root.CreateElement("SpeedActionDynamics");
+            XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
+            XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
+
+            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.SpeedActionDynamicsShape, SpeedActionDynamics);
+            SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("dynamicsDimension", "time", SpeedActionDynamics);
+            SetAttribute("value", "0", AbsoluteTargetSpeed);
+
+            action.AppendChild(privateAction);
+            privateAction.AppendChild(longitudinalAction);
+            longitudinalAction.AppendChild(speedAction);
+            speedAction.AppendChild(SpeedActionDynamics);
+            speedAction.AppendChild(SpeedActionTarget);
+            SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
+        }
         public void LaneChangeAction(XmlNode action, Waypoint waypoint)
         /// Creates LaneChangeAction. Defines amount of lanes to change for a scenario entity relative to a specified entity.
         {
