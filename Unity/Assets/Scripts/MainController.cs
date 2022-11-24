@@ -441,13 +441,22 @@ public class MainController : MonoBehaviour
         foreach (var veh in this.info.Vehicles)
         {
             veh.Model = new EntityModel("vehicle.audi.tt");
+            var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
+
+            veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
         }
 
         // Combine every information into one ScenarioInfo Instance
         ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town04", worldOptions, egoVehicle, this.info.Vehicles);
 
         // Create .xosc file
+
+
         BuildXML doc = new BuildXML(dummy);
         doc.CombineXML();
     }
+
+
+    //Only for Town06 later do as extension method for Vector3 or Location
+
 }
