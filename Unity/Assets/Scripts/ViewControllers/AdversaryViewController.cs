@@ -125,6 +125,15 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         }
     }
 
+    public new void destroy()
+    {
+        base.destroy();
+        if(this.pathController is not null)
+        {
+            Destroy(this.pathController.gameObject);
+        }
+    }
+
     public override void deleteAction()
     {
         this.vehicle.Path = null;
