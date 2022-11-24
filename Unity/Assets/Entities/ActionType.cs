@@ -19,7 +19,7 @@ namespace Entity
             ID = autoIncrementId++;
             Name = name;
             AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
-            //SpeedActionDynamicsShape = speedActionDynamicsShape;
+            DynamicsShape = "linear";
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
         }

@@ -401,14 +401,15 @@ public class MainController : MonoBehaviour
         List<TriggerInfo> triggerW1 = new List<TriggerInfo>();
         triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan"));
         List<TriggerInfo> triggerW2 = new List<TriggerInfo>();
-        triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Location(250f, 10f, 0.3f, 270)));
+        triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 15, new Location(250f, 10f, 0.3f, 270)));
         List<TriggerInfo> triggerW3 = new List<TriggerInfo>();
-        triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Location(100f, 10f, 0.3f, 270)));
+        triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 15, new Location(100f, 10f, 0.3f, 270)));
 
         // Define what can happen on each Waypoint
         List<Waypoint> eventListAdversary2 = new List<Waypoint>();
-        eventListAdversary2.Add(new Waypoint( new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", "adversary2", 1, "linear", 25, "distance"), triggerW2));
-        eventListAdversary2.Add(new Waypoint( new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
+        //eventListAdversary2.Add(new Waypoint( new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", "adversary2", 1, "linear", 25, "distance"), triggerW2));
+        eventListAdversary2.Add(new Waypoint( new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 20, "step", 10.0, "time"), triggerW1)); // 10s bc. otherwise scenario stops before vehicle stopped
+        eventListAdversary2.Add(new Waypoint(new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 20, "step", 10.0, "time"), triggerW1)); // 10s bc. otherwise scenario stops before vehicle stopped
 
         // Add the Waypoint List to the Path of a Vehicle
         Path path_veh_1 = new Path();
@@ -440,16 +441,26 @@ public class MainController : MonoBehaviour
 
         foreach (var veh in this.info.Vehicles)
         {
+
             veh.Model = new EntityModel("vehicle.audi.tt");
             var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
             var CarlaRot = SnapController.UnityRotToRadians(veh.SpawnPoint.Rot);
 
             veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
             veh.SpawnPoint.Rot = CarlaRot;
+
+            
+            
+            //veh.Path = new Path(eventListAdversary2);
+
+            veh.InitialSpeed = 10.0;
+
+
         }
+        
 
         // Combine every information into one ScenarioInfo Instance
-        ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town04", worldOptions, egoVehicle, this.info.Vehicles);
+        ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town10HD", worldOptions, egoVehicle, this.info.Vehicles);
 
         // Create .xosc file
 
