@@ -6,6 +6,8 @@ namespace Assets.Enums
     {
         [Description("SpeedAction")]
         SpeedAction,
+        [Description("BreakAction")]
+        BreakAction,
         [Description("LaneChangeAction")]
         LaneChangeAction,
         [Description("AssignRouteAction")]

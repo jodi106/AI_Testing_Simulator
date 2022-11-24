@@ -19,7 +19,17 @@ namespace Entity
             ID = autoIncrementId++;
             Name = name;
             AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
-            DynamicsShape = speedActionDynamicsShape;
+            SpeedActionDynamicsShape = speedActionDynamicsShape;
+            SpeedActionDynamicsValue = speedActionDynamicsValue;
+            DynamicDimensions = dynamicsDimension;
+        }
+
+        public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamicsShape = "step", string dynamicsDimension = "time")
+        /// for BreakAction
+        {
+            ID = autoIncrementId++;
+            Name = name;
+            SpeedActionDynamicsShape = speedActionDynamicsShape;
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
         }

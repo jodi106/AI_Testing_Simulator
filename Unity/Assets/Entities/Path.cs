@@ -38,7 +38,10 @@ namespace Entity
             List<Location> routePositions = new List<Location>();
             for (int i = 0; i < EventList.Count; i++)
             {
-                routePositions.Add(EventList[i].Position);
+                if (EventList[i].ActionTypeInfo != null)
+                {
+                    routePositions.Add(EventList[i].Position);
+                }
             }
 
             return routePositions;

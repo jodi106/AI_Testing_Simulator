@@ -24,6 +24,16 @@ namespace ExportScenario.Entities
             DynamicDimensions = dynamicsDimension;
         }
 
+        public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamics = "step", string dynamicsDimension = "time")
+        /// for BreakAction
+        {
+            ID = autoIncrementId++;
+            Name = name;
+            SpeedActionDynamicsShape = speedActionDynamics;
+            SpeedActionDynamicsValue = speedActionDynamicsValue;
+            DynamicDimensions = dynamicsDimension;
+        }
+
         public ActionType(string name, List<Coord3D> positions)
         /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
         {
