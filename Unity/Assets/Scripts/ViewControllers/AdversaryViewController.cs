@@ -33,6 +33,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
         this.pathController = pathGameObject.GetComponent<PathController>();
         this.pathController.setEntityController(this);
+        this.pathController.setColor(this.sprite.color);
         expectingPath = true;
     }
 
@@ -93,18 +94,13 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         if (!placed)
         {
             placed = true;
-            sprite.color = new Color(1, 1, 1, 1);
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
             mainController.addVehicle(this.vehicle);
         }
         if (!selected)
         {
             EventManager.TriggerEvent(new ChangeSelectedEntityAction(this));
         }
-    }
-
-    public void setPathController(PathController controller)
-    {
-        this.pathController = controller;
     }
 
     public override bool hasAction()
@@ -122,5 +118,21 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     {
         this.vehicle.Path = null;
         Destroy(this.pathController.gameObject);
+        this.pathController = null;
+    }
+
+    public override void setColor(Color color)
+    {
+        if (placed)
+        {
+            this.sprite.color = color;
+        } else
+        {
+            this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
+        }
+        if(this.pathController is not null)
+        {
+            this.pathController.setColor(this.sprite.color);
+        }
     }
 }
