@@ -33,7 +33,6 @@ namespace Entity
 
         }
 
-
         public void setPosition(float x, float y)
         {
             SpawnPoint = new Location(x, y, 0, 0);

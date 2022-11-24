@@ -19,4 +19,6 @@ public interface IBaseEntityController
     public void deleteAction();
 
     public void triggerActionSelection();
+
+    public void setColor(Color color );
 }

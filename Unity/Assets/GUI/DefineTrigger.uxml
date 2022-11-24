@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="DefineTrigger_MainVisualElement" style="height: 443px; width: 346px; background-color: rgb(192, 192, 192);">
+        <ui:Label text="Define Trigger" display-tooltip-when-elided="true" name="DefineTrigger_header" />
+        <ui:DropdownField label="Trigger Type" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="DefineTrigger_dropdown" />
+        <ui:VisualElement name="DefineTrigger_VisualElement_suboptions" style="padding-left: 10px; padding-top: 10px;" />
+    </ui:VisualElement>
+</ui:UXML>

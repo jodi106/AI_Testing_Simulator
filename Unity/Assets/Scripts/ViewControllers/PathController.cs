@@ -18,8 +18,9 @@ public class PathController : MonoBehaviour
         this.path = new Path();
 
         lr = gameObject.GetComponent<LineRenderer>();
+        lr.SetWidth(0.1f, 0.1f);
         previewRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
-        previewRenderer.positionCount = 2;
+        previewRenderer.SetWidth(0.1f, 0.1f);
         building = true;
 
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
@@ -86,7 +87,8 @@ public class PathController : MonoBehaviour
             foreach (GameObject go in path)
             {
                 lr.positionCount++;
-                lr.SetPosition(lr.positionCount - 1, go.transform.position);
+                Vector3 position = new Vector3(go.transform.position.x, go.transform.position.y, -0.1f);
+                lr.SetPosition(lr.positionCount - 1, position);
             }
         } else
         {
@@ -95,10 +97,22 @@ public class PathController : MonoBehaviour
         }
     }
 
+    public void moveWaypoint(Waypoint waypoint, Vector2 position)
+    {
+
+    }
+
     public void complete()
     {
         previewRenderer.positionCount = 0;
         building = false;
         entityController.submitPath(path);
+    }
+
+    public void setColor(Color color)
+    {
+        this.lr.SetColors(color, color);
+        color = new Color(color.r, color.g, color.b, 0.5f);
+        this.previewRenderer.SetColors(color, color);
     }
 }

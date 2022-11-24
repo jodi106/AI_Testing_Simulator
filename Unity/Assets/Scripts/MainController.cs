@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 using UnityEngine.UI;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
+using System.Drawing;
 
 public class MainController : MonoBehaviour
 {
@@ -126,6 +127,12 @@ public class MainController : MonoBehaviour
 
     }
 
+    public void addVehicle(Vehicle vehicle)
+    {
+        Debug.Log("Vehicle added");
+        this.info.Vehicles.Add(vehicle);
+    }
+
     private void initializeButtonBar(VisualElement editorGUI)
     {
         addEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("addEntityButton");
@@ -138,18 +145,11 @@ public class MainController : MonoBehaviour
             var pos = Input.mousePosition;
             pos.z = -0.1f;
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
-
-            var vehiclePosition = new Location(pos.x, pos.y, 0, 0);
-            var path = new Path();
-            Vehicle v = new(vehiclePosition, path, category: VehicleCategory.Car);
-
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            v.View = viewController;
-            viewController.setVehicle(v);
-
+            UnityEngine.Color color = UnityEngine.Random.ColorHSV();
+            color = new UnityEngine.Color(color.r, color.g, color.b, 1);
+            viewController.setColor(color);
             setSelectedEntity(viewController);
-
-            info.Vehicles.Add(v);
         });
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
