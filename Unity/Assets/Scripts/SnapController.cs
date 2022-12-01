@@ -14,15 +14,16 @@ public class JsonWaypoint
 
 public class Road
 {
-    public Road(int id, SortedDictionary<int, Lane> lanes)
+    public Road(int id, SortedList<int, Lane> lanes)
     {
         Id = id;
         Lanes = lanes;
     }
 
-    public int Id { get; set; } 
+    public int Id { get; set; }
 
-    public SortedDictionary<int,Lane> Lanes { get; set; }
+
+    public SortedList<int, Lane> Lanes { get; set; }
 }
 
 public class Lane
@@ -59,31 +60,34 @@ public class Lane
 
     public List<LaneWaypoint> Waypoints { get; set; }
 
-    public List<(int,int)> NextRoadAndLaneIds { get; set; }
+    public List<(int, int)> NextRoadAndLaneIds { get; set; }
 }
 
-public class LaneWaypoint {
+public class LaneWaypoint
+{
 
-    public LaneWaypoint(int id, int laneId, GameObject waypointGameObject, Vector3 coords)
+    public LaneWaypoint(int position, int laneId, int roadId, GameObject waypointGameObject, Vector3 coords)
     {
-        Id = id;
+        Id = roadId.ToString() + laneId.ToString() + position.ToString();
+        Position = position;
         LaneId = laneId;
+        RoadId = roadId;
         WaypointGameObject = waypointGameObject;
         Coords = coords;
     }
 
-    public int Id { get; set; }
+    public string Id { get; set; }
+
+    public int Position { get; set; }
 
     public int LaneId { get; set; }
+
+    public int RoadId { get; set; }
+
 
     public GameObject WaypointGameObject { get; set; }
 
     public Vector3 Coords { get; set; }
-
-    public String ToString()
-    {
-        return Id.ToString() + " " + LaneId.ToString() + " " + Coords.ToString();
-    }
 
     public bool Equals(LaneWaypoint o)
     {
@@ -112,13 +116,13 @@ public class SnapController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
 
-            foreach (var (_,road) in roads)
+            foreach (var (_, road) in roads)
             {
-                foreach (var (_,lane) in road.Lanes)
+                foreach (var (_, lane) in road.Lanes)
                 {
-                    foreach(var waypoint in lane.Waypoints)
+                    foreach (var waypoint in lane.Waypoints)
                     {
-                       Destroy(waypoint.WaypointGameObject);
+                        Destroy(waypoint.WaypointGameObject);
                     }
                 }
             }
@@ -132,7 +136,7 @@ public class SnapController : MonoBehaviour
         var laneIdSplit = laneIdString.Split("R")[1].Split("L");
         return (int.Parse(laneIdSplit[0]), int.Parse(laneIdSplit[1]));
     }
-    
+
     void LoadRoads(string mapName)
     {
         roads = new Dictionary<int, Road>();
@@ -147,18 +151,46 @@ public class SnapController : MonoBehaviour
 
             if (!roads.ContainsKey(roadId))
             {
-                roads.Add(roadId, new Road(roadId, new SortedDictionary<int,Lane>()));
+                roads.Add(roadId, new Road(roadId, new SortedList<int, Lane>()));
             }
 
-            var nextRoadAndLaneIds = new List<(int,int)>();
+            var nextRoadAndLaneIds = new List<(int, int)>();
 
             nextRoadAndLaneIdStrings.ForEach(nextString =>
                 nextRoadAndLaneIds.Add(GetRoadIdAndLaneIdFromString(nextString))
             );
 
-            roads[roadId].Lanes.Add(laneId,new Lane(laneId,roadId, nextRoadAndLaneIds));
+            roads[roadId].Lanes.Add(laneId, new Lane(laneId, roadId, nextRoadAndLaneIds));
         }
-        
+
+        foreach (var (roadId, road) in roads)
+        {
+            foreach (var (laneId, lane) in road.Lanes)
+            {
+                var nextPossibleRoadAndLaneIds = new List<(int, int)>();
+
+                foreach ((var nextRoadId, var nextLaneId) in lane.NextRoadAndLaneIds)
+                {
+                    nextPossibleRoadAndLaneIds.Add((nextRoadId, nextLaneId));
+
+                    var nextRoad = roads[nextRoadId];
+
+                    var nextLane = nextRoad.Lanes[nextLaneId];
+
+                    foreach (var (neighbouringLaneId, _) in nextRoad.Lanes)
+                    {
+                        if ((neighbouringLaneId == nextLaneId - 1 || neighbouringLaneId == nextLaneId + 1) && neighbouringLaneId * nextLaneId > 0)
+                        {
+                            nextPossibleRoadAndLaneIds.Add((nextRoadId, neighbouringLaneId));
+                        }
+                    }
+                }
+
+                lane.NextRoadAndLaneIds = nextPossibleRoadAndLaneIds;
+
+            }
+        }
+
 
         text = Resources.Load<TextAsset>("Waypoints/" + mapName);
 
@@ -169,11 +201,11 @@ public class SnapController : MonoBehaviour
             (var roadId, var laneId) = GetRoadIdAndLaneIdFromString(laneIdString);
 
             var waypoints = new List<LaneWaypoint>();
-            
+
+            var index = 0;
+
             foreach (var jsonWaypoint in jsonWaypoints)
             {
-
-
                 var whiteCircle = Instantiate(
                     circlePrefab,
                     new Vector3((jsonWaypoint.x - -114.59522247314453f) / 4 - 28.077075f, (jsonWaypoint.y - -68.72904205322266f) / 4 * (-1) + 26.24f, -0.05f),
@@ -181,7 +213,8 @@ public class SnapController : MonoBehaviour
 
                 whiteCircle.transform.eulerAngles = Vector3.forward * (-jsonWaypoint.rot);
 
-                waypoints.Add(new LaneWaypoint(laneId + roadId, laneId, whiteCircle, whiteCircle.transform.position));
+                waypoints.Add(new LaneWaypoint(index, laneId, roadId, whiteCircle, whiteCircle.transform.position));
+                index++;
             }
 
             roads[roadId].Lanes[laneId].Waypoints = waypoints;
@@ -200,7 +233,7 @@ public class SnapController : MonoBehaviour
 
         if (highlight)
         {
-            var (_,waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
 
@@ -215,7 +248,7 @@ public class SnapController : MonoBehaviour
      * pos in World Coordinates (Pixel Coordinates / 100)
      * 
     */
-    public (Lane,LaneWaypoint) FindLaneAndWaypoint(Vector2 pos)
+    public (Lane, LaneWaypoint) FindLaneAndWaypoint(Vector2 pos)
     {
         LaneWaypoint closestWaypoint = null;
         Lane laneToReturn = null;
@@ -235,7 +268,8 @@ public class SnapController : MonoBehaviour
                         return (lane, waypoint);
 
                     }
-                    else if (currDistance < distance)
+
+                    if (currDistance < distance)
                     {
                         closestWaypoint = waypoint;
                         distance = currDistance;
@@ -259,7 +293,7 @@ public class SnapController : MonoBehaviour
         (Lane endLane, LaneWaypoint endWaypoint) = FindLaneAndWaypoint(end);
 
         var prioQueue = new SimplePriorityQueue<Lane, double>();
-        
+
         prioQueue.Enqueue(startLane, 0);
 
         var cameFrom = new Dictionary<LaneWaypoint, LaneWaypoint>
@@ -272,51 +306,52 @@ public class SnapController : MonoBehaviour
             { startLane, 0 }
         };
 
-        var currentWaypoint = startWaypoint;
+        var foundPath = false;
 
-        var currentIndex = startLane.Waypoints.IndexOf(startWaypoint);
+        var firstIteration = true;
 
-        var flag = false;
+        LaneWaypoint currentWaypoint;
 
-        var c = 0;
-
-        while ( prioQueue.Count != 0 && c < 100)
+        while (prioQueue.Count != 0)
         {
-            c++;
-
             var currentLane = prioQueue.Dequeue();
 
-            var nextWaypoint = currentLane.Waypoints[currentIndex++];
+            if (firstIteration)
+            {
+                // this is the only time, a path might not start at the start of the lane, maybe straight from the middle
+                currentWaypoint = startWaypoint;
+                firstIteration = false;
+            }
+            else
+            {
+                currentWaypoint = currentLane.Waypoints[0];
+            }
 
-            cameFrom[nextWaypoint] = currentWaypoint;
-
-            currentWaypoint = nextWaypoint;
-            
-
-
-            while (currentIndex < currentLane.Waypoints.Count)
+            for (int waypointIndex = currentWaypoint.Position + 1; waypointIndex < currentLane.Waypoints.Count; waypointIndex++)
             {
                 if (currentWaypoint == endWaypoint)
                 {
-                    flag = true;
+                    foundPath = true;
                     break;
                 }
 
-                nextWaypoint = currentLane.Waypoints[currentIndex++];
-
+                var nextWaypoint = currentLane.Waypoints[waypointIndex];
                 cameFrom[nextWaypoint] = currentWaypoint;
+
+                currentWaypoint = nextWaypoint;
             }
 
-            if (flag)
+            if (foundPath)
             {
                 break;
             }
+
 
             foreach ((var nextRoadId, var nextLaneId) in currentLane.NextRoadAndLaneIds)
             {
                 var nextLane = roads[nextRoadId].Lanes[nextLaneId];
 
-                var newCost = costSoFar[currentLane] + currentLane.Waypoints.Count; //Count is weight of the lane
+                var newCost = costSoFar[currentLane] + currentLane.Waypoints.Count; //weight is length of the lane
 
                 if (!costSoFar.ContainsKey(nextLane) || newCost < costSoFar[nextLane])
                 {
@@ -326,141 +361,31 @@ public class SnapController : MonoBehaviour
 
                     prioQueue.Enqueue(nextLane, priority);
 
-                    nextWaypoint = nextLane.Waypoints[0];
-
-                    cameFrom[nextWaypoint] = currentWaypoint;
+                    cameFrom[nextLane.Waypoints[0]] = currentWaypoint;
                 }
             }
 
-            currentIndex = 0;
         }
 
-        foreach(var (key,value) in cameFrom)
-        {
-            Debug.Log(key + " "+ value.ToString());
-        }
-        
+
         var path = new List<GameObject>();
-        var current = currentWaypoint;
-        while (current != startWaypoint)
+        var current = endWaypoint;
+        if (!cameFrom.ContainsKey(endWaypoint))
         {
-            path.Add(current.WaypointGameObject);
-            current = cameFrom[current];
+            Debug.Log("No Path, this shouldnt happend so if you see this, smth is burning");
         }
-        path.Add(startWaypoint.WaypointGameObject);
-        path.Reverse();
+        else
+        {
+            while (current != startWaypoint)
+            {
+                path.Add(current.WaypointGameObject);
+                current = cameFrom[current];
+            }
+            path.Add(startWaypoint.WaypointGameObject);
+            path.Reverse();
+        }
+
         return path;
-
-
-        //// TODO: detect lane changes
-        //if (startLane.Equals(endLane))
-        //{
-
-        //}
-
-        //var visited = new HashSet<Lane>();
-        //var queue = new Queue<Lane>();
-
-        //var pred = new Dictionary<string, string>();
-
-        //queue.Enqueue(startLane);
-
-        //bool found = false;
-
-        //while (queue.Count > 0)
-        //{
-        //    if (found)
-        //    {
-        //        break;
-        //    }
-
-        //    var vertex = queue.Dequeue();
-        //    visited.Add(vertex);
-
-        //    foreach (var neighboar in topology[vertex])
-        //    {
-        //        if (visited.Contains(neighboar))
-        //        {
-        //            continue;
-        //        }
-        //        else
-        //        {
-        //            pred[neighboar] = vertex;
-        //            queue.Enqueue(neighboar);
-        //            if (neighboar.Equals(endLane))
-        //            {
-        //                found = true;
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-
-        //if (found)
-        //{
-        //    List<string> lanePath = new List<string>();
-        //    List<GameObject> path = new List<GameObject>();
-        //    lanePath.Add(endLane);
-        //    string p = pred[endLane];
-        //    lanePath.Insert(0, p);
-        //    Debug.Log(p);
-        //    while (p != startLane)
-        //    {
-        //        p = pred[p];
-        //        lanePath.Insert(0, p);
-        //        Debug.Log(p);
-        //    }
-        //    foreach (string lane in lanePath)
-        //    {
-        //        if (lane.Equals(startLane) || lane.Equals(endLane)) continue;
-        //        path.AddRange(waypoints[lane]);
-        //    }
-
-        //    int startIndex = waypoints[startLane].FindIndex(x => x == startWP);
-        //    int endIndex = waypoints[endLane].FindIndex(x => x == endWP);
-        //    path.InsertRange(0, waypoints[startLane].GetRange(startIndex, waypoints[startLane].Count - startIndex));
-        //    path.AddRange(waypoints[endLane].GetRange(0, endIndex + 1));
-
-        //    return path;
-        //}
     }
-
-    //void loadLanes(string mapName)
-    //{
-    //    lanes = new Dictionary<string, Lane>();
-
-    //    var text = Resources.Load<TextAsset>("Waypoints/" + mapName + "_topology");
-
-    //    var jsonLanes = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(text.text);
-
-    //    foreach (var (laneId, nextLanes) in jsonLanes)
-    //    {
-    //        var lane = new Lane(laneId, nextLanes);
-    //    }
-
-    //    text = Resources.Load<TextAsset>("Waypoints/" + mapName);
-
-    //    var jsonWaypoints = JsonConvert.DeserializeObject<Dictionary<string, List<JsonWaypoint>>>(text.text);
-
-    //    foreach (var (laneId, waypoints) in jsonWaypoints)
-    //    {
-    //        lanes[laneId].Waypoints = new List<GameObject>();
-
-    //        foreach (JsonWaypoint waypoint in waypoints)
-    //        {
-    //            waypoint.x = (waypoint.x - -114.59522247314453f) / 4;
-    //            waypoint.y = (waypoint.y - -68.72904205322266f) / 4 * (-1);
-
-    //            var whiteCircle = Instantiate(
-    //                circlePrefab,
-    //                new Vector3(waypoint.x - 28.077075f, waypoint.y + 26.24f, -0.05f),
-    //                Quaternion.identity);
-
-    //            whiteCircle.transform.eulerAngles = Vector3.forward * (-waypoint.rot);
-
-    //            lanes[laneId].Waypoints.Add(whiteCircle);
-    //        }
-    //    }
-    //}
 }
 
