@@ -7,6 +7,7 @@ namespace Assets.Repos
     public class MapRepository
     {
         private readonly List<Map> _maps;
+        
         public MapRepository()
         {
             _maps = new List<Map>()

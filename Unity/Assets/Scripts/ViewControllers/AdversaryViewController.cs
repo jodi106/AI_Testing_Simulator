@@ -55,12 +55,12 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         {
             return;
         }
-        GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (waypoint is not null)
         {
             difference = Vector2.zero;
-            vehicle.setPosition(waypoint.transform.position.x, waypoint.transform.position.y);
-            gameObject.transform.eulerAngles = waypoint.transform.eulerAngles;
+            vehicle.setPosition(waypoint.WaypointGameObject.transform.position.x, waypoint.WaypointGameObject.transform.position.y);
+            gameObject.transform.eulerAngles = waypoint.WaypointGameObject.transform.eulerAngles;
         }
         else
         {
@@ -73,12 +73,12 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject waypoint = snapController.findNearestWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                this.vehicle.setPosition(waypoint.transform.position.x, waypoint.transform.position.y);
-                gameObject.transform.eulerAngles = waypoint.transform.eulerAngles;
+                this.vehicle.setPosition(waypoint.WaypointGameObject.transform.position.x, waypoint.WaypointGameObject.transform.position.y);
+                gameObject.transform.eulerAngles = waypoint.WaypointGameObject.transform.eulerAngles;
             }
             else
             {

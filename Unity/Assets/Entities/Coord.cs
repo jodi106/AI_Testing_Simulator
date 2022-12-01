@@ -18,6 +18,8 @@ namespace Entity
 
         public Vector3 Vector3 { get; set; }
         public double Rot { get; set; }
+
+        
     }
 
 }
