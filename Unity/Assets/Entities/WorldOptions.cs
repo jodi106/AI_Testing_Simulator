@@ -1,8 +1,21 @@
-﻿namespace Entity
+﻿using Assets.Enums;
+namespace Entity
 { 
     public class WorldOptions
     /// <summary>Creates WorldOptions Object. Contains user specified world settings for the scenario</summary>
     {
+        public WorldOptions()
+        {
+            Date_Time = "";
+            FogVisualRange = 100000;
+            SunIntensity = 0;
+            SunAzimuth = 1.5;
+            CloudState = Assets.Enums.CloudState.Free.ToString();
+            PrecipitationTypes = Assets.Enums.PrecipitationType.Dry.ToString();
+            PrecipitationIntensity = 0;
+            FrictionScaleFactor = 1;
+            SunElevation = 0;
+        }
         public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, string cloudState, string precipitationTypes, float precipitationIntensity, double frictionScaleFactor)
         {
             Date_Time = dateTime;

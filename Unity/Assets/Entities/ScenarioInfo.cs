@@ -10,7 +10,7 @@ namespace Entity
             Name = null;
             Pedestrians = new ObservableCollection<Pedestrian>();
             MapURL = null;
-            WorldOptions = null;
+            WorldOptions = new WorldOptions();
             EgoVehicle = null;
             Vehicles = new ObservableCollection<Vehicle>();
         }

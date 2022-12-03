@@ -13,6 +13,8 @@ using UnityEngine.UI;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using UnityEditor.Experimental.GraphView;
+using Slider = UnityEngine.UIElements.Slider;
 
 public class MainController : MonoBehaviour
 {
@@ -48,6 +50,7 @@ public class MainController : MonoBehaviour
     public UnityEngine.UI.Button exportButton;
 
     public GameObject WorldSettingsPopup;
+    public GameObject WorldSettingsPopupAdvanced;
 
     void Start()
     {
@@ -56,11 +59,11 @@ public class MainController : MonoBehaviour
         this.preventDeselection = false;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
-
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
         initializeEventButtons(editorGUI);
         initializeWorldSettingsPopUp();
+        initializeWorldSettingsPopUpAdvanced();
 
         EventManager.StartListening(typeof(ChangeSelectedEntityAction), x =>
         {
@@ -181,7 +184,7 @@ public class MainController : MonoBehaviour
             SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 ///!!!!!!!
-                ///Code for saving the data to scenarioInfoFile later on...
+                ///Write here the code for saving the data to scenarioInfoFile later on...
                 ///!!!!!!!
                 Debug.Log("Saving Data of the Vehicle with id:" + selectedEntity);
                 VehicleSettingsPopup.SetActive(false);
@@ -370,15 +373,145 @@ public class MainController : MonoBehaviour
     void initializeWorldSettingsPopUp()
     {
         WorldSettingsPopup.SetActive(true);
+        WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
         var popup = WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
-        var exitButton = popup.Q<UnityEngine.UIElements.Button>("Exit");
 
+        var exitButton = popup.Q<UnityEngine.UIElements.Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
         });
 
-        WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        var advancedOptions = popup.Q<UnityEngine.UIElements.Button>("AdvancedOptions");
+        advancedOptions.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+            WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.Flex;
+        });
+
+        List<string> cloudStateOptions = new List<string> { };
+        foreach (var option in Enum.GetValues(typeof(CloudState)))
+        {
+            cloudStateOptions.Add(option.ToString());
+        }
+        var cloudState = popup.Q<UnityEngine.UIElements.DropdownField>("CloudState");
+        cloudState.choices=cloudStateOptions;
+        cloudState.RegisterValueChangedCallback((evt) =>
+        {
+            Debug.Log("Cloud State: " + evt.newValue);
+            //this.info.WorldOptions.CloudState = Enum.GetName(typeof(CloudState), evt.newValue);
+        });
+
+        List<string> precipitationTypeOptions = new List<string> { };
+        foreach (var option in Enum.GetValues(typeof(PrecipitationType)))
+        {
+            precipitationTypeOptions.Add(option.ToString());
+        }
+        var precipitationType = popup.Q<UnityEngine.UIElements.DropdownField>("PrecipitationType");
+        precipitationType.choices=precipitationTypeOptions;
+        precipitationType.RegisterValueChangedCallback((evt) =>
+        {
+            Debug.Log("Precipitation Type: " + evt.newValue);
+            //this.info.WorldOptions.PrecipitationTypes=Enum.GetName(typeof(PrecipitationType),evt.newValue);
+        });
+    }
+
+    void initializeWorldSettingsPopUpAdvanced()
+    {
+        WorldSettingsPopupAdvanced.SetActive(true);
+        WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        var popupadvanced = WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement;
+
+        var exitButton = popupadvanced.Q<UnityEngine.UIElements.Button>("Exit");
+        exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+            WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.Flex;
+        });
+
+        var dayTime = popupadvanced.Q<TextField>("Daytime");
+        dayTime.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        {
+            if (KeyDownEvent.keyCode == KeyCode.Return)
+            {
+                //Debug.Log("Daytime: "+dayTime.text);
+                this.info.WorldOptions.Date_Time = (string)dayTime.text;
+            }
+        });
+
+        var sunIntesity = popupadvanced.Q<Slider>("SunIntensity");
+        sunIntesity.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Sun Intensity: "+evt.newValue);
+            this.info.WorldOptions.SunIntensity = (float)evt.newValue;
+        });
+
+        List<string> cloudStateOptions = new List<string> {};
+        foreach(var option in Enum.GetValues(typeof(CloudState)))
+        {
+            cloudStateOptions.Add(option.ToString());
+        }
+        var cloudState = popupadvanced.Q<UnityEngine.UIElements.DropdownField>("CloudState");
+        cloudState.choices=cloudStateOptions;
+        cloudState.RegisterValueChangedCallback((evt) =>
+        {
+            Debug.Log("Cloud State: " + evt.newValue);
+            //this.info.WorldOptions.CloudState = Enum.GetName(typeof(CloudState), evt.newValue);
+        });
+
+        List<string> precipitationTypeOptions = new List<string> { };
+        foreach(var option in Enum.GetValues(typeof(PrecipitationType)))
+        {
+            precipitationTypeOptions.Add(option.ToString());
+        }
+        var precipitationType = popupadvanced.Q<UnityEngine.UIElements.DropdownField>("PrecipitationType");
+        precipitationType.choices=precipitationTypeOptions;
+        precipitationType.RegisterValueChangedCallback((evt) =>
+        {
+            Debug.Log("Precipitation Type: " + evt.newValue);
+            //this.info.WorldOptions.PrecipitationTypes = Enum.GetName(typeof(PrecipitationType), evt.newValue);
+        });
+
+        var precipitationIntesity = popupadvanced.Q<Slider>("PrecipitationIntensity");
+        precipitationIntesity.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Precipitation Intensity: " + precipitationIntesity.showInputField + " " + evt.newValue);
+            this.info.WorldOptions.PrecipitationIntensity = (float)evt.newValue;
+        });
+
+        var sunAzimuth = popupadvanced.Q<Slider>("SunAzimuth");
+        sunAzimuth.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Sun Azimuth: " + sunAzimuth.showInputField + " " + evt.newValue);
+            this.info.WorldOptions.SunAzimuth = (double)evt.newValue;
+        });
+
+        var sunElevation = popupadvanced.Q<Slider>("SunElevation");
+        sunElevation.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Sun Elevation: " + sunElevation.showInputField + " " + evt.newValue);
+            this.info.WorldOptions.SunElevation = (double)evt.newValue;
+        });
+
+        var fogVisualRange = popupadvanced.Q<LongField>("FogVisualRange");
+        fogVisualRange.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        {
+            if (KeyDownEvent.keyCode == KeyCode.Return)
+            {
+                //Debug.Log("Fog Visual Range: " + fogVisualRange.text);
+                this.info.WorldOptions.FogVisualRange = (double)fogVisualRange.value;
+            }
+        });
+
+        var frictionScaleFactor = popupadvanced.Q<FloatField>("FrictionScaleFactor");
+        frictionScaleFactor.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        {
+            if(KeyDownEvent.keyCode == KeyCode.Return)
+            {
+                //Debug.Log("Friction Scale Factor: " + frictionScaleFactor.value);
+                this.info.WorldOptions.FrictionScaleFactor = (double)frictionScaleFactor.value;
+            }
+        });
     }
 
     void ExportOnClick()
