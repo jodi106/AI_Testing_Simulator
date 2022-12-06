@@ -10,28 +10,28 @@ namespace Entity
             FogVisualRange = 100000;
             SunIntensity = 0;
             SunAzimuth = 1.5;
-            CloudState = Assets.Enums.CloudState.Free.ToString();
-            PrecipitationTypes = Assets.Enums.PrecipitationType.Dry.ToString();
+            CloudState = CloudState.Free;
+            PrecipitationType = PrecipitationType.Dry;
             PrecipitationIntensity = 0;
             FrictionScaleFactor = 1;
             SunElevation = 0;
         }
-        public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, string cloudState, string precipitationTypes, float precipitationIntensity, double frictionScaleFactor)
+        public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, CloudState cloudState, PrecipitationType precipitationType, float precipitationIntensity, double frictionScaleFactor)
         {
             Date_Time = dateTime;
             FogVisualRange = fogVisualRange;
             SunIntensity = sunIntensity;
             SunAzimuth = sunAzimuth;
             CloudState = cloudState;
-            PrecipitationTypes = precipitationTypes;
+            PrecipitationType = precipitationType;
             PrecipitationIntensity = precipitationIntensity;
             FrictionScaleFactor = frictionScaleFactor;
             SunElevation = sunElevation;
         }
 
         public float SunIntensity { get; set; } // double: 0.0 to 1.0; user can edit in GUI advanced options
-        public string CloudState { get; set; } // has enum; user can edit in basic options
-        public string PrecipitationTypes { get; set; } // has enum; user can edit in basic options
+        public CloudState CloudState { get; set; } // has enum; user can edit in basic options
+        public PrecipitationType PrecipitationType { get; set; } // has enum; user can edit in basic options
         public float PrecipitationIntensity { get; set; } // double: 0.0 to 1.0; user can edit in GUI advanced options
         // new valus added
         public string Date_Time { get; set; } // must be in this format: 022-09-24T12:00:00 ; user can edit in basic options

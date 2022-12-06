@@ -240,7 +240,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("animation", "false", time_of_day);
             SetAttribute("dateTime", worldOptions.Date_Time, time_of_day);
             XmlNode weather = root.CreateElement("Weather");
-            SetAttribute("cloudState", worldOptions.CloudState, weather);
+            SetAttribute("cloudState", worldOptions.CloudState.ToString(), weather);
             XmlNode sun = root.CreateElement("Sun");
             SetAttribute("intensity", worldOptions.SunIntensity.ToString(), sun);
             SetAttribute("azimuth", worldOptions.SunAzimuth.ToString(), sun);
@@ -248,7 +248,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode fog = root.CreateElement("Fog");
             SetAttribute("visualRange", worldOptions.FogVisualRange.ToString(), fog);
             XmlNode precipitation = root.CreateElement("Precipitation");
-            SetAttribute("precipitationType", worldOptions.PrecipitationTypes, precipitation);
+            SetAttribute("precipitationType", worldOptions.PrecipitationType.ToString(), precipitation);
             SetAttribute("intensity", worldOptions.PrecipitationIntensity.ToString(), precipitation);
             XmlNode road_condition = root.CreateElement("RoadCondition");
             SetAttribute("frictionScaleFactor", worldOptions.FrictionScaleFactor.ToString(), road_condition);

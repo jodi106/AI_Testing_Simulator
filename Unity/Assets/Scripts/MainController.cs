@@ -387,6 +387,13 @@ public class MainController : MonoBehaviour
         {
             WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
             WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.Flex;
+            var advancedPopup = WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement;
+            var advancedCloudState = advancedPopup.Q<UnityEngine.UIElements.DropdownField>("CloudState");
+            advancedCloudState.SetValueWithoutNotify(this.info.WorldOptions.CloudState.ToString());
+            var advancedPrecipitationType = advancedPopup.Q<UnityEngine.UIElements.DropdownField>("PrecipitationType");
+            advancedPrecipitationType.SetValueWithoutNotify(this.info.WorldOptions.PrecipitationType.ToString());
+            var advancedDayTime = advancedPopup.Q< TextField > ("Daytime");
+            advancedDayTime.SetValueWithoutNotify(this.info.WorldOptions.Date_Time);
         });
 
         List<string> cloudStateOptions = new List<string> { };
@@ -398,8 +405,10 @@ public class MainController : MonoBehaviour
         cloudState.choices=cloudStateOptions;
         cloudState.RegisterValueChangedCallback((evt) =>
         {
-            Debug.Log("Cloud State: " + evt.newValue);
-            //this.info.WorldOptions.CloudState = Enum.GetName(typeof(CloudState), evt.newValue);
+            int index = cloudStateOptions.IndexOf(evt.newValue);
+            CloudState userOption = (CloudState)index;
+            //Debug.Log("Cloud State: " + userOption);
+            this.info.WorldOptions.CloudState = userOption;
         });
 
         List<string> precipitationTypeOptions = new List<string> { };
@@ -411,8 +420,10 @@ public class MainController : MonoBehaviour
         precipitationType.choices=precipitationTypeOptions;
         precipitationType.RegisterValueChangedCallback((evt) =>
         {
-            Debug.Log("Precipitation Type: " + evt.newValue);
-            //this.info.WorldOptions.PrecipitationTypes=Enum.GetName(typeof(PrecipitationType),evt.newValue);
+            int index = precipitationTypeOptions.IndexOf(evt.newValue);
+            PrecipitationType userOption = (PrecipitationType)index;
+            //Debug.Log("Precipitation Type: " + userOption);
+            this.info.WorldOptions.PrecipitationType = userOption;
         });
     }
 
@@ -427,6 +438,13 @@ public class MainController : MonoBehaviour
         {
             WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
             WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.Flex;
+            var popup = WorldSettingsPopupAdvanced.GetComponent<UIDocument>().rootVisualElement;
+            var cloudState = popup.Q<UnityEngine.UIElements.DropdownField>("CloudState");
+            cloudState.SetValueWithoutNotify(this.info.WorldOptions.CloudState.ToString());
+            var precipitationType = popup.Q<UnityEngine.UIElements.DropdownField>("PrecipitationType");
+            precipitationType.SetValueWithoutNotify(this.info.WorldOptions.PrecipitationType.ToString());
+            var dayTime = popup.Q<TextField>("Daytime");
+            dayTime.SetValueWithoutNotify(this.info.WorldOptions.Date_Time);
         });
 
         var dayTime = popupadvanced.Q<TextField>("Daytime");
@@ -455,8 +473,10 @@ public class MainController : MonoBehaviour
         cloudState.choices=cloudStateOptions;
         cloudState.RegisterValueChangedCallback((evt) =>
         {
-            Debug.Log("Cloud State: " + evt.newValue);
-            //this.info.WorldOptions.CloudState = Enum.GetName(typeof(CloudState), evt.newValue);
+            int index = cloudStateOptions.IndexOf(evt.newValue);
+            CloudState userOption = (CloudState)index;
+            //Debug.Log("Cloud State: " + userOption);
+            this.info.WorldOptions.CloudState = userOption;
         });
 
         List<string> precipitationTypeOptions = new List<string> { };
@@ -468,8 +488,10 @@ public class MainController : MonoBehaviour
         precipitationType.choices=precipitationTypeOptions;
         precipitationType.RegisterValueChangedCallback((evt) =>
         {
-            Debug.Log("Precipitation Type: " + evt.newValue);
-            //this.info.WorldOptions.PrecipitationTypes = Enum.GetName(typeof(PrecipitationType), evt.newValue);
+            int index = precipitationTypeOptions.IndexOf(evt.newValue);
+            PrecipitationType userOption = (PrecipitationType)index;
+            //Debug.Log("Precipitation Type: " + userOption);
+            this.info.WorldOptions.PrecipitationType = userOption;
         });
 
         var precipitationIntesity = popupadvanced.Q<Slider>("PrecipitationIntensity");
@@ -524,7 +546,7 @@ public class MainController : MonoBehaviour
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // Global Weather
-        WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, "free", "dry", 0, 1.0);
+        WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, CloudState.Free, PrecipitationType.Dry, 0, 1.0);
 
         // Spawn AI Ego Vehicle
         Ego egoVehicle = new Ego(new Location(258.0f, -145.7f, 0.3f, 30), new EntityModel("vehicle.volkswagen.t2"), 0);
