@@ -1219,8 +1219,7 @@ MonoBehaviour:
   carPrefab: {fileID: 2646168225723092246, guid: a3cd1f6cecf5124428c0cc82fb352700, type: 3}
   VehicleSettingsPopup: {fileID: 1970144233}
   exportButton: {fileID: 364313204}
-  WorldSettingsPopup: {fileID: 1972196170}
-  WorldSettingsPopupAdvanced: {fileID: 1663838712}
+  WorldSettingsPopup: {fileID: 1663838712}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
