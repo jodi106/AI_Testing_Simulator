@@ -19,8 +19,10 @@ namespace Entity
             OverallStartTrigger = overallStartTrigger;
             OverallStopTrigger = overallStopTrigger;
             EventList = eventList;
+
+            //TODO: Fix Position set only to 0,0,0,0 now for presentation
             AssignRouteWaypoint = new Waypoint(
-                    null, 
+                    new Location(0,0,0,0), 
                     new ActionType("AssignRouteAction", getRoutePositions()),
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan")});
             EventList.Insert(0,AssignRouteWaypoint);
@@ -38,7 +40,10 @@ namespace Entity
             List<Location> routePositions = new List<Location>();
             for (int i = 0; i < EventList.Count; i++)
             {
-                routePositions.Add(EventList[i].Position);
+                if (EventList[i].ActionTypeInfo != null)
+                {
+                    routePositions.Add(EventList[i].Position);
+                }
             }
 
             return routePositions;

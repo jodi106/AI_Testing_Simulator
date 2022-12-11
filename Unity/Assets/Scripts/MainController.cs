@@ -13,6 +13,8 @@ using UnityEngine.UI;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using UnityEditor.Experimental.GraphView;
+using Slider = UnityEngine.UIElements.Slider;
 
 public class MainController : MonoBehaviour
 {
@@ -55,7 +57,6 @@ public class MainController : MonoBehaviour
         this.selectedEntity = null;
         this.preventDeselection = false;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
-
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
@@ -131,6 +132,7 @@ public class MainController : MonoBehaviour
     {
         Debug.Log("Vehicle added");
         this.info.Vehicles.Add(vehicle);
+        this.preventDeselection = false;
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -146,10 +148,11 @@ public class MainController : MonoBehaviour
             pos.z = -0.1f;
             var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
             var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            UnityEngine.Color color = UnityEngine.Random.ColorHSV();
+            UnityEngine.Color color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new UnityEngine.Color(color.r, color.g, color.b, 1);
             viewController.setColor(color);
             setSelectedEntity(viewController);
+            this.preventDeselection = true;
         });
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -179,7 +182,7 @@ public class MainController : MonoBehaviour
             SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 ///!!!!!!!
-                ///Code for saving the data to scenarioInfoFile later on...
+                ///Write here the code for saving the data to scenarioInfoFile later on...
                 ///!!!!!!!
                 Debug.Log("Saving Data of the Vehicle with id:" + selectedEntity);
                 VehicleSettingsPopup.SetActive(false);
@@ -368,15 +371,128 @@ public class MainController : MonoBehaviour
     void initializeWorldSettingsPopUp()
     {
         WorldSettingsPopup.SetActive(true);
-        var popup = WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
-        var exitButton = popup.Q<UnityEngine.UIElements.Button>("Exit");
+        WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        var popUp = WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
 
+        var exitButton = popUp.Q<UnityEngine.UIElements.Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
         });
 
-        WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        var dayTime = popUp.Q<TextField>("Daytime");
+        dayTime.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        {
+            if (KeyDownEvent.keyCode == KeyCode.Return)
+            {
+                //Debug.Log("Daytime: "+dayTime.text);
+                this.info.WorldOptions.Date_Time = (string)dayTime.text;
+            }
+        });
+
+        var sunIntesity = popUp.Q<Slider>("SunIntensity");
+        sunIntesity.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Sun Intensity: "+evt.newValue);
+            this.info.WorldOptions.SunIntensity = (float)evt.newValue;
+        });
+
+        List<string> cloudStateOptions = new List<string> { };
+        foreach (var option in Enum.GetValues(typeof(CloudState)))
+        {
+            cloudStateOptions.Add(option.ToString());
+        }
+        var cloudState = popUp.Q<UnityEngine.UIElements.DropdownField>("CloudState");
+        cloudState.choices = cloudStateOptions;
+        cloudState.RegisterValueChangedCallback((evt) =>
+        {
+            int index = cloudStateOptions.IndexOf(evt.newValue);
+            CloudState userOption = (CloudState)index;
+            //Debug.Log("Cloud State: " + userOption);
+            this.info.WorldOptions.CloudState = userOption;
+        });
+
+        List<string> precipitationTypeOptions = new List<string> { };
+        foreach (var option in Enum.GetValues(typeof(PrecipitationType)))
+        {
+            precipitationTypeOptions.Add(option.ToString());
+        }
+        var precipitationType = popUp.Q<UnityEngine.UIElements.DropdownField>("PrecipitationType");
+        precipitationType.choices = precipitationTypeOptions;
+        precipitationType.RegisterValueChangedCallback((evt) =>
+        {
+            int index = precipitationTypeOptions.IndexOf(evt.newValue);
+            PrecipitationType userOption = (PrecipitationType)index;
+            //Debug.Log("Precipitation Type: " + userOption);
+            this.info.WorldOptions.PrecipitationType = userOption;
+        });
+
+        var precipitationIntesity = popUp.Q<Slider>("PrecipitationIntensity");
+        precipitationIntesity.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Precipitation Intensity: " + precipitationIntesity.showInputField + " " + evt.newValue);
+            this.info.WorldOptions.PrecipitationIntensity = (float)evt.newValue;
+        });
+
+        var sunAzimuth = popUp.Q<Slider>("SunAzimuth");
+        sunAzimuth.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Sun Azimuth: " + sunAzimuth.showInputField + " " + evt.newValue);
+            this.info.WorldOptions.SunAzimuth = (double)evt.newValue;
+        });
+
+        var sunElevation = popUp.Q<Slider>("SunElevation");
+        sunElevation.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Sun Elevation: " + sunElevation.showInputField + " " + evt.newValue);
+            this.info.WorldOptions.SunElevation = (double)evt.newValue;
+        });
+
+        var fogVisualRange = popUp.Q<LongField>("FogVisualRange");
+        fogVisualRange.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        {
+            if (KeyDownEvent.keyCode == KeyCode.Return)
+            {
+                //Debug.Log("Fog Visual Range: " + fogVisualRange.text);
+                this.info.WorldOptions.FogVisualRange = (double)fogVisualRange.value;
+            }
+        });
+
+        var frictionScaleFactor = popUp.Q<FloatField>("FrictionScaleFactor");
+        frictionScaleFactor.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        {
+            if (KeyDownEvent.keyCode == KeyCode.Return)
+            {
+                //Debug.Log("Friction Scale Factor: " + frictionScaleFactor.value);
+                this.info.WorldOptions.FrictionScaleFactor = (double)frictionScaleFactor.value;
+            }
+        });
+        var simpleSettingsButton = popUp.Q<UnityEngine.UIElements.Button>("SimpleSettings");
+        var advancedSettingsButton = popUp.Q<UnityEngine.UIElements.Button>("AdvancedSettings");
+        advancedSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            frictionScaleFactor.visible = true;
+            fogVisualRange.visible = true;
+            sunAzimuth.visible = true;
+            sunIntesity.visible = true;
+            sunElevation.visible = true;
+            precipitationIntesity.visible = true;
+            simpleSettingsButton.visible = true;
+            advancedSettingsButton.visible = false;
+        });
+
+        
+        simpleSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            frictionScaleFactor.visible = false;
+            fogVisualRange.visible = false;
+            sunAzimuth.visible = false;
+            sunIntesity.visible = false;
+            sunElevation.visible = false;
+            precipitationIntesity.visible = false;
+            simpleSettingsButton.visible = false;
+            advancedSettingsButton.visible = true;
+        });
     }
 
     void ExportOnClick()
@@ -389,7 +505,7 @@ public class MainController : MonoBehaviour
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // Global Weather
-        WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, "free", "dry", 0, 1.0);
+        WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, CloudState.Free, PrecipitationType.Dry, 0, 1.0);
 
         // Spawn AI Ego Vehicle
         Ego egoVehicle = new Ego(new Location(258.0f, -145.7f, 0.3f, 30), new EntityModel("vehicle.volkswagen.t2"), 0);
@@ -401,14 +517,15 @@ public class MainController : MonoBehaviour
         List<TriggerInfo> triggerW1 = new List<TriggerInfo>();
         triggerW1.Add(new TriggerInfo("SimulationTimeCondition", 0, "greaterThan"));
         List<TriggerInfo> triggerW2 = new List<TriggerInfo>();
-        triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Location(250f, 10f, 0.3f, 270)));
+        triggerW2.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 15, new Location(250f, 10f, 0.3f, 270)));
         List<TriggerInfo> triggerW3 = new List<TriggerInfo>();
-        triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 20, new Location(100f, 10f, 0.3f, 270)));
+        triggerW3.Add(new TriggerInfo("DistanceCondition", "adversary2", "lessThan", 15, new Location(100f, 10f, 0.3f, 270)));
 
         // Define what can happen on each Waypoint
         List<Waypoint> eventListAdversary2 = new List<Waypoint>();
-        eventListAdversary2.Add(new Waypoint( new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", "adversary2", 1, "linear", 25, "distance"), triggerW2));
-        eventListAdversary2.Add(new Waypoint( new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 0, "step", 10.0, "time"), triggerW3)); // 10s bc. otherwise scenario stops before vehicle stopped
+        //eventListAdversary2.Add(new Waypoint( new Location(250, 10, 0.3f, 270), new ActionType("LaneChangeAction", "adversary2", 1, "linear", 25, "distance"), triggerW2));
+        eventListAdversary2.Add(new Waypoint( new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 20, "step", 10.0, "time"), triggerW1)); // 10s bc. otherwise scenario stops before vehicle stopped
+        eventListAdversary2.Add(new Waypoint(new Location(100, 10, 0.3f, 270), new ActionType("SpeedAction", 20, "step", 10.0, "time"), triggerW1)); // 10s bc. otherwise scenario stops before vehicle stopped
 
         // Add the Waypoint List to the Path of a Vehicle
         Path path_veh_1 = new Path();
@@ -440,14 +557,35 @@ public class MainController : MonoBehaviour
 
         foreach (var veh in this.info.Vehicles)
         {
+
             veh.Model = new EntityModel("vehicle.audi.tt");
+            var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
+            var CarlaRot = SnapController.UnityRotToRadians(veh.SpawnPoint.Rot);
+
+            veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
+            veh.SpawnPoint.Rot = CarlaRot;
+
+            
+            
+            //veh.Path = new Path(eventListAdversary2);
+
+            veh.InitialSpeed = 10.0;
+
+
         }
+        
 
         // Combine every information into one ScenarioInfo Instance
-        ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town04", worldOptions, egoVehicle, this.info.Vehicles);
+        ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town10HD", worldOptions, egoVehicle, this.info.Vehicles);
 
         // Create .xosc file
+
+
         BuildXML doc = new BuildXML(dummy);
         doc.CombineXML();
     }
+
+
+    //Only for Town06 later do as extension method for Vector3 or Location
+
 }

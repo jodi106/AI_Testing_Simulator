@@ -100,6 +100,28 @@ namespace ExportScenario.XMLBuilder
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
         }
 
+        public void BreakAction(XmlNode action, Waypoint waypoint)
+        /// Creates SpeedAction. Defines speed for a scenario entity.
+        {
+            XmlNode privateAction = root.CreateElement("PrivateAction");
+            XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
+            XmlNode speedAction = root.CreateElement("SpeedAction");
+            XmlNode SpeedActionDynamics = root.CreateElement("SpeedActionDynamics");
+            XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
+            XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
+
+            //SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.SpeedActionDynamicsShape, SpeedActionDynamics);
+            SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("dynamicsDimension", "time", SpeedActionDynamics);
+            SetAttribute("value", "0", AbsoluteTargetSpeed);
+
+            action.AppendChild(privateAction);
+            privateAction.AppendChild(longitudinalAction);
+            longitudinalAction.AppendChild(speedAction);
+            speedAction.AppendChild(SpeedActionDynamics);
+            speedAction.AppendChild(SpeedActionTarget);
+            SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
+        }
         public void LaneChangeAction(XmlNode action, Waypoint waypoint)
         /// Creates LaneChangeAction. Defines amount of lanes to change for a scenario entity relative to a specified entity.
         {
@@ -153,7 +175,7 @@ namespace ExportScenario.XMLBuilder
 
             SetAttribute("x", spawnPoint.Vector3.x.ToString(), world_position);
             SetAttribute("y", spawnPoint.Vector3.y.ToString(), world_position);
-            SetAttribute("z", spawnPoint.Vector3.y.ToString(), world_position);
+            SetAttribute("z", spawnPoint.Vector3.z.ToString(), world_position);
             SetAttribute("h", spawnPoint.Rot.ToString(), world_position);
 
             privateAction.AppendChild(teleport_action);
@@ -218,7 +240,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("animation", "false", time_of_day);
             SetAttribute("dateTime", worldOptions.Date_Time, time_of_day);
             XmlNode weather = root.CreateElement("Weather");
-            SetAttribute("cloudState", worldOptions.CloudState, weather);
+            SetAttribute("cloudState", worldOptions.CloudState.ToString(), weather);
             XmlNode sun = root.CreateElement("Sun");
             SetAttribute("intensity", worldOptions.SunIntensity.ToString(), sun);
             SetAttribute("azimuth", worldOptions.SunAzimuth.ToString(), sun);
@@ -226,7 +248,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode fog = root.CreateElement("Fog");
             SetAttribute("visualRange", worldOptions.FogVisualRange.ToString(), fog);
             XmlNode precipitation = root.CreateElement("Precipitation");
-            SetAttribute("precipitationType", worldOptions.PrecipitationTypes, precipitation);
+            SetAttribute("precipitationType", worldOptions.PrecipitationType.ToString(), precipitation);
             SetAttribute("intensity", worldOptions.PrecipitationIntensity.ToString(), precipitation);
             XmlNode road_condition = root.CreateElement("RoadCondition");
             SetAttribute("frictionScaleFactor", worldOptions.FrictionScaleFactor.ToString(), road_condition);

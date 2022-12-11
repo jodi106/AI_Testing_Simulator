@@ -79,7 +79,7 @@ public class PathController : MonoBehaviour
     public void addWaypoint(Vector2 wp)
     {
         //TODO get angle and fix waypoint
-        Waypoint waypoint = new Waypoint(new Location(wp, 0), new ActionType("defaultAction"), new List<TriggerInfo>());
+        Waypoint waypoint = new Waypoint(new Location(wp, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
         this.path.EventList.Add(waypoint);
         if (lr.positionCount > 0)
         {

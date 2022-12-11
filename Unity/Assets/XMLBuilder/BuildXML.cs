@@ -119,7 +119,11 @@ namespace ExportScenario.XMLBuilder
 
                 for (int i = 0; i < vehicle.Path.EventList.Count; i++)
                 {
-                    BuildEvents(maneuver, vehicle.Path.EventList[i]);
+                    if (vehicle.Path.EventList[i].ActionTypeInfo.Name != "MoveToAction" && vehicle.Path.EventList[i].ActionTypeInfo != null)
+                    {
+                        BuildEvents(maneuver, vehicle.Path.EventList[i]);
+                    }
+                        
                 }
 
                 // hierarchy
@@ -162,7 +166,11 @@ namespace ExportScenario.XMLBuilder
 
                 for (int i = 0; i < pedestrian.Path.EventList.Count; i++)
                 {
-                    BuildEvents(maneuver, pedestrian.Path.EventList[i]);
+                    if (pedestrian.Path.EventList[i].ActionTypeInfo.Name != "MoveToAction" && pedestrian.Path.EventList[i].ActionTypeInfo != null)
+                    {
+                        BuildEvents(maneuver, pedestrian.Path.EventList[i]);
+                    }
+                        
                 }
 
                 // hierarchy

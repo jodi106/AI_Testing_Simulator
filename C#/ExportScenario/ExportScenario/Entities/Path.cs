@@ -38,7 +38,11 @@ namespace ExportScenario.Entities
             List<Coord3D> routePositions = new List<Coord3D>();
             for (int i = 0; i < EventList.Count; i++)
             {
-                routePositions.Add(EventList[i].Position);
+                if (EventList[i].ActionTypeInfo != null)
+                {
+                    routePositions.Add(EventList[i].Position);
+                }
+                    
             }
 
             return routePositions;

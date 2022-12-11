@@ -4,13 +4,13 @@ namespace Assets.Enums
 {
     public enum CloudState
     {
-        [Description("cloudy")]
+        [Description("Cloudy")]
         Cloudy,
-        [Description("free")]
+        [Description("Free")]
         Free,
-        [Description("overcast")]
+        [Description("Overcast")]
         Overcast,
-        [Description("rainy")]
+        [Description("Rainy")]
         Rainy
     }
 }

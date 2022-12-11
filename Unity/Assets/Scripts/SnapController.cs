@@ -185,7 +185,7 @@ public class SnapController : MonoBehaviour
             {
                 foreach (var waypoint in lane.Waypoints)
                 {
-                    double currDistance = FastEuclideanDistance(waypoint.Position, mousePosition);    
+                    double currDistance = FastEuclideanDistance(waypoint.Position, mousePosition);
 
                     if (currDistance == 0) return (lane, waypoint);
 
@@ -200,6 +200,43 @@ public class SnapController : MonoBehaviour
         }
 
         return (laneToReturn, closestWaypoint);
+    }
+    public static (float x, float y) CarlaToUnity(float x, float y)
+    {
+
+        //Convert to Mouse Coordinates
+        x = (x - -114.59522247314453f) / 4;
+        y = (y - -68.72904205322266f) / 4 * (-1);
+
+
+        //Handle Offset, so that 0,0 is in the middle
+        x = x + -28.077075f;
+        y = y + 26.24f;
+
+        return (x, y);
+    }
+
+
+    //Only for Town06 later do as extension method for Vector3 or Location
+    public static (float x, float y) UnityToCarla(float x, float y)
+    {
+
+        x += 28.077075f;
+        y += -26.24f;
+
+        x = x * 4;
+        y = y * 4 * (-1);
+
+
+        x = (x + -114.59522247314453f);
+        y = (y + -68.72904205322266f);
+
+        return (x, y);
+    }
+
+    public static double UnityRotToRadians(double rotation)
+    {
+        return Math.PI / 180 * rotation;
     }
 
     public double FastEuclideanDistance(Vector2 a, Vector2 b)
@@ -267,7 +304,7 @@ public class SnapController : MonoBehaviour
                     costSoFar[nextLane] = newCost;
 
                     var priority = newCost + FastEuclideanDistance(
-                        endWaypoint.Position, 
+                        endWaypoint.Position,
                         nextLane.Waypoints[0].Position
                         );
 
@@ -279,25 +316,25 @@ public class SnapController : MonoBehaviour
 
         }
 
-        FoundPath:
-            var path = new List<GameObject>();
-            var current = endWaypoint;
-            if (!cameFrom.ContainsKey(endWaypoint))
+    FoundPath:
+        var path = new List<GameObject>();
+        var current = endWaypoint;
+        if (!cameFrom.ContainsKey(endWaypoint))
+        {
+            Debug.Log("No Path, this shouldnt happend so if you see this, smth is burning");
+        }
+        else
+        {
+            while (current != startWaypoint)
             {
-                Debug.Log("No Path, this shouldnt happend so if you see this, smth is burning");
+                path.Add(current.WaypointGameObject);
+                current = cameFrom[current];
             }
-            else
-            {
-                while (current != startWaypoint)
-                {
-                    path.Add(current.WaypointGameObject);
-                    current = cameFrom[current];
-                }
-                path.Add(startWaypoint.WaypointGameObject);
-                path.Reverse();
-            }
+            path.Add(startWaypoint.WaypointGameObject);
+            path.Reverse();
+        }
 
-            return path;
+        return path;
     }
 }
 
