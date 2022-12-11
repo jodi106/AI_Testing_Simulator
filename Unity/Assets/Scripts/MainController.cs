@@ -223,40 +223,61 @@ public class MainController : MonoBehaviour
                 }
             });
 
-            //METHOD WITH RADIO GROUP
-            var group = ThePopup.Q<RadioButtonGroup>("AllPossibleModels");
-            var allmodels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
-            foreach (var model in allmodels)
+            List<string> allPossibleModels = new List<string> { };
+            var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+            possibleModelsField.choices = allPossibleModels;
+            possibleModelsField.RegisterValueChangedCallback((evt) =>
             {
-                var newRadio = new RadioButton(model.DisplayName);
-                group.Add(newRadio);
-            }
-
-            var categoriesGroup = ThePopup.Q<RadioButtonGroup>("AllPossibleCategories");
-            List<VehicleCategory> allcateogires = new List<VehicleCategory>();
-            allcateogires.Add(VehicleCategory.Car);
-            allcateogires.Add(VehicleCategory.Bike);
-            allcateogires.Add(VehicleCategory.Motorcycle);
-            foreach (var category in allcateogires)
-            {
-                var newRadio = new RadioButton(category.GetDescription());
-                categoriesGroup.Add(newRadio);
-            }
-
-            categoriesGroup.HandleEvent(ClickEvent);
-
-            categoriesGroup.RegisterCallback<ChangeEvent<MouseCaptureEvent>>((ChangeEvent) =>
-            {
-                //METHOD WITH RADIO GROUP
-                var group = ThePopup.Q<RadioButtonGroup>("AllPossibleModels");
-                var allmodels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Bike);
-                foreach (var model in allmodels)
-                {
-                    var newRadio = new RadioButton(model.DisplayName);
-                    group.Add(newRadio);
-                }
+                Debug.Log("New Model: " + evt.newValue);
             });
 
+            
+            List<string> allPossibleCateogories = new List<string> {};
+            foreach (var option in Enum.GetValues(typeof(VehicleCategory)))
+            {
+                allPossibleCateogories.Add(option.ToString());
+            }
+            var possibleCategoriesField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleCategories");
+            possibleCategoriesField.choices = allPossibleCateogories;
+            possibleCategoriesField.RegisterValueChangedCallback((evt) =>
+            {
+                if(evt.newValue=="Car")
+                {
+                    List<string> allPossibleModels = new List<string> { };
+                    foreach (var option in vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car))
+                    {
+                        allPossibleModels.Add(option.DisplayName);
+                    }
+                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    possibleModelsField.choices = allPossibleModels;
+                }
+                if (evt.newValue == "Bike")
+                {
+                    List<string> allPossibleModels = new List<string> { };
+                    foreach (var option in vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Bike))
+                    {
+                        allPossibleModels.Add(option.DisplayName);
+                    }
+                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    possibleModelsField.choices = allPossibleModels;
+                }
+                if (evt.newValue == "Motorcycle")
+                {
+                    List<string> allPossibleModels = new List<string> { };
+                    foreach (var option in vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Motorcycle))
+                    {
+                        allPossibleModels.Add(option.DisplayName);
+                    }
+                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    possibleModelsField.choices = allPossibleModels;
+                }
+                if (evt.newValue == "Null")
+                {
+                    List<string> allPossibleModels = new List<string> { };
+                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    possibleModelsField.choices = allPossibleModels;
+                }
+            });
 
             Vector3Field SpawnPointField = ThePopup.Q<Vector3Field>("SpawnPoint");
 
