@@ -33,9 +33,9 @@ namespace Entity
 
         }
 
-        public void setPosition(float x, float y)
+        public void SetSpawnPoint(Location location)
         {
-            SpawnPoint = new Location(x, y, 0, 0);
+            SpawnPoint = location;
             View?.onChangePosition(SpawnPoint);
         }
         public IVehicleView View { get; set; }

@@ -21,7 +21,7 @@ namespace Entity
             NextRoadAndLaneIds = nextRoadAndLaneIds;
         }
 
-        public Lane(int id, int roadId, List<LaneWaypoint> waypoints, List<(int, int)> nextRoadAndLaneIds)
+        public Lane(int id, int roadId, List<AStarWaypoint> waypoints, List<(int, int)> nextRoadAndLaneIds)
         {
             Id = id;
             RoadId = roadId;
@@ -33,7 +33,7 @@ namespace Entity
 
         public int RoadId { get; set; }
 
-        public List<LaneWaypoint> Waypoints { get; set; }
+        public List<AStarWaypoint> Waypoints { get; set; }
 
         public List<(int, int)> NextRoadAndLaneIds { get; set; }
     }

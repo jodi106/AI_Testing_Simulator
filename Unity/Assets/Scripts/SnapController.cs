@@ -5,54 +5,29 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaneWaypoint
-{
-    public LaneWaypoint(int indexInLane, int laneId, GameObject waypointGameObject, Vector3 position)
-    {
-        IndexInLane = indexInLane;
-        LaneId = laneId;
-        WaypointGameObject = waypointGameObject;
-        Position = position;
-    }
-
-    public int IndexInLane { get; set; }
-
-    public int LaneId { get; set; }
-
-    public GameObject WaypointGameObject { get; set; }
-
-    public Vector3 Position { get; set; }
-
-}
-
 public class SnapController : MonoBehaviour
 {
     public GameObject circlePrefab;
 
     private Dictionary<int, Road> roads;
 
-    public bool Highlight { get; set; }
+    private Dictionary<Location, GameObject> waypointGameObjects;
 
-    private GameObject Waypoint;
+    private GameObject LastClickedWaypointGameObject;
 
     void Start()
     {
-        roads = new Dictionary<int, Road>();
-        Highlight = true;
+        roads = new();
+
+        waypointGameObjects = new();
 
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
             var action = new MapChangeAction(x);
 
-            foreach (var (_, road) in roads)
+            foreach (var (_, waypoint) in waypointGameObjects)
             {
-                foreach (var (_, lane) in road.Lanes)
-                {
-                    foreach (var waypoint in lane.Waypoints)
-                    {
-                        Destroy(waypoint.WaypointGameObject);
-                    }
-                }
+                Destroy(waypoint);
             }
 
             LoadRoads(action.name);
@@ -60,26 +35,26 @@ public class SnapController : MonoBehaviour
     }
     public void Update()
     {
-        if (Waypoint is not null)
+        if (LastClickedWaypointGameObject is not null)
         {
-            var sprite = Waypoint.GetComponent<SpriteRenderer>();
+            var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();
             sprite.color = Color.white;
-            Waypoint.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f); ;
-        }
+            LastClickedWaypointGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
 
-        if (Highlight)
-        {
             var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (waypoint is not null)
-            {
 
-                waypoint.WaypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
-                waypoint.WaypointGameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            var waypointGameObject = waypointGameObjects[waypoint.Location];
+
+            if (waypointGameObject is not null)
+            {
+                waypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                waypointGameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                LastClickedWaypointGameObject = waypointGameObject;
             }
         }
     }
 
-    (int, int) GetRoadIdAndLaneIdFromString(string laneIdString)
+    public (int, int) GetRoadIdAndLaneIdFromString(string laneIdString)
     {
         var laneIdSplit = laneIdString.Split("R")[1].Split("L");
         return (int.Parse(laneIdSplit[0]), int.Parse(laneIdSplit[1]));
@@ -146,20 +121,29 @@ public class SnapController : MonoBehaviour
         {
             (var roadId, var laneId) = GetRoadIdAndLaneIdFromString(laneIdString);
 
-            var waypoints = new List<LaneWaypoint>();
+            var waypoints = new List<AStarWaypoint>();
 
             var index = 0;
 
             foreach (var jsonWaypoint in jsonWaypoints)
             {
-                var whiteCircle = Instantiate(
+                var position = new Vector3((jsonWaypoint.X - -114.59522247314453f) / 4 - 28.077075f,
+                                    (jsonWaypoint.Y - -68.72904205322266f) / 4 * (-1) + 26.24f, -0.05f);
+
+                var waypointGameObject = Instantiate(
                     circlePrefab,
-                    new Vector3((jsonWaypoint.X - -114.59522247314453f) / 4 - 28.077075f, (jsonWaypoint.Y - -68.72904205322266f) / 4 * (-1) + 26.24f, -0.05f),
+                    position,
                     Quaternion.identity);
 
-                whiteCircle.transform.eulerAngles = Vector3.forward * (-jsonWaypoint.Rot);
+                waypointGameObject.transform.eulerAngles = Vector3.forward * (-jsonWaypoint.Rot);
 
-                waypoints.Add(new LaneWaypoint(index++, laneId, whiteCircle, whiteCircle.transform.position));
+                var location = new Location(waypointGameObject.transform.position, waypointGameObject.transform.eulerAngles.z);
+
+                waypoints.Add(new AStarWaypoint(index++, laneId, location));
+
+                //Debug.Log(waypointGameObject.transform.eulerAngles.ToString() + " "+ jsonWaypoint.Rot.ToString());
+
+                waypointGameObjects.Add(location,waypointGameObject);
             }
 
             roads[roadId].Lanes[laneId].Waypoints = waypoints;
@@ -172,9 +156,9 @@ public class SnapController : MonoBehaviour
      * pos in World Coordinates (Pixel Coordinates / 100)
      * 
     */
-    public (Lane, LaneWaypoint) FindLaneAndWaypoint(Vector2 mousePosition)
+    public (Lane, AStarWaypoint) FindLaneAndWaypoint(Vector2 mousePosition)
     {
-        LaneWaypoint closestWaypoint = null;
+        AStarWaypoint closestWaypoint = null;
         Lane laneToReturn = null;
 
         double distance = double.MaxValue;
@@ -185,7 +169,7 @@ public class SnapController : MonoBehaviour
             {
                 foreach (var waypoint in lane.Waypoints)
                 {
-                    double currDistance = FastEuclideanDistance(waypoint.Position, mousePosition);    
+                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3, mousePosition);    
 
                     if (currDistance == 0) return (lane, waypoint);
 
@@ -207,16 +191,16 @@ public class SnapController : MonoBehaviour
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
 
-    public List<GameObject> findPath(Vector2 start, Vector2 end)
+    public Path FindPath(Vector2 start, Vector2 end)
     {
-        (Lane startLane, LaneWaypoint startWaypoint) = FindLaneAndWaypoint(start);
-        (_, LaneWaypoint endWaypoint) = FindLaneAndWaypoint(end);
+        (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
+        (_, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
 
         var prioQueue = new SimplePriorityQueue<Lane, double>();
 
         prioQueue.Enqueue(startLane, 0);
 
-        var cameFrom = new Dictionary<LaneWaypoint, LaneWaypoint>
+        var cameFrom = new Dictionary<AStarWaypoint, AStarWaypoint>
         {
             { startWaypoint, null }
         };
@@ -228,7 +212,7 @@ public class SnapController : MonoBehaviour
 
         var firstIteration = true;
 
-        LaneWaypoint currentWaypoint;
+        AStarWaypoint currentWaypoint;
 
         while (prioQueue.Count != 0)
         {
@@ -247,7 +231,7 @@ public class SnapController : MonoBehaviour
 
             for (int waypointIndex = currentWaypoint.IndexInLane + 1; waypointIndex < currentLane.Waypoints.Count; waypointIndex++)
             {
-                if (currentWaypoint == endWaypoint) goto FoundPath;
+                if (currentWaypoint == endWaypoint) goto FoundPath; // end algorithm
 
                 var nextWaypoint = currentLane.Waypoints[waypointIndex];
 
@@ -267,8 +251,8 @@ public class SnapController : MonoBehaviour
                     costSoFar[nextLane] = newCost;
 
                     var priority = newCost + FastEuclideanDistance(
-                        endWaypoint.Position, 
-                        nextLane.Waypoints[0].Position
+                        endWaypoint.Location.Vector3, 
+                        nextLane.Waypoints[0].Location.Vector3
                         );
 
                     prioQueue.Enqueue(nextLane, priority);
@@ -279,25 +263,25 @@ public class SnapController : MonoBehaviour
 
         }
 
-        FoundPath:
-            var path = new List<GameObject>();
-            var current = endWaypoint;
+    FoundPath:
+        var waypointPath = new List<Waypoint>();
+            currentWaypoint = endWaypoint;
             if (!cameFrom.ContainsKey(endWaypoint))
             {
                 Debug.Log("No Path, this shouldnt happend so if you see this, smth is burning");
             }
             else
             {
-                while (current != startWaypoint)
+                while (currentWaypoint != startWaypoint)
                 {
-                    path.Add(current.WaypointGameObject);
-                    current = cameFrom[current];
+                waypointPath.Add(currentWaypoint);
+                    currentWaypoint = cameFrom[currentWaypoint];
                 }
-                path.Add(startWaypoint.WaypointGameObject);
-                path.Reverse();
+                waypointPath.Add(startWaypoint);
+                waypointPath.Reverse();
             }
 
-            return path;
+            return new Path(waypointPath);
     }
     public static (float x, float y) CarlaToUnity(float x, float y)
     {
@@ -332,9 +316,9 @@ public class SnapController : MonoBehaviour
         return (x, y);
     }
 
-    public static double UnityRotToRadians(double rotation)
+    public static float UnityRotToRadians(float rotation)
     {
-        return Math.PI / 180 * rotation;
+        return (float)(Math.PI / 180 * rotation);
     }
 
 }

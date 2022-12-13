@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PathController : MonoBehaviour
 {
-    private LineRenderer lr;
+    private LineRenderer lineRenderer;
     private LineRenderer previewRenderer;
     public Path path { get; set; }
     private bool building;
@@ -17,10 +17,14 @@ public class PathController : MonoBehaviour
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.path = new Path();
 
-        lr = gameObject.GetComponent<LineRenderer>();
-        lr.SetWidth(0.1f, 0.1f);
+        lineRenderer = gameObject.GetComponent<LineRenderer>();
+
+        lineRenderer.SetWidth(0.1f, 0.1f);
+
         previewRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
+
         previewRenderer.SetWidth(0.1f, 0.1f);
+
         building = true;
 
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
@@ -42,15 +46,15 @@ public class PathController : MonoBehaviour
             {
                 var action = new MouseClickAction(x);
                 var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                addWaypoint(waypoint.WaypointGameObject.transform.position);
+                AddWaypoint(waypoint.Location.Vector3);
             }
         });
     }
 
-    public void setEntityController(IBaseEntityWithPathController controller)
+    public void SetEntityController(IBaseEntityWithPathController controller)
     {
         this.entityController = controller;
-        addWaypoint(controller.getPosition());
+        AddWaypoint(controller.getPosition());
     }
 
     public void Update()
@@ -58,42 +62,58 @@ public class PathController : MonoBehaviour
         if (building)
         {
             var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (lr.positionCount > 0)
+
+            if (lineRenderer.positionCount > 0)
             {
-                List<GameObject> path = snapController.findPath(lr.GetPosition(lr.positionCount - 1), waypoint.Position);
+                var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), waypoint.Location.Vector3);
+
                 if (path is null)
                 {
                     previewRenderer.positionCount = 0;
                     return;
                 }
-                previewRenderer.positionCount = path.Count;
+
+                var locations = path.GetRouteLocations();
+
+                previewRenderer.positionCount = locations.Count;
+
                 int i = 0;
-                foreach (GameObject go in path)
+                foreach (var location in locations)
                 {
-                    previewRenderer.SetPosition(i, go.transform.position);
+                    Debug.Log(location.Vector3.ToString());
+                    previewRenderer.SetPosition(i, location.Vector3);
                     i++;
                 }
             }
         }
     }
-    public void addWaypoint(Vector2 wp)
+    public void AddWaypoint(Vector2 wp)
     {
         //TODO get angle and fix waypoint
-        Waypoint waypoint = new Waypoint(new Location(wp, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
-        this.path.EventList.Add(waypoint);
-        if (lr.positionCount > 0)
+        var waypoint = new Waypoint(new Location(wp, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
+
+        this.path.WaypointList.Add(waypoint);
+
+        if (lineRenderer.positionCount > 0)
         {
-            List<GameObject> path = snapController.findPath(lr.GetPosition(lr.positionCount - 1), wp);
-            foreach (GameObject go in path)
+            var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), wp);
+
+            var locations = path.GetAllLocations();
+
+            foreach (var location in locations)
             {
-                lr.positionCount++;
-                Vector3 position = new Vector3(go.transform.position.x, go.transform.position.y, -0.1f);
-                lr.SetPosition(lr.positionCount - 1, position);
+                lineRenderer.positionCount++;
+
+                var position = new Vector3(location.X, location.Y, -0.1f);
+
+                Debug.Log(position.ToString());
+
+                lineRenderer.SetPosition(lineRenderer.positionCount - 1, position);
             }
         } else
         {
-            lr.positionCount++;
-            lr.SetPosition(0, wp);
+            lineRenderer.positionCount++;
+            lineRenderer.SetPosition(0, wp);
         }
     }
 
@@ -111,7 +131,7 @@ public class PathController : MonoBehaviour
 
     public void setColor(Color color)
     {
-        this.lr.SetColors(color, color);
+        this.lineRenderer.SetColors(color, color);
         color = new Color(color.r, color.g, color.b, 0.5f);
         this.previewRenderer.SetColors(color, color);
     }

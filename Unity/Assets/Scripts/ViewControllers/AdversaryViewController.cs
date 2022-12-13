@@ -43,7 +43,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     {
         var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
         this.pathController = pathGameObject.GetComponent<PathController>();
-        this.pathController.setEntityController(this);
+        this.pathController.SetEntityController(this);
         this.pathController.setColor(this.sprite.color);
         expectingPath = true;
     }
@@ -70,12 +70,12 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         if (waypoint is not null)
         {
             difference = Vector2.zero;
-            vehicle.setPosition(waypoint.WaypointGameObject.transform.position.x, waypoint.WaypointGameObject.transform.position.y);
-            gameObject.transform.eulerAngles = waypoint.WaypointGameObject.transform.eulerAngles;
+            vehicle.SetSpawnPoint(waypoint.Location);
+            gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Location.Rot);
         }
         else
         {
-            vehicle.setPosition(mousePosition.x, mousePosition.y);
+            vehicle.SetSpawnPoint(new Location(mousePosition.x, mousePosition.y,0,0));
         }
     }
 
@@ -88,12 +88,12 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                this.vehicle.setPosition(waypoint.WaypointGameObject.transform.position.x, waypoint.WaypointGameObject.transform.position.y);
-                gameObject.transform.eulerAngles = waypoint.WaypointGameObject.transform.eulerAngles;
+                this.vehicle.SetSpawnPoint(waypoint.Location);
+                gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Location.Rot);
             }
             else
             {
-                this.vehicle.setPosition(mousePosition.x, mousePosition.y);
+                vehicle.SetSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
             }
         }
     }
@@ -121,7 +121,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
             return false;
         } else
         {
-            return this.vehicle.Path.EventList.Count != 0;
+            return this.vehicle.Path.WaypointList.Count != 0;
         }
     }
 

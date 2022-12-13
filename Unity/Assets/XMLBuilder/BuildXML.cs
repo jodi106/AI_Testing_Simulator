@@ -100,7 +100,7 @@ namespace ExportScenario.XMLBuilder
         public void BuildVehicleStories(Vehicle vehicle)
         /// Creates Vehicle Stories from story head and Events.
         {
-            bool isNullOrEmpty = vehicle.Path.EventList?.Any() != true;
+            bool isNullOrEmpty = vehicle.Path.WaypointList?.Any() != true;
             if (!isNullOrEmpty)
             {
                 XmlNode story = root.CreateElement("Story");
@@ -117,11 +117,11 @@ namespace ExportScenario.XMLBuilder
                 XmlNode maneuver = root.CreateElement("Maneuver");
                 SetAttribute("name", "adversary" + vehicle.Id + "_Maneuver", maneuver);
 
-                for (int i = 0; i < vehicle.Path.EventList.Count; i++)
+                for (int i = 0; i < vehicle.Path.WaypointList.Count; i++)
                 {
-                    if (vehicle.Path.EventList[i].ActionTypeInfo.Name != "MoveToAction" && vehicle.Path.EventList[i].ActionTypeInfo != null)
+                    if (vehicle.Path.WaypointList[i].ActionTypeInfo.Name != "MoveToAction" && vehicle.Path.WaypointList[i].ActionTypeInfo != null)
                     {
-                        BuildEvents(maneuver, vehicle.Path.EventList[i]);
+                        BuildEvents(maneuver, vehicle.Path.WaypointList[i]);
                     }
                         
                 }
@@ -147,7 +147,7 @@ namespace ExportScenario.XMLBuilder
         public void BuildPedestrianStories(Pedestrian pedestrian)
         /// Creates Pedestrian Stories from story head and Events.
         {
-            bool isNullOrEmpty = pedestrian.Path.EventList?.Any() != true;
+            bool isNullOrEmpty = pedestrian.Path.WaypointList?.Any() != true;
             if (!isNullOrEmpty)
             {
                 XmlNode story = root.CreateElement("Story");
@@ -164,11 +164,11 @@ namespace ExportScenario.XMLBuilder
                 XmlNode maneuver = root.CreateElement("Maneuver");
                 SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Maneuver", maneuver);
 
-                for (int i = 0; i < pedestrian.Path.EventList.Count; i++)
+                for (int i = 0; i < pedestrian.Path.WaypointList.Count; i++)
                 {
-                    if (pedestrian.Path.EventList[i].ActionTypeInfo.Name != "MoveToAction" && pedestrian.Path.EventList[i].ActionTypeInfo != null)
+                    if (pedestrian.Path.WaypointList[i].ActionTypeInfo.Name != "MoveToAction" && pedestrian.Path.WaypointList[i].ActionTypeInfo != null)
                     {
-                        BuildEvents(maneuver, pedestrian.Path.EventList[i]);
+                        BuildEvents(maneuver, pedestrian.Path.WaypointList[i]);
                     }
                         
                 }
