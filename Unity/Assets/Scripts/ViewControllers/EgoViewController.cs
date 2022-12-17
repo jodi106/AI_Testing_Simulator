@@ -1,5 +1,4 @@
-﻿using Assets.Enums;
-using Entity;
+﻿using Entity;
 using UnityEngine;
 
 public class EgoViewController : VehicleViewController, IBaseEntityController
@@ -27,6 +26,11 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
                 //mainController.setEgoVehicle(this.ego);
             }
         });
+    }
+
+    public override Sprite getSprite()
+    {
+        return Resources.Load<Sprite>("sprites/" + "ego");
     }
 
     public override void triggerActionSelection()

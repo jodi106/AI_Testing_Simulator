@@ -22,9 +22,12 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
+        sprite.sprite = getSprite();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
     }
+
+    public abstract Sprite getSprite();
 
     public void onChangePosition(Location l)
     {

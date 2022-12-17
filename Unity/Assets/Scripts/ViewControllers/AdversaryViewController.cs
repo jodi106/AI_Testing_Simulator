@@ -32,6 +32,11 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         });
     }
 
+    public override Sprite getSprite()
+    {
+        return Resources.Load<Sprite>("sprites/" + "vehicle");
+    }
+
     public override void triggerActionSelection()
     {
         var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
