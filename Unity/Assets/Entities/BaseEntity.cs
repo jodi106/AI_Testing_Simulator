@@ -1,4 +1,5 @@
-﻿namespace Entity
+﻿
+namespace Entity
 {
     public class BaseEntity
     /// <summary>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped)</summary>
@@ -32,7 +33,20 @@
         }
 
         public int Id { get; set; }
-        public Location SpawnPoint { get; protected set; }
+        public Location SpawnPoint { get; set; }
         public double InitialSpeed { get; set; }
+
+        public IBaseEntityView View { get; set; }
+
+        public void setSpawnPoint(Location pos)
+        {
+            SpawnPoint = pos;
+            View?.onChangePosition(SpawnPoint);
+        }
+
+        public void setView(IBaseEntityView view)
+        {
+            this.View = view;
+        }
     }
 }

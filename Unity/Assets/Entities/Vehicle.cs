@@ -33,14 +33,16 @@ namespace Entity
 
         }
 
-        public void SetSpawnPoint(Location location)
+        //TODO: maybe use templates instead
+        public void setView(IVehicleView view)
         {
-            SpawnPoint = location;
-            View?.onChangePosition(SpawnPoint);
+            base.setView(view);
+            this.VehicleView = view;
         }
-        public IVehicleView View { get; set; }
         public EntityModel Model { get; set; }
         public VehicleCategory Category { get; set; }
         public Path Path { get; set; }
+
+        private IVehicleView VehicleView;
     }
 }

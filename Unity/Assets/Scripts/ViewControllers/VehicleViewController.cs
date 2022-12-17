@@ -11,14 +11,16 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
     protected SpriteRenderer sprite;
     protected Boolean placed = false;
     protected Boolean selected = true;
-    protected Boolean expectingPath = false;
+    protected Boolean expectingAction = false;
     protected Vector2 difference = Vector2.zero;
     protected Vector2 lastClickPos = Vector2.zero;
     protected SnapController snapController;
+    protected MainController mainController;
 
     public void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
+        this.mainController = Camera.main.GetComponent<MainController>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
@@ -46,7 +48,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
         this.selected = false;
         sprite.transform.Translate(0, 0, 0.1f);
         sprite.material = defaultMaterial;
-        if (expectingPath)
+        if (expectingAction)
         {
             EventManager.TriggerEvent(new CancelPathSelectionAction());
         }
@@ -54,7 +56,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
 
     public void destroy()
     {
-        if (expectingPath)
+        if (expectingAction)
         {
             EventManager.TriggerEvent(new CancelPathSelectionAction());
         }
@@ -65,11 +67,64 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
     {
         return gameObject.transform.position;
     }
+    public void Update()
+    {
+        if (!placed)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (waypoint is not null)
+            {
+                difference = Vector2.zero;
+                getEntity().setSpawnPoint(waypoint.Location);
+                gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Location.Rot);
+            }
+            else
+            {
+                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+            }
+        }
+    }
+    public void OnMouseDrag()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
+        {
+            return;
+        }
+        var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (waypoint is not null)
+        {
+            difference = Vector2.zero;
+            getEntity().setSpawnPoint(waypoint.Location);
+            gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Location.Rot);
+        }
+        else
+        {
+            getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+        }
+    }
 
-    public abstract BaseEntity getEntity();
+    public void OnMouseDown()
+    {
+        difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        lastClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (!placed)
+        {
+            placed = true;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
+            mainController.addVehicle((Vehicle) getEntity());
+        }
+        if (!selected)
+        {
+            EventManager.TriggerEvent(new ChangeSelectedEntityAction(this));
+        }
+    }
+
     public abstract bool hasAction();
     public abstract void deleteAction();
     public abstract void triggerActionSelection();
 
     public abstract void setColor(Color color);
+    public abstract BaseEntity getEntity();
 }

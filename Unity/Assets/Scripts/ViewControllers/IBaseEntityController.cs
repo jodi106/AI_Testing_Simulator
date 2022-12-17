@@ -8,7 +8,6 @@ public interface IBaseEntityController
     public void deselect();
 
     public Vector2 getPosition();
-
     public BaseEntity getEntity();
 
     public void destroy();
