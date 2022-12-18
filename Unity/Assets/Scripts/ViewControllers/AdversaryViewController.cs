@@ -39,7 +39,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
 
     public override void triggerActionSelection()
     {
-        var pathGameObject = Instantiate(pathPrefab, gameObject.transform.position, Quaternion.identity);
+        var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
         this.pathController = pathGameObject.GetComponent<PathController>();
         this.pathController.SetEntityController(this);
         this.pathController.setColor(this.sprite.color);

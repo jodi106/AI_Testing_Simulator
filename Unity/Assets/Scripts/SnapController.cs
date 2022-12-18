@@ -186,7 +186,7 @@ public class SnapController : MonoBehaviour
         return (laneToReturn, closestWaypoint);
     }
 
-    public double FastEuclideanDistance(Vector2 a, Vector2 b)
+    public static double FastEuclideanDistance(Vector2 a, Vector2 b)
     {
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }

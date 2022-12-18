@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 659123774947770474}
   - component: {fileID: 8716577573878237528}
   - component: {fileID: 4709514961688264300}
+  - component: {fileID: 4313143198401021831}
   m_Layer: 0
   m_Name: Path
   m_TagString: Untagged
@@ -143,6 +144,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c74cb8d23890a4b9a8b8cb76d6a04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointPrefab: {fileID: 8257144040838025764, guid: 49587bde03629414bababf3faf50b4ba, type: 3}
+--- !u!68 &4313143198401021831
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6773933997713248991}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0.05
+  m_Points: []
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &8367326389220998737
 GameObject:
   m_ObjectHideFlags: 0
