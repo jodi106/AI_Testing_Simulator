@@ -18,8 +18,14 @@ public class WaypointViewController : MonoBehaviour
 
     }
 
+    public void openEditDialog()
+    {
+
+    }
+
     // Update is called once per frame
     public void OnMouseDown()
     {
+        openEditDialog();
     }
 }

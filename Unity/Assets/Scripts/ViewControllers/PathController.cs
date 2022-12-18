@@ -1,7 +1,6 @@
 using Entity;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class PathController : MonoBehaviour
@@ -24,9 +23,9 @@ public class PathController : MonoBehaviour
         waypoints = new List<WaypointViewController>();
 
         lineRenderer = gameObject.GetComponent<LineRenderer>();
-        lineRenderer.SetWidth(0.1f, 0.1f);
+        lineRenderer.startWidth = lineRenderer.endWidth = 0.1f;
         previewRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
-        previewRenderer.SetWidth(0.1f, 0.1f);
+        previewRenderer.startWidth = previewRenderer.endWidth = 0.1f;
         edgeCollider = gameObject.GetComponent<EdgeCollider2D>();
 
         building = true;
@@ -36,6 +35,10 @@ public class PathController : MonoBehaviour
             if (building)
             {
                 Destroy(gameObject);
+            }
+            foreach(WaypointViewController wp in waypoints)
+            {
+                Destroy(wp.gameObject);
             }
         });
 
@@ -53,6 +56,15 @@ public class PathController : MonoBehaviour
                 AddMoveToWaypoint(waypoint.Location.Vector3);
             }
         });
+    }
+
+    public void destroy()
+    {
+        foreach (WaypointViewController wp in waypoints)
+        {
+            Destroy(wp.gameObject);
+        }
+        Destroy(gameObject);
     }
 
     public void SetEntityController(IBaseEntityWithPathController controller)
@@ -94,30 +106,35 @@ public class PathController : MonoBehaviour
 
         }
     }
-    public void AddMoveToWaypoint(Vector2 wp)
+    public void AddMoveToWaypoint(Vector2 location)
     {
         //TODO get angle and fix waypoint
-        var waypoint = new Waypoint(new Location(wp, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
 
-        this.path.WaypointList.Add(waypoint);
+        GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(location.x, location.y, -0.5f), Quaternion.identity);
+        WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
+        viewController.wp = new Waypoint(new Location(location, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
+        this.path.WaypointList.Add(viewController.wp);
+        waypoints.Add(viewController);
+        SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
+        s.color = new Color(0, 0, 0);
 
         if (lineRenderer.positionCount > 0)
         {
-            var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), wp);
+            var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), location);
 
             var locations = path.GetAllLocations();
 
-            foreach (var location in locations)
+            foreach (var loc in locations)
             {
                 lineRenderer.positionCount++;
-                var position = new Vector3(location.X, location.Y, -0.1f);
+                var position = new Vector3(loc.X, loc.Y, -0.1f);
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, position);
             }
         }
         else
         {
             lineRenderer.positionCount++;
-            lineRenderer.SetPosition(0, wp);
+            lineRenderer.SetPosition(0, location);
         }
         Vector2[] positions = new Vector2[lineRenderer.positionCount];
         for (var i = 0; i < lineRenderer.positionCount; i++)
@@ -141,9 +158,9 @@ public class PathController : MonoBehaviour
 
     public void setColor(Color color)
     {
-        this.lineRenderer.SetColors(color, color);
+        this.lineRenderer.startColor = this.lineRenderer.endColor = color;
         color = new Color(color.r, color.g, color.b, 0.5f);
-        this.previewRenderer.SetColors(color, color);
+        this.previewRenderer.startColor = this.previewRenderer.endColor = color;
     }
 
     public void OnMouseDown()
@@ -177,16 +194,12 @@ public class PathController : MonoBehaviour
         if (nearestWaypoint != null)
         {
             // open edit dialog
+            nearestWaypoint.openEditDialog();
         }
         else
         {
             // open edit dialog, create wp if an action was added, otherwise discard and do not create waypoint
-            GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(location.x, location.y, -0.5f), Quaternion.identity);
-            WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
-            viewController.wp = new Waypoint(new Location(location.x, location.y, 0, 0)); // find way to get correct location
-            waypoints.Insert(index, viewController);
-            SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
-            s.color = new Color(255, 255, 0);
+            // maybe use separate dialogs for editing / creating
         }
     }
 }
