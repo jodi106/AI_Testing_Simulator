@@ -6,11 +6,11 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class WorldSettingsPopupController : PopupController<WorldOptions>
+public class WorldSettingsPopupController : MonoBehaviour
 {
     private WorldOptions options;
     private UIDocument document;
-    public override void init(WorldOptions options)
+    public void init(WorldOptions options)
     {
         this.options = options;
         this.gameObject.SetActive(true);
@@ -138,16 +138,8 @@ public class WorldSettingsPopupController : PopupController<WorldOptions>
         });
 
     }
-    public override void open()
+    public void open()
     {
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
-    }
-    public override void cancel()
-    {
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
-    }
-    public override void save()
-    {
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
 }
