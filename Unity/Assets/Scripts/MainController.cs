@@ -22,6 +22,7 @@ public class MainController : MonoBehaviour
     private Button removeEntityButton;
     private Button editEntityButton;
     private Button worldSettingsButton;
+    private Button exportButton;
 
     //Action Buttons (Center Left)
     private VisualElement actionButtons;
@@ -37,10 +38,6 @@ public class MainController : MonoBehaviour
 
     private WorldSettingsPopupController worldSettingsController;
     private VehicleSettingsPopupController vehicleSettingsController;
-
-    //ExportButton
-    [SerializeField]
-    public UnityEngine.UI.Button exportButton;
 
     void Start()
     {
@@ -79,9 +76,6 @@ public class MainController : MonoBehaviour
             submitPathButton.style.display = DisplayStyle.None;
             cancelPathButton.style.display = DisplayStyle.None;
         });
-
-        UnityEngine.UI.Button btn = exportButton.GetComponent<UnityEngine.UI.Button>();
-        btn.onClick.AddListener(ExportOnClick);
 
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
@@ -137,6 +131,7 @@ public class MainController : MonoBehaviour
         removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
         editEntityButton = editorGUI.Q<Button>("editEntityButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
+        exportButton = editorGUI.Q<Button>("exportButton");
 
         addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -171,6 +166,11 @@ public class MainController : MonoBehaviour
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             worldSettingsController.open();
+        });
+
+        exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            ExportOnClick();
         });
     }
 
