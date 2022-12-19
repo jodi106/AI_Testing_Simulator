@@ -1,20 +1,14 @@
 using Assets.Enums;
-using Assets.Helpers;
 using Assets.Repos;
 using Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UI;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using UnityEditor.Experimental.GraphView;
-using Slider = UnityEngine.UIElements.Slider;
 
 public class MainController : MonoBehaviour
 {
@@ -24,17 +18,17 @@ public class MainController : MonoBehaviour
 
     //Event Bar (Center Bottom)
     private ListView eventList;
-    private UnityEngine.UIElements.Button addEntityButton;
-    private UnityEngine.UIElements.Button removeEntityButton;
-    private UnityEngine.UIElements.Button editEntityButton;
-    private UnityEngine.UIElements.Button worldSettingsButton;
+    private Button addEntityButton;
+    private Button removeEntityButton;
+    private Button editEntityButton;
+    private Button worldSettingsButton;
 
     //Action Buttons (Center Left)
     private VisualElement actionButtons;
-    private UnityEngine.UIElements.Button setPathButton;
-    private UnityEngine.UIElements.Button deletePathButton;
-    private UnityEngine.UIElements.Button cancelPathButton;
-    private UnityEngine.UIElements.Button submitPathButton;
+    private Button setPathButton;
+    private Button deletePathButton;
+    private Button cancelPathButton;
+    private Button submitPathButton;
 
     private ScenarioInfo info;
 
@@ -137,10 +131,10 @@ public class MainController : MonoBehaviour
 
     private void initializeButtonBar(VisualElement editorGUI)
     {
-        addEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("addEntityButton");
-        removeEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("removeEntityButton");
-        editEntityButton = editorGUI.Q<UnityEngine.UIElements.Button>("editEntityButton");
-        worldSettingsButton = editorGUI.Q<UnityEngine.UIElements.Button>("worldSettingsButton");
+        addEntityButton = editorGUI.Q<Button>("addEntityButton");
+        removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
+        editEntityButton = editorGUI.Q<Button>("editEntityButton");
+        worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
 
         addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -172,13 +166,13 @@ public class MainController : MonoBehaviour
             VehicleSettingsPopup.SetActive(true);
             var ThePopup = VehicleSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
 
-            UnityEngine.UIElements.Button ExitButton = ThePopup.Q<UnityEngine.UIElements.Button>("ExitButton");
+            Button ExitButton = ThePopup.Q<Button>("ExitButton");
             ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 VehicleSettingsPopup.SetActive(false);
             });
 
-            UnityEngine.UIElements.Button SaveButton = ThePopup.Q<UnityEngine.UIElements.Button>("SaveButton");
+            Button SaveButton = ThePopup.Q<Button>("SaveButton");
             SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
             {
                 ///!!!!!!!
@@ -224,7 +218,7 @@ public class MainController : MonoBehaviour
             });
 
             List<string> allPossibleModels = new List<string> { };
-            var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+            var possibleModelsField = ThePopup.Q<DropdownField>("AllPossibleModels");
             possibleModelsField.choices = allPossibleModels;
             possibleModelsField.RegisterValueChangedCallback((evt) =>
             {
@@ -237,7 +231,7 @@ public class MainController : MonoBehaviour
             {
                 allPossibleCateogories.Add(option.ToString());
             }
-            var possibleCategoriesField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleCategories");
+            var possibleCategoriesField = ThePopup.Q<DropdownField>("AllPossibleCategories");
             possibleCategoriesField.choices = allPossibleCateogories;
             possibleCategoriesField.RegisterValueChangedCallback((evt) =>
             {
@@ -248,7 +242,7 @@ public class MainController : MonoBehaviour
                     {
                         allPossibleModels.Add(option.DisplayName);
                     }
-                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    var possibleModelsField = ThePopup.Q<DropdownField>("AllPossibleModels");
                     possibleModelsField.choices = allPossibleModels;
                 }
                 if (evt.newValue == "Bike")
@@ -258,7 +252,7 @@ public class MainController : MonoBehaviour
                     {
                         allPossibleModels.Add(option.DisplayName);
                     }
-                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    var possibleModelsField = ThePopup.Q<DropdownField>("AllPossibleModels");
                     possibleModelsField.choices = allPossibleModels;
                 }
                 if (evt.newValue == "Motorcycle")
@@ -268,13 +262,13 @@ public class MainController : MonoBehaviour
                     {
                         allPossibleModels.Add(option.DisplayName);
                     }
-                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    var possibleModelsField = ThePopup.Q<DropdownField>("AllPossibleModels");
                     possibleModelsField.choices = allPossibleModels;
                 }
                 if (evt.newValue == "Null")
                 {
                     List<string> allPossibleModels = new List<string> { };
-                    var possibleModelsField = ThePopup.Q<UnityEngine.UIElements.DropdownField>("AllPossibleModels");
+                    var possibleModelsField = ThePopup.Q<DropdownField>("AllPossibleModels");
                     possibleModelsField.choices = allPossibleModels;
                 }
             });
@@ -307,10 +301,10 @@ public class MainController : MonoBehaviour
 
     private void initializeEventButtons(VisualElement editorGUI)
     {
-        setPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("setPathButton");
-        deletePathButton = editorGUI.Q<UnityEngine.UIElements.Button>("deletePathButton");
-        cancelPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("cancelPathButton");
-        submitPathButton = editorGUI.Q<UnityEngine.UIElements.Button>("submitPathButton");
+        setPathButton = editorGUI.Q<Button>("setPathButton");
+        deletePathButton = editorGUI.Q<Button>("deletePathButton");
+        cancelPathButton = editorGUI.Q<Button>("cancelPathButton");
+        submitPathButton = editorGUI.Q<Button>("submitPathButton");
 
         actionButtons = editorGUI.Q<VisualElement>("actionButtons");
 
@@ -395,7 +389,7 @@ public class MainController : MonoBehaviour
         WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
         var popUp = WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement;
 
-        var exitButton = popUp.Q<UnityEngine.UIElements.Button>("Exit");
+        var exitButton = popUp.Q<Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             WorldSettingsPopup.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
@@ -423,7 +417,7 @@ public class MainController : MonoBehaviour
         {
             cloudStateOptions.Add(option.ToString());
         }
-        var cloudState = popUp.Q<UnityEngine.UIElements.DropdownField>("CloudState");
+        var cloudState = popUp.Q<DropdownField>("CloudState");
         cloudState.choices = cloudStateOptions;
         cloudState.RegisterValueChangedCallback((evt) =>
         {
@@ -438,7 +432,7 @@ public class MainController : MonoBehaviour
         {
             precipitationTypeOptions.Add(option.ToString());
         }
-        var precipitationType = popUp.Q<UnityEngine.UIElements.DropdownField>("PrecipitationType");
+        var precipitationType = popUp.Q<DropdownField>("PrecipitationType");
         precipitationType.choices = precipitationTypeOptions;
         precipitationType.RegisterValueChangedCallback((evt) =>
         {
@@ -488,8 +482,8 @@ public class MainController : MonoBehaviour
                 this.info.WorldOptions.FrictionScaleFactor = (double)frictionScaleFactor.value;
             }
         });
-        var simpleSettingsButton = popUp.Q<UnityEngine.UIElements.Button>("SimpleSettings");
-        var advancedSettingsButton = popUp.Q<UnityEngine.UIElements.Button>("AdvancedSettings");
+        var simpleSettingsButton = popUp.Q<Button>("SimpleSettings");
+        var advancedSettingsButton = popUp.Q<Button>("AdvancedSettings");
         advancedSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             frictionScaleFactor.visible = true;
