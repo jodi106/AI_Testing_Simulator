@@ -120,7 +120,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
         }
         if (!selected)
         {
-            EventManager.TriggerEvent(new ChangeSelectedEntityAction(this));
+            mainController.setSelectedEntity(this);
         }
     }
 

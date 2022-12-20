@@ -47,17 +47,11 @@ public class MainController : MonoBehaviour
         initializeButtonBar(editorGUI);
         initializeEventButtons(editorGUI);
 
-        EventManager.StartListening(typeof(ChangeSelectedEntityAction), x =>
-        {
-            var action = new ChangeSelectedEntityAction(x);
-            this.setSelectedEntity(action.entity);
-        });
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (!preventDeselection)
             {
-                EventManager.TriggerEvent(new ChangeSelectedEntityAction(ChangeSelectedEntityAction.NONE));
+                this.setSelectedEntity(null);
             }
         });
 
@@ -79,7 +73,7 @@ public class MainController : MonoBehaviour
         this.worldSettingsController.init(this.info.WorldOptions);
     }
 
-    private void setSelectedEntity(IBaseEntityController entity)
+    public void setSelectedEntity(IBaseEntityController entity)
     {
         if (entity != null)
         {

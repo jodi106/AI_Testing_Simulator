@@ -23,7 +23,7 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                //mainController.setEgoVehicle(this.ego);
+                this.registerVehicle();
             }
         });
     }

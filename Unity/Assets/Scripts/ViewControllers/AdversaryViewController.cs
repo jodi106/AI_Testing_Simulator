@@ -17,6 +17,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         this.vehicle = new Vehicle(vehiclePosition, path, category: VehicleCategory.Car);
         this.vehicle.setView(this);
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
+        this.vehicleSettingsController.gameObject.SetActive(true);
 
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
         {
