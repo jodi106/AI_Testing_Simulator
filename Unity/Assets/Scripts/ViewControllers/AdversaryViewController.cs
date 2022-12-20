@@ -7,6 +7,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public GameObject pathPrefab;
     private Vehicle vehicle;
     private PathController pathController;
+    private VehicleSettingsPopupController vehicleSettingsController;
     public new void Awake()
     {
         base.Awake();
@@ -15,6 +16,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         var path = new Path();
         this.vehicle = new Vehicle(vehiclePosition, path, category: VehicleCategory.Car);
         this.vehicle.setView(this);
+        this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
 
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
         {
@@ -27,7 +29,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                mainController.addVehicle(this.vehicle);
+                this.registerVehicle();
             }
         });
     }
@@ -66,6 +68,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public new void destroy()
     {
         base.destroy();
+        mainController.removeVehicle(vehicle);
         this.pathController?.destroy();
         Destroy(gameObject);
     }
@@ -95,5 +98,14 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public override BaseEntity getEntity()
     {
         return this.vehicle;
+    }
+
+    public override void openEditDialog()
+    {
+        this.vehicleSettingsController.open(this.vehicle);
+    }
+    protected override void registerVehicle()
+    {
+        mainController.addVehicle(this.vehicle);
     }
 }

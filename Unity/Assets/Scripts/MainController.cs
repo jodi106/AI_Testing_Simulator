@@ -1,10 +1,7 @@
 using Assets.Enums;
-using Assets.Repos;
 using Entity;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
@@ -15,6 +12,7 @@ public class MainController : MonoBehaviour
     public VisualTreeAsset eventEntryTemplate;
     //Spawned Cars
     public GameObject carPrefab;
+    public GameObject egoPrefab;
 
     //Event Bar (Center Bottom)
     private ListView eventList;
@@ -37,7 +35,6 @@ public class MainController : MonoBehaviour
     private bool preventDeselection;
 
     private WorldSettingsPopupController worldSettingsController;
-    private VehicleSettingsPopupController vehicleSettingsController;
 
     void Start()
     {
@@ -80,8 +77,6 @@ public class MainController : MonoBehaviour
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
-        this.vehicleSettingsController = popups.transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
-        this.vehicleSettingsController.init();
     }
 
     private void setSelectedEntity(IBaseEntityController entity)
@@ -120,8 +115,18 @@ public class MainController : MonoBehaviour
 
     public void addVehicle(Vehicle vehicle)
     {
-        Debug.Log("Vehicle added");
         this.info.Vehicles.Add(vehicle);
+        this.preventDeselection = false;
+    }
+
+    public void removeVehicle(Vehicle vehicle)
+    {
+        this.info.Vehicles.Remove(vehicle);
+    }
+
+    public void setEgo(Ego ego)
+    {
+        this.info.EgoVehicle = ego;
         this.preventDeselection = false;
     }
 
@@ -137,10 +142,18 @@ public class MainController : MonoBehaviour
         {
             var pos = Input.mousePosition;
             pos.z = -0.1f;
-            var vehicleGameObject = Instantiate(carPrefab, pos, Quaternion.identity);
-            var viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            UnityEngine.Color color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            color = new UnityEngine.Color(color.r, color.g, color.b, 1);
+            GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : carPrefab;
+            var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
+            VehicleViewController viewController = null;
+            if (this.info.EgoVehicle is null)
+            {
+                viewController = vehicleGameObject.GetComponent<EgoViewController>();
+            } else
+            {
+                viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
+            }
+            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = new Color(color.r, color.g, color.b, 1);
             viewController.setColor(color);
             setSelectedEntity(viewController);
             this.preventDeselection = true;
@@ -148,19 +161,13 @@ public class MainController : MonoBehaviour
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            var entity = selectedEntity.getEntity();
-            //TODO: check how to prevent type checking here
-            if (entity is Vehicle vehicle)
-            {
-                info.Vehicles.Remove(vehicle);
-            }
-            selectedEntity.destroy();
+            selectedEntity?.destroy();
             setSelectedEntity(null);
         });
 
         editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            vehicleSettingsController.open((Vehicle)this.selectedEntity.getEntity());
+            this.selectedEntity?.openEditDialog();
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>

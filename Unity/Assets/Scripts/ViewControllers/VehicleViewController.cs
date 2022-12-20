@@ -116,7 +116,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
         {
             placed = true;
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-            mainController.addVehicle((Vehicle) getEntity());
+            this.registerVehicle();
         }
         if (!selected)
         {
@@ -127,7 +127,8 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
     public abstract bool hasAction();
     public abstract void deleteAction();
     public abstract void triggerActionSelection();
-
     public abstract void setColor(Color color);
     public abstract BaseEntity getEntity();
+    public abstract void openEditDialog();
+    protected abstract void registerVehicle();
 }

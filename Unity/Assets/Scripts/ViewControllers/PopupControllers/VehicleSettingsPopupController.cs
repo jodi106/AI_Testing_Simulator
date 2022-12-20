@@ -11,7 +11,7 @@ public class VehicleSettingsPopupController : MonoBehaviour
 {
     private Vehicle vehicle;
     private UIDocument document;
-    public void init()
+    public void Awake()
     {
         this.gameObject.SetActive(true);
         this.document = gameObject.GetComponent<UIDocument>();

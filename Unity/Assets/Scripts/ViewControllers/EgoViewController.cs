@@ -51,6 +51,8 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
     public new void destroy()
     {
         base.destroy();
+        this.mainController.setEgo(null);
+        Destroy(gameObject);
     }
 
     public override void deleteAction()
@@ -72,5 +74,15 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
     public override BaseEntity getEntity()
     {
         return this.ego;
+    }
+
+    public override void openEditDialog()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void registerVehicle()
+    {
+        mainController.setEgo(this.ego);
     }
 }

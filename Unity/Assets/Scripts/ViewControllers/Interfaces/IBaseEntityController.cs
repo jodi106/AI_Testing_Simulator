@@ -20,4 +20,6 @@ public interface IBaseEntityController
     public void triggerActionSelection();
 
     public void setColor(Color color );
+
+    public void openEditDialog();
 }
