@@ -34,11 +34,7 @@ public class PathController : MonoBehaviour
         {
             if (building)
             {
-                Destroy(gameObject);
-            }
-            foreach(WaypointViewController wp in waypoints)
-            {
-                Destroy(wp.gameObject);
+                this.destroy();
             }
         });
 
@@ -89,14 +85,12 @@ public class PathController : MonoBehaviour
                     return;
                 }
 
-                var locations = path.GetRouteLocations();
-
-                previewRenderer.positionCount = locations.Count;
+                previewRenderer.positionCount = path.Count;
 
                 int i = 0;
-                foreach (var location in locations)
+                foreach (var location in path)
                 {
-                    previewRenderer.SetPosition(i, location.Vector3);
+                    previewRenderer.SetPosition(i, location);
                     i++;
                 }
             }
@@ -122,12 +116,10 @@ public class PathController : MonoBehaviour
         {
             var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), location);
 
-            var locations = path.GetAllLocations();
-
-            foreach (var loc in locations)
+            foreach (var loc in path)
             {
                 lineRenderer.positionCount++;
-                var position = new Vector3(loc.X, loc.Y, -0.1f);
+                var position = new Vector3(loc.x, loc.y, -0.1f);
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, position);
             }
         }

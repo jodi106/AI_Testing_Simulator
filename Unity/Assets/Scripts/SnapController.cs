@@ -191,7 +191,7 @@ public class SnapController : MonoBehaviour
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
 
-    public Path FindPath(Vector2 start, Vector2 end)
+    public List<Vector2> FindPath(Vector2 start, Vector2 end)
     {
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
         (_, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
@@ -264,7 +264,7 @@ public class SnapController : MonoBehaviour
         }
 
     FoundPath:
-        var waypointPath = new List<Waypoint>();
+        var waypointPath = new List<Vector2>();
             currentWaypoint = endWaypoint;
             if (!cameFrom.ContainsKey(endWaypoint))
             {
@@ -274,14 +274,14 @@ public class SnapController : MonoBehaviour
             {
                 while (currentWaypoint != startWaypoint)
                 {
-                waypointPath.Add(currentWaypoint);
+                waypointPath.Add(currentWaypoint.Location.Vector3);
                     currentWaypoint = cameFrom[currentWaypoint];
                 }
-                waypointPath.Add(startWaypoint);
+                waypointPath.Add(startWaypoint.Location.Vector3);
                 waypointPath.Reverse();
             }
 
-            return new Path(waypointPath);
+            return waypointPath;
     }
     public static (float x, float y) CarlaToUnity(float x, float y)
     {

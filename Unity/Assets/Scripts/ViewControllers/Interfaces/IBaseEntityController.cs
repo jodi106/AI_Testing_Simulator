@@ -1,7 +1,7 @@
 ﻿using Entity;
 using UnityEngine;
 
-//Vehicle, Pedestrian, Ego
+//Adversary, Pedestrian, Ego
 public interface IBaseEntityController
 {
     public void select();
