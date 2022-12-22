@@ -40,17 +40,17 @@ public class SnapController : MonoBehaviour
             var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();
             sprite.color = Color.white;
             LastClickedWaypointGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+        }
 
-            var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-            var waypointGameObject = waypointGameObjects[waypoint.Location];
+        var waypointGameObject = waypointGameObjects[waypoint.Location];
 
-            if (waypointGameObject is not null)
-            {
-                waypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
-                waypointGameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                LastClickedWaypointGameObject = waypointGameObject;
-            }
+        if (waypointGameObject is not null)
+        {
+            waypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
+            waypointGameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            LastClickedWaypointGameObject = waypointGameObject;
         }
     }
 
