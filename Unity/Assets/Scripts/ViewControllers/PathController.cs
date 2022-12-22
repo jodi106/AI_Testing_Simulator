@@ -27,6 +27,7 @@ public class PathController : MonoBehaviour
         previewRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
         previewRenderer.startWidth = previewRenderer.endWidth = 0.1f;
         edgeCollider = gameObject.GetComponent<EdgeCollider2D>();
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
 
         building = true;
 
@@ -53,6 +54,34 @@ public class PathController : MonoBehaviour
             }
         });
     }
+
+    public void select()
+    {
+        for (var i = 0; i < lineRenderer.positionCount; i++)
+        {
+            lineRenderer.SetPosition(i, HeightUtil.SetZ(lineRenderer.GetPosition(i), HeightUtil.PATH_SELECTED));
+        }
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
+        foreach (var waypoint in waypoints)
+        {
+            waypoint.gameObject.transform.position = HeightUtil.SetZ(waypoint.gameObject.transform.position, HeightUtil.WAYPOINT_SELECTED);
+        }
+    }
+
+    public void deselect()
+    {
+        for (var i = 0; i < lineRenderer.positionCount; i++)
+        {
+            lineRenderer.SetPosition(i, HeightUtil.SetZ(lineRenderer.GetPosition(i), HeightUtil.PATH_DESELECTED));
+        }
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_DESELECTED);
+        foreach (var waypoint in waypoints)
+        {
+            waypoint.gameObject.transform.position = HeightUtil.SetZ(waypoint.gameObject.transform.position, HeightUtil.WAYPOINT_DESELECTED);
+        }
+    }
+
+
 
     public void destroy()
     {
@@ -90,7 +119,7 @@ public class PathController : MonoBehaviour
                 int i = 0;
                 foreach (var location in path)
                 {
-                    previewRenderer.SetPosition(i, location);
+                    previewRenderer.SetPosition(i, HeightUtil.SetZ(location, HeightUtil.PATH_SELECTED));
                     i++;
                 }
             }
@@ -104,12 +133,13 @@ public class PathController : MonoBehaviour
     {
         //TODO get angle and fix waypoint
 
-        GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(location.x, location.y, -0.5f), Quaternion.identity);
+        GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(location.x, location.y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
         WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
         viewController.wp = new Waypoint(new Location(location, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
         this.path.WaypointList.Add(viewController.wp);
         waypoints.Add(viewController);
         SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
+        //s.color = lineRenderer.startColor;
         s.color = new Color(0, 0, 0);
 
         if (lineRenderer.positionCount > 0)
@@ -119,14 +149,14 @@ public class PathController : MonoBehaviour
             foreach (var loc in path)
             {
                 lineRenderer.positionCount++;
-                var position = new Vector3(loc.x, loc.y, -0.1f);
+                var position = new Vector3(loc.x, loc.y, HeightUtil.PATH_SELECTED);
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, position);
             }
         }
         else
         {
             lineRenderer.positionCount++;
-            lineRenderer.SetPosition(0, location);
+            lineRenderer.SetPosition(0, HeightUtil.SetZ(location, HeightUtil.PATH_SELECTED));
         }
         Vector2[] positions = new Vector2[lineRenderer.positionCount];
         for (var i = 0; i < lineRenderer.positionCount; i++)
@@ -153,6 +183,10 @@ public class PathController : MonoBehaviour
         this.lineRenderer.startColor = this.lineRenderer.endColor = color;
         color = new Color(color.r, color.g, color.b, 0.5f);
         this.previewRenderer.startColor = this.previewRenderer.endColor = color;
+        foreach (var waypoint in waypoints)
+        {
+            waypoint.setColor(color);
+        }
     }
 
     public void OnMouseDown()

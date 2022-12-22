@@ -42,14 +42,14 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
     public void select()
     {
         this.selected = true;
-        sprite.transform.Translate(0, 0, -0.1f);
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_SELECTED);
         sprite.material = selectionMaterial;
     }
 
     public void deselect()
     {
         this.selected = false;
-        sprite.transform.Translate(0, 0, 0.1f);
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
         sprite.material = defaultMaterial;
         if (expectingAction)
         {

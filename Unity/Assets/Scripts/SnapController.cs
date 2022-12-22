@@ -39,7 +39,7 @@ public class SnapController : MonoBehaviour
         {
             var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();
             sprite.color = Color.white;
-            LastClickedWaypointGameObject.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            LastClickedWaypointGameObject.transform.position = HeightUtil.SetZ(LastClickedWaypointGameObject.transform.position, HeightUtil.WAYPOINT_INDICATOR);
         }
 
         var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -49,7 +49,7 @@ public class SnapController : MonoBehaviour
         if (waypointGameObject is not null)
         {
             waypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            waypointGameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            waypointGameObject.transform.position = HeightUtil.SetZ(waypointGameObject.transform.position, HeightUtil.WAYPOINT_INDICATOR_SELECTED);
             LastClickedWaypointGameObject = waypointGameObject;
         }
     }
@@ -128,7 +128,7 @@ public class SnapController : MonoBehaviour
             foreach (var jsonWaypoint in jsonWaypoints)
             {
                 var position = new Vector3((jsonWaypoint.X - -114.59522247314453f) / 4 - 28.077075f,
-                                    (jsonWaypoint.Y - -68.72904205322266f) / 4 * (-1) + 26.24f, -0.05f);
+                                    (jsonWaypoint.Y - -68.72904205322266f) / 4 * (-1) + 26.24f, HeightUtil.WAYPOINT_INDICATOR);
 
                 var waypointGameObject = Instantiate(
                     circlePrefab,
