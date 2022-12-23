@@ -6,7 +6,7 @@ public class WaypointViewController : MonoBehaviour
 {
     // Use this for initialization
     private PathController pathController;
-    public Waypoint wp { get; set; }
+    public Waypoint waypoint { get; set; }
     private SpriteRenderer sprite;
 
     public void setPathController(PathController pathController)

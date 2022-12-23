@@ -42,5 +42,10 @@ namespace Entity
         {
             return WaypointList.Select(w => w.Location).ToList();
         }
+
+        public bool IsEmpty()
+        {
+            return this.WaypointList.Count == 0;
+        }
     }
 }

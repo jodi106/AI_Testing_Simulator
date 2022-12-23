@@ -9,7 +9,7 @@ public class SnapController : MonoBehaviour
 {
     public GameObject circlePrefab;
 
-    private Dictionary<int, Road> roads;
+    public Dictionary<int, Road> roads;
 
     private Dictionary<Location, GameObject> waypointGameObjects;
 
@@ -40,17 +40,17 @@ public class SnapController : MonoBehaviour
             var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();
             sprite.color = Color.white;
             LastClickedWaypointGameObject.transform.position = HeightUtil.SetZ(LastClickedWaypointGameObject.transform.position, HeightUtil.WAYPOINT_INDICATOR);
-        }
 
-        var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-        var waypointGameObject = waypointGameObjects[waypoint.Location];
+            var waypointGameObject = waypointGameObjects[waypoint.Location];
 
-        if (waypointGameObject is not null)
-        {
-            waypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            waypointGameObject.transform.position = HeightUtil.SetZ(waypointGameObject.transform.position, HeightUtil.WAYPOINT_INDICATOR_SELECTED);
-            LastClickedWaypointGameObject = waypointGameObject;
+            if (waypointGameObject is not null)
+            {
+                waypointGameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                waypointGameObject.transform.position = HeightUtil.SetZ(waypointGameObject.transform.position, HeightUtil.WAYPOINT_INDICATOR_SELECTED);
+                LastClickedWaypointGameObject = waypointGameObject;
+            }
         }
     }
 
@@ -140,8 +140,6 @@ public class SnapController : MonoBehaviour
                 var location = new Location(waypointGameObject.transform.position, waypointGameObject.transform.eulerAngles.z);
 
                 waypoints.Add(new AStarWaypoint(index++, laneId, location));
-
-                //Debug.Log(waypointGameObject.transform.eulerAngles.ToString() + " "+ jsonWaypoint.Rot.ToString());
 
                 waypointGameObjects.Add(location,waypointGameObject);
             }
@@ -268,7 +266,7 @@ public class SnapController : MonoBehaviour
             currentWaypoint = endWaypoint;
             if (!cameFrom.ContainsKey(endWaypoint))
             {
-                Debug.Log("No Path, this shouldnt happend so if you see this, smth is burning");
+                Debug.Log("No Path");
             }
             else
             {

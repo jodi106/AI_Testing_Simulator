@@ -43,13 +43,13 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public new void select()
     {
         base.select();
-        this.pathController?.select();
+        this.pathController?.Select();
     }
 
     public new void deselect()
     {
         base.deselect();
-        this.pathController?.deselect();
+        this.pathController?.Deselect();
     }
 
     public override void triggerActionSelection()
@@ -57,7 +57,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
         this.pathController = pathGameObject.GetComponent<PathController>();
         this.pathController.SetEntityController(this);
-        this.pathController.setColor(this.sprite.color);
+        this.pathController.SetColor(this.sprite.color);
         expectingAction = true;
     }
 
@@ -82,14 +82,14 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     {
         base.destroy();
         mainController.removeVehicle(vehicle);
-        this.pathController?.destroy();
+        this.pathController?.Destroy();
         Destroy(gameObject);
     }
 
     public override void deleteAction()
     {
         this.vehicle.Path = null;
-        this.pathController?.destroy();
+        this.pathController?.Destroy();
         this.pathController = null;
     }
 
@@ -104,7 +104,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         }
         if(this.pathController is not null)
         {
-            this.pathController.setColor(this.sprite.color);
+            this.pathController.SetColor(this.sprite.color);
         }
     }
 

@@ -10,22 +10,31 @@ public class PathController : MonoBehaviour
     private LineRenderer lineRenderer;
     private LineRenderer previewRenderer;
     private EdgeCollider2D edgeCollider;
+
     private List<WaypointViewController> waypoints;
-    private bool building;
     private IBaseEntityWithPathController entityController;
     private SnapController snapController;
-    public Path path { get; set; }
+
+    private bool building;
+
+    public Path Path { get; set; }
+    public Lane CurrentLane { get; set; }
+    public AStarWaypoint CurrentWaypoint { get; set; }
 
     private void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
-        this.path = new Path();
+
+        this.Path = new Path();
+
         waypoints = new List<WaypointViewController>();
 
         lineRenderer = gameObject.GetComponent<LineRenderer>();
         lineRenderer.startWidth = lineRenderer.endWidth = 0.1f;
+
         previewRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<LineRenderer>();
         previewRenderer.startWidth = previewRenderer.endWidth = 0.1f;
+
         edgeCollider = gameObject.GetComponent<EdgeCollider2D>();
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
 
@@ -35,13 +44,13 @@ public class PathController : MonoBehaviour
         {
             if (building)
             {
-                this.destroy();
+                this.Destroy();
             }
         });
 
         EventManager.StartListening(typeof(SubmitPathSelectionAction), x =>
         {
-            this.complete();
+            this.Complete();
         });
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
@@ -49,18 +58,18 @@ public class PathController : MonoBehaviour
             if (building)
             {
                 var action = new MouseClickAction(x);
-                var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                AddMoveToWaypoint(waypoint.Location.Vector3);
+                AddMoveToWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
         });
     }
 
-    public void select()
+    public void Select()
     {
         for (var i = 0; i < lineRenderer.positionCount; i++)
         {
             lineRenderer.SetPosition(i, HeightUtil.SetZ(lineRenderer.GetPosition(i), HeightUtil.PATH_SELECTED));
         }
+
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
         foreach (var waypoint in waypoints)
         {
@@ -68,7 +77,7 @@ public class PathController : MonoBehaviour
         }
     }
 
-    public void deselect()
+    public void Deselect()
     {
         for (var i = 0; i < lineRenderer.positionCount; i++)
         {
@@ -83,7 +92,7 @@ public class PathController : MonoBehaviour
 
 
 
-    public void destroy()
+    public void Destroy()
     {
         foreach (WaypointViewController wp in waypoints)
         {
@@ -95,90 +104,102 @@ public class PathController : MonoBehaviour
     public void SetEntityController(IBaseEntityWithPathController controller)
     {
         this.entityController = controller;
-        AddMoveToWaypoint(controller.getPosition());
+        AddMoveToWaypoint(controller.getPosition()); //init with starting position of car
     }
 
     public void Update()
     {
         if (building)
         {
-            var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            var (nextLane, nextWaypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-            if (lineRenderer.positionCount > 0)
+            previewRenderer.SetPosition(0, HeightUtil.SetZ(CurrentWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
+            previewRenderer.positionCount = 1;
+
+            if (nextLane.RoadId == CurrentLane.RoadId && nextLane.Id * CurrentLane.Id > 0 && // user wants to change lanes
+                 (nextLane.Id == CurrentLane.Id + 1 || nextLane.Id == CurrentLane.Id - 1))   // lanes are next to eachother
             {
-                var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), waypoint.Location.Vector3);
+                previewRenderer.SetPosition(previewRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
+            }
+            else
+            {
+                var path = snapController.FindPath(CurrentWaypoint.Location.Vector3, nextWaypoint.Location.Vector3);
 
-                if (path is null)
+                foreach (var coord in path)
                 {
-                    previewRenderer.positionCount = 0;
-                    return;
-                }
-
-                previewRenderer.positionCount = path.Count;
-
-                int i = 0;
-                foreach (var location in path)
-                {
-                    previewRenderer.SetPosition(i, HeightUtil.SetZ(location, HeightUtil.PATH_SELECTED));
-                    i++;
+                    previewRenderer.SetPosition(previewRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
                 }
             }
-        }
-        else
-        {
-
         }
     }
-    public void AddMoveToWaypoint(Vector2 location)
+
+    public void AddMoveToWaypoint(Vector2 mousePosition)
     {
-        //TODO get angle and fix waypoint
 
-        GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(location.x, location.y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
+        var (nextLane, nextWaypoint) = snapController.FindLaneAndWaypoint(mousePosition);
+
+
+        GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(nextWaypoint.Location.X, nextWaypoint.Location.Y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
+
         WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
-        viewController.wp = new Waypoint(new Location(location, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
-        this.path.WaypointList.Add(viewController.wp);
-        waypoints.Add(viewController);
-        SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
-        //s.color = lineRenderer.startColor;
-        s.color = new Color(0, 0, 0);
 
-        if (lineRenderer.positionCount > 0)
+        if (Path.IsEmpty())
         {
-            var path = snapController.FindPath(lineRenderer.GetPosition(lineRenderer.positionCount - 1), location);
+            lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
+            viewController.waypoint = new Waypoint(new Location(nextWaypoint.Location.Vector3, 0), new ActionType("MoveToAction"), new List<TriggerInfo>()); //is this moveTo?
 
-            foreach (var loc in path)
-            {
-                lineRenderer.positionCount++;
-                var position = new Vector3(loc.x, loc.y, HeightUtil.PATH_SELECTED);
-                lineRenderer.SetPosition(lineRenderer.positionCount - 1, position);
-            }
+        }
+        else if (nextLane.RoadId == CurrentLane.RoadId && nextLane.Id * CurrentLane.Id > 0 && // user wants to change lanes
+               (nextLane.Id == CurrentLane.Id + 1 || nextLane.Id == CurrentLane.Id - 1)) // lanes are next to eachother
+        {
+            lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
+
+            viewController.waypoint = new Waypoint(new Location(nextWaypoint.Location.Vector3, 0), new ActionType("LaneChangeAction"), new List<TriggerInfo>());
         }
         else
         {
-            lineRenderer.positionCount++;
-            lineRenderer.SetPosition(0, HeightUtil.SetZ(location, HeightUtil.PATH_SELECTED));
+            var path = snapController.FindPath(CurrentWaypoint.Location.Vector3, nextWaypoint.Location.Vector3);
+
+            foreach (var coord in path)
+            {
+                lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
+            }
+
+            viewController.waypoint = new Waypoint(new Location(nextWaypoint.Location.Vector3, 0), new ActionType("MoveToAction"), new List<TriggerInfo>());
         }
+
+        this.Path.WaypointList.Add(viewController.waypoint);
+
+        waypoints.Add(viewController);
+
+        SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
+
+        s.color = new Color(0, 0, 0);
+
         Vector2[] positions = new Vector2[lineRenderer.positionCount];
         for (var i = 0; i < lineRenderer.positionCount; i++)
         {
             positions[i] = lineRenderer.GetPosition(i);
         }
         edgeCollider.SetPoints(positions.ToList());
+
+        CurrentWaypoint = nextWaypoint;
+        CurrentLane = nextLane;
     }
 
-    public void moveWaypoint(Waypoint waypoint, Vector2 position)
+    public void MoveWaypoint(Waypoint waypoint, Vector2 position)
     {
 
     }
 
-    public void complete()
+    public void Complete()
     {
         previewRenderer.positionCount = 0;
         building = false;
-        entityController.submitPath(path);
+        entityController.submitPath(Path);
     }
 
-    public void setColor(Color color)
+    public void SetColor(Color color)
     {
         this.lineRenderer.startColor = this.lineRenderer.endColor = color;
         color = new Color(color.r, color.g, color.b, 0.5f);
@@ -211,7 +232,7 @@ public class PathController : MonoBehaviour
         WaypointViewController nearestWaypoint = null;
         foreach (WaypointViewController waypoint in waypoints)
         {
-            if (waypoint.wp.Location.X == location.x && waypoint.wp.Location.Y == location.y)
+            if (waypoint.waypoint.Location.X == location.x && waypoint.waypoint.Location.Y == location.y)
             {
                 nearestWaypoint = waypoint;
                 break;
