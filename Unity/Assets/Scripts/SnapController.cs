@@ -40,9 +40,12 @@ public class SnapController : MonoBehaviour
             var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();
             sprite.color = Color.white;
             LastClickedWaypointGameObject.transform.position = HeightUtil.SetZ(LastClickedWaypointGameObject.transform.position, HeightUtil.WAYPOINT_INDICATOR);
+        }
 
-            var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var (_, waypoint) = FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
+        if (waypoint is not null)
+        {
             var waypointGameObject = waypointGameObjects[waypoint.Location];
 
             if (waypointGameObject is not null)
@@ -154,7 +157,7 @@ public class SnapController : MonoBehaviour
      * pos in World Coordinates (Pixel Coordinates / 100)
      * 
     */
-    public (Lane, AStarWaypoint) FindLaneAndWaypoint(Vector2 mousePosition)
+    public (Lane, AStarWaypoint) FindLaneAndWaypoint(Vector2 mousePosition, double maxDistance = 2)
     {
         AStarWaypoint closestWaypoint = null;
         Lane laneToReturn = null;
@@ -181,6 +184,11 @@ public class SnapController : MonoBehaviour
             }
         }
 
+        if (distance > maxDistance)
+        {
+            return (null,null); //Click is probably outside of road
+        }
+
         return (laneToReturn, closestWaypoint);
     }
 
@@ -194,6 +202,11 @@ public class SnapController : MonoBehaviour
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
         (_, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
 
+        if (startLane == null || startWaypoint == null || endWaypoint == null)
+        {
+            throw new Exception("Invalid start or end coordinates");
+        }
+
         var prioQueue = new SimplePriorityQueue<Lane, double>();
 
         prioQueue.Enqueue(startLane, 0);
@@ -203,10 +216,7 @@ public class SnapController : MonoBehaviour
             { startWaypoint, null }
         };
 
-        var costSoFar = new Dictionary<Lane, double>
-        {
-            { startLane, 0 }
-        };
+        var costSoFar = new Dictionary<Lane, double>{};
 
         var firstIteration = true;
 
@@ -242,7 +252,12 @@ public class SnapController : MonoBehaviour
             {
                 var nextLane = roads[nextRoadId].Lanes[nextLaneId];
 
-                var newCost = costSoFar[currentLane] + currentLane.Waypoints.Count; //weight is amount of waypoints of a lane
+                var newCost = currentLane.Waypoints.Count; //weight is amount of waypoints of a lane
+
+                if (currentLane != startLane) // had to remove startLane from costSoFar in case that end and start lanes are the same
+                {
+                    newCost += (int)costSoFar[currentLane];
+                }
 
                 if (!costSoFar.ContainsKey(nextLane) || newCost < costSoFar[nextLane])
                 {
@@ -263,23 +278,25 @@ public class SnapController : MonoBehaviour
 
     FoundPath:
         var waypointPath = new List<Vector2>();
-            currentWaypoint = endWaypoint;
-            if (!cameFrom.ContainsKey(endWaypoint))
-            {
-                Debug.Log("No Path");
-            }
-            else
-            {
-                while (currentWaypoint != startWaypoint)
-                {
-                waypointPath.Add(currentWaypoint.Location.Vector3);
-                    currentWaypoint = cameFrom[currentWaypoint];
-                }
-                waypointPath.Add(startWaypoint.Location.Vector3);
-                waypointPath.Reverse();
-            }
 
-            return waypointPath;
+        if (!cameFrom.ContainsKey(endWaypoint))
+        {
+            Debug.Log("No Path");
+            return null;
+        }
+
+        currentWaypoint = endWaypoint;
+
+        while (currentWaypoint != startWaypoint)
+        {
+            waypointPath.Add(currentWaypoint.Location.Vector3);
+            currentWaypoint = cameFrom[currentWaypoint];
+        }
+
+        waypointPath.Add(startWaypoint.Location.Vector3);
+        waypointPath.Reverse();
+
+        return waypointPath;
     }
     public static (float x, float y) CarlaToUnity(float x, float y)
     {

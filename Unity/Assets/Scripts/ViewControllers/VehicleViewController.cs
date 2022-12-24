@@ -84,7 +84,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
             }
             else
             {
-                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0)); // Im not sure this is ok
             }
         }
     }
