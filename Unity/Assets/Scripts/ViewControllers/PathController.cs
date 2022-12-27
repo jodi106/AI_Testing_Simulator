@@ -167,16 +167,14 @@ public class PathController : MonoBehaviour
             actionType = new ActionType("MoveToAction");
         }
 
-        GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(nextWaypoint.Location.X, nextWaypoint.Location.Y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
-
-        SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
-
-        s.color = new Color(0, 0, 0);
-
         lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
 
         if (!preview)
         {
+            GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(nextWaypoint.Location.X, nextWaypoint.Location.Y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
+            SpriteRenderer s = wpGameObject.GetComponent<SpriteRenderer>();
+            s.color = pathRenderer.startColor;
+
             WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
 
             viewController.waypoint = new Waypoint(new Location(nextWaypoint.Location.Vector3, 0), actionType, new List<TriggerInfo>());
