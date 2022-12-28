@@ -29,7 +29,7 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
 
     public abstract Sprite getSprite();
 
-    public void onChangePosition(Location l)
+    public virtual void onChangePosition(Location l)
     {
         transform.position = new Vector3(l.Vector3.x, l.Vector3.y, transform.position.z) - (Vector3)difference;
     }

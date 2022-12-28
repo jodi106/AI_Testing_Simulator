@@ -1,6 +1,8 @@
 ﻿using Entity;
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 
 public class WaypointViewController : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class WaypointViewController : MonoBehaviour
     private PathController pathController;
     public Waypoint waypoint { get; set; }
     private SpriteRenderer sprite;
+    private SnapController snapController;
 
     public void setPathController(PathController pathController)
     {
@@ -17,6 +20,7 @@ public class WaypointViewController : MonoBehaviour
     void Awake()
     {
         this.sprite = gameObject.GetComponent<SpriteRenderer>();
+        this.snapController = Camera.main.GetComponent<SnapController>();
     }
 
     public void openEditDialog()
@@ -28,10 +32,12 @@ public class WaypointViewController : MonoBehaviour
     {
         this.sprite.color = color;
     }
-
-    // Update is called once per frame
-    public void OnMouseDown()
+    public void OnMouseDrag()
     {
-        openEditDialog();
+        var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (waypoint is not null)
+        {
+            pathController.MoveWaypoint(this, waypoint.Location.Vector3);
+        }
     }
 }
