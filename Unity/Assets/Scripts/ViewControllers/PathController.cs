@@ -222,7 +222,7 @@ public class PathController : MonoBehaviour
         else
         {
             cur.Value.Item1.waypoint.Location = new Location(position);
-            cur.Value.Item1.transform.position = position;
+            cur.Value.Item1.transform.position = new Vector3(position.x, position.y, HeightUtil.WAYPOINT_SELECTED);
         }
 
         List<Vector2> prevPath = new List<Vector2>();
@@ -269,7 +269,7 @@ public class PathController : MonoBehaviour
         pathRenderer.positionCount = pathRenderer.positionCount + offset;
         for (var i = 0; i < pathRenderer.positionCount; i++)
         {
-            pathRenderer.SetPosition(i, positions[i]);
+            pathRenderer.SetPosition(i, new Vector3(positions[i].x, positions[i].y, HeightUtil.PATH_SELECTED));
         }
 
         cur.Value = (cur.Value.Item1, prevPath.Count);
@@ -278,7 +278,7 @@ public class PathController : MonoBehaviour
             next.Value = (next.Value.Item1, nextPath.Count);
         }
 
-        //TODO: recompute edgecollider
+        edgeCollider.SetPoints(positions.ToList());
     }
 
 
