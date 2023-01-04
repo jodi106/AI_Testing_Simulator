@@ -197,14 +197,22 @@ public class SnapController : MonoBehaviour
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
 
-    public List<Vector2> FindPath(Vector2 start, Vector2 end)
+    public (List<Vector2>,ActionType) FindPath(Vector2 start, Vector2 end)
     {
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
-        (_, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
+        (Lane endLane, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
 
         if (startLane == null || startWaypoint == null || endWaypoint == null)
         {
             throw new Exception("Invalid start or end coordinates");
+        }
+
+        if (endLane.RoadId == startLane.RoadId && endLane.Id * startLane.Id > 0 && // user wants to change lanes
+               (endLane.Id == startLane.Id + 1 || endLane.Id == startLane.Id - 1) && // lanes are next to eachother
+               (endWaypoint.IndexInLane >= startWaypoint.IndexInLane)) // lane change in forward direction
+        {
+            return (new List<Vector2>() { startWaypoint.Location.Vector3, endWaypoint.Location.Vector3 }, new ActionType("LaneChangeAction"));
+            //lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
         }
 
         var prioQueue = new SimplePriorityQueue<Lane, double>();
@@ -282,7 +290,7 @@ public class SnapController : MonoBehaviour
         if (!cameFrom.ContainsKey(endWaypoint))
         {
             Debug.Log("No Path");
-            return null;
+            return (null,null);
         }
 
         currentWaypoint = endWaypoint;
@@ -296,7 +304,7 @@ public class SnapController : MonoBehaviour
         waypointPath.Add(startWaypoint.Location.Vector3);
         waypointPath.Reverse();
 
-        return waypointPath;
+        return (waypointPath,new ActionType("MoveToAction"));
     }
     public static (float x, float y) CarlaToUnity(float x, float y)
     {

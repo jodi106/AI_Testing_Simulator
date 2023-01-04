@@ -149,16 +149,11 @@ public class PathController : MonoBehaviour
             actionType = new ActionType("MoveToAction");
             lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
         }
-        else if (nextLane.RoadId == CurrentLane.RoadId && nextLane.Id * CurrentLane.Id > 0 && // user wants to change lanes
-               (nextLane.Id == CurrentLane.Id + 1 || nextLane.Id == CurrentLane.Id - 1) && // lanes are next to eachother
-               (nextWaypoint.IndexInLane >= CurrentWaypoint.IndexInLane)) // lane change in forward direction
-        {
-            actionType = new ActionType("LaneChangeAction");
-            lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
-        }
         else
         {
-            var path = snapController.FindPath(CurrentWaypoint.Location.Vector3, nextWaypoint.Location.Vector3);
+            var path = new List<Vector2>();
+            (path, actionType) = snapController.FindPath(CurrentWaypoint.Location.Vector3, nextWaypoint.Location.Vector3);
+
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -172,7 +167,6 @@ public class PathController : MonoBehaviour
                 lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
             }
 
-            actionType = new ActionType("MoveToAction");
         }
 
         if (!preview)
@@ -239,13 +233,13 @@ public class PathController : MonoBehaviour
         var offset = 0;
         if (prev != null)
         {
-            prevPath = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, position);
+            (prevPath,_) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, position);
             prevPath.RemoveAt(0);
             offset = offset + prevPath.Count - cur.Value.Item2;
         }
         if (next != null)
         {
-            nextPath = snapController.FindPath(position, next.Value.Item1.waypoint.Location.Vector3);
+            (nextPath,_) = snapController.FindPath(position, next.Value.Item1.waypoint.Location.Vector3);
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
         }
