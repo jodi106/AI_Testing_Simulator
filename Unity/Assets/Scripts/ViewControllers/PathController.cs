@@ -125,8 +125,6 @@ public class PathController : MonoBehaviour
             return;
         }
 
-        Debug.Log("Valid mouse position");
-
         LineRenderer lineRenderer;
 
         if (preview && !Path.IsEmpty())
@@ -234,7 +232,7 @@ public class PathController : MonoBehaviour
         if (prev != null)
         {
             (prevPath,_) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, position);
-            prevPath.RemoveAt(0);
+            prevPath.RemoveAt(prevPath.Count - 1);
             offset = offset + prevPath.Count - cur.Value.Item2;
         }
         if (next != null)
@@ -256,12 +254,14 @@ public class PathController : MonoBehaviour
             positions[prevIndex + i] = prevPath[i];
         }
 
+        positions[prevIndex + prevPath.Count] = position;
+
         for (var i = 0; i < nextPath.Count; i++)
         {
-            positions[prevIndex + prevPath.Count + i] = nextPath[i];
+            positions[prevIndex + prevPath.Count + i + 1] = nextPath[i];
         }
 
-        for (var i = prevIndex + prevPath.Count + nextPath.Count; i < pathRenderer.positionCount + offset; i++)
+        for (var i = prevIndex + prevPath.Count + nextPath.Count + 1; i < pathRenderer.positionCount + offset; i++)
         {
             positions[i] = pathRenderer.GetPosition(i - offset);
         }
