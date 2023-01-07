@@ -2,7 +2,6 @@
 using Entity;
 using System.Collections.Generic;
 using System;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -91,23 +90,23 @@ public class WorldSettingsPopupController : MonoBehaviour
             this.options.SunElevation = (double)evt.newValue;
         });
 
-        var fogVisualRange =  this.document.rootVisualElement.Q<LongField>("FogVisualRange");
+        var fogVisualRange =  this.document.rootVisualElement.Q<TextField>("FogVisualRange");
         fogVisualRange.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
         {
             if (KeyDownEvent.keyCode == KeyCode.Return)
             {
-                //Debug.Log("Fog Visual Range: " + fogVisualRange.text);
-                this.options.FogVisualRange = (double)fogVisualRange.value;
+                Debug.Log("Fog Visual Range: " + fogVisualRange.text);
+                //this.options.FogVisualRange = (double)fogVisualRange.value;
             }
         });
 
-        var frictionScaleFactor =  this.document.rootVisualElement.Q<FloatField>("FrictionScaleFactor");
+        var frictionScaleFactor =  this.document.rootVisualElement.Q<TextField>("FrictionScaleFactor");
         frictionScaleFactor.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
         {
             if (KeyDownEvent.keyCode == KeyCode.Return)
             {
-                //Debug.Log("Friction Scale Factor: " + frictionScaleFactor.value);
-                this.options.FrictionScaleFactor = (double)frictionScaleFactor.value;
+                Debug.Log("Friction Scale Factor: " + frictionScaleFactor.value);
+                //this.options.FrictionScaleFactor = (double)frictionScaleFactor.value;
             }
         });
         var simpleSettingsButton =  this.document.rootVisualElement.Q<Button>("SimpleSettings");

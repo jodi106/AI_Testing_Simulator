@@ -2,7 +2,6 @@
 using Entity;
 using System.Collections.Generic;
 using System;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Assets.Repos;
@@ -45,30 +44,18 @@ public class VehicleSettingsPopupController : MonoBehaviour
 
         Vehicle vehicle = new Vehicle(spawnPoint, vehicleModels[1], VehicleCategory.Car);
 
-        var iDField = this.document.rootVisualElement.Q<IntegerField>("ID");
-        iDField.SetValueWithoutNotify(vehicle.Id);
+        var iDField = this.document.rootVisualElement.Q<TextField>("ID");
+        iDField.SetValueWithoutNotify("" + vehicle.Id);
 
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
         {
             vehicle.Id = Int32.Parse(InputEvent.newData);
         });
 
-        var CarSpeed = this.document.rootVisualElement.Q<IntegerField>("CarSpeed");
+        var CarSpeed = this.document.rootVisualElement.Q<TextField>("CarSpeed");
 
         CarSpeed.RegisterCallback<InputEvent>((InputEvent) =>
         {
-            if (CarSpeed.value >= 500)
-            {
-                Debug.Log("HEHE! TO BIG VALUE FOR CAR SPEED , WE DON'T HAVE BUGATTI'S HERE! ONLY AUDI'S...");
-            }
-            else if (CarSpeed.value < 0)
-            {
-                Debug.Log("HEHE! TO SMALL FOR CAR SPEED , WE DON'T HAVE TURTLES HERE! ONLY AUDI'S...");
-            }
-            else
-            {
-                Debug.Log("Set Car Speed at: " + CarSpeed.value);
-            }
         });
 
         List<string> allPossibleModels = new List<string> { };
@@ -127,21 +114,13 @@ public class VehicleSettingsPopupController : MonoBehaviour
             }
         });
 
-        Vector3Field SpawnPointField = this.document.rootVisualElement.Q<Vector3Field>("SpawnPoint");
+        TextField SpawnPointField = this.document.rootVisualElement.Q<TextField>("SpawnPoint");
 
-        SpawnPointField.SetValueWithoutNotify(vehicle.SpawnPoint.Vector3);
+        SpawnPointField.SetValueWithoutNotify("" + vehicle.SpawnPoint.Vector3);
 
         SpawnPointField.RegisterCallback<InputEvent>((InputEvent) =>
         {
             Debug.Log("spawnpoint " + InputEvent.newData);
-
-        });
-
-        var xcoord = SpawnPointField.Q<FloatField>("unity-x-input");
-
-        xcoord.RegisterCallback<InputEvent>((InputEvent) =>
-        {
-            Debug.Log("xfield " + InputEvent.newData);
 
         });
     }

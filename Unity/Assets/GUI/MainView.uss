@@ -1,3 +1,0 @@
-.unity-list-view__item:hover {
-    background-color: rgba(228, 233, 74, 255);
-}
