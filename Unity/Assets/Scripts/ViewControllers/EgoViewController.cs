@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class EgoViewController : VehicleViewController, IBaseEntityController
 {
+    public GameObject DestinationPrefab;
     private Ego ego;
+    private DestinationController destination;
     public new void Awake()
     {
         base.Awake();
@@ -11,11 +13,6 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
         this.ego = new Ego(egoPosition);
         this.ego.setView(this);
-
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-            expectingAction = false;
-        });
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
@@ -33,30 +30,49 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         return Resources.Load<Sprite>("sprites/" + "ego");
     }
 
+    public new void select()
+    {
+        base.select();
+        this.destination?.select();
+    }
+
+    public new void deselect()
+    {
+        base.deselect();
+        this.destination?.deselect();
+    }
+
     public override void triggerActionSelection()
     {
-        expectingAction = true;
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
+        this.destination = destinationGameObject.GetComponent<DestinationController>();
+        this.destination.setEgo(this);
+        this.destination.setColor(this.sprite.color);
     }
 
     public void submitDestination(Location destination)
     {
-        expectingAction = false;
+        ego.Destination = destination;
     }
 
     public override bool hasAction()
     {
-        return false;
+        return destination is not null;
     }
 
     public new void destroy()
     {
         base.destroy();
         this.mainController.setEgo(null);
+        destination?.Destroy();
         Destroy(gameObject);
     }
 
     public override void deleteAction()
     {
+        destination?.Destroy();
+        destination = null;
     }
 
     public override void setColor(Color color)
