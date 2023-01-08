@@ -15,22 +15,13 @@ public class VehicleSettingsPopupController : MonoBehaviour
         this.document = gameObject.GetComponent<UIDocument>();
         this.document.rootVisualElement.style.display = DisplayStyle.None;
 
+        Label label = this.document.rootVisualElement.Q<Label>("Label");
+        label.text = "Options";
 
-        Button ExitButton = this.document.rootVisualElement.Q<Button>("ExitButton");
+        Button ExitButton = this.document.rootVisualElement.Q<Button>("Exit");
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            this.vehicle = null;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
-        });
-
-        Button SaveButton = this.document.rootVisualElement.Q<Button>("SaveButton");
-
-        SaveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            ///!!!!!!!
-            ///Write here the code for saving the data to scenarioInfoFile later on...
-            ///!!!!!!!
             this.vehicle = null;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
         });
@@ -112,16 +103,6 @@ public class VehicleSettingsPopupController : MonoBehaviour
                 var possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
                 possibleModelsField.choices = allPossibleModels;
             }
-        });
-
-        TextField SpawnPointField = this.document.rootVisualElement.Q<TextField>("SpawnPoint");
-
-        SpawnPointField.SetValueWithoutNotify("" + vehicle.SpawnPoint.Vector3);
-
-        SpawnPointField.RegisterCallback<InputEvent>((InputEvent) =>
-        {
-            Debug.Log("spawnpoint " + InputEvent.newData);
-
         });
     }
     public void open(Vehicle vehicle)
