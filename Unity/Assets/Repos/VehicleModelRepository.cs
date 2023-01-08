@@ -6,11 +6,9 @@ namespace Assets.Repos
 {
     public class VehicleModelRepository
     {
-        private readonly Dictionary<VehicleCategory, List<EntityModel>> _EntityModels;
-        public VehicleModelRepository()
+        private readonly static Dictionary<VehicleCategory, List<EntityModel>> _EntityModels = new Dictionary<VehicleCategory, List<EntityModel>>();
+        static VehicleModelRepository()
         {
-            _EntityModels = new Dictionary<VehicleCategory, List<EntityModel>>();
-
             _EntityModels.Add(VehicleCategory.Car, new List<EntityModel>
             {
                 new EntityModel(1,"Ambulance"),
@@ -51,9 +49,24 @@ namespace Assets.Repos
 
         }
 
-        public List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
+        public static List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
         {
             return _EntityModels[category];
+        }
+
+        public static EntityModel getDefaultCarModel()
+        {
+            return _EntityModels[VehicleCategory.Car][1];
+        }
+
+        public static EntityModel getDefaultBikeModel()
+        {
+            return _EntityModels[VehicleCategory.Bike][0];
+        }
+
+        public static EntityModel getDefaultMotorcycleModel()
+        {
+            return _EntityModels[VehicleCategory.Motorcycle][0];
         }
 
 

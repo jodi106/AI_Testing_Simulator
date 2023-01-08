@@ -10,6 +10,11 @@ public class VehicleSettingsPopupController : MonoBehaviour
 {
     private Vehicle vehicle;
     private UIDocument document;
+    private TextField iDField;
+    private TextField locationField;
+    private DropdownField possibleModelsField;
+    private DropdownField possibleCategoriesField;
+
     public void Awake()
     {
         this.document = gameObject.GetComponent<UIDocument>();
@@ -29,79 +34,84 @@ public class VehicleSettingsPopupController : MonoBehaviour
         //Vehicle vehicle = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
-        var vehicleModelRepo = new VehicleModelRepository();
-
-        var vehicleModels = vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car);
+        var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
 
         Vehicle vehicle = new Vehicle(spawnPoint, vehicleModels[1], VehicleCategory.Car);
 
-        var iDField = this.document.rootVisualElement.Q<TextField>("ID");
-        iDField.SetValueWithoutNotify("" + vehicle.Id);
+        iDField = this.document.rootVisualElement.Q<TextField>("ID");
 
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
         {
             vehicle.Id = Int32.Parse(InputEvent.newData);
         });
 
-        var CarSpeed = this.document.rootVisualElement.Q<TextField>("CarSpeed");
+        locationField = this.document.rootVisualElement.Q<TextField>("Location");
+        locationField.SetEnabled(false);
 
-        CarSpeed.RegisterCallback<InputEvent>((InputEvent) =>
-        {
-        });
+        var carSpeedField = this.document.rootVisualElement.Q<TextField>("CarSpeed");
+        carSpeedField.SetEnabled(false);
 
         List<string> allPossibleModels = new List<string> { };
-        var possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
+        possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
         possibleModelsField.choices = allPossibleModels;
         possibleModelsField.RegisterValueChangedCallback((evt) =>
         {
             Debug.Log("New Model: " + evt.newValue);
+            //TODO: get Model from repository and set it
         });
 
 
         List<string> allPossibleCateogories = new List<string> { };
         foreach (var option in Enum.GetValues(typeof(VehicleCategory)))
         {
+            if(option.ToString() == "Null")
+            {
+                continue;
+            }
             allPossibleCateogories.Add(option.ToString());
         }
-        var possibleCategoriesField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleCategories");
+        possibleCategoriesField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleCategories");
         possibleCategoriesField.choices = allPossibleCateogories;
         possibleCategoriesField.RegisterValueChangedCallback((evt) =>
         {
             if (evt.newValue == "Car")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Car))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
-                var possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
                 possibleModelsField.choices = allPossibleModels;
+                vehicle.setCategory(VehicleCategory.Car);
+                EntityModel model = VehicleModelRepository.getDefaultCarModel();
+                vehicle.Model = model;
+                possibleModelsField.value = vehicle.Model.Name.ToString();
             }
             if (evt.newValue == "Bike")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Bike))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Bike))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
-                var possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
                 possibleModelsField.choices = allPossibleModels;
+                vehicle.setCategory(VehicleCategory.Bike);
+                EntityModel model = VehicleModelRepository.getDefaultBikeModel();
+                vehicle.Model = model;
+                possibleModelsField.value = vehicle.Model.Name.ToString();
             }
             if (evt.newValue == "Motorcycle")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in vehicleModelRepo.GetModelsBasedOnCategory(VehicleCategory.Motorcycle))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Motorcycle))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
-                var possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
                 possibleModelsField.choices = allPossibleModels;
-            }
-            if (evt.newValue == "Null")
-            {
-                List<string> allPossibleModels = new List<string> { };
-                var possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
-                possibleModelsField.choices = allPossibleModels;
+                vehicle.setCategory(VehicleCategory.Motorcycle);
+                EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
+                vehicle.Model = model;
+                possibleModelsField.value = vehicle.Model.Name.ToString();
             }
         });
     }
@@ -109,5 +119,9 @@ public class VehicleSettingsPopupController : MonoBehaviour
     {
         this.vehicle = vehicle;
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
+        iDField.value = vehicle.Id.ToString();
+        locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
+        possibleCategoriesField.value = vehicle.Category.ToString();
+        possibleModelsField.value = vehicle.Model.Name.ToString();
     }
 }

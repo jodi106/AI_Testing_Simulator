@@ -39,8 +39,15 @@ namespace Entity
             base.setView(view);
             this.VehicleView = view;
         }
+
+        public void setCategory(VehicleCategory category)
+        {
+            this.Category = category;
+            this.VehicleView?.onChangeType(category);
+        }
+
         public EntityModel Model { get; set; }
-        public VehicleCategory Category { get; set; }
+        public VehicleCategory Category { get; private set; }
         public Path Path { get; set; }
 
         private IVehicleView VehicleView;

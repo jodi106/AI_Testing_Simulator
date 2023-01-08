@@ -1,4 +1,5 @@
 ﻿using Assets.Enums;
+using Assets.Repos;
 using Entity;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
 
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        this.vehicle = new Vehicle(vehiclePosition, path, category: VehicleCategory.Car);
+        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car);
         this.vehicle.setView(this);
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
