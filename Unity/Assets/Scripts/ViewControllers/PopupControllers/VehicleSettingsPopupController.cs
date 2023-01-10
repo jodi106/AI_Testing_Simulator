@@ -8,12 +8,18 @@ using Assets.Repos;
 
 public class VehicleSettingsPopupController : MonoBehaviour
 {
+    private AdversaryViewController controller;
     private Vehicle vehicle;
     private UIDocument document;
     private TextField iDField;
     private TextField locationField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
+    private TextField colorField;
+    private Slider rSlider;
+    private Slider gSlider;
+    private Slider bSlider;
+
 
     public void Awake()
     {
@@ -35,8 +41,6 @@ public class VehicleSettingsPopupController : MonoBehaviour
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
         var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
-
-        Vehicle vehicle = new Vehicle(spawnPoint, vehicleModels[1], VehicleCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
 
@@ -114,14 +118,45 @@ public class VehicleSettingsPopupController : MonoBehaviour
                 possibleModelsField.value = vehicle.Model.Name.ToString();
             }
         });
+
+        colorField = this.document.rootVisualElement.Q<TextField>("Color");
+
+        rSlider = this.document.rootVisualElement.Q<Slider>("R");
+        rSlider.RegisterValueChangedCallback((changeEvent) =>
+        {
+            Color color = new Color(changeEvent.newValue, gSlider.value, bSlider.value);
+            controller.setColor(color);
+            colorField.ElementAt(1).style.backgroundColor = color;
+        });
+
+        gSlider = this.document.rootVisualElement.Q<Slider>("G");
+        gSlider.RegisterValueChangedCallback((changeEvent) =>
+        {
+            Color color = new Color(rSlider.value, changeEvent.newValue, bSlider.value);
+            controller.setColor(color);
+            colorField.ElementAt(1).style.backgroundColor = color;
+        });
+
+        bSlider = this.document.rootVisualElement.Q<Slider>("B");
+        bSlider.RegisterValueChangedCallback((changeEvent) =>
+        {
+            Color color = new Color(rSlider.value, gSlider.value, changeEvent.newValue);
+            controller.setColor(color);
+            colorField.ElementAt(1).style.backgroundColor = color;
+        });
     }
-    public void open(Vehicle vehicle)
+    public void open(AdversaryViewController controller, Color color)
     {
-        this.vehicle = vehicle;
+        this.controller = controller;
+        this.vehicle = (Vehicle) controller.getEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
         locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
         possibleModelsField.value = vehicle.Model.Name.ToString();
+        colorField.ElementAt(1).style.backgroundColor = color;
+        rSlider.value = color.r;
+        gSlider.value = color.g;
+        bSlider.value = color.b;
     }
 }

@@ -17,3 +17,7 @@
 .unity-base-text-field__input {
     -unity-text-align: upper-right;
 }
+
+#rgb-sliders > * > .unity-label {
+    padding-left: 15px;
+}

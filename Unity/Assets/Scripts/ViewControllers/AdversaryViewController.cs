@@ -122,7 +122,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
 
     public override void openEditDialog()
     {
-        this.vehicleSettingsController.open(this.vehicle);
+        this.vehicleSettingsController.open(this, sprite.color);
     }
     protected override void registerVehicle()
     {
