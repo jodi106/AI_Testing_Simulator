@@ -45,8 +45,9 @@ namespace ExportScenario.XMLBuilder
         public void ExportXML(string scenario_name = "MyScenario")
         /// Exports the finished OpenScenario file to defined path.
         {
-            root.Save("..\\..\\..\\" + scenario_name + ".xosc");
-            root.Save(Console.Out);
+            root.Save(scenario_name + "3.xosc");
+            //root.Save("..\\..\\..\\" + scenario_name + ".xosc");
+           root.Save(Console.Out);
         }
 
         private void BuildFirstOpenScenarioElements(string scenario_name = "MyScenario", string map = "Town04") // you can rename this method
