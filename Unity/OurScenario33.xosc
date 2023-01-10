@@ -113,7 +113,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="-4.725998" y="28.171" z="0.3" h="6.28041" />
+                <WorldPosition x="4.283997" y="24.696" z="0.3" h="6.28041" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -149,52 +149,5 @@
         </Private>
       </Actions>
     </Init>
-    <Story name="adversary1_Story">
-      <Act name="adversary1_Act">
-        <ManeuverGroup maximumExecutionCount="1" name="adversary1Sequence">
-          <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="adversary1" />
-          </Actors>
-          <Maneuver name="adversary1_Maneuver">
-            <Event name="LaneChangeAction-1" priority="overwrite">
-              <Action name="LaneChangeAction-1">
-                <PrivateAction>
-                  <LateralAction>
-                    <LaneChangeAction>
-                      <LaneChangeActionDynamics dynamicsShape="" value="0" dynamicsDimension="" />
-                      <LaneChangeTarget>
-                        <RelativeTargetLane entityRef="" value="0" />
-                      </LaneChangeTarget>
-                    </LaneChangeAction>
-                  </LateralAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup />
-              </StartTrigger>
-            </Event>
-            <Event name="LaneChangeAction-1" priority="overwrite">
-              <Action name="LaneChangeAction-1">
-                <PrivateAction>
-                  <LateralAction>
-                    <LaneChangeAction>
-                      <LaneChangeActionDynamics dynamicsShape="" value="0" dynamicsDimension="" />
-                      <LaneChangeTarget>
-                        <RelativeTargetLane entityRef="" value="0" />
-                      </LaneChangeTarget>
-                    </LaneChangeAction>
-                  </LateralAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup />
-              </StartTrigger>
-            </Event>
-          </Maneuver>
-        </ManeuverGroup>
-        <StartTrigger />
-      </Act>
-    </Story>
-    <StopTrigger />
   </Storyboard>
 </OpenSCENARIO>
