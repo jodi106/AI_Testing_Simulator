@@ -269,7 +269,6 @@ public class MainController : MonoBehaviour
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // Global Weather
-
         WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, CloudState.Free, PrecipitationType.Dry, 0, 1.0);
 
         // Spawn AI Ego Vehicle
@@ -343,10 +342,15 @@ public class MainController : MonoBehaviour
         // Combine every information into one ScenarioInfo Instance
         ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town10HD", worldOptions, egoVehicle, this.info.Vehicles);
 
+        // ------------------------------------------------------------------------
+        // TODO remove these lines later once these values are set in Unity
+        info.Name = "OurScenario3";
+        info.MapURL = "Town10HD";
+        info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
+        // ------------------------------------------------------------------------
+
         // Create .xosc file
-
-
-        BuildXML doc = new BuildXML(dummy);
+        BuildXML doc = new BuildXML(info);
         doc.CombineXML();
     }
 

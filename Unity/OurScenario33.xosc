@@ -9,7 +9,7 @@
   </RoadNetwork>
   <Entities>
     <ScenarioObject name="hero">
-      <Vehicle name="vehicle.volkswagen.t2" vehicleCategory="car">
+      <Vehicle name="vehicle.nissan.micra" vehicleCategory="car">
         <ParameterDeclarations />
         <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0" />
         <BoundingBox>
@@ -42,18 +42,6 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="adversary_pedestrian1">
-      <Pedestrian model="walker.pedestrian.0001" mass="90.0" name="walker.pedestrian.0001" pedestrianCategory="pedestrian">
-        <ParameterDeclarations />
-        <BoundingBox>
-          <Center x="1.5" y="0.0" z="0.9" />
-          <Dimensions width="2.1" length="4.5" height="1.8" />
-        </BoundingBox>
-        <Properties>
-          <Property name="type" value="simulation" />
-        </Properties>
-      </Pedestrian>
-    </ScenarioObject>
   </Entities>
   <Storyboard>
     <Init>
@@ -61,9 +49,9 @@
         <GlobalAction>
           <EnvironmentAction>
             <Environment name="Environment1">
-              <TimeOfDay animation="false" dateTime="2022-09-24T12:00:00" />
+              <TimeOfDay animation="false" dateTime="2023-01-10T12:00:00" />
               <Weather cloudState="free">
-                <Sun intensity="0.85" azimuth="0" elevation="1.31" />
+                <Sun intensity="0.8" azimuth="1.5" elevation="0" />
                 <Fog visualRange="100000" />
                 <Precipitation precipitationType="dry" intensity="0" />
               </Weather>
@@ -94,7 +82,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="258" y="-145.7" z="0.3" h="30" />
+                <WorldPosition x="-2.107268" y="2.894239" z="-0.01" h="359.841" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -113,7 +101,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="4.283997" y="24.696" z="0.3" h="6.28041" />
+                <WorldPosition x="-7.725998" y="28.163" z="0.3" h="6.28041" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -128,26 +116,54 @@
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="adversary_pedestrian1">
-          <PrivateAction>
-            <TeleportAction>
-              <Position>
-                <WorldPosition x="255" y="-190" z="0.8" h="90" />
-              </Position>
-            </TeleportAction>
-          </PrivateAction>
-          <PrivateAction>
-            <LongitudinalAction>
-              <SpeedAction>
-                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time" />
-                <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="1" />
-                </SpeedActionTarget>
-              </SpeedAction>
-            </LongitudinalAction>
-          </PrivateAction>
-        </Private>
       </Actions>
     </Init>
+    <Story name="adversary1_Story">
+      <Act name="adversary1_Act">
+        <ManeuverGroup maximumExecutionCount="1" name="adversary1Sequence">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="adversary1" />
+          </Actors>
+          <Maneuver name="adversary1_Maneuver">
+            <Event name="LaneChangeAction-1" priority="overwrite">
+              <Action name="LaneChangeAction-1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="" value="0" dynamicsDimension="" />
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="" value="0" />
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup />
+              </StartTrigger>
+            </Event>
+            <Event name="LaneChangeAction-1" priority="overwrite">
+              <Action name="LaneChangeAction-1">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="" value="0" dynamicsDimension="" />
+                      <LaneChangeTarget>
+                        <RelativeTargetLane entityRef="" value="0" />
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup />
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger />
+      </Act>
+    </Story>
+    <StopTrigger />
   </Storyboard>
 </OpenSCENARIO>
