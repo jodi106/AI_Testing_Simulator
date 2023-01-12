@@ -960,6 +960,7 @@ MonoBehaviour:
   eventEntryTemplate: {fileID: 9197481963319205126, guid: 1f97b6f639429e0458518f50d02a1f8d, type: 3}
   carPrefab: {fileID: 2646168225723092246, guid: a3cd1f6cecf5124428c0cc82fb352700, type: 3}
   egoPrefab: {fileID: 2646168225723092246, guid: eaf0035b1382a8d4e9e63f42b4cc3c14, type: 3}
+  pedPrefab: {fileID: 2779375022895427033, guid: 8390aac25d5b19e4482e8d31db57d702, type: 3}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
