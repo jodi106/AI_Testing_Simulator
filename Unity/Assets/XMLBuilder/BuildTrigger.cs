@@ -22,7 +22,7 @@ namespace ExportScenario.XMLBuilder
 
         public void CombineTrigger(XmlNode parentNode, bool start, Waypoint waypoint)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group.
-        {   
+        {
             XmlNode trigger;
             if (start)
             {
@@ -32,15 +32,15 @@ namespace ExportScenario.XMLBuilder
             {
                 trigger = root.CreateElement("StopTrigger");
             }
-            
+
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
             for (int i = 0; i < waypoint.TriggerList.Count; i++)
             {
                 XmlNode condition = root.CreateElement("Condition");
                 SetAttribute("name", waypoint.TriggerList[i].TriggerType + waypoint.TriggerList[i].ID, condition);
                 SetAttribute("delay", waypoint.TriggerList[i].Delay.ToString(), condition);
-                SetAttribute("conditionEdge", waypoint.TriggerList[i].ConditionEdge, condition);
-                
+                SetAttribute("conditionEdge", waypoint.TriggerList[i].ConditionEdge.ToString().FirstCharToLowerCase(), condition);
+
                 // Invokes a Method for specified object with specified inputs via a String
                 MethodInfo mi = this.GetType().GetMethod(waypoint.TriggerList[i].TriggerType);
                 mi.Invoke(this, new object[] { condition, waypoint.TriggerList[i] });
@@ -50,14 +50,14 @@ namespace ExportScenario.XMLBuilder
             trigger.AppendChild(conditionGroup);
         }
 
-        public void SimulationTimeCondition(XmlNode condition, TriggerInfo triggerInfo) 
+        public void SimulationTimeCondition(XmlNode condition, TriggerInfo triggerInfo)
         /// Creates SimulationTimeCondition. Triggers after simulation ran for specified time.
         {
             XmlNode byValueCondition = root.CreateElement("ByValueCondition");
             condition.AppendChild(byValueCondition);
             XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
             SetAttribute("value", triggerInfo.SimulationTimeValue.ToString(), simulationTimeCondition);
-            SetAttribute("rule", triggerInfo.Rule, simulationTimeCondition);
+            SetAttribute("rule", triggerInfo.Rule.ToString().FirstCharToLowerCase(), simulationTimeCondition);
             byValueCondition.AppendChild(simulationTimeCondition);
         }
 
@@ -73,7 +73,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode entityCondition = root.CreateElement("EntityCondition");
             XmlNode distanceCondition = root.CreateElement("DistanceCondition");
             SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
-            SetAttribute("rule", triggerInfo.Rule, distanceCondition);
+            SetAttribute("rule", triggerInfo.Rule.ToString().FirstCharToLowerCase(), distanceCondition);
             SetAttribute("value", triggerInfo.Value.ToString(), distanceCondition);
             SetAttribute("alongRoute", "false", distanceCondition);
             XmlNode position = root.CreateElement("Position");
@@ -85,7 +85,7 @@ namespace ExportScenario.XMLBuilder
 
             // hierarchy
             condition.AppendChild(byEntityCondition);
-            byEntityCondition.AppendChild(triggeringEntities);   
+            byEntityCondition.AppendChild(triggeringEntities);
             byEntityCondition.AppendChild(entityCondition);
             triggeringEntities.AppendChild(entityRef);
             entityCondition.AppendChild(distanceCondition);
@@ -257,6 +257,18 @@ namespace ExportScenario.XMLBuilder
             attribute.Value = value;
             element.Attributes.Append(attribute);
         }
+
+    }
+}
+
+public static class Helper
+{
+    public static string? FirstCharToLowerCase(this string? str)
+    {
+        if (!string.IsNullOrEmpty(str) && char.IsUpper(str[0]))
+            return str.Length == 1 ? char.ToLower(str[0]).ToString() : char.ToLower(str[0]) + str[1..];
+
+        return str;
     }
 }
 

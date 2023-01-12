@@ -377,10 +377,15 @@ public class MainController : MonoBehaviour
         // Combine every information into one ScenarioInfo Instance
         ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town10HD", worldOptions, egoVehicle, this.info.Vehicles);
 
+        // ------------------------------------------------------------------------
+        // TODO remove these lines later once these values are set in Unity
+        info.Name = "OurScenario3";
+        info.MapURL = "Town10HD";
+        info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
+        // ------------------------------------------------------------------------
+
         // Create .xosc file
-
-
-        BuildXML doc = new BuildXML(dummy);
+        BuildXML doc = new BuildXML(info);
         doc.CombineXML();
     }
 

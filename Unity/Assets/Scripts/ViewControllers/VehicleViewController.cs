@@ -59,10 +59,6 @@ public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBase
 
     public void destroy()
     {
-        if (expectingAction)
-        {
-            EventManager.TriggerEvent(new CancelPathSelectionAction());
-        }
         Destroy(gameObject);
     }
 

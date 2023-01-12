@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/GUI/MainView.uss?fileID=7433441132597879392&amp;guid=13baa8e69d75c7246a6eaea7ddea10d7&amp;type=3#MainView" />
     <ui:VisualElement name="background" style="width: 300px; height: 100%; right: 0; top: 0; position: absolute;">
-        <ui:ListView name="vehicle-list" fixed-item-height="0" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="None" style="height: 451px; min-height: auto; width: 379px; background-color: rgba(0, 0, 0, 0.39); position: absolute; left: -77px; top: 2px;" />
+        <ui:ListView name="vehicle-list" virtualization-method="DynamicHeight" fixed-item-height="0" selection-type="None" focusable="false" style="height: 100%; min-height: auto; width: 100%; background-color: rgba(0, 0, 0, 0.39); position: absolute;" />
     </ui:VisualElement>
     <ui:VisualElement name="actionButtons" style="height: auto; background-color: rgba(0, 0, 0, 0.39); border-top-left-radius: 50px; border-bottom-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; flex-direction: column; justify-content: center; position: absolute; top: 50%; width: 80px; align-items: center; padding-left: 0; padding-right: 0; padding-top: 6px; padding-bottom: 6px; margin-left: 25px;">
         <ui:Button display-tooltip-when-elided="true" name="setPathButton" style="width: 50px; height: 50px; border-top-left-radius: 25px; border-bottom-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; margin-left: 0; margin-right: 0; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px; margin-top: 12.5px; margin-bottom: 12.5px;">

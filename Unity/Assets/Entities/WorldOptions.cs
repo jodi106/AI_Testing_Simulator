@@ -6,9 +6,9 @@ namespace Entity
     {
         public WorldOptions()
         {
-            Date_Time = "";
+            Date_Time = "2023-01-10T12:00:00";
             FogVisualRange = 100000;
-            SunIntensity = 0;
+            SunIntensity = 0.8F;
             SunAzimuth = 1.5;
             CloudState = CloudState.Free;
             PrecipitationType = PrecipitationType.Dry;
