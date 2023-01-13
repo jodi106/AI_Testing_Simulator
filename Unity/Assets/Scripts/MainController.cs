@@ -13,9 +13,12 @@ public class MainController : MonoBehaviour
     //Spawned Cars
     public GameObject carPrefab;
     public GameObject egoPrefab;
+    public GameObject pedPrefab;
 
     //Event Bar (Center Bottom)
     private ListView eventList;
+    private Button addPedestrianButton;// TODO: Incorporate into addEntityButton or not? Q?
+    //Either Seperate Buttons for PEdestrians and Cars or a single button that spawns a dropdown menu? 
     private Button addEntityButton;
     private Button removeEntityButton;
     private Button editEntityButton;
@@ -113,9 +116,22 @@ public class MainController : MonoBehaviour
         this.preventDeselection = false;
     }
 
+    public void addPedestrian(Pedestrian pedestrian)
+    {
+
+        this.info.Pedestrians.Add(pedestrian);
+        this.preventDeselection = false;
+
+    }
+
     public void removeVehicle(Vehicle vehicle)
     {
         this.info.Vehicles.Remove(vehicle);
+    }
+
+    public void removePedestrian(Pedestrian pedestrian)
+    {
+        this.info.Pedestrians.Remove(pedestrian);
     }
 
     public void setEgo(Ego ego)
@@ -126,6 +142,7 @@ public class MainController : MonoBehaviour
 
     private void initializeButtonBar(VisualElement editorGUI)
     {
+        addPedestrianButton = editorGUI.Q<Button>("addPedestrianButton");
         addEntityButton = editorGUI.Q<Button>("addEntityButton");
         removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
         editEntityButton = editorGUI.Q<Button>("editEntityButton");
@@ -152,6 +169,24 @@ public class MainController : MonoBehaviour
             setSelectedEntity(viewController);
             this.preventDeselection = true;
         });
+
+        addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            var pos = Input.mousePosition;
+            pos.z = -0.1f;
+
+            var pedestrianGameObject = Instantiate(pedPrefab, pos, Quaternion.identity);
+            pedestrianGameObject.transform.localScale = Vector3.one * 0.1f;
+            PedestrianViewController viewController = pedestrianGameObject.GetComponent<PedestrianViewController>();
+            
+            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = new Color(color.r, color.g, color.b, 1);
+            viewController.setColor(color);
+            setSelectedEntity(viewController);
+            this.preventDeselection = true;
+        });
+
+
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
