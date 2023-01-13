@@ -348,6 +348,11 @@ public class MainController : MonoBehaviour
         info.MapURL = "Town10HD";
         info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
         // ------------------------------------------------------------------------
+        // Required to create AssignRouteAction (do not delete this!)
+        foreach (Vehicle vehicle in info.Vehicles)
+        {
+            vehicle.Path.InitAssignRouteWaypoint();
+        }
 
         // Create .xosc file
         BuildXML doc = new BuildXML(info);

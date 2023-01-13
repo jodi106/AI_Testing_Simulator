@@ -20,7 +20,7 @@ namespace Entity
 
             //TODO: Fix Position set only to 0,0,0,0 now for presentation
             AssignRouteWaypoint = new Waypoint(
-                    new Location(0,0,0,0), 
+                    WaypointList[0].Location,
                     new ActionType("AssignRouteAction", GetRouteLocations()),
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan")});
             WaypointList.Insert(0,AssignRouteWaypoint);
@@ -30,7 +30,7 @@ namespace Entity
         public Waypoint OverallStopTrigger { get; set; }
         public List<Waypoint> WaypointList { get; set; }
 
-        public Waypoint AssignRouteWaypoint { get; set; }
+        public Waypoint AssignRouteWaypoint { get; set; } // is first waypoint of WaypointList to create OpenScenario Event AssignRouteAction and corresponding Trigger
 
         public List<Location> GetRouteLocations()
         /// Creates a List of all Waypoint.Locations in the Path to define the Entities Route via a AssignRouteAction
@@ -46,6 +46,16 @@ namespace Entity
         public bool IsEmpty()
         {
             return this.WaypointList.Count == 0;
+        }
+
+        // Needs to be invoked at the End after WayPointList is finished (so when ExportButton is pressed)
+        public void InitAssignRouteWaypoint()
+        {
+            AssignRouteWaypoint = new Waypoint(
+                    WaypointList[0].Location,
+                    new ActionType("AssignRouteAction", GetRouteLocations()),
+                    new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan") });
+            WaypointList.Insert(0, AssignRouteWaypoint);
         }
     }
 }

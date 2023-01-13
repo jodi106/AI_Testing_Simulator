@@ -26,7 +26,7 @@
       </Vehicle>
     </ScenarioObject>
     <ScenarioObject name="adversary1">
-      <Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+      <Vehicle name="AudiTT" vehicleCategory="car">
         <ParameterDeclarations />
         <Performance maxSpeed="69.444" maxAcceleration="200" maxDeceleration="10.0" />
         <BoundingBox>
@@ -82,7 +82,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="-2.107268" y="2.894239" z="-0.01" h="359.841" />
+                <WorldPosition x="-2.607268" y="2.895489" z="-0.01" h="359.841" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -101,7 +101,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <WorldPosition x="-7.725998" y="28.163" z="0.3" h="6.28041" />
+                <WorldPosition x="-4.109768" y="2.024739" z="-0.01" h="359.841" />
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -110,7 +110,7 @@
               <SpeedAction>
                 <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time" />
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="10" />
+                  <AbsoluteTargetSpeed value="0" />
                 </SpeedActionTarget>
               </SpeedAction>
             </LongitudinalAction>
@@ -125,6 +125,57 @@
             <EntityRef entityRef="adversary1" />
           </Actors>
           <Maneuver name="adversary1_Maneuver">
+            <Event name="AssignRouteAction-1" priority="overwrite">
+              <Action name="AssignRouteAction-1">
+                <PrivateAction>
+                  <RoutingAction>
+                    <AssignRouteAction>
+                      <Route name="Route" closed="false">
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="-4.109768" y="2.024739" z="-0.01" h="0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="0.1402316" y="2.012989" z="-0.01" h="0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="0.6427315" y="2.886489" z="-0.01" h="0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="3.142732" y="2.879489" z="-0.01" h="0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="3.640232" y="2.003239" z="-0.01" h="0" />
+                          </Position>
+                        </Waypoint>
+                        <Waypoint routeStrategy="fastest">
+                          <Position>
+                            <WorldPosition x="6.390232" y="1.995489" z="-0.01" h="0" />
+                          </Position>
+                        </Waypoint>
+                      </Route>
+                    </AssignRouteAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="SimulationTimeCondition4" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0" rule="greaterThan" />
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
             <Event name="LaneChangeAction-1" priority="overwrite">
               <Action name="LaneChangeAction-1">
                 <PrivateAction>
