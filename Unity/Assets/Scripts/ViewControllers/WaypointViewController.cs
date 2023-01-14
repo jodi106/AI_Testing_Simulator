@@ -33,7 +33,7 @@ public class WaypointViewController : MonoBehaviour, IBaseEntityController
 
     public void setColor(Color color)
     {
-        this.sprite.color = color;
+        this.sprite.color = new Color(color.r, color.g, color.b, 1);
     }
 
     public void OnMouseDown()
@@ -71,6 +71,7 @@ public class WaypointViewController : MonoBehaviour, IBaseEntityController
 
     public void destroy()
     {
+        pathController.removeWaypoint(this);
         Destroy(this.gameObject);
     }
 

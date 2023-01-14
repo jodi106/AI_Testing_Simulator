@@ -230,7 +230,7 @@ public class PathController : MonoBehaviour
         else
         {
             cur.Value.Item1.waypoint.Location = new Location(position);
-            cur.Value.Item1.transform.position = new Vector3(position.x, position.y, HeightUtil.WAYPOINT_SELECTED);
+            cur.Value.Item1.transform.position = new Vector3(position.x, position.y, cur.Value.Item1.transform.position.z);
         }
 
         List<Vector2> prevPath = new List<Vector2>();
@@ -289,7 +289,6 @@ public class PathController : MonoBehaviour
         edgeCollider.SetPoints(positions.ToList());
     }
 
-    /*
     public void removeWaypoint(WaypointViewController controller)
     {
         LinkedListNode<(WaypointViewController, int)> prev = null, next = null, cur = null;
@@ -309,14 +308,13 @@ public class PathController : MonoBehaviour
             }
         }
 
-        if (cur == null)
+        // dont allow destruction of first waypoint
+        if (cur == null || prev == null)
         {
             return;
         }
 
     }
-    */
-
 
     public void MoveFirstWaypoint(Vector2 position)
     {
