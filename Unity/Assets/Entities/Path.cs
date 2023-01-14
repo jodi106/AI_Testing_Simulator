@@ -51,11 +51,18 @@ namespace Entity
         // Needs to be invoked at the End after WayPointList is finished (so when ExportButton is pressed)
         public void InitAssignRouteWaypoint()
         {
-            AssignRouteWaypoint = new Waypoint(
+            Waypoint assignRouteWaypoint = new Waypoint(
                     WaypointList[0].Location,
                     new ActionType("AssignRouteAction", GetRouteLocations()),
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan") });
-            WaypointList.Insert(0, AssignRouteWaypoint);
+
+            // only update if there are changes (without this check we'll have multiple AssignRouteActions for the same entity)
+            if (!this.WaypointList[0].Location.Equals(assignRouteWaypoint.Location)
+                || this.AssignRouteWaypoint is null)
+            {
+                AssignRouteWaypoint = assignRouteWaypoint;
+                WaypointList.Insert(0, AssignRouteWaypoint);
+            }
         }
     }
 }
