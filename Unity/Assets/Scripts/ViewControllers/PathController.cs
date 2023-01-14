@@ -176,7 +176,15 @@ public class PathController : MonoBehaviour
 
             WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
 
-            viewController.waypoint = new Waypoint(new Location(nextWaypoint.Location.Vector3, 0), actionType, new List<TriggerInfo>());
+            List<TriggerInfo> triggersLaneChange = new List<TriggerInfo>();
+            var locationTrigger = new Location(0, 0, 0, 0); // var locationTrigger = nextWaypoint.Location;
+            if (!Path.IsEmpty())
+            {
+                locationTrigger = CurrentWaypoint.Location;
+            }
+            triggersLaneChange.Add(new TriggerInfo("DistanceCondition", null, "lessThan", 20, locationTrigger)); // TODO change 20
+            viewController.waypoint = new Waypoint(new Location(nextWaypoint.Location.Vector3, 0), actionType,
+                triggersLaneChange); 
             viewController.setPathController(this);
 
             this.Path.WaypointList.Add(viewController.waypoint);

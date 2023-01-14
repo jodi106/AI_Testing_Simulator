@@ -304,21 +304,48 @@ public class MainController : MonoBehaviour
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-
-        
-
-
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
         info.Name = "OurScenario3";
         info.MapURL = "Town10HD";
         info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
         // ------------------------------------------------------------------------
+        // Trigger: TODO Once we have a settings window for a waypoint we can remove these values
+        foreach (Vehicle vehicle in info.Vehicles)
+        {
+            foreach (Waypoint waypoint in vehicle.Path.WaypointList)
+            {
+                if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
+                {
+                    foreach (TriggerInfo trigger in waypoint.TriggerList)
+                    {
+                        // At the moment we set the entityRef of all LaneChangeTriggers to the story's entity.
+                        // After we added the waypoint setting window, a user can decide to set if to another entity too.
+                        // e.g. So a car can do a laneChange after a pedestrian enters the road or whatever
+                        trigger.EntityRef = "adversary" + vehicle.Id;
+                    }
+                }
+            }
+        }
+        // ------------------------------------------------------------------------
+        // Actions: TODO Remove this after we found a better solution in SnapController to set the entityRef for LaneChanges there
+        foreach (Vehicle vehicle in info.Vehicles)
+        {
+            foreach (Waypoint waypoint in vehicle.Path.WaypointList)
+            {
+                if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
+                {
+                    waypoint.ActionTypeInfo.EntityRef = "adversary" + vehicle.Id;
+                }
+            }
+        }
+        // ------------------------------------------------------------------------
         // Required to create AssignRouteAction (do not delete this!)
         foreach (Vehicle vehicle in info.Vehicles)
         {
             vehicle.Path.InitAssignRouteWaypoint();
         }
+        // ------------------------------------------------------------------------
 
         // Create .xosc file
         BuildXML doc = new BuildXML(info);
