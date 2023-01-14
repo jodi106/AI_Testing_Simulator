@@ -3,7 +3,7 @@ using Entity;
 using System;
 using UnityEngine;
 
-public abstract class VehicleViewController : MonoBehaviour, IVehicleView, IBaseEntityController
+public abstract class VehicleViewController : MonoBehaviour, IBaseEntityController, IBaseEntityView
 {
     public Material selectionMaterial;
     private Material defaultMaterial;
