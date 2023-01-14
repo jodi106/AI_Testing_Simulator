@@ -3,7 +3,7 @@
 
 namespace Entity
 { 
-    public class Waypoint // Event in .xosc
+    public class Waypoint : BaseEntity// Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
         public Waypoint(Location location)
@@ -21,7 +21,6 @@ namespace Entity
             TriggerList = triggerList;
         }
 
-        public int Id { get; private set; }
         public Location Location { get; set; }
         public ActionType ActionTypeInfo { get; set; } 
         public string Priority { get; set; } // has enum: PriorityType

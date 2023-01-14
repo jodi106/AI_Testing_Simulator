@@ -96,7 +96,7 @@ public class PathController : MonoBehaviour
     {
         foreach (var (wp, _) in waypointViewControllers)
         {
-            Destroy(wp.gameObject);
+            wp.destroy();
         }
         Destroy(gameObject);
     }
@@ -162,7 +162,7 @@ public class PathController : MonoBehaviour
 
             foreach (var coord in path)
             {
-                lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
+                lineRenderer.SetPosition(lineRenderer.positionCount++, coord);
             }
 
         }
@@ -277,7 +277,7 @@ public class PathController : MonoBehaviour
         pathRenderer.positionCount = pathRenderer.positionCount + offset;
         for (var i = 0; i < pathRenderer.positionCount; i++)
         {
-            pathRenderer.SetPosition(i, new Vector3(positions[i].x, positions[i].y, HeightUtil.PATH_SELECTED));
+            pathRenderer.SetPosition(i, new Vector3(positions[i].x, positions[i].y, transform.position.z));
         }
 
         cur.Value = (cur.Value.Item1, prevPath.Count);
@@ -288,6 +288,34 @@ public class PathController : MonoBehaviour
 
         edgeCollider.SetPoints(positions.ToList());
     }
+
+    /*
+    public void removeWaypoint(WaypointViewController controller)
+    {
+        LinkedListNode<(WaypointViewController, int)> prev = null, next = null, cur = null;
+        int prevIndex = 0;
+        for (LinkedListNode<(WaypointViewController, int)> wp = waypointViewControllers.First; wp != null; wp = wp.Next)
+        {
+            if (wp.Value.Item1.waypoint == controller.waypoint)
+            {
+                cur = wp;
+                prev = wp.Previous;
+                next = wp.Next;
+                break;
+            }
+            else
+            {
+                prevIndex += wp.Value.Item2;
+            }
+        }
+
+        if (cur == null)
+        {
+            return;
+        }
+
+    }
+    */
 
 
     public void MoveFirstWaypoint(Vector2 position)
