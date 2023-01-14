@@ -14,7 +14,7 @@ namespace Entity
             PrecipitationType = PrecipitationType.Dry;
             PrecipitationIntensity = 0;
             FrictionScaleFactor = 1;
-            SunElevation = 0;
+            SunElevation = 1.3;
         }
         public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, CloudState cloudState, PrecipitationType precipitationType, float precipitationIntensity, double frictionScaleFactor)
         {

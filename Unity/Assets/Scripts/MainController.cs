@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 public class MainController : MonoBehaviour
 {
@@ -310,6 +311,7 @@ public class MainController : MonoBehaviour
             veh.Model = new EntityModel("vehicle.audi.tt"); // TODO dynamically
             var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
             var CarlaRot = SnapController.UnityRotToRadians(veh.SpawnPoint.Rot);
+            if (CarlaRot < 0.001) CarlaRot = 0.01F; // otherwise we'll have a number like this 3.339028E-05
 
             veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
             veh.SpawnPoint.Rot = CarlaRot;
@@ -317,6 +319,7 @@ public class MainController : MonoBehaviour
         }
         var CarlaCoordsEgo = SnapController.UnityToCarla(info.EgoVehicle.SpawnPoint.Vector3.x, info.EgoVehicle.SpawnPoint.Vector3.y);
         var CarlaRotEgo = SnapController.UnityRotToRadians(info.EgoVehicle.SpawnPoint.Rot);
+        if (CarlaRotEgo < 0.001) CarlaRotEgo = 0.01F; // otherwise we'll have a number like this 3.339028E-05
         info.EgoVehicle.SpawnPoint.Vector3 = new Vector3(CarlaCoordsEgo.x, CarlaCoordsEgo.y, 0.3f);
         info.EgoVehicle.SpawnPoint.Rot = CarlaRotEgo;
 
@@ -329,6 +332,7 @@ public class MainController : MonoBehaviour
         // Trigger: TODO Once we have a settings window for a waypoint we can remove these values
         foreach (Vehicle vehicle in info.Vehicles)
         {
+            if (vehicle.Path is null) break;
             foreach (Waypoint waypoint in vehicle.Path.WaypointList)
             {
                 if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
@@ -347,6 +351,7 @@ public class MainController : MonoBehaviour
         // Actions: TODO Remove this after we found a better solution in SnapController to set the entityRef for LaneChanges there
         foreach (Vehicle vehicle in info.Vehicles)
         {
+            if (vehicle.Path is null) break;
             foreach (Waypoint waypoint in vehicle.Path.WaypointList)
             {
                 if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
@@ -359,13 +364,22 @@ public class MainController : MonoBehaviour
         // Required to create AssignRouteAction (do not delete this!)
         foreach (Vehicle vehicle in info.Vehicles)
         {
-            vehicle.Path.InitAssignRouteWaypoint();
+            if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
+            {
+                vehicle.Path.InitAssignRouteWaypoint();
+            }
         }
         // ------------------------------------------------------------------------
 
         // Create .xosc file
         BuildXML doc = new BuildXML(info);
         doc.CombineXML();
+    }
+
+    private bool isWaypointListEmptyOrNull(Vehicle vehicle)
+    {
+        //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+        return vehicle.Path.WaypointList?.Any() != true;
     }
 
 

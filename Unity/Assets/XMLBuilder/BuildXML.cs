@@ -17,6 +17,8 @@ namespace ExportScenario.XMLBuilder
         private ScenarioInfo scenarioInfo;
         private XmlNode storyBoard;
 
+        private bool builtAtLeastOneStory = false;
+
         public BuildXML(ScenarioInfo scenarioInfo)
         /// Constructor to initializes BuildXML object with head section.
         {
@@ -82,6 +84,8 @@ namespace ExportScenario.XMLBuilder
         public void BuildStoryboard()
         /// Combines Init block and all Entity Story blocks. Every Entity has one seperate Story.
         {
+            builtAtLeastOneStory = false;
+
             storyBoard = root.CreateElement("Storyboard");
             openScenario.AppendChild(storyBoard);
             BuildInit init = new BuildInit(scenarioInfo, root, storyBoard);
@@ -96,6 +100,16 @@ namespace ExportScenario.XMLBuilder
             {
                 BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
             }
+
+
+            if (!builtAtLeastOneStory)
+            {
+                // create empty dummy story to avoid syntax error
+                BuildEmptyStory();
+            }
+
+            XmlNode stoptrigger = root.CreateElement("StopTrigger");
+            storyBoard.AppendChild(stoptrigger);
         }
 
         public void BuildVehicleStories(Vehicle vehicle)
@@ -124,7 +138,6 @@ namespace ExportScenario.XMLBuilder
                     {
                         BuildEvents(maneuver, vehicle.Path.WaypointList[i]);
                     }
-                        
                 }
 
                 // hierarchy
@@ -140,9 +153,7 @@ namespace ExportScenario.XMLBuilder
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
 
-                // ToDo implement using OverallStopTrigger from Path.
-                XmlNode stopTrigger = root.CreateElement("StopTrigger");
-                storyBoard.AppendChild(stopTrigger);
+                builtAtLeastOneStory = true;
             }
         }
         public void BuildPedestrianStories(Pedestrian pedestrian)
@@ -187,20 +198,42 @@ namespace ExportScenario.XMLBuilder
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
 
-                // ToDo implement using OverallStopTrigger from Path.
-                XmlNode stopTrigger = root.CreateElement("StopTrigger");
-                storyBoard.AppendChild(stopTrigger);
+                builtAtLeastOneStory = true;
+                //// ToDo implement using OverallStopTrigger from Path.
+                //XmlNode stopTrigger = root.CreateElement("StopTrigger");
+                //storyBoard.AppendChild(stopTrigger);
             }
         }
+
+        public void BuildEmptyStory()
+        {
+            XmlNode story = root.CreateElement("Story");
+            SetAttribute("name", "empty_Story", story);
+            XmlNode act = root.CreateElement("Act");
+            SetAttribute("name", "empty_Act", act);
+            XmlNode maneuverGroup = root.CreateElement("ManeuverGroup");
+            SetAttribute("maximumExecutionCount", "1", maneuverGroup);
+            SetAttribute("name", "empty_Sequence", maneuverGroup);
+            XmlNode actors = root.CreateElement("Actors");
+            SetAttribute("selectTriggeringEntities", "false", actors);
+            XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+
+            storyBoard.AppendChild(story);
+            story.AppendChild(act);
+            act.AppendChild(maneuverGroup);
+            act.AppendChild(actStartTrigger);
+            maneuverGroup.AppendChild(actors);
+        }
+
 
         public void BuildEvents(XmlNode maneuver, Waypoint waypoint)
         /// Creates Events by combining Actions and Triggers and combines them to one XML Block. One Event corresponds to one Waypoint Object in the Path.
         {
             XmlNode new_event = root.CreateElement("Event");
-            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, new_event);
+            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, new_event);
             SetAttribute("priority", waypoint.Priority, new_event);
             XmlNode action = root.CreateElement("Action");
-            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.Id, action);
+            SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, action);
             
             // Create Action
             BuildAction buildAction = new BuildAction(root, "buildAction");
