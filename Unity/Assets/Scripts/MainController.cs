@@ -304,6 +304,22 @@ public class MainController : MonoBehaviour
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
+        foreach (var veh in this.info.Vehicles)
+        {
+
+            veh.Model = new EntityModel("vehicle.audi.tt"); // TODO dynamically
+            var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
+            var CarlaRot = SnapController.UnityRotToRadians(veh.SpawnPoint.Rot);
+
+            veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
+            veh.SpawnPoint.Rot = CarlaRot;
+            veh.InitialSpeed = 10.0;
+        }
+        var CarlaCoordsEgo = SnapController.UnityToCarla(info.EgoVehicle.SpawnPoint.Vector3.x, info.EgoVehicle.SpawnPoint.Vector3.y);
+        var CarlaRotEgo = SnapController.UnityRotToRadians(info.EgoVehicle.SpawnPoint.Rot);
+        info.EgoVehicle.SpawnPoint.Vector3 = new Vector3(CarlaCoordsEgo.x, CarlaCoordsEgo.y, 0.3f);
+        info.EgoVehicle.SpawnPoint.Rot = CarlaRotEgo;
+
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
         info.Name = "OurScenario3";
@@ -321,7 +337,7 @@ public class MainController : MonoBehaviour
                     {
                         // At the moment we set the entityRef of all LaneChangeTriggers to the story's entity.
                         // After we added the waypoint setting window, a user can decide to set if to another entity too.
-                        // e.g. So a car can do a laneChange after a pedestrian enters the road or whatever
+                        // e.g. So a car can do a laneChange after a pedestrian is at location xy or whatever
                         trigger.EntityRef = "adversary" + vehicle.Id;
                     }
                 }
