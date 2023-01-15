@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using UnityEngine.UI;
 
 namespace Entity
 { 
@@ -21,7 +21,13 @@ namespace Entity
             TriggerList = triggerList;
         }
 
-        public Location Location { get; set; }
+        public void setLocation(Location location)
+        {
+            this.Location = location;
+            this.View?.onChangePosition(location);
+        }
+
+        public Location Location { get; private set; }
         public ActionType ActionTypeInfo { get; set; } 
         public string Priority { get; set; } // has enum: PriorityType
         public List<TriggerInfo> TriggerList { get; set; }

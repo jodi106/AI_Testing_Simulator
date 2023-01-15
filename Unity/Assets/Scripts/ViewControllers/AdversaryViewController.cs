@@ -36,10 +36,10 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         });
     }
 
-    public override void onChangePosition(Location l)
+    public override void onChangePosition(Location location)
     {
-        base.onChangePosition(l);
-        this.pathController?.MoveFirstWaypoint(new Vector2(l.X, l.Y));
+        base.onChangePosition(location);
+        this.pathController?.MoveFirstWaypoint(location);
     }
 
     public override Sprite getSprite()

@@ -152,12 +152,18 @@ public class SnapController : MonoBehaviour
         }
     }
 
+    public Location FindWaypoint(Vector2 mousePosition)
+    {
+        (_, var waypoint) = FindLaneAndWaypoint(mousePosition);
+        return waypoint?.Location;
+    }
+
     /*
      * waypoints in Carla Coordinates
      * pos in World Coordinates (Pixel Coordinates / 100)
      * 
     */
-    public (Lane, AStarWaypoint) FindLaneAndWaypoint(Vector2 mousePosition, double maxDistance = 2)
+    public (Lane, AStarWaypoint) FindLaneAndWaypoint(Vector2 mousePosition)
     {
         AStarWaypoint closestWaypoint = null;
         Lane laneToReturn = null;
@@ -182,11 +188,6 @@ public class SnapController : MonoBehaviour
                     }
                 }
             }
-        }
-
-        if (distance > maxDistance)
-        {
-            return (null,null); //Click is probably outside of road
         }
 
         return (laneToReturn, closestWaypoint);

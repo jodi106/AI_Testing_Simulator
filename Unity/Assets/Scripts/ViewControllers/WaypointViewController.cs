@@ -1,11 +1,12 @@
-﻿using Entity;
+﻿using Assets.Enums;
+using Entity;
 using System.Collections;
 using System.Numerics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-public class WaypointViewController : MonoBehaviour, IBaseEntityController
+public class WaypointViewController : MonoBehaviour, IBaseEntityController, IBaseEntityView
 {
     // Use this for initialization
     private PathController pathController;
@@ -42,10 +43,10 @@ public class WaypointViewController : MonoBehaviour, IBaseEntityController
     }
     public void OnMouseDrag()
     {
-        var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (waypoint is not null)
         {
-            pathController.MoveWaypoint(this, waypoint.Location.Vector3);
+            pathController.MoveWaypoint(this, waypoint);
         }
     }
 
@@ -87,5 +88,15 @@ public class WaypointViewController : MonoBehaviour, IBaseEntityController
 
     public void triggerActionSelection()
     {
+    }
+
+    public void onChangePosition(Location pos)
+    {
+        transform.position = new Vector3(pos.X, pos.Y, transform.position.z);
+    }
+
+    public void onChangeType(VehicleCategory cat)
+    {
+        throw new System.NotImplementedException();
     }
 }

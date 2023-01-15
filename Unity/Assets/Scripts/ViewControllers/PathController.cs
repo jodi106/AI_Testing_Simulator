@@ -94,7 +94,7 @@ public class PathController : MonoBehaviour
     {
         foreach (var (wp, _) in waypointViewControllers)
         {
-            wp.destroy();
+            Destroy(wp.gameObject);
         }
         Destroy(gameObject);
     }
@@ -115,9 +115,9 @@ public class PathController : MonoBehaviour
 
     public void AddMoveToWaypoint(Vector2 mousePosition, bool preview = false)
     {
-        var (lane, waypoint) = snapController.FindLaneAndWaypoint(mousePosition);
+        var waypoint = snapController.FindWaypoint(mousePosition);
 
-        if (lane == null || waypoint == null)
+        if (waypoint == null)
         {
             Debug.Log("Invalid mouse position, mouse probably not on road!");
             return;
@@ -142,12 +142,12 @@ public class PathController : MonoBehaviour
 
         if (Path.IsEmpty())
         {
-            lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(waypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
+            lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(waypoint.Vector3, HeightUtil.PATH_SELECTED));
         }
         else
         {
             var path = new List<Vector2>();
-            (path, actionType) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Location.Vector3);
+            (path, actionType) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3);
 
             path.RemoveAt(0);
             pathLen = path.Count;
@@ -167,12 +167,13 @@ public class PathController : MonoBehaviour
         if (!preview)
         {
 
-            GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(waypoint.Location.X, waypoint.Location.Y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
+            GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(waypoint.X, waypoint.Y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
 
             WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
             viewController.setPathController(this);
             viewController.setColor(pathRenderer.startColor);
-            viewController.waypoint = generateWaypoint(new Location(waypoint.Location.Vector3, 0), actionType);
+            viewController.waypoint = generateWaypoint(new Location(waypoint.Vector3, 0), actionType);
+            viewController.waypoint.setView(viewController);
             this.Path.WaypointList.Add(viewController.waypoint);
 
             waypointViewControllers.AddLast((viewController, pathLen));
@@ -203,13 +204,13 @@ public class PathController : MonoBehaviour
         edgeCollider.SetPoints(positions.ToList());
     }
 
-    public void MoveWaypoint(WaypointViewController waypointController, Vector2 position)
+    public void MoveWaypoint(WaypointViewController waypointController, Location location)
     {
         LinkedListNode<(WaypointViewController, int)> prev = null, next = null, cur = null;
         int prevIndex = 0;
         for (LinkedListNode<(WaypointViewController, int)> wp = waypointViewControllers.First; wp != null; wp = wp.Next)
         {
-            if (wp.Value.Item1.waypoint == waypointController.waypoint)
+            if (wp.Value.Item1 == waypointController)
             {
                 cur = wp;
                 prev = wp.Previous;
@@ -222,15 +223,7 @@ public class PathController : MonoBehaviour
             }
         }
 
-        if (cur == null)
-        {
-            return;
-        }
-        else
-        {
-            cur.Value.Item1.waypoint.Location = new Location(position);
-            cur.Value.Item1.transform.position = new Vector3(position.x, position.y, cur.Value.Item1.transform.position.z);
-        }
+        waypointController.waypoint.setLocation(location);
 
         List<Vector2> prevPath = new List<Vector2>();
         List<Vector2> nextPath = new List<Vector2>();
@@ -238,13 +231,13 @@ public class PathController : MonoBehaviour
         var offset = 0;
         if (prev != null)
         {
-            (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, position);
+            (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, location.Vector3);
             prevPath.RemoveAt(prevPath.Count - 1);
             offset = offset + prevPath.Count - cur.Value.Item2;
         }
         if (next != null)
         {
-            (nextPath, _) = snapController.FindPath(position, next.Value.Item1.waypoint.Location.Vector3);
+            (nextPath, _) = snapController.FindPath(location.Vector3, next.Value.Item1.waypoint.Location.Vector3);
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
         }
@@ -261,7 +254,7 @@ public class PathController : MonoBehaviour
             positions[prevIndex + i] = prevPath[i];
         }
 
-        positions[prevIndex + prevPath.Count] = position;
+        positions[prevIndex + prevPath.Count] = location.Vector3;
 
         for (var i = 0; i < nextPath.Count; i++)
         {
@@ -308,16 +301,57 @@ public class PathController : MonoBehaviour
         }
 
         // dont allow destruction of first waypoint
-        if (cur == null || prev == null)
+        if (prev == null)
         {
             return;
         }
 
+        if (next != null)
+        {
+            (var path, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, next.Value.Item1.waypoint.Location.Vector3);
+            path.RemoveAt(path.Count - 1);
+            var offset = path.Count - cur.Value.Item2 - next.Value.Item2;
+
+            Vector2[] positions = new Vector2[pathRenderer.positionCount + offset];
+
+            for (var i = 0; i < prevIndex; i++)
+            {
+                positions[i] = pathRenderer.GetPosition(i);
+            }
+
+            for (var i = 0; i < path.Count; i++)
+            {
+                positions[prevIndex + i] = path[i];
+            }
+
+            for (var i = prevIndex + path.Count; i < pathRenderer.positionCount + offset; i++)
+            {
+                positions[i] = pathRenderer.GetPosition(i - offset);
+            }
+
+            pathRenderer.positionCount = pathRenderer.positionCount + offset;
+            for (var i = 0; i < pathRenderer.positionCount; i++)
+            {
+                pathRenderer.SetPosition(i, new Vector3(positions[i].x, positions[i].y, transform.position.z));
+            }
+            next.Value = (next.Value.Item1, path.Count);
+
+            edgeCollider.SetPoints(positions.ToList());
+
+        }
+        else
+        {
+            pathRenderer.positionCount -= cur.Value.Item2;
+        }
+
+        //TODO: fix path object
+
+        waypointViewControllers.Remove(cur);
     }
 
-    public void MoveFirstWaypoint(Vector2 position)
+    public void MoveFirstWaypoint(Location location)
     {
-        this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, position);
+        this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, location);
     }
 
     public void Complete()
@@ -378,6 +412,7 @@ public class PathController : MonoBehaviour
             viewController.setPathController(this);
             viewController.setColor(pathRenderer.startColor);
             viewController.waypoint = generateWaypoint(new Location(location, 0), new ActionType("MoveToAction"));
+            viewController.waypoint.setView(viewController);
 
             var cur = waypointViewControllers.First;
             while (index - cur.Next.Value.Item2 > 0)

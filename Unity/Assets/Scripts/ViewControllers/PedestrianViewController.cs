@@ -39,7 +39,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
     public override void onChangePosition(Location l)
     {
         base.onChangePosition(l);
-        this.pathController?.MoveFirstWaypoint(new Vector2(l.X, l.Y));
+        this.pathController?.MoveFirstWaypoint(l);
     }
 
     public override Sprite getSprite()

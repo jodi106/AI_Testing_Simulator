@@ -29,9 +29,10 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public abstract Sprite getSprite();
 
-    public virtual void onChangePosition(Location l)
+    public virtual void onChangePosition(Location location)
     {
-        transform.position = new Vector3(l.Vector3.x, l.Vector3.y, transform.position.z) - (Vector3)difference;
+        transform.position = HeightUtil.SetZ(location.Vector3, transform.position.z);
+        transform.eulerAngles = new Vector3(0, 0, location.Rot);
     }
 
     public void onChangeType(VehicleCategory cat)
@@ -71,12 +72,12 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                getEntity().setSpawnPoint(waypoint.Location);
-                gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Location.Rot);
+                getEntity().setSpawnPoint(waypoint);
+                gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
             }
             else
             {
@@ -91,12 +92,11 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             return;
         }
-        var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var waypoint = snapController.FindWaypoint(mousePosition);
         if (waypoint is not null)
         {
             difference = Vector2.zero;
-            getEntity().setSpawnPoint(waypoint.Location);
-            gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Location.Rot);
+            getEntity().setSpawnPoint(waypoint);
         }
         else
         {

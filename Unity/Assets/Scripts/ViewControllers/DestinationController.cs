@@ -54,10 +54,10 @@ public class DestinationController : MonoBehaviour
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
-                gameObject.transform.position = new Vector3(waypoint.Location.X, waypoint.Location.Y, HeightUtil.WAYPOINT_SELECTED);
+                gameObject.transform.position = new Vector3(waypoint.X, waypoint.Y, HeightUtil.WAYPOINT_SELECTED);
             }
         }
     }
@@ -83,11 +83,11 @@ public class DestinationController : MonoBehaviour
 
         public void OnMouseDrag()
     {
-        var (_, waypoint) = snapController.FindLaneAndWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (waypoint is not null)
         {
-            gameObject.transform.position = new Vector3(waypoint.Location.X, waypoint.Location.Y, HeightUtil.WAYPOINT_SELECTED);
-            ego.submitDestination(waypoint.Location);
+            gameObject.transform.position = new Vector3(waypoint.X, waypoint.Y, HeightUtil.WAYPOINT_SELECTED);
+            ego.submitDestination(waypoint);
         }
     }
 }
