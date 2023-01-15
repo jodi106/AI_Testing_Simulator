@@ -305,29 +305,16 @@ public class MainController : MonoBehaviour
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-        foreach (var veh in this.info.Vehicles)
-        {
-
-            veh.Model = new EntityModel("vehicle.audi.tt"); // TODO dynamically
-            var CarlaCoords = SnapController.UnityToCarla(veh.SpawnPoint.Vector3.x, veh.SpawnPoint.Vector3.y);
-            var CarlaRot = SnapController.UnityRotToRadians(veh.SpawnPoint.Rot);
-            if (CarlaRot < 0.001) CarlaRot = 0.01F; // otherwise we'll have a number like this 3.339028E-05
-
-            veh.SpawnPoint.Vector3 = new Vector3(CarlaCoords.x, CarlaCoords.y, 0.3f);
-            veh.SpawnPoint.Rot = CarlaRot;
-            veh.InitialSpeed = 10.0;
-        }
-        var CarlaCoordsEgo = SnapController.UnityToCarla(info.EgoVehicle.SpawnPoint.Vector3.x, info.EgoVehicle.SpawnPoint.Vector3.y);
-        var CarlaRotEgo = SnapController.UnityRotToRadians(info.EgoVehicle.SpawnPoint.Rot);
-        if (CarlaRotEgo < 0.001) CarlaRotEgo = 0.01F; // otherwise we'll have a number like this 3.339028E-05
-        info.EgoVehicle.SpawnPoint.Vector3 = new Vector3(CarlaCoordsEgo.x, CarlaCoordsEgo.y, 0.3f);
-        info.EgoVehicle.SpawnPoint.Rot = CarlaRotEgo;
-
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
         info.Name = "OurScenario3";
         info.MapURL = "Town10HD";
         info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
+        foreach (Vehicle veh in info.Vehicles)
+        {
+            veh.InitialSpeed = 10;
+            veh.Model = new EntityModel("vehicle.audi.tt");
+        }
         // ------------------------------------------------------------------------
         // Trigger: TODO Once we have a settings window for a waypoint we can remove these values
         foreach (Vehicle vehicle in info.Vehicles)
@@ -361,16 +348,19 @@ public class MainController : MonoBehaviour
             }
         }
         // ------------------------------------------------------------------------
-        // Required to create AssignRouteAction (do not delete this!)
+        // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)
         {
+            vehicle.CalculateLocationCarla();
             if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
             {
                 vehicle.Path.InitAssignRouteWaypoint();
             }
         }
+        info.EgoVehicle.CalculateLocationCarla();
         // ------------------------------------------------------------------------
-
+        
+        
         // Create .xosc file
         BuildXML doc = new BuildXML(info);
         doc.CombineXML();

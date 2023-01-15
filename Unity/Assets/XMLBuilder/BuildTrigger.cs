@@ -78,10 +78,10 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("alongRoute", "false", distanceCondition);
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
-            SetAttribute("x", triggerInfo.WorldPosition.Vector3.x.ToString(), worldposition);
-            SetAttribute("y", triggerInfo.WorldPosition.Vector3.y.ToString(), worldposition);
-            SetAttribute("z", triggerInfo.WorldPosition.Vector3.z.ToString(), worldposition);
-            SetAttribute("h", triggerInfo.WorldPosition.Rot.ToString(), worldposition);
+            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3.x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3.y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3.z.ToString(), worldposition);
+            SetAttribute("h", triggerInfo.WorldPositionCarla.Rot.ToString(), worldposition);
 
             // hierarchy
             condition.AppendChild(byEntityCondition);

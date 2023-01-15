@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 namespace Entity
@@ -19,19 +20,30 @@ namespace Entity
             ActionTypeInfo = actionTypeInfo;
             Priority = priority;
             TriggerList = triggerList;
+            CalculateLocationCarla();
         }
 
         public void setLocation(Location location)
         {
             this.Location = location;
             this.View?.onChangePosition(location);
+            CalculateLocationCarla();
         }
 
-        public Location Location { get; private set; }
+        public Location Location { get; private set; } // coords of unity editor GUI
+        public Location LocationCarla { get; set; } // coords of Carla. Used in Export xosc.
         public ActionType ActionTypeInfo { get; set; } 
         public string Priority { get; set; } // has enum: PriorityType
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
+
+        public void CalculateLocationCarla()
+        {
+            (float xCarla, float yCarla) = SnapController.UnityToCarla(Location.X, Location.Y);
+            float rotCarla = SnapController.UnityRotToRadians(Location.Rot);
+            rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
+            this.LocationCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
+        }
 
     }
 

@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using UnityEngine;
+
 namespace Entity
 {
     public class BaseEntity
@@ -34,6 +36,8 @@ namespace Entity
 
         public int Id { get; set; }
         public Location SpawnPoint { get; set; }
+        public Location SpawnPointCarla { get; set; }
+
         public double InitialSpeed { get; set; }
 
         public IBaseEntityView View { get; set; }
@@ -47,6 +51,14 @@ namespace Entity
         public void setView(IBaseEntityView view)
         {
             this.View = view;
+        }
+
+        public void CalculateLocationCarla()
+        {
+            (float xCarla, float yCarla) = SnapController.UnityToCarla(SpawnPoint.X, SpawnPoint.Y);
+            float rotCarla = SnapController.UnityRotToRadians(SpawnPoint.Rot);
+            rotCarla = (float) Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
+            this.SpawnPointCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Entity
+﻿using UnityEngine;
+
+namespace Entity
 {
     public class TriggerInfo
     /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
@@ -25,6 +27,7 @@
             Rule = rule;
             Value = value;
             WorldPosition = worldPosition;
+            CalculateLocationCarla();
             Delay = delay;
             ConditionEdge = conditionEdge;
         }
@@ -48,6 +51,13 @@
         public double Value {  get; set; } // 0 to infinitive, unit: seconds, atm needed for DistanceCondition
         public string Rule {  get; set; } // has enum: "equalTo" , "greaterThan" , "lessThan"
         public Location WorldPosition { get;set; } 
+        public Location WorldPositionCarla { get;set; } 
         public ActionType AfterAction { get; set; }  // corresponds to a previously executed ActionType
+
+        public void CalculateLocationCarla()
+        {
+            (float xCarla, float yCarla) = SnapController.UnityToCarla(WorldPosition.X, WorldPosition.Y);
+            this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
+        }
     }
 }

@@ -30,10 +30,10 @@ namespace ExportScenario.XMLBuilder
             XmlNode acquirePositionAction = root.CreateElement("AcquirePositionAction");
             XmlNode position = root.CreateElement("Position");
             XmlNode worldPosition = root.CreateElement("WorldPosition");
-            SetAttribute("x", waypoint.ActionTypeInfo.Positions[0].Vector3.x.ToString(), worldPosition);
-            SetAttribute("y", waypoint.ActionTypeInfo.Positions[0].Vector3.y.ToString(), worldPosition);
-            SetAttribute("z", waypoint.ActionTypeInfo.Positions[0].Vector3.z.ToString(), worldPosition);
-            SetAttribute("h", waypoint.ActionTypeInfo.Positions[0].Rot.ToString(), worldPosition);
+            SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.x.ToString(), worldPosition);
+            SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.y.ToString(), worldPosition);
+            SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.z.ToString(), worldPosition);
+            SetAttribute("h", waypoint.ActionTypeInfo.PositionsCarla[0].Rot.ToString(), worldPosition);
 
             // Hierarchy
             action.AppendChild(privateAction);
@@ -56,16 +56,16 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("name", "Route", route);
             SetAttribute("closed", "false", route);
 
-            for (int i = 0; i < waypoint.ActionTypeInfo.Positions.Count; i++)
+            for (int i = 0; i < waypoint.ActionTypeInfo.PositionsCarla.Count; i++)
             {
                 XmlNode _waypoint = root.CreateElement("Waypoint");
                 SetAttribute("routeStrategy", routeStrategy, _waypoint);
                 XmlNode position = root.CreateElement("Position");
                 XmlNode worldPosition = root.CreateElement("WorldPosition");
-                SetAttribute("x", waypoint.ActionTypeInfo.Positions[i].Vector3.x.ToString(), worldPosition);
-                SetAttribute("y", waypoint.ActionTypeInfo.Positions[i].Vector3.y.ToString(), worldPosition);
-                SetAttribute("z", waypoint.ActionTypeInfo.Positions[i].Vector3.z.ToString(), worldPosition);
-                SetAttribute("h", waypoint.ActionTypeInfo.Positions[i].Rot.ToString(), worldPosition);
+                SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.x.ToString(), worldPosition);
+                SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.y.ToString(), worldPosition);
+                SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.z.ToString(), worldPosition);
+                SetAttribute("h", waypoint.ActionTypeInfo.PositionsCarla[i].Rot.ToString(), worldPosition);
 
                 route.AppendChild(_waypoint);
                 _waypoint.AppendChild(position);

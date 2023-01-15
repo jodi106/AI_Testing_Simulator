@@ -51,6 +51,7 @@ namespace Entity
             ID = autoIncrementId++;
             Name = name;
             Positions = positions;
+            CalculateLocationsCarla();
         }
 
         public int ID { get; private set; }
@@ -61,9 +62,23 @@ namespace Entity
         public double LaneChangeActionDynamicsValue { get; set; } // double: ~25 to infinitive, needs to be bigger than 0
         public string DynamicDimensions { get; set; } // has enum: distance, time, rate; only in advanced settings
         public List<Location> Positions { get; set; }
+        public List<Location> PositionsCarla { get; set; }
         public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
         public int RelativeTargetLaneValue { get; set; } // TODO: -1 or 1
 
+        
+        public void CalculateLocationsCarla()
+        {
+            PositionsCarla = new List<Location>();
+            foreach(Location pos in Positions)
+            {
+                (float xCarla, float yCarla) = SnapController.UnityToCarla(pos.X, pos.Y);
+                float rotCarla = SnapController.UnityRotToRadians(pos.Rot);
+                rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
+                PositionsCarla.Add(new Location(xCarla, yCarla, 0.3f, rotCarla));
+            }
+            
+        }
     }
 }
 
