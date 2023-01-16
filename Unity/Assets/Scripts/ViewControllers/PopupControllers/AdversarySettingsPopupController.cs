@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Assets.Repos;
 
-public class VehicleSettingsPopupController : MonoBehaviour
+public class AdversarySettingsPopupController : MonoBehaviour
 {
     private AdversaryViewController controller;
     private Vehicle vehicle;

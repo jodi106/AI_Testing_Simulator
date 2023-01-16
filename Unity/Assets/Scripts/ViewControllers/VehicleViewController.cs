@@ -73,7 +73,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (getEntity().GetType() == typeof(Vehicle))
+            if (getEntity().GetType() == typeof(Vehicle) || getEntity().GetType() == typeof(Ego))
             {
                 var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 if (waypoint is not null)
@@ -103,7 +103,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             return;
         }
 
-        if (getEntity().GetType() == typeof(Vehicle))
+        if (getEntity().GetType() == typeof(Vehicle) || getEntity().GetType() == typeof(Ego))
         {
             var waypoint = snapController.FindWaypoint(mousePosition);
             if (waypoint is not null)

@@ -8,7 +8,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public GameObject pathPrefab;
     private Vehicle vehicle;
     private PathController pathController;
-    private VehicleSettingsPopupController vehicleSettingsController;
+    private AdversarySettingsPopupController vehicleSettingsController;
     public new void Awake()
     {
         base.Awake();
@@ -17,7 +17,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         var path = new Path();
         this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car);
         this.vehicle.setView(this);
-        this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
+        this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
 
         EventManager.StartListening(typeof(CancelPathSelectionAction), x =>

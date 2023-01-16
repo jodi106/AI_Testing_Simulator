@@ -32,6 +32,13 @@ namespace Entity
             Destination = destination;
             Category = category;
         }
+
+        public void setCategory(VehicleCategory category)
+        {
+            this.Category = category;
+            this.View?.onChangeType(category);
+        }
+
         public Location Destination { get; set; }
         public EntityModel Model { get; set; }
         public VehicleCategory Category { get; set; }

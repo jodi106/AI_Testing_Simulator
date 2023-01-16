@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using Assets.Enums;
+using Assets.Repos;
+using Entity;
 using UnityEngine;
 
 public class EgoViewController : VehicleViewController, IBaseEntityController
@@ -6,12 +8,16 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
     public GameObject DestinationPrefab;
     private Ego ego;
     private DestinationController destination;
+    private EgoSettingsPopupController egoSettingsController;
     public new void Awake()
     {
         base.Awake();
 
+        this.egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
+        this.egoSettingsController.gameObject.SetActive(true);
+
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        this.ego = new Ego(egoPosition);
+        this.ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car);
         this.ego.setView(this);
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
@@ -94,7 +100,7 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
 
     public override void openEditDialog()
     {
-        throw new System.NotImplementedException();
+        this.egoSettingsController.open(this, sprite.color);
     }
 
     protected override void registerEntity()

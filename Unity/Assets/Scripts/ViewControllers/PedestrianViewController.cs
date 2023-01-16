@@ -7,7 +7,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
     public GameObject pathPrefab;
     private Pedestrian pedestrian;
     private PathController pathController;
-    private VehicleSettingsPopupController vehicleSettingsController;
+    private AdversarySettingsPopupController vehicleSettingsController;
     
     public new void Awake()
     {
