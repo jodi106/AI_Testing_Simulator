@@ -131,7 +131,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             placed = true;
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-            this.registerVehicle();
+            this.registerEntity();
         }
         if (!selected)
         {
@@ -145,5 +145,5 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     public abstract void setColor(Color color);
     public abstract BaseEntity getEntity();
     public abstract void openEditDialog();
-    protected abstract void registerVehicle();
+    protected abstract void registerEntity();
 }

@@ -31,7 +31,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.registerVehicle();
+                this.registerEntity();
             }
         });
     }
@@ -126,7 +126,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
     {
         //this.vehicleSettingsController.open(this.vehicle);
     }
-    protected override void registerVehicle()
+    protected override void registerEntity()
     {
         mainController.addPedestrian(this.pedestrian);
     }

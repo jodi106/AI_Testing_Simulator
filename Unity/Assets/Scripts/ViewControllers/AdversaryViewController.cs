@@ -31,7 +31,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.registerVehicle();
+                this.registerEntity();
             }
         });
     }
@@ -124,7 +124,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     {
         this.vehicleSettingsController.open(this, sprite.color);
     }
-    protected override void registerVehicle()
+    protected override void registerEntity()
     {
         mainController.addVehicle(this.vehicle);
     }

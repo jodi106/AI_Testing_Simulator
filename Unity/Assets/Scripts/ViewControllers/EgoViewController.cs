@@ -20,7 +20,7 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.registerVehicle();
+                this.registerEntity();
             }
         });
     }
@@ -97,7 +97,7 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         throw new System.NotImplementedException();
     }
 
-    protected override void registerVehicle()
+    protected override void registerEntity()
     {
         mainController.setEgo(this.ego);
     }
