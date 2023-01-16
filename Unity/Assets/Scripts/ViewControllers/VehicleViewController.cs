@@ -72,36 +72,55 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (waypoint is not null)
+
+            if (getEntity().GetType() == typeof(Vehicle))
             {
-                difference = Vector2.zero;
-                getEntity().setSpawnPoint(waypoint);
-                gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
+                var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (waypoint is not null)
+                {
+                    difference = Vector2.zero;
+                    getEntity().setSpawnPoint(waypoint);
+                    gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
+                }
+                else
+                {
+                    getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0)); // Im not sure this is ok
+                }
             }
-            else
+            else if (getEntity().GetType() == typeof(Pedestrian))
             {
-                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0)); // Im not sure this is ok
+                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
             }
+
         }
     }
     public void OnMouseDrag()
     {
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
         {
             return;
         }
-        var waypoint = snapController.FindWaypoint(mousePosition);
-        if (waypoint is not null)
+
+        if (getEntity().GetType() == typeof(Vehicle))
         {
-            difference = Vector2.zero;
-            getEntity().setSpawnPoint(waypoint);
+            var waypoint = snapController.FindWaypoint(mousePosition);
+            if (waypoint is not null)
+            {
+                difference = Vector2.zero;
+                getEntity().setSpawnPoint(waypoint);
+            }
+            else
+            {
+                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+            }
         }
-        else
+        else if (getEntity().GetType() == typeof(Pedestrian))
         {
             getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
         }
+
     }
 
     public void OnMouseDown()
