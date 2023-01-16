@@ -212,11 +212,19 @@ public class SnapController : MonoBehaviour
                (endLane.Id == startLane.Id + 1 || endLane.Id == startLane.Id - 1) && // lanes are next to eachother
                (endWaypoint.IndexInLane >= startWaypoint.IndexInLane)) // lane change in forward direction
         {
-            // TODO -1 or 1 laneChange
+            if (endLane.Id == startLane.Id + 1) print("endLane.Id == startLane.Id+1");
+            else print("endLane.Id == startLane.Id-1");
+            print("startLane.Id: " + startLane.Id);
+            print("endLane.Id: " + endLane.Id);
+
+            int targetLaneValueCarla = 0;
+            if (startLane.Id > 0) targetLaneValueCarla = startLane.Id > endLane.Id ? 1 : -1;
+            if (startLane.Id < 0) targetLaneValueCarla = startLane.Id > endLane.Id ? -1 : 1;
+
             // TODOD set entityRef to "adversary"+Vehicle.Id
             // TODO how to get the entityRef? I don't have access to the Vehicle to get it. Atm entityRef is set after export button is pressed. This is ugly.
             return (new List<Vector2>() { startWaypoint.Location.Vector3, endWaypoint.Location.Vector3 }, 
-                new ActionType("LaneChangeAction", null, -1));
+                new ActionType("LaneChangeAction", null, targetLaneValueCarla)); 
 
             //lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
         }
@@ -348,6 +356,12 @@ public class SnapController : MonoBehaviour
     public static float UnityRotToRadians(float rotation)
     {
         return (float)(Math.PI / 180 * rotation);
+    }
+
+    public static int CalculateTargetLaneValueCarla(Lane startLane, Lane endLane)
+    {
+        // later for code refactoring
+        return -1;
     }
 
 }

@@ -33,7 +33,7 @@ namespace Entity
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
         }
-        public ActionType(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape = "linear", double laneChangeActionDynamicsValue = 25, string dynamicsDimension = "distance")
+        public ActionType(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape = "linear", double laneChangeActionDynamicsValue = 13, string dynamicsDimension = "distance")
         /// for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
         {
             ID = autoIncrementId++;
