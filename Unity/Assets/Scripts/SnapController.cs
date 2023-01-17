@@ -212,11 +212,7 @@ public class SnapController : MonoBehaviour
                (endLane.Id == startLane.Id + 1 || endLane.Id == startLane.Id - 1) && // lanes are next to eachother
                (endWaypoint.IndexInLane >= startWaypoint.IndexInLane)) // lane change in forward direction
         {
-            if (endLane.Id == startLane.Id + 1) print("endLane.Id == startLane.Id+1");
-            else print("endLane.Id == startLane.Id-1");
-            print("startLane.Id: " + startLane.Id);
-            print("endLane.Id: " + endLane.Id);
-
+            
             int targetLaneValueCarla = 0;
             if (startLane.Id > 0) targetLaneValueCarla = startLane.Id > endLane.Id ? 1 : -1;
             if (startLane.Id < 0) targetLaneValueCarla = startLane.Id > endLane.Id ? -1 : 1;
