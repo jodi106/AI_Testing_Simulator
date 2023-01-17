@@ -17,11 +17,20 @@ public class VehicleListEntryController
         container = visualElement.Q<VisualElement>("box");
     }
 
-    public void setEventData(Vehicle entity)
+    public void setEventData(BaseEntity entity)
     {
         label.text = entity.Id.ToString();
-        category.text = entity.Category.ToString();
-        model.text = entity.Model.DisplayName;
         container.style.backgroundColor = entity.color;
+        //TODO: maybe use common subclass for ego and vehicle
+        if (entity is Vehicle v)
+        {
+            category.text = v.Category.ToString();
+            model.text = v.Model.DisplayName;
+        }
+        if (entity is Ego e)
+        {
+            category.text = e.Category.ToString();
+            model.text = e.Model.DisplayName;
+        }
     }
 }

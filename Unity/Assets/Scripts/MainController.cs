@@ -43,6 +43,10 @@ public class MainController : MonoBehaviour
     void Start()
     {
         this.info = new ScenarioInfo();
+        this.info.onEgoChanged = () =>
+        {
+            refreshEntityList();
+        };
         this.selectedEntity = null;
         this.preventDeselection = false;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
@@ -137,7 +141,7 @@ public class MainController : MonoBehaviour
 
     public void setEgo(Ego ego)
     {
-        this.info.EgoVehicle = ego;
+        this.info.setEgo(ego);
         this.preventDeselection = false;
     }
 
@@ -284,7 +288,7 @@ public class MainController : MonoBehaviour
         // Set up bind function for a specific list entry
         eventList.bindItem = (item, index) =>
         {
-            (item.userData as VehicleListEntryController).setEventData(info.Vehicles[index]);
+            (item.userData as VehicleListEntryController).setEventData(info.allEntities.ElementAt(index));
         };
 
         info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
@@ -292,7 +296,7 @@ public class MainController : MonoBehaviour
             refreshEntityList();
         };
 
-        eventList.itemsSource = info.Vehicles;
+        eventList.itemsSource = info.allEntities;
     }
 
     public void refreshEntityList()
@@ -314,7 +318,7 @@ public class MainController : MonoBehaviour
         // TODO remove these lines later once these values are set in Unity
         info.Name = "OurScenario3";
         info.MapURL = "Town10HD";
-        info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
+        info.EgoVehicle.setModel(new EntityModel("vehicle.nissan.micra"));
         foreach (Vehicle veh in info.Vehicles)
         {
             veh.InitialSpeed = 10;

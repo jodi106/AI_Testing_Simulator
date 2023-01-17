@@ -60,8 +60,8 @@ public class EgoSettingsPopupController : MonoBehaviour
         possibleModelsField.choices = allPossibleModels;
         possibleModelsField.RegisterValueChangedCallback((evt) =>
         {
-            Debug.Log("New Model: " + evt.newValue);
-            //TODO: get Model from repository and set it
+            EntityModel model = VehicleModelRepository.findModel(evt.newValue);
+            ego.setModel(model);
         });
 
 
@@ -88,7 +88,7 @@ public class EgoSettingsPopupController : MonoBehaviour
                 possibleModelsField.choices = allPossibleModels;
                 ego.setCategory(VehicleCategory.Car);
                 EntityModel model = VehicleModelRepository.getDefaultCarModel();
-                ego.Model = model;
+                ego.setModel(model);
                 possibleModelsField.value = ego.Model.Name.ToString();
             }
             if (evt.newValue == "Bike")
@@ -101,7 +101,7 @@ public class EgoSettingsPopupController : MonoBehaviour
                 possibleModelsField.choices = allPossibleModels;
                 ego.setCategory(VehicleCategory.Bike);
                 EntityModel model = VehicleModelRepository.getDefaultBikeModel();
-                ego.Model = model;
+                ego.setModel(model);
                 possibleModelsField.value = ego.Model.Name.ToString();
             }
             if (evt.newValue == "Motorcycle")
@@ -114,7 +114,7 @@ public class EgoSettingsPopupController : MonoBehaviour
                 possibleModelsField.choices = allPossibleModels;
                 ego.setCategory(VehicleCategory.Motorcycle);
                 EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
-                ego.Model = model;
+                ego.setModel(model);
                 possibleModelsField.value = ego.Model.Name.ToString();
             }
         });

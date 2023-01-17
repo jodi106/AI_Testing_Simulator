@@ -38,9 +38,14 @@ namespace Entity
             this.Category = category;
             this.View?.onChangeType(category);
         }
+        public void setModel(EntityModel model)
+        {
+            this.Model = model;
+            this.View?.onChangeModel(model);
+        }
 
         public Location Destination { get; set; }
-        public EntityModel Model { get; set; }
+        public EntityModel Model { get; private set; }
         public VehicleCategory Category { get; set; }
     }
 }
