@@ -35,7 +35,7 @@ public class MainController : MonoBehaviour
 
     private ScenarioInfo info;
 
-    private IBaseEntityController selectedEntity;
+    private IBaseController selectedEntity;
     private bool preventDeselection;
 
     private WorldSettingsPopupController worldSettingsController;
@@ -81,7 +81,7 @@ public class MainController : MonoBehaviour
         this.worldSettingsController.init(this.info.WorldOptions);
     }
 
-    public void setSelectedEntity(IBaseEntityController entity)
+    public void setSelectedEntity(IBaseController entity)
     {
         if (entity != null)
         {
@@ -91,14 +91,22 @@ public class MainController : MonoBehaviour
             this.removeEntityButton.style.display = DisplayStyle.Flex;
             this.editEntityButton.style.display = DisplayStyle.Flex;
             this.actionButtons.style.display = DisplayStyle.Flex;
-            if (entity.hasAction())
+            if (entity is IBaseEntityController entityController)
             {
-                this.setPathButton.style.display = DisplayStyle.None;
-                this.deletePathButton.style.display = DisplayStyle.Flex;
+                if (entityController.hasAction())
+                {
+                    this.setPathButton.style.display = DisplayStyle.None;
+                    this.deletePathButton.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    this.setPathButton.style.display = DisplayStyle.Flex;
+                    this.deletePathButton.style.display = DisplayStyle.None;
+                }
             }
             else
             {
-                this.setPathButton.style.display = DisplayStyle.Flex;
+                this.setPathButton.style.display = DisplayStyle.None;
                 this.deletePathButton.style.display = DisplayStyle.None;
             }
             this.submitPathButton.style.display = DisplayStyle.None;
@@ -164,7 +172,8 @@ public class MainController : MonoBehaviour
             if (this.info.EgoVehicle is null)
             {
                 viewController = vehicleGameObject.GetComponent<EgoViewController>();
-            } else
+            }
+            else
             {
                 viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
             }
@@ -183,15 +192,13 @@ public class MainController : MonoBehaviour
             var pedestrianGameObject = Instantiate(pedPrefab, pos, Quaternion.identity);
             pedestrianGameObject.transform.localScale = Vector3.one * 0.1f;
             PedestrianViewController viewController = pedestrianGameObject.GetComponent<PedestrianViewController>();
-            
+
             Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
             viewController.getEntity().setColor(color);
             setSelectedEntity(viewController);
             this.preventDeselection = true;
         });
-
-
 
         removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -226,18 +233,35 @@ public class MainController : MonoBehaviour
 
         setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            this.selectedEntity.triggerActionSelection();
-            this.preventDeselection = true;
-            setPathButton.style.display = DisplayStyle.None;
-            cancelPathButton.style.display = DisplayStyle.Flex;
-            submitPathButton.style.display = DisplayStyle.Flex;
+            if (this.selectedEntity is IBaseEntityController entityController)
+            {
+                entityController.triggerActionSelection();
+                this.preventDeselection = true;
+                setPathButton.style.display = DisplayStyle.None;
+                cancelPathButton.style.display = DisplayStyle.Flex;
+                submitPathButton.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                setPathButton.style.display = DisplayStyle.None;
+                cancelPathButton.style.display = DisplayStyle.None;
+                submitPathButton.style.display = DisplayStyle.None;
+            }
         });
 
         deletePathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            this.selectedEntity.deleteAction();
-            setPathButton.style.display = DisplayStyle.Flex;
-            deletePathButton.style.display = DisplayStyle.None;
+            if (this.selectedEntity is IBaseEntityController entityController)
+            {
+                entityController.deleteAction();
+                setPathButton.style.display = DisplayStyle.Flex;
+                deletePathButton.style.display = DisplayStyle.None;
+            }
+            else
+            {
+                setPathButton.style.display = DisplayStyle.None;
+                deletePathButton.style.display = DisplayStyle.None;
+            }
         });
 
         cancelPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -368,8 +392,8 @@ public class MainController : MonoBehaviour
         }
         info.EgoVehicle.CalculateLocationCarla();
         // ------------------------------------------------------------------------
-        
-        
+
+
         // Create .xosc file
         BuildXML doc = new BuildXML(info);
         doc.CombineXML();

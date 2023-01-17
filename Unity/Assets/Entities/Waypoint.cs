@@ -4,18 +4,16 @@ using UnityEngine.UI;
 
 namespace Entity
 { 
-    public class Waypoint : BaseEntity// Event in .xosc
+    public class Waypoint// Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
         public Waypoint(Location location)
         {
-            Id = -1;
             Location = location;
         }
 
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
-            Id = -1;
             Location = location;
             ActionTypeInfo = actionTypeInfo;
             Priority = priority;
@@ -36,6 +34,7 @@ namespace Entity
         public string Priority { get; set; } // has enum: PriorityType
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
+        public IBaseView View { get; set; }
 
         public void CalculateLocationCarla()
         {

@@ -6,7 +6,7 @@ using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-public class WaypointViewController : MonoBehaviour, IBaseEntityController, IBaseEntityView
+public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 {
     // Use this for initialization
     private PathController pathController;
@@ -63,11 +63,6 @@ public class WaypointViewController : MonoBehaviour, IBaseEntityController, IBas
     public Vector2 getPosition()
     {
         return gameObject.transform.position;
-    }
-
-    public BaseEntity getEntity()
-    {
-        return waypoint;
     }
 
     public void destroy()

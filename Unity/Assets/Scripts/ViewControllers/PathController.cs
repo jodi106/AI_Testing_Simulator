@@ -102,7 +102,7 @@ public class PathController : MonoBehaviour
     public void SetEntityController(IBaseEntityWithPathController controller)
     {
         this.entityWithPathController = controller;
-        AddMoveToWaypoint(controller.getPosition()); //init with starting position of car
+        AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car
     }
 
     public void Update()
@@ -173,7 +173,7 @@ public class PathController : MonoBehaviour
             viewController.setPathController(this);
             viewController.setColor(pathRenderer.startColor);
             viewController.waypoint = generateWaypoint(new Location(waypoint.Vector3, 0), new ActionType("MoveToAction"));
-            viewController.waypoint.setView(viewController);
+            viewController.waypoint.View = viewController;
             this.Path.WaypointList.Add(viewController.waypoint);
 
             waypointViewControllers.AddLast((viewController, pathLen));
@@ -412,7 +412,7 @@ public class PathController : MonoBehaviour
             viewController.setPathController(this);
             viewController.setColor(pathRenderer.startColor);
             viewController.waypoint = generateWaypoint(new Location(location, 0), new ActionType("MoveToAction"));
-            viewController.waypoint.setView(viewController);
+            viewController.waypoint.View = viewController;
 
             var cur = waypointViewControllers.First;
             while (index - cur.Next.Value.Item2 > 0)
