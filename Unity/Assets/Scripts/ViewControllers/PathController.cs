@@ -136,7 +136,7 @@ public class PathController : MonoBehaviour
             lineRenderer = pathRenderer;
         }
 
-        var actionType = new ActionType("MoveToAction");
+        //var actionType = new ActionType("MoveToAction");
 
         var pathLen = 0;
 
@@ -147,7 +147,7 @@ public class PathController : MonoBehaviour
         else
         {
             var path = new List<Vector2>();
-            (path, actionType) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3);
+            (path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3);
 
             path.RemoveAt(0);
             pathLen = path.Count;
@@ -172,7 +172,7 @@ public class PathController : MonoBehaviour
             WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
             viewController.setPathController(this);
             viewController.setColor(pathRenderer.startColor);
-            viewController.waypoint = generateWaypoint(new Location(waypoint.Vector3, 0), actionType);
+            viewController.waypoint = generateWaypoint(new Location(waypoint.Vector3, 0), new ActionType("MoveToAction"));
             viewController.waypoint.setView(viewController);
             this.Path.WaypointList.Add(viewController.waypoint);
 
