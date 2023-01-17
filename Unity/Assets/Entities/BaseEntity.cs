@@ -6,35 +6,22 @@ namespace Entity
     public class BaseEntity
     /// <summary>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped)</summary>
     {
-        public BaseEntity()
-        {
-        }
-
-        public BaseEntity(int id)
-        {
-            Id = id;
-        }
-
-        public BaseEntity(int id, Location spawnPoint)
-        {
-            Id = id;
-            SpawnPoint = spawnPoint;
-        }
-
-        public BaseEntity( Location spawnPoint, double initialSpeed)
-        {
-            SpawnPoint = spawnPoint;
-            InitialSpeed = initialSpeed;
-        }
-
         public BaseEntity(int id, Location spawnPoint, double initialSpeed)
         {
-            Id = id;
+            Id = id.ToString();
             SpawnPoint = spawnPoint;
             InitialSpeed = initialSpeed;
         }
 
-        public int Id { get; set; }
+        private string id;
+        public string Id
+        {
+            get => id; set
+            {
+                id = value;
+                View?.onChangeID(value);
+            }
+        }
         public Location SpawnPoint { get; set; }
         public Location SpawnPointCarla { get; set; }
 
@@ -65,7 +52,7 @@ namespace Entity
         {
             (float xCarla, float yCarla) = SnapController.UnityToCarla(SpawnPoint.X, SpawnPoint.Y);
             float rotCarla = SnapController.UnityRotToRadians(SpawnPoint.Rot);
-            rotCarla = (float) Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
+            rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
             this.SpawnPointCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
     }

@@ -45,6 +45,11 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         mainController.refreshEntityList();
     }
 
+    public void onChangeID(string id)
+    {
+        mainController.refreshEntityList();
+    }
+
     public void select()
     {
         this.selected = true;

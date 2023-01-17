@@ -5,7 +5,6 @@ namespace Entity
     public class Vehicle : BaseEntity
     {
         private static int autoIncrementId = 0;
-        public Vehicle() : base(++autoIncrementId) { }
 
         public Vehicle(Location spawnPoint, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0) : base(++autoIncrementId,spawnPoint, initialSpeed)
         {

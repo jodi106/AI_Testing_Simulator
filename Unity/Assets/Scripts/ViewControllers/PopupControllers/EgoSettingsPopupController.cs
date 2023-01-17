@@ -46,7 +46,7 @@ public class EgoSettingsPopupController : MonoBehaviour
 
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
         {
-            ego.Id = Int32.Parse(InputEvent.newData);
+            ego.Id = InputEvent.newData;
         });
 
         locationField = this.document.rootVisualElement.Q<TextField>("Location");

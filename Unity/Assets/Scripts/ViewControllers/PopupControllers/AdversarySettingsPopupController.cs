@@ -46,7 +46,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
         {
-            vehicle.Id = Int32.Parse(InputEvent.newData);
+            vehicle.Id = InputEvent.newData;
         });
 
         locationField = this.document.rootVisualElement.Q<TextField>("Location");

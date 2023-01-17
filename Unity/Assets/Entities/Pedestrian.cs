@@ -6,8 +6,6 @@ namespace Entity
     /// <summary>Creates Pedestrian Object. Contains all Pedestiran-Entity specific info created by Gui-User.</summary>
     {
         private static int autoIncrementId = 0;
-        public Pedestrian() : base(++autoIncrementId) { }
-
         public Pedestrian(Location spawnPoint, PedestrianType pedestrianType = PedestrianType.Null, double initialSpeed = 0) : base(++autoIncrementId, spawnPoint, initialSpeed)
         {
             Type = pedestrianType;
