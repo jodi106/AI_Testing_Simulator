@@ -6,10 +6,9 @@ namespace Assets.Repos
 {
     public class PedestrianModelRepository
     {
-        private readonly Dictionary<PedestrianType, List<EntityModel>> _pedestrianModels;
-        public PedestrianModelRepository()
+        private readonly static Dictionary<PedestrianType, List<EntityModel>> _pedestrianModels = new Dictionary<PedestrianType, List<EntityModel>>();
+        static PedestrianModelRepository()
         {
-            _pedestrianModels = new Dictionary<PedestrianType, List<EntityModel>>();
 
             _pedestrianModels.Add(PedestrianType.Woman, new List<EntityModel>
             {
@@ -79,9 +78,14 @@ namespace Assets.Repos
 
         }
 
-        public List<EntityModel> GetModelsBasedOnType(PedestrianType type)
+        public static List<EntityModel> GetModelsBasedOnType(PedestrianType type)
         {
             return _pedestrianModels[type];
+        }
+
+        public static EntityModel GetDefaultWomanModel()
+        {
+            return _pedestrianModels[PedestrianType.Woman][0];
         }
 
 

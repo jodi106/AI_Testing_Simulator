@@ -6,9 +6,9 @@ namespace Entity
     public class BaseEntity
     /// <summary>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped)</summary>
     {
-        public BaseEntity(int id, Location spawnPoint, double initialSpeed)
+        public BaseEntity(string id, Location spawnPoint, double initialSpeed)
         {
-            Id = id.ToString();
+            Id = id;
             SpawnPoint = spawnPoint;
             InitialSpeed = initialSpeed;
         }
