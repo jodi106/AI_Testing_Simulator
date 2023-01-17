@@ -101,7 +101,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         this.pathController = null;
     }
 
-    public override void setColor(Color color)
+    public override void onChangeColor(Color color)
     {
         if (placed)
         {
@@ -115,6 +115,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         {
             this.pathController.SetColor(this.sprite.color);
         }
+        mainController.refreshEntityList();
     }
 
     public override BaseEntity getEntity()

@@ -60,8 +60,8 @@ public class AdversarySettingsPopupController : MonoBehaviour
         possibleModelsField.choices = allPossibleModels;
         possibleModelsField.RegisterValueChangedCallback((evt) =>
         {
-            Debug.Log("New Model: " + evt.newValue);
-            //TODO: get Model from repository and set it
+            EntityModel model = VehicleModelRepository.findModel(evt.newValue);
+            vehicle.setModel(model);
         });
 
 
@@ -88,7 +88,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 possibleModelsField.choices = allPossibleModels;
                 vehicle.setCategory(VehicleCategory.Car);
                 EntityModel model = VehicleModelRepository.getDefaultCarModel();
-                vehicle.Model = model;
+                vehicle.setModel(model);
                 possibleModelsField.value = vehicle.Model.Name.ToString();
             }
             if (evt.newValue == "Bike")
@@ -101,7 +101,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 possibleModelsField.choices = allPossibleModels;
                 vehicle.setCategory(VehicleCategory.Bike);
                 EntityModel model = VehicleModelRepository.getDefaultBikeModel();
-                vehicle.Model = model;
+                vehicle.setModel(model);
                 possibleModelsField.value = vehicle.Model.Name.ToString();
             }
             if (evt.newValue == "Motorcycle")
@@ -114,7 +114,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 possibleModelsField.choices = allPossibleModels;
                 vehicle.setCategory(VehicleCategory.Motorcycle);
                 EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
-                vehicle.Model = model;
+                vehicle.setModel(model);
                 possibleModelsField.value = vehicle.Model.Name.ToString();
             }
         });
@@ -125,7 +125,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         rSlider.RegisterValueChangedCallback((changeEvent) =>
         {
             Color color = new Color(changeEvent.newValue, gSlider.value, bSlider.value);
-            controller.setColor(color);
+            vehicle.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
 
@@ -133,7 +133,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         gSlider.RegisterValueChangedCallback((changeEvent) =>
         {
             Color color = new Color(rSlider.value, changeEvent.newValue, bSlider.value);
-            controller.setColor(color);
+            vehicle.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
 
@@ -141,7 +141,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         bSlider.RegisterValueChangedCallback((changeEvent) =>
         {
             Color color = new Color(rSlider.value, gSlider.value, changeEvent.newValue);
-            controller.setColor(color);
+            vehicle.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
     }

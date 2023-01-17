@@ -69,6 +69,23 @@ namespace Assets.Repos
             return _EntityModels[VehicleCategory.Motorcycle][0];
         }
 
+        public static EntityModel findModel(string description)
+        {
+            EntityModel model = null;
+            foreach (var cat in _EntityModels)
+            {
+                model = cat.Value.Find((x) =>
+                {
+                    return x.DisplayName == description;
+                });
+                if(model is not null)
+                {
+                    return model;
+                }
+            }
+            return model;
+        }
+
 
     }
 }

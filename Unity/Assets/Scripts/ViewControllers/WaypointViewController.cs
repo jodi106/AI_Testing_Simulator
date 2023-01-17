@@ -99,4 +99,14 @@ public class WaypointViewController : MonoBehaviour, IBaseEntityController, IBas
     {
         throw new System.NotImplementedException();
     }
+
+    public void onChangeModel(EntityModel model)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void onChangeColor(Color c)
+    {
+
+    }
 }

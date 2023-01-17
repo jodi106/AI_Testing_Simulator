@@ -37,7 +37,12 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public void onChangeType(VehicleCategory cat)
     {
-        throw new NotImplementedException();
+        mainController.refreshEntityList();
+    }
+
+    public void onChangeModel(EntityModel model)
+    {
+        mainController.refreshEntityList();
     }
 
     public void select()
@@ -142,8 +147,8 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     public abstract bool hasAction();
     public abstract void deleteAction();
     public abstract void triggerActionSelection();
-    public abstract void setColor(Color color);
     public abstract BaseEntity getEntity();
     public abstract void openEditDialog();
     protected abstract void registerEntity();
+    public abstract void onChangeColor(Color c);
 }

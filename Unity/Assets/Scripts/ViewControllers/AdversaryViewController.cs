@@ -100,7 +100,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         this.pathController = null;
     }
 
-    public override void setColor(Color color)
+    public override void onChangeColor(Color color)
     {
         if (placed)
         {
@@ -113,6 +113,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         {
             this.pathController.SetColor(this.sprite.color);
         }
+        mainController.refreshEntityList();
     }
 
     public override BaseEntity getEntity()

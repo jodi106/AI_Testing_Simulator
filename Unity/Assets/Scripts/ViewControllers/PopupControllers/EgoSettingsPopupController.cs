@@ -125,7 +125,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         rSlider.RegisterValueChangedCallback((changeEvent) =>
         {
             Color color = new Color(changeEvent.newValue, gSlider.value, bSlider.value);
-            controller.setColor(color);
+            ego.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
 
@@ -133,7 +133,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         gSlider.RegisterValueChangedCallback((changeEvent) =>
         {
             Color color = new Color(rSlider.value, changeEvent.newValue, bSlider.value);
-            controller.setColor(color);
+            ego.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
 
@@ -141,7 +141,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         bSlider.RegisterValueChangedCallback((changeEvent) =>
         {
             Color color = new Color(rSlider.value, gSlider.value, changeEvent.newValue);
-            controller.setColor(color);
+            ego.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
     }

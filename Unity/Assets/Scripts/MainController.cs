@@ -166,7 +166,7 @@ public class MainController : MonoBehaviour
             }
             Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
-            viewController.setColor(color);
+            viewController.getEntity().setColor(color);
             setSelectedEntity(viewController);
             this.preventDeselection = true;
         });
@@ -182,7 +182,7 @@ public class MainController : MonoBehaviour
             
             Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
-            viewController.setColor(color);
+            viewController.getEntity().setColor(color);
             setSelectedEntity(viewController);
             this.preventDeselection = true;
         });
@@ -289,10 +289,15 @@ public class MainController : MonoBehaviour
 
         info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
-            this.eventList.Rebuild();
+            refreshEntityList();
         };
 
         eventList.itemsSource = info.Vehicles;
+    }
+
+    public void refreshEntityList()
+    {
+        this.eventList.Rebuild();
     }
 
     void ExportOnClick()
@@ -313,7 +318,7 @@ public class MainController : MonoBehaviour
         foreach (Vehicle veh in info.Vehicles)
         {
             veh.InitialSpeed = 10;
-            veh.Model = new EntityModel("vehicle.audi.tt");
+            veh.setModel(new EntityModel("vehicle.audi.tt"));
         }
         // ------------------------------------------------------------------------
         // Trigger: TODO Once we have a settings window for a waypoint we can remove these values

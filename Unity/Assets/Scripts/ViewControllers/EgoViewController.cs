@@ -81,7 +81,7 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         destination = null;
     }
 
-    public override void setColor(Color color)
+    public override void onChangeColor(Color color)
     {
         if (placed)
         {
@@ -91,6 +91,8 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         {
             this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
+        this.destination?.setColor(color);
+        mainController.refreshEntityList();
     }
 
     public override BaseEntity getEntity()

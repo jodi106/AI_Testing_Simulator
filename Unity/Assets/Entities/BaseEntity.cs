@@ -40,6 +40,8 @@ namespace Entity
 
         public double InitialSpeed { get; set; }
 
+        public Color color { get; protected set; }
+
         public IBaseEntityView View { get; set; }
 
         public void setSpawnPoint(Location pos)
@@ -51,6 +53,12 @@ namespace Entity
         public void setView(IBaseEntityView view)
         {
             this.View = view;
+        }
+
+        public void setColor(Color c)
+        {
+            this.color = c;
+            this.View?.onChangeColor(c);
         }
 
         public void CalculateLocationCarla()

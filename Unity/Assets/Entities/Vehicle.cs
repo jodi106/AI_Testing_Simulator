@@ -39,7 +39,13 @@ namespace Entity
             this.View?.onChangeType(category);
         }
 
-        public EntityModel Model { get; set; }
+        public void setModel(EntityModel model)
+        {
+            this.Model = model;
+            this.View?.onChangeModel(model);
+        }
+
+        public EntityModel Model { get; private set; }
         public VehicleCategory Category { get; private set; }
         public Path Path { get; set; }
     }
