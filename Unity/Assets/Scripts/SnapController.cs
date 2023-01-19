@@ -198,6 +198,58 @@ public class SnapController : MonoBehaviour
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
 
+    public (Lane, Lane) getNeighboringLanes(Lane l)
+    {
+        var r = roads[l.RoadId];
+
+        var index  = r.Lanes.IndexOfKey(l.Id);
+
+        Lane prev = index > 0 ? r.Lanes.Values[index - 1] : null;
+        Lane next = index < r.Lanes.Count - 1 ? r.Lanes.Values[index + 1] : null;
+
+        return (prev, next);
+
+    }
+
+    public bool checkLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
+    {
+        if ((startLane.RoadId == endLane.RoadId && endWaypoint.IndexInLane <= startWaypoint.IndexInLane)
+            || endLane.Id * startLane.Id < 0 || FastEuclideanDistance(startWaypoint.Location.Vector3, endWaypoint.Location.Vector3) > 15)
+        {
+            return false;
+        }
+
+        (var left, var right) = getNeighboringLanes(startLane);
+
+        List<Lane> lanes = new List<Lane>();
+        if(left is not null)
+        {
+            lanes.Add(left);
+            foreach((var roadIndex, var laneIndex) in left.NextRoadAndLaneIds)
+            {
+                lanes.Add(roads[roadIndex].Lanes[laneIndex]);
+            }
+        }
+        if (right is not null)
+        {
+            lanes.Add(right);
+            foreach ((var roadIndex, var laneIndex) in right.NextRoadAndLaneIds)
+            {
+                lanes.Add(roads[roadIndex].Lanes[laneIndex]);
+            }
+        }
+
+        foreach (var lane in lanes)
+        {
+            if(endLane.RoadId == lane.RoadId && endWaypoint.LaneId == lane.Id)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public (List<Vector2>,ActionType) FindPath(Vector2 start, Vector2 end)
     {
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
@@ -208,9 +260,7 @@ public class SnapController : MonoBehaviour
             throw new Exception("Invalid start or end coordinates");
         }
 
-        if (endLane.RoadId == startLane.RoadId && endLane.Id * startLane.Id > 0 && // user wants to change lanes
-               (endLane.Id == startLane.Id + 1 || endLane.Id == startLane.Id - 1) && // lanes are next to eachother
-               (endWaypoint.IndexInLane >= startWaypoint.IndexInLane)) // lane change in forward direction
+        if (checkLaneChange(startLane, endLane, startWaypoint, endWaypoint))
         {
             return (new List<Vector2>() { startWaypoint.Location.Vector3, endWaypoint.Location.Vector3 },
                 new ActionType("", null, 0));
@@ -227,9 +277,12 @@ public class SnapController : MonoBehaviour
 
         var costSoFar = new Dictionary<Lane, double>{};
 
+        var laneChanges = new HashSet<AStarWaypoint>();
+
         var firstIteration = true;
 
         AStarWaypoint currentWaypoint;
+
 
         while (prioQueue.Count != 0)
         {
@@ -280,6 +333,7 @@ public class SnapController : MonoBehaviour
                     prioQueue.Enqueue(nextLane, priority);
 
                     cameFrom[nextLane.Waypoints[0]] = currentWaypoint;
+                    laneChanges.Add(nextLane.Waypoints[0]);
                 }
             }
 
@@ -298,6 +352,15 @@ public class SnapController : MonoBehaviour
 
         while (currentWaypoint != startWaypoint)
         {
+            if(laneChanges.Contains(currentWaypoint))
+            {
+                var i = 4;
+                while(i > 0 && cameFrom[currentWaypoint] != startWaypoint)
+                {
+                    currentWaypoint = cameFrom[currentWaypoint];
+                    i--;
+                }
+            }
             waypointPath.Add(currentWaypoint.Location.Vector3);
             currentWaypoint = cameFrom[currentWaypoint];
         }
