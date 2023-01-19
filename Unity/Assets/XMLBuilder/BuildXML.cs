@@ -110,6 +110,10 @@ namespace ExportScenario.XMLBuilder
 
             XmlNode stoptrigger = root.CreateElement("StopTrigger");
             storyBoard.AppendChild(stoptrigger);
+
+            // Create Criteria Conditions
+            BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
+            buildTrigger.CriteriaConditions(stoptrigger);
         }
 
         public void BuildVehicleStories(Vehicle vehicle)

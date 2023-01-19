@@ -93,6 +93,39 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
+        public void CriteriaConditions(XmlNode stopTrigger)
+        {
+            XmlNode conditionGroup = root.CreateElement("ConditionGroup");
+
+            CriteriaCondition(conditionGroup, "criteria_RunningStopTest", "", "");
+            CriteriaCondition(conditionGroup, "criteria_RunningRedLightTest", "", "");
+            CriteriaCondition(conditionGroup, "criteria_WrongLaneTest", "", "");
+            CriteriaCondition(conditionGroup, "criteria_OnSidewalkTest", "", "");
+            CriteriaCondition(conditionGroup, "criteria_KeepLaneTest", "", "");
+            CriteriaCondition(conditionGroup, "criteria_CollisionTest", "", "");
+            CriteriaCondition(conditionGroup, "criteria_DrivenDistanceTest", "distance_success", "1");
+
+            stopTrigger.AppendChild(conditionGroup);
+        }
+
+        private void CriteriaCondition(XmlNode conditionGroup, string name, string parameterRef, string value)
+        {
+            XmlNode condition = root.CreateElement("Condition");
+            SetAttribute("name", name, condition);
+            SetAttribute("delay", "0", condition);
+            SetAttribute("conditionEdge", "rising", condition);
+            XmlNode byValueCondition = root.CreateElement("ByValueCondition");
+            XmlNode parameterCondition = root.CreateElement("ParameterCondition");
+            SetAttribute("parameterRef", parameterRef, parameterCondition);
+            SetAttribute("value", value, parameterCondition);
+            SetAttribute("rule", "lessThan", parameterCondition);
+
+            conditionGroup.AppendChild(condition);
+            condition.AppendChild(byValueCondition);
+            byValueCondition.AppendChild(parameterCondition);
+        }
+
+
         // AccelerationCondition(XmlNode conditionGroup, Waypoint waypoint)
 
 
