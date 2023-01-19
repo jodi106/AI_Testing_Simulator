@@ -351,7 +351,7 @@ public class SnapController : MonoBehaviour
 
     public static float UnityRotToRadians(float rotation)
     {
-        return (float)(Math.PI / 180 * rotation);
+        return (float)(Math.PI / 180 * -rotation);
     }
 
     public static int CalculateTargetLaneValueCarla(Lane startLane, Lane endLane)
