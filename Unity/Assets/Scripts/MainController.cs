@@ -349,38 +349,6 @@ public class MainController : MonoBehaviour
             veh.setModel(new EntityModel("vehicle.audi.tt"));
         }
         // ------------------------------------------------------------------------
-        // Trigger: TODO Once we have a settings window for a waypoint we can remove these values
-        foreach (Vehicle vehicle in info.Vehicles)
-        {
-            if (vehicle.Path is null) break;
-            foreach (Waypoint waypoint in vehicle.Path.WaypointList)
-            {
-                if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
-                {
-                    foreach (TriggerInfo trigger in waypoint.TriggerList)
-                    {
-                        // At the moment we set the entityRef of all LaneChangeTriggers to the story's entity.
-                        // After we added the waypoint setting window, a user can decide to set if to another entity too.
-                        // e.g. So a car can do a laneChange after a pedestrian is at location xy or whatever
-                        trigger.EntityRef = "adversary" + vehicle.Id;
-                    }
-                }
-            }
-        }
-        // ------------------------------------------------------------------------
-        // Actions: TODO Remove this after we found a better solution in SnapController to set the entityRef for LaneChanges there
-        foreach (Vehicle vehicle in info.Vehicles)
-        {
-            if (vehicle.Path is null) break;
-            foreach (Waypoint waypoint in vehicle.Path.WaypointList)
-            {
-                if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
-                {
-                    waypoint.ActionTypeInfo.EntityRef = "adversary" + vehicle.Id;
-                }
-            }
-        }
-        // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)
         {
