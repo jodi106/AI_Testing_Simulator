@@ -62,10 +62,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         this.selected = false;
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
         sprite.material = defaultMaterial;
-        if (expectingAction)
-        {
-            EventManager.TriggerEvent(new CancelPathSelectionAction());
-        }
     }
 
     public void destroy()

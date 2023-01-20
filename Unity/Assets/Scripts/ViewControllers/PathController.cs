@@ -61,6 +61,11 @@ public class PathController : MonoBehaviour
         });
     }
 
+    public bool isBuilding()
+    {
+        return building;
+    }
+
     public void Select()
     {
         for (var i = 0; i < pathRenderer.positionCount; i++)
@@ -121,6 +126,23 @@ public class PathController : MonoBehaviour
         {
             Debug.Log("Invalid mouse position, mouse probably not on road!");
             return;
+        }
+
+        RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(waypoint.Vector3, -10), -Vector2.up);
+        if (hit.collider == this.edgeCollider)
+        {
+            previewRenderer.positionCount = 0;
+            return;
+        }
+        foreach (var entry in waypointViewControllers)
+        {
+            var waypointController = entry.Item1;
+            var collider = waypointController.gameObject.GetComponent<CircleCollider2D>();
+            if (hit.collider == collider)
+            {
+                previewRenderer.positionCount = 0;
+                return;
+            }
         }
 
         LineRenderer lineRenderer;
@@ -232,12 +254,14 @@ public class PathController : MonoBehaviour
         if (prev != null)
         {
             (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, location.Vector3);
+            prev.Value.Item1.waypoint.setLocation(new Location(prevPath[0]));
             prevPath.RemoveAt(prevPath.Count - 1);
             offset = offset + prevPath.Count - cur.Value.Item2;
         }
         if (next != null)
         {
             (nextPath, _) = snapController.FindPath(location.Vector3, next.Value.Item1.waypoint.Location.Vector3);
+            next.Value.Item1.waypoint.setLocation(new Location(nextPath[nextPath.Count - 1]));
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
         }
@@ -278,7 +302,7 @@ public class PathController : MonoBehaviour
             next.Value = (next.Value.Item1, nextPath.Count);
         }
 
-        edgeCollider.SetPoints(positions.ToList());
+        resetEdgeCollider();
     }
 
     public void removeWaypoint(WaypointViewController controller)
@@ -336,7 +360,7 @@ public class PathController : MonoBehaviour
             }
             next.Value = (next.Value.Item1, path.Count);
 
-            edgeCollider.SetPoints(positions.ToList());
+            resetEdgeCollider();
 
         }
         else
@@ -423,6 +447,9 @@ public class PathController : MonoBehaviour
             var next = cur.Next;
             waypointViewControllers.AddAfter(cur, (viewController, index));
             next.Value = (next.Value.Item1, next.Value.Item2 - index);
+
+            MoveWaypoint(viewController, viewController.waypoint.Location); // fix paths / deleting waypoint may make A* necessary
+            resetEdgeCollider();
 
             //TODO: insert into path
             //this.Path.WaypointList.Add(viewController.waypoint);

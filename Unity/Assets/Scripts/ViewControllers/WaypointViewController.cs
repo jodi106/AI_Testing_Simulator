@@ -39,7 +39,10 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void OnMouseDown()
     {
-        mainController.setSelectedEntity(this);
+        if (!pathController.isBuilding())
+        {
+            mainController.setSelectedEntity(this);
+        }
     }
     public void OnMouseDrag()
     {
@@ -71,33 +74,9 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         Destroy(this.gameObject);
     }
 
-    //create subinterface for action related methods
-    public bool hasAction()
-    {
-        return false;
-    }
-
-    public void deleteAction()
-    {
-    }
-
-    public void triggerActionSelection()
-    {
-    }
-
     public void onChangePosition(Location pos)
     {
         transform.position = new Vector3(pos.X, pos.Y, transform.position.z);
-    }
-
-    public void onChangeType(VehicleCategory cat)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void onChangeModel(EntityModel model)
-    {
-        throw new System.NotImplementedException();
     }
 
     public void onChangeColor(Color c)
