@@ -420,6 +420,11 @@ public class PathController : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if(snapController.ignoreClicks && !building)
+        {
+            EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            return;
+        }
         //find closest linerenderer position to the click
         double min = double.MaxValue;
         Vector2 location = Vector2.zero;

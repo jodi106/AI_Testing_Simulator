@@ -20,11 +20,6 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         //this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
         //this.vehicleSettingsController.gameObject.SetActive(true);
 
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-            expectingAction = false;
-        });
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (!placed)
@@ -65,13 +60,11 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         this.pathController = pathGameObject.GetComponent<PathController>();
         this.pathController.SetEntityController(this);
         this.pathController.SetColor(this.sprite.color);
-        expectingAction = true;
     }
 
     public void submitPath(Path path)
     {
         pedestrian.Path = path;
-        expectingAction = false;
     }
 
     public override bool hasAction()

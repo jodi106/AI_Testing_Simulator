@@ -39,13 +39,26 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void OnMouseDown()
     {
+
         if (!pathController.isBuilding())
         {
-            mainController.setSelectedEntity(this);
+            if (snapController.ignoreClicks)
+            {
+                EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            }
+            else
+            {
+                mainController.setSelectedEntity(this);
+            }
         }
     }
     public void OnMouseDrag()
     {
+        if (snapController.ignoreClicks && !pathController.isBuilding())
+        {
+            EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            return;
+        }
         var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (waypoint is not null)
         {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour
@@ -56,6 +57,14 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Prints mouse position on every frame
+        print_mouse_position();
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         //Verify if the Camera Size is in valid range
         if (cam.orthographicSize < maxCamSize && cam.orthographicSize > minCamSize)
         {
@@ -106,8 +115,6 @@ public class CameraMovement : MonoBehaviour
                 cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
             }
         }
-        //Prints mouse position on every frame
-        print_mouse_position();
     }
 
     private void PanCamera(Vector3 origin)

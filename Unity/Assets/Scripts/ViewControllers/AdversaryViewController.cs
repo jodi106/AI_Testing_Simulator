@@ -20,11 +20,6 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
 
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-            expectingAction = false;
-        });
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (!placed)
@@ -65,13 +60,13 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         this.pathController = pathGameObject.GetComponent<PathController>();
         this.pathController.SetEntityController(this);
         this.pathController.SetColor(this.sprite.color);
-        expectingAction = true;
+        snapController.ignoreClicks = true;
     }
 
     public void submitPath(Path path)
     {
         vehicle.Path = path;
-        expectingAction = false;
+        snapController.ignoreClicks = false;
     }
 
     public override bool hasAction()
@@ -89,6 +84,7 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     {
         base.destroy();
         mainController.removeVehicle(vehicle);
+        snapController.ignoreClicks = false;
         this.pathController?.Destroy();
         Destroy(gameObject);
     }

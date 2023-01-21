@@ -10,7 +10,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     protected SpriteRenderer sprite;
     protected Boolean placed = false;
-    protected Boolean expectingAction = false;
     protected Vector2 difference = Vector2.zero;
     protected Vector2 lastClickPos = Vector2.zero;
     protected SnapController snapController;
@@ -99,7 +98,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void OnMouseDrag()
     {
-
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
         {
@@ -128,6 +126,11 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public void OnMouseDown()
     {
+        if (snapController.ignoreClicks)
+        {
+            EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            return;
+        }
         difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         lastClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (!placed)
