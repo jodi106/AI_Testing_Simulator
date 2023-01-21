@@ -9,6 +9,7 @@ public class PathController : MonoBehaviour
 
     private LineRenderer pathRenderer;
     private LineRenderer previewRenderer;
+    private SpriteRenderer previewSprite;
     private EdgeCollider2D edgeCollider;
 
     private LinkedList<(WaypointViewController, int)> waypointViewControllers;
@@ -34,6 +35,7 @@ public class PathController : MonoBehaviour
         previewRenderer.startWidth = previewRenderer.endWidth = 0.1f;
 
         edgeCollider = gameObject.GetComponent<EdgeCollider2D>();
+        previewSprite = gameObject.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
 
         building = true;
@@ -68,31 +70,27 @@ public class PathController : MonoBehaviour
 
     public void Select()
     {
+        adjustHeights(true);
+        entityWithPathController.select();
+    }
+
+    public void adjustHeights(bool selected)
+    {
         for (var i = 0; i < pathRenderer.positionCount; i++)
         {
-            pathRenderer.SetPosition(i, HeightUtil.SetZ(pathRenderer.GetPosition(i), HeightUtil.PATH_SELECTED));
+            pathRenderer.SetPosition(i, HeightUtil.SetZ(pathRenderer.GetPosition(i), selected ? HeightUtil.PATH_SELECTED : HeightUtil.PATH_DESELECTED));
         }
-
-        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, selected ? HeightUtil.PATH_SELECTED : HeightUtil.PATH_DESELECTED);
         foreach (var (waypoint, _) in waypointViewControllers)
         {
-            waypoint.gameObject.transform.position = HeightUtil.SetZ(waypoint.gameObject.transform.position, HeightUtil.WAYPOINT_SELECTED);
+            waypoint.gameObject.transform.position = HeightUtil.SetZ(waypoint.gameObject.transform.position, selected ? HeightUtil.WAYPOINT_SELECTED : HeightUtil.WAYPOINT_DESELECTED);
         }
     }
 
     public void Deselect()
     {
-        for (var i = 0; i < pathRenderer.positionCount; i++)
-        {
-            pathRenderer.SetPosition(i, HeightUtil.SetZ(pathRenderer.GetPosition(i), HeightUtil.PATH_DESELECTED));
-        }
-
-        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_DESELECTED);
-
-        foreach (var (waypoint, _) in waypointViewControllers)
-        {
-            waypoint.gameObject.transform.position = HeightUtil.SetZ(waypoint.gameObject.transform.position, HeightUtil.WAYPOINT_DESELECTED);
-        }
+        adjustHeights(false);
+        entityWithPathController.deselect();
     }
 
     public void Destroy()
@@ -112,9 +110,22 @@ public class PathController : MonoBehaviour
 
     public void Update()
     {
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (building)
         {
-            AddMoveToWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition), preview: true);
+            AddMoveToWaypoint(mousePosition, preview: true);
+        } else
+        {
+            var waypoint = snapController.FindWaypoint(mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(waypoint.Vector3, -10), -Vector2.up);
+            if (hit.collider == this.edgeCollider)
+            {
+                previewSprite.enabled = true;
+                previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
+            } else
+            {
+                previewSprite.enabled = false;
+            }
         }
     }
 
@@ -131,6 +142,8 @@ public class PathController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(waypoint.Vector3, -10), -Vector2.up);
         if (hit.collider == this.edgeCollider)
         {
+            previewSprite.enabled = true;
+            previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
             previewRenderer.positionCount = 0;
             return;
         }
@@ -140,6 +153,7 @@ public class PathController : MonoBehaviour
             var collider = waypointController.gameObject.GetComponent<CircleCollider2D>();
             if (hit.collider == collider)
             {
+                previewSprite.enabled = false;
                 previewRenderer.positionCount = 0;
                 return;
             }
@@ -183,7 +197,6 @@ public class PathController : MonoBehaviour
             {
                 lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
             }
-
         }
 
         if (!preview)
@@ -200,8 +213,11 @@ public class PathController : MonoBehaviour
 
             waypointViewControllers.AddLast((viewController, pathLen));
             resetEdgeCollider();
+        } else
+        {
+            previewSprite.enabled = true;
+            previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
         }
-
     }
 
     Waypoint generateWaypoint(Location loc, ActionType actionType)
@@ -368,9 +384,13 @@ public class PathController : MonoBehaviour
             pathRenderer.positionCount -= cur.Value.Item2;
         }
 
-        //TODO: fix path object
-
         waypointViewControllers.Remove(cur);
+        if (waypointViewControllers.Count <= 1)
+        {
+            entityWithPathController.deleteAction();
+        }
+
+        //TODO: fix path object
     }
 
     public void MoveFirstWaypoint(Location location)
@@ -381,6 +401,7 @@ public class PathController : MonoBehaviour
     public void Complete()
     {
         previewRenderer.positionCount = 0;
+        previewSprite.enabled = false;
         building = false;
         entityWithPathController.submitPath(Path);
     }
@@ -390,6 +411,7 @@ public class PathController : MonoBehaviour
         this.pathRenderer.startColor = this.pathRenderer.endColor = color;
         color = new Color(color.r, color.g, color.b, 0.5f);
         this.previewRenderer.startColor = this.previewRenderer.endColor = color;
+        this.previewSprite.color = color;
         foreach (var (waypoint, _) in waypointViewControllers)
         {
             waypoint.setColor(color);
@@ -401,7 +423,7 @@ public class PathController : MonoBehaviour
         //find closest linerenderer position to the click
         double min = double.MaxValue;
         Vector2 location = Vector2.zero;
-        double dist;
+        double dist = double.MaxValue;
         int index = 0;
         for (int i = 0; i < pathRenderer.positionCount; i++)
         {
@@ -412,6 +434,7 @@ public class PathController : MonoBehaviour
                 index = i;
             }
         }
+
         //check if there is a waypoint at the position of the linerenderer position
         //waypoints visual position and actual location can differ
         //always disregard waypoint indicators from snapController here; rely on linerenderer

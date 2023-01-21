@@ -56,11 +56,13 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void select()
     {
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        pathController.Select();
     }
 
     public void deselect()
     {
         gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        pathController.Deselect();
     }
 
     public Vector2 getPosition()

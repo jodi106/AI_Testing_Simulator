@@ -10,7 +10,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     protected SpriteRenderer sprite;
     protected Boolean placed = false;
-    protected Boolean selected = true;
     protected Boolean expectingAction = false;
     protected Vector2 difference = Vector2.zero;
     protected Vector2 lastClickPos = Vector2.zero;
@@ -52,14 +51,12 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public void select()
     {
-        this.selected = true;
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_SELECTED);
         sprite.material = selectionMaterial;
     }
 
     public void deselect()
     {
-        this.selected = false;
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
         sprite.material = defaultMaterial;
     }
@@ -139,10 +136,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
             this.registerEntity();
         }
-        if (!selected)
-        {
-            mainController.setSelectedEntity(this);
-        }
+        mainController.setSelectedEntity(this);
     }
 
     public abstract bool hasAction();

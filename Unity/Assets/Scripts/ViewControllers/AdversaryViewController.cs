@@ -50,13 +50,13 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
     public new void select()
     {
         base.select();
-        this.pathController?.Select();
+        pathController?.adjustHeights(true);
     }
 
     public new void deselect()
     {
         base.deselect();
-        this.pathController?.Deselect();
+        pathController?.adjustHeights(false);
     }
 
     public override void triggerActionSelection()
