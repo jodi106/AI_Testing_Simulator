@@ -328,8 +328,23 @@ public class MainController : MonoBehaviour
         this.eventList.Rebuild();
     }
 
+    //TODO remove once routes are working
+    void addWaypointsAfter4Meters(ScenarioInfo info)
+    {
+        foreach(var v in info.Vehicles)
+        {
+            var first = v.Path.WaypointList[0].Location.Vector3;
+            var second = v.Path.WaypointList[1].Location.Vector3;
+            var middle = (second - first).normalized + first; // 4 m * 25 pixel/m * 100 pixel/unit
+            var waypoint = new Waypoint(new Location(middle), new ActionType("MoveToAction"), new List<TriggerInfo>());
+            v.Path.WaypointList.Insert(1,waypoint);
+        }
+    }
+
     void ExportOnClick()
     {
+        addWaypointsAfter4Meters(this.info);
+
         //This Function is bind with the "Export button"
         //The actual binding is made in the Start function of the script
         //Make sure to change this function to export the desired version or desired files.
