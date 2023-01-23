@@ -43,11 +43,11 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldPosition);
         }
 
+        // Invoked in BuildXML.cs Method BuildEvents
         public void AssignRouteAction(XmlNode action, Waypoint waypoint)
         /// Creates AssignRouteAction. Defines entire route with multiple postisions for a scenario entity.
         {
-            // routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
-            string routeStrategy = "fastest";
+            // TODO routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
 
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
@@ -58,6 +58,7 @@ namespace ExportScenario.XMLBuilder
 
             for (int i = 0; i < waypoint.ActionTypeInfo.PositionsCarla.Count; i++)
             {
+                string? routeStrategy = (i == 1) ? "shortest" : "fastest"; // delete this once we have a better solution for our dirty solution
                 XmlNode _waypoint = root.CreateElement("Waypoint");
                 SetAttribute("routeStrategy", routeStrategy, _waypoint);
                 XmlNode position = root.CreateElement("Position");
