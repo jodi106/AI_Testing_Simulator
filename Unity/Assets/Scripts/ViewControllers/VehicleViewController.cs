@@ -33,7 +33,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         transform.eulerAngles = new Vector3(0, 0, location.Rot);
     }
 
-    public void onChangeType(VehicleCategory cat)
+    public virtual void onChangeType(VehicleCategory cat)
     {
         mainController.refreshEntityList();
     }

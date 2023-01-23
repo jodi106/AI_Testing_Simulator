@@ -42,6 +42,23 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         return Resources.Load<Sprite>("sprites/" + "vehicle");
     }
 
+    public override void onChangeType(VehicleCategory cat)
+    {
+        base.onChangeType(cat);
+        switch(cat)
+        {
+            case VehicleCategory.Car:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
+                return;
+            case VehicleCategory.Bike:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
+                return;
+            case VehicleCategory.Motorcycle:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
+                return;
+        }
+    }
+
     public new void select()
     {
         base.select();
