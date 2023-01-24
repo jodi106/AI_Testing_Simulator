@@ -14,6 +14,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private SpriteRenderer sprite;
     private SnapController snapController;
     private MainController mainController;
+    private bool ignoreWaypoints = false;
 
     public void setPathController(PathController pathController)
     {
@@ -59,10 +60,16 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;
         }
-        var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (waypoint is not null)
+        if (!this.shouldIgnoreWaypoints())
         {
-            pathController.MoveWaypoint(this, waypoint);
+            var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (waypoint is not null)
+            {
+                pathController.MoveWaypoint(this, waypoint);
+            }
+        } else
+        {
+            pathController.MoveWaypoint(this, new Location(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
     }
 
@@ -97,5 +104,15 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void onChangeColor(Color c)
     {
 
+    }
+
+    public bool shouldIgnoreWaypoints()
+    {
+        return pathController.shouldIgnoreWaypoints() || this.ignoreWaypoints;
+    }
+
+    public void setIgnoreWaypoints(bool b)
+    {
+        this.ignoreWaypoints = b;
     }
 }

@@ -254,8 +254,13 @@ public class SnapController : MonoBehaviour
         return false;
     }
 
-    public (List<Vector2>,ActionType) FindPath(Vector2 start, Vector2 end)
+    public (List<Vector2>,ActionType) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
     {
+        if (ignoreWaypoints)
+        {
+            return (new List<Vector2> { start, end }, new ActionType("MoveToAction"));
+        }
+
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
         (Lane endLane, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
 

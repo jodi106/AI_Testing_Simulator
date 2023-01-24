@@ -63,6 +63,11 @@ public class PathController : MonoBehaviour
         });
     }
 
+    public bool shouldIgnoreWaypoints()
+    {
+        return entityWithPathController.shouldIgnoreWaypoints();
+    }
+
     public bool isBuilding()
     {
         return building;
@@ -131,7 +136,14 @@ public class PathController : MonoBehaviour
 
     public void AddMoveToWaypoint(Vector2 mousePosition, bool preview = false)
     {
-        var waypoint = snapController.FindWaypoint(mousePosition);
+        Location waypoint;
+        if (!this.entityWithPathController.shouldIgnoreWaypoints())
+        {
+            waypoint = snapController.FindWaypoint(mousePosition);
+        } else
+        {
+            waypoint = new Location(mousePosition);
+        }
 
         if (waypoint == null)
         {
@@ -183,8 +195,7 @@ public class PathController : MonoBehaviour
         else
         {
             var path = new List<Vector2>();
-            (path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3);
-
+            (path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3, this.entityWithPathController.shouldIgnoreWaypoints());
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -207,6 +218,7 @@ public class PathController : MonoBehaviour
             WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
             viewController.setPathController(this);
             viewController.setColor(pathRenderer.startColor);
+            viewController.setIgnoreWaypoints(this.shouldIgnoreWaypoints());
             viewController.waypoint = generateWaypoint(new Location(waypoint.Vector3, 0), new ActionType("MoveToAction"));
             viewController.waypoint.View = viewController;
             this.Path.WaypointList.Add(viewController.waypoint);
@@ -266,17 +278,19 @@ public class PathController : MonoBehaviour
         List<Vector2> prevPath = new List<Vector2>();
         List<Vector2> nextPath = new List<Vector2>();
 
+        bool ignoreWaypoints = waypointController.shouldIgnoreWaypoints();
+
         var offset = 0;
         if (prev != null)
         {
-            (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, location.Vector3);
+            (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, location.Vector3, ignoreWaypoints);
             prev.Value.Item1.waypoint.setLocation(new Location(prevPath[0]));
             prevPath.RemoveAt(prevPath.Count - 1);
             offset = offset + prevPath.Count - cur.Value.Item2;
         }
         if (next != null)
         {
-            (nextPath, _) = snapController.FindPath(location.Vector3, next.Value.Item1.waypoint.Location.Vector3);
+            (nextPath, _) = snapController.FindPath(location.Vector3, next.Value.Item1.waypoint.Location.Vector3, ignoreWaypoints);
             next.Value.Item1.waypoint.setLocation(new Location(nextPath[nextPath.Count - 1]));
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
@@ -348,7 +362,8 @@ public class PathController : MonoBehaviour
 
         if (next != null)
         {
-            (var path, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, next.Value.Item1.waypoint.Location.Vector3);
+            bool ignoreWaypoints = controller.shouldIgnoreWaypoints();
+            (var path, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, next.Value.Item1.waypoint.Location.Vector3, ignoreWaypoints);
             path.RemoveAt(path.Count - 1);
             var offset = path.Count - cur.Value.Item2 - next.Value.Item2;
 

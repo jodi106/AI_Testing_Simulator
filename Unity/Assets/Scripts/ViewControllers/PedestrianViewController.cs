@@ -19,6 +19,7 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         this.pedestrian.setView(this);
         //this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<VehicleSettingsPopupController>();
         //this.vehicleSettingsController.gameObject.SetActive(true);
+        this.ignoreWaypoints = true;
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {

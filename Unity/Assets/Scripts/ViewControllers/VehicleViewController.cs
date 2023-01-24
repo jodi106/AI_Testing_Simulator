@@ -14,6 +14,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     protected Vector2 lastClickPos = Vector2.zero;
     protected SnapController snapController;
     protected MainController mainController;
+    protected bool ignoreWaypoints = false;
 
     public void Awake()
     {
@@ -75,7 +76,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (getEntity().GetType() == typeof(Vehicle) || getEntity().GetType() == typeof(Ego))
+            if (!this.shouldIgnoreWaypoints())
             {
                 var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 if (waypoint is not null)
@@ -89,7 +90,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                     getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0)); // Im not sure this is ok
                 }
             }
-            else if (getEntity().GetType() == typeof(Pedestrian))
+            else
             {
                 getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
             }
@@ -104,7 +105,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             return;
         }
 
-        if (getEntity().GetType() == typeof(Vehicle) || getEntity().GetType() == typeof(Ego))
+        if (!this.shouldIgnoreWaypoints())
         {
             var waypoint = snapController.FindWaypoint(mousePosition);
             if (waypoint is not null)
@@ -117,7 +118,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
             }
         }
-        else if (getEntity().GetType() == typeof(Pedestrian))
+        else
         {
             getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
         }
@@ -140,6 +141,15 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             this.registerEntity();
         }
         mainController.setSelectedEntity(this);
+    }
+    public bool shouldIgnoreWaypoints()
+    {
+        return this.ignoreWaypoints;
+    }
+
+    public void setIgnoreWaypoints(bool b)
+    {
+        this.ignoreWaypoints = b;
     }
 
     public abstract bool hasAction();
