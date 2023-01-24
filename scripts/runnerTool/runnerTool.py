@@ -30,12 +30,18 @@ class RunnerTool(object):
         pass
 
     def start_carla(self):
-        self.carla_exe = subprocess.Popen(PATH_TO_CARLA_ROOT+"/CarlaUE4.exe")
-        time.sleep(10)
-        client = carla.Client('localhost', 2000) 
-        world = client.load_world('Town04')
+        try:
+            print("INFO: Carla is already running, starting scenario..")
+            client = carla.Client('localhost', 2000) 
+            world = client.get_world()
+        except Exception:
+            print("INFO: Carla not Running, Starting exe..")
+            self.carla_exe = subprocess.Popen(PATH_TO_CARLA_ROOT+"/CarlaUE4.exe")
+            time.sleep(10)
+            client = carla.Client('localhost', 2000) 
+            world = client.get_world()
 
-        # implement error caching #
+        # implement error catching #
 
     def run_multiple_scenarios(self):
 
@@ -43,12 +49,13 @@ class RunnerTool(object):
         self.file_list = os.listdir(folder_addr)
 
         for file in self.file_list:
+            #gc.collect()
             if ".xosc" in file:
-                openscenario = folder_addr + "\\" + file
+                openscenario = folder_addr + "/" + file
 
                 args = Namespace(additionalScenario='', agent=None, agentConfig='', configFile='', debug=False, file=False, 
-                            host='127.0.0.1', json=False, junit=False, list=False, openscenario=openscenario, 
-                            openscenarioparams=None, output=False, outputDir='', port='2000', randomize=False, record='', reloadWorld=True, repetitions=1, route=None, scenario=None, 
+                            host='127.0.0.1', json=True, junit=False, list=False, openscenario=openscenario, 
+                            openscenarioparams=None, output=True, outputDir=PATH_TO_XOSC_FILES, port='2000', randomize=False, record='', reloadWorld=True, repetitions=1, route=None, scenario=None, 
                             sync=False, timeout='10.0', trafficManagerPort='8000', trafficManagerSeed='0', waitForEgo=False)
 
                 scenario_runner.main(args)

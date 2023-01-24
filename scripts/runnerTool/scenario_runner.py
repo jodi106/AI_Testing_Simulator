@@ -272,6 +272,7 @@ class ScenarioRunner(object):
         dumps them into a file. This will be used by the metrics manager,
         in case the user wants specific information about the criterias.
         """
+        
         file_name = name[:-4] + ".json"
 
         # Filter the attributes that aren't JSON serializable
@@ -291,13 +292,14 @@ class ScenarioRunner(object):
                             criteria_dict[criterion.name].update(key_dict)
                         except TypeError:
                             pass
-
+            
         os.remove('temp.json')
 
         # Save the criteria dictionary into a .json file
         with open(file_name, 'w', encoding='utf-8') as fp:
             json.dump(criteria_dict, fp, sort_keys=False, indent=4)
 
+        
     def _load_and_wait_for_world(self, town, ego_vehicles=None):
         """
         Load a new CARLA world and provide data to CarlaDataProvider
