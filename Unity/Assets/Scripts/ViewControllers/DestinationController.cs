@@ -41,6 +41,11 @@ public class DestinationController : MonoBehaviour
         this.sprite.color = color;
     }
 
+    public bool isPlaced()
+    {
+        return this.placed;
+    }
+
     public void Update()
     {
         if (!placed)

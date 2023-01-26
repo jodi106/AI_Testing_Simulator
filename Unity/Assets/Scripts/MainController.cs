@@ -66,7 +66,7 @@ public class MainController : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             this.setSelectedEntity(null);
         }

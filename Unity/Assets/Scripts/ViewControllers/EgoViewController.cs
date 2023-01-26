@@ -26,26 +26,33 @@ public class EgoViewController : VehicleViewController
         return Resources.Load<Sprite>("sprites/" + "ego");
     }
 
-    public new void select()
+    public override void select()
     {
         base.select();
+        if(this.destination is null)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
+            this.destination = destinationGameObject.GetComponent<DestinationController>();
+            this.destination.setEgo(this);
+            this.destination.setColor(this.sprite.color);
+        }
         this.destination?.select();
     }
 
-    public new void deselect()
+    public override void deselect()
     {
         base.deselect();
-        this.destination?.deselect();
+        if (this.destination && !this.destination.isPlaced())
+        {
+            this.destination.Destroy();
+            this.destination = null;
+        }
+        else
+        {
+            this.destination?.deselect();
+        }
     }
-
-    //public override void triggerActionSelection()
-    //{
-    //    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //    var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
-    //    this.destination = destinationGameObject.GetComponent<DestinationController>();
-    //    this.destination.setEgo(this);
-    //    this.destination.setColor(this.sprite.color);
-    //}
 
     public void submitDestination(Location destination)
     {
@@ -59,12 +66,6 @@ public class EgoViewController : VehicleViewController
         destination?.Destroy();
         Destroy(gameObject);
     }
-
-    //public override void deleteAction()
-    //{
-    //    destination?.Destroy();
-    //    destination = null;
-    //}
 
     public override void onChangeColor(Color color)
     {

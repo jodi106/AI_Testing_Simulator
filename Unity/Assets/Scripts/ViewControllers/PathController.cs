@@ -491,6 +491,8 @@ public class PathController : MonoBehaviour
             MoveWaypoint(viewController, viewController.waypoint.Location); // fix paths / deleting waypoint may make A* necessary
             resetEdgeCollider();
 
+            mainController.setSelectedEntity(viewController);
+
             //TODO: insert into path
             //this.Path.WaypointList.Add(viewController.waypoint);
         }
