@@ -49,28 +49,34 @@ public class AdversaryViewController : VehicleViewController
         }
     }
 
-    public new void select()
+    public BoxCollider2D getCollider()
+    {
+        return gameObject.GetComponent<BoxCollider2D>();
+    }
+
+    public override void select()
     {
         base.select();
-        pathController?.adjustHeights(true);
+        if(this.pathController is null)
+        {
+            var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
+            this.pathController = pathGameObject.GetComponent<PathController>();
+            this.pathController.Path = this.vehicle.Path;
+            this.pathController.SetEntityController(this);
+            this.pathController.SetColor(this.sprite.color);
+        }
+        pathController?.select();
+        snapController.ignoreClicks = true;
     }
 
-    public new void deselect()
+    public override void deselect()
     {
         base.deselect();
-        pathController?.adjustHeights(false);
+        pathController?.deselect();
+        snapController.ignoreClicks = false;
     }
 
-    //public override void triggerActionSelection()
-    //{
-    //    var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
-    //    this.pathController = pathGameObject.GetComponent<PathController>();
-    //    this.pathController.SetEntityController(this);
-    //    this.pathController.SetColor(this.sprite.color);
-    //    snapController.ignoreClicks = true;
-    //}
-
-    public new void destroy()
+    public override void destroy()
     {
         base.destroy();
         mainController.removeVehicle(vehicle);
@@ -78,13 +84,6 @@ public class AdversaryViewController : VehicleViewController
         this.pathController?.Destroy();
         Destroy(gameObject);
     }
-
-    //public override void deleteAction()
-    //{
-    //    this.vehicle.Path = null;
-    //    this.pathController?.Destroy();
-    //    this.pathController = null;
-    //}
 
     public override void onChangeColor(Color color)
     {

@@ -15,6 +15,7 @@ public class PathController : MonoBehaviour
     private LinkedList<(WaypointViewController, int)> waypointViewControllers;
     private AdversaryViewController adversaryViewController;
     private SnapController snapController;
+    private MainController mainController;
 
     private bool building;
 
@@ -23,6 +24,7 @@ public class PathController : MonoBehaviour
     private void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
+        this.mainController = Camera.main.GetComponent<MainController>();
 
         this.Path = new Path();
 
@@ -60,10 +62,15 @@ public class PathController : MonoBehaviour
         return building;
     }
 
-    public void Select()
+    public void select(bool forward = false)
     {
         adjustHeights(true);
-        adversaryViewController.select();
+        previewSprite.enabled = true;
+        building = true;
+        if (forward)
+        {
+            adversaryViewController.select();
+        }
     }
 
     public void adjustHeights(bool selected)
@@ -79,10 +86,16 @@ public class PathController : MonoBehaviour
         }
     }
 
-    public void Deselect()
+    public void deselect(bool forward = false)
     {
         adjustHeights(false);
-        adversaryViewController.deselect();
+        previewRenderer.positionCount = 0;
+        previewSprite.enabled = false;
+        building = false;
+        if (forward)
+        {
+            adversaryViewController.deselect();
+        }
     }
 
     public void Destroy()
@@ -146,6 +159,15 @@ public class PathController : MonoBehaviour
             previewRenderer.positionCount = 0;
             return;
         }
+        // allow first waypoint to be placed on top of car, but none afterwards
+        if (hit.collider == adversaryViewController.getCollider() && !Path.IsEmpty())
+        {
+            previewSprite.enabled = false;
+            previewRenderer.positionCount = 0;
+            return;
+        }
+
+        //if hit collider is above own waypoint, render no preview
         foreach (var entry in waypointViewControllers)
         {
             var waypointController = entry.Item1;
@@ -209,11 +231,12 @@ public class PathController : MonoBehaviour
             viewController.waypoint = generateWaypoint(new Location(waypoint.Vector3, 0), new ActionType("MoveToAction"));
             viewController.waypoint.View = viewController;
             this.Path.WaypointList.Add(viewController.waypoint);
-
             waypointViewControllers.AddLast((viewController, pathLen));
+            mainController.setSelectedEntity(viewController);
             resetEdgeCollider();
         } else
         {
+            // if preview is enabled and mouse is not over vehicle, path or waypoint, render preview waypoint
             previewSprite.enabled = true;
             previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
         }
@@ -378,8 +401,6 @@ public class PathController : MonoBehaviour
             }
             next.Value = (next.Value.Item1, path.Count);
 
-            resetEdgeCollider();
-
         }
         else
         {
@@ -387,6 +408,7 @@ public class PathController : MonoBehaviour
         }
 
         waypointViewControllers.Remove(cur);
+        resetEdgeCollider();
 
         //TODO: fix path object
     }
@@ -395,14 +417,6 @@ public class PathController : MonoBehaviour
     {
         this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, location);
     }
-
-    //public void Complete()
-    //{
-    //    previewRenderer.positionCount = 0;
-    //    previewSprite.enabled = false;
-    //    building = false;
-    //    adversaryViewController.submitPath(Path);
-    //}
 
     public void SetColor(Color color)
     {

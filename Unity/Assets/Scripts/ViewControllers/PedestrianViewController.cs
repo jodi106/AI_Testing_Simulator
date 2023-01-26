@@ -46,13 +46,13 @@ public class PedestrianViewController : VehicleViewController
     public new void select()
     {
         base.select();
-        this.pathController?.Select();
+        this.pathController?.select();
     }
 
     public new void deselect()
     {
         base.deselect();
-        this.pathController?.Deselect();
+        this.pathController?.deselect();
     }
 
     //public override void triggerActionSelection()

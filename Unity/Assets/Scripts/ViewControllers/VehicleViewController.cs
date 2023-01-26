@@ -32,6 +32,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
                 this.registerEntity();
+                mainController.setSelectedEntity(this);
             }
         });
     }
