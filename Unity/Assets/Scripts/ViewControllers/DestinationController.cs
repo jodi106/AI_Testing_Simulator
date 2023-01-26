@@ -22,14 +22,6 @@ public class DestinationController : MonoBehaviour
 
         placed = false;
 
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-            if (!placed)
-            {
-                this.Destroy();
-            }
-        });
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (!placed)

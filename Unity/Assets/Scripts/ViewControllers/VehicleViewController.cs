@@ -24,6 +24,16 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.sprite = getSprite();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
+
+        EventManager.StartListening(typeof(MouseClickAction), x =>
+        {
+            if (!placed)
+            {
+                placed = true;
+                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
+                this.registerEntity();
+            }
+        });
     }
 
     public abstract Sprite getSprite();
@@ -49,19 +59,19 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         mainController.refreshEntityList();
     }
 
-    public void select()
+    public virtual void select()
     {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_SELECTED);
         sprite.material = selectionMaterial;
     }
 
-    public void deselect()
+    public virtual void deselect()
     {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
         sprite.material = defaultMaterial;
     }
 
-    public void destroy()
+    public virtual void destroy()
     {
         Destroy(gameObject);
     }
@@ -124,7 +134,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         }
 
     }
-
     public void OnMouseDown()
     {
         if (snapController.ignoreClicks)
@@ -151,10 +160,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     {
         this.ignoreWaypoints = b;
     }
-
-    public abstract bool hasAction();
-    public abstract void deleteAction();
-    public abstract void triggerActionSelection();
     public abstract BaseEntity getEntity();
     public abstract void openEditDialog();
     protected abstract void registerEntity();

@@ -2,7 +2,7 @@ using Assets.Enums;
 using Entity;
 using UnityEngine;
 
-public class PedestrianViewController : VehicleViewController, IBaseEntityWithPathController
+public class PedestrianViewController : VehicleViewController
 {
     public GameObject pathPrefab;
     private Pedestrian pedestrian;
@@ -55,32 +55,27 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         this.pathController?.Deselect();
     }
 
-    public override void triggerActionSelection()
-    {
-        var pathGameObject = Instantiate(pathPrefab, new Vector3(0, 0, -0.1f), Quaternion.identity);
-        this.pathController = pathGameObject.GetComponent<PathController>();
-        this.pathController.SetEntityController(this);
-        this.pathController.SetColor(this.sprite.color);
-    }
+    //public override void triggerActionSelection()
+    //{
+    //    var pathGameObject = Instantiate(pathPrefab, new Vector3(0, 0, -0.1f), Quaternion.identity);
+    //    this.pathController = pathGameObject.GetComponent<PathController>();
+    //    this.pathController.SetEntityController(this);
+    //    this.pathController.SetColor(this.sprite.color);
+    //}
 
-    public void submitPath(Path path)
-    {
-        pedestrian.Path = path;
-    }
+    //public override bool hasAction()
+    //{
+    //    if (this.pedestrian.Path is null)
+    //    {
+    //        return false;
+    //    }
+    //    else
+    //    {
+    //        return this.pedestrian.Path.WaypointList.Count != 0;
+    //    }
+    //}
 
-    public override bool hasAction()
-    {
-        if (this.pedestrian.Path is null)
-        {
-            return false;
-        }
-        else
-        {
-            return this.pedestrian.Path.WaypointList.Count != 0;
-        }
-    }
-
-    public new void destroy()
+    public override void destroy()
     {
         base.destroy();
         mainController.removePedestrian(pedestrian);
@@ -88,12 +83,12 @@ public class PedestrianViewController : VehicleViewController, IBaseEntityWithPa
         Destroy(gameObject);
     }
 
-    public override void deleteAction()
-    {
-        this.pedestrian.Path = null;
-        this.pathController?.Destroy();
-        this.pathController = null;
-    }
+    //public override void deleteAction()
+    //{
+    //    this.pedestrian.Path = null;
+    //    this.pathController?.Destroy();
+    //    this.pathController = null;
+    //}
 
     public override void onChangeColor(Color color)
     {

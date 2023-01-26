@@ -13,7 +13,7 @@ public class PathController : MonoBehaviour
     private EdgeCollider2D edgeCollider;
 
     private LinkedList<(WaypointViewController, int)> waypointViewControllers;
-    private IBaseEntityWithPathController entityWithPathController;
+    private AdversaryViewController adversaryViewController;
     private SnapController snapController;
 
     private bool building;
@@ -40,19 +40,6 @@ public class PathController : MonoBehaviour
 
         building = true;
 
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-            if (building)
-            {
-                this.Destroy();
-            }
-        });
-
-        EventManager.StartListening(typeof(SubmitPathSelectionAction), x =>
-        {
-            this.Complete();
-        });
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (building)
@@ -65,7 +52,7 @@ public class PathController : MonoBehaviour
 
     public bool shouldIgnoreWaypoints()
     {
-        return entityWithPathController.shouldIgnoreWaypoints();
+        return adversaryViewController.shouldIgnoreWaypoints();
     }
 
     public bool isBuilding()
@@ -76,7 +63,7 @@ public class PathController : MonoBehaviour
     public void Select()
     {
         adjustHeights(true);
-        entityWithPathController.select();
+        adversaryViewController.select();
     }
 
     public void adjustHeights(bool selected)
@@ -95,7 +82,7 @@ public class PathController : MonoBehaviour
     public void Deselect()
     {
         adjustHeights(false);
-        entityWithPathController.deselect();
+        adversaryViewController.deselect();
     }
 
     public void Destroy()
@@ -107,9 +94,9 @@ public class PathController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetEntityController(IBaseEntityWithPathController controller)
+    public void SetEntityController(AdversaryViewController controller)
     {
-        this.entityWithPathController = controller;
+        this.adversaryViewController = controller;
         AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car
     }
 
@@ -137,7 +124,7 @@ public class PathController : MonoBehaviour
     public void AddMoveToWaypoint(Vector2 mousePosition, bool preview = false)
     {
         Location waypoint;
-        if (!this.entityWithPathController.shouldIgnoreWaypoints())
+        if (!this.adversaryViewController.shouldIgnoreWaypoints())
         {
             waypoint = snapController.FindWaypoint(mousePosition);
         } else
@@ -195,7 +182,7 @@ public class PathController : MonoBehaviour
         else
         {
             var path = new List<Vector2>();
-            (path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3, this.entityWithPathController.shouldIgnoreWaypoints());
+            (path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3, this.adversaryViewController.shouldIgnoreWaypoints());
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -400,10 +387,6 @@ public class PathController : MonoBehaviour
         }
 
         waypointViewControllers.Remove(cur);
-        if (waypointViewControllers.Count <= 1)
-        {
-            entityWithPathController.deleteAction();
-        }
 
         //TODO: fix path object
     }
@@ -413,13 +396,13 @@ public class PathController : MonoBehaviour
         this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, location);
     }
 
-    public void Complete()
-    {
-        previewRenderer.positionCount = 0;
-        previewSprite.enabled = false;
-        building = false;
-        entityWithPathController.submitPath(Path);
-    }
+    //public void Complete()
+    //{
+    //    previewRenderer.positionCount = 0;
+    //    previewSprite.enabled = false;
+    //    building = false;
+    //    adversaryViewController.submitPath(Path);
+    //}
 
     public void SetColor(Color color)
     {

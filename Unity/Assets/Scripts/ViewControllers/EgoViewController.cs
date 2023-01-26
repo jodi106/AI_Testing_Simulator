@@ -3,7 +3,7 @@ using Assets.Repos;
 using Entity;
 using UnityEngine;
 
-public class EgoViewController : VehicleViewController, IBaseEntityController
+public class EgoViewController : VehicleViewController
 {
     public GameObject DestinationPrefab;
     private Ego ego;
@@ -19,16 +19,6 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
         this.ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car);
         this.ego.setView(this);
-
-        EventManager.StartListening(typeof(MouseClickAction), x =>
-        {
-            if (!placed)
-            {
-                placed = true;
-                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.registerEntity();
-            }
-        });
     }
 
     public override Sprite getSprite()
@@ -48,26 +38,21 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         this.destination?.deselect();
     }
 
-    public override void triggerActionSelection()
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
-        this.destination = destinationGameObject.GetComponent<DestinationController>();
-        this.destination.setEgo(this);
-        this.destination.setColor(this.sprite.color);
-    }
+    //public override void triggerActionSelection()
+    //{
+    //    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
+    //    this.destination = destinationGameObject.GetComponent<DestinationController>();
+    //    this.destination.setEgo(this);
+    //    this.destination.setColor(this.sprite.color);
+    //}
 
     public void submitDestination(Location destination)
     {
         ego.Destination = destination;
     }
 
-    public override bool hasAction()
-    {
-        return destination is not null;
-    }
-
-    public new void destroy()
+    public override void destroy()
     {
         base.destroy();
         this.mainController.setEgo(null);
@@ -75,11 +60,11 @@ public class EgoViewController : VehicleViewController, IBaseEntityController
         Destroy(gameObject);
     }
 
-    public override void deleteAction()
-    {
-        destination?.Destroy();
-        destination = null;
-    }
+    //public override void deleteAction()
+    //{
+    //    destination?.Destroy();
+    //    destination = null;
+    //}
 
     public override void onChangeColor(Color color)
     {

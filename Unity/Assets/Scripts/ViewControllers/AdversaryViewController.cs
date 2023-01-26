@@ -3,7 +3,7 @@ using Assets.Repos;
 using Entity;
 using UnityEngine;
 
-public class AdversaryViewController : VehicleViewController, IBaseEntityWithPathController
+public class AdversaryViewController : VehicleViewController
 {
     public GameObject pathPrefab;
     private Vehicle vehicle;
@@ -19,16 +19,6 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         this.vehicle.setView(this);
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
-
-        EventManager.StartListening(typeof(MouseClickAction), x =>
-        {
-            if (!placed)
-            {
-                placed = true;
-                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.registerEntity();
-            }
-        });
     }
 
     public override void onChangePosition(Location location)
@@ -71,31 +61,14 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         pathController?.adjustHeights(false);
     }
 
-    public override void triggerActionSelection()
-    {
-        var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
-        this.pathController = pathGameObject.GetComponent<PathController>();
-        this.pathController.SetEntityController(this);
-        this.pathController.SetColor(this.sprite.color);
-        snapController.ignoreClicks = true;
-    }
-
-    public void submitPath(Path path)
-    {
-        vehicle.Path = path;
-        snapController.ignoreClicks = false;
-    }
-
-    public override bool hasAction()
-    {
-        if(this.vehicle.Path is null)
-        {
-            return false;
-        } else
-        {
-            return this.vehicle.Path.WaypointList.Count != 0;
-        }
-    }
+    //public override void triggerActionSelection()
+    //{
+    //    var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
+    //    this.pathController = pathGameObject.GetComponent<PathController>();
+    //    this.pathController.SetEntityController(this);
+    //    this.pathController.SetColor(this.sprite.color);
+    //    snapController.ignoreClicks = true;
+    //}
 
     public new void destroy()
     {
@@ -106,12 +79,12 @@ public class AdversaryViewController : VehicleViewController, IBaseEntityWithPat
         Destroy(gameObject);
     }
 
-    public override void deleteAction()
-    {
-        this.vehicle.Path = null;
-        this.pathController?.Destroy();
-        this.pathController = null;
-    }
+    //public override void deleteAction()
+    //{
+    //    this.vehicle.Path = null;
+    //    this.pathController?.Destroy();
+    //    this.pathController = null;
+    //}
 
     public override void onChangeColor(Color color)
     {
