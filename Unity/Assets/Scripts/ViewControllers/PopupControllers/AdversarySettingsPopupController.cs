@@ -89,7 +89,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 vehicle.setCategory(VehicleCategory.Car);
                 EntityModel model = VehicleModelRepository.getDefaultCarModel();
                 vehicle.setModel(model);
-                possibleModelsField.value = vehicle.Model.Name.ToString();
+                possibleModelsField.value = vehicle.Model.DisplayName.ToString();
             }
             if (evt.newValue == "Bike")
             {
@@ -102,7 +102,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 vehicle.setCategory(VehicleCategory.Bike);
                 EntityModel model = VehicleModelRepository.getDefaultBikeModel();
                 vehicle.setModel(model);
-                possibleModelsField.value = vehicle.Model.Name.ToString();
+                possibleModelsField.value = vehicle.Model.DisplayName.ToString();
             }
             if (evt.newValue == "Motorcycle")
             {
@@ -115,7 +115,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 vehicle.setCategory(VehicleCategory.Motorcycle);
                 EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
                 vehicle.setModel(model);
-                possibleModelsField.value = vehicle.Model.Name.ToString();
+                possibleModelsField.value = vehicle.Model.DisplayName.ToString();
             }
         });
 
@@ -153,7 +153,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         iDField.value = vehicle.Id.ToString();
         locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
-        possibleModelsField.value = vehicle.Model.Name.ToString();
+        possibleModelsField.value = vehicle.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;
         rSlider.value = color.r;
         gSlider.value = color.g;

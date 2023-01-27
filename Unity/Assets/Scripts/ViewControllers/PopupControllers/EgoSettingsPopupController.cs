@@ -89,7 +89,7 @@ public class EgoSettingsPopupController : MonoBehaviour
                 ego.setCategory(VehicleCategory.Car);
                 EntityModel model = VehicleModelRepository.getDefaultCarModel();
                 ego.setModel(model);
-                possibleModelsField.value = ego.Model.Name.ToString();
+                possibleModelsField.value = ego.Model.DisplayName.ToString();
             }
             if (evt.newValue == "Bike")
             {
@@ -102,7 +102,7 @@ public class EgoSettingsPopupController : MonoBehaviour
                 ego.setCategory(VehicleCategory.Bike);
                 EntityModel model = VehicleModelRepository.getDefaultBikeModel();
                 ego.setModel(model);
-                possibleModelsField.value = ego.Model.Name.ToString();
+                possibleModelsField.value = ego.Model.DisplayName.ToString();
             }
             if (evt.newValue == "Motorcycle")
             {
@@ -115,7 +115,7 @@ public class EgoSettingsPopupController : MonoBehaviour
                 ego.setCategory(VehicleCategory.Motorcycle);
                 EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
                 ego.setModel(model);
-                possibleModelsField.value = ego.Model.Name.ToString();
+                possibleModelsField.value = ego.Model.DisplayName.ToString();
             }
         });
 
@@ -153,7 +153,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         iDField.value = ego.Id.ToString();
         locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
-        possibleModelsField.value = ego.Model.Name.ToString();
+        possibleModelsField.value = ego.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;
         rSlider.value = color.r;
         gSlider.value = color.g;

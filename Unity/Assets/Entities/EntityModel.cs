@@ -7,27 +7,34 @@
         public EntityModel(string modelName)
         {
             Id = autoIncrementId++;
-            Name = modelName;
             DisplayName = modelName;
+            CarlaName = "vehicle.nissan.micra";
         }
 
         public EntityModel(int id, string modelName)
         {
             Id = autoIncrementId++;
-            Name = modelName;
             DisplayName = modelName;
+            CarlaName = modelName;
         }
 
-        public EntityModel(string modelName, string displayName)
+        public EntityModel(int id, string displayName, string carlaName)
         {
             Id = autoIncrementId++;
-            Name = modelName;
             DisplayName = displayName;
+            CarlaName = carlaName;
+        }
+
+        public EntityModel(string displayName, string carlaName)
+        {
+            Id = autoIncrementId++;
+            DisplayName = displayName;
+            CarlaName = carlaName;
         }
 
         public int Id { get; set; }
-        public string Name { get; set; } // Name of the model: example "vehicle.lincoln.mkz_2017"
-        public string DisplayName { get; set; } // Not relevant for us
+        public string CarlaName { get; set; } // Name of the model: example "vehicle.lincoln.mkz_2017"
+        public string DisplayName { get; set; } // GUI
 
     }
 }

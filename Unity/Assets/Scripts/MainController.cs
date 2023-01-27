@@ -264,11 +264,9 @@ public class MainController : MonoBehaviour
         // TODO remove these lines later once these values are set in Unity
         info.Name = "OurScenario3";
         info.MapURL = "Town10HD";
-        info.EgoVehicle.setModel(new EntityModel("vehicle.nissan.micra"));
         foreach (Vehicle veh in info.Vehicles)
         {
             veh.InitialSpeed = 10;
-            veh.setModel(new EntityModel("vehicle.audi.tt"));
         }
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
@@ -282,7 +280,6 @@ public class MainController : MonoBehaviour
         }
         info.EgoVehicle.CalculateLocationCarla();
         // ------------------------------------------------------------------------
-
 
         // Create .xosc file
         BuildXML doc = new BuildXML(info);
