@@ -75,7 +75,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
             SetAttribute("rule", triggerInfo.Rule.ToString().FirstCharToLowerCase(), distanceCondition);
             SetAttribute("value", triggerInfo.Value.ToString(), distanceCondition);
-            SetAttribute("alongRoute", "false", distanceCondition);
+            SetAttribute("alongRoute", "true", distanceCondition);
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
             SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3.x.ToString(), worldposition);
