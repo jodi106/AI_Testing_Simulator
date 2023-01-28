@@ -14,7 +14,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     protected Vector2 lastClickPos = Vector2.zero;
     protected SnapController snapController;
     protected MainController mainController;
-    protected bool ignoreWaypoints = false;
+    protected bool ignoreWaypoints;
 
     public void Awake()
     {
@@ -24,6 +24,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.sprite = getSprite();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
+        ignoreWaypoints = false;
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
@@ -45,7 +46,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         transform.eulerAngles = new Vector3(0, 0, location.Rot);
     }
 
-    public virtual void onChangeType(VehicleCategory cat)
+    public virtual void onChangeCategory(VehicleCategory cat)
     {
         mainController.refreshEntityList();
     }

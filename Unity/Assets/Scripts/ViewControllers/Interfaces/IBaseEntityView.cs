@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IBaseEntityView : IBaseView
 {
-    public void onChangeType(VehicleCategory cat);
+    public void onChangeCategory(VehicleCategory cat);
 
     public void onChangeModel(EntityModel model);
 

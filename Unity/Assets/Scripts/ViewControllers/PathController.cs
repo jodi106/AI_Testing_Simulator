@@ -110,7 +110,8 @@ public class PathController : MonoBehaviour
     public void SetEntityController(AdversaryViewController controller)
     {
         this.adversaryViewController = controller;
-        AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car
+        AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car -- should be set in model or on export
+        waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }
 
     public void Update()

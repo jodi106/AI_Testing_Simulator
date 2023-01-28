@@ -12,17 +12,19 @@ public class MainController : MonoBehaviour
 {
     public VisualTreeAsset eventEntryTemplate;
     //Spawned Cars
-    public GameObject carPrefab;
+    public GameObject vehiclePrefab;
     public GameObject egoPrefab;
     public GameObject pedPrefab;
 
     //Event Bar (Center Bottom)
     private ListView eventList;
-    private Button addPedestrianButton;// TODO: Incorporate into addEntityButton or not? Q?
-    //Either Seperate Buttons for PEdestrians and Cars or a single button that spawns a dropdown menu? 
-    private Button addEntityButton;
+    private Button addCarButton;
+    private Button addMotorcycleButton;
+    private Button addBikeButton;
+    private Button addPedestrianButton;
     private Button removeEntityButton;
     private Button editEntityButton;
+    private Button toggleSnapButton;
     private Button worldSettingsButton;
     private Button exportButton;
 
@@ -81,6 +83,7 @@ public class MainController : MonoBehaviour
             this.selectedEntity?.select();
             this.removeEntityButton.style.display = DisplayStyle.Flex;
             this.editEntityButton.style.display = DisplayStyle.Flex;
+            this.toggleSnapButton.style.display = DisplayStyle.Flex;
             this.actionButtons.style.display = DisplayStyle.Flex;
         }
         else
@@ -89,6 +92,7 @@ public class MainController : MonoBehaviour
             this.selectedEntity = null;
             removeEntityButton.style.display = DisplayStyle.None;
             editEntityButton.style.display = DisplayStyle.None;
+            toggleSnapButton.style.display = DisplayStyle.None;
             this.actionButtons.style.display = DisplayStyle.None;
         }
 
@@ -119,33 +123,56 @@ public class MainController : MonoBehaviour
         this.info.setEgo(ego);
     }
 
+    public void createEntity(VehicleCategory category)
+    {
+        var pos = Input.mousePosition;
+        pos.z = -0.1f;
+        GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : vehiclePrefab;
+        var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
+        VehicleViewController viewController = null;
+        if (this.info.EgoVehicle is null)
+        {
+            viewController = vehicleGameObject.GetComponent<EgoViewController>();
+        }
+        else
+        {
+            AdversaryViewController adversaryController = vehicleGameObject.GetComponent<AdversaryViewController>();
+            //TODO fix model; make ego a vehicle and make controllers return vehicles
+            adversaryController.setCategory(category);
+            viewController = adversaryController;
+        }
+        Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        color = new Color(color.r, color.g, color.b, 1);
+        viewController.getEntity().setColor(color);
+    }
+
     private void initializeButtonBar(VisualElement editorGUI)
     {
         addPedestrianButton = editorGUI.Q<Button>("addPedestrianButton");
-        addEntityButton = editorGUI.Q<Button>("addEntityButton");
+        addCarButton = editorGUI.Q<Button>("addCarButton");
+        addMotorcycleButton = editorGUI.Q<Button>("addMotorcycleButton");
+        addBikeButton = editorGUI.Q<Button>("addBikeButton");
         removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
         editEntityButton = editorGUI.Q<Button>("editEntityButton");
+        toggleSnapButton = editorGUI.Q<Button>("toggleSnapButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
 
-        addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            var pos = Input.mousePosition;
-            pos.z = -0.1f;
-            GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : carPrefab;
-            var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
-            VehicleViewController viewController = null;
-            if (this.info.EgoVehicle is null)
-            {
-                viewController = vehicleGameObject.GetComponent<EgoViewController>();
-            }
-            else
-            {
-                viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            }
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            color = new Color(color.r, color.g, color.b, 1);
-            viewController.getEntity().setColor(color);
+            createEntity(VehicleCategory.Car);
+            setSelectedEntity(null);
+        });
+
+        addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            createEntity(VehicleCategory.Bike);
+            setSelectedEntity(null);
+        });
+
+        addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            createEntity(VehicleCategory.Motorcycle);
             setSelectedEntity(null);
         });
 
@@ -173,6 +200,11 @@ public class MainController : MonoBehaviour
         editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             this.selectedEntity?.openEditDialog();
+        });
+
+        toggleSnapButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            this.selectedEntity?.setIgnoreWaypoints(!this.selectedEntity.shouldIgnoreWaypoints());
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>

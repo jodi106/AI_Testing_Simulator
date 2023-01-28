@@ -12,13 +12,32 @@ public class AdversaryViewController : VehicleViewController
     public new void Awake()
     {
         base.Awake();
-
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
         this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car);
         this.vehicle.setView(this);
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
+    }
+
+    // act as constructor -- check for alternatives to set initial state
+    public void setCategory(VehicleCategory cat)
+    {
+        switch (cat)
+        {
+            case VehicleCategory.Car:
+                vehicle.setCategory(VehicleCategory.Car);
+                this.ignoreWaypoints = false;
+                return;
+            case VehicleCategory.Bike:
+                vehicle.setCategory(VehicleCategory.Bike);
+                this.ignoreWaypoints = true;
+                return;
+            case VehicleCategory.Motorcycle:
+                vehicle.setCategory(VehicleCategory.Motorcycle);
+                this.ignoreWaypoints = false;
+                return;
+        }
     }
 
     public override void onChangePosition(Location location)
@@ -32,9 +51,9 @@ public class AdversaryViewController : VehicleViewController
         return Resources.Load<Sprite>("sprites/" + "vehicle");
     }
 
-    public override void onChangeType(VehicleCategory cat)
+    public override void onChangeCategory(VehicleCategory cat)
     {
-        base.onChangeType(cat);
+        base.onChangeCategory(cat);
         switch(cat)
         {
             case VehicleCategory.Car:

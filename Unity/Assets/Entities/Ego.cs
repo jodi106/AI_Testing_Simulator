@@ -16,7 +16,7 @@ namespace Entity
         public void setCategory(VehicleCategory category)
         {
             this.Category = category;
-            this.View?.onChangeType(category);
+            this.View?.onChangeCategory(category);
         }
         public void setModel(EntityModel model)
         {
