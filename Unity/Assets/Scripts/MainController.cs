@@ -101,6 +101,7 @@ public class MainController : MonoBehaviour
     public void addVehicle(Vehicle vehicle)
     {
         this.info.Vehicles.Add(vehicle);
+        
     }
 
     public void addPedestrian(Pedestrian pedestrian)
@@ -178,16 +179,18 @@ public class MainController : MonoBehaviour
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            var pos = Input.mousePosition;
-            pos.z = -0.1f;
+            //var pos = Input.mousePosition;
+            //pos.z = -0.1f;
 
-            var pedestrianGameObject = Instantiate(pedPrefab, pos, Quaternion.identity);
-            pedestrianGameObject.transform.localScale = Vector3.one * 0.1f;
-            PedestrianViewController viewController = pedestrianGameObject.GetComponent<PedestrianViewController>();
+            //var pedestrianGameObject = Instantiate(pedPrefab, pos, Quaternion.identity);
+            //pedestrianGameObject.transform.localScale = Vector3.one * 0.1f;
+            //PedestrianViewController viewController = pedestrianGameObject.GetComponent<PedestrianViewController>();
 
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            color = new Color(color.r, color.g, color.b, 1);
-            viewController.getEntity().setColor(color);
+            //Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            //color = new Color(color.r, color.g, color.b, 1);
+            //viewController.getEntity().setColor(color);
+            //setSelectedEntity(null);
+            createEntity(VehicleCategory.Pedestrian);
             setSelectedEntity(null);
         });
 

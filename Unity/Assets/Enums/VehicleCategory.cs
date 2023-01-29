@@ -11,6 +11,8 @@ namespace Assets.Enums
         [Description("Bike")]
         Bike,
         [Description("Motorcycle")]
-        Motorcycle
+        Motorcycle,
+        [Description("Pedestrian")]
+        Pedestrian
     }
 }

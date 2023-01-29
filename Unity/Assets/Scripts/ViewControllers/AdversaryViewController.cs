@@ -32,6 +32,10 @@ public class AdversaryViewController : VehicleViewController
             case VehicleCategory.Bike:
                 vehicle.setCategory(VehicleCategory.Bike);
                 this.ignoreWaypoints = true;
+                return;   
+            case VehicleCategory.Pedestrian:
+                vehicle.setCategory(VehicleCategory.Pedestrian);
+                this.ignoreWaypoints = true;
                 return;
             case VehicleCategory.Motorcycle:
                 vehicle.setCategory(VehicleCategory.Motorcycle);
@@ -61,6 +65,9 @@ public class AdversaryViewController : VehicleViewController
                 return;
             case VehicleCategory.Bike:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
+                return;
+            case VehicleCategory.Pedestrian:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
                 return;
             case VehicleCategory.Motorcycle:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
