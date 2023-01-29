@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Assets.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -91,15 +92,25 @@ namespace ExportScenario.XMLBuilder
             BuildInit init = new BuildInit(scenarioInfo, root, storyBoard);
             init.CombineInit();
 
+            //TODO Pedestrian Botch
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildVehicleStories(scenarioInfo.Vehicles[i]);
+                if (scenarioInfo.Vehicles[i].Category == VehicleCategory.Pedestrian)
+                {
+                    var v = scenarioInfo.Vehicles[i];
+                    Pedestrian ped = new Pedestrian(v.SpawnPoint, v.Path, PedestrianType.Man);
+                    BuildPedestrianStories(ped);
+                }
+                else
+                {
+                    BuildVehicleStories(scenarioInfo.Vehicles[i]);
+                }
             }
 
-            for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
-            {
-                BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
-            }
+            //for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
+            //{
+            //    BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
+            //}
 
 
             if (!builtAtLeastOneStory)

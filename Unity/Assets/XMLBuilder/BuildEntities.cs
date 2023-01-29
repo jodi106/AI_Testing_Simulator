@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Enums;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -33,13 +34,24 @@ namespace ExportScenario.XMLBuilder
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildVehicle(scenarioInfo.Vehicles[i].Model.CarlaName, "adversary" + scenarioInfo.Vehicles[i].Id, "simulation", ConvertUnityColorToString(scenarioInfo.Vehicles[i]));
+                //TODO Pedestrian Botch
+                if (scenarioInfo.Vehicles[i].Category == VehicleCategory.Pedestrian)
+                {
+                    BuildPedestrian("walker.pedestrian.0001", "adversary_pedestrian" + scenarioInfo.Vehicles[i].Id);
+
+                }
+                else
+                {
+                    BuildVehicle(scenarioInfo.Vehicles[i].Model.CarlaName, "adversary" + scenarioInfo.Vehicles[i].Id, "simulation", ConvertUnityColorToString(scenarioInfo.Vehicles[i]));
+                }
+
             }         
+            
             // pedestrians
-            for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
+            /*for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
                 BuildPedestrian(scenarioInfo.Pedestrians[i].Model.CarlaName, "adversary_pedestrian" + scenarioInfo.Pedestrians[i].Id);
-            }
+            }*/
         }
 
         public void BuildVehicle(string model, string scenarioObjectName, string propertyValue1, string propertyValue2, double maxSpeed = 69.444)
