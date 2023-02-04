@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
 using System.Linq;
+using UnityEditor;
 
 public class MainController : MonoBehaviour
 {
@@ -285,6 +286,16 @@ public class MainController : MonoBehaviour
 
     void ExportOnClick()
     {
+        // Catch errors and display it to the user
+        if (info.EgoVehicle == null)
+        {
+            EditorUtility.DisplayDialog(
+                "No AI vehicle placed",
+                "You must place a vehicle first!",
+                "Ok");
+            return;
+        }
+
         addWaypointsAfter4Meters(this.info);
 
         //This Function is bind with the "Export button"
@@ -297,7 +308,6 @@ public class MainController : MonoBehaviour
 
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
-        info.Name = "OurScenario3";
         info.MapURL = "Town10HD";
         foreach (Vehicle veh in info.Vehicles)
         {
@@ -317,8 +327,13 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-        BuildXML doc = new BuildXML(info);
-        doc.CombineXML();
+        info.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
+        //info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
+        if (info.Path.Length > 0) // "save" is pressed in explorer
+        {
+            BuildXML doc = new BuildXML(info);
+            doc.CombineXML();
+        }
     }
 
     private bool isWaypointListEmptyOrNull(Vehicle vehicle)

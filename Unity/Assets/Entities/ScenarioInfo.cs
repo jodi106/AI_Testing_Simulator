@@ -10,7 +10,7 @@ namespace Entity
     {
         public ScenarioInfo()
         {
-            Name = null;
+            Path = null;
             Pedestrians = new ObservableCollection<Pedestrian>();
             MapURL = null;
             WorldOptions = new WorldOptions();
@@ -20,9 +20,9 @@ namespace Entity
             attachListener();
         }
 
-        public ScenarioInfo(string name, ObservableCollection<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Vehicle> vehicles)
+        public ScenarioInfo(string path, ObservableCollection<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Vehicle> vehicles)
         {
-            Name = name;
+            Path = path;
             Pedestrians = pedestrians;
             MapURL = mapURL;
             WorldOptions = worldOptions;
@@ -65,7 +65,7 @@ namespace Entity
             onEgoChanged();
         }
 
-        public string Name { get; set; }
+        public string Path { get; set; }
         public ObservableCollection<Pedestrian> Pedestrians { get; set; }
         public string MapURL { get; set; }
         public WorldOptions WorldOptions { get; set; } // MapRepository.cs has possible Maps. 

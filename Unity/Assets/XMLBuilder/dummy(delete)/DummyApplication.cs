@@ -62,7 +62,7 @@ namespace ExportScenario
 
 
             // Combine every information into one ScenarioInfo Instance
-            ScenarioInfo dummy = new ScenarioInfo("OurScenario3", ped, "Town04", worldOptions, egoVehicle, vehicles);
+            ScenarioInfo dummy = new ScenarioInfo("OurScenario3.xosc", ped, "Town04", worldOptions, egoVehicle, vehicles);
 
             // Create .xosc file
             BuildXML doc = new BuildXML(dummy);
