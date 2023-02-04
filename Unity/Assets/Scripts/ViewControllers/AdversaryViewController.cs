@@ -92,21 +92,21 @@ public class AdversaryViewController : VehicleViewController
             this.pathController.SetColor(this.sprite.color);
         }
         pathController?.select();
-        snapController.ignoreClicks = true;
+        snapController.IgnoreClicks = true;
     }
 
     public override void deselect()
     {
         base.deselect();
         pathController?.deselect();
-        snapController.ignoreClicks = false;
+        snapController.IgnoreClicks = false;
     }
 
     public override void destroy()
     {
         base.destroy();
         mainController.removeVehicle(vehicle);
-        snapController.ignoreClicks = false;
+        snapController.IgnoreClicks = false;
         this.pathController?.Destroy();
         Destroy(gameObject);
     }

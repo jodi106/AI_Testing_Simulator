@@ -23,11 +23,10 @@ namespace Entity
             }
         }
         public Location SpawnPoint { get; set; }
-        public Location SpawnPointCarla { get; set; }
 
         public double InitialSpeed { get; set; }
 
-        public Color color { get; protected set; }
+        public Color Color { get; protected set; }
 
         public IBaseEntityView View { get; set; }
 
@@ -44,16 +43,16 @@ namespace Entity
 
         public void setColor(Color c)
         {
-            this.color = c;
+            this.Color = c;
             this.View?.onChangeColor(c);
         }
 
-        public void CalculateLocationCarla()
+        public Location getCarlaLocation()
         {
             (float xCarla, float yCarla) = SnapController.UnityToCarla(SpawnPoint.X, SpawnPoint.Y);
             float rotCarla = SnapController.UnityRotToRadians(SpawnPoint.Rot);
             rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
-            this.SpawnPointCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
+            return new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
     }
 }

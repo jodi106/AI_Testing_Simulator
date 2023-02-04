@@ -15,11 +15,11 @@ public class SnapController : MonoBehaviour
 
     private GameObject LastClickedWaypointGameObject;
 
-    public bool ignoreClicks { get; set; }
+    public bool IgnoreClicks { get; set; }
 
     void Start()
     {
-        ignoreClicks = false;
+        IgnoreClicks = false;
 
         roads = new();
 

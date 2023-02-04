@@ -138,7 +138,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void OnMouseDown()
     {
-        if (snapController.ignoreClicks)
+        if (snapController.IgnoreClicks)
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;

@@ -20,7 +20,7 @@ public class VehicleListEntryController
     public void setEventData(BaseEntity entity)
     {
         label.text = entity.Id.ToString();
-        container.style.backgroundColor = entity.color;
+        container.style.backgroundColor = entity.Color;
         //TODO: maybe use common subclass for ego and vehicle
         if (entity is Vehicle v)
         {

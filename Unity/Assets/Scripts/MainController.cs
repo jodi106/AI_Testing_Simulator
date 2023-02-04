@@ -56,7 +56,7 @@ public class MainController : MonoBehaviour
         this.snapController = Camera.main.GetComponent<SnapController>();
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
-            if (!snapController.ignoreClicks)
+            if (!snapController.IgnoreClicks)
             {
                 this.setSelectedEntity(null);
             }
@@ -259,6 +259,11 @@ public class MainController : MonoBehaviour
             refreshEntityList();
         };
 
+        info.Pedestrians.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        {
+            refreshEntityList();
+        };
+
         eventList.itemsSource = info.allEntities;
     }
 
@@ -304,13 +309,13 @@ public class MainController : MonoBehaviour
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)
         {
-            vehicle.CalculateLocationCarla();
+            vehicle.getCarlaLocation();
             if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
             {
                 vehicle.Path.InitAssignRouteWaypoint();
             }
         }
-        info.EgoVehicle.CalculateLocationCarla();
+        info.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
 
         // Create .xosc file
@@ -323,8 +328,4 @@ public class MainController : MonoBehaviour
         //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
         return vehicle.Path.WaypointList?.Any() != true;
     }
-
-
-    //Only for Town06 later do as extension method for Vector3 or Location
-
 }
