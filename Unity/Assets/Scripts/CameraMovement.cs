@@ -9,9 +9,6 @@ public class CameraMovement : MonoBehaviour
     private Camera cam;
 
     [SerializeField]
-    private List<string> mapNames = new List<string>() { "MapBackgroundTown1", "MapBackgroundTown2", "MapBackgroundTown3", "MapBackgroundTown4", "MapBackgroundTown5", "MapBackgroundTown10" };
-
-    [SerializeField]
     private float zoomStep, minCamSize, maxCamSize;
 
     [SerializeField]
@@ -23,16 +20,11 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float mapMinX, mapMaxX, mapMinY, mapMaxY;
 
-    private Vector3 dragOrigin;
-
-    [SerializeField]
-    private Text debugger;
-
-
-
     //Function Awake is called at Run
     public void Awake()
     {
+        mapRenderer = GameObject.Find("Map").GetComponent<SpriteRenderer>();
+
         //Calculating the Edges for the Map(Background)
         mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;
         mapMaxX = mapRenderer.transform.position.x + mapRenderer.bounds.size.x / 2f;
@@ -57,8 +49,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Prints mouse position on every frame
-        print_mouse_position();
 
         if (EventSystem.current.IsPointerOverGameObject())
         {
@@ -144,12 +134,6 @@ public class CameraMovement : MonoBehaviour
         cam.transform.position = ClampCamera(cam.transform.position);
     }
 
-    public void print_mouse_position()
-    {
-        //Printing Mouse Positions to Screen 
-        debugger.text = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToString();
-    }
-
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
         //Moves the actual camera to target position
@@ -176,38 +160,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private GameObject WelcomeBackground;
 
-    [SerializeField]
-    private GameObject EditorCanvas;
-
-    [SerializeField]
-    private GameObject EditorBackgroundMap1;
-
-    [SerializeField]
-    private GameObject EditorBackgroundMap2;
-
-    [SerializeField]
-    private GameObject EditorBackgroundMap3;
-
-    [SerializeField]
-    private GameObject EditorBackgroundMap4;
-
-    [SerializeField]
-    private GameObject EditorBackgroundMap5;
-
-    [SerializeField]
-    private GameObject EditorBackgroundMap6;
-
     public void Home()
     {
-        /// Switch Editor Off
-        /// Switch Editor Background Off
-        EditorCanvas.SetActive(false);
-        EditorBackgroundMap1.SetActive(false);
-        EditorBackgroundMap2.SetActive(false);
-        EditorBackgroundMap3.SetActive(false);
-        EditorBackgroundMap4.SetActive(false);
-        EditorBackgroundMap5.SetActive(false);
-        EditorBackgroundMap6.SetActive(false);
 
         ///Set Welcome Menu On
         ///Set welcome Background On
@@ -215,117 +169,26 @@ public class CameraMovement : MonoBehaviour
         WelcomeBackground.SetActive(true);
 
         //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MainBackground").GetComponent<SpriteRenderer>();
-        //Recalculate Screen Edges
-        Awake();
+        mapRenderer.sprite = null;
     }
 
-    public void ViewMap1()
+    public void ViewMap(int number)
     {
         /// Switch Welcome Menu Off 
         /// Switch Welcome Background Off
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
-        /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
-        EditorBackgroundMap1.SetActive(true);
+        var mapName = "Town" + (number == 10 ? "10HD" : ("0" + number));
 
-        //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MapBackgroundTown1").GetComponent<SpriteRenderer>();
+        mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + mapName);
+
+        var map = GameObject.Find("Map");
+        //Reset collider
+        Destroy(map.GetComponent<BoxCollider2D>());
+        map.AddComponent<BoxCollider2D>();
         //Recalculate Screen Edges
         Awake();
-    }
-
-    public void ViewMap2()
-    {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
-        /// Switch Editor On
-        /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
-        EditorBackgroundMap2.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MapBackgroundTown2").GetComponent<SpriteRenderer>();
-        //Recalculate Screen Edges
-        Awake();
-    }
-
-    public void ViewMap3()
-    {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
-        /// Switch Editor On
-        /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
-        EditorBackgroundMap3.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MapBackgroundTown3").GetComponent<SpriteRenderer>();
-        //Recalculate Screen Edges
-        Awake();
-    }
-
-    public void ViewMap4()
-    {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
-        /// Switch Editor On
-        /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
-        EditorBackgroundMap4.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MapBackgroundTown4").GetComponent<SpriteRenderer>();
-        //Recalculate Screen Edges
-        Awake();
-    }
-
-    public void ViewMap5()
-    {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
-        /// Switch Editor On
-        /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
-        EditorBackgroundMap5.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MapBackgroundTown5").GetComponent<SpriteRenderer>();
-        //Recalculate Screen Edges
-        Awake();
-    }
-
-    public void ViewMap6()
-    {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
-        /// Switch Editor On
-        /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
-        EditorBackgroundMap6.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer = GameObject.Find("MapBackgroundTown10").GetComponent<SpriteRenderer>();
-        //Recalculate Screen Edges
-        Awake();
-        EventManager.TriggerEvent(new MapChangeAction("Town10HD"));
+        EventManager.TriggerEvent(new MapChangeAction(mapName));
     }
 }

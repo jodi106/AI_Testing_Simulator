@@ -28,6 +28,7 @@ public class MainController : MonoBehaviour
     private Button toggleSnapButton;
     private Button worldSettingsButton;
     private Button exportButton;
+    private Button homeButton;
 
     //Action Buttons (Center Left)
     private VisualElement actionButtons;
@@ -56,7 +57,7 @@ public class MainController : MonoBehaviour
         this.snapController = Camera.main.GetComponent<SnapController>();
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
-            if (!snapController.ignoreClicks)
+            if (!snapController.IgnoreClicks)
             {
                 this.setSelectedEntity(null);
             }
@@ -159,6 +160,7 @@ public class MainController : MonoBehaviour
         toggleSnapButton = editorGUI.Q<Button>("toggleSnapButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
+        homeButton = editorGUI.Q<Button>("homeButton");
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -180,17 +182,6 @@ public class MainController : MonoBehaviour
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            //var pos = Input.mousePosition;
-            //pos.z = -0.1f;
-
-            //var pedestrianGameObject = Instantiate(pedPrefab, pos, Quaternion.identity);
-            //pedestrianGameObject.transform.localScale = Vector3.one * 0.1f;
-            //PedestrianViewController viewController = pedestrianGameObject.GetComponent<PedestrianViewController>();
-
-            //Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            //color = new Color(color.r, color.g, color.b, 1);
-            //viewController.getEntity().setColor(color);
-            //setSelectedEntity(null);
             createEntity(VehicleCategory.Pedestrian);
             setSelectedEntity(null);
         });
@@ -219,6 +210,12 @@ public class MainController : MonoBehaviour
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             ExportOnClick();
+        });
+
+        homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            var m = Camera.main.GetComponent<CameraMovement>();
+            m.Home();
         });
     }
 
@@ -259,6 +256,11 @@ public class MainController : MonoBehaviour
         };
 
         info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        {
+            refreshEntityList();
+        };
+
+        info.Pedestrians.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
             refreshEntityList();
         };
@@ -317,13 +319,13 @@ public class MainController : MonoBehaviour
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)
         {
-            vehicle.CalculateLocationCarla();
+            vehicle.getCarlaLocation();
             if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
             {
                 vehicle.Path.InitAssignRouteWaypoint();
             }
         }
-        info.EgoVehicle.CalculateLocationCarla();
+        info.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
 
         // Create .xosc file
@@ -341,8 +343,4 @@ public class MainController : MonoBehaviour
         //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
         return vehicle.Path.WaypointList?.Any() != true;
     }
-
-
-    //Only for Town06 later do as extension method for Vector3 or Location
-
 }

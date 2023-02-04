@@ -159,7 +159,7 @@ namespace ExportScenario.XMLBuilder
 
         private string ConvertUnityColorToString(BaseEntity vehicle)
         {
-            UnityEngine.Color32 c = new UnityEngine.Color(vehicle.color.r, vehicle.color.g, vehicle.color.b, 1f);
+            UnityEngine.Color32 c = new UnityEngine.Color(vehicle.Color.r, vehicle.Color.g, vehicle.Color.b, 1f);
             return c.r + "," + c.g + "," + c.b;
         }
     }

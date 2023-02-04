@@ -40,7 +40,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void OnMouseDown()
     {
-        if (snapController.ignoreClicks && !pathController.isBuilding())
+        if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
@@ -52,7 +52,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
     public void OnMouseDrag()
     {
-        if (snapController.ignoreClicks && !pathController.isBuilding())
+        if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;

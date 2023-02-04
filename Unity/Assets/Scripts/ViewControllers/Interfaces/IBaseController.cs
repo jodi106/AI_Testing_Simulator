@@ -1,5 +1,4 @@
-﻿//Waypoint
-public interface IBaseController
+﻿public interface IBaseController
 {
     public void select();
     public void deselect();

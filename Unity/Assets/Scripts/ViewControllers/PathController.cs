@@ -433,7 +433,7 @@ public class PathController : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if(snapController.ignoreClicks && !building)
+        if(snapController.IgnoreClicks && !building)
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;
