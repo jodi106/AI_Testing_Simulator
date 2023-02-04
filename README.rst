@@ -41,3 +41,4 @@ The team consists of:
 * `Jonas <https://github.com/jodi106/>`__
 * `Natalie <https://github.com/Natalie-UniMA/>`__
 * `Stefan <https://github.com/StayFN/>`__
+

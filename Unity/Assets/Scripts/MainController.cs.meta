@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29bf03b2cacf0d9419750057cedea29e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - eventEntryTemplate: {instanceID: 0}
+  - carPrefab: {instanceID: 0}
+  - egoPrefab: {instanceID: 0}
+  - pedPrefab: {fileID: 2779375022895427033, guid: 8390aac25d5b19e4482e8d31db57d702, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

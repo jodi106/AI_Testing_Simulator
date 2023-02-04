@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: a3c74cb8d23890a4b9a8b8cb76d6a04b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - waypointPrefab: {fileID: 8257144040838025764, guid: 49587bde03629414bababf3faf50b4ba, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

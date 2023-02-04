@@ -1,0 +1,174 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO>
+	<FileHeader author="" date="2022-09-24T12:00:00" description="CARLA:ourScenario" revMajor="1" revMinor="0"/>
+	<ParameterDeclarations/>
+	<CatalogLocations/>
+	<RoadNetwork>
+		<LogicFile filepath="Town04"/>
+		<SceneGraphFile filepath=""/>
+	</RoadNetwork>
+	<Entities>
+		<ScenarioObject name="hero">
+			<Vehicle name="vehicle.volkswagen.t2" vehicleCategory="car">
+				<ParameterDeclarations/>
+				<Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+				<BoundingBox>
+					<Center x="1.5" y="0.0" z="0.9"/>
+					<Dimensions height="1.8" length="4.5" width="2.1"/>
+				</BoundingBox>
+				<Axles>
+					<FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+					<RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+				</Axles>
+				<Properties>
+					<Property name="type" value="ego_vehicle"/>
+				</Properties>
+			</Vehicle>
+		</ScenarioObject>
+		<ScenarioObject name="adversary0">
+			<Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+				<ParameterDeclarations/>
+				<Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+				<BoundingBox>
+					<Center x="1.5" y="0.0" z="0.9"/>
+					<Dimensions height="1.8" length="4.5" width="2.1"/>
+				</BoundingBox>
+				<Axles>
+					<FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+					<RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+				</Axles>
+				<Properties>
+					<Property name="type" value="simulation"/>
+				</Properties>
+			</Vehicle>
+		</ScenarioObject>
+		<ScenarioObject name="adversary1">
+			<Vehicle name="vehicle.audi.tt" vehicleCategory="car">
+				<ParameterDeclarations/>
+				<Performance maxAcceleration="200" maxDeceleration="10.0" maxSpeed="69.444"/>
+				<BoundingBox>
+					<Center x="1.5" y="0.0" z="0.9"/>
+					<Dimensions height="1.8" length="4.5" width="2.1"/>
+				</BoundingBox>
+				<Axles>
+					<FrontAxle maxSteering="0.5" positionX="3.1" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+					<RearAxle maxSteering="0.0" positionX="0.0" positionZ="0.3" trackWidth="1.8" wheelDiameter="0.6"/>
+				</Axles>
+				<Properties>
+					<Property name="type" value="simulation"/>
+				</Properties>
+			</Vehicle>
+		</ScenarioObject>
+	</Entities>
+	<Storyboard>
+		<Init>
+			<Actions>
+				<GlobalAction>
+					<EnvironmentAction>
+						<Environment name="Environment1">
+							<TimeOfDay animation="false" dateTime="2019-06-25T12:00:00"/>
+							<Weather cloudState="free">
+								<Sun azimuth="0" elevation="1.31" intensity="0.85"/>
+								<Fog visualRange="100000.0"/>
+								<Precipitation intensity="0.0" precipitationType="dry"/>
+							</Weather>
+							<RoadCondition frictionScaleFactor="1.0"/>
+						</Environment>
+					</EnvironmentAction>
+				</GlobalAction>
+				<Private entityRef="hero">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<WorldPosition h="200" x="255.7" y="-145.7" z="0.3"/>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+					<PrivateAction>
+						<ControllerAction>
+							<AssignControllerAction>
+								<Controller name="HeroAgent">
+									<Properties>
+										<Property name="module" value="carla_auto_pilot_control"/>
+									</Properties>
+								</Controller>
+							</AssignControllerAction>
+							<OverrideControllerValueAction>
+								<Throttle active="false" value="0"/>
+								<Brake active="false" value="0"/>
+								<Clutch active="false" value="0"/>
+								<ParkingBrake active="false" value="0"/>
+								<SteeringWheel active="false" value="0"/>
+								<Gear active="false" number="0"/>
+							</OverrideControllerValueAction>
+						</ControllerAction>
+					</PrivateAction>
+				</Private>
+				<Private entityRef="adversary0">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<WorldPosition h="180" x="290" y="-172" z="0.3"/>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+				</Private>
+				<Private entityRef="adversary1">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<WorldPosition h="90" x="255" y="-190" z="0.3"/>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+				</Private>
+			</Actions>
+		</Init>
+		<Story name="MyStory">
+			<Act name="Behavior">
+				<ManeuverGroup maximumExecutionCount="1" name="ManeuverSequence">
+					<Actors selectTriggeringEntities="false">
+						<EntityRef entityRef="adversary0"/>
+						<EntityRef entityRef="adversary1"/>
+					</Actors>
+					<Maneuver name="AccelerateManeuver">
+						<Event name="AdversaryAccelerates" priority="overwrite">
+							<Action name="AdversaryAccelerates">
+								<PrivateAction>
+									<LongitudinalAction>
+										<SpeedAction>
+											<SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="50"/>
+											<SpeedActionTarget>
+												<AbsoluteTargetSpeed value="3.0"/>
+											</SpeedActionTarget>
+										</SpeedAction>
+									</LongitudinalAction>
+								</PrivateAction>
+							</Action>
+							<StartTrigger>
+								<ConditionGroup>
+									<Condition conditionEdge="rising" delay="0" name="StartTime">
+										<ByValueCondition>
+											<SimulationTimeCondition rule="greaterThan" value="1"/>
+										</ByValueCondition>
+									</Condition>
+								</ConditionGroup>
+							</StartTrigger>
+						</Event>
+					</Maneuver>
+				</ManeuverGroup>
+				<StartTrigger/>
+				<StopTrigger>
+					<ConditionGroup>
+						<Condition conditionEdge="rising" delay="0" name="StopTime">
+							<ByValueCondition>
+								<SimulationTimeCondition rule="greaterThan" value="20"/>
+							</ByValueCondition>
+						</Condition>
+					</ConditionGroup>
+				</StopTrigger>
+			</Act>
+		</Story>
+		<StopTrigger/>
+	</Storyboard>
+</OpenSCENARIO>
