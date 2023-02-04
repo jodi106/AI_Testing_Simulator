@@ -25,10 +25,6 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 dragOrigin;
 
-    [SerializeField]
-    private Text debugger;
-
-
 
     //Function Awake is called at Run
     public void Awake()
@@ -57,8 +53,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Prints mouse position on every frame
-        print_mouse_position();
 
         if (EventSystem.current.IsPointerOverGameObject())
         {
@@ -144,12 +138,6 @@ public class CameraMovement : MonoBehaviour
         cam.transform.position = ClampCamera(cam.transform.position);
     }
 
-    public void print_mouse_position()
-    {
-        //Printing Mouse Positions to Screen 
-        debugger.text = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToString();
-    }
-
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
         //Moves the actual camera to target position
@@ -177,9 +165,6 @@ public class CameraMovement : MonoBehaviour
     private GameObject WelcomeBackground;
 
     [SerializeField]
-    private GameObject EditorCanvas;
-
-    [SerializeField]
     private GameObject EditorBackgroundMap1;
 
     [SerializeField]
@@ -199,9 +184,6 @@ public class CameraMovement : MonoBehaviour
 
     public void Home()
     {
-        /// Switch Editor Off
-        /// Switch Editor Background Off
-        EditorCanvas.SetActive(false);
         EditorBackgroundMap1.SetActive(false);
         EditorBackgroundMap2.SetActive(false);
         EditorBackgroundMap3.SetActive(false);
@@ -227,9 +209,7 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
         /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
         EditorBackgroundMap1.SetActive(true);
 
         //Set the new image as the new Map
@@ -245,9 +225,7 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
         /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
         EditorBackgroundMap2.SetActive(true);
 
         //Set the new image as the new Map
@@ -263,9 +241,7 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
         /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
         EditorBackgroundMap3.SetActive(true);
 
         //Set the new image as the new Map
@@ -281,9 +257,7 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
         /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
         EditorBackgroundMap4.SetActive(true);
 
         //Set the new image as the new Map
@@ -299,9 +273,7 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
         /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
         EditorBackgroundMap5.SetActive(true);
 
         //Set the new image as the new Map
@@ -317,9 +289,7 @@ public class CameraMovement : MonoBehaviour
         WelcomeCanvas.SetActive(false);
         WelcomeBackground.SetActive(false);
 
-        /// Switch Editor On
         /// Switch Editor Background On
-        EditorCanvas.SetActive(true);
         EditorBackgroundMap6.SetActive(true);
 
         //Set the new image as the new Map
