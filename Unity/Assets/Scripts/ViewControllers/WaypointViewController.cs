@@ -113,4 +113,9 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         this.ignoreWaypoints = b;
     }
+
+    public Location getLocation()
+    {
+        return this.waypoint.Location;
+    }
 }

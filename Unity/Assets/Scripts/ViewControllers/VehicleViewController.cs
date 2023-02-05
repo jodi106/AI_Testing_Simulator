@@ -40,10 +40,16 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public abstract Sprite getSprite();
 
+    public Location getLocation()
+    {
+        return this.getEntity().SpawnPoint;
+    }
+
     public virtual void onChangePosition(Location location)
     {
         transform.position = HeightUtil.SetZ(location.Vector3, transform.position.z);
         transform.eulerAngles = new Vector3(0, 0, location.Rot);
+        mainController.moveActionButtons(transform.position);
     }
 
     public virtual void onChangeCategory(VehicleCategory cat)

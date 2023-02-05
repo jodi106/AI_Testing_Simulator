@@ -343,6 +343,8 @@ public class PathController : MonoBehaviour
             next.Value = (next.Value.Item1, nextPath.Count);
         }
 
+        mainController.moveActionButtons(location.Vector3);
+
         resetEdgeCollider();
     }
 

@@ -8,6 +8,7 @@ using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEditor;
+using uGUI = UnityEngine.UI;
 
 public class MainController : MonoBehaviour
 {
@@ -23,15 +24,15 @@ public class MainController : MonoBehaviour
     private Button addMotorcycleButton;
     private Button addBikeButton;
     private Button addPedestrianButton;
-    private Button removeEntityButton;
-    private Button editEntityButton;
-    private Button toggleSnapButton;
     private Button worldSettingsButton;
     private Button exportButton;
     private Button homeButton;
 
     //Action Buttons (Center Left)
-    private VisualElement actionButtons;
+    private uGUI.Button removeEntityButton;
+    private uGUI.Button editEntityButton;
+    private uGUI.Button toggleSnapButton;
+    private GameObject actionButtonCanvas;
 
     private ScenarioInfo info;
 
@@ -52,7 +53,7 @@ public class MainController : MonoBehaviour
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
-        initializeEventButtons(editorGUI);
+        initializeActionButtons();
 
         this.snapController = Camera.main.GetComponent<SnapController>();
         EventManager.StartListening(typeof(MouseClickAction), x =>
@@ -80,24 +81,33 @@ public class MainController : MonoBehaviour
     {
         if (entity != null)
         {
+            var position = entity.getLocation();
+            this.actionButtonCanvas.transform.position = new Vector3(position.X, (float)(position.Y - 0.5), -1f);
+            if (this.actionButtonCanvas.activeSelf && entity != selectedEntity)
+            {
+                var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
+                anim.onMove();
+            }
+            else
+            {
+                this.actionButtonCanvas.SetActive(true);
+            }
             this.selectedEntity?.deselect();
             this.selectedEntity = entity;
             this.selectedEntity?.select();
-            this.removeEntityButton.style.display = DisplayStyle.Flex;
-            this.editEntityButton.style.display = DisplayStyle.Flex;
-            this.toggleSnapButton.style.display = DisplayStyle.Flex;
-            this.actionButtons.style.display = DisplayStyle.Flex;
         }
         else
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = null;
-            removeEntityButton.style.display = DisplayStyle.None;
-            editEntityButton.style.display = DisplayStyle.None;
-            toggleSnapButton.style.display = DisplayStyle.None;
-            this.actionButtons.style.display = DisplayStyle.None;
+            this.actionButtonCanvas.SetActive(false);
         }
 
+    }
+
+    public void moveActionButtons(Vector2 pos)
+    {
+        this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
     public void addVehicle(Vehicle vehicle)
@@ -155,9 +165,6 @@ public class MainController : MonoBehaviour
         addCarButton = editorGUI.Q<Button>("addCarButton");
         addMotorcycleButton = editorGUI.Q<Button>("addMotorcycleButton");
         addBikeButton = editorGUI.Q<Button>("addBikeButton");
-        removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
-        editEntityButton = editorGUI.Q<Button>("editEntityButton");
-        toggleSnapButton = editorGUI.Q<Button>("toggleSnapButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
         homeButton = editorGUI.Q<Button>("homeButton");
@@ -186,22 +193,6 @@ public class MainController : MonoBehaviour
             setSelectedEntity(null);
         });
 
-        removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            selectedEntity?.destroy();
-            setSelectedEntity(null);
-        });
-
-        editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            this.selectedEntity?.openEditDialog();
-        });
-
-        toggleSnapButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            this.selectedEntity?.setIgnoreWaypoints(!this.selectedEntity.shouldIgnoreWaypoints());
-        });
-
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             worldSettingsController.open();
@@ -219,10 +210,30 @@ public class MainController : MonoBehaviour
         });
     }
 
-    private void initializeEventButtons(VisualElement editorGUI)
+    private void initializeActionButtons()
     {
-        actionButtons = editorGUI.Q<VisualElement>("actionButtons");
-        actionButtons.style.display = DisplayStyle.None;
+        actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
+        removeEntityButton = GameObject.Find("ActionButtonCanvas/DeleteButton").GetComponent<uGUI.Button>();
+        editEntityButton = GameObject.Find("ActionButtonCanvas/EditButton").GetComponent<uGUI.Button>();
+        toggleSnapButton = GameObject.Find("ActionButtonCanvas/ToggleButton").GetComponent<uGUI.Button>();
+
+        removeEntityButton.onClick.AddListener(() =>
+        {
+            selectedEntity?.destroy();
+            setSelectedEntity(null);
+        });
+
+        editEntityButton.onClick.AddListener(() =>
+        {
+            this.selectedEntity?.openEditDialog();
+        });
+
+        toggleSnapButton.onClick.AddListener(() =>
+        {
+            this.selectedEntity?.setIgnoreWaypoints(!this.selectedEntity.shouldIgnoreWaypoints());
+        });
+
+        actionButtonCanvas.SetActive(false);
     }
 
     private void initializeEventList(VisualElement editorGUI)
