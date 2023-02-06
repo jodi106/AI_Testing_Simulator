@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Enums;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 
 namespace Entity
 {
-    public class ScenarioInfo
+    public class ScenarioInfo 
     /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
     {
         public ScenarioInfo()
@@ -28,6 +29,46 @@ namespace Entity
             WorldOptions = worldOptions;
             EgoVehicle = egoVehicle;
             Vehicles = vehicles;
+        }
+
+        /// <summary>
+        /// Converts the Model Representation, where Pedestrians are also Vehicles to the Scenario Representation, 
+        /// where Pedestrians are represented as their own Objects.
+        /// Doesn't Deepcopy everything just the Properties that need to be deepcopied in order not to modify the original object.
+        /// </summary>
+        /// <returns>ScenarioInfo Object ready for XML-Export</returns>
+        public object Clone()
+        {
+            string CopyPath = string.Copy(this.Path);
+            ObservableCollection<Pedestrian> CopyPedestrians = new();
+            ObservableCollection<Vehicle> CopyVehicles = new();
+
+            
+            foreach (Vehicle v in this.Vehicles)
+            {
+                if (v.Category == VehicleCategory.Pedestrian)
+                {
+                    Pedestrian CopyPedestrian = new Pedestrian(
+                        new Location(v.SpawnPoint.X, v.SpawnPoint.Y, v.SpawnPoint.Z, v.SpawnPoint.Rot),
+                        new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"),
+                        v.Path,
+                        PedestrianType.Girl,
+                        v.InitialSpeed
+                        );
+                }
+                //public Pedestrian(Location spawnPoint, EntityModel model, Path path, PedestrianType pedestrianType = PedestrianType.Null, double initialSpeed = 0) : base(string.Format("{0} {1}", "Vehicle", ++autoIncrementId), spawnPoint, initialSpeed)
+
+                else
+                {
+
+                }
+            }
+            
+
+            return new ScenarioInfo
+            {
+                
+            };
         }
 
         void attachListener()
