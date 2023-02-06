@@ -39,37 +39,50 @@ namespace Entity
         /// <returns>ScenarioInfo Object ready for XML-Export</returns>
         public object Clone()
         {
-            string CopyPath = string.Copy(this.Path);
-            ObservableCollection<Pedestrian> CopyPedestrians = new();
-            ObservableCollection<Vehicle> CopyVehicles = new();
-
+            string CopyPath = string.Copy(this.Path); //Value
+            string CopyMapURL = string.Copy(this.MapURL); //Value
+            WorldOptions CopyWorldOptions = this.WorldOptions; //Ref
+            ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contains Path Ref
+            ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
+            Ego CopyEgoVehicle = this.EgoVehicle; //Ref
+            List<BaseEntity> CopyAllEntities = this.allEntities; //Ref
             
             foreach (Vehicle v in this.Vehicles)
             {
                 if (v.Category == VehicleCategory.Pedestrian)
                 {
-                    Pedestrian CopyPedestrian = new Pedestrian(
-                        new Location(v.SpawnPoint.X, v.SpawnPoint.Y, v.SpawnPoint.Z, v.SpawnPoint.Rot),
-                        new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"),
-                        v.Path,
-                        PedestrianType.Girl,
-                        v.InitialSpeed
+                    //Didn't implement ICloneable interface, since Path can be reference to the Model Object. 
+                    Pedestrian CopyPedestrian = new Pedestrian
+                        (
+                            new Location(v.SpawnPoint.X, v.SpawnPoint.Y, v.SpawnPoint.Z, v.SpawnPoint.Rot), //Value
+                            new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
+                            v.Path, //Ref
+                            PedestrianType.Girl, //Value
+                            v.InitialSpeed //Value
                         );
-                }
-                //public Pedestrian(Location spawnPoint, EntityModel model, Path path, PedestrianType pedestrianType = PedestrianType.Null, double initialSpeed = 0) : base(string.Format("{0} {1}", "Vehicle", ++autoIncrementId), spawnPoint, initialSpeed)
 
+                    exPedestrians.Add(CopyPedestrian);
+                }
                 else
                 {
-
+                    //Same here, ref should be enough
+                    exVehicles.Add(v); //Ref
                 }
             }
-            
+
 
             return new ScenarioInfo
             {
-                
+                Path = CopyPath,
+                Pedestrians = exPedestrians,
+                MapURL = CopyMapURL,
+                WorldOptions = CopyWorldOptions,
+                EgoVehicle = CopyEgoVehicle,
+                Vehicles = exVehicles,
+                allEntities = CopyAllEntities
             };
         }
+
 
         void attachListener()
         {
