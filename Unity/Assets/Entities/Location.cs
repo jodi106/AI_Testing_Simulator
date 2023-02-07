@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Entity
 {
-    public class Location
+    public class Location : ICloneable
     {
         public Location(Vector3 vector3)
         {
@@ -28,6 +29,10 @@ namespace Entity
         public float X { get => Vector3.x; }
         public float Y { get => Vector3.y; }
         public float Z { get => Vector3.z; }
-    }
 
+        public object Clone()
+        {
+            return new Location(new Vector3(X, Y, Z), this.Rot);
+        }
+    }
 }

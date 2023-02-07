@@ -1,5 +1,6 @@
 ﻿using Assets.Enums;
 
+
 namespace Entity
 {
     public class Vehicle : BaseEntity

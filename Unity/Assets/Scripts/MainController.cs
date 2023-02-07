@@ -309,6 +309,11 @@ public class MainController : MonoBehaviour
             return;
         }
 
+        //Creates a Copy of the exportInfo, so that
+        //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
+
+
+
         addWaypointsAfter4Meters(this.info);
 
         //This Function is bind with the "Export button"
@@ -326,6 +331,7 @@ public class MainController : MonoBehaviour
         {
             veh.InitialSpeed = 10;
         }
+
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)

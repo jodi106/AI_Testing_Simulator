@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System;
 
 namespace Entity
 {
-    public class ScenarioInfo 
+    public class ScenarioInfo : ICloneable
     /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
     {
         public ScenarioInfo()
@@ -54,7 +55,7 @@ namespace Entity
                     //Didn't implement ICloneable interface, since Path can be reference to the Model Object. 
                     Pedestrian CopyPedestrian = new Pedestrian
                         (
-                            new Location(v.SpawnPoint.X, v.SpawnPoint.Y, v.SpawnPoint.Z, v.SpawnPoint.Rot), //Value
+                            (Location)v.SpawnPoint.Clone(), //Value
                             new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
                             v.Path, //Ref
                             PedestrianType.Girl, //Value

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using System.Linq;
 namespace Entity
 { 
-    public class Waypoint// Event in .xosc
+    public class Waypoint : ICloneable// Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
         public Waypoint(Location location)
@@ -44,6 +44,15 @@ namespace Entity
             this.LocationCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
 
+        public object Clone()
+        {
+            var cloneWaypoint = new Waypoint((Location)this.Location.Clone());
+            cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
+            cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
+            cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
+
+            return cloneWaypoint;
+        }
     }
 
     public class AStarWaypoint : Waypoint

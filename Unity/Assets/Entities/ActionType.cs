@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Entity
 {
-    public class ActionType
+    public class ActionType : ICloneable
     /// <summary>Defines a user specified action for a Waypoint object</summary>
     {
         private static int autoIncrementId = 0;
@@ -66,18 +67,38 @@ namespace Entity
         public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
         public int RelativeTargetLaneValue { get; set; } // TODO: -1 or 1
 
-        
+
         public void CalculateLocationsCarla()
         {
             PositionsCarla = new List<Location>();
-            foreach(Location pos in Positions)
+            foreach (Location pos in Positions)
             {
                 (float xCarla, float yCarla) = SnapController.UnityToCarla(pos.X, pos.Y);
                 float rotCarla = SnapController.UnityRotToRadians(pos.Rot);
                 rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
                 PositionsCarla.Add(new Location(xCarla, yCarla, 0.3f, rotCarla));
             }
-            
+
+        }
+
+        public object Clone()
+        {
+            ActionType cloneActionType = new ActionType(string.Copy(this.Name));
+            cloneActionType.ID = this.ID;
+            cloneActionType.AbsoluteTargetSpeedValue = this.AbsoluteTargetSpeedValue;
+            cloneActionType.DynamicsShape = this.DynamicsShape;
+            cloneActionType.SpeedActionDynamicsValue = this.SpeedActionDynamicsValue;
+            cloneActionType.LaneChangeActionDynamicsValue = this.LaneChangeActionDynamicsValue;
+            cloneActionType.DynamicDimensions = this.DynamicDimensions;
+
+            //Cloning the Location, so we don't just get references to the Location of this Object.
+            cloneActionType.Positions = this.Positions.Select(x => (Location)x.Clone()).ToList();
+            cloneActionType.PositionsCarla = this.PositionsCarla.Select(x => (Location)x.Clone()).ToList();
+
+            cloneActionType.EntityRef = string.Copy(this.EntityRef);
+            cloneActionType.RelativeTargetLaneValue = this.RelativeTargetLaneValue;
+
+            return cloneActionType;
         }
     }
 }
