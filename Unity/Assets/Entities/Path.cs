@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace Entity
 {
-    public class Path // Story in .xosc
+
+    public class Path : ICloneable// Story in .xosc
     /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
     {
         public Path()
@@ -31,6 +32,16 @@ namespace Entity
         public List<Waypoint> WaypointList { get; set; }
 
         public Waypoint AssignRouteWaypoint { get; set; } // is first waypoint of WaypointList to create OpenScenario Event AssignRouteAction and corresponding Trigger
+
+        public object Clone()
+        {
+            Path clonePath = new Path();
+            clonePath.OverallStartTrigger = (Waypoint)this.OverallStartTrigger.Clone();
+            clonePath.OverallStopTrigger = (Waypoint)this.OverallStopTrigger.Clone();
+            clonePath.WaypointList = this.WaypointList.Select(x => (Waypoint)x.Clone()).ToList();
+
+            return clonePath; 
+        }
 
         public List<Location> GetRouteLocations()
         /// Creates a List of all Waypoint.Locations in the Path to define the Entities Route via a AssignRouteAction
@@ -64,5 +75,6 @@ namespace Entity
                 WaypointList.Insert(0, AssignRouteWaypoint);
             }
         }
+
     }
 }

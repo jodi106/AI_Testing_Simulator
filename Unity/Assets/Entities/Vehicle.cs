@@ -1,9 +1,10 @@
 ﻿using Assets.Enums;
+using System;
 
 
 namespace Entity
 {
-    public class Vehicle : BaseEntity
+    public class Vehicle : BaseEntity, ICloneable
     {
         private static int autoIncrementId = 0;
 
@@ -13,6 +14,11 @@ namespace Entity
             Model = model;
             Path = path;
             Category = category;
+        }
+
+        public Vehicle()
+        {
+
         }
 
         public void setCategory(VehicleCategory category)
@@ -25,6 +31,23 @@ namespace Entity
         {
             this.Model = model;
             this.View?.onChangeModel(model);
+        }
+
+        public object Clone()
+        {
+            Vehicle cloneVehicle = new Vehicle();
+            cloneVehicle.Model = (EntityModel)this.Model.Clone();
+            cloneVehicle.Path = (Path)this.Path.Clone();
+            cloneVehicle.Category = this.Category;
+
+            //BaseEntity
+            cloneVehicle.Id = string.Copy(this.Id);
+            cloneVehicle.SpawnPoint = (Location)this.SpawnPoint.Clone();
+            cloneVehicle.InitialSpeed = this.InitialSpeed;
+            cloneVehicle.Color = this.Color;
+            
+            //I don't think we need BaseEntity.View here since its only for the export? 
+            return cloneVehicle;
         }
 
         public EntityModel Model { get; private set; }

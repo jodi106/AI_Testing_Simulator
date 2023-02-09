@@ -1,7 +1,9 @@
 ﻿using Assets.Enums;
+using System;
+
 namespace Entity
 { 
-    public class WorldOptions
+    public class WorldOptions : ICloneable
     /// <summary>Creates WorldOptions Object. Contains user specified world settings for the scenario</summary>
     {
         public WorldOptions()
@@ -29,6 +31,7 @@ namespace Entity
             SunElevation = sunElevation;
         }
 
+
         public float SunIntensity { get; set; } // double: 0.0 to 1.0; user can edit in GUI advanced options
         public CloudState CloudState { get; set; } // has enum; user can edit in basic options
         public PrecipitationType PrecipitationType { get; set; } // has enum; user can edit in basic options
@@ -40,6 +43,21 @@ namespace Entity
         public double FogVisualRange { get; set; } // good value: 100000 (should be used); double: 0.0 to infinitive; user can edit in GUI advanced options
         public double FrictionScaleFactor { get; set; } // good value: 1 (should be used); double: 0.0 to infinitive; user can edit in GUI advanced options
 
+        public object Clone()
+        {
+            WorldOptions cloneWorldOptions = new();
+            cloneWorldOptions.SunIntensity = this.SunIntensity;
+            cloneWorldOptions.CloudState = this.CloudState;
+            cloneWorldOptions.PrecipitationType = this.PrecipitationType;
+            cloneWorldOptions.PrecipitationIntensity = this.PrecipitationIntensity;
+            cloneWorldOptions.Date_Time = string.Copy(this.Date_Time);
+            cloneWorldOptions.SunAzimuth = this.SunAzimuth;
+            cloneWorldOptions.SunElevation = this.SunElevation;
+            cloneWorldOptions.FogVisualRange = this.FogVisualRange;
+            cloneWorldOptions.FrictionScaleFactor = this.FrictionScaleFactor;
+
+            return cloneWorldOptions;
+        }
     }
 
 }

@@ -35,15 +35,15 @@ namespace Entity
         /// <summary>
         /// Converts the Model Representation, where Pedestrians are also Vehicles to the Scenario Representation, 
         /// where Pedestrians are represented as their own Objects.
-        /// Doesn't Deepcopy everything just the Properties that need to be deepcopied in order not to modify the original object.
+        /// Creates a Deepcopy. 
         /// </summary>
         /// <returns>ScenarioInfo Object ready for XML-Export</returns>
         public object Clone()
         {
             string CopyPath = string.Copy(this.Path); //Value
             string CopyMapURL = string.Copy(this.MapURL); //Value
-            WorldOptions CopyWorldOptions = this.WorldOptions; //Ref
-            ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contains Path Ref
+            WorldOptions CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();
+            ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
             ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
             Ego CopyEgoVehicle = this.EgoVehicle; //Ref
             List<BaseEntity> CopyAllEntities = this.allEntities; //Ref
@@ -57,17 +57,19 @@ namespace Entity
                         (
                             (Location)v.SpawnPoint.Clone(), //Value
                             new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
-                            v.Path, //Ref
+                            (Path)v.Path.Clone(), //Value
                             PedestrianType.Girl, //Value
                             v.InitialSpeed //Value
                         );
 
                     exPedestrians.Add(CopyPedestrian);
+                    CopyAllEntities.Add(CopyPedestrian);
                 }
                 else
                 {
-                    //Same here, ref should be enough
-                    exVehicles.Add(v); //Ref
+                    Vehicle cloneVehicle = (Vehicle)v.Clone();
+                    exVehicles.Add(cloneVehicle); //Value
+                    CopyAllEntities.Add(cloneVehicle);
                 }
             }
 
