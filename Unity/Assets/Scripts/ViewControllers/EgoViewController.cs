@@ -1,6 +1,7 @@
 ﻿using Assets.Enums;
 using Assets.Repos;
 using Entity;
+using System;
 using UnityEngine;
 
 public class EgoViewController : VehicleViewController
@@ -17,7 +18,7 @@ public class EgoViewController : VehicleViewController
         this.egoSettingsController.gameObject.SetActive(true);
 
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        this.ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car);
+        this.ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, 0); // TODO initial speed: different default later?
         this.ego.setView(this);
     }
 

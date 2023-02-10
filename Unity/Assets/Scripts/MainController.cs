@@ -297,6 +297,8 @@ public class MainController : MonoBehaviour
         }
     }
 
+    //This Function is bind with the "Export button". The actual binding is made in the Start function of the script
+    //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
         // Catch errors and display it to the user
@@ -313,13 +315,7 @@ public class MainController : MonoBehaviour
         //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
 
-
         addWaypointsAfter4Meters(this.info);
-
-        //This Function is bind with the "Export button"
-        //The actual binding is made in the Start function of the script
-        //Make sure to change this function to export the desired version or desired files.
-        //Anything written here will be run at the time of pressing "Export" Button
 
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
@@ -327,11 +323,6 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
         info.MapURL = "Town10HD";
-        foreach (Vehicle veh in info.Vehicles)
-        {
-            veh.InitialSpeed = 10;
-        }
-
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)
