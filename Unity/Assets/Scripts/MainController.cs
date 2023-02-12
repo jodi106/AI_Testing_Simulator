@@ -284,18 +284,6 @@ public class MainController : MonoBehaviour
         this.eventList.Rebuild();
     }
 
-    //TODO remove once routes are working
-    void moveFirstWaypoint(ScenarioInfo info)
-    {
-        foreach(var v in info.Vehicles)
-        {
-            var first = v.Path.WaypointList[0];
-            var rot = v.SpawnPoint.Rot;
-            Quaternion rotation = Quaternion.Euler(0f, 0f, rot);
-            first.Location.Vector3 = first.Location.Vector3 + rotation * Vector3.right * 4;
-        }
-    }
-
     //This Function is bind with the "Export button". The actual binding is made in the Start function of the script
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
@@ -313,9 +301,6 @@ public class MainController : MonoBehaviour
         //Creates a Copy of the exportInfo, so that
         //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
-
-        moveFirstWaypoint(this.info);
-
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
@@ -329,7 +314,7 @@ public class MainController : MonoBehaviour
             vehicle.getCarlaLocation();
             if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
             {
-                vehicle.Path.InitAssignRouteWaypoint();
+                vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
             }
         }
         info.EgoVehicle.getCarlaLocation();
