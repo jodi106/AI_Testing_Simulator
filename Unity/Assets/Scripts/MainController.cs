@@ -285,15 +285,14 @@ public class MainController : MonoBehaviour
     }
 
     //TODO remove once routes are working
-    void addWaypointsAfter4Meters(ScenarioInfo info)
+    void moveFirstWaypoint(ScenarioInfo info)
     {
         foreach(var v in info.Vehicles)
         {
-            var first = v.Path.WaypointList[0].Location.Vector3;
-            var second = v.Path.WaypointList[1].Location.Vector3;
-            var middle = (second - first).normalized + first; // 4 m * 25 pixel/m * 100 pixel/unit
-            var waypoint = new Waypoint(new Location(middle), new ActionType("MoveToAction"), new List<TriggerInfo>());
-            v.Path.WaypointList.Insert(1,waypoint);
+            var first = v.Path.WaypointList[0];
+            var rot = v.SpawnPoint.Rot;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, rot);
+            first.Location.Vector3 = first.Location.Vector3 + rotation * Vector3.right * 4;
         }
     }
 
@@ -315,7 +314,7 @@ public class MainController : MonoBehaviour
         //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
 
-        addWaypointsAfter4Meters(this.info);
+        moveFirstWaypoint(this.info);
 
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
