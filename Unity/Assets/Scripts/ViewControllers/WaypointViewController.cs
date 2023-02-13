@@ -14,6 +14,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private SpriteRenderer sprite;
     private SnapController snapController;
     private MainController mainController;
+    private WaypointSettingsPopupController settingsController;
     private bool ignoreWaypoints = false;
 
     public void setPathController(PathController pathController)
@@ -26,11 +27,15 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         this.sprite = gameObject.GetComponent<SpriteRenderer>();
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();
+
     }
 
     public void openEditDialog()
     {
-
+        // BUG: SelectedEntity is Waypoint and not Adversary after AddVehicle button is pressed and settings option without placing a waypoint
+        //this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
+        //this.settingsController.gameObject.SetActive(true);
+        //this.settingsController.open(this);
     }
 
     public void setColor(Color color)
