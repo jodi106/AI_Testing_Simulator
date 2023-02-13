@@ -140,4 +140,13 @@ public class AdversaryViewController : VehicleViewController
     {
         mainController.addVehicle(this.vehicle);
     }
+
+    public override void setIgnoreWaypoints(bool b)
+    {
+        base.setIgnoreWaypoints(b);
+        if(this.pathController is not null)
+        {
+            this.pathController.getFirstWaypointController().setIgnoreWaypoints(b);
+        }
+    }
 }

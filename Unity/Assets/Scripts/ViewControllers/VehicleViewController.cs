@@ -164,10 +164,16 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         return this.ignoreWaypoints;
     }
 
-    public void setIgnoreWaypoints(bool b)
+    public virtual void setIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
     }
+
+    public void alignVehicle(Vector2 firstWaypoint)
+    {
+        // TODO
+    }
+
     public abstract BaseEntity getEntity();
     public abstract void openEditDialog();
     protected abstract void registerEntity();
