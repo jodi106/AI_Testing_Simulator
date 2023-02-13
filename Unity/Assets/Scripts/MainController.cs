@@ -31,7 +31,7 @@ public class MainController : MonoBehaviour
     //Action Buttons (Center Left)
     private uGUI.Button removeEntityButton;
     private uGUI.Button editEntityButton;
-    private uGUI.Button toggleSnapButton;
+    private uGUI.Toggle snapToggle;
     private GameObject actionButtonCanvas;
 
     private ScenarioInfo info;
@@ -83,6 +83,7 @@ public class MainController : MonoBehaviour
         {
             var position = entity.getLocation();
             this.actionButtonCanvas.transform.position = new Vector3(position.X, (float)(position.Y - 0.5), -1f);
+            snapToggle.SetIsOnWithoutNotify(!entity.shouldIgnoreWaypoints());
             if (this.actionButtonCanvas.activeSelf && entity != selectedEntity)
             {
                 var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
@@ -215,7 +216,7 @@ public class MainController : MonoBehaviour
         actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
         removeEntityButton = GameObject.Find("ActionButtonCanvas/DeleteButton").GetComponent<uGUI.Button>();
         editEntityButton = GameObject.Find("ActionButtonCanvas/EditButton").GetComponent<uGUI.Button>();
-        toggleSnapButton = GameObject.Find("ActionButtonCanvas/ToggleButton").GetComponent<uGUI.Button>();
+        snapToggle = GameObject.Find("ActionButtonCanvas/SnapToggle").GetComponent<uGUI.Toggle>();
 
         removeEntityButton.onClick.AddListener(() =>
         {
@@ -228,9 +229,9 @@ public class MainController : MonoBehaviour
             this.selectedEntity?.openEditDialog();
         });
 
-        toggleSnapButton.onClick.AddListener(() =>
+        snapToggle.onValueChanged.AddListener(x =>
         {
-            this.selectedEntity?.setIgnoreWaypoints(!this.selectedEntity.shouldIgnoreWaypoints());
+            this.selectedEntity?.setIgnoreWaypoints(!x);
         });
 
         actionButtonCanvas.SetActive(false);
