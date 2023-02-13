@@ -152,8 +152,9 @@ public class PathController : MonoBehaviour
             return;
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(waypoint.Vector3, -10), -Vector2.up);
-        if (hit.collider == this.edgeCollider)
+        RaycastHit2D waypointHit = Physics2D.Raycast(HeightUtil.SetZ(waypoint.Vector3, -10), -Vector2.up);
+        RaycastHit2D mouseHit = Physics2D.Raycast(HeightUtil.SetZ(mousePosition, -10), -Vector2.up);
+        if (waypointHit.collider == this.edgeCollider || mouseHit.collider == this.edgeCollider)
         {
             previewSprite.enabled = true;
             previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
@@ -161,7 +162,7 @@ public class PathController : MonoBehaviour
             return;
         }
         // allow first waypoint to be placed on top of car, but none afterwards
-        if (hit.collider == adversaryViewController.getCollider() && !Path.IsEmpty())
+        if ((waypointHit.collider == adversaryViewController.getCollider() || mouseHit.collider == adversaryViewController.getCollider()) && !Path.IsEmpty())
         {
             previewSprite.enabled = false;
             previewRenderer.positionCount = 0;
@@ -173,7 +174,7 @@ public class PathController : MonoBehaviour
         {
             var waypointController = entry.Item1;
             var collider = waypointController.gameObject.GetComponent<CircleCollider2D>();
-            if (hit.collider == collider)
+            if (waypointHit.collider == collider)
             {
                 previewSprite.enabled = false;
                 previewRenderer.positionCount = 0;
@@ -238,7 +239,16 @@ public class PathController : MonoBehaviour
                     used += 1;
                 }
             }
-            createWaypointGameObject(waypoint.X, waypoint.Y, pathLen - used);
+            var viewController = createWaypointGameObject(waypoint.X, waypoint.Y, pathLen - used);
+            if (Path.WaypointList.Count() > 1)
+            {
+                mainController.setSelectedEntity(viewController);
+            }
+            if(Path.WaypointList.Count() == 2 && adversaryViewController.shouldIgnoreWaypoints())
+            {
+
+            }
+            resetEdgeCollider();
         } else
         {
             previewSprite.enabled = true;
@@ -246,7 +256,7 @@ public class PathController : MonoBehaviour
         }
     }
 
-    void createWaypointGameObject(float x, float y, int pathLen)
+    WaypointViewController createWaypointGameObject(float x, float y, int pathLen)
     {
         GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(x, y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
         WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
@@ -257,8 +267,7 @@ public class PathController : MonoBehaviour
         viewController.waypoint.View = viewController;
         this.Path.WaypointList.Add(viewController.waypoint);
         waypointViewControllers.AddLast((viewController, pathLen));
-        mainController.setSelectedEntity(viewController);
-        resetEdgeCollider();
+        return viewController;
     }
 
     Waypoint generateWaypoint(Location loc, ActionType actionType)
@@ -312,14 +321,14 @@ public class PathController : MonoBehaviour
         var offset = 0;
         if (prev != null)
         {
-            (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, location.Vector3, ignoreWaypoints);
+            (prevPath, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, location.Vector3, ignoreWaypoints || prev.Value.Item1.shouldIgnoreWaypoints());
             prev.Value.Item1.waypoint.setLocation(new Location(prevPath[0]));
             prevPath.RemoveAt(prevPath.Count - 1);
             offset = offset + prevPath.Count - cur.Value.Item2;
         }
         if (next != null)
         {
-            (nextPath, _) = snapController.FindPath(location.Vector3, next.Value.Item1.waypoint.Location.Vector3, ignoreWaypoints);
+            (nextPath, _) = snapController.FindPath(location.Vector3, next.Value.Item1.waypoint.Location.Vector3, ignoreWaypoints || next.Value.Item1.shouldIgnoreWaypoints());
             next.Value.Item1.waypoint.setLocation(new Location(nextPath[nextPath.Count - 1]));
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
@@ -396,7 +405,7 @@ public class PathController : MonoBehaviour
         if (next != null)
         {
             bool ignoreWaypoints = controller.shouldIgnoreWaypoints();
-            (var path, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, next.Value.Item1.waypoint.Location.Vector3, ignoreWaypoints);
+            (var path, _) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3, next.Value.Item1.waypoint.Location.Vector3, ignoreWaypoints || next.Value.Item1.shouldIgnoreWaypoints());
             path.RemoveAt(path.Count - 1);
             var offset = path.Count - cur.Value.Item2 - next.Value.Item2;
 
@@ -519,5 +528,11 @@ public class PathController : MonoBehaviour
 
             mainController.setSelectedEntity(viewController);
         }
+    }
+
+    //TODO find better solution
+    public WaypointViewController getFirstWaypointController()
+    {
+        return this.waypointViewControllers.First.Value.Item1;
     }
 }
