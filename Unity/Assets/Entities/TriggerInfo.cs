@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Entity
 {
-    public class TriggerInfo
+    public class TriggerInfo : ICloneable
     /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
     {
         private static int autoIncrementId = 0;
-               
+        
+        public TriggerInfo()
+        {
+
+        }
+
         public TriggerInfo(string triggerType, double simulationTimeValue, string rule, double delay=0, string conditionEdge="rising")
         /// Constructor for "SimulationTimeCondition"
         {
@@ -58,6 +64,24 @@ namespace Entity
         {
             (float xCarla, float yCarla) = SnapController.UnityToCarla(WorldPosition.X, WorldPosition.Y);
             this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
+        }
+
+        public object Clone()
+        {
+            var cloneTriggerInfo = new TriggerInfo();
+            cloneTriggerInfo.ID = this.ID;
+            cloneTriggerInfo.TriggerType = String.Copy(this.TriggerType);
+            cloneTriggerInfo.Delay = this.Delay;
+            cloneTriggerInfo.ConditionEdge = String.Copy(this.ConditionEdge);
+            cloneTriggerInfo.EntityRef = String.Copy(this.EntityRef);
+            cloneTriggerInfo.SimulationTimeValue = this.SimulationTimeValue;
+            cloneTriggerInfo.Value = this.Value;
+            cloneTriggerInfo.Rule = String.Copy(this.Rule);
+            cloneTriggerInfo.WorldPosition = (Location)this.WorldPosition.Clone();
+            cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
+            cloneTriggerInfo.AfterAction = (ActionType)this.AfterAction.Clone();
+
+            return cloneTriggerInfo;
         }
     }
 }

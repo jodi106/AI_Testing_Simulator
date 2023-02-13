@@ -14,7 +14,7 @@ public class AdversaryViewController : VehicleViewController
         base.Awake();
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car);
+        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, 10);
         this.vehicle.setView(this);
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
@@ -139,5 +139,14 @@ public class AdversaryViewController : VehicleViewController
     protected override void registerEntity()
     {
         mainController.addVehicle(this.vehicle);
+    }
+
+    public override void setIgnoreWaypoints(bool b)
+    {
+        base.setIgnoreWaypoints(b);
+        if(this.pathController is not null)
+        {
+            this.pathController.getFirstWaypointController().setIgnoreWaypoints(b);
+        }
     }
 }

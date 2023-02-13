@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Entity
 {
-    public class Path // Story in .xosc
+
+    public class Path : ICloneable// Story in .xosc
     /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
     {
         public Path()
@@ -32,6 +34,16 @@ namespace Entity
 
         public Waypoint AssignRouteWaypoint { get; set; } // is first waypoint of WaypointList to create OpenScenario Event AssignRouteAction and corresponding Trigger
 
+        public object Clone()
+        {
+            Path clonePath = new Path();
+            clonePath.OverallStartTrigger = (Waypoint)this.OverallStartTrigger.Clone();
+            clonePath.OverallStopTrigger = (Waypoint)this.OverallStopTrigger.Clone();
+            clonePath.WaypointList = this.WaypointList.Select(x => (Waypoint)x.Clone()).ToList();
+
+            return clonePath; 
+        }
+
         public List<Location> GetRouteLocations()
         /// Creates a List of all Waypoint.Locations in the Path to define the Entities Route via a AssignRouteAction
         {
@@ -49,20 +61,23 @@ namespace Entity
         }
 
         // Needs to be invoked at the End after WayPointList is finished (so when ExportButton is pressed)
-        public void InitAssignRouteWaypoint()
+        public void InitAssignRouteWaypoint(float rot)
         {
+
+            var first = WaypointList[0];
+            Quaternion rotation = Quaternion.Euler(0f, 0f, rot);
+            var originalStartLocation = (Location) first.Location.Clone();
+            first.Location.Vector3 = first.Location.Vector3 + rotation * Vector3.right;
+
             Waypoint assignRouteWaypoint = new Waypoint(
-                    WaypointList[0].Location,
+                    originalStartLocation,
                     new ActionType("AssignRouteAction", GetRouteLocations()),
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan") });
 
-            // only update if there are changes (without this check we'll have multiple AssignRouteActions for the same entity)
-            if (!this.WaypointList[0].Location.Equals(assignRouteWaypoint.Location)
-                || this.AssignRouteWaypoint is null)
-            {
-                AssignRouteWaypoint = assignRouteWaypoint;
-                WaypointList.Insert(0, AssignRouteWaypoint);
-            }
+            AssignRouteWaypoint = assignRouteWaypoint;
+            WaypointList.Insert(0, AssignRouteWaypoint);
+
         }
+
     }
 }

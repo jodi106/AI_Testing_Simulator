@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Assets.Repos;
+using System.Text.RegularExpressions;
 
 public class EgoSettingsPopupController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class EgoSettingsPopupController : MonoBehaviour
     private UIDocument document;
     private TextField iDField;
     private TextField locationField;
+    private TextField initialSpeedField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
     private TextField colorField;
@@ -43,18 +45,28 @@ public class EgoSettingsPopupController : MonoBehaviour
         var egoModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
-
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
         {
             ego.Id = InputEvent.newData;
         });
 
+        initialSpeedField = this.document.rootVisualElement.Q<TextField>("CarSpeed");
+        initialSpeedField.maxLength = 3;
+        initialSpeedField.RegisterCallback<InputEvent>((InputEvent) =>
+        {
+            if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
+            {
+                this.ego.InitialSpeed = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
+            }
+            else
+            {
+                initialSpeedField.value = InputEvent.previousData;
+            }
+        });
+
         locationField = this.document.rootVisualElement.Q<TextField>("Location");
         locationField.SetEnabled(false);
-
-        var carSpeedField = this.document.rootVisualElement.Q<TextField>("CarSpeed");
-        carSpeedField.SetEnabled(false);
-
+        
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
         possibleModelsField.choices = allPossibleModels;
@@ -151,6 +163,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         this.ego = (Ego)controller.getEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = ego.Id.ToString();
+        initialSpeedField.value = ego.InitialSpeed.ToString();
         locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
         possibleModelsField.value = ego.Model.DisplayName.ToString();

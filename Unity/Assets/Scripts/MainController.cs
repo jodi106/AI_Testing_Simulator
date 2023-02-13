@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
 using System.Linq;
+using UnityEditor;
+using uGUI = UnityEngine.UI;
 
 public class MainController : MonoBehaviour
 {
@@ -22,15 +24,15 @@ public class MainController : MonoBehaviour
     private Button addMotorcycleButton;
     private Button addBikeButton;
     private Button addPedestrianButton;
-    private Button removeEntityButton;
-    private Button editEntityButton;
-    private Button toggleSnapButton;
     private Button worldSettingsButton;
     private Button exportButton;
     private Button homeButton;
 
     //Action Buttons (Center Left)
-    private VisualElement actionButtons;
+    private uGUI.Button removeEntityButton;
+    private uGUI.Button editEntityButton;
+    private uGUI.Toggle snapToggle;
+    private GameObject actionButtonCanvas;
 
     private ScenarioInfo info;
 
@@ -51,7 +53,7 @@ public class MainController : MonoBehaviour
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
-        initializeEventButtons(editorGUI);
+        initializeActionButtons();
 
         this.snapController = Camera.main.GetComponent<SnapController>();
         EventManager.StartListening(typeof(MouseClickAction), x =>
@@ -79,24 +81,34 @@ public class MainController : MonoBehaviour
     {
         if (entity != null)
         {
+            var position = entity.getLocation();
+            this.actionButtonCanvas.transform.position = new Vector3(position.X, (float)(position.Y - 0.5), -1f);
+            snapToggle.SetIsOnWithoutNotify(!entity.shouldIgnoreWaypoints());
+            if (this.actionButtonCanvas.activeSelf && entity != selectedEntity)
+            {
+                var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
+                anim.onMove();
+            }
+            else
+            {
+                this.actionButtonCanvas.SetActive(true);
+            }
             this.selectedEntity?.deselect();
             this.selectedEntity = entity;
             this.selectedEntity?.select();
-            this.removeEntityButton.style.display = DisplayStyle.Flex;
-            this.editEntityButton.style.display = DisplayStyle.Flex;
-            this.toggleSnapButton.style.display = DisplayStyle.Flex;
-            this.actionButtons.style.display = DisplayStyle.Flex;
         }
         else
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = null;
-            removeEntityButton.style.display = DisplayStyle.None;
-            editEntityButton.style.display = DisplayStyle.None;
-            toggleSnapButton.style.display = DisplayStyle.None;
-            this.actionButtons.style.display = DisplayStyle.None;
+            this.actionButtonCanvas.SetActive(false);
         }
 
+    }
+
+    public void moveActionButtons(Vector2 pos)
+    {
+        this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
     public void addVehicle(Vehicle vehicle)
@@ -154,9 +166,6 @@ public class MainController : MonoBehaviour
         addCarButton = editorGUI.Q<Button>("addCarButton");
         addMotorcycleButton = editorGUI.Q<Button>("addMotorcycleButton");
         addBikeButton = editorGUI.Q<Button>("addBikeButton");
-        removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
-        editEntityButton = editorGUI.Q<Button>("editEntityButton");
-        toggleSnapButton = editorGUI.Q<Button>("toggleSnapButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
         homeButton = editorGUI.Q<Button>("homeButton");
@@ -185,22 +194,6 @@ public class MainController : MonoBehaviour
             setSelectedEntity(null);
         });
 
-        removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            selectedEntity?.destroy();
-            setSelectedEntity(null);
-        });
-
-        editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            this.selectedEntity?.openEditDialog();
-        });
-
-        toggleSnapButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            this.selectedEntity?.setIgnoreWaypoints(!this.selectedEntity.shouldIgnoreWaypoints());
-        });
-
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             worldSettingsController.open();
@@ -218,10 +211,30 @@ public class MainController : MonoBehaviour
         });
     }
 
-    private void initializeEventButtons(VisualElement editorGUI)
+    private void initializeActionButtons()
     {
-        actionButtons = editorGUI.Q<VisualElement>("actionButtons");
-        actionButtons.style.display = DisplayStyle.None;
+        actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
+        removeEntityButton = GameObject.Find("ActionButtonCanvas/DeleteButton").GetComponent<uGUI.Button>();
+        editEntityButton = GameObject.Find("ActionButtonCanvas/EditButton").GetComponent<uGUI.Button>();
+        snapToggle = GameObject.Find("ActionButtonCanvas/SnapToggle").GetComponent<uGUI.Toggle>();
+
+        removeEntityButton.onClick.AddListener(() =>
+        {
+            selectedEntity?.destroy();
+            setSelectedEntity(null);
+        });
+
+        editEntityButton.onClick.AddListener(() =>
+        {
+            this.selectedEntity?.openEditDialog();
+        });
+
+        snapToggle.onValueChanged.AddListener(x =>
+        {
+            this.selectedEntity?.setIgnoreWaypoints(!x);
+        });
+
+        actionButtonCanvas.SetActive(false);
     }
 
     private void initializeEventList(VisualElement editorGUI)
@@ -272,39 +285,29 @@ public class MainController : MonoBehaviour
         this.eventList.Rebuild();
     }
 
-    //TODO remove once routes are working
-    void addWaypointsAfter4Meters(ScenarioInfo info)
-    {
-        foreach(var v in info.Vehicles)
-        {
-            var first = v.Path.WaypointList[0].Location.Vector3;
-            var second = v.Path.WaypointList[1].Location.Vector3;
-            var middle = (second - first).normalized + first; // 4 m * 25 pixel/m * 100 pixel/unit
-            var waypoint = new Waypoint(new Location(middle), new ActionType("MoveToAction"), new List<TriggerInfo>());
-            v.Path.WaypointList.Insert(1,waypoint);
-        }
-    }
-
+    //This Function is bind with the "Export button". The actual binding is made in the Start function of the script
+    //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
-        addWaypointsAfter4Meters(this.info);
+        // Catch errors and display it to the user
+        if (info.EgoVehicle == null)
+        {
+            EditorUtility.DisplayDialog(
+                "No AI vehicle placed",
+                "You must place a vehicle first!",
+                "Ok");
+            return;
+        }
 
-        //This Function is bind with the "Export button"
-        //The actual binding is made in the Start function of the script
-        //Make sure to change this function to export the desired version or desired files.
-        //Anything written here will be run at the time of pressing "Export" Button
+        //Creates a Copy of the exportInfo, so that
+        //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
-        info.Name = "OurScenario3";
         info.MapURL = "Town10HD";
-        foreach (Vehicle veh in info.Vehicles)
-        {
-            veh.InitialSpeed = 10;
-        }
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
         foreach (Vehicle vehicle in info.Vehicles)
@@ -312,15 +315,20 @@ public class MainController : MonoBehaviour
             vehicle.getCarlaLocation();
             if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
             {
-                vehicle.Path.InitAssignRouteWaypoint();
+                vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
             }
         }
         info.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-        BuildXML doc = new BuildXML(info);
-        doc.CombineXML();
+        info.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
+        //info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
+        if (info.Path.Length > 0) // "save" is pressed in explorer
+        {
+            BuildXML doc = new BuildXML(info);
+            doc.CombineXML();
+        }
     }
 
     private bool isWaypointListEmptyOrNull(Vehicle vehicle)

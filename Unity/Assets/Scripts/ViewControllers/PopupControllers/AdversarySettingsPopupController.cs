@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Assets.Repos;
+using System.Text.RegularExpressions;
 
 public class AdversarySettingsPopupController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
     private Vehicle vehicle;
     private UIDocument document;
     private TextField iDField;
+    private TextField initialSpeedField;
     private TextField locationField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
@@ -43,17 +45,27 @@ public class AdversarySettingsPopupController : MonoBehaviour
         var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
-
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
         {
             vehicle.Id = InputEvent.newData;
         });
 
+        initialSpeedField = this.document.rootVisualElement.Q<TextField>("CarSpeed");
+        initialSpeedField.maxLength = 3;
+        initialSpeedField.RegisterCallback<InputEvent>((InputEvent) =>
+        {
+            if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
+            {
+                this.vehicle.InitialSpeed = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
+            }
+            else
+            {
+                initialSpeedField.value = InputEvent.previousData;
+            }
+        });
+
         locationField = this.document.rootVisualElement.Q<TextField>("Location");
         locationField.SetEnabled(false);
-
-        var carSpeedField = this.document.rootVisualElement.Q<TextField>("CarSpeed");
-        carSpeedField.SetEnabled(false);
 
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
@@ -151,6 +163,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         this.vehicle = (Vehicle) controller.getEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
+        initialSpeedField.value = vehicle.InitialSpeed.ToString();
         locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
         possibleModelsField.value = vehicle.Model.DisplayName.ToString();

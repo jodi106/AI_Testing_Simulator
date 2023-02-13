@@ -1,8 +1,9 @@
 ﻿using Assets.Enums;
+using System;
 
 namespace Entity
 {
-    public class Ego : BaseEntity
+    public class Ego : BaseEntity, ICloneable
     /// <summary>Create Ego vehicle. Object has no actions, only start point and destination</summary>
     /// ToDo: Implement AI driving
     {
@@ -11,6 +12,11 @@ namespace Entity
         {
             Model = model;
             Category = category;
+        }
+
+        public Ego()
+        {
+
         }
 
         public void setCategory(VehicleCategory category)
@@ -22,6 +28,16 @@ namespace Entity
         {
             this.Model = model;
             this.View?.onChangeModel(model);
+        }
+
+        public object Clone()
+        {
+            Ego cloneEgo = new();
+            cloneEgo.Destination = (Location)this.Destination.Clone();
+            cloneEgo.Model = (EntityModel)this.Model.Clone();
+            cloneEgo.Category = this.Category;
+
+            return cloneEgo;
         }
 
         public Location Destination { get; set; }

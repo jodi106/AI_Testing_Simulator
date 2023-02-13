@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PriorityQueue;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SnapController : MonoBehaviour
@@ -254,11 +255,12 @@ public class SnapController : MonoBehaviour
         return false;
     }
 
-    public (List<Vector2>,ActionType) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
+    // return a tuple containing a list of waypoints and indices of lanechanges
+    public (List<Vector2>,List<int>) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
     {
         if (ignoreWaypoints)
         {
-            return (new List<Vector2> { start, end }, new ActionType("MoveToAction"));
+            return (new List<Vector2> { start, end }, new List<int>());
         }
 
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
@@ -272,10 +274,12 @@ public class SnapController : MonoBehaviour
         if (checkLaneChange(startLane, endLane, startWaypoint, endWaypoint))
         {
             return (new List<Vector2>() { startWaypoint.Location.Vector3, endWaypoint.Location.Vector3 },
-                new ActionType("", null, 0));
+                new List<int>() { 0 });
         }
 
         var prioQueue = new SimplePriorityQueue<Lane, double>();
+
+        var laneChangeIndices = new List<int>();
 
         prioQueue.Enqueue(startLane, 0);
 
@@ -358,6 +362,7 @@ public class SnapController : MonoBehaviour
         }
 
         currentWaypoint = endWaypoint;
+        int index = 0;
 
         while (currentWaypoint != startWaypoint)
         {
@@ -369,15 +374,18 @@ public class SnapController : MonoBehaviour
                     currentWaypoint = cameFrom[currentWaypoint];
                     i--;
                 }
+                laneChangeIndices.Add(index + 1);
             }
             waypointPath.Add(currentWaypoint.Location.Vector3);
             currentWaypoint = cameFrom[currentWaypoint];
+            index++;
         }
 
         waypointPath.Add(startWaypoint.Location.Vector3);
         waypointPath.Reverse();
+        laneChangeIndices = laneChangeIndices.Select(x => waypointPath.Count() - x - 1).ToList();
 
-        return (waypointPath,new ActionType("MoveToAction"));
+        return (waypointPath, laneChangeIndices);
     }
     public static (float x, float y) CarlaToUnity(float x, float y)
     {

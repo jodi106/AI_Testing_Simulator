@@ -20,10 +20,10 @@ namespace ExportScenario.XMLBuilder
 
         private bool builtAtLeastOneStory = false;
 
+
         public BuildXML(ScenarioInfo scenarioInfo)
         /// Constructor to initializes BuildXML object with head section.
         {
-            Console.WriteLine("Hello");
             this.scenarioInfo = scenarioInfo;
 
             root = new XmlDocument();
@@ -36,21 +36,22 @@ namespace ExportScenario.XMLBuilder
         public void CombineXML()
         /// Combines all xml blocks.
         {
-            BuildFirstOpenScenarioElements(scenarioInfo.Name, scenarioInfo.MapURL);
+            BuildFirstOpenScenarioElements(scenarioInfo.Path, scenarioInfo.MapURL);
 
             BuildEntities entities = new BuildEntities(scenarioInfo, root, openScenario);
             entities.CombineEntities();
             BuildStoryboard();
 
-            ExportXML(scenarioInfo.Name);
+            ExportXML(scenarioInfo.Path);
         }
 
-        public void ExportXML(string scenario_name = "MyScenario")
+        public void ExportXML(string path)
         /// Exports the finished OpenScenario file to defined path.
         {
-            root.Save(scenario_name + "3.xosc");
+            root.Save(path);
+            //root.Save(scenario_name + "3.xosc");
             //root.Save("..\\..\\..\\" + scenario_name + ".xosc");
-           root.Save(Console.Out);
+            //root.Save(Console.Out);
         }
 
         private void BuildFirstOpenScenarioElements(string scenario_name = "MyScenario", string map = "Town04") // you can rename this method

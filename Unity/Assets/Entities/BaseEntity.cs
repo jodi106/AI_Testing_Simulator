@@ -13,6 +13,11 @@ namespace Entity
             InitialSpeed = initialSpeed;
         }
 
+        public BaseEntity()
+        {
+
+        }
+
         private string id;
         public string Id
         {
@@ -35,7 +40,6 @@ namespace Entity
             SpawnPoint = pos;
             View?.onChangePosition(SpawnPoint);
         }
-
         public void setView(IBaseEntityView view)
         {
             this.View = view;

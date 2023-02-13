@@ -106,11 +106,16 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public bool shouldIgnoreWaypoints()
     {
-        return pathController.shouldIgnoreWaypoints() || this.ignoreWaypoints;
+        return this.ignoreWaypoints;
     }
 
     public void setIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
+    }
+
+    public Location getLocation()
+    {
+        return this.waypoint.Location;
     }
 }
