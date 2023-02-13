@@ -40,7 +40,7 @@ namespace Entity
         /// <returns>ScenarioInfo Object ready for XML-Export</returns>
         public object Clone()
         {
-            string CopyPath = string.Copy(this.Path); //Value
+            string CopyPath = String.IsNullOrEmpty(this.Path)? String.Empty : string.Copy(this.Path); //Value
             string CopyMapURL = string.Copy(this.MapURL); //Value
             WorldOptions CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();
             ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
