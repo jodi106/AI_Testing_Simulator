@@ -74,7 +74,7 @@
               <AssignControllerAction>
                 <Controller name="HeroAgent">
                   <Properties>
-                    <Property name="module" value="external_control"/>
+                    <Property name="module" value="npc_vehicle_control"/>
                   </Properties>
                 </Controller>
               </AssignControllerAction>

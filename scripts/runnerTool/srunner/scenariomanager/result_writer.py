@@ -203,9 +203,6 @@ class ResultOutputProvider(object):
             "criteria": json_list
         }
 
-        print("\n this is the json list")
-        print(json_list)
-
         with open(self._json, "w", encoding='utf-8') as fp:
             json.dump(result_object, fp, indent=4)
 

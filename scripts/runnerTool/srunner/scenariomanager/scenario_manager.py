@@ -229,9 +229,6 @@ class ScenarioManager(object):
             result = "TIMEOUT"
 
         output = ResultOutputProvider(self, result, stdout, filename, junit, json)
-
-
-
         output.write()
 
         return failure or timeout

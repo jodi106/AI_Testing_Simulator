@@ -30,6 +30,24 @@ import time
 import json
 import pkg_resources
 
+def set_global_variables():
+    try:
+        with open('config.json', 'r') as openfile:
+            vars = json.load(openfile)
+
+        os.environ["CARLA_ROOT"] = vars["PATH_TO_CARLA_ROOT"]
+        os.environ["SCENARIO_RUNNER_ROOT"] = vars["PATH_TO_SCENARIO_RUNNER_ROOT"]
+        sys.path.append(os.getenv("CARLA_ROOT")+"/PythonAPI/carla/dist/carla-" + vars["CARLA_VERSION"] + ".egg")
+        sys.path.append(os.getenv("CARLA_ROOT")+"/PythonAPI/carla/agents")
+        sys.path.append(os.getenv("CARLA_ROOT")+"/PythonAPI/carla")
+        print("INFO: Global variables set succesfully.")
+
+    except Exception as e:
+        print("ERROR: Global variables were not set succesfully. {exception}".format(exception=e))
+
+set_global_variables()
+
+
 import carla
 
 from srunner.scenarioconfigs.openscenario_configuration import OpenScenarioConfiguration
@@ -272,7 +290,6 @@ class ScenarioRunner(object):
         dumps them into a file. This will be used by the metrics manager,
         in case the user wants specific information about the criterias.
         """
-        
         file_name = name[:-4] + ".json"
 
         # Filter the attributes that aren't JSON serializable
@@ -292,14 +309,13 @@ class ScenarioRunner(object):
                             criteria_dict[criterion.name].update(key_dict)
                         except TypeError:
                             pass
-            
+
         os.remove('temp.json')
 
         # Save the criteria dictionary into a .json file
         with open(file_name, 'w', encoding='utf-8') as fp:
             json.dump(criteria_dict, fp, sort_keys=False, indent=4)
 
-        
     def _load_and_wait_for_world(self, town, ego_vehicles=None):
         """
         Load a new CARLA world and provide data to CarlaDataProvider
@@ -516,11 +532,13 @@ class ScenarioRunner(object):
         return result
 
 
-def main(arguments):
+
+def main():
     """
     main function
     """
-    """     description = ("CARLA Scenario Runner: Setup, Run and Evaluate scenarios using CARLA\n"
+
+    description = ("CARLA Scenario Runner: Setup, Run and Evaluate scenarios using CARLA\n"
                    "Current version: " + VERSION)
 
     # pylint: disable=line-too-long
@@ -570,8 +588,7 @@ def main(arguments):
     parser.add_argument('--repetitions', default=1, type=int, help='Number of scenario executions')
     parser.add_argument('--waitForEgo', action="store_true", help='Connect the scenario to an existing ego vehicle')
 
-    arguments = parser.parse_args() """
-
+    arguments = parser.parse_args()
     # pylint: enable=line-too-long
 
     if arguments.list:
@@ -581,17 +598,17 @@ def main(arguments):
 
     if not arguments.scenario and not arguments.openscenario and not arguments.route:
         print("Please specify either a scenario or use the route mode\n\n")
-        #parser.print_help(sys.stdout)
+        parser.print_help(sys.stdout)
         return 1
 
     if arguments.route and (arguments.openscenario or arguments.scenario):
         print("The route mode cannot be used together with a scenario (incl. OpenSCENARIO)'\n\n")
-        #parser.print_help(sys.stdout)
+        parser.print_help(sys.stdout)
         return 1
 
     if arguments.agent and (arguments.openscenario or arguments.scenario):
         print("Agents are currently only compatible with route scenarios'\n\n")
-        #parser.print_help(sys.stdout)
+        parser.print_help(sys.stdout)
         return 1
 
     if arguments.openscenarioparams and not arguments.openscenario:
