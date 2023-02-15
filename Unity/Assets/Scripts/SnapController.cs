@@ -72,7 +72,7 @@ public class SnapController : MonoBehaviour
     {
         roads = new Dictionary<int, Road>();
 
-        var text = Resources.Load<TextAsset>("Waypoints/" + mapName + "_topology");
+        var text = Resources.Load<TextAsset>("topology/" + mapName + "_topology");
 
         var jsonLanes = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(text.text);
 
