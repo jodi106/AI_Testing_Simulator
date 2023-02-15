@@ -169,9 +169,18 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         this.ignoreWaypoints = b;
     }
 
-    public void alignVehicle(Vector2 firstWaypoint)
+    public void alignVehicle(Vector3 direction)
     {
-        // TODO
+        Vector3 vectorToTarget = direction - transform.position;
+        vectorToTarget = HeightUtil.SetZ(vectorToTarget, 0);
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Vector3 rot = new Vector3(0, 0, angle);
+        transform.eulerAngles = rot;
+    }
+
+    public void resetVehicleAlignment()
+    {
+        transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
     public abstract BaseEntity getEntity();

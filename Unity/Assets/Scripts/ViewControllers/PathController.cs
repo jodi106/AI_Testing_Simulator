@@ -244,11 +244,7 @@ public class PathController : MonoBehaviour
             {
                 mainController.setSelectedEntity(viewController);
             }
-            if(Path.WaypointList.Count() == 2 && adversaryViewController.shouldIgnoreWaypoints())
-            {
-
-            }
-            resetEdgeCollider();
+            afterEdit();
         } else
         {
             previewSprite.enabled = true;
@@ -374,7 +370,7 @@ public class PathController : MonoBehaviour
 
         mainController.moveActionButtons(location.Vector3);
 
-        resetEdgeCollider();
+        afterEdit();
     }
 
     public void removeWaypoint(WaypointViewController controller)
@@ -441,6 +437,21 @@ public class PathController : MonoBehaviour
 
         Path.WaypointList.Remove(controller.waypoint);
         waypointViewControllers.Remove(cur);
+        afterEdit();
+    }
+
+    public void afterEdit()
+    {
+        if (adversaryViewController.shouldIgnoreWaypoints())
+        {
+            if (waypointViewControllers.Count >= 2)
+            {
+                adversaryViewController.alignVehicle(waypointViewControllers.First.Next.Value.Item1.getLocation().Vector3);
+            } else
+            {
+                adversaryViewController.resetVehicleAlignment();
+            }
+        }
         resetEdgeCollider();
     }
 
@@ -524,7 +535,7 @@ public class PathController : MonoBehaviour
             this.Path.WaypointList.Insert(curPathIndex + 1, viewController.waypoint);
 
             MoveWaypoint(viewController, viewController.waypoint.Location); // fix paths / deleting waypoint may make A* necessary
-            resetEdgeCollider();
+            afterEdit();
 
             mainController.setSelectedEntity(viewController);
         }

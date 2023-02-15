@@ -39,20 +39,14 @@ public class EgoViewController : VehicleViewController
             this.destination.setColor(this.sprite.color);
         }
         this.destination?.select();
+        snapController.IgnoreClicks = true;
     }
 
     public override void deselect()
     {
         base.deselect();
-        if (this.destination && !this.destination.isPlaced())
-        {
-            this.destination.Destroy();
-            this.destination = null;
-        }
-        else
-        {
-            this.destination?.deselect();
-        }
+        destination?.deselect();
+        snapController.IgnoreClicks = false;
     }
 
     public void submitDestination(Location destination)

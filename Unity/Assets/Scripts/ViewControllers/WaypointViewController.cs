@@ -88,11 +88,6 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         pathController.deselect(true);
     }
 
-    public Vector2 getPosition()
-    {
-        return gameObject.transform.position;
-    }
-
     public void destroy()
     {
         pathController.removeWaypoint(this);
