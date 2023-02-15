@@ -1,10 +1,10 @@
 {
-    "scenario": "OurScenario3",
-    "success": true,
+    "scenario": "ourScenario",
+    "success": false,
     "criteria": [
         {
             "name": "RunningStopTest",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -12,7 +12,7 @@
         },
         {
             "name": "RunningRedLightTest",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -20,7 +20,7 @@
         },
         {
             "name": "WrongLaneTest",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -28,7 +28,7 @@
         },
         {
             "name": "OnSidewalkTest",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -36,7 +36,7 @@
         },
         {
             "name": "CheckKeepLane",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -44,18 +44,18 @@
         },
         {
             "name": "CollisionTest",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
-            "actual": 0,
-            "success": true
+            "actual": 1,
+            "success": false
         },
         {
             "name": "CheckDrivenDistance",
-            "actor": "nissan.micra-1146",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0.1,
-            "actual": 0.26,
+            "actual": 1.06,
             "success": true
         },
         {
@@ -63,7 +63,7 @@
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 18.153107300400734,
+            "actual": 30.011572893708944,
             "success": true
         }
     ]
