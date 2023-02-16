@@ -36,6 +36,15 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 mainController.setSelectedEntity(this);
             }
         });
+
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+            if(action.name == "")
+            {
+                this.destroy();
+            }
+        });
     }
 
     public abstract Sprite getSprite();

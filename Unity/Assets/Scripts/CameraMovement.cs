@@ -170,6 +170,7 @@ public class CameraMovement : MonoBehaviour
 
         //Set the new image as the new Map
         mapRenderer.sprite = null;
+        EventManager.TriggerEvent(new MapChangeAction(""));
     }
 
     public void ViewMap(int number)

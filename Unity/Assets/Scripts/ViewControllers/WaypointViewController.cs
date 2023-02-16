@@ -28,6 +28,15 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();
 
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+            if (action.name == "")
+            {
+                this.destroy();
+            }
+        });
+
     }
 
     public void openEditDialog()

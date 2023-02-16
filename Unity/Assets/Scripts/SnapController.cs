@@ -35,7 +35,11 @@ public class SnapController : MonoBehaviour
                 Destroy(waypoint);
             }
 
-            LoadRoads(action.name);
+            waypointGameObjects.Clear();
+            roads.Clear();
+            LastClickedWaypointGameObject = null;
+
+            if(action.name != "") LoadRoads(action.name);
         });
     }
     public void Update()
