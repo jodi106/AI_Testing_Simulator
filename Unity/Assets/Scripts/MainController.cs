@@ -27,6 +27,7 @@ public class MainController : MonoBehaviour
     private Button worldSettingsButton;
     private Button exportButton;
     private Button homeButton;
+    private VisualElement buttonBar;
 
     //Action Buttons (Center Left)
     private uGUI.Button removeEntityButton;
@@ -62,6 +63,12 @@ public class MainController : MonoBehaviour
             {
                 this.setSelectedEntity(null);
             }
+        });
+
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+            buttonBar.visible = action.name != "" ? true : false;
         });
 
         GameObject popups = GameObject.Find("PopUps");
@@ -169,6 +176,7 @@ public class MainController : MonoBehaviour
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
         homeButton = editorGUI.Q<Button>("homeButton");
+        buttonBar = editorGUI.Q<VisualElement>("buttons");
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -209,6 +217,8 @@ public class MainController : MonoBehaviour
             var m = Camera.main.GetComponent<CameraMovement>();
             m.Home();
         });
+
+        buttonBar.visible = false;
     }
 
     private void initializeActionButtons()
