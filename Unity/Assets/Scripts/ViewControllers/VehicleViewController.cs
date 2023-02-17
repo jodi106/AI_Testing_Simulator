@@ -149,7 +149,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
         }
-
+        mainController.setSelectedEntity(this);
     }
     public void OnMouseDown()
     {
