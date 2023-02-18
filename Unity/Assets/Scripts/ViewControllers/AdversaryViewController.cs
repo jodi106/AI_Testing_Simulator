@@ -10,6 +10,7 @@ public class AdversaryViewController : VehicleViewController
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
     private static readonly double INITIAL_SPEED = 30;
+
     public new void Awake()
     {
         base.Awake();

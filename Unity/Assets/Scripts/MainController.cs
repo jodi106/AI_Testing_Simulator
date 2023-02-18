@@ -162,9 +162,17 @@ public class MainController : MonoBehaviour
             adversaryController.setCategory(category);
             viewController = adversaryController;
         }
-        Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        color = new Color(color.r, color.g, color.b, 1);
-        viewController.getEntity().setColor(color);
+
+        if (viewController.getEntity().GetType() == typeof(Ego))
+        {
+            viewController.getEntity().setColor(new Color(1f, 1f, 1f, 1f)); // make Ego vehicle white
+        }
+        else
+        {
+            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = new Color(color.r, color.g, color.b, 1);
+            viewController.getEntity().setColor(color);
+        }
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
