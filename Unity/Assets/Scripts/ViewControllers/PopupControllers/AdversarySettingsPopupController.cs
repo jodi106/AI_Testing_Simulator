@@ -21,6 +21,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
     private Slider rSlider;
     private Slider gSlider;
     private Slider bSlider;
+    private TextField startRouteTimeField;
+    private Label startRouteWaypointLabel;
+    private Button deleteStartRouteWaypoint;
 
     public void Awake()
     {
@@ -155,6 +158,12 @@ public class AdversarySettingsPopupController : MonoBehaviour
             vehicle.setColor(color);
             colorField.ElementAt(1).style.backgroundColor = color;
         });
+
+        startRouteTimeField = this.document.rootVisualElement.Q<TextField>("StartRouteTime");
+        startRouteWaypointLabel = this.document.rootVisualElement.Q<Label>("StartRouteWaypointLabel");
+        deleteStartRouteWaypoint = this.document.rootVisualElement.Q<Button>("DeleteStartRouteWaypoint");
+        // TODO
+        //startRouteWaypointLabel.style.display = DisplayStyle.None;
     }
     public void open(AdversaryViewController controller, Color color)
     {
