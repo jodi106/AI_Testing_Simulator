@@ -88,10 +88,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.material = defaultMaterial;
     }
 
-    public virtual void destroy()
-    {
-        Destroy(gameObject);
-    }
+    public abstract void destroy();
 
     public Vector2 getPosition()
     {

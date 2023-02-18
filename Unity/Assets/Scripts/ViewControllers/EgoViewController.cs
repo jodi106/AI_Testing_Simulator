@@ -56,7 +56,6 @@ public class EgoViewController : VehicleViewController
 
     public override void destroy()
     {
-        base.destroy();
         this.mainController.setEgo(null);
         destination?.Destroy();
         Destroy(gameObject);

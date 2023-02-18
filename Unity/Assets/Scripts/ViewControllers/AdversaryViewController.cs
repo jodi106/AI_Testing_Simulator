@@ -105,7 +105,6 @@ public class AdversaryViewController : VehicleViewController
 
     public override void destroy()
     {
-        base.destroy();
         mainController.removeVehicle(vehicle);
         snapController.IgnoreClicks = false;
         this.pathController?.Destroy();
