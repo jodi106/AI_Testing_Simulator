@@ -49,7 +49,18 @@ public class PathController : MonoBehaviour
             if (building)
             {
                 var action = new MouseClickAction(x);
-                AddMoveToWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                var position = FindMouseTarget(action.position);
+
+                CollisionType waypointColliderType = findCollisionType(position.Vector3);
+                CollisionType mouseColliderType = findCollisionType(action.position);
+
+                if (position is not null)
+                {
+                    if (Path.IsEmpty() || (waypointColliderType == CollisionType.None && mouseColliderType == CollisionType.None))
+                    {
+                        AddMoveToWaypoint(position.Vector3);
+                    }
+                }
             }
         });
     }
@@ -117,13 +128,86 @@ public class PathController : MonoBehaviour
         waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }
 
+    //Target of a click is either a waypoint or the mouse position itself, if waypoints are ignored
+    public Location FindMouseTarget(Vector2 mousePosition)
+    {
+        Location waypoint;
+        if (!this.adversaryViewController.shouldIgnoreWaypoints())
+        {
+            waypoint = snapController.FindWaypoint(mousePosition);
+        }
+        else
+        {
+            waypoint = new Location(mousePosition);
+        }
+        return waypoint;
+    }
+
+    CollisionType findCollisionType(Vector2 position)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(position, -10), -Vector2.up);
+        if (hit.collider == this.edgeCollider)
+        {
+            return CollisionType.Path;
+        }
+        if (hit.collider == adversaryViewController.getCollider())
+        {
+            return CollisionType.Vehicle;
+        }
+        foreach (var entry in waypointViewControllers)
+        {
+            var waypointController = entry.Item1;
+            var collider = waypointController.gameObject.GetComponent<CircleCollider2D>();
+            if (hit.collider == collider)
+            {
+                return CollisionType.Waypoint;
+            }
+        }
+        return CollisionType.None;
+    }
+
     public void Update()
     {
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (building)
         {
-            AddMoveToWaypoint(mousePosition, preview: true);
-        } else
+            var waypoint = FindMouseTarget(mousePosition);
+
+            CollisionType waypointColliderType = findCollisionType(waypoint.Vector3);
+            CollisionType mouseColliderType = findCollisionType(mousePosition);
+
+            if (waypointColliderType == CollisionType.Path || mouseColliderType == CollisionType.Path)
+            {
+                previewSprite.enabled = true;
+                previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
+                previewRenderer.positionCount = 0;
+                return;
+            }
+            if (waypointColliderType == CollisionType.Vehicle ||
+                mouseColliderType == CollisionType.Vehicle ||
+                waypointColliderType == CollisionType.Waypoint ||
+                mouseColliderType == CollisionType.Waypoint)
+            {
+                previewSprite.enabled = false;
+                previewRenderer.positionCount = 0;
+                return;
+            }
+
+            previewRenderer.positionCount = 1;
+            previewRenderer.SetPosition(0, HeightUtil.SetZ(waypointViewControllers.Last.Value.Item1.transform.position, HeightUtil.PATH_SELECTED));
+
+            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3, this.adversaryViewController.shouldIgnoreWaypoints());
+            path.RemoveAt(0);
+
+            foreach (var coord in path)
+            {
+                previewRenderer.SetPosition(previewRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
+            }
+
+            previewSprite.enabled = true;
+            previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
+        }
+        else
         {
             var waypoint = snapController.FindWaypoint(mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(mousePosition, -10), -Vector2.up);
@@ -131,87 +215,27 @@ public class PathController : MonoBehaviour
             {
                 previewSprite.enabled = true;
                 previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
-            } else
+            }
+            else
             {
                 previewSprite.enabled = false;
             }
         }
     }
 
-    public void AddMoveToWaypoint(Vector2 mousePosition, bool preview = false)
+    public void AddMoveToWaypoint(Vector2 position)
     {
-        Location waypoint;
-        if (!this.adversaryViewController.shouldIgnoreWaypoints())
-        {
-            waypoint = snapController.FindWaypoint(mousePosition);
-        } else
-        {
-            waypoint = new Location(mousePosition);
-        }
-
-        if (waypoint == null)
-        {
-            Debug.Log("Invalid mouse position, mouse probably not on road!");
-            return;
-        }
-
-        RaycastHit2D waypointHit = Physics2D.Raycast(HeightUtil.SetZ(waypoint.Vector3, -10), -Vector2.up);
-        RaycastHit2D mouseHit = Physics2D.Raycast(HeightUtil.SetZ(mousePosition, -10), -Vector2.up);
-        if (waypointHit.collider == this.edgeCollider || mouseHit.collider == this.edgeCollider)
-        {
-            previewSprite.enabled = true;
-            previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
-            previewRenderer.positionCount = 0;
-            return;
-        }
-        // allow first waypoint to be placed on top of car, but none afterwards
-        if ((waypointHit.collider == adversaryViewController.getCollider() || mouseHit.collider == adversaryViewController.getCollider()) && !Path.IsEmpty())
-        {
-            previewSprite.enabled = false;
-            previewRenderer.positionCount = 0;
-            return;
-        }
-
-        //if hit collider is above own waypoint, render no preview
-        foreach (var entry in waypointViewControllers)
-        {
-            var waypointController = entry.Item1;
-            var collider = waypointController.gameObject.GetComponent<CircleCollider2D>();
-            if (waypointHit.collider == collider)
-            {
-                previewSprite.enabled = false;
-                previewRenderer.positionCount = 0;
-                return;
-            }
-        }
-
-        LineRenderer lineRenderer;
-
-        if (preview && !Path.IsEmpty())
-        {
-            lineRenderer = previewRenderer;
-            lineRenderer.positionCount = 1;
-            lineRenderer.SetPosition(0, HeightUtil.SetZ(waypointViewControllers.Last.Value.Item1.transform.position, HeightUtil.PATH_SELECTED));
-        }
-        else
-        {
-            lineRenderer = pathRenderer;
-        }
-
-        //var actionType = new ActionType("MoveToAction");
-
         var pathLen = 0;
-
         var laneChanges = new List<int>();
         var path = new List<Vector2>();
 
         if (Path.IsEmpty())
         {
-            lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(waypoint.Vector3, HeightUtil.PATH_SELECTED));
+            pathRenderer.SetPosition(pathRenderer.positionCount++, HeightUtil.SetZ(position, HeightUtil.PATH_SELECTED));
         }
         else
         {
-            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3, this.adversaryViewController.shouldIgnoreWaypoints());
+            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, this.adversaryViewController.shouldIgnoreWaypoints());
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -222,37 +246,30 @@ public class PathController : MonoBehaviour
 
             foreach (var coord in path)
             {
-                lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
+                pathRenderer.SetPosition(pathRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
             }
         }
 
-        if (!preview)
+        var used = 0;
+        foreach (var laneChange in laneChanges)
         {
-            var used = 0;
-            foreach(var laneChange in laneChanges)
+            if (laneChange != 0)
             {
-                if(laneChange != 0)
-                {
-                    createWaypointGameObject(path[laneChange].x, path[laneChange].y, laneChange + 1 - used);
-                    used += laneChange + 1;
-                }
-                if (laneChange != path.Count() - 1)
-                {
-                    createWaypointGameObject(path[laneChange + 1].x, path[laneChange + 1].y, 1);
-                    used += 1;
-                }
+                createWaypointGameObject(path[laneChange].x, path[laneChange].y, laneChange + 1 - used);
+                used += laneChange + 1;
             }
-            var viewController = createWaypointGameObject(waypoint.X, waypoint.Y, pathLen - used);
-            if (Path.WaypointList.Count() > 1)
+            if (laneChange != path.Count() - 1)
             {
-                mainController.setSelectedEntity(viewController);
+                createWaypointGameObject(path[laneChange + 1].x, path[laneChange + 1].y, 1);
+                used += 1;
             }
-            afterEdit();
-        } else
-        {
-            previewSprite.enabled = true;
-            previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
         }
+        var viewController = createWaypointGameObject(position.x, position.y, pathLen - used);
+        if (Path.WaypointList.Count() > 1)
+        {
+            mainController.setSelectedEntity(viewController);
+        }
+        afterEdit();
     }
 
     WaypointViewController createWaypointGameObject(float x, float y, int pathLen)
@@ -450,7 +467,8 @@ public class PathController : MonoBehaviour
             if (waypointViewControllers.Count >= 2)
             {
                 adversaryViewController.alignVehicle(waypointViewControllers.First.Next.Value.Item1.getLocation().Vector3);
-            } else
+            }
+            else
             {
                 adversaryViewController.resetVehicleAlignment();
             }
@@ -477,7 +495,7 @@ public class PathController : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if(snapController.IgnoreClicks && !building)
+        if (snapController.IgnoreClicks && !building)
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;
@@ -549,4 +567,13 @@ public class PathController : MonoBehaviour
     {
         return this.waypointViewControllers.First.Value.Item1;
     }
+}
+
+//Collider type for a given position. None means position is over map collider
+enum CollisionType
+{
+    Path,
+    Vehicle,
+    Waypoint,
+    None
 }
