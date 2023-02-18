@@ -21,6 +21,8 @@ public class PathController : MonoBehaviour
 
     public Path Path { get; set; }
 
+    public BaseEntity VehicleRef { get; set; }
+
     private void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
@@ -110,6 +112,7 @@ public class PathController : MonoBehaviour
     public void SetEntityController(AdversaryViewController controller)
     {
         this.adversaryViewController = controller;
+        this.VehicleRef = controller.getEntity();
         AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car -- should be set in model or on export
         waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }

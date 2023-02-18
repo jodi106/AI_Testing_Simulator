@@ -41,10 +41,9 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void openEditDialog()
     {
-        // BUG: SelectedEntity is Waypoint and not Adversary after AddVehicle button is pressed and settings option without placing a waypoint
-        //this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
-        //this.settingsController.gameObject.SetActive(true);
-        //this.settingsController.open(this);
+        this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
+        this.settingsController.gameObject.SetActive(true);
+        this.settingsController.open(this, pathController.VehicleRef);
     }
 
     public void setColor(Color color)

@@ -20,7 +20,6 @@ namespace Entity
             OverallStopTrigger = overallStopTrigger;
             WaypointList = waypointList;
 
-            //TODO: Fix Position set only to 0,0,0,0 now for presentation
             AssignRouteWaypoint = new Waypoint(
                     WaypointList[0].Location,
                     new ActionType("AssignRouteAction", GetRouteLocations()),
