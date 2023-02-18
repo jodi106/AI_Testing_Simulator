@@ -39,18 +39,19 @@ namespace ExportScenario.XMLBuilder
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
             // Spawn ego vehicle at requested coordinates and speed
-            BuildPrivate("hero", scenarioInfo.EgoVehicle.getCarlaLocation(), scenarioInfo.EgoVehicle.InitialSpeed, true, control_mode);
+            double initialSpeedMS = (scenarioInfo.EgoVehicle.InitialSpeedKMH / 3.6); // convert km/h in m/s for Carla
+            BuildPrivate("hero", scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS, true, control_mode);
 
             // Spawn simulation vehicles at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
-                BuildPrivate("adversary" + scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].getCarlaLocation(), scenarioInfo.Vehicles[n].InitialSpeed);
+                BuildPrivate("adversary" + scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].getCarlaLocation(), scenarioInfo.Vehicles[n].InitialSpeedKMH / 3.6);
             }
 
             // Spawn pedestrians at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate("adversary_pedestrian" + scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].getCarlaLocation(), scenarioInfo.Pedestrians[n].InitialSpeed);
+                BuildPrivate("adversary_pedestrian" + scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].getCarlaLocation(), scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6);
             }
         }
 

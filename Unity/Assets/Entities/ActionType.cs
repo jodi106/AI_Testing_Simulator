@@ -46,6 +46,12 @@ namespace Entity
             DynamicDimensions = dynamicsDimension;
         }
 
+        public ActionType(string name, string entityRef, string value)
+        /// For pre-defined SpeedAction or LaneChangeAction or StopAction
+        {
+            // TODO? Is this even necessary??? See WaypointSettingsPopUpController
+        }
+
         public ActionType(string name, List<Location> positions)
         /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
         {

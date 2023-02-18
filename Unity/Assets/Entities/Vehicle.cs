@@ -43,7 +43,7 @@ namespace Entity
             //BaseEntity
             cloneVehicle.Id = string.Copy(this.Id);
             cloneVehicle.SpawnPoint = (Location)this.SpawnPoint.Clone();
-            cloneVehicle.InitialSpeed = this.InitialSpeed;
+            cloneVehicle.InitialSpeedKMH = this.InitialSpeedKMH;
             cloneVehicle.Color = this.Color;
             
             //I don't think we need BaseEntity.View here since its only for the export? 

@@ -139,7 +139,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         {
             if (waypoint.Actions != null)
             {
-                waypoint.Actions.Add(new ActionType(inputEvent.newValue, vehicleRef.Id, null));
+                waypoint.Actions.Add(new ActionType(inputEvent.newValue, vehicleRef.Id, null)); // TODO
             }
 
             string value = inputEvent.newValue;

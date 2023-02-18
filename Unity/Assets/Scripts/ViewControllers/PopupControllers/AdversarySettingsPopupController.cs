@@ -22,7 +22,6 @@ public class AdversarySettingsPopupController : MonoBehaviour
     private Slider gSlider;
     private Slider bSlider;
 
-
     public void Awake()
     {
         this.document = gameObject.GetComponent<UIDocument>();
@@ -56,7 +55,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         {
             if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
             {
-                this.vehicle.InitialSpeed = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
+                this.vehicle.InitialSpeedKMH = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
             }
             else
             {
@@ -163,7 +162,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         this.vehicle = (Vehicle) controller.getEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
-        initialSpeedField.value = vehicle.InitialSpeed.ToString();
+        initialSpeedField.value = vehicle.InitialSpeedKMH.ToString();
         locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
         possibleModelsField.value = vehicle.Model.DisplayName.ToString();

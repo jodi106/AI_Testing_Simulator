@@ -59,7 +59,7 @@ namespace Entity
                             new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
                             (Path)v.Path.Clone(), //Value
                             PedestrianType.Girl, //Value
-                            v.InitialSpeed //Value
+                            v.InitialSpeedKMH //Value
                         );
 
                     exPedestrians.Add(CopyPedestrian);

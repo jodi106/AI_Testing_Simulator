@@ -8,7 +8,7 @@ namespace Entity
     /// ToDo: Implement AI driving
     {
 
-        public Ego(Location spawnPoint, EntityModel model, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0) : base("Ego Vehicle", spawnPoint, initialSpeed)
+        public Ego(Location spawnPoint, EntityModel model, VehicleCategory category = VehicleCategory.Null, double initialSpeedKMH = 0) : base("Ego Vehicle", spawnPoint, initialSpeedKMH)
         {
             Model = model;
             Category = category;

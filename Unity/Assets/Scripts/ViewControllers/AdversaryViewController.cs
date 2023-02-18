@@ -9,12 +9,13 @@ public class AdversaryViewController : VehicleViewController
     private Vehicle vehicle;
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
+    private static readonly double INITIAL_SPEED = 30;
     public new void Awake()
     {
         base.Awake();
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, 10);
+        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, INITIAL_SPEED);
         this.vehicle.setView(this);
         this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         this.vehicleSettingsController.gameObject.SetActive(true);
