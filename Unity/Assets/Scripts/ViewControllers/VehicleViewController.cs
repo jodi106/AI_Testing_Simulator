@@ -54,6 +54,8 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         return this.getEntity().SpawnPoint;
     }
 
+    public abstract void init(VehicleCategory cat);
+
     public virtual void onChangePosition(Location location)
     {
         transform.position = HeightUtil.SetZ(location.Vector3, transform.position.z);

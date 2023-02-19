@@ -154,25 +154,16 @@ public class MainController : MonoBehaviour
         if (this.info.EgoVehicle is null)
         {
             viewController = vehicleGameObject.GetComponent<EgoViewController>();
-        }
-        else
-        {
-            AdversaryViewController adversaryController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            //TODO fix model; make ego a vehicle and make controllers return vehicles
-            adversaryController.setCategory(category);
-            viewController = adversaryController;
-        }
-
-        if (viewController.getEntity().GetType() == typeof(Ego))
-        {
             viewController.getEntity().setColor(new Color(1f, 1f, 1f, 1f)); // make Ego vehicle white
         }
         else
         {
+            viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
             Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
             viewController.getEntity().setColor(color);
         }
+        viewController.init(category);
     }
 
     private void initializeButtonBar(VisualElement editorGUI)

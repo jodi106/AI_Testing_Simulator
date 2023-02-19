@@ -171,21 +171,21 @@ public class PathController : MonoBehaviour
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (building)
         {
-            var waypoint = FindMouseTarget(mousePosition);
+            var target = FindMouseTarget(mousePosition);
 
-            CollisionType waypointColliderType = findCollisionType(waypoint.Vector3);
+            CollisionType targetColliderType = findCollisionType(target.Vector3);
             CollisionType mouseColliderType = findCollisionType(mousePosition);
 
-            if (waypointColliderType == CollisionType.Path || mouseColliderType == CollisionType.Path)
+            if (targetColliderType == CollisionType.Path || mouseColliderType == CollisionType.Path)
             {
                 previewSprite.enabled = true;
-                previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
+                previewSprite.transform.position = HeightUtil.SetZ(target.Vector3, -0.1f);
                 previewRenderer.positionCount = 0;
                 return;
             }
-            if (waypointColliderType == CollisionType.Vehicle ||
+            if (targetColliderType == CollisionType.Vehicle ||
                 mouseColliderType == CollisionType.Vehicle ||
-                waypointColliderType == CollisionType.Waypoint ||
+                targetColliderType == CollisionType.Waypoint ||
                 mouseColliderType == CollisionType.Waypoint)
             {
                 previewSprite.enabled = false;
@@ -196,7 +196,7 @@ public class PathController : MonoBehaviour
             previewRenderer.positionCount = 1;
             previewRenderer.SetPosition(0, HeightUtil.SetZ(waypointViewControllers.Last.Value.Item1.transform.position, HeightUtil.PATH_SELECTED));
 
-            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, waypoint.Vector3, this.adversaryViewController.shouldIgnoreWaypoints());
+            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, target.Vector3, this.adversaryViewController.shouldIgnoreWaypoints());
             path.RemoveAt(0);
 
             foreach (var coord in path)
@@ -205,7 +205,7 @@ public class PathController : MonoBehaviour
             }
 
             previewSprite.enabled = true;
-            previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3, -0.1f);
+            previewSprite.transform.position = HeightUtil.SetZ(target.Vector3, -0.1f);
         }
         else
         {

@@ -75,6 +75,42 @@ public class EgoViewController : VehicleViewController
         mainController.refreshEntityList();
     }
 
+    public override void init(VehicleCategory cat)
+    {
+        ego.setCategory(cat);
+        switch (cat)
+        {
+            case VehicleCategory.Car:
+            case VehicleCategory.Motorcycle:
+                this.ignoreWaypoints = false;
+                return;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                this.ignoreWaypoints = true;
+                return;
+        }
+    }
+
+    public override void onChangeCategory(VehicleCategory cat)
+    {
+        base.onChangeCategory(cat);
+        switch (cat)
+        {
+            case VehicleCategory.Car:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
+                return;
+            case VehicleCategory.Bike:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
+                return;
+            case VehicleCategory.Pedestrian:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
+                return;
+            case VehicleCategory.Motorcycle:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
+                return;
+        }
+    }
+
     public override BaseEntity getEntity()
     {
         return this.ego;

@@ -92,45 +92,35 @@ public class AdversarySettingsPopupController : MonoBehaviour
         possibleCategoriesField.choices = allPossibleCateogories;
         possibleCategoriesField.RegisterValueChangedCallback((evt) =>
         {
-            if (evt.newValue == "Car")
+            VehicleCategory cat;
+            switch (evt.newValue)
             {
-                List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car))
-                {
-                    allPossibleModels.Add(option.DisplayName);
-                }
-                possibleModelsField.choices = allPossibleModels;
-                vehicle.setCategory(VehicleCategory.Car);
-                EntityModel model = VehicleModelRepository.getDefaultCarModel();
-                vehicle.setModel(model);
-                possibleModelsField.value = vehicle.Model.DisplayName.ToString();
+                case "Car":
+                    cat = VehicleCategory.Car;
+                    break;
+                case "Bike":
+                    cat = VehicleCategory.Bike;
+                    break;
+                case "Motorcycle":
+                    cat = VehicleCategory.Motorcycle;
+                    break;
+                case "Pedestrian":
+                    cat = VehicleCategory.Pedestrian;
+                    break;
+                default:
+                    cat = VehicleCategory.Null;
+                    break;
             }
-            if (evt.newValue == "Bike")
+            List<string> allPossibleModels = new List<string> { };
+            foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(cat))
             {
-                List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Bike))
-                {
-                    allPossibleModels.Add(option.DisplayName);
-                }
-                possibleModelsField.choices = allPossibleModels;
-                vehicle.setCategory(VehicleCategory.Bike);
-                EntityModel model = VehicleModelRepository.getDefaultBikeModel();
-                vehicle.setModel(model);
-                possibleModelsField.value = vehicle.Model.DisplayName.ToString();
+                allPossibleModels.Add(option.DisplayName);
             }
-            if (evt.newValue == "Motorcycle")
-            {
-                List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Motorcycle))
-                {
-                    allPossibleModels.Add(option.DisplayName);
-                }
-                possibleModelsField.choices = allPossibleModels;
-                vehicle.setCategory(VehicleCategory.Motorcycle);
-                EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
-                vehicle.setModel(model);
-                possibleModelsField.value = vehicle.Model.DisplayName.ToString();
-            }
+            possibleModelsField.choices = allPossibleModels;
+            vehicle.setCategory(cat);
+            EntityModel model = VehicleModelRepository.getDefaultModel(cat);
+            vehicle.setModel(model);
+            possibleModelsField.value = vehicle.Model.DisplayName.ToString();
         });
 
         colorField = this.document.rootVisualElement.Q<TextField>("Color");

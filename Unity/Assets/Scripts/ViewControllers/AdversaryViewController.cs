@@ -23,25 +23,19 @@ public class AdversaryViewController : VehicleViewController
     }
 
     // act as constructor -- check for alternatives to set initial state
-    public void setCategory(VehicleCategory cat)
+    public override void init(VehicleCategory cat)
     {
+        vehicle.setCategory(cat);
+        vehicle.setModel(VehicleModelRepository.getDefaultModel(cat));
         switch (cat)
         {
             case VehicleCategory.Car:
-                vehicle.setCategory(VehicleCategory.Car);
+            case VehicleCategory.Motorcycle:
                 this.ignoreWaypoints = false;
                 return;
             case VehicleCategory.Bike:
-                vehicle.setCategory(VehicleCategory.Bike);
-                this.ignoreWaypoints = true;
-                return;   
             case VehicleCategory.Pedestrian:
-                vehicle.setCategory(VehicleCategory.Pedestrian);
                 this.ignoreWaypoints = true;
-                return;
-            case VehicleCategory.Motorcycle:
-                vehicle.setCategory(VehicleCategory.Motorcycle);
-                this.ignoreWaypoints = false;
                 return;
         }
     }
