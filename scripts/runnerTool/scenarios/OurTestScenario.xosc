@@ -326,7 +326,7 @@
         </Condition>
         <Condition name="criteria_DrivenDistanceTest" delay="0" conditionEdge="rising">
           <ByValueCondition>
-            <ParameterCondition parameterRef="distance_success" value="0.1" rule="lessThan"/>
+            <ParameterCondition parameterRef="distance_success" value="0.01" rule="lessThan"/>
           </ByValueCondition>
         </Condition>
       </ConditionGroup>

@@ -55,7 +55,7 @@
             "actor": "volkswagen.t2-175",
             "optional": false,
             "expected": 0.1,
-            "actual": 1.03,
+            "actual": 1.04,
             "success": true
         },
         {
@@ -63,7 +63,7 @@
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 30.016631297767162,
+            "actual": 30.01649859920144,
             "success": true
         }
     ]
