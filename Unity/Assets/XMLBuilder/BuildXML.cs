@@ -96,22 +96,13 @@ namespace ExportScenario.XMLBuilder
             //TODO Pedestrian Botch
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                if (scenarioInfo.Vehicles[i].Category == VehicleCategory.Pedestrian)
-                {
-                    var v = scenarioInfo.Vehicles[i];
-                    Pedestrian ped = new Pedestrian(v.SpawnPoint, v.Path, PedestrianType.Man);
-                    BuildPedestrianStories(ped);
-                }
-                else
-                {
-                    BuildVehicleStories(scenarioInfo.Vehicles[i]);
-                }
+                BuildVehicleStories(scenarioInfo.Vehicles[i]);
             }
 
-            //for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
-            //{
-            //    BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
-            //}
+            for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
+            {
+                BuildPedestrianStories(scenarioInfo.Pedestrians[i]);
+            }
 
 
             if (!builtAtLeastOneStory)
@@ -163,7 +154,7 @@ namespace ExportScenario.XMLBuilder
 
                 // ToDo implement using OverallStartTrigger from Path
                 XmlNode actStartTrigger = root.CreateElement("StartTrigger");
-                
+
                 act.AppendChild(actStartTrigger);
                 maneuverGroup.AppendChild(actors);
                 actors.AppendChild(entityRef);
@@ -198,7 +189,7 @@ namespace ExportScenario.XMLBuilder
                     {
                         BuildEvents(maneuver, pedestrian.Path.WaypointList[i]);
                     }
-                        
+
                 }
 
                 // hierarchy
@@ -250,11 +241,11 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("priority", waypoint.Priority, new_event);
             XmlNode action = root.CreateElement("Action");
             SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, action);
-            
+
             // Create Action
             BuildAction buildAction = new BuildAction(root, "buildAction");
             Type type = typeof(BuildAction);
-            MethodInfo mi = type.GetMethod(waypoint.ActionTypeInfo.Name);           
+            MethodInfo mi = type.GetMethod(waypoint.ActionTypeInfo.Name);
             mi.Invoke(buildAction, new object[2] { action, waypoint });
             new_event.AppendChild(action);
 

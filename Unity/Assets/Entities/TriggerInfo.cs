@@ -87,7 +87,6 @@ namespace Entity
             cloneTriggerInfo.WorldPositionCarla = new();
             if (this.WorldPositionCarla != null)
                 cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
-            cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
 
             this.AfterAction = new();
             if (this.AfterAction != null)

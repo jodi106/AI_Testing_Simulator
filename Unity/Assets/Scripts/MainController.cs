@@ -308,9 +308,12 @@ public class MainController : MonoBehaviour
             return;
         }
 
-        //Creates a Copy of the exportInfo, so that
-        //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
+        //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
+        ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
+        // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
+        // exportInfo = this.Info 
+        
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
