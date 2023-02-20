@@ -41,13 +41,24 @@ namespace Entity
         public object Clone()
         {
             string CopyPath = String.IsNullOrEmpty(this.Path)? String.Empty : string.Copy(this.Path); //Value
-            string CopyMapURL = string.Copy(this.MapURL); //Value
-            WorldOptions CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();
+            string CopyMapURL = String.IsNullOrEmpty(this.MapURL) ? String.Empty : string.Copy(this.MapURL); //Value
+
+            WorldOptions CopyWorldOptions = new();
+            if (this.WorldOptions != null)
+                CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();       
+            
             ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
             ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
-            Ego CopyEgoVehicle = this.EgoVehicle; //Ref
-            List<BaseEntity> CopyAllEntities = this.allEntities; //Ref
-            
+
+            Ego CopyEgoVehicle = new(); 
+            if (this.EgoVehicle != null)
+                CopyEgoVehicle = this.EgoVehicle;
+
+            List<BaseEntity> CopyAllEntities = new();
+            if (this.allEntities != null)
+                CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
+
+
             foreach (Vehicle v in this.Vehicles)
             {
                 if (v.Category == VehicleCategory.Pedestrian)

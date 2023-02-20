@@ -36,8 +36,15 @@ namespace Entity
         public object Clone()
         {
             Path clonePath = new Path();
-            clonePath.OverallStartTrigger = (Waypoint)this.OverallStartTrigger.Clone();
-            clonePath.OverallStopTrigger = (Waypoint)this.OverallStopTrigger.Clone();
+
+            clonePath.OverallStartTrigger = new Waypoint();
+            if (this.OverallStartTrigger!= null) 
+                clonePath.OverallStartTrigger = (Waypoint)this.OverallStartTrigger.Clone();
+            
+            clonePath.OverallStopTrigger = new Waypoint();
+            if (this.OverallStopTrigger != null)
+                clonePath.OverallStopTrigger = (Waypoint)this.OverallStopTrigger.Clone();
+
             clonePath.WaypointList = this.WaypointList.Select(x => (Waypoint)x.Clone()).ToList();
 
             return clonePath; 

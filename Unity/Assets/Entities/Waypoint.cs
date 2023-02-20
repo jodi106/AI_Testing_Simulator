@@ -12,6 +12,11 @@ namespace Entity
             Location = location;
         }
 
+        public Waypoint()
+        {
+
+        }
+
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
             Location = location;
@@ -53,6 +58,10 @@ namespace Entity
             cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
             cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
 
+            cloneWaypoint.Actions = new();
+            if (this.Actions != null)           
+                cloneWaypoint.Actions = this.Actions.Select(x => (ActionType)x.Clone()).ToList();
+            
             return cloneWaypoint;
         }
     }

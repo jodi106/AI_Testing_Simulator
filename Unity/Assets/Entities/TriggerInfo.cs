@@ -73,13 +73,27 @@ namespace Entity
             cloneTriggerInfo.TriggerType = String.Copy(this.TriggerType);
             cloneTriggerInfo.Delay = this.Delay;
             cloneTriggerInfo.ConditionEdge = String.Copy(this.ConditionEdge);
-            cloneTriggerInfo.EntityRef = String.Copy(this.EntityRef);
+
+            cloneTriggerInfo.EntityRef = String.IsNullOrEmpty(this.EntityRef) ? String.Empty : string.Copy(this.EntityRef); //Value
+
             cloneTriggerInfo.SimulationTimeValue = this.SimulationTimeValue;
             cloneTriggerInfo.Value = this.Value;
             cloneTriggerInfo.Rule = String.Copy(this.Rule);
-            cloneTriggerInfo.WorldPosition = (Location)this.WorldPosition.Clone();
+
+            cloneTriggerInfo.WorldPosition = new();
+            if (this.WorldPosition != null)
+               cloneTriggerInfo.WorldPosition = (Location)this.WorldPosition.Clone();
+
+            cloneTriggerInfo.WorldPositionCarla = new();
+            if (this.WorldPositionCarla != null)
+                cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
             cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
-            cloneTriggerInfo.AfterAction = (ActionType)this.AfterAction.Clone();
+
+            this.AfterAction = new();
+            if (this.AfterAction != null)
+                cloneTriggerInfo.AfterAction = (ActionType)this.AfterAction.Clone();
+
+            
 
             return cloneTriggerInfo;
         }

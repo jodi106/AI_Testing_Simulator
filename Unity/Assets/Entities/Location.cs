@@ -23,6 +23,10 @@ namespace Entity
             Rot = rot;
         }
 
+        public Location()
+        {
+
+        }
         public Vector3 Vector3 { get; set; }
         public float Rot { get; set; }
 

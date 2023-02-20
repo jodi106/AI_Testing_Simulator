@@ -60,6 +60,10 @@ namespace Entity
             Positions = positions;
             CalculateLocationsCarla();
         }
+        public ActionType()
+        {
+
+        }
 
         public int ID { get; private set; }
         public string Name { get; set; } // Todo rename?; has enum ActionTypeName; examples: SpeedAction, LaneChangeAction, AssignRouteAction
@@ -88,8 +92,10 @@ namespace Entity
         }
 
         public object Clone()
-        {
-            ActionType cloneActionType = new ActionType(string.Copy(this.Name));
+        {      
+            ActionType cloneActionType = new ActionType();
+
+            cloneActionType.Name = String.IsNullOrEmpty(this.Name) ? String.Empty : string.Copy(this.Name);
             cloneActionType.ID = this.ID;
             cloneActionType.AbsoluteTargetSpeedValue = this.AbsoluteTargetSpeedValue;
             cloneActionType.DynamicsShape = this.DynamicsShape;
@@ -98,10 +104,15 @@ namespace Entity
             cloneActionType.DynamicDimensions = this.DynamicDimensions;
 
             //Cloning the Location, so we don't just get references to the Location of this Object.
-            cloneActionType.Positions = this.Positions.Select(x => (Location)x.Clone()).ToList();
-            cloneActionType.PositionsCarla = this.PositionsCarla.Select(x => (Location)x.Clone()).ToList();
+            cloneActionType.Positions = new();
+            if (this.Positions != null)
+                cloneActionType.Positions = this.Positions.Select(x => (Location)x.Clone()).ToList();
 
-            cloneActionType.EntityRef = string.Copy(this.EntityRef);
+            cloneActionType.PositionsCarla = new();
+            if (this.PositionsCarla != null)
+                cloneActionType.PositionsCarla = this.PositionsCarla.Select(x => (Location)x.Clone()).ToList();
+
+            cloneActionType.EntityRef = String.IsNullOrEmpty(this.EntityRef) ? String.Empty : string.Copy(this.EntityRef); //Value
             cloneActionType.RelativeTargetLaneValue = this.RelativeTargetLaneValue;
 
             return cloneActionType;
