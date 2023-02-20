@@ -319,10 +319,10 @@ public class MainController : MonoBehaviour
 
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
-        info.MapURL = "Town10HD";
+        exportInfo.MapURL = "Town10HD";
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
-        foreach (Vehicle vehicle in info.Vehicles)
+        foreach (Vehicle vehicle in exportInfo.Vehicles)
         {
             vehicle.getCarlaLocation();
             if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
@@ -330,15 +330,25 @@ public class MainController : MonoBehaviour
                 vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
             }
         }
-        info.EgoVehicle.getCarlaLocation();
+
+        foreach (Pedestrian pedestrian in exportInfo.Pedestrians)
+        {
+            pedestrian.getCarlaLocation();
+            if (pedestrian.Path is not null && !isWaypointListEmptyOrNull(pedestrian))
+            {
+                pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
+            }
+        }
+
+        exportInfo.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-        info.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
+        exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
         //info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
-        if (info.Path.Length > 0) // "save" is pressed in explorer
+        if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
         {
-            BuildXML doc = new BuildXML(info);
+            BuildXML doc = new BuildXML(exportInfo);
             doc.CombineXML();
         }
     }
@@ -348,4 +358,11 @@ public class MainController : MonoBehaviour
         //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
         return vehicle.Path.WaypointList?.Any() != true;
     }
+
+    private bool isWaypointListEmptyOrNull(Pedestrian pedestrian)
+    {
+        //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+        return pedestrian.Path.WaypointList?.Any() != true;
+    }
 }
+
