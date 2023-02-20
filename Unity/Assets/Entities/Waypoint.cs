@@ -35,6 +35,8 @@ namespace Entity
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
         public IBaseView View { get; set; }
+        //public int Id { get; set; }
+        public List<ActionType> Actions { get; set; } // I don't need a TriggerList for them because all TriggerInfos are the same for these actions
 
         public void CalculateLocationCarla()
         {
