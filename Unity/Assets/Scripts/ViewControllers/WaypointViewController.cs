@@ -17,9 +17,15 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private WaypointSettingsPopupController settingsController;
     private bool ignoreWaypoints = false;
 
+    public Vehicle startRouteVehicle { get; set; }
+
     public void setPathController(PathController pathController)
     {
         this.pathController = pathController;
+    }
+    public PathController getPathController()
+    {
+        return this.pathController;
     }
 
     void Awake()
@@ -33,7 +39,12 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
         this.settingsController.gameObject.SetActive(true);
-        this.settingsController.open(this, pathController.VehicleRef);
+        this.settingsController.open(this, pathController.VehicleRef, mainController.info.Vehicles, startRouteVehicle);
+        if (this.startRouteVehicle != null)
+        {
+            this.startRouteVehicle = startRouteVehicle;
+            pathController.adversaryViewController.startRouteVehicle = startRouteVehicle;
+        }
     }
 
     public void setColor(Color color)
@@ -115,5 +126,10 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public Location getLocation()
     {
         return this.waypoint.Location;
+    }
+
+    public void deleteStartRouteVehicle()
+    {
+        this.startRouteVehicle = null;
     }
 }

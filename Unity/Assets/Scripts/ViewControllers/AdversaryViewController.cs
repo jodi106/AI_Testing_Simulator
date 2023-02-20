@@ -10,6 +10,12 @@ public class AdversaryViewController : VehicleViewController
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
     private static readonly double INITIAL_SPEED = 30;
+    public Vehicle startRouteVehicle { private get; set; }
+
+    public PathController getPathController()
+    {
+        return this.pathController;
+    }
 
     public new void Awake()
     {
@@ -129,7 +135,7 @@ public class AdversaryViewController : VehicleViewController
 
     public override void openEditDialog()
     {
-        this.vehicleSettingsController.open(this, sprite.color);
+        this.vehicleSettingsController.open(this, sprite.color, startRouteVehicle);
     }
     protected override void registerEntity()
     {

@@ -35,7 +35,7 @@ public class MainController : MonoBehaviour
     private uGUI.Toggle snapToggle;
     private GameObject actionButtonCanvas;
 
-    private ScenarioInfo info;
+    public ScenarioInfo info { get; private set; }
 
     private IBaseController selectedEntity;
 

@@ -13,7 +13,7 @@ public class PathController : MonoBehaviour
     private EdgeCollider2D edgeCollider;
 
     private LinkedList<(WaypointViewController, int)> waypointViewControllers;
-    private AdversaryViewController adversaryViewController;
+    public AdversaryViewController adversaryViewController { get; private set; }
     private SnapController snapController;
     private MainController mainController;
 

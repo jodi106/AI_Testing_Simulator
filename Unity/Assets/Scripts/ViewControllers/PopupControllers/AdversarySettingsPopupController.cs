@@ -22,8 +22,11 @@ public class AdversarySettingsPopupController : MonoBehaviour
     private Slider gSlider;
     private Slider bSlider;
     private TextField startRouteTimeField;
-    private Label startRouteWaypointLabel;
-    private Button deleteStartRouteWaypoint;
+    private Label startRouteWaypointTimeLabel;
+    private Button deleteStartRouteWaypointButton;
+    private Label startRouteInfoLabel;
+
+    private Vehicle startRouteVehicle;
 
     public void Awake()
     {
@@ -150,12 +153,19 @@ public class AdversarySettingsPopupController : MonoBehaviour
         });
 
         startRouteTimeField = this.document.rootVisualElement.Q<TextField>("StartRouteTime");
-        startRouteWaypointLabel = this.document.rootVisualElement.Q<Label>("StartRouteWaypointLabel");
-        deleteStartRouteWaypoint = this.document.rootVisualElement.Q<Button>("DeleteStartRouteWaypoint");
-        // TODO
-        //startRouteWaypointLabel.style.display = DisplayStyle.None;
+        startRouteWaypointTimeLabel = this.document.rootVisualElement.Q<Label>("StartRouteWaypointLabel");
+        deleteStartRouteWaypointButton = this.document.rootVisualElement.Q<Button>("DeleteStartRouteWaypoint");
+        startRouteInfoLabel = this.document.rootVisualElement.Q<Label>("StartRouteInfoLabel");
+        startRouteWaypointTimeLabel.style.display = DisplayStyle.None;
+        deleteStartRouteWaypointButton.style.display = DisplayStyle.None;
+
+        deleteStartRouteWaypointButton.RegisterCallback<ClickEvent>((clickEvent) =>
+        {
+            this.controller.getPathController().getFirstWaypointController().deleteStartRouteVehicle(); // TODO !!!
+            deleteStartRouteVehicle();
+        });
     }
-    public void open(AdversaryViewController controller, Color color)
+    public void open(AdversaryViewController controller, Color color, Vehicle startRouteVehicle)
     {
         this.controller = controller;
         this.vehicle = (Vehicle) controller.getEntity();
@@ -169,5 +179,28 @@ public class AdversarySettingsPopupController : MonoBehaviour
         rSlider.value = color.r;
         gSlider.value = color.g;
         bSlider.value = color.b;
+
+        if (startRouteVehicle != null)
+        {
+            this.startRouteVehicle = startRouteVehicle;
+            startRouteTimeField.style.display = DisplayStyle.None;
+            startRouteWaypointTimeLabel.style.display = DisplayStyle.Flex;
+            deleteStartRouteWaypointButton.style.display = DisplayStyle.Flex;
+            startRouteInfoLabel.style.display = DisplayStyle.None;
+            startRouteWaypointTimeLabel.text = startRouteVehicle.Id + " reaches Waypoint " + "TODO";
+        }
+        else
+        {
+            deleteStartRouteVehicle();
+        }
+    }
+
+    private void deleteStartRouteVehicle()
+    {
+        this.startRouteVehicle = null;
+        startRouteTimeField.style.display = DisplayStyle.Flex;
+        startRouteWaypointTimeLabel.style.display = DisplayStyle.None;
+        deleteStartRouteWaypointButton.style.display = DisplayStyle.None;
+        startRouteInfoLabel.style.display = DisplayStyle.Flex;
     }
 }

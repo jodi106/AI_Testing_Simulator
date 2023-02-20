@@ -2,6 +2,7 @@
 using Entity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private WaypointViewController controller;
     private Waypoint waypoint;
     private Vehicle vehicleRef;
+    private ObservableCollection<Vehicle> allVehicles;
     private int waypointId;
 
     private UIDocument document;
@@ -22,6 +24,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private Toggle startRouteToggle;
     private DropdownField startRouteVehicleField;
 
+    private Vehicle startRouteVehicle;
     private int addedActions = 0;
 
     public void Awake()
@@ -58,6 +61,14 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (startRouteToggle.value == true && startRouteVehicleField.value == null)
+            {
+                EditorUtility.DisplayDialog(
+                "No Vehicle selected",
+                "You must select another vehicle to start that vehicle's route or disable the toggle!",
+                "Ok");
+                return;
+            }
             this.vehicleRef = null;
             this.waypoint = null;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
@@ -101,7 +112,32 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         startRouteToggle = this.document.rootVisualElement.Q<Toggle>("StartRouteConditionEnabled");
         startRouteVehicleField = this.document.rootVisualElement.Q<DropdownField>("StartRouteConditionVehicle");
-        
+        startRouteToggle.SetEnabled(false);
+        startRouteVehicleField.SetEnabled(false);
+        startRouteToggle.RegisterValueChangedCallback((evt) =>
+        {
+            if (evt.newValue == false)
+            {
+                deleteStartRouteVehicle();
+            }
+            else
+            {
+                startRouteVehicleField.SetEnabled(true);
+            }
+        });
+        startRouteVehicleField.RegisterValueChangedCallback((evt) =>
+        {
+            foreach (Vehicle veh in allVehicles)
+            {
+                if (veh.Id.Equals(evt.newValue))
+                {
+                    this.startRouteVehicle = veh;
+                    this.controller.getPathController().adversaryViewController.startRouteVehicle = veh;
+                    Debug.Log("new startRouteVehicle: " + startRouteVehicle.Id);
+                    break;
+                }
+            }
+        });
     }
 
     private void initAction(int index)
@@ -164,13 +200,20 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
-    public void open(WaypointViewController controller, BaseEntity vehicle)
+    public void open(WaypointViewController controller, BaseEntity vehicleRef, ObservableCollection<Vehicle> allSimVehicles, Vehicle startRouteVehicle)
+    /// returns:
+    /// Vehicle: This waypoint needs to start the route of the returned Vehicle.
+    /// null: The start-route-option is not selected. This waypoint won't start another vehicle's route.
     {
         //Debug.Log("Opening WaypointSettingsPopOp ...");
         //Debug.Log("Waypoint id:  " + controller.waypoint.Id);
+        //Debug.Log("All Entities: " + allSimVehicles.Count());
+
         this.controller = controller;
         this.waypoint = controller.waypoint;
-        this.vehicleRef = (Vehicle) vehicle;
+        this.vehicleRef = (Vehicle) vehicleRef;
+        this.allVehicles = allSimVehicles;
+        
         bool actionsEmptyOrNull = waypoint.Actions?.Any() != true;
         if (!actionsEmptyOrNull)
         {
@@ -181,12 +224,28 @@ public class WaypointSettingsPopupController : MonoBehaviour
         }
 
         startRouteVehicleField.choices = new List<string> { };
-        //foreach (Vehicle vehicle in TODO)
-        //{
-        //    startRouteVehicleField.choices.Add(vehicle.Id.ToString());
-        //}
-        startRouteVehicleField.choices.Add(vehicleRef.Id.ToString()); // TODO REPLACE
+        foreach (Vehicle vehicle in allSimVehicles)
+        {
+            if (vehicle != vehicleRef)
+            {
+                startRouteVehicleField.choices.Add(vehicle.Id.ToString());
+            }
+        }
+
+        if (startRouteVehicle == null) deleteStartRouteVehicle();
+
+        if (startRouteVehicleField.choices.Count() > 0) startRouteToggle.SetEnabled(true);
 
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
+    }
+
+    private void deleteStartRouteVehicle()
+    {
+        startRouteToggle.value = false;
+        startRouteVehicleField.value = null;
+        startRouteVehicleField.SetEnabled(false);
+        this.startRouteVehicle = null;
+        this.controller.getPathController().adversaryViewController.startRouteVehicle = null;
+        this.controller.startRouteVehicle = null;
     }
 }
