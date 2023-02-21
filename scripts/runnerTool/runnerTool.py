@@ -12,6 +12,14 @@ import json
 # Set spectator to ego vehicle position (scenario_runner.py)
 # Create one file containing all results (delete seperate json files?)
 
+# True false erkenntlich in terminal
+# Save overview file
+# Create get failed scenarios method
+# No rendering mode
+# Speed up scenario? -> https://github.com/carla-simulator/carla/issues/457 change subprocess command to open carla exe with args.
+# config.py also possible python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
+# Check os -> if not windows change subprocess cmd
+
 class RunnerTool(object):
 
     def __init__(self):
