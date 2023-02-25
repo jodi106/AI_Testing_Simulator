@@ -4,6 +4,9 @@ import time
 import os
 import sys
 import json
+
+from colorama import init, Fore, Back, Style
+init()
 #------------------------- SET INPUTS --------------------------------------------------------------------------------#
 
 # SET PATHS IN CONFIG.JSON FILE # 
@@ -12,7 +15,6 @@ import json
 # Set spectator to ego vehicle position (scenario_runner.py)
 # Create one file containing all results (delete seperate json files?)
 
-# True false erkenntlich in terminal
 # Save overview file
 # Create get failed scenarios method
 # No rendering mode
@@ -22,9 +24,13 @@ import json
 
 class RunnerTool(object):
 
-    def __init__(self):
+    def __init__(self, checks = True):
+
+        self.checks = checks
         self.config = self.get_config()
-        self.check_paths(self.config)
+        if self.checks:
+            self.check_paths(self.config)
+
         self.create_result_dir()
 
     def get_config(self):
@@ -105,6 +111,11 @@ class RunnerTool(object):
         
         self.create_results_overview()
 
+    def create_linux_cmd(self):
+        # activate python env source path/to/virtual/environment/bin/activate
+        pass
+
+
     def print_subprocess_output(self, result):
         '''
         Prints individual scenario results directly after execution.
@@ -163,6 +174,7 @@ class RunnerTool(object):
 
     def create_results_overview(self):
         ''' Creates scenario success overview of all scenario results .json files in results dir'''
+        
         result_dict = self.load_results()
         count = 1
 
@@ -170,7 +182,10 @@ class RunnerTool(object):
         print("\tSCNEARIO NAMES\t | \tSUCCESS")
 
         for scenario in result_dict.keys():
-            print("\t" + str(count) + ". " + result_dict[scenario]["scenario"] + "\t | \t " + str(result_dict[scenario]["success"]))
+            if result_dict[scenario]["success"]:
+                print("\t" + str(count) + ". " + result_dict[scenario]["scenario"] + "\t | \t " + str(result_dict[scenario]["success"]))
+            else:
+                print("\t" + str(count) + ". " + Fore.RED + result_dict[scenario]["scenario"] + Style.RESET_ALL +"\t | \t " + Fore.RED + str(result_dict[scenario]["success"]) + Style.RESET_ALL)
             count+=1
         print("----------------------------------------------------")
 
@@ -209,10 +224,10 @@ class RunnerTool(object):
                 print(json.dumps(result_dict[indx[usr_input-1]], indent=2))
 
 def main():
-    runner_tool = RunnerTool()
-    runner_tool.start_carla()
-    runner_tool.runner()
-
+    runner_tool = RunnerTool(False)
+    #runner_tool.start_carla()
+    #runner_tool.runner()
+    runner_tool.create_results_overview()
   
 if __name__ == "__main__":
     sys.exit(main())

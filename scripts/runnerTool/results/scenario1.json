@@ -1,0 +1,70 @@
+{
+    "scenario": "OurScenario3",
+    "success": true,
+    "criteria": [
+        {
+            "name": "RunningStopTest",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "RunningRedLightTest",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "WrongLaneTest",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "OnSidewalkTest",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "CheckKeepLane",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "CollisionTest",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0,
+            "actual": 0,
+            "success": true
+        },
+        {
+            "name": "CheckDrivenDistance",
+            "actor": "nissan.micra-1146",
+            "optional": false,
+            "expected": 0.1,
+            "actual": 0.26,
+            "success": true
+        },
+        {
+            "name": "Duration",
+            "actor": "all",
+            "optional": false,
+            "expected": 100000,
+            "actual": 18.153107300400734,
+            "success": true
+        }
+    ]
+}
