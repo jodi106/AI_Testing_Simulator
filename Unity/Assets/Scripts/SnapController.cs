@@ -14,6 +14,8 @@ public class SnapController : MonoBehaviour
 
     private Dictionary<Location, GameObject> waypointGameObjects;
 
+    private Dictionary<string, MapDimension> mapDimensions;
+
     private GameObject LastClickedWaypointGameObject;
 
     public bool IgnoreClicks { get; set; }
@@ -39,8 +41,12 @@ public class SnapController : MonoBehaviour
             roads.Clear();
             LastClickedWaypointGameObject = null;
 
-            if(action.name != "") LoadRoads(action.name);
+            if (action.name != "") LoadRoads(action.name);
         });
+
+        var dimensions = Resources.Load<TextAsset>("waypoints/dimensions");
+
+        mapDimensions = JsonConvert.DeserializeObject<Dictionary<string, MapDimension>>(dimensions.text);
     }
     public void Update()
     {
@@ -139,8 +145,10 @@ public class SnapController : MonoBehaviour
 
             foreach (var jsonWaypoint in jsonWaypoints)
             {
-                var position = new Vector3((jsonWaypoint.X - -114.59522247314453f) / 4 - 28.077075f,
-                                    (jsonWaypoint.Y - -68.72904205322266f) / 4 * (-1) + 26.24f, HeightUtil.WAYPOINT_INDICATOR);
+                var position = new Vector3(
+                    ((jsonWaypoint.X - mapDimensions[mapName].minX) - ((-mapDimensions[mapName].minX + mapDimensions[mapName].maxX) / 2)) / 4,
+                    ((jsonWaypoint.Y - mapDimensions[mapName].minY) - ((-mapDimensions[mapName].minY + mapDimensions[mapName].maxY) / 2)) / 4 * (-1),
+                    HeightUtil.WAYPOINT_INDICATOR);
 
                 var waypointGameObject = Instantiate(
                     circlePrefab,
@@ -153,7 +161,7 @@ public class SnapController : MonoBehaviour
 
                 waypoints.Add(new AStarWaypoint(index++, laneId, location));
 
-                waypointGameObjects.Add(location,waypointGameObject);
+                waypointGameObjects.Add(location, waypointGameObject);
             }
 
             roads[roadId].Lanes[laneId].Waypoints = waypoints;
@@ -185,7 +193,7 @@ public class SnapController : MonoBehaviour
             {
                 foreach (var waypoint in lane.Waypoints)
                 {
-                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3, mousePosition);    
+                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3, mousePosition);
 
                     if (currDistance == 0) return (lane, waypoint);
 
@@ -211,7 +219,7 @@ public class SnapController : MonoBehaviour
     {
         var r = roads[l.RoadId];
 
-        var index  = r.Lanes.IndexOfKey(l.Id);
+        var index = r.Lanes.IndexOfKey(l.Id);
 
         Lane prev = index > 0 ? r.Lanes.Values[index - 1] : null;
         Lane next = index < r.Lanes.Count - 1 ? r.Lanes.Values[index + 1] : null;
@@ -231,10 +239,10 @@ public class SnapController : MonoBehaviour
         (var left, var right) = getNeighboringLanes(startLane);
 
         List<Lane> lanes = new List<Lane>();
-        if(left is not null)
+        if (left is not null)
         {
             lanes.Add(left);
-            foreach((var roadIndex, var laneIndex) in left.NextRoadAndLaneIds)
+            foreach ((var roadIndex, var laneIndex) in left.NextRoadAndLaneIds)
             {
                 lanes.Add(roads[roadIndex].Lanes[laneIndex]);
             }
@@ -250,7 +258,7 @@ public class SnapController : MonoBehaviour
 
         foreach (var lane in lanes)
         {
-            if(endLane.RoadId == lane.RoadId && endWaypoint.LaneId == lane.Id)
+            if (endLane.RoadId == lane.RoadId && endWaypoint.LaneId == lane.Id)
             {
                 return true;
             }
@@ -260,7 +268,7 @@ public class SnapController : MonoBehaviour
     }
 
     // return a tuple containing a list of waypoints and indices of lanechanges
-    public (List<Vector2>,List<int>) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
+    public (List<Vector2>, List<int>) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
     {
         if (ignoreWaypoints)
         {
@@ -292,7 +300,7 @@ public class SnapController : MonoBehaviour
             { startWaypoint, null }
         };
 
-        var costSoFar = new Dictionary<Lane, double>{};
+        var costSoFar = new Dictionary<Lane, double> { };
 
         var laneChanges = new HashSet<AStarWaypoint>();
 
@@ -343,7 +351,7 @@ public class SnapController : MonoBehaviour
                     costSoFar[nextLane] = newCost;
 
                     var priority = newCost + FastEuclideanDistance(
-                        endWaypoint.Location.Vector3, 
+                        endWaypoint.Location.Vector3,
                         nextLane.Waypoints[0].Location.Vector3
                         );
 
@@ -362,7 +370,7 @@ public class SnapController : MonoBehaviour
         if (!cameFrom.ContainsKey(endWaypoint))
         {
             Debug.Log("No Path");
-            return (null,null);
+            return (null, null);
         }
 
         currentWaypoint = endWaypoint;
@@ -370,10 +378,10 @@ public class SnapController : MonoBehaviour
 
         while (currentWaypoint != startWaypoint)
         {
-            if(laneChanges.Contains(currentWaypoint))
+            if (laneChanges.Contains(currentWaypoint))
             {
                 var i = 4;
-                while(i > 0 && cameFrom[currentWaypoint] != startWaypoint)
+                while (i > 0 && cameFrom[currentWaypoint] != startWaypoint)
                 {
                     currentWaypoint = cameFrom[currentWaypoint];
                     i--;
@@ -444,3 +452,10 @@ public struct JsonWaypoint
     public float Rot { get; set; }
 }
 
+public struct MapDimension
+{
+    public float maxX { get; set; }
+    public float maxY { get; set; }
+    public float minX { get; set; }
+    public float minY { get; set; }
+}
