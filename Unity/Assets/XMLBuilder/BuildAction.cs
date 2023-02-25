@@ -44,7 +44,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         // Invoked in BuildXML.cs Method BuildEvents
-        public void AssignRouteAction(XmlNode action, Waypoint waypoint)
+        public void AssignRouteAction(XmlNode action, ActionType actionType)
         /// Creates AssignRouteAction. Defines entire route with multiple postisions for a scenario entity.
         {
             // TODO routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
@@ -56,17 +56,17 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("name", "Route", route);
             SetAttribute("closed", "false", route);
 
-            for (int i = 0; i < waypoint.ActionTypeInfo.PositionsCarla.Count; i++)
+            for (int i = 0; i < actionType.PositionsCarla.Count; i++)
             {
                 string? routeStrategy = (i == 1) ? "shortest" : "fastest"; // delete this once we have a better solution for our dirty solution
                 XmlNode _waypoint = root.CreateElement("Waypoint");
                 SetAttribute("routeStrategy", routeStrategy, _waypoint);
                 XmlNode position = root.CreateElement("Position");
                 XmlNode worldPosition = root.CreateElement("WorldPosition");
-                SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.x.ToString(), worldPosition);
-                SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.y.ToString(), worldPosition);
-                SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.z.ToString(), worldPosition);
-                SetAttribute("h", waypoint.ActionTypeInfo.PositionsCarla[i].Rot.ToString(), worldPosition);
+                SetAttribute("x", actionType.PositionsCarla[i].Vector3.x.ToString(), worldPosition);
+                SetAttribute("y", actionType.PositionsCarla[i].Vector3.y.ToString(), worldPosition);
+                SetAttribute("z", actionType.PositionsCarla[i].Vector3.z.ToString(), worldPosition);
+                SetAttribute("h", actionType.PositionsCarla[i].Rot.ToString(), worldPosition);
 
                 route.AppendChild(_waypoint);
                 _waypoint.AppendChild(position);
@@ -78,7 +78,7 @@ namespace ExportScenario.XMLBuilder
             assignRouteAction.AppendChild(route);
         }
 
-        public void SpeedAction(XmlNode action, Waypoint waypoint)
+        public void SpeedAction(XmlNode action, ActionType actionType)
         /// Creates SpeedAction. Defines speed for a scenario entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
@@ -88,10 +88,10 @@ namespace ExportScenario.XMLBuilder
             XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
             XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
 
-            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.DynamicsShape, SpeedActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
-            SetAttribute("dynamicsDimension", waypoint.ActionTypeInfo.DynamicDimensions, SpeedActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.AbsoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);
+            SetAttribute("dynamicsShape", actionType.DynamicsShape, SpeedActionDynamics);
+            SetAttribute("value", actionType.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("dynamicsDimension", actionType.DynamicDimensions, SpeedActionDynamics);
+            SetAttribute("value", actionType.AbsoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);
 
             action.AppendChild(privateAction);
             privateAction.AppendChild(longitudinalAction);
@@ -101,7 +101,7 @@ namespace ExportScenario.XMLBuilder
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
         }
 
-        public void BreakAction(XmlNode action, Waypoint waypoint)
+        public void StopAction(XmlNode action, ActionType actionType)
         /// Creates SpeedAction. Defines speed for a scenario entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
@@ -112,7 +112,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
 
             //SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.SpeedActionDynamicsShape, SpeedActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("value", actionType.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
             SetAttribute("dynamicsDimension", "time", SpeedActionDynamics);
             SetAttribute("value", "0", AbsoluteTargetSpeed);
 
@@ -123,20 +123,20 @@ namespace ExportScenario.XMLBuilder
             speedAction.AppendChild(SpeedActionTarget);
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
         }
-        public void LaneChangeAction(XmlNode action, Waypoint waypoint)
+        public void LaneChangeAction(XmlNode action, ActionType actionType)
         /// Creates LaneChangeAction. Defines amount of lanes to change for a scenario entity relative to a specified entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode lateralAction = root.CreateElement("LateralAction");
             XmlNode laneChangeAction = root.CreateElement("LaneChangeAction");
             XmlNode laneChangeActionDynamics = root.CreateElement("LaneChangeActionDynamics");
-            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.DynamicsShape, laneChangeActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.LaneChangeActionDynamicsValue.ToString(), laneChangeActionDynamics);
-            SetAttribute("dynamicsDimension", waypoint.ActionTypeInfo.DynamicDimensions, laneChangeActionDynamics);
+            SetAttribute("dynamicsShape", actionType.DynamicsShape, laneChangeActionDynamics);
+            SetAttribute("value", actionType.LaneChangeActionDynamicsValue.ToString(), laneChangeActionDynamics);
+            SetAttribute("dynamicsDimension", actionType.DynamicDimensions, laneChangeActionDynamics);
             XmlNode laneChangeTarget = root.CreateElement("LaneChangeTarget");
             XmlNode relativeTargetLane = root.CreateElement("RelativeTargetLane");
-            SetAttribute("entityRef", waypoint.ActionTypeInfo.EntityRef, relativeTargetLane);
-            SetAttribute("value", waypoint.ActionTypeInfo.RelativeTargetLaneValue.ToString(), relativeTargetLane);
+            SetAttribute("entityRef", actionType.EntityRef, relativeTargetLane);
+            SetAttribute("value", actionType.RelativeTargetLaneValue.ToString(), relativeTargetLane);
 
             action.AppendChild(privateAction);
             privateAction.AppendChild(lateralAction);

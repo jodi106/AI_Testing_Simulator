@@ -322,23 +322,24 @@ public class MainController : MonoBehaviour
         exportInfo.MapURL = "Town10HD";
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
-        foreach (Vehicle vehicle in exportInfo.Vehicles)
-        {
-            vehicle.getCarlaLocation();
-            if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
-            {
-                vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
-            }
-        }
+        // These lines are now in BuildXML.cs
+        //foreach (Vehicle vehicle in exportInfo.Vehicles)
+        //{
+        //    vehicle.getCarlaLocation();
+        //    if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
+        //    {
+        //        vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
+        //    }
+        //}
 
-        foreach (Pedestrian pedestrian in exportInfo.Pedestrians)
-        {
-            pedestrian.getCarlaLocation();
-            if (pedestrian.Path is not null && !isWaypointListEmptyOrNull(pedestrian))
-            {
-                pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
-            }
-        }
+        //foreach (Pedestrian pedestrian in exportInfo.Pedestrians)
+        //{
+        //    pedestrian.getCarlaLocation();
+        //    if (pedestrian.Path is not null && !isWaypointListEmptyOrNull(pedestrian))
+        //    {
+        //        pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
+        //    }
+        //}
 
         exportInfo.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
@@ -353,16 +354,16 @@ public class MainController : MonoBehaviour
         }
     }
 
-    private bool isWaypointListEmptyOrNull(Vehicle vehicle)
-    {
-        //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
-        return vehicle.Path.WaypointList?.Any() != true;
-    }
+    //private bool isWaypointListEmptyOrNull(Vehicle vehicle)
+    //{
+    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+    //    return vehicle.Path.WaypointList?.Any() != true;
+    //}
 
-    private bool isWaypointListEmptyOrNull(Pedestrian pedestrian)
-    {
-        //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
-        return pedestrian.Path.WaypointList?.Any() != true;
-    }
+    //private bool isWaypointListEmptyOrNull(Pedestrian pedestrian)
+    //{
+    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+    //    return pedestrian.Path.WaypointList?.Any() != true;
+    //}
 }
 

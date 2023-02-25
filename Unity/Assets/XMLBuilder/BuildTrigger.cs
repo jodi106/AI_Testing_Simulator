@@ -20,7 +20,7 @@ namespace ExportScenario.XMLBuilder
             this.scenarioInfo = scenarioInfo;
         }
 
-        public void CombineTrigger(XmlNode parentNode, bool start, Waypoint waypoint)
+        public void CombineTrigger(XmlNode parentNode, bool start, List<TriggerInfo> TriggerList)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group.
         {
             XmlNode trigger;
@@ -34,16 +34,16 @@ namespace ExportScenario.XMLBuilder
             }
 
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
-            for (int i = 0; i < waypoint.TriggerList.Count; i++)
+            for (int i = 0; i < TriggerList.Count; i++)
             {
                 XmlNode condition = root.CreateElement("Condition");
-                SetAttribute("name", waypoint.TriggerList[i].TriggerType + waypoint.TriggerList[i].ID, condition);
-                SetAttribute("delay", waypoint.TriggerList[i].Delay.ToString(), condition);
-                SetAttribute("conditionEdge", waypoint.TriggerList[i].ConditionEdge.ToString().FirstCharToLowerCase(), condition);
+                SetAttribute("name", TriggerList[i].TriggerType + TriggerList[i].ID, condition);
+                SetAttribute("delay", TriggerList[i].Delay.ToString(), condition);
+                SetAttribute("conditionEdge", TriggerList[i].ConditionEdge.ToString().FirstCharToLowerCase(), condition);
 
                 // Invokes a Method for specified object with specified inputs via a String
-                MethodInfo mi = this.GetType().GetMethod(waypoint.TriggerList[i].TriggerType);
-                mi.Invoke(this, new object[] { condition, waypoint.TriggerList[i] });
+                MethodInfo mi = this.GetType().GetMethod(TriggerList[i].TriggerType);
+                mi.Invoke(this, new object[] { condition, TriggerList[i] });
                 conditionGroup.AppendChild(condition);
             }
             parentNode.AppendChild(trigger);
