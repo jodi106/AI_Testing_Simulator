@@ -53,5 +53,7 @@ namespace Entity
         public EntityModel Model { get; private set; }
         public VehicleCategory Category { get; private set; }
         public Path Path { get; set; }
+        
+        public Vehicle StartRouteVehicle { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
     }
 }

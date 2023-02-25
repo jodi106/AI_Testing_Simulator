@@ -24,16 +24,29 @@ namespace Entity
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
         }
-
-        public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamicsShape = "step", string dynamicsDimension = "time")
-        /// for BreakAction
+        public ActionType(string name, double stopduration, double speedValue, string speedActionDynamicsShape = "step", double speedActionDynamicsValue = 0.0, string dynamicsDimension = "time")
+        /// for StopAction
         {
             ID = autoIncrementId++;
             Name = name;
-            //SpeedActionDynamicsShape = speedActionDynamicsShape;
+            StopDuration = stopduration;
+            AbsoluteTargetSpeedValue = speedValue;
+            DynamicsShape = "linear";
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
+
         }
+
+        //public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamicsShape = "step", string dynamicsDimension = "time")
+        ///// for BreakAction
+        //{
+        //    ID = autoIncrementId++;
+        //    Name = name;
+        //    //SpeedActionDynamicsShape = speedActionDynamicsShape;
+        //    SpeedActionDynamicsValue = speedActionDynamicsValue;
+        //    DynamicDimensions = dynamicsDimension;
+        //}
+
         public ActionType(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape = "linear", double laneChangeActionDynamicsValue = 13, string dynamicsDimension = "distance")
         /// for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
         {
@@ -46,11 +59,11 @@ namespace Entity
             DynamicDimensions = dynamicsDimension;
         }
 
-        public ActionType(string name, string entityRef, string value)
-        /// For pre-defined SpeedAction or LaneChangeAction or StopAction
-        {
-            // TODO? Is this even necessary??? See WaypointSettingsPopUpController
-        }
+        //public ActionType(string name, string entityRef, string value)
+        ///// For pre-defined SpeedAction or LaneChangeAction or StopAction
+        //{
+        //    // TODO? Is this even necessary??? See WaypointSettingsPopUpController
+        //}
 
         public ActionType(string name, List<Location> positions)
         /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
@@ -76,6 +89,7 @@ namespace Entity
         public List<Location> PositionsCarla { get; set; }
         public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
         public int RelativeTargetLaneValue { get; set; } // TODO: -1 or 1
+        public double StopDuration { get; set; }
 
 
         public void CalculateLocationsCarla()

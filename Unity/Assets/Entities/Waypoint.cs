@@ -10,11 +10,11 @@ namespace Entity
         public Waypoint(Location location)
         {
             Location = location;
+            Actions = new List<ActionType>();
         }
 
         public Waypoint()
         {
-
         }
 
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
@@ -24,6 +24,7 @@ namespace Entity
             Priority = priority;
             TriggerList = triggerList;
             CalculateLocationCarla();
+            Actions = new List<ActionType>();
         }
 
         public void setLocation(Location location)
@@ -40,8 +41,9 @@ namespace Entity
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
         public IBaseView View { get; set; }
-        //public int Id { get; set; }
-        public List<ActionType> Actions { get; set; } // I don't need a TriggerList for them because all TriggerInfos are the same for these actions
+        public List<ActionType> Actions { get; set; } // Actions without Triggers
+
+        public Vehicle StartRouteOfOtherVehicle { get; set; }
 
         public void CalculateLocationCarla()
         {
