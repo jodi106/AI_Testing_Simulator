@@ -106,9 +106,9 @@ public class AdversaryViewController : VehicleViewController
     public override void destroy()
     {
         mainController.removeVehicle(vehicle);
-        snapController.IgnoreClicks = false;
-        this.pathController?.Destroy();
+        pathController?.Destroy();
         Destroy(gameObject);
+        snapController.IgnoreClicks = false;
     }
 
     public override void onChangeColor(Color color)

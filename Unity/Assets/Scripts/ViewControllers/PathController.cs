@@ -21,8 +21,6 @@ public class PathController : MonoBehaviour
 
     public Path Path { get; set; }
 
-    public BaseEntity VehicleRef { get; set; }
-
     private void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
@@ -123,7 +121,6 @@ public class PathController : MonoBehaviour
     public void SetEntityController(AdversaryViewController controller)
     {
         this.adversaryViewController = controller;
-        this.VehicleRef = controller.getEntity();
         AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car -- should be set in model or on export
         waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }
@@ -166,6 +163,9 @@ public class PathController : MonoBehaviour
         return CollisionType.None;
     }
 
+    /*
+     * Only updates the preview renderer. Does not change the model in any way.
+     */
     public void Update()
     {
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -260,6 +260,11 @@ public class PathController : MonoBehaviour
         afterEdit();
     }
 
+    /*
+     * Add secondary waypoints to the Path and waypointViewControllers.
+     * If a linked list node is passed then the generated waypoint and and waypointViewController will be inserted after the node.
+     * Otherwise they are added to the end of both containers.
+     */
     public int addLaneChangeWaypoints(List<int> laneChanges, List<Vector2> path, LinkedListNode<(WaypointViewController, int)>? node = null)
     {
         laneChanges.Sort();
@@ -344,6 +349,12 @@ public class PathController : MonoBehaviour
         edgeCollider.SetPoints(positions.ToList());
     }
 
+    /*
+     * Given a waypointViewController, finds the first predecessor and successor which are not secondary waypoints
+     * and optionally deletes all secondary waypoints along the path.
+     * prevIndex indicates which pathRenderer position the previous non-secondary waypoint corresponds to.
+     * This value is neccessary in order to restore the pathrenderer positions after an edit.
+     */
     private (LinkedListNode<(WaypointViewController, int)>,
         LinkedListNode<(WaypointViewController, int)>,
         LinkedListNode<(WaypointViewController, int)>,
@@ -420,7 +431,7 @@ public class PathController : MonoBehaviour
             next.Value.Item1.waypoint.setLocation(new Location(nextPath[nextPath.Count - 1]));
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
-            //usedNext = addLaneChangeWaypoints(laneChanges, nextPath, next);
+            usedNext = addLaneChangeWaypoints(laneChanges, nextPath, cur);
         }
 
         Vector2[] positions = new Vector2[pathRenderer.positionCount + offset];
@@ -460,9 +471,7 @@ public class PathController : MonoBehaviour
         }
 
         waypointController.waypoint.setLocation(new Location(location.Vector3, 0));
-
         mainController.moveActionButtons(location.Vector3);
-
         afterEdit();
     }
 
@@ -519,6 +528,7 @@ public class PathController : MonoBehaviour
         }
         else
         {
+            // secondary waypoints were not destroyed, therefore add the index of cur to the next, possibly secondary waypoint
             if (next is not null) next.Value = (next.Value.Item1, next.Value.Item2 + cur.Value.Item2);
         }
 
