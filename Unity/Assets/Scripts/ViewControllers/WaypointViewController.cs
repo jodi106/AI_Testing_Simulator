@@ -16,6 +16,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private MainController mainController;
     private WaypointSettingsPopupController settingsController;
     private bool ignoreWaypoints = false;
+    private bool secondary = false;
 
     public void setPathController(PathController pathController)
     {
@@ -31,6 +32,18 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         this.sprite = gameObject.GetComponent<SpriteRenderer>();
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();
+    }
+
+    public void makeSecondary()
+    {
+        secondary = true;
+        var c = this.sprite.color;
+        this.sprite.color = new Color(c.r, c.g, c.b, 0.4f);
+    }
+
+    public bool isSecondary()
+    {
+        return secondary;
     }
 
     public void openEditDialog()
@@ -53,7 +66,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         }
         else
         {
-            mainController.setSelectedEntity(this);
+            if(!secondary) mainController.setSelectedEntity(this);
         }
 
     }
@@ -62,6 +75,10 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            return;
+        }
+        if(secondary)
+        {
             return;
         }
         if (!this.shouldIgnoreWaypoints())
