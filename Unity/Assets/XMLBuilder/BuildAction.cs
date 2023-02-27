@@ -24,6 +24,7 @@ namespace ExportScenario.XMLBuilder
         // Input always has to be XmlNode action, Waypoint waypoint
         public void AcquirePositionAction(XmlNode action, Waypoint waypoint)
         /// Creates AcquirePositionAction. Defines specific position to go to for a scenario entity.
+        /// Invoked in BuildXML.cs BuildEvent()
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
@@ -91,7 +92,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("dynamicsShape", actionType.DynamicsShape, SpeedActionDynamics);
             SetAttribute("value", actionType.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
             SetAttribute("dynamicsDimension", actionType.DynamicDimensions, SpeedActionDynamics);
-            SetAttribute("value", actionType.AbsoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);
+            SetAttribute("value", ((double) actionType.AbsoluteTargetSpeedValueKMH / 3.6).ToString(), AbsoluteTargetSpeed);
 
             action.AppendChild(privateAction);
             privateAction.AppendChild(longitudinalAction);

@@ -131,18 +131,18 @@ namespace ExportScenario.XMLBuilder
                 vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
 
                 XmlNode story = root.CreateElement("Story");
-                SetAttribute("name", "adversary" + vehicle.Id + "_Story", story);
+                SetAttribute("name", vehicle.Id + "_Story", story);
                 XmlNode act = root.CreateElement("Act");
-                SetAttribute("name", "adversary" + vehicle.Id + "_Act", act);
+                SetAttribute("name", vehicle.Id + "_Act", act);
                 XmlNode maneuverGroup = root.CreateElement("ManeuverGroup");
                 SetAttribute("maximumExecutionCount", "1", maneuverGroup);
-                SetAttribute("name", "adversary" + vehicle.Id + "Sequence", maneuverGroup);
+                SetAttribute("name", vehicle.Id + "Sequence", maneuverGroup);
                 XmlNode actors = root.CreateElement("Actors");
                 SetAttribute("selectTriggeringEntities", "false", actors);
                 XmlNode entityRef = root.CreateElement("EntityRef");
-                SetAttribute("entityRef", "adversary" + vehicle.Id, entityRef);
+                SetAttribute("entityRef", vehicle.Id, entityRef);
                 XmlNode maneuver = root.CreateElement("Maneuver");
-                SetAttribute("name", "adversary" + vehicle.Id + "_Maneuver", maneuver);
+                SetAttribute("name", vehicle.Id + "_Maneuver", maneuver);
 
                 for (int i = 0; i < vehicle.Path.WaypointList.Count; i++)
                 //foreach
@@ -157,6 +157,16 @@ namespace ExportScenario.XMLBuilder
                         BuildEventsInWaypoint(maneuver, vehicle.Path.WaypointList[i], vehicle);
                     }
                 }
+
+                // StarteRouteInfo: Build SpeedAction to start this vehicle with startRouteInfo Trigger
+                if (vehicle.StartRouteInfo != null)
+                {
+                    ActionType speedAction = new ActionType("SpeedAction", vehicle.InitialSpeedKMH);
+                    TriggerInfo triggerInfo = new TriggerInfo("ReachPositionCondition", vehicle.StartRouteInfo.vehicle.Id, 5.0, vehicle.StartRouteInfo.locationCarla);
+                    BuildEvent(maneuver, speedAction, new List<TriggerInfo> { triggerInfo });
+                    vehicle.InitialSpeedKMH = 0;
+                }
+
 
                 // hierarchy
                 storyBoard.AppendChild(story);
@@ -186,18 +196,18 @@ namespace ExportScenario.XMLBuilder
                 pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
 
                 XmlNode story = root.CreateElement("Story");
-                SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Story", story);
+                SetAttribute("name", pedestrian.Id + "_Story", story);
                 XmlNode act = root.CreateElement("Act");
-                SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Act", act);
+                SetAttribute("name", pedestrian.Id + "_Act", act);
                 XmlNode maneuverGroup = root.CreateElement("ManeuverGroup");
                 SetAttribute("maximumExecutionCount", "1", maneuverGroup);
-                SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "Sequence", maneuverGroup);
+                SetAttribute("name", pedestrian.Id + "Sequence", maneuverGroup);
                 XmlNode actors = root.CreateElement("Actors");
                 SetAttribute("selectTriggeringEntities", "false", actors);
                 XmlNode entityRef = root.CreateElement("EntityRef");
-                SetAttribute("entityRef", "adversary_pedestrian" + pedestrian.Id, entityRef);
+                SetAttribute("entityRef", pedestrian.Id, entityRef);
                 XmlNode maneuver = root.CreateElement("Maneuver");
-                SetAttribute("name", "adversary_pedestrian" + pedestrian.Id + "_Maneuver", maneuver);
+                SetAttribute("name", pedestrian.Id + "_Maneuver", maneuver);
 
                 for (int i = 0; i < pedestrian.Path.WaypointList.Count; i++)
                 {
@@ -210,6 +220,15 @@ namespace ExportScenario.XMLBuilder
                     {
                         BuildEventsInWaypoint(maneuver, pedestrian.Path.WaypointList[i], pedestrian);
                     }
+                }
+
+                // StarteRouteInfo: Build SpeedAction to start this vehicle with startRouteInfo Trigger
+                if (pedestrian.StartRouteInfo != null)
+                {
+                    ActionType speedAction = new ActionType("SpeedAction", pedestrian.InitialSpeedKMH / 3.6);
+                    TriggerInfo triggerInfo = new TriggerInfo("ReachPositionCondition", pedestrian.StartRouteInfo.vehicle.Id, 5.0, pedestrian.StartRouteInfo.locationCarla);
+                    BuildEvent(maneuver, speedAction, new List<TriggerInfo> { triggerInfo });
+                    pedestrian.InitialSpeedKMH = 0;
                 }
 
                 // hierarchy
@@ -262,7 +281,7 @@ namespace ExportScenario.XMLBuilder
             foreach (ActionType ac in waypoint.Actions)
             {
                 List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
-                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 20, waypoint.LocationCarla));
+                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 20, waypoint.Location));
                 BuildEvent(maneuver, ac, simpleTrigger);
             }
 

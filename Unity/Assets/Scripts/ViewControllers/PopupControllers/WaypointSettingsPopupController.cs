@@ -121,7 +121,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 deleteStartRouteVehicle();
                 if (this.waypoint.StartRouteOfOtherVehicle != null)
                 {
-                    this.waypoint.StartRouteOfOtherVehicle.StartRouteVehicle = null;
+                    this.waypoint.StartRouteOfOtherVehicle.StartRouteInfo = null;
                     this.waypoint.StartRouteOfOtherVehicle = null;
                 }
             }
@@ -137,7 +137,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
             {
                 if (veh.Id == evt.newValue) 
                 {
-                    if (veh.StartRouteVehicle != null) // check if another vehicle already starts that vehicle's route
+                    if (veh.StartRouteInfo != null) // check if another vehicle already starts that vehicle's route
                     {
                         EditorUtility.DisplayDialog(
                             "Vehicle already chosen by another Waypoint",
@@ -149,7 +149,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
                         return;
                     }
 
-                    veh.StartRouteVehicle = this.vehicle;
+                    veh.StartRouteInfo = new StartRouteInfo(this.vehicle, this.waypoint.Location);
                     this.waypoint.StartRouteOfOtherVehicle = veh;
                     Debug.Log("Start route of that vehicle: " + veh.Id);
                     break;
@@ -176,7 +176,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 switch (waypoint.Actions[i].Name)
                 {
                     case "SpeedAction":
-                        updateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].AbsoluteTargetSpeedValue, i, ACTION_TEXT_SPEED);
+                        updateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].AbsoluteTargetSpeedValueKMH, i, ACTION_TEXT_SPEED);
                         if (i <= 1) configureActionChoices(i+1);
                         break;
 
@@ -245,7 +245,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
             {
                 if (possibleActionsField[index].value == "SpeedAction")
                 {
-                    actions[index].AbsoluteTargetSpeedValue = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
+                    actions[index].AbsoluteTargetSpeedValueKMH = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
                 }
                 else if (possibleActionsField[index].value == "StopAction")
                 {

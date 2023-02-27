@@ -93,6 +93,38 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
+        public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
+        /// Same as DistanceCondition but simpler to read
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode reachPositionCondition = root.CreateElement("ReachPositionCondition");
+            SetAttribute("tolerance", "5", reachPositionCondition); 
+            //SetAttribute("tolerance", triggerInfo.Value.ToString(), reachPositionCondition); 
+            
+            XmlNode position = root.CreateElement("Position");
+            XmlNode worldposition = root.CreateElement("WorldPosition");
+            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3.x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3.y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3.z.ToString(), worldposition);
+            SetAttribute("h", triggerInfo.WorldPositionCarla.Rot.ToString(), worldposition);
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(reachPositionCondition);
+            reachPositionCondition.AppendChild(position);
+            position.AppendChild(worldposition);
+        }
+
         public void CriteriaConditions(XmlNode stopTrigger)
         {
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");

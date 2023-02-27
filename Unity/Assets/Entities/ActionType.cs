@@ -19,7 +19,7 @@ namespace Entity
         {
             ID = autoIncrementId++;
             Name = name;
-            AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
+            AbsoluteTargetSpeedValueKMH = absoluteTargetSpeedValue;
             DynamicsShape = "linear";
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
@@ -30,7 +30,7 @@ namespace Entity
             ID = autoIncrementId++;
             Name = name;
             StopDuration = stopduration;
-            AbsoluteTargetSpeedValue = speedValue;
+            AbsoluteTargetSpeedValueKMH = speedValue;
             DynamicsShape = "linear";
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
@@ -80,7 +80,7 @@ namespace Entity
 
         public int ID { get; private set; }
         public string Name { get; set; } // Todo rename?; has enum ActionTypeName; examples: SpeedAction, LaneChangeAction, AssignRouteAction
-        public double AbsoluteTargetSpeedValue { get; set; } // double from 0 to infinitive(but ~300kmh should be max value); unit: meter per second; needed for SpeedAction
+        public double AbsoluteTargetSpeedValueKMH { get; set; } // double from 0 to infinitive(but ~300kmh should be max value); unit: meter per second; needed for SpeedAction
         public string DynamicsShape { get; set; } // has enum; good values: linear, step; only in advanced settings
         public double SpeedActionDynamicsValue { get; set; } // double: 0 to infinitive, good value: 0
         public double LaneChangeActionDynamicsValue { get; set; } // double: ~25 to infinitive, needs to be bigger than 0
@@ -102,7 +102,6 @@ namespace Entity
                 rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
                 PositionsCarla.Add(new Location(xCarla, yCarla, 0.3f, rotCarla));
             }
-
         }
 
         public object Clone()
@@ -111,7 +110,7 @@ namespace Entity
 
             cloneActionType.Name = String.IsNullOrEmpty(this.Name) ? String.Empty : string.Copy(this.Name);
             cloneActionType.ID = this.ID;
-            cloneActionType.AbsoluteTargetSpeedValue = this.AbsoluteTargetSpeedValue;
+            cloneActionType.AbsoluteTargetSpeedValueKMH = this.AbsoluteTargetSpeedValueKMH;
             cloneActionType.DynamicsShape = this.DynamicsShape;
             cloneActionType.SpeedActionDynamicsValue = this.SpeedActionDynamicsValue;
             cloneActionType.LaneChangeActionDynamicsValue = this.LaneChangeActionDynamicsValue;

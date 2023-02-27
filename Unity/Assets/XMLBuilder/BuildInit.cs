@@ -39,19 +39,21 @@ namespace ExportScenario.XMLBuilder
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
             // Spawn ego vehicle at requested coordinates and speed
-            double initialSpeedMS = (scenarioInfo.EgoVehicle.InitialSpeedKMH / 3.6); // convert km/h in m/s for Carla
-            BuildPrivate("hero", scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS, true, control_mode);
+            double initialSpeedMS_ego = (scenarioInfo.EgoVehicle.InitialSpeedKMH / 3.6); // convert km/h in m/s for Carla
+            BuildPrivate("hero", scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS_ego, true, control_mode);
 
             // Spawn simulation vehicles at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
-                BuildPrivate("adversary" + scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].getCarlaLocation(), scenarioInfo.Vehicles[n].InitialSpeedKMH / 3.6);
+                double initialSpeedMS = scenarioInfo.Vehicles[n].InitialSpeedKMH / 3.6;
+                if (scenarioInfo.Vehicles[n].StartRouteInfo != null) initialSpeedMS = 0;
+                BuildPrivate(scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].getCarlaLocation(), initialSpeedMS);
             }
 
             // Spawn pedestrians at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate("adversary_pedestrian" + scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].getCarlaLocation(), scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6);
+                BuildPrivate(scenarioInfo.Pedestrians[n].Id, scenarioInfo.Pedestrians[n].getCarlaLocation(), scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6);
             }
         }
 

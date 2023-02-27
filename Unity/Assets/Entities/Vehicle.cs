@@ -39,7 +39,7 @@ namespace Entity
             cloneVehicle.Model = (EntityModel)this.Model.Clone();
             cloneVehicle.Path = (Path)this.Path.Clone();
             cloneVehicle.Category = this.Category;
-            cloneVehicle.StartRouteVehicle = this.StartRouteVehicle; // // TODO copy value, not reference (but works anyway)
+            cloneVehicle.StartRouteInfo = this.StartRouteInfo; // // TODO copy value, not reference (but works anyway)
 
             //BaseEntity
             cloneVehicle.Id = string.Copy(this.Id);
@@ -54,7 +54,7 @@ namespace Entity
         public EntityModel Model { get; private set; }
         public VehicleCategory Category { get; private set; }
         public Path Path { get; set; }
-        
-        public Vehicle StartRouteVehicle { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
+        public StartRouteInfo StartRouteInfo { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
+        //public Vehicle StartRouteVehicle { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
     }
 }

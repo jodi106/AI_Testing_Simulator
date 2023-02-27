@@ -23,5 +23,7 @@ namespace Entity
         public EntityModel Model { get; set; }
         public PedestrianType Type { get; set; }
         public Path Path { get; set; }
+
+        public StartRouteInfo StartRouteInfo { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
     }
 }

@@ -38,6 +38,18 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
+        public TriggerInfo(string triggerType, string entityRef, double value, Location worldPosition, string conditionEdge = "rising")
+        /// Constructor for "ReachPositionCondition"
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Value = value;
+            WorldPosition = worldPosition;
+            ConditionEdge = conditionEdge;
+            CalculateLocationCarla();
+        }
+
         public TriggerInfo(string triggerType, double delay, string conditionEdge, ActionType afterAction)
         /// for StoryboardElementStateCondition
         {

@@ -159,7 +159,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         deleteStartRouteWaypointButton.RegisterCallback<ClickEvent>((clickEvent) =>
         {
-            foreach (Waypoint waypoint in vehicle.StartRouteVehicle.Path.WaypointList)
+            foreach (Waypoint waypoint in vehicle.StartRouteInfo.vehicle.Path.WaypointList)
             {
                 if (waypoint.StartRouteOfOtherVehicle == vehicle)
                 {
@@ -184,13 +184,13 @@ public class AdversarySettingsPopupController : MonoBehaviour
         gSlider.value = color.g;
         bSlider.value = color.b;
 
-        if (vehicle.StartRouteVehicle != null)
+        if (vehicle.StartRouteInfo != null)
         {
             startRouteTimeField.style.display = DisplayStyle.None;
             startRouteWaypointTimeLabel.style.display = DisplayStyle.Flex;
             deleteStartRouteWaypointButton.style.display = DisplayStyle.Flex;
             startRouteInfoLabel.style.display = DisplayStyle.None;
-            startRouteWaypointTimeLabel.text = vehicle.StartRouteVehicle.Id + " reaches a specific Waypoint";
+            startRouteWaypointTimeLabel.text = vehicle.StartRouteInfo.vehicle.Id + " reaches a specific Waypoint";
         }
         else
         {
@@ -200,7 +200,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
     private void resetStartRouteFields()
     {
-        vehicle.StartRouteVehicle = null;
+        vehicle.StartRouteInfo = null;
         startRouteTimeField.style.display = DisplayStyle.Flex;
         startRouteWaypointTimeLabel.style.display = DisplayStyle.None;
         deleteStartRouteWaypointButton.style.display = DisplayStyle.None;

@@ -34,13 +34,13 @@ namespace ExportScenario.XMLBuilder
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildVehicle(scenarioInfo.Vehicles[i].Model.CarlaName, "adversary" + scenarioInfo.Vehicles[i].Id, "simulation", ConvertUnityColorToString(scenarioInfo.Vehicles[i]));               
+                BuildVehicle(scenarioInfo.Vehicles[i].Model.CarlaName, scenarioInfo.Vehicles[i].Id, "simulation", ConvertUnityColorToString(scenarioInfo.Vehicles[i]));               
             }         
             
             // pedestrians
             for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
-                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.CarlaName, "adversary_pedestrian" + scenarioInfo.Pedestrians[i].Id);
+                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.CarlaName, scenarioInfo.Pedestrians[i].Id);
             }
         }
 
