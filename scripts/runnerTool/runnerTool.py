@@ -1,6 +1,7 @@
 import subprocess
 import carla 
 import time
+from datetime import datetime
 import os
 import sys
 import json
@@ -14,7 +15,7 @@ init()
 # TODOS: 
 # Set spectator to ego vehicle position (scenario_runner.py)
 # Create one file containing all results (delete seperate json files?)
-
+# check subprocess command for unnecessary commands
 # Save overview file
 # Create get failed scenarios method
 # No rendering mode
@@ -22,16 +23,18 @@ init()
 # config.py also possible python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
 # Check os -> if not windows change subprocess cmd
 
+
 class RunnerTool(object):
 
-    def __init__(self, checks = True):
+    def __init__(self, checks = True, logs = True):
 
-        self.checks = checks
+        if logs:
+            self.log = Log()
         self.config = self.get_config()
-        if self.checks:
+        if checks:
             self.check_paths(self.config)
-
         self.create_result_dir()
+
 
     def get_config(self):
         ''' Loads required user specified paths from config.json file.'''
@@ -41,7 +44,7 @@ class RunnerTool(object):
             return conf
 
         except Exception: 
-            print("ERROR: Couldn't import config.json from path: {path}".format(path=os.path.join(sys.path[0],'config.json')))
+            self.log.create_entry("ERROR: Couldn't import config.json from path: {path}".format(path=os.path.join(sys.path[0],'config.json')))
             raise
 
     def check_paths(self, conf:dict):
@@ -60,9 +63,11 @@ class RunnerTool(object):
         k = 0
         for key in conf.keys():
             if "INSERT_PATH" in conf[key]:
-                raise ValueError('Path for {path} not specified in config.json'.format(path=key))
+                self.log.create_entry('Path for {path} not specified in config.json'.format(path=key))
+                raise ValueError(self.log.get_top(print_out=False))
             if not os.path.exists(conf[key]) and k < 4:
-                raise ValueError('Path {path} specified in config.json does not exist'.format(path=key))
+                self.log.create_entry('Path {path} specified in config.json does not exist'.format(path=key))
+                raise ValueError(self.log.get_top(print_out=False))
             k+=1
 
     def start_carla(self):
@@ -70,9 +75,9 @@ class RunnerTool(object):
         try:
             client = carla.Client('localhost', 2000) 
             world = client.get_world()
-            print("INFO: Carla is already running, starting scenario..")
+            self.log.create_entry("INFO: Carla is already running, starting scenario..")
         except Exception:
-            print("INFO: Carla not Running, Starting exe..")
+            self.log.create_entry("INFO: Carla not Running, Starting exe..")
             self.carla_exe = subprocess.Popen(self.config["PATH_TO_CARLA_ROOT"]+"/CarlaUE4.exe")
             time.sleep(10)
             client = carla.Client('localhost', 2000) 
@@ -84,12 +89,11 @@ class RunnerTool(object):
         
         folder_addr = conf["PATH_TO_XOSC_FILES"]
         file_list = os.listdir(folder_addr)
-
-        print("INFO: Found scenarios in directory:\n" + '\n'.join([x for x in file_list if ".xosc" in x]))
+        self.log.create_entry("INFO: Found scenarios in directory:\n" + '\n'.join([x for x in file_list if ".xosc" in x]))
         for file in file_list:
             if ".xosc" in file:
                 try:
-                    print("INFO: Running scenario -> {scenario}...".format(scenario=file))
+                    self.log.create_entry("INFO: Running scenario -> {scenario}...".format(scenario=file))
                     openscenario = folder_addr + "/" + file
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python root and env name are required.)
                     cmd = """cd \"{runner_root}\"\
@@ -102,12 +106,10 @@ class RunnerTool(object):
                     result = subprocess.run(cmd, shell=True, capture_output=True)
                     self.print_subprocess_output(result)
                 except Exception as e:
-                    print("ERROR: An error occured while running scenario {s_name}.".format(s_name=file))
+                    self.log.create_entry("ERROR: An error occured while running scenario {s_name}.".format(s_name=file))
                     show = input("Show error message?(y/n): ")
                     if show == "y":
-                        print(e)
-                    else:
-                        print("PROMT NOCH NICHT DEFINIERT")
+                        self.log.create_entry(e)
         
         self.create_results_overview()
 
@@ -130,12 +132,12 @@ class RunnerTool(object):
         None
         '''
         if "Not all scenario tests were successful" in result.stdout.decode("utf-8"):
-            print("INFO: Not all scenario tests were successful")
+            self.log.create_entry("INFO: Not all scenario tests were successful")
         elif "All scenario tests were passed successfully" in result.stdout.decode("utf-8"):
-            print("INFO: All scenario tests were passed successfully")
+            self.log.create_entry("INFO: All scenario tests were passed successfully")
 
         if "exception" in result.stderr.decode("utf-8"):
-            print(result.stderr.decode("utf-8"))
+            self.log.create_entry(result.stderr.decode("utf-8"))
 
     def create_result_dir(self):
         ''' Creates new dir in RUNNER_ROOT to store scenario results, if none exists.'''
@@ -143,9 +145,9 @@ class RunnerTool(object):
 
         if not os.path.exists(self.results_path):
             os.makedirs(self.results_path)
-            print("INFO: Created results directory.")
+            self.log.create_entry("INFO: Created results directory.")
         else:
-            print("INFO: Results directory found.")
+            self.log.create_entry("INFO: Results directory found.")
 
     def load_results(self):
         '''
@@ -178,18 +180,23 @@ class RunnerTool(object):
         result_dict = self.load_results()
         count = 1
 
-        print("----------------- RESULTS OVERVIEW -----------------")
+        self.log.create_entry("----------------- RESULTS OVERVIEW -----------------")
         print("\tSCNEARIO NAMES\t | \tSUCCESS")
+        self.log.create_entry("SCNEARIO NAMES | SUCCESS", print_result=False)
 
         for scenario in result_dict.keys():
             if result_dict[scenario]["success"]:
                 print("\t" + str(count) + ". " + result_dict[scenario]["scenario"] + "\t | \t " + str(result_dict[scenario]["success"]))
+                self.log.create_entry(str(count) + ". " + result_dict[scenario]["scenario"] + " | " + str(result_dict[scenario]["success"]), print_result=False)
             else:
                 print("\t" + str(count) + ". " + Fore.RED + result_dict[scenario]["scenario"] + Style.RESET_ALL +"\t | \t " + Fore.RED + str(result_dict[scenario]["success"]) + Style.RESET_ALL)
+                self.log.create_entry(str(count) + ". " + result_dict[scenario]["scenario"]  +" | "  + str(result_dict[scenario]["success"]), print_result =False)
             count+=1
-        print("----------------------------------------------------")
+        self.log.create_entry("----------------------------------------------------")
 
         self.user_specific_results(result_dict)
+
+        self.log.store(self.config["PATH_TO_SCENARIO_RUNNER_ROOT"] + "/")
 
 
     def user_specific_results(self, result_dict:dict):
@@ -207,24 +214,53 @@ class RunnerTool(object):
         '''
         indx = list(result_dict.keys())
 
-        print("To get detailed information enter the relevant Scenario number (enter 0 to exit)")
+        self.log.create_entry("To get detailed information enter the relevant Scenario number (enter 0 to exit)")
 
         while True:
             try:
                 usr_input = int(input("Scenario Number (0 to exit): "))
             except Exception:
-                print("ERROR: Invalid input")
+                self.log.create_entry("ERROR: Invalid input")
                 continue
             if usr_input == 0:
-                print("Exiting results...")
+                self.log.create_entry("Exiting results...")
                 break
             elif usr_input > len(indx):
-                print("ERROR: Scenario doesen't exist")
+                self.log.create_entry("ERROR: Scenario doesen't exist")
             else:
-                print(json.dumps(result_dict[indx[usr_input-1]], indent=2))
+                self.log.create_entry(json.dumps(result_dict[indx[usr_input-1]], indent=2))
+
+class Log:
+    
+    def __init__(self):
+        self.logfile = {}
+        self.count = 1
+
+    def create_entry(self, entry: str, print_result = True):
+        self.logfile[str(self.count) + ": " + str(datetime.now())[10:19]] = entry
+        if print_result:
+            self.get_top(print_result)
+        self.count+=1
+
+    def get_log(self):
+        return self.logfile
+    
+    def get_top(self, print_out):
+        keys = list(self.logfile.keys())
+        if print_out:
+            print(self.logfile[keys[-1]])
+
+        return self.logfile[keys[-1]] 
+    
+    def store(self, path:str=""):
+        with open(path+ 'runnerTool_Log_{date}.json'
+                  .format(date = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')), 
+                  'w', encoding='utf-8') as fp:
+            json.dump(self.logfile, fp, sort_keys=False, indent=4)
+
 
 def main():
-    runner_tool = RunnerTool(False)
+    runner_tool = RunnerTool(checks = False, logs=True)
     #runner_tool.start_carla()
     #runner_tool.runner()
     runner_tool.create_results_overview()
