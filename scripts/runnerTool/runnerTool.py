@@ -14,7 +14,6 @@ init()
 # 
 # TODOS: 
 # Set spectator to ego vehicle position (scenario_runner.py)
-# Create get failed scenarios method
 # No rendering mode
 # Speed up scenario? -> https://github.com/carla-simulator/carla/issues/457 change subprocess command to open carla exe with args.
 # config.py also possible python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
@@ -68,17 +67,17 @@ class RunnerTool(object):
                 raise ValueError(self.log.get_top(print_out=False))
             k+=1
 
-    def start_carla(self):
+    def start_carla(self, host = 'localhost', port = 2000, low_quality = False):
         ''' Starts Carla.exe if not already running.'''
         try:
-            client = carla.Client('localhost', 2000) 
+            client = carla.Client(host, port) 
             world = client.get_world()
             self.log.create_entry("INFO: Carla is already running, starting scenario..")
         except Exception:
             self.log.create_entry("INFO: Carla not Running, Starting exe..")
             self.carla_exe = subprocess.Popen(self.config["PATH_TO_CARLA_ROOT"]+"/CarlaUE4.exe")
             time.sleep(10)
-            client = carla.Client('localhost', 2000) 
+            client = carla.Client(host, port) 
             world = client.get_world()
 
     def runner(self):
@@ -93,7 +92,7 @@ class RunnerTool(object):
                 try:
                     self.log.create_entry("INFO: Running scenario -> {scenario}...".format(scenario=file))
                     openscenario = folder_addr + "/" + file
-                    # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python root and env name are required.)
+                    # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python env root is required.)
                     cmd = """cd \"{runner_root}\"\
                                 &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"
                             """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],python_root=conf["PATH_TO_PYTHON_ENV"],file=openscenario, result_path=self.results_path)
@@ -168,7 +167,7 @@ class RunnerTool(object):
                 
         return results_dict
 
-    def create_results_overview(self):
+    def create_results_overview(self, call = True):
         ''' Creates scenario success overview of all scenario results .json files in results dir'''
         
         result_dict = self.load_results()
@@ -190,10 +189,9 @@ class RunnerTool(object):
                 overview.append(self.log.get_top(print_out=False))
             count+=1
         self.log.create_entry("----------------------------------------------------")
-
-        self.user_specific_results(result_dict)
-
-        self.log.append_dict("All_Results",result_dict)
+        if call:
+            self.user_specific_results(result_dict)
+            self.log.append_dict("All_Results",result_dict)
 
         if self.detailed_log:
             self.log.store(self.config["PATH_TO_SCENARIO_RUNNER_ROOT"] + "/")
@@ -204,6 +202,25 @@ class RunnerTool(object):
             for item in overview:
                 file.write(item+"\n")
             file.close()
+
+    def get_failed(self, result_dict:dict, print_out = True):
+        failed = []
+        if print_out:
+            print("----------------- FAILED SCENARIOS -----------------")
+        for key in result_dict.keys():
+            if not result_dict[key]["success"]:
+                criteria = []
+                s = result_dict[key]["scenario"] + " (Failed Tests: "
+                for criteria_dict in result_dict[key]["criteria"]:
+                    if not criteria_dict["success"]:
+                        criteria.append(criteria_dict["name"])
+                s = s + ','.join(criteria) + ")"
+                failed.append(s)
+            if print_out:
+                print(s)
+            
+        return failed
+
 
     def user_specific_results(self, result_dict:dict):
         '''
@@ -220,22 +237,36 @@ class RunnerTool(object):
         '''
         indx = list(result_dict.keys())
 
-        self.log.create_entry("To get detailed information enter the relevant Scenario number (enter 0 to exit)")
-
+        self.log.create_entry("Browse Scenario Results (enter 0 to exit, h for help)")
+        
         while True:
             try:
-                usr_input = int(input("Scenario Number (0 to exit): "))
+                usr_input = input("Enter Command(0 to exit, h for help): ")
+                try:
+                   usr_input = int(usr_input)
+                except Exception:
+                    pass
             except Exception:
                 self.log.create_entry("ERROR: Invalid input")
                 continue
-            if usr_input == 0:
+            if usr_input == "f":
+                self.get_failed(result_dict)
+            elif usr_input == 0:
                 self.log.create_entry("Exiting results...")
                 break
-            elif usr_input > len(indx):
+            elif type(usr_input) == int and usr_input > len(indx):
                 self.log.create_entry("ERROR: Scenario doesen't exist")
-            else:
+            elif type(usr_input) == int:
                 print(json.dumps(result_dict[indx[usr_input-1]], indent=2))
                 self.log.create_entry("-- LOG_INFO: Detailed Scenario Info omitted for Logfile. See All Results. LOG_INFO --", print_result=False)
+            elif usr_input == "o":
+                self.create_results_overview(call=False)
+            else:
+                print("""\n----------------- HELP AVAILABLE COMMANDS -----------------:
+                Exit: 0
+                Scenario Details: [Scenario_Number]
+                List of failed scenarios: \"f\"
+                Scenario Overview: \"o\"\n""")
 
 class Log:
     
@@ -270,7 +301,7 @@ class Log:
 
 
 def main():
-    runner_tool = RunnerTool(checks = True, detailed_log=True, save_overview=True)
+    runner_tool = RunnerTool(checks = False, detailed_log=False, save_overview=False)
     #runner_tool.start_carla()
     #runner_tool.runner()
     runner_tool.create_results_overview()
