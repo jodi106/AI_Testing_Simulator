@@ -13,13 +13,6 @@ public class EgoViewController : VehicleViewController
     public new void Awake()
     {
         base.Awake();
-
-        this.egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
-        this.egoSettingsController.gameObject.SetActive(true);
-
-        var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        this.ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, 0); // TODO initial speed: different default later?
-        this.ego.setView(this);
     }
 
     public override Sprite getSprite()
@@ -75,20 +68,31 @@ public class EgoViewController : VehicleViewController
         mainController.refreshEntityList();
     }
 
-    public override void init(VehicleCategory cat)
+    public override void init(VehicleCategory cat, Color color)
     {
+        egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
+        egoSettingsController.gameObject.SetActive(true);
+        var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
+        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, 0); // TODO initial speed: different default later?
+        ego.setView(this);
         ego.setCategory(cat);
+        ego.setColor(color);
         switch (cat)
         {
             case VehicleCategory.Car:
             case VehicleCategory.Motorcycle:
-                this.ignoreWaypoints = false;
+                ignoreWaypoints = false;
                 return;
             case VehicleCategory.Bike:
             case VehicleCategory.Pedestrian:
-                this.ignoreWaypoints = true;
+                ignoreWaypoints = true;
                 return;
         }
+    }
+
+    public void init(Ego ego)
+    {
+
     }
 
     public override void onChangeCategory(VehicleCategory cat)

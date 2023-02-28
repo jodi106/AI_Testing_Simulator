@@ -40,8 +40,6 @@ public class PathController : MonoBehaviour
         previewSprite = gameObject.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
 
-        building = true;
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (building)
@@ -118,10 +116,24 @@ public class PathController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetEntityController(AdversaryViewController controller)
+    public void Init(AdversaryViewController controller, Vehicle v, Color color, bool building = true)
     {
+        Path = v.Path;
+        this.SetColor(color);
         this.adversaryViewController = controller;
-        AddMoveToWaypoint(controller.getEntity().SpawnPoint.Vector3); //init with starting position of car -- should be set in model or on export
+        this.building = building;
+        if (v.Path.WaypointList.Count == 0)
+        {
+            AddMoveToWaypoint(controller.getPosition()); // have PathController create Waypoint
+        }
+        else
+        {
+            foreach (Waypoint w in v.Path.WaypointList)
+            {
+                var pos = w.Location.Vector3;
+                AddMoveToWaypoint(pos, w); //waypoint already exists, dont create it
+            }
+        }
         waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }
 
@@ -223,13 +235,19 @@ public class PathController : MonoBehaviour
         }
     }
 
-    public void AddMoveToWaypoint(Vector2 position)
+    /*
+     * Add a Waypoint to the end of the path.
+     * If the optional waypoint is passed, no Waypoint will be generated and appended to Path.
+     * waypointViewControllers and pathRenderer are always in sync.
+     * Path may have more Waypoints than there are controllers in waypointsViewControllers, if the controller is being generated from an existing Path.
+     */
+    public void AddMoveToWaypoint(Vector2 position, Waypoint waypoint = null)
     {
         var pathLen = 0;
         var laneChanges = new List<int>();
         var path = new List<Vector2>();
 
-        if (Path.IsEmpty())
+        if (waypointViewControllers.Count == 0)
         {
             pathRenderer.SetPosition(pathRenderer.positionCount++, HeightUtil.SetZ(position, HeightUtil.PATH_SELECTED));
         }
@@ -250,13 +268,17 @@ public class PathController : MonoBehaviour
             }
         }
         var used = addLaneChangeWaypoints(laneChanges, path);
-        var viewController = createWaypointGameObject(position.x, position.y, pathLen - used);
-        this.Path.WaypointList.Add(viewController.waypoint);
-        waypointViewControllers.AddLast((viewController, pathLen - used));
-        if (Path.WaypointList.Count() > 1)
+        WaypointViewController viewController;
+        if (waypoint is not null)
         {
-            mainController.setSelectedEntity(viewController);
+            viewController = createWaypointGameObject(position.x, position.y, false, waypoint);
         }
+        else //waypoint is already in Path
+        {
+            viewController = createWaypointGameObject(position.x, position.y);
+            this.Path.WaypointList.Add(viewController.waypoint);
+        }
+        waypointViewControllers.AddLast((viewController, pathLen - used));
         afterEdit();
     }
 
@@ -276,7 +298,7 @@ public class PathController : MonoBehaviour
             if (laneChange != 0)
             {
                 pathLen = laneChange - used;
-                viewController = createWaypointGameObject(path[laneChange].x, path[laneChange].y, laneChange - used, true);
+                viewController = createWaypointGameObject(path[laneChange].x, path[laneChange].y, true);
                 used += laneChange - used;
                 if (node is not null)
                 {
@@ -294,7 +316,7 @@ public class PathController : MonoBehaviour
             if (laneChange != path.Count() - 1)
             {
                 pathLen = 1;
-                viewController = createWaypointGameObject(path[laneChange + 1].x, path[laneChange + 1].y, 1, true);
+                viewController = createWaypointGameObject(path[laneChange + 1].x, path[laneChange + 1].y, true);
                 used += 1;
                 if (node is not null)
                 {
@@ -314,14 +336,23 @@ public class PathController : MonoBehaviour
         return used;
     }
 
-    WaypointViewController createWaypointGameObject(float x, float y, int pathLen, bool secondary = false)
+    WaypointViewController createWaypointGameObject(float x, float y, bool secondary = false, Waypoint w = null)
     {
         GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(x, y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
         WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
         viewController.setPathController(this);
         viewController.setColor(pathRenderer.startColor);
         viewController.setIgnoreWaypoints(this.shouldIgnoreWaypoints());
-        viewController.waypoint = generateWaypoint(new Location(new Vector3(x, y, 0), 0), new ActionType("MoveToAction"));
+        Waypoint waypoint;
+        if (w is not null)
+        {
+            waypoint = w;
+        }
+        else
+        {
+            waypoint = generateWaypoint(new Location(new Vector3(x, y, 0), 0), new ActionType("MoveToAction"));
+        }
+        viewController.waypoint = waypoint;
         viewController.waypoint.View = viewController;
         if (secondary) viewController.makeSecondary();
         return viewController;

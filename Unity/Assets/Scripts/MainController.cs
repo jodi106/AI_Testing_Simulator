@@ -69,11 +69,25 @@ public class MainController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
             buttonBar.visible = action.name != "" ? true : false;
+            selectedEntity = null;
         });
 
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
+    }
+
+    public void loadScenarioInfo(ScenarioInfo info)
+    {
+        info = (ScenarioInfo)info.Clone();
+        EventManager.TriggerEvent(new MapChangeAction(""));
+        EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
+        this.info = info;
+        foreach(Vehicle v in info.Vehicles)
+        {
+            var viewController = Instantiate(vehiclePrefab, Vector3.zero, Quaternion.identity).GetComponent<AdversaryViewController>();
+            viewController.init(v);
+        }
     }
 
     public void Update()
@@ -110,7 +124,6 @@ public class MainController : MonoBehaviour
             this.selectedEntity = null;
             this.actionButtonCanvas.SetActive(false);
         }
-
     }
 
     public void moveActionButtons(Vector2 pos)
@@ -150,20 +163,20 @@ public class MainController : MonoBehaviour
         pos.z = -0.1f;
         GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : vehiclePrefab;
         var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
-        VehicleViewController viewController = null;
+        VehicleViewController viewController;
+        Color color;
         if (this.info.EgoVehicle is null)
         {
             viewController = vehicleGameObject.GetComponent<EgoViewController>();
-            viewController.getEntity().setColor(new Color(1f, 1f, 1f, 1f)); // make Ego vehicle white
+            color = new Color(1f, 1f, 1f, 1f); // make Ego vehicle white
         }
         else
         {
             viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
-            viewController.getEntity().setColor(color);
         }
-        viewController.init(category);
+        viewController.init(category, color);
     }
 
     private void initializeButtonBar(VisualElement editorGUI)

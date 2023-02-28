@@ -16,32 +16,57 @@ public class AdversaryViewController : VehicleViewController
         return this.pathController;
     }
 
-    public new void Awake()
+    // act as constructor -- check for alternatives to set initial state
+    public override void init(VehicleCategory cat, Color color)
     {
-        base.Awake();
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, INITIAL_SPEED);
-        this.vehicle.setView(this);
-        this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        this.vehicleSettingsController.gameObject.SetActive(true);
-    }
-
-    // act as constructor -- check for alternatives to set initial state
-    public override void init(VehicleCategory cat)
-    {
+        vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, INITIAL_SPEED);
+        vehicle.setView(this);
+        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        vehicleSettingsController.gameObject.SetActive(true);
         vehicle.setCategory(cat);
         vehicle.setModel(VehicleModelRepository.getDefaultModel(cat));
+        vehicle.setColor(color);
         switch (cat)
         {
             case VehicleCategory.Car:
             case VehicleCategory.Motorcycle:
-                this.ignoreWaypoints = false;
-                return;
+                ignoreWaypoints = false;
+                break;
             case VehicleCategory.Bike:
             case VehicleCategory.Pedestrian:
-                this.ignoreWaypoints = true;
-                return;
+                ignoreWaypoints = true;
+                break;
+        }
+    }
+
+    public void init(Vehicle v)
+    {
+        vehicle = v;
+        placed = true;
+        vehicle.setView(this);
+        onChangePosition(vehicle.SpawnPoint);
+        onChangeCategory(vehicle.Category);
+        onChangeModel(vehicle.Model);
+        onChangeColor(vehicle.Color);
+        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        vehicleSettingsController.gameObject.SetActive(true);
+        switch (vehicle.Category)
+        {
+            case VehicleCategory.Car:
+            case VehicleCategory.Motorcycle:
+                ignoreWaypoints = false;
+                break;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                ignoreWaypoints = true;
+                break;
+        }
+        if (v.Path is not null)
+        {
+            this.pathController = Instantiate(pathPrefab, new Vector3(0, 0, -0.1f), Quaternion.identity).GetComponent<PathController>();
+            this.pathController.Init(this, this.vehicle, sprite.color, false);
         }
     }
 
@@ -86,11 +111,8 @@ public class AdversaryViewController : VehicleViewController
         base.select();
         if(this.pathController is null)
         {
-            var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
-            this.pathController = pathGameObject.GetComponent<PathController>();
-            this.pathController.Path = this.vehicle.Path;
-            this.pathController.SetEntityController(this);
-            this.pathController.SetColor(this.sprite.color);
+            this.pathController = Instantiate(pathPrefab, new Vector3(0, 0, -0.1f), Quaternion.identity).GetComponent<PathController>();
+            this.pathController.Init(this, this.vehicle, sprite.color);
         }
         pathController?.select();
         snapController.IgnoreClicks = true;

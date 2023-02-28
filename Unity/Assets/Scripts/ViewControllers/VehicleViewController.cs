@@ -54,7 +54,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         return this.getEntity().SpawnPoint;
     }
 
-    public abstract void init(VehicleCategory cat);
+    public abstract void init(VehicleCategory cat, Color color);
 
     public virtual void onChangePosition(Location location)
     {
@@ -98,6 +98,10 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void Update()
     {
+        if(getEntity() == null)
+        {
+            return; //not initialized yet
+        }
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
