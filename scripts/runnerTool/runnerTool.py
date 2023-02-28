@@ -14,9 +14,6 @@ init()
 # 
 # TODOS: 
 # Set spectator to ego vehicle position (scenario_runner.py)
-# Create one file containing all results (delete seperate json files?)
-# check subprocess command for unnecessary commands
-# Save overview file
 # Create get failed scenarios method
 # No rendering mode
 # Speed up scenario? -> https://github.com/carla-simulator/carla/issues/457 change subprocess command to open carla exe with args.
@@ -26,14 +23,15 @@ init()
 
 class RunnerTool(object):
 
-    def __init__(self, checks = True, logs = True):
+    def __init__(self, detailed_log = False, checks = True, save_overview = False):
 
-        if logs:
-            self.log = Log()
+        self.log = Log()
         self.config = self.get_config()
         if checks:
             self.check_paths(self.config)
         self.create_result_dir()
+        self.detailed_log = detailed_log
+        self.save_overview = save_overview
 
 
     def get_config(self):
@@ -97,12 +95,8 @@ class RunnerTool(object):
                     openscenario = folder_addr + "/" + file
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python root and env name are required.)
                     cmd = """cd \"{runner_root}\"\
-                                &set CONDAPATH=\"{conda_root}\"\
-                                &set ENVNAME={envname}\
-                                &if %ENVNAME%==base (set ENVPATH=%CONDAPATH%) else (set ENVPATH=%CONDAPATH%/envs/%ENVNAME%)\
-                                &call %CONDAPATH%/Scripts/activate.bat %ENVPATH%\
-                                &python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"
-                            """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],conda_root=conf["PATH_TO_CONDA_ROOT"],envname=conf["ENVNAME"],file=openscenario, result_path=self.results_path)
+                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"
+                            """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],python_root=conf["PATH_TO_PYTHON_ENV"],file=openscenario, result_path=self.results_path)
                     result = subprocess.run(cmd, shell=True, capture_output=True)
                     self.print_subprocess_output(result)
                 except Exception as e:
@@ -171,13 +165,14 @@ class RunnerTool(object):
                 scenario_results = self.results_path + "/" + file
                 with open(scenario_results, 'r') as f:
                     results_dict[file] = json.load(f)
-
+                
         return results_dict
 
     def create_results_overview(self):
         ''' Creates scenario success overview of all scenario results .json files in results dir'''
         
         result_dict = self.load_results()
+        overview = ["SCNEARIO NAMES | SUCCESS"]
         count = 1
 
         self.log.create_entry("----------------- RESULTS OVERVIEW -----------------")
@@ -188,16 +183,27 @@ class RunnerTool(object):
             if result_dict[scenario]["success"]:
                 print("\t" + str(count) + ". " + result_dict[scenario]["scenario"] + "\t | \t " + str(result_dict[scenario]["success"]))
                 self.log.create_entry(str(count) + ". " + result_dict[scenario]["scenario"] + " | " + str(result_dict[scenario]["success"]), print_result=False)
+                overview.append(self.log.get_top(print_out=False))
             else:
                 print("\t" + str(count) + ". " + Fore.RED + result_dict[scenario]["scenario"] + Style.RESET_ALL +"\t | \t " + Fore.RED + str(result_dict[scenario]["success"]) + Style.RESET_ALL)
                 self.log.create_entry(str(count) + ". " + result_dict[scenario]["scenario"]  +" | "  + str(result_dict[scenario]["success"]), print_result =False)
+                overview.append(self.log.get_top(print_out=False))
             count+=1
         self.log.create_entry("----------------------------------------------------")
 
         self.user_specific_results(result_dict)
 
-        self.log.store(self.config["PATH_TO_SCENARIO_RUNNER_ROOT"] + "/")
+        self.log.append_dict("All_Results",result_dict)
 
+        if self.detailed_log:
+            self.log.store(self.config["PATH_TO_SCENARIO_RUNNER_ROOT"] + "/")
+        if self.save_overview:
+            file = open("{path}/Scenario_Overview_{date}.txt".format(path = self.config["PATH_TO_SCENARIO_RUNNER_ROOT"],
+                                                                    date = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')),
+                                                                    'w')
+            for item in overview:
+                file.write(item+"\n")
+            file.close()
 
     def user_specific_results(self, result_dict:dict):
         '''
@@ -228,7 +234,8 @@ class RunnerTool(object):
             elif usr_input > len(indx):
                 self.log.create_entry("ERROR: Scenario doesen't exist")
             else:
-                self.log.create_entry(json.dumps(result_dict[indx[usr_input-1]], indent=2))
+                print(json.dumps(result_dict[indx[usr_input-1]], indent=2))
+                self.log.create_entry("-- LOG_INFO: Detailed Scenario Info omitted for Logfile. See All Results. LOG_INFO --", print_result=False)
 
 class Log:
     
@@ -252,6 +259,9 @@ class Log:
 
         return self.logfile[keys[-1]] 
     
+    def append_dict(self, name, dict):
+        self.logfile[name] = dict
+    
     def store(self, path:str=""):
         with open(path+ 'runnerTool_Log_{date}.json'
                   .format(date = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')), 
@@ -260,7 +270,7 @@ class Log:
 
 
 def main():
-    runner_tool = RunnerTool(checks = False, logs=True)
+    runner_tool = RunnerTool(checks = True, detailed_log=True, save_overview=True)
     #runner_tool.start_carla()
     #runner_tool.runner()
     runner_tool.create_results_overview()
