@@ -43,10 +43,10 @@ This project started in February 2023 as a cooperation of University of Mannheim
 The team consists of:
 
 * `David <https://github.com/tropper26/>`__
-* `Eva`__
+* `Eva <https://github.com/eva128/>`__
 * `Mircea`__
-* `Yannick`__
-* `Andrea`__
+* `Yannick <https://github.com/YannickLa/>`__
+* `Andrada <https://github.com/andradademian/>`__
 * `Dragos`__
 
 
