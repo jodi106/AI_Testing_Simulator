@@ -55,8 +55,8 @@ namespace Entity
                 CopyEgoVehicle = this.EgoVehicle;
 
             List<BaseEntity> CopyAllEntities = new();
-            if (this.allEntities != null)
-                CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
+            //if (this.allEntities != null)
+                //CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
 
 
             foreach (Vehicle v in this.Vehicles)
