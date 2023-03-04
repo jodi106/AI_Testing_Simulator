@@ -44,9 +44,9 @@ The team consists of:
 
 * `David <https://github.com/tropper26/>`__
 * `Eva <https://github.com/eva128/>`__
-* `Mircea`__
+* `Mircea <https://github.com/IlinaMn/>`__
 * `Yannick <https://github.com/YannickLa/>`__
 * `Andrada <https://github.com/andradademian/>`__
-* `Dragos`__
+* `Dragos <https://github.com/Gustyx/>`__
 
 
