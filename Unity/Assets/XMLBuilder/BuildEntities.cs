@@ -30,7 +30,7 @@ namespace ExportScenario.XMLBuilder
         {
             // Build Cars           
             // ego-vehicle
-            BuildVehicle(scenarioInfo.EgoVehicle.Model.CarlaName, "hero", "ego_vehicle", ConvertUnityColorToString(scenarioInfo.EgoVehicle));
+            BuildVehicle(scenarioInfo.EgoVehicle.Model.CarlaName, scenarioInfo.EgoVehicle.Id, "ego_vehicle", ConvertUnityColorToString(scenarioInfo.EgoVehicle));
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {

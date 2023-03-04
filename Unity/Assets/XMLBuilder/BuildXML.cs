@@ -158,28 +158,16 @@ namespace ExportScenario.XMLBuilder
                     }
                 }
 
-                // StarteRouteInfo: Build SpeedAction to start this vehicle with startRouteInfo Trigger
-                if (vehicle.StartRouteInfo != null)
-                {
-                    ActionType speedAction = new ActionType("SpeedAction", vehicle.InitialSpeedKMH);
-                    TriggerInfo triggerInfo = new TriggerInfo("ReachPositionCondition", vehicle.StartRouteInfo.vehicle.Id, 5.0, vehicle.StartRouteInfo.locationCarla);
-                    BuildEvent(maneuver, speedAction, new List<TriggerInfo> { triggerInfo });
-                    vehicle.InitialSpeedKMH = 0;
-                }
-
-
                 // hierarchy
                 storyBoard.AppendChild(story);
                 story.AppendChild(act);
                 act.AppendChild(maneuverGroup);
-
-                // ToDo implement using OverallStartTrigger from Path
-                XmlNode actStartTrigger = root.CreateElement("StartTrigger");
-
-                act.AppendChild(actStartTrigger);
                 maneuverGroup.AppendChild(actors);
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
+
+                // Start Story StartTrigger
+                StartStory(act, maneuver, vehicle);
 
                 builtAtLeastOneStory = true;
             }
@@ -222,32 +210,111 @@ namespace ExportScenario.XMLBuilder
                     }
                 }
 
-                // StarteRouteInfo: Build SpeedAction to start this vehicle with startRouteInfo Trigger
-                if (pedestrian.StartRouteInfo != null)
-                {
-                    ActionType speedAction = new ActionType("SpeedAction", pedestrian.InitialSpeedKMH / 3.6);
-                    TriggerInfo triggerInfo = new TriggerInfo("ReachPositionCondition", pedestrian.StartRouteInfo.vehicle.Id, 5.0, pedestrian.StartRouteInfo.locationCarla);
-                    BuildEvent(maneuver, speedAction, new List<TriggerInfo> { triggerInfo });
-                    pedestrian.InitialSpeedKMH = 0;
-                }
-
                 // hierarchy
                 storyBoard.AppendChild(story);
                 story.AppendChild(act);
                 act.AppendChild(maneuverGroup);
-
-                // ToDo implement using OverallStartTrigger from Path
-                XmlNode actStartTrigger = root.CreateElement("StartTrigger");
-
-                act.AppendChild(actStartTrigger);
                 maneuverGroup.AppendChild(actors);
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
 
                 builtAtLeastOneStory = true;
+
+                // --------------------- TODO!!! Replace part below (see vehicle startStory() for reference) ---------------------
+
+                // ToDo implement using OverallStartTrigger from Path
+                XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+                act.AppendChild(actStartTrigger);
+
+                // StarteRouteInfo: Build SpeedAction to start this vehicle with startRouteInfo Trigger
+                if (pedestrian.StartRouteInfo != null && pedestrian.StartRouteInfo.Type != "Time") // TODO , see vehilce
+                {
+                    ActionType speedAction = new ActionType("SpeedAction", pedestrian.InitialSpeedKMH / 3.6);
+                    TriggerInfo triggerInfo = new TriggerInfo("ReachPositionCondition", pedestrian.StartRouteInfo.Vehicle.Id, 5.0, pedestrian.StartRouteInfo.LocationCarla);
+                    BuildEvent(maneuver, speedAction, new List<TriggerInfo> { triggerInfo });
+                    pedestrian.InitialSpeedKMH = 0;
+                }
+                
                 //// ToDo implement using OverallStopTrigger from Path.
                 //XmlNode stopTrigger = root.CreateElement("StopTrigger");
                 //storyBoard.AppendChild(stopTrigger);
+
+                // Start Story StartTrigger
+                //StartStory(act, vehicle);
+            }
+        }
+
+
+        public void BuildEventsInWaypoint(XmlNode maneuver, Waypoint waypoint, BaseEntity entity)
+        /// Creates Events by combining Actions and Triggers and combines them to one XML Block. One Event corresponds to one Waypoint Object in the Path.
+        {
+            // Build Actions (0 - 3x)
+            foreach (ActionType ac in waypoint.Actions)
+            {
+                List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
+                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 20, waypoint.Location));
+                BuildEvent(maneuver, ac, simpleTrigger);
+            }
+        }
+
+        public void BuildEvent(XmlNode maneuver, ActionType actionType, List<TriggerInfo> triggerInfo, string name = null)
+        {
+            XmlNode new_event = root.CreateElement("Event");
+            if (name == null) SetAttribute("name", actionType.Name + actionType.ID, new_event);
+            else SetAttribute("name", actionType.Name + "-" + name, new_event);
+            SetAttribute("priority", "overwrite", new_event); // Dynamic?
+            XmlNode action = root.CreateElement("Action");
+            SetAttribute("name", actionType.Name + actionType.ID, action);
+
+            // Create Action
+            BuildAction buildAction = new BuildAction(root, "buildAction");
+            Type type = typeof(BuildAction);
+            MethodInfo mi = type.GetMethod(actionType.Name);
+            mi.Invoke(buildAction, new object[2] { action, actionType });
+            new_event.AppendChild(action);
+
+            // Create Trigger(s)
+            BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
+            buildTrigger.CombineTrigger(new_event, true, triggerInfo);
+            maneuver.AppendChild(new_event);
+        }
+
+        private void StartStory(XmlNode act, XmlNode maneuver, Vehicle vehicle)
+        {
+            ActionType startStorySpeedAction;
+            TriggerInfo startStoryTrigger;
+
+            if (vehicle.StartRouteInfo != null)
+            {
+                if (vehicle.StartRouteInfo.Type == "Time")
+                {
+                    startStorySpeedAction = new ActionType("SpeedAction", vehicle.InitialSpeedKMH);
+                    startStoryTrigger = new TriggerInfo("ReachPositionCondition", vehicle.Id, 5, vehicle.SpawnPoint);
+
+                    BuildEvent(maneuver, startStorySpeedAction, new List<TriggerInfo> { startStoryTrigger }, "OverallStartCondition");
+                    vehicle.InitialSpeedKMH = 0;
+
+                    startStoryTrigger = new TriggerInfo("SimulationTimeCondition", vehicle.StartRouteInfo.Time, "greaterThan");
+                    BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
+                    buildTrigger.CombineTrigger(act, true, new List<TriggerInfo> { startStoryTrigger });
+                }
+                else if (vehicle.StartRouteInfo.Type != "Time")
+                {
+                    startStorySpeedAction = new ActionType("SpeedAction", vehicle.InitialSpeedKMH);
+                    string? triggerEntityId = (vehicle.StartRouteInfo.Type == "Ego") ? vehicle.StartRouteInfo.EgoVehicle.Id : vehicle.StartRouteInfo.Vehicle.Id;
+                    startStoryTrigger = new TriggerInfo("ReachPositionCondition", triggerEntityId, vehicle.StartRouteInfo.Distance, vehicle.StartRouteInfo.LocationCarla);
+
+                    BuildEvent(maneuver, startStorySpeedAction, new List<TriggerInfo> { startStoryTrigger }, "OverallStartCondition");
+                    vehicle.InitialSpeedKMH = 0;
+
+                    XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+                    act.AppendChild(actStartTrigger);
+                }
+            }
+            else
+            {
+                XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+                act.AppendChild(actStartTrigger);
             }
         }
 
@@ -269,60 +336,6 @@ namespace ExportScenario.XMLBuilder
             act.AppendChild(maneuverGroup);
             act.AppendChild(actStartTrigger);
             maneuverGroup.AppendChild(actors);
-        }
-
-
-        public void BuildEventsInWaypoint(XmlNode maneuver, Waypoint waypoint, BaseEntity entity)
-        /// Creates Events by combining Actions and Triggers and combines them to one XML Block. One Event corresponds to one Waypoint Object in the Path.
-        {
-            //BuildEvent(maneuver, waypoint.ActionTypeInfo, waypoint.TriggerList);
-
-            // Build Actions (0 - 3x)
-            foreach (ActionType ac in waypoint.Actions)
-            {
-                List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
-                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 20, waypoint.Location));
-                BuildEvent(maneuver, ac, simpleTrigger);
-            }
-
-            //XmlNode new_event = root.CreateElement("Event");
-            //SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, new_event);
-            //SetAttribute("priority", waypoint.Priority, new_event);
-            //XmlNode action = root.CreateElement("Action");
-            //SetAttribute("name", waypoint.ActionTypeInfo.Name + waypoint.ActionTypeInfo.ID, action);
-
-            //// Create Action
-            //BuildAction buildAction = new BuildAction(root, "buildAction");
-            //Type type = typeof(BuildAction);
-            //MethodInfo mi = type.GetMethod(waypoint.ActionTypeInfo.Name);
-            //mi.Invoke(buildAction, new object[2] { action, waypoint });
-            //new_event.AppendChild(action);
-
-            //// Create Trigger(s)
-            //BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
-            //buildTrigger.CombineTrigger(new_event, true, waypoint);
-            //maneuver.AppendChild(new_event);
-        }
-
-        public void BuildEvent(XmlNode maneuver, ActionType actionType, List<TriggerInfo> triggerInfo)
-        {
-            XmlNode new_event = root.CreateElement("Event");
-            SetAttribute("name", actionType.Name + actionType.ID, new_event);
-            SetAttribute("priority", "overwrite", new_event); // Dynamic?
-            XmlNode action = root.CreateElement("Action");
-            SetAttribute("name", actionType.Name + actionType.ID, action);
-
-            // Create Action
-            BuildAction buildAction = new BuildAction(root, "buildAction");
-            Type type = typeof(BuildAction);
-            MethodInfo mi = type.GetMethod(actionType.Name);
-            mi.Invoke(buildAction, new object[2] { action, actionType });
-            new_event.AppendChild(action);
-
-            // Create Trigger(s)
-            BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
-            buildTrigger.CombineTrigger(new_event, true, triggerInfo);
-            maneuver.AppendChild(new_event);
         }
 
 

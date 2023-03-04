@@ -11,6 +11,7 @@ namespace Entity
             Id = id;
             SpawnPoint = spawnPoint;
             InitialSpeedKMH = initialSpeedKMH;
+            CurrentSpeedKMH = initialSpeedKMH; // TODO keep or drop
         }
 
         public BaseEntity()
@@ -30,6 +31,7 @@ namespace Entity
         public Location SpawnPoint { get; set; }
 
         public double InitialSpeedKMH { get; set; }
+        public double CurrentSpeedKMH { get; set; }
 
         public Color Color { get; protected set; }
 

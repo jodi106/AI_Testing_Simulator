@@ -156,7 +156,7 @@ public class AdversaryViewController : VehicleViewController
 
     public override void openEditDialog()
     {
-        this.vehicleSettingsController.open(this, sprite.color);
+        this.vehicleSettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
     }
     protected override void registerEntity()
     {

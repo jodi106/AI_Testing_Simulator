@@ -40,13 +40,14 @@ namespace ExportScenario.XMLBuilder
 
             // Spawn ego vehicle at requested coordinates and speed
             double initialSpeedMS_ego = (scenarioInfo.EgoVehicle.InitialSpeedKMH / 3.6); // convert km/h in m/s for Carla
-            BuildPrivate("hero", scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS_ego, true, control_mode);
+            BuildPrivate(scenarioInfo.EgoVehicle.Id, scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS_ego, true, control_mode);
 
             // Spawn simulation vehicles at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
                 double initialSpeedMS = scenarioInfo.Vehicles[n].InitialSpeedKMH / 3.6;
-                if (scenarioInfo.Vehicles[n].StartRouteInfo != null) initialSpeedMS = 0;
+                if (scenarioInfo.Vehicles[n].StartRouteInfo != null) // && scenarioInfo.Vehicles[n].StartRouteInfo.Type != "Time" 
+                    initialSpeedMS = 0;
                 BuildPrivate(scenarioInfo.Vehicles[n].Id, scenarioInfo.Vehicles[n].getCarlaLocation(), initialSpeedMS);
             }
 
