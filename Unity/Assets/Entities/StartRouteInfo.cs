@@ -23,7 +23,6 @@ namespace Entity
             this.LocationCarla = waypoint.Location;
             this.Distance = distance;
             this.Type = "Waypoint";
-            //this.locationCarla = CalculateLocationCarla(waypoint.Location);
         }
 
         public StartRouteInfo(SimulationEntity vehicle, int time, string type = "Time")
@@ -31,7 +30,6 @@ namespace Entity
             this.Vehicle = vehicle;
             this.Time = time;
             this.Type = "Time";
-            //this.locationCarla = CalculateLocationCarla(location);
         }
 
         public StartRouteInfo(Vehicle vehicle, Location location, int distance, Ego egoVehicle, string type = "Ego")
@@ -41,16 +39,7 @@ namespace Entity
             this.Distance = distance;
             this.EgoVehicle = egoVehicle;
             this.Type = "Ego";
-            //this.locationCarla = CalculateLocationCarla(location);
         }
-
-        //private Location CalculateLocationCarla(Location pos)
-        //{
-        //    (float xCarla, float yCarla) = SnapController.UnityToCarla(pos.X, pos.Y);
-        //    float rotCarla = SnapController.UnityRotToRadians(pos.Rot);
-        //    rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
-        //    return new Location(xCarla, yCarla, 0.3f, rotCarla);
-        //}
 
         public bool isTypeWaypoint()
         {

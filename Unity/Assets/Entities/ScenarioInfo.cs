@@ -72,7 +72,7 @@ namespace Entity
                             PedestrianType.Girl, //Value
                             v.InitialSpeedKMH, //Value
                             v.Id, //Value
-                            v.StartRouteInfo //Value
+                            v.StartRouteInfo //Reference
                         );
 
                     exPedestrians.Add(CopyPedestrian);
