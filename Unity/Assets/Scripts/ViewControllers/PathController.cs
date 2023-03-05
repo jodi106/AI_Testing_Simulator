@@ -53,6 +53,7 @@ public class PathController : MonoBehaviour
                     if (Path.IsEmpty() || (waypointColliderType == CollisionType.None && mouseColliderType == CollisionType.None))
                     {
                         AddMoveToWaypoint(position.Vector3);
+                        mainController.setSelectedEntity(waypointViewControllers.Last.Value.Item1);
                     }
                 }
             }
@@ -129,7 +130,7 @@ public class PathController : MonoBehaviour
             foreach (Waypoint w in v.Path.WaypointList)
             {
                 var pos = w.Location.Vector3;
-                AddMoveToWaypoint(pos, w); //waypoint already exists, dont create it
+                AddMoveToWaypoint(pos, w, false); //waypoint already exists, dont create it
             }
         }
         adjustHeights(false);
@@ -240,7 +241,7 @@ public class PathController : MonoBehaviour
      * waypointViewControllers and pathRenderer are always in sync.
      * Path may have more Waypoints than there are controllers in waypointsViewControllers, if the controller is being generated from an existing Path.
      */
-    public void AddMoveToWaypoint(Vector2 position, Waypoint waypoint = null)
+    public void AddMoveToWaypoint(Vector2 position, Waypoint waypoint = null, bool addLaneChanges = true)
     {
         var pathLen = 0;
         var laneChanges = new List<int>();
@@ -266,7 +267,11 @@ public class PathController : MonoBehaviour
                 pathRenderer.SetPosition(pathRenderer.positionCount++, HeightUtil.SetZ(coord, HeightUtil.PATH_SELECTED));
             }
         }
-        var used = addLaneChangeWaypoints(laneChanges, path);
+        var used = 0;
+        if(addLaneChanges)
+        {
+            used = addLaneChangeWaypoints(laneChanges, path);
+        }
         WaypointViewController viewController;
         if (waypoint is not null)
         {
@@ -312,7 +317,7 @@ public class PathController : MonoBehaviour
                 }
             }
 
-            if (laneChange != path.Count() - 1)
+            if (laneChange <= path.Count() - 3)
             {
                 pathLen = 1;
                 viewController = createWaypointGameObject(path[laneChange + 1].x, path[laneChange + 1].y, true);

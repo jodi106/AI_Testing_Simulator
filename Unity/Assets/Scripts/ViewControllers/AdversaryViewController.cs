@@ -68,7 +68,7 @@ public class AdversaryViewController : VehicleViewController
         }
         if (v.Path is not null)
         {
-            this.pathController = Instantiate(pathPrefab, this.transform.position, Quaternion.identity).GetComponent<PathController>();
+            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
             this.pathController.Init(this, this.vehicle, false);
         }
     }
@@ -114,7 +114,8 @@ public class AdversaryViewController : VehicleViewController
         base.select();
         if(this.pathController is null)
         {
-            this.pathController = Instantiate(pathPrefab, this.transform.position, Quaternion.identity).GetComponent<PathController>();
+            //PathController must have position 0, otherwise edgecollider is not aligned
+            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
             this.pathController.Init(this, this.vehicle);
         }
         pathController?.select();

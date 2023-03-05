@@ -93,6 +93,8 @@ public class MainController : MonoBehaviour
             var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3, Quaternion.identity).GetComponent<EgoViewController>();
             egoController.init(info.EgoVehicle);
         }
+        var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
+        initializeEventList(editorGUI);
     }
 
     public void Update()
@@ -227,7 +229,7 @@ public class MainController : MonoBehaviour
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             //ExportOnClick();
-            loadScenarioInfo(this.info);
+           loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>

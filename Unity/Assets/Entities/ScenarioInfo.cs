@@ -85,7 +85,7 @@ namespace Entity
             }
 
 
-            return new ScenarioInfo
+            var info = new ScenarioInfo
             {
                 Path = CopyPath,
                 Pedestrians = exPedestrians,
@@ -95,6 +95,9 @@ namespace Entity
                 Vehicles = exVehicles,
                 allEntities = CopyAllEntities
             };
+            info.attachListener();
+            info.onEgoChanged = this.onEgoChanged;
+            return info;
         }
 
 
