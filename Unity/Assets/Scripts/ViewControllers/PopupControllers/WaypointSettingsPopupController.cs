@@ -13,7 +13,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
 {
     private WaypointViewController controller;
     private Waypoint waypoint;
-    private Vehicle vehicle;
+    private SimulationEntity vehicle;
     private ObservableCollection<Vehicle> allVehicles;
     private int waypointId;
 

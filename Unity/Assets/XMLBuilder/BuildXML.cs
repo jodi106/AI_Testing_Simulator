@@ -218,29 +218,10 @@ namespace ExportScenario.XMLBuilder
                 actors.AppendChild(entityRef);
                 maneuverGroup.AppendChild(maneuver);
 
-                builtAtLeastOneStory = true;
-
-                // --------------------- TODO!!! Replace part below (see vehicle startStory() for reference) ---------------------
-
-                // ToDo implement using OverallStartTrigger from Path
-                XmlNode actStartTrigger = root.CreateElement("StartTrigger");
-                act.AppendChild(actStartTrigger);
-
-                // StarteRouteInfo: Build SpeedAction to start this vehicle with startRouteInfo Trigger
-                if (pedestrian.StartRouteInfo != null && pedestrian.StartRouteInfo.Type != "Time") // TODO , see vehilce
-                {
-                    ActionType speedAction = new ActionType("SpeedAction", pedestrian.InitialSpeedKMH / 3.6);
-                    TriggerInfo triggerInfo = new TriggerInfo("ReachPositionCondition", pedestrian.StartRouteInfo.Vehicle.Id, 5.0, pedestrian.StartRouteInfo.LocationCarla);
-                    BuildEvent(maneuver, speedAction, new List<TriggerInfo> { triggerInfo });
-                    pedestrian.InitialSpeedKMH = 0;
-                }
-                
-                //// ToDo implement using OverallStopTrigger from Path.
-                //XmlNode stopTrigger = root.CreateElement("StopTrigger");
-                //storyBoard.AppendChild(stopTrigger);
-
                 // Start Story StartTrigger
-                //StartStory(act, vehicle);
+                StartStory(act, maneuver, pedestrian);
+
+                builtAtLeastOneStory = true;
             }
         }
 
@@ -279,7 +260,7 @@ namespace ExportScenario.XMLBuilder
             maneuver.AppendChild(new_event);
         }
 
-        private void StartStory(XmlNode act, XmlNode maneuver, Vehicle vehicle)
+        private void StartStory(XmlNode act, XmlNode maneuver, SimulationEntity vehicle)
         {
             ActionType startStorySpeedAction;
             TriggerInfo startStoryTrigger;

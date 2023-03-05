@@ -70,7 +70,9 @@ namespace Entity
                             new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
                             (Path)v.Path.Clone(), //Value
                             PedestrianType.Girl, //Value
-                            v.InitialSpeedKMH //Value
+                            v.InitialSpeedKMH, //Value
+                            v.Id, //Value
+                            v.StartRouteInfo //Value
                         );
 
                     exPedestrians.Add(CopyPedestrian);

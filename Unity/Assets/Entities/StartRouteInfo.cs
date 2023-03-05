@@ -9,7 +9,7 @@ namespace Entity
     public class StartRouteInfo
     {
 
-        public Vehicle Vehicle { get; set; }
+        public SimulationEntity Vehicle { get; set; }
         public Location LocationCarla { get; private set; }
         public int Time { get; set; }
         public int Distance { get; set; }
@@ -17,7 +17,7 @@ namespace Entity
 
         public string Type { get; private set; } // Waypoint, Time, Ego
 
-        public StartRouteInfo(Vehicle vehicle, Waypoint waypoint, int distance = 5, string type = "Waypoint")
+        public StartRouteInfo(SimulationEntity vehicle, Waypoint waypoint, int distance = 5, string type = "Waypoint")
         {
             this.Vehicle = vehicle;
             this.LocationCarla = waypoint.Location;
@@ -26,7 +26,7 @@ namespace Entity
             //this.locationCarla = CalculateLocationCarla(waypoint.Location);
         }
 
-        public StartRouteInfo(Vehicle vehicle, int time, string type = "Time")
+        public StartRouteInfo(SimulationEntity vehicle, int time, string type = "Time")
         {
             this.Vehicle = vehicle;
             this.Time = time;
@@ -44,13 +44,13 @@ namespace Entity
             //this.locationCarla = CalculateLocationCarla(location);
         }
 
-        private Location CalculateLocationCarla(Location pos)
-        {
-            (float xCarla, float yCarla) = SnapController.UnityToCarla(pos.X, pos.Y);
-            float rotCarla = SnapController.UnityRotToRadians(pos.Rot);
-            rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
-            return new Location(xCarla, yCarla, 0.3f, rotCarla);
-        }
+        //private Location CalculateLocationCarla(Location pos)
+        //{
+        //    (float xCarla, float yCarla) = SnapController.UnityToCarla(pos.X, pos.Y);
+        //    float rotCarla = SnapController.UnityRotToRadians(pos.Rot);
+        //    rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
+        //    return new Location(xCarla, yCarla, 0.3f, rotCarla);
+        //}
 
         public bool isTypeWaypoint()
         {
