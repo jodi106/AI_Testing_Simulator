@@ -26,8 +26,6 @@ public class PathController : MonoBehaviour
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();
 
-        this.Path = new Path();
-
         waypointViewControllers = new LinkedList<(WaypointViewController, int)>();
 
         pathRenderer = gameObject.GetComponent<LineRenderer>();
@@ -38,7 +36,7 @@ public class PathController : MonoBehaviour
 
         edgeCollider = gameObject.GetComponent<EdgeCollider2D>();
         previewSprite = gameObject.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
-        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_SELECTED);
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.PATH_DESELECTED);
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
@@ -116,10 +114,10 @@ public class PathController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Init(AdversaryViewController controller, Vehicle v, Color color, bool building = true)
+    public void Init(AdversaryViewController controller, Vehicle v, bool building = true)
     {
         Path = v.Path;
-        this.SetColor(color);
+        this.SetColor(v.Color);
         this.adversaryViewController = controller;
         this.building = building;
         if (v.Path.WaypointList.Count == 0)
@@ -134,6 +132,7 @@ public class PathController : MonoBehaviour
                 AddMoveToWaypoint(pos, w); //waypoint already exists, dont create it
             }
         }
+        adjustHeights(false);
         waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }
 

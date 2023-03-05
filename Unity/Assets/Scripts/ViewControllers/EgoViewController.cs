@@ -28,8 +28,7 @@ public class EgoViewController : VehicleViewController
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
             this.destination = destinationGameObject.GetComponent<DestinationController>();
-            this.destination.setEgo(this);
-            this.destination.setColor(this.sprite.color);
+            this.destination.init(this, this.sprite.color);
         }
         this.destination?.select();
         snapController.IgnoreClicks = true;
@@ -92,7 +91,31 @@ public class EgoViewController : VehicleViewController
 
     public void init(Ego ego)
     {
-
+        this.ego = ego;
+        placed = true;
+        ego.setView(this);
+        onChangePosition(ego.SpawnPoint);
+        onChangeCategory(ego.Category);
+        onChangeModel(ego.Model);
+        onChangeColor(ego.Color);
+        egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
+        egoSettingsController.gameObject.SetActive(true);
+        switch (ego.Category)
+        {
+            case VehicleCategory.Car:
+            case VehicleCategory.Motorcycle:
+                ignoreWaypoints = false;
+                break;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                ignoreWaypoints = true;
+                break;
+        }
+        if (ego.Destination is not null)
+        {
+            this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3, Quaternion.identity).GetComponent<DestinationController>();
+            this.destination.init(this, sprite.color, true);
+        }
     }
 
     public override void onChangeCategory(VehicleCategory cat)
