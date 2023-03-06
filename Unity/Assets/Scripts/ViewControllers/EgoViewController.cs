@@ -4,6 +4,7 @@ using Entity;
 using System;
 using UnityEngine;
 
+
 public class EgoViewController : VehicleViewController
 {
     public GameObject DestinationPrefab;

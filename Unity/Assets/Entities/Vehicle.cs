@@ -4,6 +4,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class Vehicle : BaseEntity, ICloneable
     {
         private static int autoIncrementId = 0;

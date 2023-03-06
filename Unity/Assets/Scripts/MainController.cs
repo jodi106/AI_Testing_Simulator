@@ -9,6 +9,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEditor;
 using uGUI = UnityEngine.UI;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
+
 
 public class MainController : MonoBehaviour
 {
@@ -173,7 +177,7 @@ public class MainController : MonoBehaviour
         else
         {
             viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
         }
         viewController.init(category, color);
@@ -311,6 +315,8 @@ public class MainController : MonoBehaviour
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
+        DumpBinaryScenarioInfo(info);
+        LoadBinaryScenarioInfo();
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {
@@ -319,11 +325,13 @@ public class MainController : MonoBehaviour
                 "You must place a vehicle first!",
                 "Ok");
             return;
-        }
+        }   
 
+        
         //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
         ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
+        
         // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
         // exportInfo = this.Info 
         
@@ -367,6 +375,25 @@ public class MainController : MonoBehaviour
         }
     }
 
+    private void LoadBinaryScenarioInfo()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (FileStream stream = new FileStream("data.bin", FileMode.Open))
+        {
+            ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
+            loadScenarioInfo(obj);
+            int i = 0;
+        }
+    }
+
+    private void DumpBinaryScenarioInfo(ScenarioInfo info)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (FileStream stream = new FileStream("data.bin", FileMode.Create))
+        {
+            formatter.Serialize(stream, info);
+        }
+    }
     //private bool isWaypointListEmptyOrNull(Vehicle vehicle)
     //{
     //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);

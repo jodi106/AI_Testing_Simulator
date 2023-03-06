@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace Entity
 {
+    [Serializable]
     public class BaseEntity
     /// <summary>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped)</summary>
     {
@@ -33,8 +35,11 @@ namespace Entity
         public double InitialSpeedKMH { get; set; }
         public double CurrentSpeedKMH { get; set; }
 
-        public Color Color { get; protected set; }
+        [NonSerialized]
+        public Color Color;
+        //{ get; protected set; }
 
+        [field: NonSerialized]
         public IBaseEntityView View { get; set; }
 
         public void setSpawnPoint(Location pos)

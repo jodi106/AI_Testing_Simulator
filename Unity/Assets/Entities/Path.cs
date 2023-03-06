@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Entity
 {
-
+    [Serializable]
     public class Path : ICloneable// Story in .xosc
     /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
     {

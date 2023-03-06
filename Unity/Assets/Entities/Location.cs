@@ -3,6 +3,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class Location : ICloneable
     {
         public Location(Vector3 vector3)
@@ -27,6 +28,8 @@ namespace Entity
         {
 
         }
+
+        [field: NonSerialized]
         public Vector3 Vector3 { get; set; }
         public float Rot { get; set; }
 

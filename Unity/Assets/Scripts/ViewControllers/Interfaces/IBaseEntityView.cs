@@ -1,6 +1,8 @@
 ﻿using Assets.Enums;
 using Entity;
 using UnityEngine;
+using System;
+
 
 public interface IBaseEntityView : IBaseView
 {

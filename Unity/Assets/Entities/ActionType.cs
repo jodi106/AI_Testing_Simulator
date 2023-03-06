@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Entity
 {
+    [Serializable]
     public class ActionType : ICloneable
     /// <summary>Defines a user specified action for a Waypoint object</summary>
     {
