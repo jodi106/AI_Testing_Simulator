@@ -11,7 +11,7 @@ using UnityEngine;
 * seq.append( () => { <span style="color:gray">// fire an event before start</span><br>
 * &nbsp;Debug.Log("I have started");<br>
 * });<br>
-* seq.append( LeanTween.move(cube1, Vector3Ser.one * 10f, 1f) ); <span style="color:gray">// do a tween</span><br>
+* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); <span style="color:gray">// do a tween</span><br>
 * seq.append( (object obj) => { <span style="color:gray">// fire event after tween</span><br>
 * &nbsp;var dict = obj as Dictionary<string,string>;<br>
 * &nbsp;Debug.Log("We are done now obj value:"+dict["hi"]);<br>
@@ -98,7 +98,7 @@ public class LTSeq {
 	* @return {LTSeq} LTDescr an object that distinguishes the tween
 	* var seq = LeanTween.sequence();<br>
 	* seq.append(1f); // delay everything one second<br>
-	* seq.append( LeanTween.move(cube1, Vector3Ser.one * 10f, 1f) ); // do a tween<br>
+	* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); // do a tween<br>
 	*/
 	public LTSeq append( float delay ){
         this.current.totalDelay += delay;
@@ -116,7 +116,7 @@ public class LTSeq {
 	* seq.append( () => { // fire an event before start<br>
 	* &nbsp;Debug.Log("I have started");<br>
 	* });<br>
-	* seq.append( LeanTween.move(cube1, Vector3Ser.one * 10f, 1f) ); // do a tween<br>
+	* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); // do a tween<br>
 	* seq.append( () => { // fire event after tween<br>
 	* &nbsp;Debug.Log("We are done now");<br>
 	* });;<br>
@@ -137,7 +137,7 @@ public class LTSeq {
 	* seq.append( () => { // fire an event before start<br>
 	* &nbsp;Debug.Log("I have started");<br>
 	* });<br>
-	* seq.append( LeanTween.move(cube1, Vector3Ser.one * 10f, 1f) ); // do a tween<br>
+	* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); // do a tween<br>
 	* seq.append((object obj) => { // fire event after tween
 	* &nbsp;var dict = obj as Dictionary<string,string>;
 	* &nbsp;Debug.Log("We are done now obj value:"+dict["hi"]);
@@ -168,8 +168,8 @@ public class LTSeq {
 	* @return {LTSeq} LTSeq an object that you can add tweens, methods and time on to
 	* @example
 	* var seq = LeanTween.sequence();<br>
-	* seq.append( LeanTween.move(cube1, Vector3Ser.one * 10f, 1f) ); // do a move tween<br>
-	* seq.append( LeanTween.rotateAround( avatar1, Vector3Ser.forward, 360f, 1f ) ); // then do a rotate tween<br>
+	* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); // do a move tween<br>
+	* seq.append( LeanTween.rotateAround( avatar1, Vector3.forward, 360f, 1f ) ); // then do a rotate tween<br>
 	*/
 	public LTSeq append( LTDescr tween ){
 		this.current.tween = tween;

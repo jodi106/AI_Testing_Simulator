@@ -60,10 +60,10 @@ public class LeanSmooth {
     /**
     * <summary>Moves one value towards another (eases in and out to destination with no overshoot)</summary>
     * 
-    * @method LeanSmooth.damp (Vector3Ser)
-    * @param {float} current:Vector3Ser the current value
-    * @param {float} target:Vector3Ser the value we are trying to reach
-    * @param {float} currentVelocity:Vector3Ser the current velocity of the value
+    * @method LeanSmooth.damp (Vector3)
+    * @param {float} current:Vector3 the current value
+    * @param {float} target:Vector3 the value we are trying to reach
+    * @param {float} currentVelocity:Vector3 the current velocity of the value
     * @param {float} smoothTime:float roughly the time it takes to reach the destination
     * @param {float} maxSpeed:float the top speed you want the value to move at (defaults to unlimited -1f)
     * @param {float} deltaTime:float the difference in time since the method was called (defaults to Time.deltaTime)
@@ -142,10 +142,10 @@ public class LeanSmooth {
     /**
     * <summary>Moves one value towards another (eases in and out to destination with possible overshoot bounciness)</summary>
     * 
-    * @method LeanSmooth.spring (Vector3Ser)
-    * @param {Vector3Ser} current:float the current value
-    * @param {Vector3Ser} target:float the value we are trying to reach
-    * @param {Vector3Ser} currentVelocity:float the current velocity of the value
+    * @method LeanSmooth.spring (Vector3)
+    * @param {Vector3} current:float the current value
+    * @param {Vector3} target:float the value we are trying to reach
+    * @param {Vector3} currentVelocity:float the current velocity of the value
     * @param {float} smoothTime:float roughly the time it takes to reach the destination
     * @param {float} maxSpeed:float the top speed you want the value to move at (defaults to unlimited -1f)
     * @param {float} deltaTime:float the difference in time since the method was called (defaults to Time.deltaTime)
@@ -225,9 +225,9 @@ public class LeanSmooth {
     /**
     * <summary>Moves one value towards another (at a constant speed)</summary>
     * 
-    * @method LeanSmooth.linear (Vector3Ser)
-    * @param {Vector3Ser} current:float the current value
-    * @param {Vector3Ser} target:float the value we are trying to reach
+    * @method LeanSmooth.linear (Vector3)
+    * @param {Vector3} current:float the current value
+    * @param {Vector3} target:float the value we are trying to reach
     * @param {float} moveSpeed:float the speed at which to move towards the target
     * @param {float} deltaTime:float the difference in time since the method was called (defaults to Time.deltaTime)
     * @example
@@ -312,10 +312,10 @@ public class LeanSmooth {
     /**
     * <summary>Moves one value towards another (with an ease that bounces back some when it reaches it's destination)</summary>
     * 
-    * @method LeanSmooth.bounceOut (Vector3Ser)
-    * @param {Vector3Ser} current:float the current value
-    * @param {Vector3Ser} target:float the value we are trying to reach
-    * @param {Vector3Ser} currentVelocity:float the current velocity of the value
+    * @method LeanSmooth.bounceOut (Vector3)
+    * @param {Vector3} current:float the current value
+    * @param {Vector3} target:float the value we are trying to reach
+    * @param {Vector3} currentVelocity:float the current velocity of the value
     * @param {float} smoothTime:float roughly the time it takes to reach the destination
     * @param {float} maxSpeed:float the top speed you want the value to move at (defaults to unlimited -1f)
     * @param {float} deltaTime:float the difference in time since the method was called (defaults to Time.deltaTime)
