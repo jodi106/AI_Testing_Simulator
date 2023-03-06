@@ -8,11 +8,6 @@ namespace Entity
     public class BaseEntity
     /// <summary>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped)</summary>
     {
-        public Location SpawnPoint { get; set; }
-        public double InitialSpeedKMH { get; set; }
-        public Color Color { get; protected set; }
-        public IBaseEntityView View { get; set; }
-
         public BaseEntity(string id, Location spawnPoint, double initialSpeedKMH)
         {
             Id = id;
