@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Helpers;
+using System;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -31,12 +32,11 @@ namespace Entity
             }
         }
         public Location SpawnPoint { get; set; }
-
         public double InitialSpeedKMH { get; set; }
         public double CurrentSpeedKMH { get; set; }
 
-        [NonSerialized]
-        public Color Color;
+        public ColorSer Color;
+        
         //{ get; protected set; }
 
         [field: NonSerialized]
@@ -55,7 +55,8 @@ namespace Entity
 
         public void setColor(Color c)
         {
-            this.Color = c;
+            this.Color = new ColorSer(c);
+            
             this.View?.onChangeColor(c);
         }
 

@@ -52,7 +52,7 @@ public class AdversaryViewController : VehicleViewController
         onChangePosition(vehicle.SpawnPoint);
         onChangeCategory(vehicle.Category);
         onChangeModel(vehicle.Model);
-        onChangeColor(vehicle.Color);
+        onChangeColor(vehicle.Color.ToUnityColor());
         vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         vehicleSettingsController.gameObject.SetActive(true);
         switch (vehicle.Category)

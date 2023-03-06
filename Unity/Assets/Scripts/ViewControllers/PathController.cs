@@ -118,7 +118,7 @@ public class PathController : MonoBehaviour
     public void Init(AdversaryViewController controller, Vehicle v, bool building = true)
     {
         Path = v.Path;
-        this.SetColor(v.Color);
+        this.SetColor(v.Color.ToUnityColor());
         this.adversaryViewController = controller;
         this.building = building;
         if (v.Path.WaypointList.Count == 0)

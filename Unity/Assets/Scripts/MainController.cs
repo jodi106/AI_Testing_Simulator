@@ -323,8 +323,8 @@ public class MainController : MonoBehaviour
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
-        DumpBinaryScenarioInfo(info);
-        LoadBinaryScenarioInfo();
+        //DumpBinaryScenarioInfo(info);
+        //LoadBinaryScenarioInfo();
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {
@@ -390,7 +390,6 @@ public class MainController : MonoBehaviour
         {
             ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
             loadScenarioInfo(obj);
-            int i = 0;
         }
     }
 

@@ -98,7 +98,7 @@ public class EgoViewController : VehicleViewController
         onChangePosition(ego.SpawnPoint);
         onChangeCategory(ego.Category);
         onChangeModel(ego.Model);
-        onChangeColor(ego.Color);
+        onChangeColor(ego.Color.ToUnityColor());
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
         egoSettingsController.gameObject.SetActive(true);
         switch (ego.Category)
