@@ -7,6 +7,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class ScenarioInfo : ICloneable
     /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
     {
@@ -137,7 +138,7 @@ namespace Entity
             this.EgoVehicle = ego;
             onEgoChanged();
         }
-
+        
         public string Path { get; set; }
         public ObservableCollection<Pedestrian> Pedestrians { get; set; }
         public string MapURL { get; set; }
@@ -147,6 +148,7 @@ namespace Entity
 
         public List<BaseEntity> allEntities { get; private set; }
 
+        [NonSerialized]
         public System.Action onEgoChanged;
 
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
+    [Serializable]
     public class StartRouteInfo
     {
 

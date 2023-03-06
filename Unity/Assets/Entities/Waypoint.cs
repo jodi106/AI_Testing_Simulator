@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 namespace Entity
-{ 
+{
+    [Serializable]
     public class Waypoint : ICloneable// Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
@@ -40,6 +41,8 @@ namespace Entity
         public string Priority { get; set; } // has enum: PriorityType
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
+
+        [field: NonSerialized]
         public IBaseView View { get; set; }
         public List<ActionType> Actions { get; set; } // Actions without Triggers
 

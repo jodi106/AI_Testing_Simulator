@@ -4,6 +4,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class Vehicle : SimulationEntity, ICloneable
     {
         public VehicleCategory Category { get; private set; }

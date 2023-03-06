@@ -3,6 +3,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class TriggerInfo : ICloneable
     /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
     {

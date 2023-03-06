@@ -1,7 +1,9 @@
 ﻿using Assets.Enums;
+using System;
 
 namespace Entity
 {
+    [Serializable]
     public class Pedestrian : SimulationEntity
     /// <summary>Creates Pedestrian Object. Contains all Pedestiran-Entity specific info created by Gui-User.</summary>
     {

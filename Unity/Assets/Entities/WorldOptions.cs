@@ -2,7 +2,8 @@
 using System;
 
 namespace Entity
-{ 
+{
+    [Serializable]
     public class WorldOptions : ICloneable
     /// <summary>Creates WorldOptions Object. Contains user specified world settings for the scenario</summary>
     {

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Entity
 {
+    [Serializable]
     public class Lane
     {
         public Lane()
