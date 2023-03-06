@@ -89,12 +89,12 @@ public class MainController : MonoBehaviour
         this.info = info;
         foreach(Vehicle v in info.Vehicles)
         {
-            var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3, Quaternion.identity).GetComponent<AdversaryViewController>();
+            var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
             viewController.init(v);
         }
         if(info.EgoVehicle is not null)
         {
-            var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3, Quaternion.identity).GetComponent<EgoViewController>();
+            var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<EgoViewController>();
             egoController.init(info.EgoVehicle);
         }
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
@@ -323,8 +323,8 @@ public class MainController : MonoBehaviour
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
-        //DumpBinaryScenarioInfo(info);
-        //LoadBinaryScenarioInfo();
+        DumpBinaryScenarioInfo(info);
+        LoadBinaryScenarioInfo();
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {

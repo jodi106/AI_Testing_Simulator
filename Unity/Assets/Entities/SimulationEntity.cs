@@ -4,6 +4,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class SimulationEntity : BaseEntity
     {
         private static int autoIncrementId = 0;

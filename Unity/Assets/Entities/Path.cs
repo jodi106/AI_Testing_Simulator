@@ -73,7 +73,7 @@ namespace Entity
             var first = WaypointList[0];
             Quaternion rotation = Quaternion.Euler(0f, 0f, rot);
             var originalStartLocation = (Location) first.Location.Clone();
-            first.Location.Vector3 = first.Location.Vector3 + rotation * Vector3.right;
+            first.Location.Vector3Ser.SetFromVector3(first.Location.Vector3Ser.ToVector3() + rotation * Vector3.right);
 
             Waypoint assignRouteWaypoint = new Waypoint(
                     originalStartLocation,

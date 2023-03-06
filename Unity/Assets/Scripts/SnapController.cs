@@ -195,7 +195,7 @@ public class SnapController : MonoBehaviour
             {
                 foreach (var waypoint in lane.Waypoints)
                 {
-                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3, mousePosition);
+                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3Ser.ToVector3(), mousePosition);
 
                     if (currDistance == 0) return (lane, waypoint);
 
@@ -233,7 +233,7 @@ public class SnapController : MonoBehaviour
     public bool checkLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
     {
         if ((startLane.RoadId == endLane.RoadId && endWaypoint.IndexInLane <= startWaypoint.IndexInLane)
-            || endLane.Id * startLane.Id < 0 || FastEuclideanDistance(startWaypoint.Location.Vector3, endWaypoint.Location.Vector3) > 15)
+            || endLane.Id * startLane.Id < 0 || FastEuclideanDistance(startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3()) > 15)
         {
             return false;
         }
@@ -287,7 +287,7 @@ public class SnapController : MonoBehaviour
 
         if (checkLaneChange(startLane, endLane, startWaypoint, endWaypoint))
         {
-            return (new List<Vector2>() { startWaypoint.Location.Vector3, endWaypoint.Location.Vector3 },
+            return (new List<Vector2>() { startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3() },
                 new List<int>() { 0 });
         }
 
@@ -354,8 +354,8 @@ public class SnapController : MonoBehaviour
                     costSoFar[nextLane] = newCost;
 
                     var priority = newCost + FastEuclideanDistance(
-                        endWaypoint.Location.Vector3,
-                        nextLane.Waypoints[0].Location.Vector3
+                        endWaypoint.Location.Vector3Ser.ToVector3(),
+                        nextLane.Waypoints[0].Location.Vector3Ser.ToVector3()
                         );
 
                     prioQueue.Enqueue(nextLane, priority);
@@ -398,12 +398,12 @@ public class SnapController : MonoBehaviour
                     i--;
                 }
             }
-            waypointPath.Add(currentWaypoint.Location.Vector3);
+            waypointPath.Add(currentWaypoint.Location.Vector3Ser.ToVector3());
             currentWaypoint = cameFrom[currentWaypoint];
             index++;
         }
 
-        waypointPath.Add(startWaypoint.Location.Vector3);
+        waypointPath.Add(startWaypoint.Location.Vector3Ser.ToVector3());
         waypointPath.Reverse();
         laneChangeIndices = laneChangeIndices.Select(x => waypointPath.Count() - x - 1).ToList();
 
@@ -425,7 +425,7 @@ public class SnapController : MonoBehaviour
     }
 
 
-    //Only for Town06 later do as extension method for Vector3 or Location
+    //Only for Town06 later do as extension method for Vector3Ser or Location
     public static (float x, float y) UnityToCarla(float x, float y)
     {
 

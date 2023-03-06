@@ -73,7 +73,7 @@ public class LeanAudio : object {
 	* @example
 	* AnimationCurve volumeCurve = new AnimationCurve( new Keyframe(0f, 1f, 0f, -1f), new Keyframe(1f, 0f, -1f, 0f));<br>
 	* AnimationCurve frequencyCurve = new AnimationCurve( new Keyframe(0f, 0.003f, 0f, 0f), new Keyframe(1f, 0.003f, 0f, 0f));<br>
-	* AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3[]{ new Vector3(0.32f,0f,0f)} ));<br>
+	* AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3Ser[]{ new Vector3Ser(0.32f,0f,0f)} ));<br>
 	*/
 	public static AudioClip createAudio( AnimationCurve volume, AnimationCurve frequency, LeanAudioOptions options = null ){
 		if(options==null)
@@ -349,7 +349,7 @@ public class LeanAudioOptions : object {
 	* @example
 	* AnimationCurve volumeCurve = new AnimationCurve( new Keyframe(0f, 1f, 0f, -1f), new Keyframe(1f, 0f, -1f, 0f));<br>
 	* AnimationCurve frequencyCurve = new AnimationCurve( new Keyframe(0f, 0.003f, 0f, 0f), new Keyframe(1f, 0.003f, 0f, 0f));<br>
-	* AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3[]{ new Vector3(0.32f,0f,0f)} ).setFrequency(12100) );<br>
+	* AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3Ser[]{ new Vector3Ser(0.32f,0f,0f)} ).setFrequency(12100) );<br>
 	*/
 	public LeanAudioOptions setFrequency( int frequencyRate ){
 		this.frequencyRate = frequencyRate;
@@ -360,12 +360,12 @@ public class LeanAudioOptions : object {
 	* Set details about the shape of the curve by adding vibrato modulations through it (alters the peak values giving it a wah-wah effect). You can add as many as you want to sculpt out more detail in the sound wave.
 	* 
 	* @method setVibrato
-	* @param {Vector3[]} vibratoArray:Vector3[] The first value is the period in seconds that you wish to have the vibrato wave fluctuate at. The second value is the minimum height you wish the vibrato wave to dip down to (default is zero). The third is reserved for future effects.
+	* @param {Vector3Ser[]} vibratoArray:Vector3Ser[] The first value is the period in seconds that you wish to have the vibrato wave fluctuate at. The second value is the minimum height you wish the vibrato wave to dip down to (default is zero). The third is reserved for future effects.
 	* @return {LeanAudioOptions} LeanAudioOptions describing optional values
 	* @example
 	* AnimationCurve volumeCurve = new AnimationCurve( new Keyframe(0f, 1f, 0f, -1f), new Keyframe(1f, 0f, -1f, 0f));<br>
 	* AnimationCurve frequencyCurve = new AnimationCurve( new Keyframe(0f, 0.003f, 0f, 0f), new Keyframe(1f, 0.003f, 0f, 0f));<br>
-	* AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3[]{ new Vector3(0.32f,0.3f,0f)} ).setFrequency(12100) );<br>
+	* AudioClip audioClip = LeanAudio.createAudio(volumeCurve, frequencyCurve, LeanAudio.options().setVibrato( new Vector3Ser[]{ new Vector3Ser(0.32f,0.3f,0f)} ).setFrequency(12100) );<br>
 	*/
 	public LeanAudioOptions setVibrato( Vector3[] vibrato ){
 		this.vibrato = vibrato;
@@ -373,7 +373,7 @@ public class LeanAudioOptions : object {
 	}
 
 	/*
-	public LeanAudioOptions setModulation( Vector3[] modulation ){
+	public LeanAudioOptions setModulation( Vector3Ser[] modulation ){
 		this.modulation = modulation;
 		return this;
 	}*/

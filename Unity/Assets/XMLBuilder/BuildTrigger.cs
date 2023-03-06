@@ -78,9 +78,9 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("alongRoute", "true", distanceCondition);
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
-            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3.x.ToString(), worldposition);
-            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3.y.ToString(), worldposition);
-            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3.z.ToString(), worldposition);
+            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().z.ToString(), worldposition);
             SetAttribute("h", triggerInfo.WorldPositionCarla.Rot.ToString(), worldposition);
 
             // hierarchy
@@ -110,9 +110,9 @@ namespace ExportScenario.XMLBuilder
             
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
-            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3.x.ToString(), worldposition);
-            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3.y.ToString(), worldposition);
-            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3.z.ToString(), worldposition);
+            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().z.ToString(), worldposition);
             SetAttribute("h", triggerInfo.WorldPositionCarla.Rot.ToString(), worldposition);
 
             // hierarchy

@@ -31,9 +31,9 @@ namespace ExportScenario.XMLBuilder
             XmlNode acquirePositionAction = root.CreateElement("AcquirePositionAction");
             XmlNode position = root.CreateElement("Position");
             XmlNode worldPosition = root.CreateElement("WorldPosition");
-            SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.x.ToString(), worldPosition);
-            SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.y.ToString(), worldPosition);
-            SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.z.ToString(), worldPosition);
+            SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3Ser.ToVector3().x.ToString(), worldPosition);
+            SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3Ser.ToVector3().y.ToString(), worldPosition);
+            SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3Ser.ToVector3().z.ToString(), worldPosition);
             SetAttribute("h", waypoint.ActionTypeInfo.PositionsCarla[0].Rot.ToString(), worldPosition);
 
             // Hierarchy
@@ -64,9 +64,9 @@ namespace ExportScenario.XMLBuilder
                 SetAttribute("routeStrategy", routeStrategy, _waypoint);
                 XmlNode position = root.CreateElement("Position");
                 XmlNode worldPosition = root.CreateElement("WorldPosition");
-                SetAttribute("x", actionType.PositionsCarla[i].Vector3.x.ToString(), worldPosition);
-                SetAttribute("y", actionType.PositionsCarla[i].Vector3.y.ToString(), worldPosition);
-                SetAttribute("z", actionType.PositionsCarla[i].Vector3.z.ToString(), worldPosition);
+                SetAttribute("x", actionType.PositionsCarla[i].Vector3Ser.ToVector3().x.ToString(), worldPosition);
+                SetAttribute("y", actionType.PositionsCarla[i].Vector3Ser.ToVector3().y.ToString(), worldPosition);
+                SetAttribute("z", actionType.PositionsCarla[i].Vector3Ser.ToVector3().z.ToString(), worldPosition);
                 SetAttribute("h", actionType.PositionsCarla[i].Rot.ToString(), worldPosition);
 
                 route.AppendChild(_waypoint);
@@ -176,9 +176,9 @@ namespace ExportScenario.XMLBuilder
             XmlNode position = root.CreateElement("Position");
             XmlNode world_position = root.CreateElement("WorldPosition");
 
-            SetAttribute("x", spawnPoint.Vector3.x.ToString(), world_position);
-            SetAttribute("y", spawnPoint.Vector3.y.ToString(), world_position);
-            SetAttribute("z", spawnPoint.Vector3.z.ToString(), world_position);
+            SetAttribute("x", spawnPoint.Vector3Ser.ToVector3().x.ToString(), world_position);
+            SetAttribute("y", spawnPoint.Vector3Ser.ToVector3().y.ToString(), world_position);
+            SetAttribute("z", spawnPoint.Vector3Ser.ToVector3().z.ToString(), world_position);
             SetAttribute("h", spawnPoint.Rot.ToString(), world_position);
 
             privateAction.AppendChild(teleport_action);

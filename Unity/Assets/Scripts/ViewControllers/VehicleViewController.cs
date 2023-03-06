@@ -59,7 +59,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public virtual void onChangePosition(Location location)
     {
-        transform.position = HeightUtil.SetZ(location.Vector3, transform.position.z);
+        transform.position = HeightUtil.SetZ(location.Vector3Ser.ToVector3(), transform.position.z);
         transform.eulerAngles = new Vector3(0, 0, location.Rot);
         mainController.moveActionButtons(transform.position);
     }

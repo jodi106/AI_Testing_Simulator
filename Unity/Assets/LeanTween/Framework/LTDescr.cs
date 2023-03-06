@@ -1211,10 +1211,10 @@ public class LTDescr
 	* Set Axis optional axis for tweens where it is relevant
 	* 
 	* @method setAxis
-	* @param {Vector3} axis either the tween rotates around, or the direction it faces in the case of setOrientToPath
+	* @param {Vector3Ser} axis either the tween rotates around, or the direction it faces in the case of setOrientToPath
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-	* LeanTween.move( ltLogo, path, 1.0f ).setEase(LeanTweenType.easeOutQuad).setOrientToPath(true).setAxis(Vector3.forward);
+	* LeanTween.move( ltLogo, path, 1.0f ).setEase(LeanTweenType.easeOutQuad).setOrientToPath(true).setAxis(Vector3Ser.forward);
 	*/
 	public LTDescr setAxis( Vector3 axis ){
 		this._optional.axis = axis;
@@ -1400,7 +1400,7 @@ public class LTDescr
 			this.from.z + (this.diff.z) * this._optional.animationCurve.Evaluate(ratioPassed) );
 	}
 
-	// Vector3 Ease Methods
+	// Vector3Ser Ease Methods
 
 	private Vector3 easeInOutQuad(){
 		val = this.ratioPassed * 2f;
@@ -1704,12 +1704,12 @@ public class LTDescr
 	/**
 	* Set the end that the GameObject is tweening towards
 	* @method setTo
-	* @param {Vector3} to:Vector3 point at which you want the tween to reach
+	* @param {Vector3Ser} to:Vector3Ser point at which you want the tween to reach
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-	* LTDescr descr = LeanTween.move( cube, Vector3.up, new Vector3(1f,3f,0f), 1.0f ).setEase( LeanTweenType.easeInOutBounce );<br>
+	* LTDescr descr = LeanTween.move( cube, Vector3Ser.up, new Vector3Ser(1f,3f,0f), 1.0f ).setEase( LeanTweenType.easeInOutBounce );<br>
 	* // Later your want to change your destination or your destiation is constantly moving<br>
-	* descr.setTo( new Vector3(5f,10f,3f) );<br>
+	* descr.setTo( new Vector3Ser(5f,10f,3f) );<br>
 	*/
 	public LTDescr setTo( Vector3 to ){
 		if(this.hasInitiliazed){
@@ -1730,10 +1730,10 @@ public class LTDescr
 	/**
 	* Set the beginning of the tween
 	* @method setFrom
-	* @param {Vector3} from:Vector3 the point you would like the tween to start at
+	* @param {Vector3Ser} from:Vector3Ser the point you would like the tween to start at
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-	* LTDescr descr = LeanTween.move( cube, Vector3.up, new Vector3(1f,3f,0f), 1.0f ).setFrom( new Vector3(5f,10f,3f) );<br>
+	* LTDescr descr = LeanTween.move( cube, Vector3Ser.up, new Vector3Ser(1f,3f,0f), 1.0f ).setFrom( new Vector3Ser(5f,10f,3f) );<br>
 	*/
 	public LTDescr setFrom( Vector3 from ){
 		if(this.trans){
@@ -2087,13 +2087,13 @@ public class LTDescr
 
 	/**
 	* Have a method called on each frame that the tween is being animated (passes a float value)
-	* @method setOnUpdate (Vector3)
-	* @param {Action<Vector3>} onUpdate:Action<Vector3> a method that will be called on every frame with the float value of the tweened object
+	* @method setOnUpdate (Vector3Ser)
+	* @param {Action<Vector3Ser>} onUpdate:Action<Vector3Ser> a method that will be called on every frame with the float value of the tweened object
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
 	* LeanTween.moveX(gameObject, 5f, 2.0f ).setOnUpdate( tweenMoved );<br>
 	* <br>
-	* void tweenMoved( Vector3 val ){ }<br>
+	* void tweenMoved( Vector3Ser val ){ }<br>
 	*/
 	public LTDescr setOnUpdate( Action<Vector3> onUpdate, object onUpdateParam = null ){
 		this._optional.onUpdateVector3 = onUpdate;
@@ -2126,7 +2126,7 @@ public class LTDescr
 	* @param {bool} doesOrient:bool whether the gameobject will orient to the path it is animating along
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-	* LeanTween.move( ltLogo, path, 1.0f ).setEase(LeanTweenType.easeOutQuad).setOrientToPath(true).setAxis(Vector3.forward);<br>
+	* LeanTween.move( ltLogo, path, 1.0f ).setEase(LeanTweenType.easeOutQuad).setOrientToPath(true).setAxis(Vector3Ser.forward);<br>
 	*/
 	public LTDescr setOrientToPath( bool doesOrient ){
 		if(this.type==TweenAction.MOVE_CURVED || this.type==TweenAction.MOVE_CURVED_LOCAL){
@@ -2145,7 +2145,7 @@ public class LTDescr
 	* @param {bool} doesOrient:bool whether the gameobject will orient to the path it is animating along
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-	* LeanTween.move( ltLogo, path, 1.0f ).setEase(LeanTweenType.easeOutQuad).setOrientToPath2d(true).setAxis(Vector3.forward);<br>
+	* LeanTween.move( ltLogo, path, 1.0f ).setEase(LeanTweenType.easeOutQuad).setOrientToPath2d(true).setAxis(Vector3Ser.forward);<br>
 	*/
 	public LTDescr setOrientToPath2d( bool doesOrient2d ){
 		setOrientToPath(doesOrient2d);
@@ -2175,10 +2175,10 @@ public class LTDescr
 	/**
 	* Set the point at which the GameObject will be rotated around
 	* @method setPoint
-	* @param {Vector3} point:Vector3 point at which you want the object to rotate around (local space)
+	* @param {Vector3Ser} point:Vector3Ser point at which you want the object to rotate around (local space)
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-	* LeanTween.rotateAround( cube, Vector3.up, 360.0f, 1.0f ) .setPoint( new Vector3(1f,0f,0f) ) .setEase( LeanTweenType.easeInOutBounce );<br>
+	* LeanTween.rotateAround( cube, Vector3Ser.up, 360.0f, 1.0f ) .setPoint( new Vector3Ser(1f,0f,0f) ) .setEase( LeanTweenType.easeInOutBounce );<br>
 	*/
 	public LTDescr setPoint( Vector3 point ){
 		this._optional.point = point;
@@ -2263,7 +2263,7 @@ public class LTDescr
 	* @param {float} direction:float the direction that the tween should run, -1f for backwards 1f for forwards
 	* @return {LTDescr} LTDescr an object that distinguishes the tween
 	* @example
-    * LeanTween.moveSpline(gameObject, new Vector3[]{new Vector3(0f,0f,0f),new Vector3(1f,0f,0f),new Vector3(1f,0f,0f),new Vector3(1f,0f,1f)}, 1.5f).setDirection(-1f);<br>
+    * LeanTween.moveSpline(gameObject, new Vector3Ser[]{new Vector3Ser(0f,0f,0f),new Vector3Ser(1f,0f,0f),new Vector3Ser(1f,0f,0f),new Vector3Ser(1f,0f,1f)}, 1.5f).setDirection(-1f);<br>
 	*/
 
 	public LTDescr setDirection( float direction ){

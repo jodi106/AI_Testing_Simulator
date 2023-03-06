@@ -114,7 +114,7 @@ public class EgoViewController : VehicleViewController
         }
         if (ego.Destination is not null)
         {
-            this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3, Quaternion.identity).GetComponent<DestinationController>();
+            this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<DestinationController>();
             this.destination.init(this, sprite.color, true);
         }
     }
