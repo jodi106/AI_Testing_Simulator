@@ -294,7 +294,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         else if (actionName == "StopAction")
         {
             this.actionTextField[i].value = value.ToString();
-            this.actions[i] = new ActionType(actionName, value, vehicle.InitialSpeedKMH);
+            this.actions[i] = new ActionType(actionName, value, vehicle.InitialSpeedKMH); // TODO current speed value
         }
     }
 
@@ -310,7 +310,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         else if (targetLaneValue == 1) this.actionDropdownField[i].value = "left";
         else if (targetLaneValue == -1) this.actionDropdownField[i].value = "right";
 
-        this.actions[i] = new ActionType(actionName, vehicle.Id, targetLaneValue);
+        this.actions[i] = new ActionType(actionName, vehicle.Id, targetLaneValue); // LaneChangeAction
     }
 
     private void configureActionChoices(int index)

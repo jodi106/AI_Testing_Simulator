@@ -50,14 +50,25 @@ namespace Entity
             CalculateLocationCarla();
         }
 
-        public TriggerInfo(string triggerType, double delay, string conditionEdge, ActionType afterAction)
+        public TriggerInfo(string triggerType, string entityRef, double duration, double delay = 0, string conditionEdge = "rising")
+        /// for StandStillCondition
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Value = duration;
+            Delay = delay;
+            ConditionEdge = conditionEdge;
+        }
+
+        public TriggerInfo(string triggerType, ActionType afterAction, string state = "completeState", double delay = 0, string conditionEdge = "rising")
         /// for StoryboardElementStateCondition
         {
             ID = autoIncrementId++;
             TriggerType = triggerType; // "examples: SimulationTimeCondition", "DistanceCondition"
+            AfterAction = afterAction; // use ActionType.Name + ActionType.ID
             Delay = delay;
             ConditionEdge = conditionEdge;
-            AfterAction = afterAction; // use ActionType.Name + ActionType.ID
         }
 
         public int ID { get; set; }
