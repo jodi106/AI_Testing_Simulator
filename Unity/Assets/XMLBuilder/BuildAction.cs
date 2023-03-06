@@ -103,7 +103,7 @@ namespace ExportScenario.XMLBuilder
         }
 
         public void StopAction(XmlNode action, ActionType actionType)
-        /// Creates SpeedAction. Defines speed for a scenario entity.
+        /// Creates SpeedAction to speed 0. Then creates another SpeedAction to previous speed.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");

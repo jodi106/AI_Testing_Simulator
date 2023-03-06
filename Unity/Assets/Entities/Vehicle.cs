@@ -5,15 +5,13 @@ using System;
 namespace Entity
 {
     [Serializable]
-    public class Vehicle : BaseEntity, ICloneable
+    public class Vehicle : SimulationEntity, ICloneable
     {
-        private static int autoIncrementId = 0;
+        public VehicleCategory Category { get; private set; }
 
         public Vehicle(Location spawnPoint, EntityModel model, Path path, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0)
-            : base(string.Format("{0} {1}", "Adversary", ++autoIncrementId), spawnPoint, initialSpeed)
+            : base(spawnPoint, initialSpeed, model, path, null)
         {
-            Model = model;
-            Path = path;
             Category = category;
         }
 
@@ -26,12 +24,6 @@ namespace Entity
         {
             this.Category = category;
             this.View?.onChangeCategory(category);
-        }
-
-        public void setModel(EntityModel model)
-        {
-            this.Model = model;
-            this.View?.onChangeModel(model);
         }
 
         public object Clone()
@@ -52,10 +44,7 @@ namespace Entity
             return cloneVehicle;
         }
 
-        public EntityModel Model { get; private set; }
-        public VehicleCategory Category { get; private set; }
-        public Path Path { get; set; }
-        public StartRouteInfo StartRouteInfo { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
-        //public Vehicle StartRouteVehicle { get; set; } // if != null that StartRouteVehicle starts this Vehicle's route
+        
+       
     }
 }

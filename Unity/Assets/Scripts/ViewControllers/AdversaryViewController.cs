@@ -17,6 +17,7 @@ public class AdversaryViewController : VehicleViewController
     }
 
     // act as constructor -- check for alternatives to set initial state
+    // create vehicle here and register it after is is placed
     public override void init(VehicleCategory cat, Color color)
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
@@ -41,6 +42,8 @@ public class AdversaryViewController : VehicleViewController
         }
     }
 
+    // vehicle is passed as a parameter and is already registered with the main controller.
+    // registerEntity is not called because placed is set to true.
     public void init(Vehicle v)
     {
         vehicle = v;
@@ -65,8 +68,8 @@ public class AdversaryViewController : VehicleViewController
         }
         if (v.Path is not null)
         {
-            this.pathController = Instantiate(pathPrefab, new Vector3(0, 0, -0.1f), Quaternion.identity).GetComponent<PathController>();
-            this.pathController.Init(this, this.vehicle, sprite.color, false);
+            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+            this.pathController.Init(this, this.vehicle, false);
         }
     }
 
@@ -111,8 +114,9 @@ public class AdversaryViewController : VehicleViewController
         base.select();
         if(this.pathController is null)
         {
-            this.pathController = Instantiate(pathPrefab, new Vector3(0, 0, -0.1f), Quaternion.identity).GetComponent<PathController>();
-            this.pathController.Init(this, this.vehicle, sprite.color);
+            //PathController must have position 0, otherwise edgecollider is not aligned
+            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+            this.pathController.Init(this, this.vehicle);
         }
         pathController?.select();
         snapController.IgnoreClicks = true;

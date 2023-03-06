@@ -73,7 +73,7 @@ public class MainController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
             buttonBar.visible = action.name != "" ? true : false;
-            selectedEntity = null;
+            setSelectedEntity(null);
         });
 
         GameObject popups = GameObject.Find("PopUps");
@@ -89,9 +89,16 @@ public class MainController : MonoBehaviour
         this.info = info;
         foreach(Vehicle v in info.Vehicles)
         {
-            var viewController = Instantiate(vehiclePrefab, Vector3.zero, Quaternion.identity).GetComponent<AdversaryViewController>();
+            var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3, Quaternion.identity).GetComponent<AdversaryViewController>();
             viewController.init(v);
         }
+        if(info.EgoVehicle is not null)
+        {
+            var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3, Quaternion.identity).GetComponent<EgoViewController>();
+            egoController.init(info.EgoVehicle);
+        }
+        var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
+        initializeEventList(editorGUI);
     }
 
     public void Update()
@@ -225,7 +232,8 @@ public class MainController : MonoBehaviour
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            ExportOnClick();
+           ExportOnClick();
+           //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>

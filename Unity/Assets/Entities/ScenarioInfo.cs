@@ -71,7 +71,9 @@ namespace Entity
                             new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
                             (Path)v.Path.Clone(), //Value
                             PedestrianType.Girl, //Value
-                            v.InitialSpeedKMH //Value
+                            v.InitialSpeedKMH, //Value
+                            v.Id, //Value
+                            v.StartRouteInfo //Reference
                         );
 
                     exPedestrians.Add(CopyPedestrian);
@@ -86,7 +88,7 @@ namespace Entity
             }
 
 
-            return new ScenarioInfo
+            var info = new ScenarioInfo
             {
                 Path = CopyPath,
                 Pedestrians = exPedestrians,
@@ -96,6 +98,9 @@ namespace Entity
                 Vehicles = exVehicles,
                 allEntities = CopyAllEntities
             };
+            info.attachListener();
+            info.onEgoChanged = this.onEgoChanged;
+            return info;
         }
 
 

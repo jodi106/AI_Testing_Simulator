@@ -96,12 +96,13 @@ public class SnapController : MonoBehaviour
             }
 
             var nextRoadAndLaneIds = new List<(int, int)>();
+            var physicalNextRoadAndLaneIds = new List<(int, int)>();
 
             nextRoadAndLaneIdStrings.ForEach(nextString =>
                 nextRoadAndLaneIds.Add(GetRoadIdAndLaneIdFromString(nextString))
             );
 
-            roads[roadId].Lanes.Add(laneId, new Lane(laneId, roadId, nextRoadAndLaneIds));
+            roads[roadId].Lanes.Add(laneId, new Lane(laneId, roadId, nextRoadAndLaneIds, physicalNextRoadAndLaneIds));
         }
 
         foreach (var (roadId, road) in roads)
@@ -113,6 +114,7 @@ public class SnapController : MonoBehaviour
                 foreach ((var nextRoadId, var nextLaneId) in lane.NextRoadAndLaneIds)
                 {
                     nextPossibleRoadAndLaneIds.Add((nextRoadId, nextLaneId));
+                    lane.PhysicalNextRoadAndLaneIds.Add((nextRoadId, nextLaneId));
 
                     var nextRoad = roads[nextRoadId];
 
@@ -303,6 +305,7 @@ public class SnapController : MonoBehaviour
         var costSoFar = new Dictionary<Lane, double> { };
 
         var laneChanges = new HashSet<AStarWaypoint>();
+        var physicalLaneChanges = new HashSet<AStarWaypoint>();
 
         var firstIteration = true;
 
@@ -359,6 +362,10 @@ public class SnapController : MonoBehaviour
 
                     cameFrom[nextLane.Waypoints[0]] = currentWaypoint;
                     laneChanges.Add(nextLane.Waypoints[0]);
+                    if(!currentLane.PhysicalNextRoadAndLaneIds.Contains((nextRoadId, nextLaneId)))
+                    {
+                        physicalLaneChanges.Add(nextLane.Waypoints[0]);
+                    }
                 }
             }
 
@@ -380,13 +387,16 @@ public class SnapController : MonoBehaviour
         {
             if (laneChanges.Contains(currentWaypoint))
             {
+                if (physicalLaneChanges.Contains(currentWaypoint))
+                {
+                    laneChangeIndices.Add(index + 1);
+                }
                 var i = 4;
                 while (i > 0 && cameFrom[currentWaypoint] != startWaypoint)
                 {
                     currentWaypoint = cameFrom[currentWaypoint];
                     i--;
                 }
-                laneChangeIndices.Add(index + 1);
             }
             waypointPath.Add(currentWaypoint.Location.Vector3);
             currentWaypoint = cameFrom[currentWaypoint];

@@ -128,6 +128,7 @@ namespace Entity
 
             cloneActionType.EntityRef = String.IsNullOrEmpty(this.EntityRef) ? String.Empty : string.Copy(this.EntityRef); //Value
             cloneActionType.RelativeTargetLaneValue = this.RelativeTargetLaneValue;
+            cloneActionType.StopDuration = this.StopDuration;
 
             return cloneActionType;
         }

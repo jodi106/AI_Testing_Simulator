@@ -25,6 +25,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
         ignoreWaypoints = false;
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {

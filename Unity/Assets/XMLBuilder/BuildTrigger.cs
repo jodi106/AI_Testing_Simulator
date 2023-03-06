@@ -125,6 +125,39 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
+        public void StandStillCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Create StandStillCondition. Triggers when specified entity does not move for a specific time.
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode standStillCondition = root.CreateElement("StandStillCondition");
+            SetAttribute("duration", triggerInfo.Value.ToString(), standStillCondition);
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(standStillCondition);
+        }
+
+        public void StoryboardElementStateCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Trigger that is true if another Action is completed. Useful to create follow up actions.
+        {
+            XmlNode byValueCondition = root.CreateElement("ByValueCondition");
+            condition.AppendChild(byValueCondition);
+            XmlNode storyboardElementStateCondition = root.CreateElement("StoryboardElementStateCondition");
+            SetAttribute("storyboardElementType", "action", storyboardElementStateCondition);
+            SetAttribute("storyboardElementRef", triggerInfo.AfterAction.Name + triggerInfo.AfterAction.ID, storyboardElementStateCondition);
+            SetAttribute("state", "completeState", storyboardElementStateCondition);
+            byValueCondition.AppendChild(storyboardElementStateCondition);
+        }
+
         public void CriteriaConditions(XmlNode stopTrigger)
         {
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
