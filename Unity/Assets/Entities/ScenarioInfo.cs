@@ -51,13 +51,16 @@ namespace Entity
             ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
             ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
 
+            List<BaseEntity> CopyAllEntities = new();
+
             Ego CopyEgoVehicle = new(); 
             if (this.EgoVehicle != null)
                 CopyEgoVehicle = this.EgoVehicle;
 
-            List<BaseEntity> CopyAllEntities = new();
+            CopyAllEntities.Add(CopyEgoVehicle);
+
             //if (this.allEntities != null)
-                //CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
+            //CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
 
 
             foreach (Vehicle v in this.Vehicles)
