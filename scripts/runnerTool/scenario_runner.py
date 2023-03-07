@@ -99,6 +99,10 @@ class ScenarioRunner(object):
         """
         self._args = args
 
+        ##runnerTool Params
+        self.runnerTool_params = {"speed":self._args.speed}
+
+
         if args.timeout:
             self.client_timeout = float(args.timeout)
 
@@ -510,7 +514,7 @@ class ScenarioRunner(object):
             for entry in self._args.openscenarioparams.split(','):
                 [key, val] = [m.strip() for m in entry.split(':')]
                 openscenario_params[key] = val
-        config = OpenScenarioConfiguration(self._args.openscenario, self.client, openscenario_params)
+        config = OpenScenarioConfiguration(self._args.openscenario, self.client, openscenario_params, self.runnerTool_params)
 
         result = self._load_and_run_scenario(config)
         self._cleanup()
@@ -588,6 +592,8 @@ def main():
     parser.add_argument('--repetitions', default=1, type=int, help='Number of scenario executions')
     parser.add_argument('--waitForEgo', action="store_true", help='Connect the scenario to an existing ego vehicle')
 
+    ## runnerTool arguments
+    parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
     arguments = parser.parse_args()
     # pylint: enable=line-too-long
 

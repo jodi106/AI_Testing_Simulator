@@ -14,15 +14,24 @@ init()
 # 
 # TODOS: 
 # Set spectator to ego vehicle position (scenario_runner.py)
-# No rendering mode
-# Speed up scenario? -> https://github.com/carla-simulator/carla/issues/457 change subprocess command to open carla exe with args.
-# config.py also possible python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
-# Check os -> if not windows change subprocess cmd
+# - check manual_control.py for spectator updates
+# How to add Ego Vehicle -> try agent attribute
+# Add command line parser for runnerTool
+# python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
 
+
+
+
+# vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020') 
+# vehicle = world.try_spawn_actor(vehicle_bp, spawn_points[79])
+
+#spectator = world.get_spectator() 
+#transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4,z=2.5)),vehicle.get_transform().rotation) 
+#spectator.set_transform(transform)
 
 class RunnerTool(object):
 
-    def __init__(self, detailed_log = False, checks = True, save_overview = False):
+    def __init__(self, detailed_log = False, checks = True, save_overview = False, speed = 100):
 
         self.log = Log()
         self.config = self.get_config()
@@ -31,7 +40,24 @@ class RunnerTool(object):
         self.create_result_dir()
         self.detailed_log = detailed_log
         self.save_overview = save_overview
+        self.speed = speed
 
+
+    def create_scenario_runner_params(self, fps=40):
+        params = {}
+        params["fps"] = fps
+
+        temp_path = "{runner_root}/temp".format(runner_root=self.config["PATH_TO_SCENARIO_RUNNER_ROOT"])
+
+        if not os.path.exists(temp_path):
+            os.makedirs(temp_path)
+            self.log.create_entry("INFO: Created temp directory.")
+        else:
+            self.log.create_entry("INFO: Results temp found.")
+
+
+        with open(temp_path+ '/temp.json', 'w', encoding='utf-8') as fp:
+            json.dump(params, fp, sort_keys=False, indent=4)
 
     def get_config(self):
         ''' Loads required user specified paths from config.json file.'''
@@ -69,21 +95,32 @@ class RunnerTool(object):
 
     def start_carla(self, host = 'localhost', port = 2000, low_quality = False):
         ''' Starts Carla.exe if not already running.'''
+        quality = "Epic"
+        if low_quality:
+            quality = "Low"
+
         try:
             client = carla.Client(host, port) 
             world = client.get_world()
             self.log.create_entry("INFO: Carla is already running, starting scenario..")
         except Exception:
             self.log.create_entry("INFO: Carla not Running, Starting exe..")
-            self.carla_exe = subprocess.Popen(self.config["PATH_TO_CARLA_ROOT"]+"/CarlaUE4.exe")
+            self.carla_exe = subprocess.Popen(self.config["PATH_TO_CARLA_ROOT"]+"/CarlaUE4.exe -quality-level={quality}".format(quality=quality))
             time.sleep(10)
             client = carla.Client(host, port) 
             world = client.get_world()
 
+    def adjust_speed(self):
+        ''' Adjust play speed of scenario'''
+
+        speed_cmd = " --speed %i" %self.speed
+        self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
+        return speed_cmd
+
     def runner(self):
         ''' Runs all n .xosc files in specified dir by executing scenario_runner.py in n subprocesses'''
         conf = self.config
-        
+
         folder_addr = conf["PATH_TO_XOSC_FILES"]
         file_list = os.listdir(folder_addr)
         self.log.create_entry("INFO: Found scenarios in directory:\n" + '\n'.join([x for x in file_list if ".xosc" in x]))
@@ -94,8 +131,12 @@ class RunnerTool(object):
                     openscenario = folder_addr + "/" + file
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python env root is required.)
                     cmd = """cd \"{runner_root}\"\
-                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"
-                            """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],python_root=conf["PATH_TO_PYTHON_ENV"],file=openscenario, result_path=self.results_path)
+                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"{speed}
+                            """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],
+                                       python_root=conf["PATH_TO_PYTHON_ENV"],
+                                       file=openscenario, 
+                                       result_path=self.results_path, 
+                                       speed=self.adjust_speed())
                     result = subprocess.run(cmd, shell=True, capture_output=True)
                     self.print_subprocess_output(result)
                 except Exception as e:
@@ -206,7 +247,7 @@ class RunnerTool(object):
     def get_failed(self, result_dict:dict, print_out = True):
         failed = []
         if print_out:
-            print("----------------- FAILED SCENARIOS -----------------")
+            self.log.create_entry("----------------- FAILED SCENARIOS -----------------")
         for key in result_dict.keys():
             if not result_dict[key]["success"]:
                 criteria = []
@@ -217,7 +258,7 @@ class RunnerTool(object):
                 s = s + ','.join(criteria) + ")"
                 failed.append(s)
             if print_out:
-                print(s)
+                self.log.create_entry(s)
             
         return failed
 
@@ -301,10 +342,13 @@ class Log:
 
 
 def main():
-    runner_tool = RunnerTool(checks = False, detailed_log=False, save_overview=False)
-    #runner_tool.start_carla()
-    #runner_tool.runner()
-    runner_tool.create_results_overview()
+
+    ##### TO DO: implement command line parser #####
+
+    runner_tool = RunnerTool(checks = True, detailed_log=True, save_overview=True, speed=100)
+    runner_tool.start_carla(low_quality=True)
+    runner_tool.runner()
+    #runner_tool.create_results_overview()
   
 if __name__ == "__main__":
     sys.exit(main())

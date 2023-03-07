@@ -100,7 +100,7 @@
               <AssignControllerAction>
                 <Controller name="HeroAgent">
                   <Properties>
-                    <Property name="module" value="external_control" />
+                    <Property name="module" value="carla_autopilot" />
                   </Properties>
                 </Controller>
               </AssignControllerAction>

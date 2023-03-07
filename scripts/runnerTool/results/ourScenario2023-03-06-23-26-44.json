@@ -4,7 +4,7 @@
     "criteria": [
         {
             "name": "RunningStopTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -12,7 +12,7 @@
         },
         {
             "name": "RunningRedLightTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -20,7 +20,7 @@
         },
         {
             "name": "WrongLaneTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -28,7 +28,7 @@
         },
         {
             "name": "OnSidewalkTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -36,7 +36,7 @@
         },
         {
             "name": "CheckKeepLane",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -44,7 +44,7 @@
         },
         {
             "name": "CollisionTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0,
             "actual": 1,
@@ -52,10 +52,10 @@
         },
         {
             "name": "CheckDrivenDistance",
-            "actor": "volkswagen.t2-175",
+            "actor": "volkswagen.t2-332",
             "optional": false,
             "expected": 0.01,
-            "actual": 1.03,
+            "actual": 0.49,
             "success": true
         },
         {
@@ -63,7 +63,7 @@
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 30.00921869650483,
+            "actual": 30.06666823476553,
             "success": true
         }
     ]

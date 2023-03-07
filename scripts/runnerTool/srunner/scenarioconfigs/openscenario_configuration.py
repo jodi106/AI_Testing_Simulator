@@ -31,7 +31,10 @@ class OpenScenarioConfiguration(ScenarioConfiguration):
     - Only one Story + Init is supported per Storyboard
     """
 
-    def __init__(self, filename, client, custom_params):
+    def __init__(self, filename, client, custom_params, runnerTool_params = None):
+
+        ##runnerTool Params
+        self.runnerTool_params = runnerTool_params
 
         self.xml_tree = ET.parse(filename)
         self.filename = filename
@@ -170,7 +173,15 @@ class OpenScenarioConfiguration(ScenarioConfiguration):
         world = self.client.get_world()
         wmap = None
         if world:
-            world.get_settings()
+            ##runnerTool Code: Set scenario Speed
+            print("Setting Scenario Speed to %.2fX" %(self.runnerTool_params["speed"]/100))
+            settings = world.get_settings()
+            if self.runnerTool_params["speed"] == 100:
+                settings.fixed_delta_seconds = None
+            else:
+                settings.fixed_delta_seconds = (1.0 / (140/(self.runnerTool_params["speed"]/100)))
+            world.apply_settings(settings)
+
             wmap = world.get_map()
 
         if world is None or (wmap is not None and wmap.name.split('/')[-1] != self.town):
@@ -203,6 +214,16 @@ class OpenScenarioConfiguration(ScenarioConfiguration):
                 self.logger.warning(" Wrong map in use. Forcing reload of CARLA world")
                 self.client.load_world(self.town)
                 world = self.client.get_world()
+
+                ##runnerTool Code: Set scenario Speed             
+                print("Setting Scenario Speed to %.2fX" %(self.runnerTool_params["speed"]/100))
+                settings = world.get_settings()
+                if self.runnerTool_params["speed"] == 100:
+                    settings.fixed_delta_seconds = None
+                else:
+                    settings.fixed_delta_seconds = (1.0 / (140/(self.runnerTool_params["speed"]/100)))
+                world.apply_settings(settings)
+                #### runnerTool Code  ####
 
             CarlaDataProvider.set_world(world)
             if CarlaDataProvider.is_sync_mode():
