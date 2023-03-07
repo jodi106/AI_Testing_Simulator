@@ -3,6 +3,7 @@ using System;
 
 namespace Entity
 {
+    [Serializable]
     public class TriggerInfo : ICloneable
     /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
     {
@@ -38,14 +39,37 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
-        public TriggerInfo(string triggerType, double delay, string conditionEdge, ActionType afterAction)
+        public TriggerInfo(string triggerType, string entityRef, double value, Location worldPosition, string conditionEdge = "rising")
+        /// Constructor for "ReachPositionCondition"
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Value = value;
+            WorldPosition = worldPosition;
+            ConditionEdge = conditionEdge;
+            CalculateLocationCarla();
+        }
+
+        public TriggerInfo(string triggerType, string entityRef, double duration, double delay = 0, string conditionEdge = "rising")
+        /// for StandStillCondition
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Value = duration;
+            Delay = delay;
+            ConditionEdge = conditionEdge;
+        }
+
+        public TriggerInfo(string triggerType, ActionType afterAction, string state = "completeState", double delay = 0, string conditionEdge = "rising")
         /// for StoryboardElementStateCondition
         {
             ID = autoIncrementId++;
             TriggerType = triggerType; // "examples: SimulationTimeCondition", "DistanceCondition"
+            AfterAction = afterAction; // use ActionType.Name + ActionType.ID
             Delay = delay;
             ConditionEdge = conditionEdge;
-            AfterAction = afterAction; // use ActionType.Name + ActionType.ID
         }
 
         public int ID { get; set; }
@@ -73,13 +97,26 @@ namespace Entity
             cloneTriggerInfo.TriggerType = String.Copy(this.TriggerType);
             cloneTriggerInfo.Delay = this.Delay;
             cloneTriggerInfo.ConditionEdge = String.Copy(this.ConditionEdge);
-            cloneTriggerInfo.EntityRef = String.Copy(this.EntityRef);
+
+            cloneTriggerInfo.EntityRef = String.IsNullOrEmpty(this.EntityRef) ? String.Empty : string.Copy(this.EntityRef); //Value
+
             cloneTriggerInfo.SimulationTimeValue = this.SimulationTimeValue;
             cloneTriggerInfo.Value = this.Value;
             cloneTriggerInfo.Rule = String.Copy(this.Rule);
-            cloneTriggerInfo.WorldPosition = (Location)this.WorldPosition.Clone();
-            cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
-            cloneTriggerInfo.AfterAction = (ActionType)this.AfterAction.Clone();
+
+            cloneTriggerInfo.WorldPosition = new();
+            if (this.WorldPosition != null)
+               cloneTriggerInfo.WorldPosition = (Location)this.WorldPosition.Clone();
+
+            cloneTriggerInfo.WorldPositionCarla = new();
+            if (this.WorldPositionCarla != null)
+                cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
+
+            this.AfterAction = new();
+            if (this.AfterAction != null)
+                cloneTriggerInfo.AfterAction = (ActionType)this.AfterAction.Clone();
+
+            
 
             return cloneTriggerInfo;
         }

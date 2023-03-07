@@ -9,6 +9,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEditor;
 using uGUI = UnityEngine.UI;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
+
 
 public class MainController : MonoBehaviour
 {
@@ -27,6 +31,7 @@ public class MainController : MonoBehaviour
     private Button worldSettingsButton;
     private Button exportButton;
     private Button homeButton;
+    private VisualElement buttonBar;
 
     //Action Buttons (Center Left)
     private uGUI.Button removeEntityButton;
@@ -34,7 +39,7 @@ public class MainController : MonoBehaviour
     private uGUI.Toggle snapToggle;
     private GameObject actionButtonCanvas;
 
-    private ScenarioInfo info;
+    public ScenarioInfo info { get; private set; }
 
     private IBaseController selectedEntity;
 
@@ -64,9 +69,36 @@ public class MainController : MonoBehaviour
             }
         });
 
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+            buttonBar.visible = action.name != "" ? true : false;
+            setSelectedEntity(null);
+        });
+
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
+    }
+
+    public void loadScenarioInfo(ScenarioInfo info)
+    {
+        info = (ScenarioInfo)info.Clone();
+        EventManager.TriggerEvent(new MapChangeAction(""));
+        EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
+        this.info = info;
+        foreach(Vehicle v in info.Vehicles)
+        {
+            var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
+            viewController.init(v);
+        }
+        if(info.EgoVehicle is not null)
+        {
+            var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<EgoViewController>();
+            egoController.init(info.EgoVehicle);
+        }
+        var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
+        initializeEventList(editorGUI);
     }
 
     public void Update()
@@ -103,7 +135,6 @@ public class MainController : MonoBehaviour
             this.selectedEntity = null;
             this.actionButtonCanvas.SetActive(false);
         }
-
     }
 
     public void moveActionButtons(Vector2 pos)
@@ -143,21 +174,20 @@ public class MainController : MonoBehaviour
         pos.z = -0.1f;
         GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : vehiclePrefab;
         var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
-        VehicleViewController viewController = null;
+        VehicleViewController viewController;
+        Color color;
         if (this.info.EgoVehicle is null)
         {
             viewController = vehicleGameObject.GetComponent<EgoViewController>();
+            color = new Color(1f, 1f, 1f, 1f); // make Ego vehicle white
         }
         else
         {
-            AdversaryViewController adversaryController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            //TODO fix model; make ego a vehicle and make controllers return vehicles
-            adversaryController.setCategory(category);
-            viewController = adversaryController;
+            viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
+            color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = new Color(color.r, color.g, color.b, 1);
         }
-        Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        color = new Color(color.r, color.g, color.b, 1);
-        viewController.getEntity().setColor(color);
+        viewController.init(category, color);
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -169,6 +199,7 @@ public class MainController : MonoBehaviour
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
         homeButton = editorGUI.Q<Button>("homeButton");
+        buttonBar = editorGUI.Q<VisualElement>("buttons");
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -201,7 +232,8 @@ public class MainController : MonoBehaviour
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            ExportOnClick();
+           ExportOnClick();
+           //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -209,6 +241,8 @@ public class MainController : MonoBehaviour
             var m = Camera.main.GetComponent<CameraMovement>();
             m.Home();
         });
+
+        buttonBar.visible = false;
     }
 
     private void initializeActionButtons()
@@ -289,6 +323,8 @@ public class MainController : MonoBehaviour
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
+        //DumpBinaryScenarioInfo(info);
+        //LoadBinaryScenarioInfo();
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {
@@ -297,43 +333,84 @@ public class MainController : MonoBehaviour
                 "You must place a vehicle first!",
                 "Ok");
             return;
-        }
+        }   
 
-        //Creates a Copy of the exportInfo, so that
-        //ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
+        
+        //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
+        ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
+        
+        // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
+        // exportInfo = this.Info 
+        
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
-        info.MapURL = "Town10HD";
+        exportInfo.MapURL = "Town10HD";
         // ------------------------------------------------------------------------
         // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
-        foreach (Vehicle vehicle in info.Vehicles)
-        {
-            vehicle.getCarlaLocation();
-            if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
-            {
-                vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
-            }
-        }
-        info.EgoVehicle.getCarlaLocation();
+        // These lines are now in BuildXML.cs
+        //foreach (Vehicle vehicle in exportInfo.Vehicles)
+        //{
+        //    vehicle.getCarlaLocation();
+        //    if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
+        //    {
+        //        vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
+        //    }
+        //}
+
+        //foreach (Pedestrian pedestrian in exportInfo.Pedestrians)
+        //{
+        //    pedestrian.getCarlaLocation();
+        //    if (pedestrian.Path is not null && !isWaypointListEmptyOrNull(pedestrian))
+        //    {
+        //        pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
+        //    }
+        //}
+
+        exportInfo.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-        info.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
+        exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
         //info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
-        if (info.Path.Length > 0) // "save" is pressed in explorer
+        if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
         {
-            BuildXML doc = new BuildXML(info);
+            BuildXML doc = new BuildXML(exportInfo);
             doc.CombineXML();
         }
     }
 
-    private bool isWaypointListEmptyOrNull(Vehicle vehicle)
+    private void LoadBinaryScenarioInfo()
     {
-        //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
-        return vehicle.Path.WaypointList?.Any() != true;
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (FileStream stream = new FileStream("data.bin", FileMode.Open))
+        {
+            ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
+            loadScenarioInfo(obj);
+        }
     }
+
+    private void DumpBinaryScenarioInfo(ScenarioInfo info)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (FileStream stream = new FileStream("data.bin", FileMode.Create))
+        {
+            formatter.Serialize(stream, info);
+        }
+    }
+    //private bool isWaypointListEmptyOrNull(Vehicle vehicle)
+    //{
+    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+    //    return vehicle.Path.WaypointList?.Any() != true;
+    //}
+
+    //private bool isWaypointListEmptyOrNull(Pedestrian pedestrian)
+    //{
+    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+    //    return pedestrian.Path.WaypointList?.Any() != true;
+    //}
 }
+

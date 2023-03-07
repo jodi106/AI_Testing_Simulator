@@ -14,11 +14,17 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private SpriteRenderer sprite;
     private SnapController snapController;
     private MainController mainController;
+    private WaypointSettingsPopupController settingsController;
     private bool ignoreWaypoints = false;
+    private bool secondary = false;
 
     public void setPathController(PathController pathController)
     {
         this.pathController = pathController;
+    }
+    public PathController getPathController()
+    {
+        return this.pathController;
     }
 
     void Awake()
@@ -28,9 +34,23 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         this.mainController = Camera.main.GetComponent<MainController>();
     }
 
+    public void makeSecondary()
+    {
+        secondary = true;
+        var c = this.sprite.color;
+        this.sprite.color = new Color(c.r, c.g, c.b, 0.4f);
+    }
+
+    public bool isSecondary()
+    {
+        return secondary;
+    }
+
     public void openEditDialog()
     {
-
+        this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
+        this.settingsController.gameObject.SetActive(true);
+        this.settingsController.open(this, pathController.adversaryViewController.getEntity(), mainController.info.Vehicles);
     }
 
     public void setColor(Color color)
@@ -46,7 +66,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         }
         else
         {
-            mainController.setSelectedEntity(this);
+            if(!secondary) mainController.setSelectedEntity(this);
         }
 
     }
@@ -55,6 +75,10 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            return;
+        }
+        if(secondary)
+        {
             return;
         }
         if (!this.shouldIgnoreWaypoints())
@@ -81,11 +105,6 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         pathController.deselect(true);
-    }
-
-    public Vector2 getPosition()
-    {
-        return gameObject.transform.position;
     }
 
     public void destroy()
@@ -118,4 +137,5 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         return this.waypoint.Location;
     }
+
 }

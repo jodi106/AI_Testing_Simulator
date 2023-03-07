@@ -58,7 +58,7 @@ namespace ExportScenario
 
             Path path_ped_1 = new Path();
             var ped = new ObservableCollection<Pedestrian>();
-            ped.Add(new Pedestrian(new Location(255, -190, 0.8f, 90), new EntityModel("walker.pedestrian.0001"), path_ped_1, initialSpeed:1));
+            ped.Add(new Pedestrian(new Location(255, -190, 0.8f, 90), new EntityModel("walker.pedestrian.0001"), path_ped_1, initialSpeedKMH:1));
 
 
             // Combine every information into one ScenarioInfo Instance

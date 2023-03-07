@@ -47,11 +47,32 @@ namespace Assets.Repos
                 new EntityModel(37, "Vespa"),
             });
 
+            _EntityModels.Add(VehicleCategory.Pedestrian, new List<EntityModel>
+            {
+                new EntityModel(0, "Default"),
+            });
+
         }
 
         public static List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
         {
             return _EntityModels[category];
+        }
+
+        public static EntityModel getDefaultModel(VehicleCategory cat)
+        {
+            switch(cat)
+            {
+                case VehicleCategory.Car:
+                    return getDefaultCarModel();
+                case VehicleCategory.Bike:
+                    return getDefaultBikeModel();
+                case VehicleCategory.Motorcycle:
+                    return getDefaultMotorcycleModel();
+                case VehicleCategory.Pedestrian:
+                    return _EntityModels[cat][0];
+            }
+            return null;
         }
 
         public static EntityModel getDefaultCarModel()

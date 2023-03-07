@@ -9,38 +9,67 @@ public class AdversaryViewController : VehicleViewController
     private Vehicle vehicle;
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
-    public new void Awake()
+    private static readonly double INITIAL_SPEED = 30;
+
+    public PathController getPathController()
     {
-        base.Awake();
-        var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        var path = new Path();
-        this.vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, 10);
-        this.vehicle.setView(this);
-        this.vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        this.vehicleSettingsController.gameObject.SetActive(true);
+        return this.pathController;
     }
 
     // act as constructor -- check for alternatives to set initial state
-    public void setCategory(VehicleCategory cat)
+    // create vehicle here and register it after is is placed
+    public override void init(VehicleCategory cat, Color color)
     {
+        var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
+        var path = new Path();
+        vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, INITIAL_SPEED);
+        vehicle.setView(this);
+        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        vehicleSettingsController.gameObject.SetActive(true);
+        vehicle.setCategory(cat);
+        vehicle.setModel(VehicleModelRepository.getDefaultModel(cat));
+        vehicle.setColor(color);
         switch (cat)
         {
             case VehicleCategory.Car:
-                vehicle.setCategory(VehicleCategory.Car);
-                this.ignoreWaypoints = false;
-                return;
-            case VehicleCategory.Bike:
-                vehicle.setCategory(VehicleCategory.Bike);
-                this.ignoreWaypoints = true;
-                return;   
-            case VehicleCategory.Pedestrian:
-                vehicle.setCategory(VehicleCategory.Pedestrian);
-                this.ignoreWaypoints = true;
-                return;
             case VehicleCategory.Motorcycle:
-                vehicle.setCategory(VehicleCategory.Motorcycle);
-                this.ignoreWaypoints = false;
-                return;
+                ignoreWaypoints = false;
+                break;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                ignoreWaypoints = true;
+                break;
+        }
+    }
+
+    // vehicle is passed as a parameter and is already registered with the main controller.
+    // registerEntity is not called because placed is set to true.
+    public void init(Vehicle v)
+    {
+        vehicle = v;
+        placed = true;
+        vehicle.setView(this);
+        onChangePosition(vehicle.SpawnPoint);
+        onChangeCategory(vehicle.Category);
+        onChangeModel(vehicle.Model);
+        onChangeColor(vehicle.Color.ToUnityColor());
+        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        vehicleSettingsController.gameObject.SetActive(true);
+        switch (vehicle.Category)
+        {
+            case VehicleCategory.Car:
+            case VehicleCategory.Motorcycle:
+                ignoreWaypoints = false;
+                break;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                ignoreWaypoints = true;
+                break;
+        }
+        if (v.Path is not null)
+        {
+            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+            this.pathController.Init(this, this.vehicle, false);
         }
     }
 
@@ -85,11 +114,9 @@ public class AdversaryViewController : VehicleViewController
         base.select();
         if(this.pathController is null)
         {
-            var pathGameObject = Instantiate(pathPrefab, new Vector3(0,0,-0.1f), Quaternion.identity);
-            this.pathController = pathGameObject.GetComponent<PathController>();
-            this.pathController.Path = this.vehicle.Path;
-            this.pathController.SetEntityController(this);
-            this.pathController.SetColor(this.sprite.color);
+            //PathController must have position 0, otherwise edgecollider is not aligned
+            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+            this.pathController.Init(this, this.vehicle);
         }
         pathController?.select();
         snapController.IgnoreClicks = true;
@@ -104,11 +131,10 @@ public class AdversaryViewController : VehicleViewController
 
     public override void destroy()
     {
-        base.destroy();
         mainController.removeVehicle(vehicle);
-        snapController.IgnoreClicks = false;
-        this.pathController?.Destroy();
+        pathController?.Destroy();
         Destroy(gameObject);
+        snapController.IgnoreClicks = false;
     }
 
     public override void onChangeColor(Color color)
@@ -134,7 +160,7 @@ public class AdversaryViewController : VehicleViewController
 
     public override void openEditDialog()
     {
-        this.vehicleSettingsController.open(this, sprite.color);
+        this.vehicleSettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
     }
     protected override void registerEntity()
     {

@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 namespace Entity
-{ 
+{
+    [Serializable]
     public class Waypoint : ICloneable// Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
         public Waypoint(Location location)
         {
             Location = location;
+            Actions = new List<ActionType>();
+        }
+
+        public Waypoint()
+        {
         }
 
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
@@ -19,6 +25,7 @@ namespace Entity
             Priority = priority;
             TriggerList = triggerList;
             CalculateLocationCarla();
+            Actions = new List<ActionType>();
         }
 
         public void setLocation(Location location)
@@ -34,7 +41,12 @@ namespace Entity
         public string Priority { get; set; } // has enum: PriorityType
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
+
+        [field: NonSerialized]
         public IBaseView View { get; set; }
+        public List<ActionType> Actions { get; set; } // Actions without Triggers
+
+        public Vehicle StartRouteOfOtherVehicle { get; set; }
 
         public void CalculateLocationCarla()
         {
@@ -49,8 +61,13 @@ namespace Entity
             var cloneWaypoint = new Waypoint((Location)this.Location.Clone());
             cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
             cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
+            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Vehicle)this.StartRouteOfOtherVehicle.Clone();
             cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
 
+            cloneWaypoint.Actions = new();
+            if (this.Actions != null)           
+                cloneWaypoint.Actions = this.Actions.Select(x => (ActionType)x.Clone()).ToList();
+            
             return cloneWaypoint;
         }
     }

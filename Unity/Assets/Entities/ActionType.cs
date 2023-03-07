@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Entity
 {
+    [Serializable]
     public class ActionType : ICloneable
     /// <summary>Defines a user specified action for a Waypoint object</summary>
     {
@@ -19,21 +20,34 @@ namespace Entity
         {
             ID = autoIncrementId++;
             Name = name;
-            AbsoluteTargetSpeedValue = absoluteTargetSpeedValue;
+            AbsoluteTargetSpeedValueKMH = absoluteTargetSpeedValue;
             DynamicsShape = "linear";
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
         }
-
-        public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamicsShape = "step", string dynamicsDimension = "time")
-        /// for BreakAction
+        public ActionType(string name, double stopduration, double speedValue, string speedActionDynamicsShape = "step", double speedActionDynamicsValue = 0.0, string dynamicsDimension = "time")
+        /// for StopAction
         {
             ID = autoIncrementId++;
             Name = name;
-            //SpeedActionDynamicsShape = speedActionDynamicsShape;
+            StopDuration = stopduration;
+            AbsoluteTargetSpeedValueKMH = speedValue;
+            DynamicsShape = "linear";
             SpeedActionDynamicsValue = speedActionDynamicsValue;
             DynamicDimensions = dynamicsDimension;
+
         }
+
+        //public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamicsShape = "step", string dynamicsDimension = "time")
+        ///// for BreakAction
+        //{
+        //    ID = autoIncrementId++;
+        //    Name = name;
+        //    //SpeedActionDynamicsShape = speedActionDynamicsShape;
+        //    SpeedActionDynamicsValue = speedActionDynamicsValue;
+        //    DynamicDimensions = dynamicsDimension;
+        //}
+
         public ActionType(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape = "linear", double laneChangeActionDynamicsValue = 13, string dynamicsDimension = "distance")
         /// for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
         {
@@ -46,6 +60,12 @@ namespace Entity
             DynamicDimensions = dynamicsDimension;
         }
 
+        //public ActionType(string name, string entityRef, string value)
+        ///// For pre-defined SpeedAction or LaneChangeAction or StopAction
+        //{
+        //    // TODO? Is this even necessary??? See WaypointSettingsPopUpController
+        //}
+
         public ActionType(string name, List<Location> positions)
         /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
         {
@@ -54,10 +74,14 @@ namespace Entity
             Positions = positions;
             CalculateLocationsCarla();
         }
+        public ActionType()
+        {
+
+        }
 
         public int ID { get; private set; }
         public string Name { get; set; } // Todo rename?; has enum ActionTypeName; examples: SpeedAction, LaneChangeAction, AssignRouteAction
-        public double AbsoluteTargetSpeedValue { get; set; } // double from 0 to infinitive(but ~300kmh should be max value); unit: meter per second; needed for SpeedAction
+        public double AbsoluteTargetSpeedValueKMH { get; set; } // double from 0 to infinitive(but ~300kmh should be max value); unit: meter per second; needed for SpeedAction
         public string DynamicsShape { get; set; } // has enum; good values: linear, step; only in advanced settings
         public double SpeedActionDynamicsValue { get; set; } // double: 0 to infinitive, good value: 0
         public double LaneChangeActionDynamicsValue { get; set; } // double: ~25 to infinitive, needs to be bigger than 0
@@ -66,6 +90,7 @@ namespace Entity
         public List<Location> PositionsCarla { get; set; }
         public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
         public int RelativeTargetLaneValue { get; set; } // TODO: -1 or 1
+        public double StopDuration { get; set; }
 
 
         public void CalculateLocationsCarla()
@@ -78,25 +103,32 @@ namespace Entity
                 rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
                 PositionsCarla.Add(new Location(xCarla, yCarla, 0.3f, rotCarla));
             }
-
         }
 
         public object Clone()
-        {
-            ActionType cloneActionType = new ActionType(string.Copy(this.Name));
+        {      
+            ActionType cloneActionType = new ActionType();
+
+            cloneActionType.Name = String.IsNullOrEmpty(this.Name) ? String.Empty : string.Copy(this.Name);
             cloneActionType.ID = this.ID;
-            cloneActionType.AbsoluteTargetSpeedValue = this.AbsoluteTargetSpeedValue;
+            cloneActionType.AbsoluteTargetSpeedValueKMH = this.AbsoluteTargetSpeedValueKMH;
             cloneActionType.DynamicsShape = this.DynamicsShape;
             cloneActionType.SpeedActionDynamicsValue = this.SpeedActionDynamicsValue;
             cloneActionType.LaneChangeActionDynamicsValue = this.LaneChangeActionDynamicsValue;
             cloneActionType.DynamicDimensions = this.DynamicDimensions;
 
             //Cloning the Location, so we don't just get references to the Location of this Object.
-            cloneActionType.Positions = this.Positions.Select(x => (Location)x.Clone()).ToList();
-            cloneActionType.PositionsCarla = this.PositionsCarla.Select(x => (Location)x.Clone()).ToList();
+            cloneActionType.Positions = new();
+            if (this.Positions != null)
+                cloneActionType.Positions = this.Positions.Select(x => (Location)x.Clone()).ToList();
 
-            cloneActionType.EntityRef = string.Copy(this.EntityRef);
+            cloneActionType.PositionsCarla = new();
+            if (this.PositionsCarla != null)
+                cloneActionType.PositionsCarla = this.PositionsCarla.Select(x => (Location)x.Clone()).ToList();
+
+            cloneActionType.EntityRef = String.IsNullOrEmpty(this.EntityRef) ? String.Empty : string.Copy(this.EntityRef); //Value
             cloneActionType.RelativeTargetLaneValue = this.RelativeTargetLaneValue;
+            cloneActionType.StopDuration = this.StopDuration;
 
             return cloneActionType;
         }

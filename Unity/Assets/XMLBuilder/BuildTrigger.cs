@@ -20,7 +20,7 @@ namespace ExportScenario.XMLBuilder
             this.scenarioInfo = scenarioInfo;
         }
 
-        public void CombineTrigger(XmlNode parentNode, bool start, Waypoint waypoint)
+        public void CombineTrigger(XmlNode parentNode, bool start, List<TriggerInfo> TriggerList)
         /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group.
         {
             XmlNode trigger;
@@ -34,16 +34,16 @@ namespace ExportScenario.XMLBuilder
             }
 
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
-            for (int i = 0; i < waypoint.TriggerList.Count; i++)
+            for (int i = 0; i < TriggerList.Count; i++)
             {
                 XmlNode condition = root.CreateElement("Condition");
-                SetAttribute("name", waypoint.TriggerList[i].TriggerType + waypoint.TriggerList[i].ID, condition);
-                SetAttribute("delay", waypoint.TriggerList[i].Delay.ToString(), condition);
-                SetAttribute("conditionEdge", waypoint.TriggerList[i].ConditionEdge.ToString().FirstCharToLowerCase(), condition);
+                SetAttribute("name", TriggerList[i].TriggerType + TriggerList[i].ID, condition);
+                SetAttribute("delay", TriggerList[i].Delay.ToString(), condition);
+                SetAttribute("conditionEdge", TriggerList[i].ConditionEdge.ToString().FirstCharToLowerCase(), condition);
 
                 // Invokes a Method for specified object with specified inputs via a String
-                MethodInfo mi = this.GetType().GetMethod(waypoint.TriggerList[i].TriggerType);
-                mi.Invoke(this, new object[] { condition, waypoint.TriggerList[i] });
+                MethodInfo mi = this.GetType().GetMethod(TriggerList[i].TriggerType);
+                mi.Invoke(this, new object[] { condition, TriggerList[i] });
                 conditionGroup.AppendChild(condition);
             }
             parentNode.AppendChild(trigger);
@@ -78,9 +78,9 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("alongRoute", "true", distanceCondition);
             XmlNode position = root.CreateElement("Position");
             XmlNode worldposition = root.CreateElement("WorldPosition");
-            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3.x.ToString(), worldposition);
-            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3.y.ToString(), worldposition);
-            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3.z.ToString(), worldposition);
+            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().z.ToString(), worldposition);
             SetAttribute("h", triggerInfo.WorldPositionCarla.Rot.ToString(), worldposition);
 
             // hierarchy
@@ -91,6 +91,71 @@ namespace ExportScenario.XMLBuilder
             entityCondition.AppendChild(distanceCondition);
             distanceCondition.AppendChild(position);
             position.AppendChild(worldposition);
+        }
+
+        public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
+        /// Same as DistanceCondition but simpler to read
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode reachPositionCondition = root.CreateElement("ReachPositionCondition");
+            SetAttribute("tolerance", "5", reachPositionCondition); 
+            //SetAttribute("tolerance", triggerInfo.Value.ToString(), reachPositionCondition); 
+            
+            XmlNode position = root.CreateElement("Position");
+            XmlNode worldposition = root.CreateElement("WorldPosition");
+            SetAttribute("x", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().x.ToString(), worldposition);
+            SetAttribute("y", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().y.ToString(), worldposition);
+            SetAttribute("z", triggerInfo.WorldPositionCarla.Vector3Ser.ToVector3().z.ToString(), worldposition);
+            SetAttribute("h", triggerInfo.WorldPositionCarla.Rot.ToString(), worldposition);
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(reachPositionCondition);
+            reachPositionCondition.AppendChild(position);
+            position.AppendChild(worldposition);
+        }
+
+        public void StandStillCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Create StandStillCondition. Triggers when specified entity does not move for a specific time.
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode standStillCondition = root.CreateElement("StandStillCondition");
+            SetAttribute("duration", triggerInfo.Value.ToString(), standStillCondition);
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(standStillCondition);
+        }
+
+        public void StoryboardElementStateCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Trigger that is true if another Action is completed. Useful to create follow up actions.
+        {
+            XmlNode byValueCondition = root.CreateElement("ByValueCondition");
+            condition.AppendChild(byValueCondition);
+            XmlNode storyboardElementStateCondition = root.CreateElement("StoryboardElementStateCondition");
+            SetAttribute("storyboardElementType", "action", storyboardElementStateCondition);
+            SetAttribute("storyboardElementRef", triggerInfo.AfterAction.Name + triggerInfo.AfterAction.ID, storyboardElementStateCondition);
+            SetAttribute("state", "completeState", storyboardElementStateCondition);
+            byValueCondition.AppendChild(storyboardElementStateCondition);
         }
 
         public void CriteriaConditions(XmlNode stopTrigger)

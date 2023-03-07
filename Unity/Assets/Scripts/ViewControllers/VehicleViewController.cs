@@ -25,6 +25,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
         ignoreWaypoints = false;
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
@@ -36,6 +37,15 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 mainController.setSelectedEntity(this);
             }
         });
+
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+            if(action.name == "")
+            {
+                this.destroy();
+            }
+        });
     }
 
     public abstract Sprite getSprite();
@@ -45,9 +55,11 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         return this.getEntity().SpawnPoint;
     }
 
+    public abstract void init(VehicleCategory cat, Color color);
+
     public virtual void onChangePosition(Location location)
     {
-        transform.position = HeightUtil.SetZ(location.Vector3, transform.position.z);
+        transform.position = HeightUtil.SetZ(location.Vector3Ser.ToVector3(), transform.position.z);
         transform.eulerAngles = new Vector3(0, 0, location.Rot);
         mainController.moveActionButtons(transform.position);
     }
@@ -79,10 +91,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.material = defaultMaterial;
     }
 
-    public virtual void destroy()
-    {
-        Destroy(gameObject);
-    }
+    public abstract void destroy();
 
     public Vector2 getPosition()
     {
@@ -90,6 +99,10 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void Update()
     {
+        if(getEntity() == null)
+        {
+            return; //not initialized yet
+        }
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -140,7 +153,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
         }
-
+        mainController.setSelectedEntity(this);
     }
     public void OnMouseDown()
     {
@@ -169,9 +182,18 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         this.ignoreWaypoints = b;
     }
 
-    public void alignVehicle(Vector2 firstWaypoint)
+    public void alignVehicle(Vector3 direction)
     {
-        // TODO
+        Vector3 vectorToTarget = direction - transform.position;
+        vectorToTarget = HeightUtil.SetZ(vectorToTarget, 0);
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Vector3 rot = new Vector3(0, 0, angle);
+        transform.eulerAngles = rot;
+    }
+
+    public void resetVehicleAlignment()
+    {
+        transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
     public abstract BaseEntity getEntity();
