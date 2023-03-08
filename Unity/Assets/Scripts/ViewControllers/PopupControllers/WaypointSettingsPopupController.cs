@@ -388,6 +388,8 @@ public class WaypointSettingsPopupController : MonoBehaviour
     /// User changes currentSpeed after a StopAction in another waypoint was added
     private void SetCorrectCurrentSpeedToNextStopAction(double currentSpeed)
     {
+        bool done = false;
+
         int start = vehicle.Path.WaypointList.FindIndex(waypoint => waypoint == this.waypoint);
         for (int i = start + 1; i < vehicle.Path.WaypointList.Count; i++)
         {
@@ -400,12 +402,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
                     if (ac.Name == "SpeedAction")
                     {
                         currentSpeed = ac.AbsoluteTargetSpeedValueKMH;
-                        // return;
+                        if (done) return;
                     }
                     if (ac.Name == "StopAction")
                     {
                         ac.AbsoluteTargetSpeedValueKMH = currentSpeed;
-                        return;
+                        done = true;
+                        //return;
                     }
                 }
             }
