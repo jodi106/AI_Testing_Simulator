@@ -294,7 +294,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         else if (actionName == "StopAction")
         {
             this.actionTextField[i].value = value.ToString();
-            this.actions[i] = new ActionType(actionName, value, vehicle.InitialSpeedKMH); // TODO current speed value
+            this.actions[i] = new ActionType(actionName, value, GetCurrentSpeed()); 
         }
     }
 
@@ -368,36 +368,69 @@ public class WaypointSettingsPopupController : MonoBehaviour
         startRouteVehicleField.SetEnabled(false);
     }
 
-    private void overwriteActionsCarla(ActionType[] action)
+    private void overwriteActionsCarla(ActionType[] actions)
     {
         /// Add all GUI actions to the waypoint's attribute 'Actions'
         waypoint.Actions = new List<ActionType>();
 
-        int actionsNotNullLength = actions.Count(s => s != null);
+        int actionsNotNullLength = this.actions.Count(s => s != null);
         for (int i = 0; i < actionsNotNullLength; i++)
         {
-            waypoint.Actions.Add(action[i]);
+            waypoint.Actions.Add(actions[i]);
 
-            
+            if (actions[i].Name == "SpeedAction")
+            {
+                SetCorrectCurrentSpeedToNextStopAction(actions[i].AbsoluteTargetSpeedValueKMH);
+            }
         }
     }
 
-    // TODO 
-    private double speedForStopAction()
+    /// User changes currentSpeed after a StopAction in another waypoint was added
+    private void SetCorrectCurrentSpeedToNextStopAction(double currentSpeed)
     {
-        double speedForStopAction = -1;
+        int start = vehicle.Path.WaypointList.FindIndex(waypoint => waypoint == this.waypoint);
+        for (int i = start + 1; i < vehicle.Path.WaypointList.Count; i++)
+        {
+            Waypoint w = vehicle.Path.WaypointList[i];
+            if (w.Actions?.Any() != null)
+            {
+                foreach (ActionType ac in w.Actions)
+                {
+                    // there's another speedAction before the next StopAction
+                    if (ac.Name == "SpeedAction")
+                    {
+                        currentSpeed = ac.AbsoluteTargetSpeedValueKMH;
+                        // return;
+                    }
+                    if (ac.Name == "StopAction")
+                    {
+                        ac.AbsoluteTargetSpeedValueKMH = currentSpeed;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private double GetCurrentSpeed()
+    {
+        double currentSpeed = vehicle.InitialSpeedKMH;
 
         foreach (Waypoint w in vehicle.Path.WaypointList)
         {
-            foreach (ActionType ac in waypoint.Actions)
+            if (w == waypoint) return currentSpeed;
+
+            if (w.Actions?.Any() != null)
             {
-                if (ac.Name == "SpeedAction")
+                foreach (ActionType ac in w.Actions)
                 {
-                    speedForStopAction = ac.AbsoluteTargetSpeedValueKMH;
+                    if (ac.Name == "SpeedAction")
+                    {
+                        currentSpeed = ac.AbsoluteTargetSpeedValueKMH;
+                    }
                 }
-                if (w == waypoint) return speedForStopAction;
             }
         }
-        return -1;
+        return currentSpeed; // shouldn't be reached
     }
 }

@@ -406,11 +406,5 @@ public class MainController : MonoBehaviour
     //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
     //    return vehicle.Path.WaypointList?.Any() != true;
     //}
-
-    //private bool isWaypointListEmptyOrNull(Pedestrian pedestrian)
-    //{
-    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
-    //    return pedestrian.Path.WaypointList?.Any() != true;
-    //}
 }
 

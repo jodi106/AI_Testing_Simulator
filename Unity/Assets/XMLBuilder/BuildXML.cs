@@ -229,44 +229,50 @@ namespace ExportScenario.XMLBuilder
         public void BuildEventsInWaypoint(XmlNode maneuver, Waypoint waypoint, BaseEntity entity)
         /// Creates Events by combining Actions and Triggers and combines them to one XML Block. One Event corresponds to one Waypoint Object in the Path.
         {
-            // TODO prettier code
-
-            // Check if SpeedAction and StopAction exist both
             int indexStopAction = waypoint.Actions.FindIndex(action => action.Name == "StopAction");
             int indexSpeedAction = waypoint.Actions.FindIndex(action => action.Name == "SpeedAction");
-            bool b = false;
-            double accelerateSpeed = waypoint.Actions[indexStopAction].AbsoluteTargetSpeedValueKMH; // TODO speed value
-            if (indexStopAction >= 0 && indexSpeedAction >= 0) 
+            int indexLaneChangeAction = waypoint.Actions.FindIndex(action => action.Name == "LaneChangeAction");
+            
+            // Set correct speed for SpeedAction after StopAction
+            double accelerateSpeed = 0;
+            if (indexStopAction >= 0 && indexSpeedAction >= 0) // Check if SpeedAction and StopAction exist both
             {
                 // element exists
-                b = true;
                 accelerateSpeed = waypoint.Actions[indexSpeedAction].AbsoluteTargetSpeedValueKMH;
+            }
+            else if (indexStopAction >= 0 && indexSpeedAction == -1)
+            {
+                accelerateSpeed = waypoint.Actions[indexStopAction].AbsoluteTargetSpeedValueKMH;
             }
 
             // Build Actions (0 - 3x)
-            foreach (ActionType ac in waypoint.Actions)
+            if (indexLaneChangeAction >= 0)
             {
-                if (!b)
-                {
-                    List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
-                    simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 5, waypoint.Location));
-                    BuildEvent(maneuver, ac, simpleTrigger);
-                }
+                List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
+                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 5, waypoint.Location));
+                BuildEvent(maneuver, waypoint.Actions[indexLaneChangeAction], simpleTrigger);
+            }
 
-                if (ac.Name == "StopAction")
-                {
-                    // 1. SpeedAction to 0
-                    List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
-                    simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 5, waypoint.Location));
-                    BuildEvent(maneuver, ac, simpleTrigger);
+            if (indexStopAction >= 0)
+            {
+                // 1. SpeedAction to 0
+                List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
+                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 5, waypoint.Location));
+                BuildEvent(maneuver, waypoint.Actions[indexStopAction], simpleTrigger);
 
-                    // 2. SpeedAction to x>0
-                    ActionType accelerateAction = new ActionType("SpeedAction", accelerateSpeed); 
-                    List<TriggerInfo> triggers = new List<TriggerInfo>();
-                    triggers.Add(new TriggerInfo("StandStillCondition", entity.Id, ac.StopDuration));
-                    triggers.Add(new TriggerInfo("StoryboardElementStateCondition", ac));
-                    BuildEvent(maneuver, accelerateAction, triggers);
-                } 
+                // 2. SpeedAction to x>0
+                ActionType accelerateAction = new ActionType("SpeedAction", accelerateSpeed);
+                List<TriggerInfo> triggers = new List<TriggerInfo>();
+                triggers.Add(new TriggerInfo("StandStillCondition", entity.Id, waypoint.Actions[indexStopAction].StopDuration));
+                triggers.Add(new TriggerInfo("StoryboardElementStateCondition", waypoint.Actions[indexStopAction]));
+                BuildEvent(maneuver, accelerateAction, triggers);
+            }
+
+            if (indexSpeedAction >= 0 && indexStopAction == -1)
+            {
+                List<TriggerInfo> simpleTrigger = new List<TriggerInfo>();
+                simpleTrigger.Add(new TriggerInfo("DistanceCondition", entity.Id, "lessThan", 5, waypoint.Location));
+                BuildEvent(maneuver, waypoint.Actions[indexSpeedAction], simpleTrigger);
             }
         }
 

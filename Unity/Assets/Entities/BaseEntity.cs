@@ -14,7 +14,6 @@ namespace Entity
             Id = id;
             SpawnPoint = spawnPoint;
             InitialSpeedKMH = initialSpeedKMH;
-            
         }
 
         public BaseEntity()
@@ -33,7 +32,6 @@ namespace Entity
         }
         public Location SpawnPoint { get; set; }
         public double InitialSpeedKMH { get; set; }
-        public double CurrentSpeedKMH { get; set; }
 
         public ColorSer Color;
         

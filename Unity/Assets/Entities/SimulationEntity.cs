@@ -19,7 +19,6 @@ namespace Entity
             Model = model;
             Path = path;
             StartRouteInfo = startRouteInfo;
-            //CurrentSpeedKMH = initialSpeedKMH; // TODO keep or drop
         }
 
         public SimulationEntity()
