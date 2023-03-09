@@ -1,1 +1,0 @@
-C:\Users\jonas\OneDrive - bwedu\Studium_Master\2_HWS_2022\AI Testing Simulator\code\AI_Testing_Simulator\scripts

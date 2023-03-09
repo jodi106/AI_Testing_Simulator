@@ -5,20 +5,24 @@ from datetime import datetime
 import os
 import sys
 import json
+import argparse
+from argparse import RawTextHelpFormatter
 
 from colorama import init, Fore, Back, Style
 init()
-#------------------------- SET INPUTS --------------------------------------------------------------------------------#
 
+RUNNER_TOOL_VERSION = "1.0"
+
+#------------------------- SET INPUTS --------------------------------------------------------------------------------#
 # SET PATHS IN CONFIG.JSON FILE # 
-# 
+#---------------------------------------------------------------------------------------------------------------------#
+
 # TODOS: 
 # Set spectator to ego vehicle position (scenario_runner.py)
 # - check manual_control.py for spectator updates
 # How to add Ego Vehicle -> try agent attribute
-# Add command line parser for runnerTool
-# python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
 
+# python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
 
 
 
@@ -31,33 +35,24 @@ init()
 
 class RunnerTool(object):
 
-    def __init__(self, detailed_log = False, checks = True, save_overview = False, speed = 100):
+    def __init__(self, args):
 
         self.log = Log()
         self.config = self.get_config()
-        if checks:
+        self.checks = args.noChecks
+        if self.checks:
             self.check_paths(self.config)
         self.create_result_dir()
-        self.detailed_log = detailed_log
-        self.save_overview = save_overview
-        self.speed = speed
+        self.create_logs_dir()
+        self.detailed_log = args.log
+        self.save_overview = args.overview
+        self.failed_scenarios = args.failed
+        self.speed = args.speed
 
-
-    def create_scenario_runner_params(self, fps=40):
-        params = {}
-        params["fps"] = fps
-
-        temp_path = "{runner_root}/temp".format(runner_root=self.config["PATH_TO_SCENARIO_RUNNER_ROOT"])
-
-        if not os.path.exists(temp_path):
-            os.makedirs(temp_path)
-            self.log.create_entry("INFO: Created temp directory.")
-        else:
-            self.log.create_entry("INFO: Results temp found.")
-
-
-        with open(temp_path+ '/temp.json', 'w', encoding='utf-8') as fp:
-            json.dump(params, fp, sort_keys=False, indent=4)
+        # Args vor start_carla
+        self.host = args.host
+        self.port = args.port
+        self.low_quality = args.lowQuality
 
     def get_config(self):
         ''' Loads required user specified paths from config.json file.'''
@@ -93,21 +88,22 @@ class RunnerTool(object):
                 raise ValueError(self.log.get_top(print_out=False))
             k+=1
 
-    def start_carla(self, host = 'localhost', port = 2000, low_quality = False):
+    def start_carla(self):
         ''' Starts Carla.exe if not already running.'''
+        
         quality = "Epic"
-        if low_quality:
+        if self.low_quality:
             quality = "Low"
 
         try:
-            client = carla.Client(host, port) 
+            client = carla.Client(self.host, self.port) 
             world = client.get_world()
             self.log.create_entry("INFO: Carla is already running, starting scenario..")
         except Exception:
             self.log.create_entry("INFO: Carla not Running, Starting exe..")
             self.carla_exe = subprocess.Popen(self.config["PATH_TO_CARLA_ROOT"]+"/CarlaUE4.exe -quality-level={quality}".format(quality=quality))
             time.sleep(10)
-            client = carla.Client(host, port) 
+            client = carla.Client(self.host, self.port) 
             world = client.get_world()
 
     def adjust_speed(self):
@@ -123,7 +119,7 @@ class RunnerTool(object):
 
         folder_addr = conf["PATH_TO_XOSC_FILES"]
         file_list = os.listdir(folder_addr)
-        self.log.create_entry("INFO: Found scenarios in directory:\n" + '\n'.join([x for x in file_list if ".xosc" in x]))
+        self.log.create_entry("INFO: Found scenarios in directory:\n" + '\t\n'.join([x for x in file_list if ".xosc" in x]))
         for file in file_list:
             if ".xosc" in file:
                 try:
@@ -183,6 +179,16 @@ class RunnerTool(object):
         else:
             self.log.create_entry("INFO: Results directory found.")
 
+    def create_logs_dir(self):
+        ''' Creates new dir in RUNNER_ROOT to store logs and overview files, if none exists.'''
+        self.logs_path = "{runner_root}/logfiles".format(runner_root=self.config["PATH_TO_SCENARIO_RUNNER_ROOT"])
+
+        if not os.path.exists(self.logs_path):
+            os.makedirs(self.logs_path)
+            self.log.create_entry("INFO: Created logs directory.")
+        else:
+            self.log.create_entry("INFO: logs directory found.")
+
     def load_results(self):
         '''
         Loads scenario results .json files form result dir.
@@ -230,19 +236,28 @@ class RunnerTool(object):
                 overview.append(self.log.get_top(print_out=False))
             count+=1
         self.log.create_entry("----------------------------------------------------")
+        
         if call:
             self.user_specific_results(result_dict)
             self.log.append_dict("All_Results",result_dict)
 
-        if self.detailed_log:
-            self.log.store(self.config["PATH_TO_SCENARIO_RUNNER_ROOT"] + "/")
-        if self.save_overview:
-            file = open("{path}/Scenario_Overview_{date}.txt".format(path = self.config["PATH_TO_SCENARIO_RUNNER_ROOT"],
-                                                                    date = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')),
-                                                                    'w')
-            for item in overview:
-                file.write(item+"\n")
-            file.close()
+            date = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+
+            if self.detailed_log:
+                self.log.store(self.logs_path+ "/")
+
+            if self.save_overview:
+                file = open("{path}/Scenario_Overview_{date}.txt".format(path = self.logs_path,
+                                                                        date = date),'w')
+                for item in overview:
+                    file.write(item+"\n")
+                file.close()
+                
+            if self.failed_scenarios:
+                with open("{path}/Failed_Scenarios_{date}.json".format(path = self.logs_path,
+                                                                        date = date),'w', encoding='utf-8') as fp:
+                    json.dump(self.get_failed(result_dict, False), fp, sort_keys=False, indent=4)
+
 
     def get_failed(self, result_dict:dict, print_out = True):
         failed = []
@@ -343,12 +358,29 @@ class Log:
 
 def main():
 
-    ##### TO DO: implement command line parser #####
+    description = ("OpenSCENARIO runnerTool for CARLA Simulator: Run and Evaluate multiple OpenScenario scenarios using CARLA\n"
+                   "Current version: " + RUNNER_TOOL_VERSION)
+   
+    parser = argparse.ArgumentParser(description=description,
+                                     formatter_class=RawTextHelpFormatter)
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + RUNNER_TOOL_VERSION)
+    parser.add_argument('--host', default='localhost',
+                        help='IP of the host server (default: localhost)')
+    parser.add_argument('--port', default=2000, type=int,
+                        help='TCP port to listen to (default: 2000)')
+    parser.add_argument('--noChecks', default=True, action="store_false", help='Disable checks for config.json')
+    parser.add_argument('--log', action="store_true", help='Saves detailed json log to root dir')
+    parser.add_argument('--overview', action="store_true", help='Saves scenario success overview txt to root dir')
+    parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
+    parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
+    parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
 
-    runner_tool = RunnerTool(checks = True, detailed_log=True, save_overview=True, speed=100)
-    runner_tool.start_carla(low_quality=True)
-    runner_tool.runner()
-    #runner_tool.create_results_overview()
+    arguments = parser.parse_args()
+
+    runner_tool = RunnerTool(arguments)
+    #runner_tool.start_carla()
+    #runner_tool.runner()
+    runner_tool.create_results_overview()
   
 if __name__ == "__main__":
     sys.exit(main())
