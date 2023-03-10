@@ -166,7 +166,7 @@ namespace ExportScenario.XMLBuilder
             {
                 // IMPORTANT !!!
                 vehicle.getCarlaLocation();
-                vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
+                vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint);
 
                 XmlNode story = root.CreateElement("Story");
                 SetAttribute("name", vehicle.Id + "_Story", story);
@@ -220,7 +220,7 @@ namespace ExportScenario.XMLBuilder
             {
                 // IMPORTANT !!!
                 pedestrian.getCarlaLocation();
-                pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
+                pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint);
 
                 XmlNode story = root.CreateElement("Story");
                 SetAttribute("name", pedestrian.Id + "_Story", story);

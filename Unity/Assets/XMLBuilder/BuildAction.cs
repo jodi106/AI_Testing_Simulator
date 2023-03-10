@@ -196,11 +196,17 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("name", controllerName, controller);
             XmlNode properties = root.CreateElement("Properties");
             XmlNode property1 = root.CreateElement("Property");
-            XmlNode property2 = root.CreateElement("Property");
+            
             SetAttribute("name", "module", property1);
             SetAttribute("value", controlMode, property1); // "external_control", "simple_vehicle_control", ...
-            SetAttribute("name", "attach_camera", property2);
-            SetAttribute("value", "true", property2);
+            if (controlMode == "simple_vehicle_control")
+            {
+                XmlNode property2 = root.CreateElement("Property");
+                SetAttribute("name", "attach_camera", property2);
+                SetAttribute("value", "true", property2);
+                properties.AppendChild(property2);
+            }
+            
             XmlNode override_controller_value_action = root.CreateElement("OverrideControllerValueAction");
             XmlNode throttle = root.CreateElement("Throttle");
             SetAttribute("value", "0", throttle);
@@ -227,7 +233,6 @@ namespace ExportScenario.XMLBuilder
             assign_controller_action.AppendChild(controller);
             controller.AppendChild(properties);
             properties.AppendChild(property1);
-            properties.AppendChild(property2);
             controller_action.AppendChild(override_controller_value_action);
             override_controller_value_action.AppendChild(throttle);
             override_controller_value_action.AppendChild(brake);
