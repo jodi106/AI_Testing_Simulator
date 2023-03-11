@@ -6,7 +6,7 @@ using UnityEngine;
 public class AdversaryViewController : VehicleViewController
 {
     public GameObject pathPrefab;
-    private Vehicle vehicle;
+    private SimulationEntity vehicle;
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
     private static readonly double INITIAL_SPEED = 30;
@@ -44,15 +44,15 @@ public class AdversaryViewController : VehicleViewController
 
     // vehicle is passed as a parameter and is already registered with the main controller.
     // registerEntity is not called because placed is set to true.
-    public void init(Vehicle v)
+    public void init(SimulationEntity s)
     {
-        vehicle = v;
+        vehicle = s;
         placed = true;
         vehicle.setView(this);
         onChangePosition(vehicle.SpawnPoint);
         onChangeCategory(vehicle.Category);
         onChangeModel(vehicle.Model);
-        onChangeColor(vehicle.Color.ToUnityColor());
+        if(vehicle.Color is not null) onChangeColor(vehicle.Color.ToUnityColor());
         vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         vehicleSettingsController.gameObject.SetActive(true);
         switch (vehicle.Category)
@@ -66,7 +66,7 @@ public class AdversaryViewController : VehicleViewController
                 ignoreWaypoints = true;
                 break;
         }
-        if (v.Path is not null)
+        if (s.Path is not null)
         {
             this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
             this.pathController.Init(this, this.vehicle, false);
@@ -131,7 +131,7 @@ public class AdversaryViewController : VehicleViewController
 
     public override void destroy()
     {
-        mainController.removeVehicle(vehicle);
+        mainController.removeSimulationEntity(vehicle);
         pathController?.Destroy();
         Destroy(gameObject);
         snapController.IgnoreClicks = false;
@@ -164,7 +164,7 @@ public class AdversaryViewController : VehicleViewController
     }
     protected override void registerEntity()
     {
-        mainController.addVehicle(this.vehicle);
+        mainController.addSimulationEntity(this.vehicle);
     }
 
     public override void setIgnoreWaypoints(bool b)

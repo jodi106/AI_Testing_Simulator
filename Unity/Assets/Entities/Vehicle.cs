@@ -7,12 +7,9 @@ namespace Entity
     [Serializable]
     public class Vehicle : SimulationEntity, ICloneable
     {
-        public VehicleCategory Category { get; private set; }
-
         public Vehicle(Location spawnPoint, EntityModel model, Path path, VehicleCategory category = VehicleCategory.Null, double initialSpeed = 0)
-            : base(spawnPoint, initialSpeed, model, path, null)
+            : base(spawnPoint, initialSpeed, category, model, path, null)
         {
-            Category = category;
         }
 
         public Vehicle()
@@ -20,10 +17,9 @@ namespace Entity
 
         }
 
-        public void setCategory(VehicleCategory category)
+        public new void setCategory(VehicleCategory category)
         {
-            this.Category = category;
-            this.View?.onChangeCategory(category);
+            base.setCategory(category);
         }
 
         public object Clone()

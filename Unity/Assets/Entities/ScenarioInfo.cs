@@ -19,8 +19,6 @@ namespace Entity
             WorldOptions = new WorldOptions();
             EgoVehicle = null;
             Vehicles = new ObservableCollection<Vehicle>();
-            allEntities = new List<BaseEntity>();
-            attachListener();
         }
 
         public ScenarioInfo(string path, ObservableCollection<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Vehicle> vehicles)
@@ -51,17 +49,9 @@ namespace Entity
             ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
             ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
 
-            List<BaseEntity> CopyAllEntities = new();
-
             Ego CopyEgoVehicle = new(); 
             if (this.EgoVehicle != null)
                 CopyEgoVehicle = this.EgoVehicle;
-
-            CopyAllEntities.Add(CopyEgoVehicle);
-
-            //if (this.allEntities != null)
-            //CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
-
 
             foreach (Vehicle v in this.Vehicles)
             {
@@ -73,20 +63,18 @@ namespace Entity
                             (Location)v.SpawnPoint.Clone(), //Value
                             new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
                             (Path)v.Path.Clone(), //Value
-                            PedestrianType.Girl, //Value
+                            VehicleCategory.Pedestrian, //Value
                             v.InitialSpeedKMH, //Value
                             v.Id, //Value
                             v.StartRouteInfo //Reference
                         );
 
                     exPedestrians.Add(CopyPedestrian);
-                    CopyAllEntities.Add(CopyPedestrian);
                 }
                 else
                 {
                     Vehicle cloneVehicle = (Vehicle)v.Clone();
                     exVehicles.Add(cloneVehicle); //Value
-                    CopyAllEntities.Add(cloneVehicle);
                 }
             }
 
@@ -99,45 +87,13 @@ namespace Entity
                 WorldOptions = CopyWorldOptions,
                 EgoVehicle = CopyEgoVehicle,
                 Vehicles = exVehicles,
-                allEntities = CopyAllEntities
             };
-            info.attachListener();
             info.onEgoChanged = this.onEgoChanged;
             return info;
         }
 
-
-        void attachListener()
-        {
-            Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
-            {
-                if (args.NewItems is not null)
-                {
-                    foreach (var item in args.NewItems)
-                    {
-                        allEntities.Add((Vehicle)item);
-                    };
-                }
-                if (args.OldItems is not null)
-                {
-                    foreach (var item in args.OldItems)
-                    {
-                        allEntities.Remove((Vehicle)item);
-                    };
-                }
-            };
-        }
-
         public void setEgo(Ego ego)
         {
-            if(EgoVehicle is not null)
-            {
-                this.allEntities.RemoveAt(0);
-            }
-            if (ego is not null)
-            {
-                this.allEntities.Insert(0, ego);
-            }
             this.EgoVehicle = ego;
             onEgoChanged();
         }
@@ -149,10 +105,23 @@ namespace Entity
         public Ego EgoVehicle { get; private set; }
         public ObservableCollection<Vehicle> Vehicles { get; set; }
 
-        public List<BaseEntity> allEntities { get; private set; }
-
         [NonSerialized]
         public System.Action onEgoChanged;
+
+        public List<BaseEntity> allEntities
+        {
+            get
+            {
+                List<BaseEntity> allEntities = new List<BaseEntity>();
+                if (EgoVehicle is not null)
+                {
+                    allEntities.Add(EgoVehicle);
+                }
+                allEntities.AddRange(Vehicles);
+                allEntities.AddRange(Pedestrians);
+                return allEntities;
+            }
+        }
 
     }
 }

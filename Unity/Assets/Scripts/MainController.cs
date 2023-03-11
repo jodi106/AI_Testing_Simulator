@@ -51,6 +51,7 @@ public class MainController : MonoBehaviour
         this.info = new ScenarioInfo();
         this.info.onEgoChanged = () =>
         {
+            eventList.itemsSource = info.allEntities;
             refreshEntityList();
         };
         this.selectedEntity = null;
@@ -83,6 +84,7 @@ public class MainController : MonoBehaviour
 
     public void loadScenarioInfo(ScenarioInfo info)
     {
+        this.setSelectedEntity(null);
         info = (ScenarioInfo)info.Clone();
         EventManager.TriggerEvent(new MapChangeAction(""));
         EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
@@ -92,7 +94,12 @@ public class MainController : MonoBehaviour
             var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
             viewController.init(v);
         }
-        if(info.EgoVehicle is not null)
+        foreach (Pedestrian p in info.Pedestrians)
+        {
+            var viewController = Instantiate(vehiclePrefab, p.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
+            viewController.init(p);
+        }
+        if (info.EgoVehicle is not null)
         {
             var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<EgoViewController>();
             egoController.init(info.EgoVehicle);
@@ -142,25 +149,27 @@ public class MainController : MonoBehaviour
         this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
-    public void addVehicle(Vehicle vehicle)
+    public void addSimulationEntity(SimulationEntity entity)
     {
-        this.info.Vehicles.Add(vehicle);
-        
+        if (entity is Vehicle v)
+        {
+            this.info.Vehicles.Add(v);
+        }
+        else if (entity is Pedestrian p)
+        {
+            this.info.Pedestrians.Add(p);
+        }
     }
 
-    public void addPedestrian(Pedestrian pedestrian)
+    public void removeSimulationEntity(SimulationEntity entity)
     {
-        this.info.Pedestrians.Add(pedestrian);
-    }
-
-    public void removeVehicle(Vehicle vehicle)
-    {
-        this.info.Vehicles.Remove(vehicle);
-    }
-
-    public void removePedestrian(Pedestrian pedestrian)
-    {
-        this.info.Pedestrians.Remove(pedestrian);
+        if(entity is Vehicle v)
+        {
+            this.info.Vehicles.Remove(v);
+        } else if (entity is Pedestrian p)
+        {
+            this.info.Pedestrians.Remove(p);
+        }
     }
 
     public void setEgo(Ego ego)
@@ -232,8 +241,8 @@ public class MainController : MonoBehaviour
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-           ExportOnClick();
-           //loadScenarioInfo(this.info);
+           //ExportOnClick();
+           loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -298,20 +307,21 @@ public class MainController : MonoBehaviour
         // Set up bind function for a specific list entry
         eventList.bindItem = (item, index) =>
         {
-            (item.userData as VehicleListEntryController).setEventData(info.allEntities.ElementAt(index));
+            List<BaseEntity> allEntities = info.allEntities;
+            (item.userData as VehicleListEntryController).setEventData(allEntities.ElementAt(index));
         };
 
         info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
+            eventList.itemsSource = info.allEntities;
             refreshEntityList();
         };
 
         info.Pedestrians.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
+            eventList.itemsSource = info.allEntities;
             refreshEntityList();
         };
-
-        eventList.itemsSource = info.allEntities;
     }
 
     public void refreshEntityList()
