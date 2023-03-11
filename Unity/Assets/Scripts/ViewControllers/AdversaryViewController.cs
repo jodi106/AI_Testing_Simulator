@@ -49,7 +49,7 @@ public class AdversaryViewController : VehicleViewController
         vehicle = s;
         placed = true;
         vehicle.setView(this);
-        onChangePosition(vehicle.SpawnPoint);
+        onChangePosition(vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         onChangeCategory(vehicle.Category);
         onChangeModel(vehicle.Model);
         if(vehicle.Color is not null) onChangeColor(vehicle.Color.ToUnityColor());
@@ -73,10 +73,10 @@ public class AdversaryViewController : VehicleViewController
         }
     }
 
-    public override void onChangePosition(Location location)
+    public override void onChangePosition(float x, float y)
     {
-        base.onChangePosition(location);
-        pathController?.MoveFirstWaypoint(location);
+        base.onChangePosition(x, y);
+        pathController?.MoveFirstWaypoint(x, y);
     }
 
     public override Sprite getSprite()

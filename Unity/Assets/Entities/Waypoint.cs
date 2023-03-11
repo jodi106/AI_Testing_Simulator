@@ -28,10 +28,10 @@ namespace Entity
             Actions = new List<ActionType>();
         }
 
-        public void setLocation(Location location)
+        public void setPosition(float x, float y)
         {
-            this.Location = location;
-            this.View?.onChangePosition(location);
+            Location = new Location(x, y, Location.Z, Location.Rot);
+            this.View?.onChangePosition(x, y);
             CalculateLocationCarla();
         }
 

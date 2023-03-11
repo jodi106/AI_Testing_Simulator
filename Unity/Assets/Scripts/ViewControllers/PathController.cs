@@ -436,11 +436,11 @@ public class PathController : MonoBehaviour
         return (prev, cur, next, prevIndex);
     }
 
-    public void MoveWaypoint(WaypointViewController waypointController, Location location)
+    public void MoveWaypoint(WaypointViewController waypointController, float x, float y)
     {
         var (prev, cur, next, prevIndex) = getNeighbors(waypointController);
 
-        waypointController.waypoint.setLocation(location);
+        waypointController.waypoint.setPosition(x, y);
 
         List<Vector2> prevPath = new List<Vector2>();
         List<Vector2> nextPath = new List<Vector2>();
@@ -453,8 +453,8 @@ public class PathController : MonoBehaviour
         if (prev != null)
         {
             var laneChanges = new List<int>();
-            (prevPath, laneChanges) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), location.Vector3Ser.ToVector3(), ignoreWaypoints || prev.Value.Item1.shouldIgnoreWaypoints());
-            prev.Value.Item1.waypoint.setLocation(new Location(prevPath[0]));
+            (prevPath, laneChanges) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), new Vector3(x, y, 0), ignoreWaypoints || prev.Value.Item1.shouldIgnoreWaypoints());
+            prev.Value.Item1.waypoint.setPosition(prevPath[0].x, prevPath[0].y);
             prevPath.RemoveAt(0);
             offset = offset + prevPath.Count - cur.Value.Item2;
             usedPrev = addLaneChangeWaypoints(laneChanges, prevPath, prev);
@@ -462,8 +462,8 @@ public class PathController : MonoBehaviour
         if (next != null)
         {
             var laneChanges = new List<int>();
-            (nextPath, laneChanges) = snapController.FindPath(location.Vector3Ser.ToVector3(), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), ignoreWaypoints || next.Value.Item1.shouldIgnoreWaypoints());
-            next.Value.Item1.waypoint.setLocation(new Location(nextPath[nextPath.Count - 1]));
+            (nextPath, laneChanges) = snapController.FindPath(new Vector3(x, y, 0), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), ignoreWaypoints || next.Value.Item1.shouldIgnoreWaypoints());
+            next.Value.Item1.waypoint.setPosition(nextPath[nextPath.Count - 1].x, nextPath[nextPath.Count - 1].y);
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
             usedNext = addLaneChangeWaypoints(laneChanges, nextPath, cur);
@@ -481,7 +481,7 @@ public class PathController : MonoBehaviour
             positions[prevIndex + i + 1] = prevPath[i];
         }
 
-        positions[prevIndex + prevPath.Count] = location.Vector3Ser.ToVector3();
+        positions[prevIndex + prevPath.Count] = new Vector2(x, y);
 
         for (var i = 0; i < nextPath.Count; i++)
         {
@@ -505,8 +505,8 @@ public class PathController : MonoBehaviour
             next.Value = (next.Value.Item1, nextPath.Count - usedNext);
         }
 
-        waypointController.waypoint.setLocation(new Location(location.Vector3Ser.ToVector3(), 0));
-        mainController.moveActionButtons(location.Vector3Ser.ToVector3());
+        waypointController.waypoint.setPosition(x, y);
+        mainController.moveActionButtons(new Vector3(x, y, 0));
         afterEdit();
     }
 
@@ -593,13 +593,13 @@ public class PathController : MonoBehaviour
         resetEdgeCollider();
     }
 
-    public void MoveFirstWaypoint(Location location)
+    public void MoveFirstWaypoint(float x, float y)
     {
         var first = this.waypointViewControllers.First.Value.Item1.getLocation();
         //prevent stackoverflow from onChangeLocation callback
-        if (first.X != location.X || first.Y != location.Y || first.Z != location.Z)
+        if (first.X != x || first.Y != y)
         {
-            this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, location);
+            this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, x, y);
         }
     }
 
@@ -677,7 +677,7 @@ public class PathController : MonoBehaviour
 
             this.Path.WaypointList.Insert(curPathIndex + 1, viewController.waypoint);
 
-            MoveWaypoint(viewController, viewController.waypoint.Location); // fix paths / deleting waypoint may make A* necessary
+            MoveWaypoint(viewController, viewController.waypoint.Location.X, viewController.waypoint.Location.Y); // fix paths / deleting waypoint may make A* necessary
             afterEdit();
 
             mainController.setSelectedEntity(viewController);

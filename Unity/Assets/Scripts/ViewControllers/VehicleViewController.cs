@@ -57,11 +57,15 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public abstract void init(VehicleCategory cat, Color color);
 
-    public virtual void onChangePosition(Location location)
+    public virtual void onChangePosition(float x, float y)
     {
-        transform.position = HeightUtil.SetZ(location.Vector3Ser.ToVector3(), transform.position.z);
-        transform.eulerAngles = new Vector3(0, 0, location.Rot);
+        transform.position = new Vector3(x, y, transform.position.z);
         mainController.moveActionButtons(transform.position);
+    }
+
+    public virtual void onChangeRotation(float angle)
+    {
+        transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     public virtual void onChangeCategory(VehicleCategory cat)
@@ -113,17 +117,17 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 if (waypoint is not null)
                 {
                     difference = Vector2.zero;
-                    getEntity().setSpawnPoint(waypoint.X, waypoint.Y);
+                    getEntity().setPosition(waypoint.X, waypoint.Y);
                     gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
                 }
                 else
                 {
-                    getEntity().setSpawnPoint(mousePosition.x, mousePosition.y); // Im not sure this is ok
+                    getEntity().setPosition(mousePosition.x, mousePosition.y); // Im not sure this is ok
                 }
             }
             else
             {
-                getEntity().setSpawnPoint(mousePosition.x, mousePosition.y);
+                getEntity().setPosition(mousePosition.x, mousePosition.y);
             }
 
         }
@@ -142,19 +146,19 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                getEntity().setSpawnPoint(waypoint.X, waypoint.Y);
+                getEntity().setPosition(waypoint.X, waypoint.Y);
                 getEntity().setRotation(waypoint.Rot);
             }
             else
             {
-                getEntity().setSpawnPoint(mousePosition.x, mousePosition.y);
+                getEntity().setPosition(mousePosition.x, mousePosition.y);
                 getEntity().setRotation(0);
             }
         }
         else
         {
             //rotation is fixed by PathController
-            getEntity().setSpawnPoint(mousePosition.x, mousePosition.y);
+            getEntity().setPosition(mousePosition.x, mousePosition.y);
         }
         mainController.setSelectedEntity(this);
     }

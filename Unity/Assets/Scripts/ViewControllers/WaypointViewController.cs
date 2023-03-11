@@ -86,12 +86,13 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
             var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
-                pathController.MoveWaypoint(this, waypoint);
+                pathController.MoveWaypoint(this, waypoint.X, waypoint.Y);
             }
         }
         else
         {
-            pathController.MoveWaypoint(this, new Location(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            pathController.MoveWaypoint(this, position.x, position.y);
         }
     }
 
@@ -113,9 +114,14 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         Destroy(this.gameObject);
     }
 
-    public void onChangePosition(Location pos)
+    public void onChangePosition(float x, float y)
     {
-        transform.position = new Vector3(pos.X, pos.Y, transform.position.z);
+        transform.position = new Vector3(x, y, transform.position.z);
+    }
+
+    public void onChangeRotation(float angle)
+    {
+
     }
 
     public void onChangeColor(Color c)

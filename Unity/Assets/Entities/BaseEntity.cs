@@ -38,16 +38,22 @@ namespace Entity
         [field: NonSerialized]
         public IBaseEntityView View { get; set; }
 
-        public void setSpawnPoint(float x, float y)
+        public void setPosition(float x, float y)
         {
-            SpawnPoint = new Location(x, y, SpawnPoint.Z, SpawnPoint.Rot);
-            View?.onChangePosition(SpawnPoint);
+            if (SpawnPoint.X != x || SpawnPoint.Y != y)
+            {
+                SpawnPoint = new Location(x, y, SpawnPoint.Z, SpawnPoint.Rot);
+                View?.onChangePosition(x, y);
+            }
         }
 
         public void setRotation(float angle)
         {
-            SpawnPoint = new Location(SpawnPoint.X, SpawnPoint.Y, SpawnPoint.Z, angle);
-            View?.onChangePosition(SpawnPoint);
+            if (SpawnPoint.Rot != angle)
+            {
+                SpawnPoint = new Location(SpawnPoint.X, SpawnPoint.Y, SpawnPoint.Z, angle);
+                View?.onChangeRotation(angle);
+            }
         }
 
         public void setView(IBaseEntityView view)

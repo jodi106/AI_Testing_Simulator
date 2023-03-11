@@ -4,7 +4,9 @@ using UnityEngine;
 
 public interface IBaseView
 {
-    public void onChangePosition(Location pos);
+    public void onChangePosition(float x, float y);
+
+    public void onChangeRotation(float angle);
 
     public void onChangeColor(Color c);
 }
