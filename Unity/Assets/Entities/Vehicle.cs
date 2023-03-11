@@ -17,11 +17,6 @@ namespace Entity
 
         }
 
-        public new void setCategory(VehicleCategory category)
-        {
-            base.setCategory(category);
-        }
-
         public object Clone()
         {
             Vehicle cloneVehicle = new Vehicle();
@@ -39,8 +34,5 @@ namespace Entity
             //I don't think we need BaseEntity.View here since its only for the export? 
             return cloneVehicle;
         }
-
-        
-       
     }
 }

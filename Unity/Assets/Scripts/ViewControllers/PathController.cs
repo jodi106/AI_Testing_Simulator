@@ -578,11 +578,16 @@ public class PathController : MonoBehaviour
         {
             if (waypointViewControllers.Count >= 2)
             {
-                adversaryViewController.alignVehicle(waypointViewControllers.First.Next.Value.Item1.getLocation().Vector3Ser.ToVector3());
+                var adversary = adversaryViewController.getEntity();
+                var direction = waypointViewControllers.First.Next.Value.Item1.getLocation().Vector3Ser.ToVector3();
+                Vector3 vectorToTarget = direction - adversary.SpawnPoint.Vector3Ser.ToVector3();
+                vectorToTarget = HeightUtil.SetZ(vectorToTarget, 0);
+                float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+                adversary.setRotation(angle);
             }
             else
             {
-                adversaryViewController.resetVehicleAlignment();
+                adversaryViewController.getEntity().setRotation(0);
             }
         }
         resetEdgeCollider();
@@ -590,7 +595,12 @@ public class PathController : MonoBehaviour
 
     public void MoveFirstWaypoint(Location location)
     {
-        this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, location);
+        var first = this.waypointViewControllers.First.Value.Item1.getLocation();
+        //prevent stackoverflow from onChangeLocation callback
+        if (first.X != location.X || first.Y != location.Y || first.Z != location.Z)
+        {
+            this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, location);
+        }
     }
 
     public void SetColor(Color color)

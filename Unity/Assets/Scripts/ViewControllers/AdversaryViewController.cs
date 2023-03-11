@@ -76,7 +76,7 @@ public class AdversaryViewController : VehicleViewController
     public override void onChangePosition(Location location)
     {
         base.onChangePosition(location);
-        this.pathController?.MoveFirstWaypoint(location);
+        pathController?.MoveFirstWaypoint(location);
     }
 
     public override Sprite getSprite()

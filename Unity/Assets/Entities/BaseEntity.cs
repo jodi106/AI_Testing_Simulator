@@ -34,15 +34,19 @@ namespace Entity
         public double InitialSpeedKMH { get; set; }
 
         public ColorSer Color;
-        
-        //{ get; protected set; }
 
         [field: NonSerialized]
         public IBaseEntityView View { get; set; }
 
-        public void setSpawnPoint(Location pos)
+        public void setSpawnPoint(float x, float y)
         {
-            SpawnPoint = pos;
+            SpawnPoint = new Location(x, y, SpawnPoint.Z, SpawnPoint.Rot);
+            View?.onChangePosition(SpawnPoint);
+        }
+
+        public void setRotation(float angle)
+        {
+            SpawnPoint = new Location(SpawnPoint.X, SpawnPoint.Y, SpawnPoint.Z, angle);
             View?.onChangePosition(SpawnPoint);
         }
 
