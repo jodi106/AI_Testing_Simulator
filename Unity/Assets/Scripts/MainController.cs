@@ -241,8 +241,8 @@ public class MainController : MonoBehaviour
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-           //ExportOnClick();
-           loadScenarioInfo(this.info);
+           ExportOnClick();
+           //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>

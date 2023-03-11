@@ -20,6 +20,8 @@ public class DestinationController : MonoBehaviour
             if (!placed)
             {
                 placed = true;
+                var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                ego.submitDestination(waypoint);
             }
         });
     }
