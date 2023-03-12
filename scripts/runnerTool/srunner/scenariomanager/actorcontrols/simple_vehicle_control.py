@@ -124,6 +124,7 @@ class SimpleVehicleControl(BasicControl):
 
         if args and 'attach_camera' in args and strtobool(args['attach_camera']):
             self._visualizer = Visualizer(self._actor)
+            print(self._actor)
 
     def _on_obstacle(self, event):
         """

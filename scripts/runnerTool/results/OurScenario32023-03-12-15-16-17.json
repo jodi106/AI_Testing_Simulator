@@ -1,10 +1,10 @@
 {
     "scenario": "OurScenario3",
-    "success": true,
+    "success": false,
     "criteria": [
         {
             "name": "RunningStopTest",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -12,7 +12,7 @@
         },
         {
             "name": "RunningRedLightTest",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -20,7 +20,7 @@
         },
         {
             "name": "WrongLaneTest",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -28,7 +28,7 @@
         },
         {
             "name": "OnSidewalkTest",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -36,7 +36,7 @@
         },
         {
             "name": "CheckKeepLane",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -44,7 +44,7 @@
         },
         {
             "name": "CollisionTest",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -52,18 +52,18 @@
         },
         {
             "name": "CheckDrivenDistance",
-            "actor": "nissan.micra-204",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0.01,
-            "actual": 0.08,
-            "success": true
+            "actual": 0.0,
+            "success": false
         },
         {
             "name": "Duration",
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 18.250000815838575,
+            "actual": 18.321429390460253,
             "success": true
         }
     ]

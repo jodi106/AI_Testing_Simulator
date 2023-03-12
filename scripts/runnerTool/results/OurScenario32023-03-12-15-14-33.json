@@ -1,6 +1,6 @@
 {
     "scenario": "OurScenario3",
-    "success": true,
+    "success": false,
     "criteria": [
         {
             "name": "RunningStopTest",
@@ -55,15 +55,15 @@
             "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0.01,
-            "actual": 0.08,
-            "success": true
+            "actual": 0.0,
+            "success": false
         },
         {
             "name": "Duration",
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 18.178221594542265,
+            "actual": 18.500000827014446,
             "success": true
         }
     ]

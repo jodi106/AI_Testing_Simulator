@@ -101,6 +101,7 @@
                 <Controller name="HeroAgent">
                   <Properties>
                     <Property name="module" value="external_control" />
+					<Property name="attach_camera" value="True"/>
                   </Properties>
                 </Controller>
               </AssignControllerAction>

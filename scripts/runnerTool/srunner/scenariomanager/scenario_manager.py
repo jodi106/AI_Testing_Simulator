@@ -13,7 +13,7 @@ It must not be modified and is for reference only!
 from __future__ import print_function
 import sys
 import time
-
+import carla
 import py_trees
 
 from srunner.autoagents.agent_wrapper import AgentWrapper
@@ -41,7 +41,7 @@ class ScenarioManager(object):
     5. If needed, cleanup with manager.stop_scenario()
     """
 
-    def __init__(self, debug_mode=False, sync_mode=False, timeout=2.0):
+    def __init__(self, debug_mode=False, sync_mode=False, timeout=2.0, runnerTool_cam = None):
         """
         Setups up the parameters, which will be filled at load_scenario()
 
@@ -64,6 +64,8 @@ class ScenarioManager(object):
         self.scenario_duration_game = 0.0
         self.start_system_time = None
         self.end_system_time = None
+
+        self.runnerTool_cam = runnerTool_cam
 
     def _reset(self):
         """
@@ -109,11 +111,35 @@ class ScenarioManager(object):
         self.ego_vehicles = scenario.ego_vehicles
         self.other_actors = scenario.other_actors
 
+        #runnerTool set camera
+        self.get_camera(CarlaDataProvider.get_world())
+
         # To print the scenario tree uncomment the next line
         # py_trees.display.render_dot_tree(self.scenario_tree)
 
         if self._agent is not None:
             self._agent.setup_sensors(self.ego_vehicles[0], self._debug_mode)
+    
+    ####################runnerTool Viewer:
+    def get_camera(self,world):
+        spectator = world.get_spectator()
+        target = world.get_actor(self.ego_vehicles[0].id).get_location()
+        transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 60), carla.Rotation(pitch=270, yaw=0, roll=0))
+        spectator.set_transform(transform) 
+        time.sleep(1)
+
+    def reset_camera(self, actor, spectator):
+        target = actor.get_location()
+        if self.runnerTool_cam == "bird":
+            transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 60), carla.Rotation(pitch=270, yaw=0, roll=0))
+        if self.runnerTool_cam == "ego":
+            transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 3), actor.get_transform().rotation)
+        else:
+            print("ERROR could not resolve camera setting")
+
+        spectator.set_transform(transform) 
+    ####################
+
 
     def run_scenario(self):
         """
@@ -127,15 +153,20 @@ class ScenarioManager(object):
         self._watchdog.start()
         self._running = True
 
+        k = 0
         while self._running:
             timestamp = None
-            world = CarlaDataProvider.get_world()
+            world = CarlaDataProvider.get_world()          
             if world:
+                if self.runnerTool_cam != None:
+                    if k % 1000 == 0:
+                        self.reset_camera(world.get_actor(self.other_actors[1].id),world.get_spectator())
                 snapshot = world.get_snapshot()
                 if snapshot:
                     timestamp = snapshot.timestamp
             if timestamp:
                 self._tick_scenario(timestamp)
+            k+=1
 
         self.cleanup()
 

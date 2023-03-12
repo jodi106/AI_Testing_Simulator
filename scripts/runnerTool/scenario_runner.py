@@ -100,8 +100,7 @@ class ScenarioRunner(object):
         self._args = args
 
         ##runnerTool Params
-        self.runnerTool_params = {"speed":self._args.speed}
-
+        self.runnerTool_params = {"speed":self._args.speed, "camera":self._args.camera}
 
         if args.timeout:
             self.client_timeout = float(args.timeout)
@@ -124,7 +123,7 @@ class ScenarioRunner(object):
             self.module_agent = importlib.import_module(module_name)
 
         # Create the ScenarioManager
-        self.manager = ScenarioManager(self._args.debug, self._args.sync, self._args.timeout)
+        self.manager = ScenarioManager(self._args.debug, self._args.sync, self._args.timeout, self.runnerTool_params["camera"])
 
         # Create signal handler for SIGINT
         self._shutdown_requested = False
@@ -594,6 +593,8 @@ def main():
 
     ## runnerTool arguments
     parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
+    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego)')
+
     arguments = parser.parse_args()
     # pylint: enable=line-too-long
 

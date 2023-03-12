@@ -19,8 +19,7 @@ RUNNER_TOOL_VERSION = "1.0"
 
 # TODOS: 
 # Set spectator to ego vehicle position (scenario_runner.py)
-# - check manual_control.py for spectator updates
-# How to add Ego Vehicle -> try agent attribute
+# -- Use visualizer.py
 
 # python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
 
@@ -48,6 +47,7 @@ class RunnerTool(object):
         self.save_overview = args.overview
         self.failed_scenarios = args.failed
         self.speed = args.speed
+        self.camera = args.camera
 
         # Args vor start_carla
         self.host = args.host
@@ -112,6 +112,13 @@ class RunnerTool(object):
         speed_cmd = " --speed %i" %self.speed
         self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
         return speed_cmd
+    
+    def set_camera_perspective(self):
+        if self.camera:
+            camera_cmd = " --camera %s" %self.camera
+        else:
+            camera_cmd=""
+        return camera_cmd
 
     def runner(self):
         ''' Runs all n .xosc files in specified dir by executing scenario_runner.py in n subprocesses'''
@@ -127,12 +134,13 @@ class RunnerTool(object):
                     openscenario = folder_addr + "/" + file
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python env root is required.)
                     cmd = """cd \"{runner_root}\"\
-                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"{speed}
+                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"{speed} {camera}
                             """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],
                                        python_root=conf["PATH_TO_PYTHON_ENV"],
                                        file=openscenario, 
                                        result_path=self.results_path, 
-                                       speed=self.adjust_speed())
+                                       speed=self.adjust_speed(),
+                                       camera=self.set_camera_perspective())
                     result = subprocess.run(cmd, shell=True, capture_output=True)
                     self.print_subprocess_output(result)
                 except Exception as e:
@@ -374,13 +382,15 @@ def main():
     parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
     parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
     parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
+    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego)')
 
     arguments = parser.parse_args()
 
+    print(arguments.camera)
     runner_tool = RunnerTool(arguments)
-    #runner_tool.start_carla()
-    #runner_tool.runner()
-    runner_tool.create_results_overview()
+    runner_tool.start_carla()
+    runner_tool.runner()
+    #runner_tool.create_results_overview()
   
 if __name__ == "__main__":
     sys.exit(main())
