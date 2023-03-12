@@ -89,12 +89,12 @@ public class MainController : MonoBehaviour
         EventManager.TriggerEvent(new MapChangeAction(""));
         EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
         this.info = info;
-        foreach(Vehicle v in info.Vehicles)
+        foreach(Adversary v in info.Vehicles)
         {
             var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
             viewController.init(v);
         }
-        foreach (Pedestrian p in info.Pedestrians)
+        foreach (Adversary p in info.Pedestrians)
         {
             var viewController = Instantiate(vehiclePrefab, p.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
             viewController.init(p);
@@ -149,24 +149,24 @@ public class MainController : MonoBehaviour
         this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
-    public void addSimulationEntity(SimulationEntity entity)
+    public void addSimulationEntity(Adversary entity)
     {
-        if (entity is Vehicle v)
+        if (entity is Adversary v)
         {
             this.info.Vehicles.Add(v);
         }
-        else if (entity is Pedestrian p)
+        else if (entity is Adversary p)
         {
             this.info.Pedestrians.Add(p);
         }
     }
 
-    public void removeSimulationEntity(SimulationEntity entity)
+    public void removeSimulationEntity(Adversary entity)
     {
-        if(entity is Vehicle v)
+        if(entity is Adversary v)
         {
             this.info.Vehicles.Remove(v);
-        } else if (entity is Pedestrian p)
+        } else if (entity is Adversary p)
         {
             this.info.Pedestrians.Remove(p);
         }

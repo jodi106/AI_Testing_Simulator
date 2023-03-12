@@ -157,7 +157,7 @@ namespace ExportScenario.XMLBuilder
             builtAtLeastOneStory = true;
         }
 
-        public void BuildVehicleStories(Vehicle vehicle)
+        public void BuildVehicleStories(Adversary vehicle)
         /// Creates Vehicle Stories from story head and Events.
         {
             if (vehicle.Path is null) return;
@@ -211,7 +211,7 @@ namespace ExportScenario.XMLBuilder
                 builtAtLeastOneStory = true;
             }
         }
-        public void BuildPedestrianStories(Pedestrian pedestrian)
+        public void BuildPedestrianStories(Adversary pedestrian)
         /// Creates Pedestrian Stories from story head and Events.
         {
             if (pedestrian.Path is null) return;
@@ -338,7 +338,7 @@ namespace ExportScenario.XMLBuilder
         }
 
 
-        private void StartStory(XmlNode act, XmlNode maneuver, SimulationEntity vehicle)
+        private void StartStory(XmlNode act, XmlNode maneuver, Adversary vehicle)
         {
             ActionType startStorySpeedAction;
             TriggerInfo startStoryTrigger;

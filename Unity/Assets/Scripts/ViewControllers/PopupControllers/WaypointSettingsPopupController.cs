@@ -13,8 +13,8 @@ public class WaypointSettingsPopupController : MonoBehaviour
 {
     private WaypointViewController controller;
     private Waypoint waypoint;
-    private SimulationEntity vehicle;
-    private ObservableCollection<Vehicle> allVehicles;
+    private Adversary vehicle;
+    private ObservableCollection<Adversary> allVehicles;
     private int waypointId;
 
     private UIDocument document;
@@ -134,7 +134,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         startRouteVehicleField.RegisterValueChangedCallback((evt) =>
         {
-            foreach (Vehicle veh in allVehicles)
+            foreach (Adversary veh in allVehicles)
             {
                 if (veh.Id == evt.newValue) 
                 {
@@ -159,11 +159,11 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
-    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Vehicle> allSimVehicles)
+    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles)
     {
         this.controller = controller;
         this.waypoint = controller.waypoint;
-        this.vehicle = (Vehicle)vehicle;
+        this.vehicle = (Adversary)vehicle;
         this.allVehicles = allSimVehicles;
 
         // Set GUI elements to corresponding data
@@ -199,7 +199,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         // Add choices for dropdown GUI element (all other simulation vehicles)
         startRouteVehicleField.choices = new List<string> { };
-        foreach (Vehicle veh in allSimVehicles)
+        foreach (Adversary veh in allSimVehicles)
         {
             if (veh.Id != vehicle.Id) // don't add yourself
             {

@@ -14,14 +14,14 @@ namespace Entity
         public ScenarioInfo()
         {
             Path = null;
-            Pedestrians = new ObservableCollection<Pedestrian>();
+            Pedestrians = new ObservableCollection<Adversary>();
             MapURL = null;
             WorldOptions = new WorldOptions();
             EgoVehicle = null;
-            Vehicles = new ObservableCollection<Vehicle>();
+            Vehicles = new ObservableCollection<Adversary>();
         }
 
-        public ScenarioInfo(string path, ObservableCollection<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Vehicle> vehicles)
+        public ScenarioInfo(string path, ObservableCollection<Adversary> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Adversary> vehicles)
         {
             Path = path;
             Pedestrians = pedestrians;
@@ -46,34 +46,24 @@ namespace Entity
             if (this.WorldOptions != null)
                 CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();       
             
-            ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
-            ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
+            ObservableCollection<Adversary> exPedestrians = new(); //Value but contaisns Path Ref
+            ObservableCollection<Adversary> exVehicles = new(); // Value but contains Ref Obj. 
 
             Ego CopyEgoVehicle = new(); 
             if (this.EgoVehicle != null)
                 CopyEgoVehicle = this.EgoVehicle;
 
-            foreach (Vehicle v in this.Vehicles)
+            foreach (Adversary v in this.Vehicles)
             {
                 if (v.Category == VehicleCategory.Pedestrian)
                 {
                     //Didn't implement ICloneable interface, since Path can be reference to the Model Object. 
-                    Pedestrian CopyPedestrian = new Pedestrian
-                        (
-                            (Location)v.SpawnPoint.Clone(), //Value
-                            new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
-                            (Path)v.Path.Clone(), //Value
-                            VehicleCategory.Pedestrian, //Value
-                            v.InitialSpeedKMH, //Value
-                            v.Id, //Value
-                            v.StartRouteInfo //Reference
-                        );
-
+                    Adversary CopyPedestrian = (Adversary)v.Clone();
                     exPedestrians.Add(CopyPedestrian);
                 }
                 else
                 {
-                    Vehicle cloneVehicle = (Vehicle)v.Clone();
+                    Adversary cloneVehicle = (Adversary)v.Clone();
                     exVehicles.Add(cloneVehicle); //Value
                 }
             }
@@ -99,11 +89,11 @@ namespace Entity
         }
         
         public string Path { get; set; }
-        public ObservableCollection<Pedestrian> Pedestrians { get; set; }
+        public ObservableCollection<Adversary> Pedestrians { get; set; }
         public string MapURL { get; set; }
         public WorldOptions WorldOptions { get; set; } // MapRepository.cs has possible Maps. 
         public Ego EgoVehicle { get; private set; }
-        public ObservableCollection<Vehicle> Vehicles { get; set; }
+        public ObservableCollection<Adversary> Vehicles { get; set; }
 
         [NonSerialized]
         public System.Action onEgoChanged;

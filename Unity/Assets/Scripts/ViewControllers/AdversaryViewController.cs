@@ -6,7 +6,7 @@ using UnityEngine;
 public class AdversaryViewController : VehicleViewController
 {
     public GameObject pathPrefab;
-    private SimulationEntity vehicle;
+    private Adversary vehicle;
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
     private static readonly double INITIAL_SPEED = 30;
@@ -22,7 +22,7 @@ public class AdversaryViewController : VehicleViewController
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        vehicle = new Vehicle(vehiclePosition, VehicleModelRepository.getDefaultCarModel(), path, category: VehicleCategory.Car, INITIAL_SPEED);
+        vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path);
         vehicle.setView(this);
         vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         vehicleSettingsController.gameObject.SetActive(true);
@@ -44,7 +44,7 @@ public class AdversaryViewController : VehicleViewController
 
     // vehicle is passed as a parameter and is already registered with the main controller.
     // registerEntity is not called because placed is set to true.
-    public void init(SimulationEntity s)
+    public void init(Adversary s)
     {
         vehicle = s;
         placed = true;

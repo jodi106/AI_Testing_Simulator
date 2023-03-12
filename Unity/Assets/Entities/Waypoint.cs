@@ -46,7 +46,7 @@ namespace Entity
         public IBaseView View { get; set; }
         public List<ActionType> Actions { get; set; } // Actions without Triggers
 
-        public Vehicle StartRouteOfOtherVehicle { get; set; }
+        public Adversary StartRouteOfOtherVehicle { get; set; }
 
         public void CalculateLocationCarla()
         {
@@ -61,7 +61,7 @@ namespace Entity
             var cloneWaypoint = new Waypoint((Location)this.Location.Clone());
             cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
             cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
-            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Vehicle)this.StartRouteOfOtherVehicle.Clone();
+            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Adversary)this.StartRouteOfOtherVehicle.Clone();
             cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
 
             cloneWaypoint.Actions = new();

@@ -115,7 +115,7 @@ public class PathController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Init(AdversaryViewController controller, SimulationEntity v, bool building = true)
+    public void Init(AdversaryViewController controller, Adversary v, bool building = true)
     {
         Path = v.Path;
         if(v.Color is not null) this.SetColor(v.Color.ToUnityColor());
