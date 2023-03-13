@@ -28,6 +28,8 @@ public class MainController : MonoBehaviour
     private Button exportButton;
     private Button homeButton;
 
+    private Button menuButton;
+
     //Action Buttons (Center Left)
     private uGUI.Button removeEntityButton;
     private uGUI.Button editEntityButton;
@@ -40,6 +42,8 @@ public class MainController : MonoBehaviour
 
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
+
+    private MenuController menuController;
 
     void Start()
     {
