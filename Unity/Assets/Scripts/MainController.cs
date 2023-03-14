@@ -165,6 +165,14 @@ public class MainController : MonoBehaviour
     {
         if(entity is Adversary v)
         {
+            foreach (Waypoint w in v.Path.WaypointList)
+            {
+                if (w.StartRouteOfOtherVehicle is not null)
+                {
+                    Adversary otherVehicle = w.StartRouteOfOtherVehicle;
+                    otherVehicle.StartRouteInfo = null;
+                }
+            }
             this.info.Vehicles.Remove(v);
         } else if (entity is Adversary p)
         {

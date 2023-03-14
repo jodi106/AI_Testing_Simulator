@@ -10,7 +10,7 @@ namespace Entity
     public class StartRouteInfo
     {
 
-        public Adversary Vehicle { get; set; }
+        public Adversary Vehicle { get; set; } // this vehicle is Trigger to start my route
         public Location LocationCarla { get; private set; }
         public int Time { get; set; }
         public int Distance { get; set; }

@@ -159,6 +159,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
+
     public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles)
     {
         this.controller = controller;
@@ -197,6 +198,8 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         // ---------------------- Start Route Properties ----------------------
 
+        bool otherVehicleExists = false;
+
         // Add choices for dropdown GUI element (all other simulation vehicles)
         startRouteVehicleField.choices = new List<string> { };
         foreach (Adversary veh in allSimVehicles)
@@ -204,10 +207,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
             if (veh.Id != vehicle.Id) // don't add yourself
             {
                 startRouteVehicleField.choices.Add(veh.Id.ToString());
+
+                if (waypoint.StartRouteOfOtherVehicle == veh) otherVehicleExists = true;
+               
             }
         }
 
-        if (waypoint.StartRouteOfOtherVehicle == null) resetStartRouteVehicleToggle();
+        if (waypoint.StartRouteOfOtherVehicle == null || !otherVehicleExists) resetStartRouteVehicleToggle();
         else
         {
             startRouteToggle.SetEnabled(true);
