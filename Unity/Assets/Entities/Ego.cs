@@ -13,7 +13,7 @@ namespace Entity
         {
             Model = model;
             Category = category;
-            Agent = "simple_vehicle_control"; // TODO GUI to change this value by the user
+            Agent = "simple_vehicle_control"; 
         }
 
         public Ego()

@@ -35,12 +35,12 @@ namespace ExportScenario.XMLBuilder
         public void CombineInit()
         /// Combines GlobalAction and Private xml blocks .
         {
-            string control_mode = "carla_auto_pilot_control"; // other value: external_control 
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
             // Spawn ego vehicle at requested coordinates and speed
             double initialSpeedMS_ego = (scenarioInfo.EgoVehicle.InitialSpeedKMH / 3.6); // convert km/h in m/s for Carla
-            BuildPrivate(scenarioInfo.EgoVehicle, scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS_ego, true, control_mode);
+            if (scenarioInfo.EgoVehicle.InitialSpeedKMH <= 0) initialSpeedMS_ego = 0.1; 
+            BuildPrivate(scenarioInfo.EgoVehicle, scenarioInfo.EgoVehicle.getCarlaLocation(), initialSpeedMS_ego, true);
 
             // Spawn simulation vehicles at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
@@ -68,7 +68,7 @@ namespace ExportScenario.XMLBuilder
 
         }
 
-        public void BuildPrivate(BaseEntity entity, Location spawnPoint, double initialSpeed, bool isEgoVehicle = false, string controlMode = "simulation")
+        public void BuildPrivate(BaseEntity entity, Location spawnPoint, double initialSpeed, bool isEgoVehicle = false)
         /// Builds Private xml block. Specifies Spawnpostition and speed for scenario entities.
         {
             string entityRef = entity.Id;
@@ -90,6 +90,7 @@ namespace ExportScenario.XMLBuilder
                 buildPrivateAction.ControllerAction(private_action0, ego.Agent);
                 _private.AppendChild(private_action0);
             }
+            
             // Hierarchy
             actions.AppendChild(_private);
             _private.AppendChild(private_action1);

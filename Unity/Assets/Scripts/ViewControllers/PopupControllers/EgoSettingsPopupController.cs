@@ -13,6 +13,7 @@ public class EgoSettingsPopupController : MonoBehaviour
     private Ego ego;
     private UIDocument document;
     private TextField iDField;
+    private TextField agentField;
     private TextField locationField;
     private TextField initialSpeedField;
     private DropdownField possibleModelsField;
@@ -62,6 +63,13 @@ public class EgoSettingsPopupController : MonoBehaviour
             {
                 initialSpeedField.value = InputEvent.previousData;
             }
+        });
+
+        agentField = this.document.rootVisualElement.Q<TextField>("Agent");
+        agentField.RegisterCallback<InputEvent>((InputEvent) =>
+        {
+            ego.Agent = InputEvent.newData;
+            // TODO PopUp Window with information about agents
         });
 
         locationField = this.document.rootVisualElement.Q<TextField>("Location");
@@ -164,6 +172,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = ego.Id.ToString();
         initialSpeedField.value = ego.InitialSpeedKMH.ToString();
+        agentField.value = ego.Agent.ToString();
         locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
         possibleModelsField.value = ego.Model.DisplayName.ToString();
