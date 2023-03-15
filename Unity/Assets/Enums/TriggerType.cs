@@ -7,6 +7,8 @@ namespace Assets.Enums
         [Description("SimulationTimeCondition")]
         SimulationTimeCondition,
         [Description("DistanceCondition")]
-        DistanceCondition
+        DistanceCondition,
+        [Description("ReachPositionCondition")]
+        ReachPositionCondition,
     }
 }

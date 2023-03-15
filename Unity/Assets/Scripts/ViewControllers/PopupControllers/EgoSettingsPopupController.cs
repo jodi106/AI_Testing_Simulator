@@ -56,7 +56,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         {
             if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
             {
-                this.ego.InitialSpeed = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
+                this.ego.InitialSpeedKMH = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
             }
             else
             {
@@ -163,7 +163,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         this.ego = (Ego)controller.getEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = ego.Id.ToString();
-        initialSpeedField.value = ego.InitialSpeed.ToString();
+        initialSpeedField.value = ego.InitialSpeedKMH.ToString();
         locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
         possibleModelsField.value = ego.Model.DisplayName.ToString();

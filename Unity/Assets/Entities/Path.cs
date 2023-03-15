@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Entity
 {
-
+    [Serializable]
     public class Path : ICloneable// Story in .xosc
     /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
     {
@@ -20,7 +20,6 @@ namespace Entity
             OverallStopTrigger = overallStopTrigger;
             WaypointList = waypointList;
 
-            //TODO: Fix Position set only to 0,0,0,0 now for presentation
             AssignRouteWaypoint = new Waypoint(
                     WaypointList[0].Location,
                     new ActionType("AssignRouteAction", GetRouteLocations()),
@@ -37,8 +36,15 @@ namespace Entity
         public object Clone()
         {
             Path clonePath = new Path();
-            clonePath.OverallStartTrigger = (Waypoint)this.OverallStartTrigger.Clone();
-            clonePath.OverallStopTrigger = (Waypoint)this.OverallStopTrigger.Clone();
+
+            clonePath.OverallStartTrigger = new Waypoint();
+            if (this.OverallStartTrigger!= null) 
+                clonePath.OverallStartTrigger = (Waypoint)this.OverallStartTrigger.Clone();
+            
+            clonePath.OverallStopTrigger = new Waypoint();
+            if (this.OverallStopTrigger != null)
+                clonePath.OverallStopTrigger = (Waypoint)this.OverallStopTrigger.Clone();
+
             clonePath.WaypointList = this.WaypointList.Select(x => (Waypoint)x.Clone()).ToList();
 
             return clonePath; 
@@ -67,7 +73,7 @@ namespace Entity
             var first = WaypointList[0];
             Quaternion rotation = Quaternion.Euler(0f, 0f, rot);
             var originalStartLocation = (Location) first.Location.Clone();
-            first.Location.Vector3 = first.Location.Vector3 + rotation * Vector3.right;
+            first.Location.Vector3Ser.SetFromVector3(first.Location.Vector3Ser.ToVector3() + rotation * Vector3.right);
 
             Waypoint assignRouteWaypoint = new Waypoint(
                     originalStartLocation,

@@ -9,18 +9,11 @@ public class DestinationController : MonoBehaviour
     private SnapController snapController;
     private bool placed;
 
-    public void setEgo(EgoViewController ego)
-    {
-        this.ego = ego;
-    }
-
     void Awake()
     {
         this.sprite = gameObject.GetComponent<SpriteRenderer>();
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.WAYPOINT_SELECTED);
         this.snapController = Camera.main.GetComponent<SnapController>();
-
-        placed = false;
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
@@ -29,6 +22,12 @@ public class DestinationController : MonoBehaviour
                 placed = true;
             }
         });
+    }
+
+    public void init(EgoViewController ego, Color color, bool placed = false)
+    {
+        this.ego = ego;
+        this.placed = placed;
     }
 
     public void Destroy()

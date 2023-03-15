@@ -1,7 +1,8 @@
 ﻿using System;
 
 namespace Entity
-{ 
+{
+    [Serializable]
     public class EntityModel : ICloneable
     /// <summary>Creates EntityModel object which contains informations about Model from Carla Blueprints</summary>
     {

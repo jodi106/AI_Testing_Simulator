@@ -4,6 +4,7 @@ using Entity;
 using System;
 using UnityEngine;
 
+
 public class EgoViewController : VehicleViewController
 {
     public GameObject DestinationPrefab;
@@ -13,13 +14,6 @@ public class EgoViewController : VehicleViewController
     public new void Awake()
     {
         base.Awake();
-
-        this.egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
-        this.egoSettingsController.gameObject.SetActive(true);
-
-        var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        this.ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, 0); // TODO initial speed: different default later?
-        this.ego.setView(this);
     }
 
     public override Sprite getSprite()
@@ -35,24 +29,17 @@ public class EgoViewController : VehicleViewController
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
             this.destination = destinationGameObject.GetComponent<DestinationController>();
-            this.destination.setEgo(this);
-            this.destination.setColor(this.sprite.color);
+            this.destination.init(this, this.sprite.color);
         }
         this.destination?.select();
+        snapController.IgnoreClicks = true;
     }
 
     public override void deselect()
     {
         base.deselect();
-        if (this.destination && !this.destination.isPlaced())
-        {
-            this.destination.Destroy();
-            this.destination = null;
-        }
-        else
-        {
-            this.destination?.deselect();
-        }
+        destination?.deselect();
+        snapController.IgnoreClicks = false;
     }
 
     public void submitDestination(Location destination)
@@ -62,7 +49,6 @@ public class EgoViewController : VehicleViewController
 
     public override void destroy()
     {
-        base.destroy();
         this.mainController.setEgo(null);
         destination?.Destroy();
         Destroy(gameObject);
@@ -80,6 +66,77 @@ public class EgoViewController : VehicleViewController
         }
         this.destination?.setColor(color);
         mainController.refreshEntityList();
+    }
+
+    public override void init(VehicleCategory cat, Color color)
+    {
+        egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
+        egoSettingsController.gameObject.SetActive(true);
+        var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
+        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, 0); // TODO initial speed: different default later?
+        ego.setView(this);
+        ego.setCategory(cat);
+        ego.setColor(color);
+        switch (cat)
+        {
+            case VehicleCategory.Car:
+            case VehicleCategory.Motorcycle:
+                ignoreWaypoints = false;
+                return;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                ignoreWaypoints = true;
+                return;
+        }
+    }
+
+    public void init(Ego ego)
+    {
+        this.ego = ego;
+        placed = true;
+        ego.setView(this);
+        onChangePosition(ego.SpawnPoint);
+        onChangeCategory(ego.Category);
+        onChangeModel(ego.Model);
+        onChangeColor(ego.Color.ToUnityColor());
+        egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
+        egoSettingsController.gameObject.SetActive(true);
+        switch (ego.Category)
+        {
+            case VehicleCategory.Car:
+            case VehicleCategory.Motorcycle:
+                ignoreWaypoints = false;
+                break;
+            case VehicleCategory.Bike:
+            case VehicleCategory.Pedestrian:
+                ignoreWaypoints = true;
+                break;
+        }
+        if (ego.Destination is not null)
+        {
+            this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<DestinationController>();
+            this.destination.init(this, sprite.color, true);
+        }
+    }
+
+    public override void onChangeCategory(VehicleCategory cat)
+    {
+        base.onChangeCategory(cat);
+        switch (cat)
+        {
+            case VehicleCategory.Car:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
+                return;
+            case VehicleCategory.Bike:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
+                return;
+            case VehicleCategory.Pedestrian:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
+                return;
+            case VehicleCategory.Motorcycle:
+                sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
+                return;
+        }
     }
 
     public override BaseEntity getEntity()
