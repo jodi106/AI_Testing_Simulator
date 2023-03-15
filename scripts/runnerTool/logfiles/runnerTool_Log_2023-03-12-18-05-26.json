@@ -1,0 +1,3788 @@
+{
+    "1:  18:04:06": "INFO: Results directory found.",
+    "2:  18:04:06": "INFO: logs directory found.",
+    "3:  18:04:11": "INFO: Carla not Running, Starting exe..",
+    "4:  18:04:23": "INFO: Found scenarios in directory:\ngeradeausFalsch.xosc\t\nOurTestScenario.xosc\t\nzgeradeausFalsch.xosc",
+    "5:  18:04:23": "INFO: Running scenario -> geradeausFalsch.xosc...",
+    "6:  18:04:23": "INFO: Setting Scenario display Speed to 5.00X",
+    "7:  18:04:47": "INFO: Not all scenario tests were successful",
+    "8:  18:04:47": "STDERR: b\"scenario_runner.py:115: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.\\r\\n  if LooseVersion(dist.version) < LooseVersion('0.9.12'):\\r\\nWARNING:[SR:OpenScenarioConfiguration]: Wrong map in use. Forcing reload of CARLA world\\r\\n\"",
+    "9:  18:04:47": "INFO: Running scenario -> OurTestScenario.xosc...",
+    "10:  18:04:47": "INFO: Setting Scenario display Speed to 5.00X",
+    "11:  18:05:05": "INFO: Not all scenario tests were successful",
+    "12:  18:05:05": "STDERR: b\"scenario_runner.py:115: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.\\r\\n  if LooseVersion(dist.version) < LooseVersion('0.9.12'):\\r\\nWARNING:[SR:OpenScenarioConfiguration]: Wrong map in use. Forcing reload of CARLA world\\r\\n\"",
+    "13:  18:05:05": "INFO: Running scenario -> zgeradeausFalsch.xosc...",
+    "14:  18:05:05": "INFO: Setting Scenario display Speed to 5.00X",
+    "15:  18:05:24": "INFO: Not all scenario tests were successful",
+    "16:  18:05:24": "STDERR: b\"scenario_runner.py:115: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.\\r\\n  if LooseVersion(dist.version) < LooseVersion('0.9.12'):\\r\\nWARNING:[SR:OpenScenarioConfiguration]: Wrong map in use. Forcing reload of CARLA world\\r\\n\"",
+    "17:  18:05:24": "----------------- RESULTS OVERVIEW -----------------",
+    "18:  18:05:24": "SCNEARIO NAMES | SUCCESS",
+    "19:  18:05:24": "1. ourScenario | False",
+    "20:  18:05:24": "2. ourScenario | False",
+    "21:  18:05:24": "3. ourScenario | False",
+    "22:  18:05:24": "4. ourScenario | False",
+    "23:  18:05:24": "5. ourScenario | False",
+    "24:  18:05:24": "6. ourScenario | False",
+    "25:  18:05:24": "7. ourScenario | False",
+    "26:  18:05:24": "8. ourScenario | False",
+    "27:  18:05:24": "9. ourScenario | False",
+    "28:  18:05:24": "10. ourScenario | False",
+    "29:  18:05:24": "11. ourScenario | False",
+    "30:  18:05:24": "12. ourScenario | False",
+    "31:  18:05:24": "13. ourScenario | False",
+    "32:  18:05:24": "14. ourScenario | False",
+    "33:  18:05:24": "15. ourScenario | False",
+    "34:  18:05:24": "16. ourScenario | False",
+    "35:  18:05:24": "17. ourScenario | False",
+    "36:  18:05:24": "18. ourScenario | False",
+    "37:  18:05:24": "19. ourScenario | False",
+    "38:  18:05:24": "20. ourScenario | False",
+    "39:  18:05:24": "21. ourScenario | False",
+    "40:  18:05:24": "22. ourScenario | False",
+    "41:  18:05:24": "23. ourScenario | False",
+    "42:  18:05:24": "24. ourScenario | False",
+    "43:  18:05:24": "25. OurScenario3 | False",
+    "44:  18:05:24": "26. OurScenario3 | False",
+    "45:  18:05:24": "27. OurScenario3 | False",
+    "46:  18:05:24": "28. OurScenario3 | False",
+    "47:  18:05:24": "29. OurScenario3 | False",
+    "48:  18:05:24": "30. OurScenario3 | False",
+    "49:  18:05:24": "31. OurScenario3 | False",
+    "50:  18:05:24": "32. OurScenario3 | False",
+    "51:  18:05:24": "33. OurScenario3 | False",
+    "52:  18:05:24": "34. OurScenario3 | False",
+    "53:  18:05:24": "35. OurScenario3 | False",
+    "54:  18:05:24": "36. OurScenario3 | False",
+    "55:  18:05:24": "37. OurScenario3 | False",
+    "56:  18:05:24": "38. OurScenario3 | False",
+    "57:  18:05:24": "39. OurScenario3 | False",
+    "58:  18:05:24": "40. OurScenario3 | False",
+    "59:  18:05:24": "41. OurScenario3 | False",
+    "60:  18:05:24": "42. OurScenario3 | False",
+    "61:  18:05:24": "43. OurScenario3 | False",
+    "62:  18:05:24": "44. OurScenario3 | False",
+    "63:  18:05:24": "45. OurScenario3 | False",
+    "64:  18:05:24": "46. OurScenario3 | False",
+    "65:  18:05:24": "47. OurScenario3 | False",
+    "66:  18:05:24": "48. OurScenario3 | False",
+    "67:  18:05:24": "49. OurScenario3 | False",
+    "68:  18:05:24": "50. OurScenario3 | True",
+    "69:  18:05:24": "51. OurScenario3 | False",
+    "70:  18:05:24": "52. OurScenario3 | True",
+    "71:  18:05:24": "53. OurScenario3 | False",
+    "72:  18:05:24": "----------------------------------------------------",
+    "73:  18:05:24": "Browse Scenario Results (enter 0 to exit, h for help)",
+    "74:  18:05:26": "Exiting results...",
+    "All_Results": {
+        "ourScenario2023-03-06-23-18-24.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.59,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.050000447779894,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-06-23-21-48.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.48,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.100000448524952,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-06-23-26-44.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.49,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.06666823476553,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-07-22-02-44.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.52,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.050000447779894,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-09-13-25-07.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.96,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.00737849622965,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-09-13-29-37.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.57,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-09-13-33-39.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 1.06,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.015241097658873,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-09-13-55-10.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.45,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.071429915726185,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-14-33-15.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-238",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.33,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.008848700672388,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-34-32.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.31,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.00906640291214,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-36-01.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-332",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.44,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.042857963591814,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-37-48.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.44,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.042857963591814,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-41-50.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.47,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-43-25.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.47,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-45-32.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.34,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.009517695754766,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-47-38.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-339",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.47,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-49-46.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.43,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.071429915726185,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-53-09.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-182",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.48,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-54-16.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-346",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.48,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-55-23.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-510",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.45,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-17-59-44.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.48,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-18-01-23.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.48,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-18-03-31.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.45,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "ourScenario2023-03-12-18-05-05.json": {
+            "scenario": "ourScenario",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "volkswagen.t2-175",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.48,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 30.035715628415346,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-15-14-33.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.500000827014446,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-15-16-17.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.321429390460253,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-33-49.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.161886647343636,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-35-44.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.342857643961906,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-37-30.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.55714336410165,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-41-05.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 5.309052601456642,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-41-32.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.321429390460253,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-43-07.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.535715114325285,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-44-49.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.083153914660215,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-46-03.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 17.999131716787815,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-47-21.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.321429390460253,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-49-31.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.785715125501156,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-52-28.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 2,
+                    "success": false
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 2,
+                    "success": false
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 2,
+                    "success": false
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 91.18,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 295.5714417845011,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-52-52.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-54",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.285715103149414,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-53-28.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-211",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.178572241216898,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-53-59.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-218",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.321429390460253,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-54-38.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-375",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.285715103149414,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-55-05.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-382",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.321429390460253,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-55-41.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-539",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.285715103149414,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-17-59-18.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.607143688946962,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-18-01-04.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.535715114325285,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-18-03-12.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.571429401636124,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-18-03-50.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.250000815838575,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-18-04-47.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-47",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.607143688946962,
+                    "success": true
+                }
+            ]
+        },
+        "OurScenario32023-03-12-18-05-24.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-204",
+                    "optional": false,
+                    "expected": 0.01,
+                    "actual": 0.0,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.285715103149414,
+                    "success": true
+                }
+            ]
+        },
+        "scenario1.json": {
+            "scenario": "OurScenario3",
+            "success": true,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        },
+        "scenario2.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": false
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        },
+        "scenario3.json": {
+            "scenario": "OurScenario3",
+            "success": true,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        },
+        "scenario4.json": {
+            "scenario": "OurScenario3",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": false
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        }
+    }
+}

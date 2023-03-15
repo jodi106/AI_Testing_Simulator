@@ -2,5 +2,4 @@
 "PATH_TO_SCENARIO_RUNNER_ROOT": "C:/Users/jonas/OneDrive - bwedu/Studium_Master/2_HWS_2022/AI Testing Simulator/code/AI_Testing_Simulator/scripts/runnerTool", 
 "PATH_TO_XOSC_FILES": "C:/Users/jonas/OneDrive - bwedu/Studium_Master/2_HWS_2022/AI Testing Simulator/code/AI_Testing_Simulator/scripts/runnerTool/scenarios", 
 "PATH_TO_PYTHON_ENV": "E:/Programme/Miniconda/envs/carla",
-"CARLA_VERSION": "0.9.13",
-"ENVNAME": "Carla"}
+"CARLA_VERSION": "0.9.13"}

@@ -132,7 +132,7 @@ class ScenarioManager(object):
         target = actor.get_location()
         if self.runnerTool_cam == "bird":
             transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 60), carla.Rotation(pitch=270, yaw=0, roll=0))
-        if self.runnerTool_cam == "ego":
+        elif self.runnerTool_cam == "ego":
             transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 3), actor.get_transform().rotation)
         else:
             print("ERROR could not resolve camera setting")
@@ -159,7 +159,7 @@ class ScenarioManager(object):
             world = CarlaDataProvider.get_world()          
             if world:
                 if self.runnerTool_cam != None:
-                    if k % 1000 == 0:
+                    if k % 2000 == 0:
                         self.reset_camera(world.get_actor(self.other_actors[1].id),world.get_spectator())
                 snapshot = world.get_snapshot()
                 if snapshot:

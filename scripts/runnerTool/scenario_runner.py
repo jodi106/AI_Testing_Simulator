@@ -30,6 +30,7 @@ import time
 import json
 import pkg_resources
 
+## runnerTool add On
 def set_global_variables():
     try:
         with open('config.json', 'r') as openfile:
@@ -46,7 +47,7 @@ def set_global_variables():
         print("ERROR: Global variables were not set succesfully. {exception}".format(exception=e))
 
 set_global_variables()
-
+##
 
 import carla
 

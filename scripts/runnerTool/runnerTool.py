@@ -18,24 +18,43 @@ RUNNER_TOOL_VERSION = "1.0"
 #---------------------------------------------------------------------------------------------------------------------#
 
 # TODOS: 
-# Set spectator to ego vehicle position (scenario_runner.py)
-# -- Use visualizer.py
+# check carla crash when speed+camera k = 1000 applied
+# Add string exchange for vehicle controller
+# Fix camera update to ego instead of dummy
+# Docstrings
+# Create .exe
+# Write Doku, also highlight/write about changed code part in scenario_runner.py and dependencies
 
-# python C:\CARLA\WindowsNoEditor\PythonAPI\util\config.py --fps 20 -> set fixed frame rate 50.00 milliseconds (20 FPS)
-
-
-
-# vehicle_bp = bp_lib.find('vehicle.lincoln.mkz_2020') 
-# vehicle = world.try_spawn_actor(vehicle_bp, spawn_points[79])
-
-#spectator = world.get_spectator() 
-#transform = carla.Transform(vehicle.get_transform().transform(carla.Location(x=-4,z=2.5)),vehicle.get_transform().rotation) 
-#spectator.set_transform(transform)
 
 class RunnerTool(object):
 
-    def __init__(self, args):
+    def __init__(self, args:argparse.Namespace):
+        '''
+        Inititates runnerTool object. Checks config paths, creates result and log dir if not exist.
+        
+        Parameters
+        ----------
+        log: Log
+            Log object to create logfile
+        config: dict
+            Contains required dir paths set in config.json
+        args : Namespace
+            Namespace containing command line arguments:
+            - host: IP of the host server (default: localhost)
+            - port: TCP port to listen to (default: 2000)
+            - noChecks: Disable checks for config.json
+            - log: Saves detailed json log to root dir
+            - overview: Saves scenario success overview txt to root dir
+            - failed: Saves failed scenarios overview txt to root dir
+            - lowQuality: Set Carla renderquality to low
+            - speed: Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics.
+                            Max stable value 1000 (10X Speed)
+            - camera: Set camera perspectiv (bird, ego) fixed to ego vehicle
 
+        Returns
+        -------
+        None
+        '''
         self.log = Log()
         self.config = self.get_config()
         self.checks = args.noChecks
@@ -49,13 +68,20 @@ class RunnerTool(object):
         self.speed = args.speed
         self.camera = args.camera
 
-        # Args vor start_carla
+        # Args for start_carla
         self.host = args.host
         self.port = args.port
         self.low_quality = args.lowQuality
 
     def get_config(self):
-        ''' Loads required user specified paths from config.json file.'''
+        ''' 
+        Loads required user specified paths from config.json file.
+        
+        Returns
+        -------
+        conf: dict
+            Dict containing config file with required paths
+        '''
         try:         
             with open(os.path.join(sys.path[0],'config.json'), 'r') as f:
                     conf = json.load(f)
@@ -107,13 +133,27 @@ class RunnerTool(object):
             world = client.get_world()
 
     def adjust_speed(self):
-        ''' Adjust play speed of scenario'''
+        ''' 
+        Create string to adjust play speed of scenario
 
+        Returns
+        -------
+        speed_cmd: str
+            String in command line argument format containing user defined or default value for scenario display speed.
+        '''
         speed_cmd = " --speed %i" %self.speed
         self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
         return speed_cmd
     
     def set_camera_perspective(self):
+        ''' 
+        Create string tp adjust camera perspective
+
+        Returns
+        -------
+        camera_cmd: str
+            String in command line argument format containing user defined or default value for camera perspective.
+        '''
         if self.camera:
             camera_cmd = " --camera %s" %self.camera
         else:
@@ -143,6 +183,9 @@ class RunnerTool(object):
                                        camera=self.set_camera_perspective())
                     result = subprocess.run(cmd, shell=True, capture_output=True)
                     self.print_subprocess_output(result)
+
+                    self.log.create_entry("SCENARIO RUNNER STDOUT: {error}".format(error=result.stdout))
+                    self.log.create_entry("SCENARIO RUNNER STDERR: {error}".format(error=result.stderr))
                 except Exception as e:
                     self.log.create_entry("ERROR: An error occured while running scenario {s_name}.".format(s_name=file))
                     show = input("Show error message?(y/n): ")
@@ -152,7 +195,6 @@ class RunnerTool(object):
         self.create_results_overview()
 
     def create_linux_cmd(self):
-        # activate python env source path/to/virtual/environment/bin/activate
         pass
 
 
@@ -382,11 +424,10 @@ def main():
     parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
     parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
     parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
-    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego)')
+    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle')
 
     arguments = parser.parse_args()
 
-    print(arguments.camera)
     runner_tool = RunnerTool(arguments)
     runner_tool.start_carla()
     runner_tool.runner()

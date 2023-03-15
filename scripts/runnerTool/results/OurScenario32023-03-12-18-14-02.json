@@ -1,10 +1,10 @@
 {
-    "scenario": "ourScenario",
+    "scenario": "OurScenario3",
     "success": false,
     "criteria": [
         {
             "name": "RunningStopTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -12,7 +12,7 @@
         },
         {
             "name": "RunningRedLightTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -20,7 +20,7 @@
         },
         {
             "name": "WrongLaneTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -28,7 +28,7 @@
         },
         {
             "name": "OnSidewalkTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -36,7 +36,7 @@
         },
         {
             "name": "CheckKeepLane",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -44,26 +44,26 @@
         },
         {
             "name": "CollisionTest",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0,
-            "actual": 1,
-            "success": false
+            "actual": 0,
+            "success": true
         },
         {
             "name": "CheckDrivenDistance",
-            "actor": "volkswagen.t2-175",
+            "actor": "nissan.micra-47",
             "optional": false,
             "expected": 0.01,
-            "actual": 0.48,
-            "success": true
+            "actual": 0.0,
+            "success": false
         },
         {
             "name": "Duration",
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 30.100000448524952,
+            "actual": 18.464286539703608,
             "success": true
         }
     ]
