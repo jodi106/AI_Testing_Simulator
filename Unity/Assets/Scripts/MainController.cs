@@ -47,6 +47,7 @@ public class MainController : MonoBehaviour
 
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
+    private WarningPopupController warningPopupController;
 
     void Start()
     {
@@ -82,6 +83,9 @@ public class MainController : MonoBehaviour
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
+
+        this.warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
+        this.warningPopupController.gameObject.SetActive(true);
     }
 
     public void loadScenarioInfo(ScenarioInfo info)
@@ -349,12 +353,16 @@ public class MainController : MonoBehaviour
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {
-            #if UNITY_EDITOR
-            EditorUtility.DisplayDialog(
-                "No AI vehicle placed",
-                "You must place a vehicle first!",
-                "Ok");
-            #endif
+            //#if UNITY_EDITOR
+            //EditorUtility.DisplayDialog(
+            //    "No AI vehicle placed",
+            //    "You must place a vehicle first!",
+            //    "Ok");
+            //#else
+            
+            this.warningPopupController.open();
+
+            //#endif
 
             return;
         }   
