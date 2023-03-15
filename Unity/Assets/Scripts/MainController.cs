@@ -7,7 +7,9 @@ using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
 using System.Collections.ObjectModel;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using uGUI = UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -343,23 +345,25 @@ public class MainController : MonoBehaviour
     {
         //DumpBinaryScenarioInfo(info);
         //LoadBinaryScenarioInfo();
+
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {
+            #if UNITY_EDITOR
             EditorUtility.DisplayDialog(
                 "No AI vehicle placed",
                 "You must place a vehicle first!",
                 "Ok");
+            #endif
+
             return;
         }   
 
-        
         //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
         ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
-        
         // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
-        // exportInfo = this.Info 
+        //exportInfo = this.info;
         
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
@@ -367,33 +371,20 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
         exportInfo.MapURL = "Town10HD";
-        // ------------------------------------------------------------------------
-        // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
-        // These lines are now in BuildXML.cs
-        //foreach (Vehicle vehicle in exportInfo.Vehicles)
-        //{
-        //    vehicle.getCarlaLocation();
-        //    if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
-        //    {
-        //        vehicle.Path.InitAssignRouteWaypoint(vehicle.SpawnPoint.Rot);
-        //    }
-        //}
 
-        //foreach (Pedestrian pedestrian in exportInfo.Pedestrians)
-        //{
-        //    pedestrian.getCarlaLocation();
-        //    if (pedestrian.Path is not null && !isWaypointListEmptyOrNull(pedestrian))
-        //    {
-        //        pedestrian.Path.InitAssignRouteWaypoint(pedestrian.SpawnPoint.Rot);
-        //    }
-        //}
+        // ------------------------------------------------------------------------
 
         exportInfo.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
 
         // Create .xosc file
+        #if UNITY_EDITOR
         exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
-        //info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
+        #else
+        // TODO
+        // info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
+        #endif
+
         if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
         {
             BuildXML doc = new BuildXML(exportInfo);

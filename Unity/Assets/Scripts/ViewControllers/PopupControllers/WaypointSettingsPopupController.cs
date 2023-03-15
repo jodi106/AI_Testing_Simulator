@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -71,10 +73,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
         {
             if (startRouteToggle.value == true && startRouteVehicleField.value == null)
             {
+                #if UNITY_EDITOR
                 EditorUtility.DisplayDialog(
                 "No Vehicle selected",
                 "You must select another vehicle to start that vehicle's route or disable the toggle!",
                 "Ok");
+                #endif
+
                 return;
             }
             overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
@@ -86,10 +91,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
             int numberOfActions = actions.Count(s => s != null);
             if (numberOfActions == 0 || possibleActionsField[numberOfActions-1].value == null)
             {
+                #if UNITY_EDITOR
                 EditorUtility.DisplayDialog(
                 "No Action selected",
                 "You must select an action first before adding new actions!",
                 "Ok");
+                #endif
+
                 return;
             }
 
@@ -140,12 +148,15 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 {
                     if (veh.StartRouteInfo != null && veh.StartRouteInfo.Type == "Waypoint") // check if another vehicle already starts that vehicle's route
                     {
+                        #if UNITY_EDITOR
                         EditorUtility.DisplayDialog(
                             "Vehicle already chosen by another Waypoint",
                             "This vehicle is already started by another Waypoint! " +
                             "You can remove that option in the corresponding waypoint or in the " + 
                             veh.Id + " vehicle settings.",
                             "Ok");
+                        #endif
+
                         startRouteVehicleField.value = null;
                         return;
                     }

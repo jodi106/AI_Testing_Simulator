@@ -1,6 +1,9 @@
 ﻿using Assets.Enums;
 using System;
 
+/**
+ * Adversary := Vehicle, Motorcycle, Bike, or Pedestrian that has a pre-defined behavior (simulation vehicles, not AI)
+ * */
 
 namespace Entity
 {
