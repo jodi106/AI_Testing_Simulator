@@ -34,25 +34,25 @@ namespace Assets.Repos
 
             _EntityModels.Add(VehicleCategory.Bike, new List<EntityModel>
             {
-                new EntityModel("Cross Bike"),
-                new EntityModel("Leisure Bike"),
-                new EntityModel("Road Bike"),
+                new EntityModel("Leisure Bike", "vehicle.gazelle.omafiets"),
+                new EntityModel("Road Bike", "vehicle.diamondback.century"),
+                new EntityModel("Cross Bike", "vehicle.bh.crossbike"),
             });
 
             _EntityModels.Add(VehicleCategory.Motorcycle, new List<EntityModel>
             {
-                new EntityModel("Harley"),
-                new EntityModel("Kawasaki Ninja"),
-                new EntityModel("Yamaha"),
-                new EntityModel("Vespa"),
+                new EntityModel("Kawasaki Ninja", "vehicle.kawasaki.ninja"),
+                new EntityModel("Harley", "vehicle.harley-davidson.low_rider"),
+                new EntityModel("Yamaha", "vehicle.yamaha.yzf"),
+                new EntityModel("Vespa", "vehicle.vespa.zx125"),
             });
 
             _EntityModels.Add(VehicleCategory.Pedestrian, new List<EntityModel>
             {
-                new EntityModel("Female", "BP_Walker_Female1_v1"),
-                new EntityModel("Male", "BP_Walker_Male1_v1"),
-                new EntityModel("Girl", "BP_WalkerEuGirl02_v1"),
-                new EntityModel("Boy", "BP_WalkerKid1_v1"),
+                new EntityModel("Female", "walker.pedestrian.0001"),
+                new EntityModel("Male", "walker.pedestrian.0002"),
+                new EntityModel("Girl", "walker.pedestrian.0010"),
+                new EntityModel("Boy", "walker.pedestrian.0014"),
             });
 
         }
@@ -81,7 +81,7 @@ namespace Assets.Repos
 
         public static EntityModel getDefaultCarModel()
         {
-            return _EntityModels[VehicleCategory.Car][1];
+            return _EntityModels[VehicleCategory.Car][1]; // Audi TT
         }
 
         public static EntityModel getDefaultBikeModel()
