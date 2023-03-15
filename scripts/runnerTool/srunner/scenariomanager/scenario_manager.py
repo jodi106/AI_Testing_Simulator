@@ -159,7 +159,7 @@ class ScenarioManager(object):
             world = CarlaDataProvider.get_world()          
             if world:
                 if self.runnerTool_cam != None:
-                    if k % 2000 == 0:
+                    if k % 5000 == 0:
                         self.reset_camera(world.get_actor(self.other_actors[1].id),world.get_spectator())
                 snapshot = world.get_snapshot()
                 if snapshot:
