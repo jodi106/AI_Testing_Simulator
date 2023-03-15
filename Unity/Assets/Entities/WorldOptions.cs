@@ -18,7 +18,7 @@ namespace Entity
             FrictionScaleFactor = 1;
             SunElevation = 1.3;
         }
-        public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, CloudState cloudState, PrecipitationType precipitationType, float precipitationIntensity, double frictionScaleFactor, string date, float visibility, TimeDay timeDay)
+        public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, CloudState cloudState, PrecipitationType precipitationType, float precipitationIntensity, double frictionScaleFactor)
         {
             Date_Time = dateTime;
             FogVisualRange = fogVisualRange;
@@ -29,12 +29,6 @@ namespace Entity
             PrecipitationIntensity = precipitationIntensity;
             FrictionScaleFactor = frictionScaleFactor;
             SunElevation = sunElevation;
-
-            TimeDay = timeDay;
-            Date = date;
-
-
-
         }
 
 
@@ -49,12 +43,6 @@ namespace Entity
         public double FogVisualRange { get; set; } // good value: 100000 (should be used); double: 0.0 to infinitive; user can edit in GUI advanced options
         public double FrictionScaleFactor { get; set; } // good value: 1 (should be used); double: 0.0 to infinitive; user can edit in GUI advanced options
 
-        public float visibility { get; set; }
-
-        public TimeDay TimeDay { get; set; }
-
-        public string Date { get; set; }
-
         public object Clone()
         {
             WorldOptions cloneWorldOptions = new();
@@ -67,10 +55,6 @@ namespace Entity
             cloneWorldOptions.SunElevation = this.SunElevation;
             cloneWorldOptions.FogVisualRange = this.FogVisualRange;
             cloneWorldOptions.FrictionScaleFactor = this.FrictionScaleFactor;
-
-            cloneWorldOptions.visibility = this.visibility;
-            cloneWorldOptions.TimeDay = this.TimeDay;
-            cloneWorldOptions.Date = this.Date;
 
             return cloneWorldOptions;
         }

@@ -43,8 +43,6 @@ public class MainController : MonoBehaviour
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
 
-    private MenuController menuController;
-
     void Start()
     {
         this.info = new ScenarioInfo();

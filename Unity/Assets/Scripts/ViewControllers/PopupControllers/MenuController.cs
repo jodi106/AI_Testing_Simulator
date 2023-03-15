@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Assets.Entities;
 
 public class MenuController : MonoBehaviour
 {
-    private WorldOptions options;
+    private MenuOptions options;
     private UIDocument document;
-    public void init(WorldOptions options)
+    public void init(MenuOptions options)
     {
         this.options = options;
         this.gameObject.SetActive(true);
+
         this.document = gameObject.GetComponent<UIDocument>();
+        Debug.Log("document" + this.document);
         this.document.rootVisualElement.style.display = DisplayStyle.None;
 
         var exitButton = this.document.rootVisualElement.Q<Button>("Exit");
@@ -32,19 +35,13 @@ public class MenuController : MonoBehaviour
             }
         });
 
-        List<string> dayTimeOptions = new List<string> { };
-        foreach (var option in Enum.GetValues(typeof(CloudState)))
-        {
-            dayTimeOptions.Add(option.ToString());
-        }
-
         List<string> timeDayOptions = new List<string> { };
-        foreach (var option in Enum.GetValues(typeof(CloudState)))
+        foreach (var option in Enum.GetValues(typeof(TimeDay)))
         {
             timeDayOptions.Add(option.ToString());
         }
 
-        var timeDay = this.document.rootVisualElement.Q<DropdownField>("TimeDay");
+        var timeDay = this.document.rootVisualElement.Q<DropdownField>("DayTime");
         timeDay.choices = timeDayOptions;
         timeDay.RegisterValueChangedCallback((evt) =>
         {
@@ -59,12 +56,13 @@ public class MenuController : MonoBehaviour
         visibility.RegisterValueChangedCallback((evt) =>
         {
             //Debug.Log("Sun Intensity: "+evt.newValue);
-            this.options.visibility = (float)evt.newValue;
+            this.options.Visibility = evt.newValue;
         });
 
     }
     public void open()
     {
+        Debug.Log(document);
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 }

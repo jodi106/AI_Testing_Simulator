@@ -16,7 +16,7 @@ namespace ExportScenario
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
             // Global Weather
-            WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, Assets.Enums.CloudState.Free, Assets.Enums.PrecipitationType.Dry, 0, 1.0, "2022-09-24T12:00:00", 100000, Assets.Enums.TimeDay.Morning);
+            WorldOptions worldOptions = new WorldOptions("2022-09-24T12:00:00", 100000, 0.85F, 0, 1.31, Assets.Enums.CloudState.Free, Assets.Enums.PrecipitationType.Dry, 0, 1.0);
 
             // Spawn AI Ego Vehicle
             Ego egoVehicle = new Ego(new Location(258.0f, -145.7f, 0.3f, 30), new EntityModel("vehicle.volkswagen.t2"), 0);
