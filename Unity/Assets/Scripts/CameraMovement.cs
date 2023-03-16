@@ -37,12 +37,12 @@ public class CameraMovement : MonoBehaviour
             var action = new MapPanAction(x);
             PanCamera(action.origin);
         });
-    }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            cam.orthographicSize = 10;
+            cam.transform.position = ClampCamera(new Vector3(0, 0, -10));
+        });
 
     }
 
@@ -54,56 +54,11 @@ public class CameraMovement : MonoBehaviour
         {
             return;
         }
-
-        //Verify if the Camera Size is in valid range
-        if (cam.orthographicSize < maxCamSize && cam.orthographicSize > minCamSize)
+        else
         {
-            if (cam.orthographic)
-            {
-                //If the camera can be resized simply (the normal size of the camera is changed)
-                //Normal Case
-                cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-            }
-            else
-            {
-                //If the camera can't be resized simply (increase the field of view)
-                //(Exception Case)
-                cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-            }
-        }
-        //Verify if Camera is in max Position
-        //If yes , you can only zoom in (YOU CAN'T ZOOM OUT)
-        if (cam.orthographicSize == maxCamSize && (Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed)>0)
-        {
-            if (cam.orthographic)
-            {
-                //If the camera can be resized simply (the normal size of the camera is changed)
-                //Normal Case
-                cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-            }
-            else
-            {
-                //If the camera can't be resized simply (increase the field of view)
-                //(Exception Case)
-                cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-            }
-        }
-        //Verify if Camera is in min Position
-        //If yes , you can only zoom out (YOU CAN'T ZOOM IN)
-        if (cam.orthographicSize == minCamSize && Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed<0)
-        {
-            if (cam.orthographic)
-            {
-                //If the camera can be resized simply (the normal size of the camera is changed)
-                //Normal Case
-                cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-            }
-            else
-            {
-                //If the camera can't be resized simply (increase the field of view)
-                //(Exception Case)
-                cam.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-            }
+            cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            if (cam.orthographicSize > maxCamSize) cam.orthographicSize = maxCamSize;
+            if (cam.orthographicSize < minCamSize) cam.orthographicSize = minCamSize;
         }
     }
 
@@ -112,26 +67,6 @@ public class CameraMovement : MonoBehaviour
         //Set the actual camera to new position using ClampCameraFunction
         Vector3 diff = origin - cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position = ClampCamera(cam.transform.position + diff);
-    }
-
-    public void ZoomIn()
-    {
-        //Simple Function for Only Zoom In
-        //Currently Not In Use
-        float newSize = cam.orthographicSize - zoomStep;
-        cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
-
-        cam.transform.position = ClampCamera(cam.transform.position);
-    }
-
-    public void ZoomOut()
-    {
-        //Simple Function for Zoom Out
-        //Currently Not In Use
-        float newSize = cam.orthographicSize + zoomStep;
-        cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
-
-        cam.transform.position = ClampCamera(cam.transform.position);
     }
 
     private Vector3 ClampCamera(Vector3 targetPosition)
@@ -149,7 +84,7 @@ public class CameraMovement : MonoBehaviour
         float newX = Mathf.Clamp(targetPosition.x, minX, maxX);
         float newY = Mathf.Clamp(targetPosition.y, minY, maxY);
 
-        return new Vector3(newX, newY, targetPosition.z);
+        return new Vector3(newX, newY, -10);
     }
 
     /// Map Clicks
