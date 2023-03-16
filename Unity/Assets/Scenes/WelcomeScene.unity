@@ -615,6 +615,7 @@ MonoBehaviour:
   vehiclePrefab: {fileID: 2646168225723092246, guid: a3cd1f6cecf5124428c0cc82fb352700, type: 3}
   egoPrefab: {fileID: 2646168225723092246, guid: eaf0035b1382a8d4e9e63f42b4cc3c14, type: 3}
   pedPrefab: {fileID: 2779375022895427033, guid: 8390aac25d5b19e4482e8d31db57d702, type: 3}
+  skin: {fileID: 11400000, guid: 07c1616acb3e05d4789781b38d6ab800, type: 2}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ public class MainController : MonoBehaviour
     public GameObject egoPrefab;
     public GameObject pedPrefab;
 
+    public UISkin skin;
+
     //Event Bar (Center Bottom)
     private ListView eventList;
     private Button addCarButton;
@@ -60,7 +62,10 @@ public class MainController : MonoBehaviour
         initializeButtonBar(editorGUI);
         initializeActionButtons();
 
+        FileBrowser.Skin = skin;
+
         this.snapController = Camera.main.GetComponent<SnapController>();
+
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (!snapController.IgnoreClicks)
