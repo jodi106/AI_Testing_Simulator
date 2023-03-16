@@ -43,16 +43,12 @@ public class MapGeneratorStart : MonoBehaviour
         {
             foreach (var jsonWaypoint in jsonWaypoints)
             {
-                Debug.Log(jsonWaypoint.X);
                 (float x, float y) = CarlaToUnity(jsonWaypoint.X, jsonWaypoint.Y);
                 var vector3 = new Vector3(x, y, HeightUtil.WAYPOINT_INDICATOR);
-                Debug.Log(vector3);
 
                 var location = new Location(vector3);
-                Debug.Log(location.Vector3.x);
-
+  
                 var waypoint = new Waypoint(location);
-                Debug.Log(waypoint.Location.X);
 
                 waypoints.Add(waypoint);
             }

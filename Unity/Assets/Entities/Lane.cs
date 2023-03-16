@@ -27,7 +27,7 @@ namespace Entity
             AngularOffset = angularOffset;
         }
 
-        public Lane(int id, int roadId, List<Waypoint> waypoints, List<(int, int)> nextRoadAndLaneIds, float angularOffset = 0)
+        public Lane(int id, int roadId, List<AStarWaypoint> waypoints, List<(int, int)> nextRoadAndLaneIds, float angularOffset = 0)
         {
             Id = id;
             RoadId = roadId;
@@ -40,7 +40,7 @@ namespace Entity
 
         public int RoadId { get; set; }
 
-        public List<Waypoint> Waypoints { get; set; }
+        public List<AStarWaypoint> Waypoints { get; set; }
 
         public List<(int, int)> NextRoadAndLaneIds { get; set; }
 

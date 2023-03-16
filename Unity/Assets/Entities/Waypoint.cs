@@ -92,6 +92,10 @@ namespace Entity
             LaneId = laneId;
         }
 
+        public AStarWaypoint(float x, float y) : base (x,y)
+        {
+        }
+
         public int IndexInLane { get; set; }
 
         public int LaneId { get; set; }

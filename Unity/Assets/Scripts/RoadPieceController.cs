@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Entity;
 using System.ComponentModel;
-using System.Linq.Expressions;
-using System;
 using System.Linq;
 
 public enum RoadType
@@ -108,7 +105,7 @@ public class RoadPieceController : MonoBehaviour
     {
         road.Lanes.Values.ToList().ForEach((lane) =>
         {
-            lane.Waypoints.ForEach((waypoint) => waypoint = new Waypoint(waypoint.Location.X + globalPosition.x,
+            lane.Waypoints.ForEach((waypoint) => waypoint = new AStarWaypoint(waypoint.Location.X + globalPosition.x,
                                                                         waypoint.Location.Y + globalPosition.y));
         });
 

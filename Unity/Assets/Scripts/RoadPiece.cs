@@ -6,6 +6,7 @@ public class RoadPiece : MonoBehaviour {
 
     Vector2 position;
     double rotation;
+    Dictionary<RoadPiece, Vector2> pieces;
 
     // Start is called before the first frame update
     void Start()
