@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class david : MonoBehaviour
+public class Drag : MonoBehaviour
 {
     public GameObject selectedObject;
     Vector3 offset;
