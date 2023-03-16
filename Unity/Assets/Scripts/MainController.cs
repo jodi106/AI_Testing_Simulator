@@ -5,16 +5,12 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
-using System.Collections.ObjectModel;
 using System.Linq;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using uGUI = UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System;
-
+using SimpleFileBrowser;
+using System.Collections;
 
 public class MainController : MonoBehaviour
 {
@@ -343,6 +339,17 @@ public class MainController : MonoBehaviour
         this.eventList.Rebuild();
     }
 
+    IEnumerator openSaveDialogWrapper(ScenarioInfo exportInfo)
+    {
+        yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Files);
+        if (FileBrowser.Success)
+        {
+            exportInfo.Path = FileBrowser.Result[0];
+            BuildXML doc = new BuildXML(exportInfo);
+            doc.CombineXML();
+        }
+    }
+
     //This Function is bind with the "Export button". The actual binding is made in the Start function of the script
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
@@ -386,18 +393,7 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-        #if UNITY_EDITOR
-        exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
-        #else
-        // TODO
-        // info.Path = "OurScenario33.xosc"; // only for faster testing: disable explorer
-        #endif
-
-        if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
-        {
-            BuildXML doc = new BuildXML(exportInfo);
-            doc.CombineXML();
-        }
+        StartCoroutine(openSaveDialogWrapper(exportInfo));
     }
 
     private void LoadBinaryScenarioInfo()
