@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Label text="MENU" display-tooltip-when-elided="true" name="Menu" style="-unity-text-align: upper-left; -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Electronic%20Highway%20Sign.TTF?fileID=12800000&amp;guid=8a2b9e2a607dd2143b58c44bc32410b4&amp;type=3#Electronic Highway Sign&apos;); font-size: 50px; -unity-font-style: normal; -unity-text-outline-color: rgb(144, 101, 101); color: rgb(192, 192, 192);" />
+    <ui:VisualElement style="height: 63px; width: 348px; -unity-text-align: upper-center;" />
+    <ui:IMGUIContainer style="height: 268px; width: 347px; -unity-text-align: upper-center;">
+        <ui:TextField picking-mode="Ignore" label="Date" value="filler text" text="day/month/year" name="Date" style="height: 26px; width: 343px; -unity-text-align: upper-left;" />
+        <ui:VisualElement style="height: 51px; width: 347px;" />
+        <ui:DropdownField label="Day time" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="DayTime" style="height: 28px; width: 346px; -unity-text-align: upper-left;" />
+        <ui:VisualElement style="height: 51px; width: 347px;" />
+        <ui:SliderInt picking-mode="Ignore" label="Visibility" value="42" high-value="100" name="Visibility" style="height: 41px; width: 344px; -unity-text-align: upper-left;" />
+    </ui:IMGUIContainer>
+    <ui:Button text="EXIT" display-tooltip-when-elided="true" name="Exit" style="height: 40px; width: 344px; -unity-text-align: middle-center; white-space: nowrap; -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Examples%20&amp;%20Extras/Fonts/Electronic%20Highway%20Sign.TTF?fileID=12800000&amp;guid=8a2b9e2a607dd2143b58c44bc32410b4&amp;type=3#Electronic Highway Sign&apos;);" />
+</ui:UXML>

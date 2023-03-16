@@ -33,6 +33,8 @@ public class MainController : MonoBehaviour
     private Button homeButton;
     private VisualElement buttonBar;
 
+    private Button menuButton;
+
     //Action Buttons (Center Left)
     private uGUI.Button removeEntityButton;
     private uGUI.Button editEntityButton;
