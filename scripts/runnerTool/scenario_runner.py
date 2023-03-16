@@ -32,6 +32,7 @@ import pkg_resources
 
 ## runnerTool add On
 def set_global_variables():
+    ''' [RUNNERTOOL] Sets variables required to run scenario_manager'''
     try:
         with open('config.json', 'r') as openfile:
             vars = json.load(openfile)
@@ -124,7 +125,7 @@ class ScenarioRunner(object):
             self.module_agent = importlib.import_module(module_name)
 
         # Create the ScenarioManager
-        self.manager = ScenarioManager(self._args.debug, self._args.sync, self._args.timeout, self.runnerTool_params["camera"])
+        self.manager = ScenarioManager(self._args.debug, self._args.sync, self._args.timeout, self.runnerTool_params)
 
         # Create signal handler for SIGINT
         self._shutdown_requested = False
@@ -514,7 +515,7 @@ class ScenarioRunner(object):
             for entry in self._args.openscenarioparams.split(','):
                 [key, val] = [m.strip() for m in entry.split(':')]
                 openscenario_params[key] = val
-        config = OpenScenarioConfiguration(self._args.openscenario, self.client, openscenario_params, self.runnerTool_params)
+        config = OpenScenarioConfiguration(self._args.openscenario, self.client, openscenario_params)
 
         result = self._load_and_run_scenario(config)
         self._cleanup()

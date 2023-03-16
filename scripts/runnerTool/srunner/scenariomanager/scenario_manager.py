@@ -41,7 +41,7 @@ class ScenarioManager(object):
     5. If needed, cleanup with manager.stop_scenario()
     """
 
-    def __init__(self, debug_mode=False, sync_mode=False, timeout=2.0, runnerTool_cam = None):
+    def __init__(self, debug_mode=False, sync_mode=False, timeout=2.0, runnerTool_params = None):
         """
         Setups up the parameters, which will be filled at load_scenario()
 
@@ -65,7 +65,8 @@ class ScenarioManager(object):
         self.start_system_time = None
         self.end_system_time = None
 
-        self.runnerTool_cam = runnerTool_cam
+        self.runnerTool_cam = runnerTool_params["camera"]
+        self.runnerTool_speed = runnerTool_params["speed"]
 
     def _reset(self):
         """
@@ -111,8 +112,10 @@ class ScenarioManager(object):
         self.ego_vehicles = scenario.ego_vehicles
         self.other_actors = scenario.other_actors
 
-        #runnerTool set camera
-        self.get_camera(CarlaDataProvider.get_world())
+        #runnerTool set speed and camera
+        world = CarlaDataProvider.get_world()
+        self.set_speed(world)
+        self.get_camera(world)
 
         # To print the scenario tree uncomment the next line
         # py_trees.display.render_dot_tree(self.scenario_tree)
@@ -120,8 +123,19 @@ class ScenarioManager(object):
         if self._agent is not None:
             self._agent.setup_sensors(self.ego_vehicles[0], self._debug_mode)
     
-    ####################runnerTool Viewer:
+    ####################runnerTool:
+    def set_speed(self, world):
+        ''' [RUNNERTOOL] changes scenario display speed'''
+        print("Setting Scenario Speed to %.2fX" %(self.runnerTool_speed/100))
+        settings = world.get_settings()
+        if self.runnerTool_speed == 100:
+            settings.fixed_delta_seconds = None
+        else:
+            settings.fixed_delta_seconds = (1.0 / (140/(self.runnerTool_speed/100)))
+        world.apply_settings(settings)
+
     def get_camera(self,world):
+        ''' [RUNNERTOOL] creates initial spectator position above ego vehicle'''
         spectator = world.get_spectator()
         target = world.get_actor(self.ego_vehicles[0].id).get_location()
         transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 60), carla.Rotation(pitch=270, yaw=0, roll=0))
@@ -129,6 +143,7 @@ class ScenarioManager(object):
         time.sleep(1)
 
     def reset_camera(self, actor, spectator):
+        ''' [RUNNERTOOL] fixes spectator to ego vehicle either in bird or ego perspective. '''
         target = actor.get_location()
         if self.runnerTool_cam == "bird":
             transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 60), carla.Rotation(pitch=270, yaw=0, roll=0))
@@ -160,7 +175,7 @@ class ScenarioManager(object):
             if world:
                 if self.runnerTool_cam != None:
                     if k % 5000 == 0:
-                        self.reset_camera(world.get_actor(self.other_actors[1].id),world.get_spectator())
+                        self.reset_camera(world.get_actor(self.ego_vehicles[0].id),world.get_spectator())
                 snapshot = world.get_snapshot()
                 if snapshot:
                     timestamp = snapshot.timestamp

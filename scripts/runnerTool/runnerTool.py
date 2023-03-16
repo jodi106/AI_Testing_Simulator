@@ -17,13 +17,6 @@ RUNNER_TOOL_VERSION = "1.0"
 # SET PATHS IN CONFIG.JSON FILE # 
 #---------------------------------------------------------------------------------------------------------------------#
 
-# TODOS: 
-# check carla crash when speed+camera k = 1000 applied
-# Fix camera update to ego instead of dummy after demonstaration
-# Create .exe
-# Write Doku, also highlight/write about changed code part in scenario_runner.py and dependencies
-
-
 class RunnerTool(object):
     '''
     Inititates runnerTool object. Checks config paths, creates result and log dir if not exist.
@@ -166,18 +159,11 @@ class RunnerTool(object):
             with open(file, 'r') as f:
                 xosc = f.read() 
 
-            #find index of "HeroAgent"
             heroindex = xosc.index("HeroAgent")
-            #find index of "value" after "HeroAgent" 
             valueindex = heroindex + xosc[heroindex:].index("value")
-            #find index of first double quote (") after "value"
             quot1 = valueindex + xosc[valueindex:].index("\"")
-            #find index of second double quote (") after "value"
             quot2 = quot1 + xosc[quot1+1:].index("\"")
-            #store string enclosed by quot1 and quot2
             controller = xosc[quot1+1:quot2+1]
-            #replace old controller with new controller name specified by user
-
             xosc = xosc.replace(controller, self.agent)
 
             with open(file, "w") as f:
@@ -243,11 +229,11 @@ class RunnerTool(object):
         self.log.create_entry("INFO: Found scenarios in directory:\n" + '\t\n'.join([x for x in file_list if ".xosc" in x]))
         for file in file_list:
             if ".xosc" in file:
-                if self.agent:
-                    openscenario = folder_addr + "/" + file
-                    self.set_agent(openscenario)
                 try:
-                    self.log.create_entry("INFO: Running scenario -> {scenario}...".format(scenario=file))           
+                    openscenario = folder_addr + "/" + file
+                    self.log.create_entry("INFO: Running scenario -> {scenario}...".format(scenario=file)) 
+                    if self.agent:
+                        self.set_agent(openscenario)          
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python env root is required.)
                     cmd = """cd \"{runner_root}\"\
                                 &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"{speed} {camera}
@@ -582,8 +568,8 @@ def main():
     parser.add_argument('--overview', action="store_true", help='Saves scenario success overview txt to root dir')
     parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
     parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
-    parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
-    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle')
+    parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nValues >500 might lead to physics bugs')
+    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
     parser.add_argument('--agent', default=None, type=str, help='Specify agent name to run all scenarios in dir')
 
     arguments = parser.parse_args()
