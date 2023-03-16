@@ -18,6 +18,11 @@ namespace Entity
         {
         }
 
+        public Waypoint(float x, float y)
+        {
+            Location = new Location(x, y);
+        }
+
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
             Location = location;
