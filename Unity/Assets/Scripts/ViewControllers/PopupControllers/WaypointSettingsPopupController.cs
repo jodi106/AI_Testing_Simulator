@@ -315,6 +315,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         this.possibleActionsField[i].style.display = DisplayStyle.Flex;
         this.actionTextField[i].style.display = DisplayStyle.Flex;
         this.actionTextField[i].label = text;
+        this.actionDropdownField[i].style.display = DisplayStyle.None;
         if (actionName == "SpeedAction")
         {
             this.actionTextField[i].value = value.ToString();
