@@ -415,6 +415,7 @@ public class MainController : MonoBehaviour
             string title = "No AI vehicle placed";
             string description = "You must place a vehicle first!";
             this.warningPopupController.open(title, description);
+            freeze = false;
 
             //#endif
 

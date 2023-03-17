@@ -60,6 +60,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void OnMouseDown()
     {
+        if (MainController.freeze) return;
         if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
@@ -72,6 +73,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
     public void OnMouseDrag()
     {
+        if (MainController.freeze) return;
         if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
@@ -98,6 +100,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void select()
     {
+        if (MainController.freeze) return;
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         pathController.select(true);
     }
