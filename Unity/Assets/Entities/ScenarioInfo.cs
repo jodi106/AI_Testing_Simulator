@@ -45,14 +45,14 @@ namespace Entity
             WorldOptions CopyWorldOptions = new();
             if (this.WorldOptions != null)
                 CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();       
-            
-            ObservableCollection<Adversary> exPedestrians = new(); //Value but contaisns Path Ref
-            ObservableCollection<Adversary> exVehicles = new(); // Value but contains Ref Obj. 
 
             Ego CopyEgoVehicle = new(); 
             if (this.EgoVehicle != null)
                 CopyEgoVehicle = this.EgoVehicle;
 
+            ObservableCollection<Adversary> exPedestrians = new();
+            ObservableCollection<Adversary> exVehicles = new();
+            
             foreach (Adversary v in this.Vehicles)
             {
                 if (v.Category == VehicleCategory.Pedestrian)

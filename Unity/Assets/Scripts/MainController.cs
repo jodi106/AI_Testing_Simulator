@@ -33,6 +33,9 @@ public class MainController : MonoBehaviour
     private Button addPedestrianButton;
     private Button worldSettingsButton;
     private Button exportButton;
+    private Button loadButton;
+    private Button saveButton;
+
     private Button homeButton;
     private VisualElement buttonBar;
 
@@ -97,7 +100,7 @@ public class MainController : MonoBehaviour
     public void loadScenarioInfo(ScenarioInfo info)
     {
         this.setSelectedEntity(null);
-        info = (ScenarioInfo)info.Clone();
+        info = (ScenarioInfo)info.Clone(); //Do we need this? Exported .bin Info already the one before export changes? - Stefan
         EventManager.TriggerEvent(new MapChangeAction(""));
         EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
         this.info = info;
@@ -118,6 +121,8 @@ public class MainController : MonoBehaviour
         }
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
         initializeEventList(editorGUI);
+        eventList.itemsSource = info.allEntities;
+        refreshEntityList();
     }
 
     public void Update()
@@ -227,8 +232,11 @@ public class MainController : MonoBehaviour
         addBikeButton = editorGUI.Q<Button>("addBikeButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
+        loadButton = editorGUI.Q<Button>("importButton");
+        saveButton = editorGUI.Q<Button>("saveButton");
         homeButton = editorGUI.Q<Button>("homeButton");
         buttonBar = editorGUI.Q<VisualElement>("buttons");
+        
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -277,6 +285,20 @@ public class MainController : MonoBehaviour
             if (freeze) return;
             var m = Camera.main.GetComponent<CameraMovement>();
             m.Home();
+        });
+
+        loadButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            this.setSelectedEntity(null);
+            LoadBinaryScenarioInfo();
+        });
+
+        saveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            this.setSelectedEntity(null);
+            SaveBinaryScenarioInfo(this.info);
         });
 
         buttonBar.visible = false;
@@ -375,7 +397,8 @@ public class MainController : MonoBehaviour
     //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
-        //DumpBinaryScenarioInfo(info);
+        //Uncomment to test Loading and Saving
+        //SaveBinaryScenarioInfo(info);
         //LoadBinaryScenarioInfo();
 
         // Catch errors and display it to the user
@@ -420,28 +443,38 @@ public class MainController : MonoBehaviour
 
         // Keep for testing
         //#if UNITY_EDITOR
-        //exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
-        //if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
-        //{
-        //    BuildXML doc = new BuildXML(exportInfo);
-        //    doc.CombineXML();
-        //}
+        exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
+        if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
+        {
+            BuildXML doc = new BuildXML(exportInfo);
+            doc.CombineXML();
+        }
         //#endif
 
-        StartCoroutine(openSaveDialogWrapper(exportInfo));
+        //StartCoroutine(openSaveDialogWrapper(exportInfo));
     }
 
     private void LoadBinaryScenarioInfo()
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        using (FileStream stream = new FileStream("data.bin", FileMode.Open))
+
+        try
         {
-            ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
-            loadScenarioInfo(obj);
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream("data.bin", FileMode.Open))
+            {
+                ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
+                loadScenarioInfo(obj);
+            }
         }
+        catch (System.Exception)
+        {
+            Debug.Log("Error while loading binary file, are you sure the file exists?");
+        }
+
+
     }
 
-    private void DumpBinaryScenarioInfo(ScenarioInfo info)
+    private void SaveBinaryScenarioInfo(ScenarioInfo info)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         using (FileStream stream = new FileStream("data.bin", FileMode.Create))
