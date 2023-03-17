@@ -28,7 +28,6 @@ public class WarningPopupController : MonoBehaviour
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             this.document.rootVisualElement.style.display = DisplayStyle.None;
-            MainController.freeze = false;
         });
     }
 

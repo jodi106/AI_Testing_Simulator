@@ -180,6 +180,7 @@ public class PathController : MonoBehaviour
      */
     public void Update()
     {
+        if (MainController.freeze) return;
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (building)
         {
@@ -617,6 +618,7 @@ public class PathController : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if (MainController.freeze) return;
         if (snapController.IgnoreClicks && !building)
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));

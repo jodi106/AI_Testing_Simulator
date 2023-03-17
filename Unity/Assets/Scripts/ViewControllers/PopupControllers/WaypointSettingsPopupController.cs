@@ -77,7 +77,6 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 string title = "No Vehicle selected";
                 string description = "You must select another vehicle to start that vehicle's route\nor disable the toggle!";
                 warningPopupController.open(title, description);
-
                 return;
             }
             overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
@@ -88,7 +87,9 @@ public class WaypointSettingsPopupController : MonoBehaviour
         AddActionButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             int numberOfActions = actions.Count(s => s != null);
-            if (numberOfActions == 0 || possibleActionsField[numberOfActions-1].value == null)
+            
+            if ((possibleActionsField[numberOfActions].style.display == DisplayStyle.Flex) 
+            && possibleActionsField[numberOfActions].value == null)
             {
                 //#if UNITY_EDITOR
                 //EditorUtility.DisplayDialog(
@@ -183,6 +184,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
     public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
     {
         this.controller = controller;
+        this.controller.deselect();
         this.warningPopupController = warning;
         this.waypoint = controller.waypoint;
         this.vehicle = (Adversary)vehicle;
