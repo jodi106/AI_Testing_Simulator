@@ -2,7 +2,7 @@ using Entity;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UIElements;
 
 public class MapGeneratorStart : MonoBehaviour
 {
@@ -30,6 +30,7 @@ public class MapGeneratorStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
 
         waypoints = new List<Waypoint>();
         waypointGameObjects = new List<GameObject>();
@@ -64,6 +65,10 @@ public class MapGeneratorStart : MonoBehaviour
             circlePrefab,
                     position,
                     Quaternion.identity);
+
+            waypointGameObject.AddComponent<RoadPiece>();
+
+            waypointGameObject.AddComponent<BoxCollider2D>();
 
             waypointGameObjects.Add(waypointGameObject);
         }

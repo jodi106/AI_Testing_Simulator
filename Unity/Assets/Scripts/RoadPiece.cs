@@ -1,16 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using Entity;
+
 using UnityEngine;
 using static Drag;
 
 public class RoadPiece : MonoBehaviour {
 
-    
+    public Road road;
+
+    public RoadType roadType;
+
+    private RoadPieceController roadPieceController;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        var mainCamera = GameObject.Find("Main Camera");
+        this.roadPieceController = mainCamera.GetComponent<RoadPieceController>();
+
+        Renderer renderer = GetComponent<Renderer>();
+
+        // Get the bounds of the renderer
+        Bounds bounds = renderer.bounds;
+
+        // Get a reference to the Box Collider component attached to the game object
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+
+        // Set the size of the collider to match the size of the game object
+        boxCollider.size = bounds.size;
     }
 
     private void Update()
@@ -20,26 +36,15 @@ public class RoadPiece : MonoBehaviour {
          //snapToSquare(piece, square);
     }
 
-    
+    void OnMouseUp()
+    {
+        var clickedObject = gameObject;
 
-    /**
-     * method to snap object to square - test
-     */
-    //void snapToSquare(RoadPiece current, GameObject square)
-    //{
-    //    Vector2 sqr_pos = square.transform.position;
-    //    print("Inside from right" + (sqr_pos.x + 550 > current.position.x)); 
-    //    print("Inside from left" + (sqr_pos.x - 550 < current.position.x)); 
-    //    print("Inside from top" + (sqr_pos.y + 550 > current.position.y)); 
-    //    print("Inside from bottom" + (sqr_pos.y + 550 < current.position.y)); 
-    //    if (sqr_pos.x + 550 > current.position.x && sqr_pos.x - 550 < current.position.x && sqr_pos.y + 550 > current.position.y && sqr_pos.y - 550 < current.position.y)
-    //    {
-    //        print("in");
-    //        positionPiece(current, sqr_pos, 0);
-    //    }
-    //    current.position = current.transform.position;
-    //}
+        roadPieceController.Align(clickedObject);
 
 
-    
+        // Code to handle the click event using the clickedObject reference
+    }
+
+
 }
