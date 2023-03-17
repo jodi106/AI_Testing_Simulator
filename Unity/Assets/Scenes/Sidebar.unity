@@ -1174,6 +1174,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1768741603}
+  - {fileID: 1785828712}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1233,7 +1234,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1857751697}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -2677,7 +2678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1785828711
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3106,9 +3107,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1959689100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0abcc25d25c20b48a44cbc52f505581, type: 3}
+  m_Script: {fileID: 11500000, guid: a8a0077f37e71c34aa24098800e4494e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 1959689102}
+  canvas: {fileID: 962893795}
+  roadPiece: {fileID: 8412799739462991648, guid: df65057ce1360ed47a3af6305e71a062, type: 3}
 --- !u!1 &2072023696
 GameObject:
   m_ObjectHideFlags: 0
