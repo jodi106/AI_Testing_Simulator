@@ -14,6 +14,7 @@ using UnityEngine.UIElements;
 public class WaypointSettingsPopupController : MonoBehaviour
 {
     private WaypointViewController controller;
+    private WarningPopupController warningPopupController;
     private Waypoint waypoint;
     private Adversary vehicle;
     private ObservableCollection<Adversary> allVehicles;
@@ -73,16 +74,14 @@ public class WaypointSettingsPopupController : MonoBehaviour
         {
             if (startRouteToggle.value == true && startRouteVehicleField.value == null)
             {
-                #if UNITY_EDITOR
-                EditorUtility.DisplayDialog(
-                "No Vehicle selected",
-                "You must select another vehicle to start that vehicle's route or disable the toggle!",
-                "Ok");
-                #endif
+                string title = "No Vehicle selected";
+                string description = "You must select another vehicle to start that vehicle's route\nor disable the toggle!";
+                warningPopupController.open(title, description);
 
                 return;
             }
             overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
+            MainController.freeze = false;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
         });
 
@@ -91,12 +90,16 @@ public class WaypointSettingsPopupController : MonoBehaviour
             int numberOfActions = actions.Count(s => s != null);
             if (numberOfActions == 0 || possibleActionsField[numberOfActions-1].value == null)
             {
-                #if UNITY_EDITOR
-                EditorUtility.DisplayDialog(
-                "No Action selected",
-                "You must select an action first before adding new actions!",
-                "Ok");
-                #endif
+                //#if UNITY_EDITOR
+                //EditorUtility.DisplayDialog(
+                //"No Action selected",
+                //"You must select an action first before adding new actions!",
+                //"Ok");
+                //#endif
+
+                string title = "No Action selected";
+                string description = "You must select an action first before adding new actions!";
+                this.warningPopupController.open(title, description);
 
                 return;
             }
@@ -148,14 +151,20 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 {
                     if (veh.StartRouteInfo != null && veh.StartRouteInfo.Type == "Waypoint") // check if another vehicle already starts that vehicle's route
                     {
-                        #if UNITY_EDITOR
-                        EditorUtility.DisplayDialog(
-                            "Vehicle already chosen by another Waypoint",
-                            "This vehicle is already started by another Waypoint! " +
-                            "You can remove that option in the corresponding waypoint or in the " + 
-                            veh.Id + " vehicle settings.",
-                            "Ok");
-                        #endif
+                        //#if UNITY_EDITOR
+                        //EditorUtility.DisplayDialog(
+                        //    "Vehicle already chosen by another Waypoint",
+                        //    "This vehicle is already started by another Waypoint! " +
+                        //    "You can remove that option in the corresponding waypoint or in the " + 
+                        //    veh.Id + " vehicle settings.",
+                        //    "Ok");
+                        //#endif
+
+                        string title = "Vehicle already chosen by another Waypoint";
+                        string description = "This vehicle is already started by another Waypoint! " +
+                        "\nYou can remove that option in the corresponding waypoint or in the\n" +
+                            veh.Id + " vehicle settings.";
+                        this.warningPopupController.open(title, description);
 
                         startRouteVehicleField.value = null;
                         return;
@@ -171,9 +180,10 @@ public class WaypointSettingsPopupController : MonoBehaviour
     }
 
 
-    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles)
+    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
     {
         this.controller = controller;
+        this.warningPopupController = warning;
         this.waypoint = controller.waypoint;
         this.vehicle = (Adversary)vehicle;
         this.allVehicles = allSimVehicles;
@@ -235,6 +245,8 @@ public class WaypointSettingsPopupController : MonoBehaviour
         if (startRouteVehicleField.choices.Count() > 0) startRouteToggle.SetEnabled(true);
 
         this.document.rootVisualElement.style.display = DisplayStyle.Flex; // Show this GUI
+
+        MainController.freeze = true;
     }
 
 

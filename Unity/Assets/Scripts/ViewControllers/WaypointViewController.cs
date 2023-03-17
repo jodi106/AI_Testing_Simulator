@@ -50,7 +50,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
         this.settingsController.gameObject.SetActive(true);
-        this.settingsController.open(this, pathController.adversaryViewController.getEntity(), mainController.info.Vehicles);
+        this.settingsController.open(this, pathController.adversaryViewController.getEntity(), mainController.info.Vehicles, mainController.warningPopupController);
     }
 
     public void setColor(Color color)

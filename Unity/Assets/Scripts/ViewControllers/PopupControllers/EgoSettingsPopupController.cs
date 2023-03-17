@@ -36,6 +36,7 @@ public class EgoSettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            MainController.freeze = false;
             this.ego = null;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
         });
@@ -180,5 +181,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         rSlider.value = color.r;
         gSlider.value = color.g;
         bSlider.value = color.b;
+
+        MainController.freeze = true;
     }
 }

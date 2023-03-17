@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 
 public class WarningPopupController : MonoBehaviour
 {
+    //private GameObject FreezeCanvas;
+
     private UIDocument document;
     private Label Title;
     private Label Description;
@@ -26,18 +28,16 @@ public class WarningPopupController : MonoBehaviour
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             this.document.rootVisualElement.style.display = DisplayStyle.None;
-            //Time.timeScale = 1;
+            MainController.freeze = false;
         });
     }
 
-    public void open()
+    public void open(string title, string description)
     {
-        // TODO set Title and Description text
-        //Title.text = "hei";
+        MainController.freeze = true;
 
-        // TODO user can't click anything else except "ok" button. Freeze background
-        //Time.timeScale = 0;
-        //bool t = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        Title.text = title;
+        Description.text = description;
 
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
     }

@@ -50,6 +50,8 @@ public class SnapController : MonoBehaviour
     }
     public void Update()
     {
+        if (MainController.freeze) return;
+
         if (LastClickedWaypointGameObject is not null)
         {
             var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();

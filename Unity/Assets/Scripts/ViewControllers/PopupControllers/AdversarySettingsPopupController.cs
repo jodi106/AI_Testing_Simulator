@@ -43,6 +43,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            MainController.freeze = false;
             saveStartRouteInfo(startRouteType);
             this.vehicle = null;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
@@ -253,6 +254,8 @@ public class AdversarySettingsPopupController : MonoBehaviour
             resetStartRouteFields();
             vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0);
         }
+
+        MainController.freeze = true;
     }
 
 

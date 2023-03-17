@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
 using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using uGUI = UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -45,7 +48,9 @@ public class MainController : MonoBehaviour
 
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
-    private WarningPopupController warningPopupController;
+    public  WarningPopupController warningPopupController;
+
+    public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!
 
     void Start()
     {
@@ -117,7 +122,7 @@ public class MainController : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             this.setSelectedEntity(null);
         }
@@ -227,41 +232,49 @@ public class MainController : MonoBehaviour
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
             createEntity(VehicleCategory.Car);
             setSelectedEntity(null);
         });
 
         addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
             createEntity(VehicleCategory.Bike);
             setSelectedEntity(null);
         });
 
         addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
             createEntity(VehicleCategory.Motorcycle);
             setSelectedEntity(null);
         });
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
             createEntity(VehicleCategory.Pedestrian);
             setSelectedEntity(null);
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
+            this.setSelectedEntity(null);
             worldSettingsController.open();
         });
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-           ExportOnClick();
+            if (freeze) return;
+            ExportOnClick();
            //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
             var m = Camera.main.GetComponent<CameraMovement>();
             m.Home();
         });
@@ -278,17 +291,20 @@ public class MainController : MonoBehaviour
 
         removeEntityButton.onClick.AddListener(() =>
         {
+            if (freeze) return;
             selectedEntity?.destroy();
             setSelectedEntity(null);
         });
 
         editEntityButton.onClick.AddListener(() =>
         {
+            if (freeze) return;
             this.selectedEntity?.openEditDialog();
         });
 
         snapToggle.onValueChanged.AddListener(x =>
         {
+            if (freeze) return;
             this.selectedEntity?.setIgnoreWaypoints(!x);
         });
 
@@ -371,8 +387,11 @@ public class MainController : MonoBehaviour
             //    "You must place a vehicle first!",
             //    "Ok");
             //#else
-            
-            this.warningPopupController.open();
+
+            this.setSelectedEntity(null);
+            string title = "No AI vehicle placed";
+            string description = "You must place a vehicle first!";
+            this.warningPopupController.open(title, description);
 
             //#endif
 
@@ -398,6 +417,17 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
 
         // Create .xosc file
+
+        // Keep for testing
+        //#if UNITY_EDITOR
+        //exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
+        //if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
+        //{
+        //    BuildXML doc = new BuildXML(exportInfo);
+        //    doc.CombineXML();
+        //}
+        //#endif
+
         StartCoroutine(openSaveDialogWrapper(exportInfo));
     }
 
