@@ -10,7 +10,7 @@ namespace Entity
     public class StartRouteInfo
     {
 
-        public SimulationEntity Vehicle { get; set; }
+        public Adversary Vehicle { get; set; } // this vehicle is Trigger to start my route
         public Location LocationCarla { get; private set; }
         public int Time { get; set; }
         public int Distance { get; set; }
@@ -18,7 +18,7 @@ namespace Entity
 
         public string Type { get; private set; } // Waypoint, Time, Ego
 
-        public StartRouteInfo(SimulationEntity vehicle, Waypoint waypoint, int distance = 5, string type = "Waypoint")
+        public StartRouteInfo(Adversary vehicle, Waypoint waypoint, int distance = 5, string type = "Waypoint")
         {
             this.Vehicle = vehicle;
             this.LocationCarla = waypoint.Location;
@@ -26,14 +26,14 @@ namespace Entity
             this.Type = "Waypoint";
         }
 
-        public StartRouteInfo(SimulationEntity vehicle, int time, string type = "Time")
+        public StartRouteInfo(Adversary vehicle, int time, string type = "Time")
         {
             this.Vehicle = vehicle;
             this.Time = time;
             this.Type = "Time";
         }
 
-        public StartRouteInfo(Vehicle vehicle, Location location, int distance, Ego egoVehicle, string type = "Ego")
+        public StartRouteInfo(Adversary vehicle, Location location, int distance, Ego egoVehicle, string type = "Ego")
         {
             this.Vehicle = vehicle;
             this.LocationCarla = location;

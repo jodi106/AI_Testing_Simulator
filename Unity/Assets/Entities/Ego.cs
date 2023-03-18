@@ -13,11 +13,12 @@ namespace Entity
         {
             Model = model;
             Category = category;
+            Agent = "simple_vehicle_control"; 
         }
 
         public Ego()
         {
-
+            
         }
 
         public void setCategory(VehicleCategory category)
@@ -39,6 +40,7 @@ namespace Entity
             cloneEgo.Destination = (Location)this.Destination.Clone();
             cloneEgo.Model = (EntityModel)this.Model.Clone();
             cloneEgo.Category = this.Category;
+            cloneEgo.Agent = this.Agent;
 
             return cloneEgo;
         }
@@ -46,5 +48,6 @@ namespace Entity
         public Location Destination { get; set; }
         public EntityModel Model { get; private set; }
         public VehicleCategory Category { get; set; }
+        public string Agent { get; set; } // "external_control", "simple_vehicle_control", ...
     }
 }

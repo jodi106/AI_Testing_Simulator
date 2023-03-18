@@ -407,7 +407,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 158485291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29b976f129dfb448ba1b12771704a77, type: 3}
+  m_Script: {fileID: 11500000, guid: dae22b4911db9fc4894115bac460dd64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &158485294
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 5c390006a2f2ac2479e67ef633c1f5c3, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 669bbc93ba0342e468daf288766089f4, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: bb325eae7fbbebb458d5552469670970, type: 3}
   m_SortingOrder: 0
 --- !u!1 &446984392
 GameObject:
@@ -615,6 +615,8 @@ MonoBehaviour:
   vehiclePrefab: {fileID: 2646168225723092246, guid: a3cd1f6cecf5124428c0cc82fb352700, type: 3}
   egoPrefab: {fileID: 2646168225723092246, guid: eaf0035b1382a8d4e9e63f42b4cc3c14, type: 3}
   pedPrefab: {fileID: 2779375022895427033, guid: 8390aac25d5b19e4482e8d31db57d702, type: 3}
+  skin: {fileID: 11400000, guid: 07c1616acb3e05d4789781b38d6ab800, type: 2}
+  warningPopupController: {fileID: 0}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2343,6 +2345,7 @@ Transform:
   - {fileID: 1663838713}
   - {fileID: 446984393}
   - {fileID: 158485292}
+  - {fileID: 1774447636}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2963,6 +2966,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762231534}
   m_CullTransparentMesh: 1
+--- !u!1 &1774447635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1774447636}
+  - component: {fileID: 1774447638}
+  - component: {fileID: 1774447637}
+  m_Layer: 5
+  m_Name: WarningPopUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1774447636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774447635}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1478537649}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1774447637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774447635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7560d28c5f25e3f41acc51dd79c7837d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1774447638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774447635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 5c390006a2f2ac2479e67ef633c1f5c3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 4e45f2eb262337946a180fd0f81cb87a, type: 3}
+  m_SortingOrder: 0
 --- !u!1 &1819913440
 GameObject:
   m_ObjectHideFlags: 0

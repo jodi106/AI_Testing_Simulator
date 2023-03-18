@@ -19,6 +19,7 @@ public class WorldSettingsPopupController : MonoBehaviour
         var exitButton = this.document.rootVisualElement.Q<Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            MainController.freeze = false;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
         });
 
@@ -140,5 +141,6 @@ public class WorldSettingsPopupController : MonoBehaviour
     public void open()
     {
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
+        MainController.freeze = true;
     }
 }

@@ -5,16 +5,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class WaypointSettingsPopupController : MonoBehaviour
 {
     private WaypointViewController controller;
+    private WarningPopupController warningPopupController;
     private Waypoint waypoint;
-    private SimulationEntity vehicle;
-    private ObservableCollection<Vehicle> allVehicles;
+    private Adversary vehicle;
+    private ObservableCollection<Adversary> allVehicles;
     private int waypointId;
 
     private UIDocument document;
@@ -71,25 +74,34 @@ public class WaypointSettingsPopupController : MonoBehaviour
         {
             if (startRouteToggle.value == true && startRouteVehicleField.value == null)
             {
-                EditorUtility.DisplayDialog(
-                "No Vehicle selected",
-                "You must select another vehicle to start that vehicle's route or disable the toggle!",
-                "Ok");
+                string title = "No Vehicle selected";
+                string description = "You must select another vehicle to start that vehicle's route\nor disable the toggle!";
+                warningPopupController.open(title, description);
                 return;
             }
             overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
+            MainController.freeze = false;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
         });
 
         AddActionButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             int numberOfActions = actions.Count(s => s != null);
-            if (numberOfActions == 0 || possibleActionsField[numberOfActions-1].value == null)
+            
+            if ((possibleActionsField[numberOfActions].style.display == DisplayStyle.Flex) 
+            && possibleActionsField[numberOfActions].value == null)
             {
-                EditorUtility.DisplayDialog(
-                "No Action selected",
-                "You must select an action first before adding new actions!",
-                "Ok");
+                //#if UNITY_EDITOR
+                //EditorUtility.DisplayDialog(
+                //"No Action selected",
+                //"You must select an action first before adding new actions!",
+                //"Ok");
+                //#endif
+
+                string title = "No Action selected";
+                string description = "You must select an action first before adding new actions!";
+                this.warningPopupController.open(title, description);
+
                 return;
             }
 
@@ -134,18 +146,27 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         startRouteVehicleField.RegisterValueChangedCallback((evt) =>
         {
-            foreach (Vehicle veh in allVehicles)
+            foreach (Adversary veh in allVehicles)
             {
                 if (veh.Id == evt.newValue) 
                 {
                     if (veh.StartRouteInfo != null && veh.StartRouteInfo.Type == "Waypoint") // check if another vehicle already starts that vehicle's route
                     {
-                        EditorUtility.DisplayDialog(
-                            "Vehicle already chosen by another Waypoint",
-                            "This vehicle is already started by another Waypoint! " +
-                            "You can remove that option in the corresponding waypoint or in the " + 
-                            veh.Id + " vehicle settings.",
-                            "Ok");
+                        //#if UNITY_EDITOR
+                        //EditorUtility.DisplayDialog(
+                        //    "Vehicle already chosen by another Waypoint",
+                        //    "This vehicle is already started by another Waypoint! " +
+                        //    "You can remove that option in the corresponding waypoint or in the " + 
+                        //    veh.Id + " vehicle settings.",
+                        //    "Ok");
+                        //#endif
+
+                        string title = "Vehicle already chosen by another Waypoint";
+                        string description = "This vehicle is already started by another Waypoint! " +
+                        "\nYou can remove that option in the corresponding waypoint or in the\n" +
+                            veh.Id + " vehicle settings.";
+                        this.warningPopupController.open(title, description);
+
                         startRouteVehicleField.value = null;
                         return;
                     }
@@ -159,11 +180,14 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
-    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Vehicle> allSimVehicles)
+
+    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
     {
         this.controller = controller;
+        this.controller.deselect();
+        this.warningPopupController = warning;
         this.waypoint = controller.waypoint;
-        this.vehicle = (Vehicle)vehicle;
+        this.vehicle = (Adversary)vehicle;
         this.allVehicles = allSimVehicles;
 
         // Set GUI elements to corresponding data
@@ -197,17 +221,22 @@ public class WaypointSettingsPopupController : MonoBehaviour
 
         // ---------------------- Start Route Properties ----------------------
 
+        bool otherVehicleExists = false;
+
         // Add choices for dropdown GUI element (all other simulation vehicles)
         startRouteVehicleField.choices = new List<string> { };
-        foreach (Vehicle veh in allSimVehicles)
+        foreach (Adversary veh in allSimVehicles)
         {
             if (veh.Id != vehicle.Id) // don't add yourself
             {
                 startRouteVehicleField.choices.Add(veh.Id.ToString());
+
+                if (waypoint.StartRouteOfOtherVehicle == veh) otherVehicleExists = true;
+               
             }
         }
 
-        if (waypoint.StartRouteOfOtherVehicle == null) resetStartRouteVehicleToggle();
+        if (waypoint.StartRouteOfOtherVehicle == null || !otherVehicleExists) resetStartRouteVehicleToggle();
         else
         {
             startRouteToggle.SetEnabled(true);
@@ -218,6 +247,8 @@ public class WaypointSettingsPopupController : MonoBehaviour
         if (startRouteVehicleField.choices.Count() > 0) startRouteToggle.SetEnabled(true);
 
         this.document.rootVisualElement.style.display = DisplayStyle.Flex; // Show this GUI
+
+        MainController.freeze = true;
     }
 
 
@@ -286,6 +317,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         this.possibleActionsField[i].style.display = DisplayStyle.Flex;
         this.actionTextField[i].style.display = DisplayStyle.Flex;
         this.actionTextField[i].label = text;
+        this.actionDropdownField[i].style.display = DisplayStyle.None;
         if (actionName == "SpeedAction")
         {
             this.actionTextField[i].value = value.ToString();
@@ -294,7 +326,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         else if (actionName == "StopAction")
         {
             this.actionTextField[i].value = value.ToString();
-            this.actions[i] = new ActionType(actionName, value, vehicle.InitialSpeedKMH); // TODO current speed value
+            this.actions[i] = new ActionType(actionName, value, GetCurrentSpeed()); 
         }
     }
 
@@ -368,36 +400,72 @@ public class WaypointSettingsPopupController : MonoBehaviour
         startRouteVehicleField.SetEnabled(false);
     }
 
-    private void overwriteActionsCarla(ActionType[] action)
+    private void overwriteActionsCarla(ActionType[] actions)
     {
         /// Add all GUI actions to the waypoint's attribute 'Actions'
         waypoint.Actions = new List<ActionType>();
 
-        int actionsNotNullLength = actions.Count(s => s != null);
+        int actionsNotNullLength = this.actions.Count(s => s != null);
         for (int i = 0; i < actionsNotNullLength; i++)
         {
-            waypoint.Actions.Add(action[i]);
+            waypoint.Actions.Add(actions[i]);
 
-            
+            if (actions[i].Name == "SpeedAction")
+            {
+                SetCorrectCurrentSpeedToNextStopAction(actions[i].AbsoluteTargetSpeedValueKMH);
+            }
         }
     }
 
-    // TODO 
-    private double speedForStopAction()
+    /// User changes currentSpeed after a StopAction in another waypoint was added
+    private void SetCorrectCurrentSpeedToNextStopAction(double currentSpeed)
     {
-        double speedForStopAction = -1;
+        bool done = false;
+
+        int start = vehicle.Path.WaypointList.FindIndex(waypoint => waypoint == this.waypoint);
+        for (int i = start + 1; i < vehicle.Path.WaypointList.Count; i++)
+        {
+            Waypoint w = vehicle.Path.WaypointList[i];
+            if (w.Actions?.Any() != null)
+            {
+                foreach (ActionType ac in w.Actions)
+                {
+                    // there's another speedAction before the next StopAction
+                    if (ac.Name == "SpeedAction")
+                    {
+                        currentSpeed = ac.AbsoluteTargetSpeedValueKMH;
+                        if (done) return;
+                    }
+                    if (ac.Name == "StopAction")
+                    {
+                        ac.AbsoluteTargetSpeedValueKMH = currentSpeed;
+                        done = true;
+                        //return;
+                    }
+                }
+            }
+        }
+    }
+
+    private double GetCurrentSpeed()
+    {
+        double currentSpeed = vehicle.InitialSpeedKMH;
 
         foreach (Waypoint w in vehicle.Path.WaypointList)
         {
-            foreach (ActionType ac in waypoint.Actions)
+            if (w == waypoint) return currentSpeed;
+
+            if (w.Actions?.Any() != null)
             {
-                if (ac.Name == "SpeedAction")
+                foreach (ActionType ac in w.Actions)
                 {
-                    speedForStopAction = ac.AbsoluteTargetSpeedValueKMH;
+                    if (ac.Name == "SpeedAction")
+                    {
+                        currentSpeed = ac.AbsoluteTargetSpeedValueKMH;
+                    }
                 }
-                if (w == waypoint) return speedForStopAction;
             }
         }
-        return -1;
+        return currentSpeed; // shouldn't be reached
     }
 }

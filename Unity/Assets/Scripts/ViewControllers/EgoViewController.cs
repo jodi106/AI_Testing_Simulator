@@ -95,7 +95,7 @@ public class EgoViewController : VehicleViewController
         this.ego = ego;
         placed = true;
         ego.setView(this);
-        onChangePosition(ego.SpawnPoint);
+        onChangePosition(ego.SpawnPoint.X, ego.SpawnPoint.Y);
         onChangeCategory(ego.Category);
         onChangeModel(ego.Model);
         onChangeColor(ego.Color.ToUnityColor());

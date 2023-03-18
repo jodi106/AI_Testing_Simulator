@@ -67,23 +67,24 @@ namespace Entity
         }
 
         // Needs to be invoked at the End after WayPointList is finished (so when ExportButton is pressed)
-        public void InitAssignRouteWaypoint(float rot)
+        // Creates Waypoint with the ActionType "AssignRouteAction" that contains all waypoint locations.
+        public void InitAssignRouteWaypoint(Location spawnpoint)
         {
-
             var first = WaypointList[0];
-            Quaternion rotation = Quaternion.Euler(0f, 0f, rot);
+            Quaternion rotation = Quaternion.Euler(0f, 0f, spawnpoint.Rot);
             var originalStartLocation = (Location) first.Location.Clone();
             first.Location.Vector3Ser.SetFromVector3(first.Location.Vector3Ser.ToVector3() + rotation * Vector3.right);
 
+            var locations = GetRouteLocations();
+            locations.Insert(0, spawnpoint); // To avoid having a AssignRouteAction with just 2 waypoints
+
             Waypoint assignRouteWaypoint = new Waypoint(
                     originalStartLocation,
-                    new ActionType("AssignRouteAction", GetRouteLocations()),
+                    new ActionType("AssignRouteAction", locations),
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan") });
 
             AssignRouteWaypoint = assignRouteWaypoint;
             WaypointList.Insert(0, AssignRouteWaypoint);
-
         }
-
     }
 }

@@ -28,10 +28,10 @@ namespace Entity
             Actions = new List<ActionType>();
         }
 
-        public void setLocation(Location location)
+        public void setPosition(float x, float y)
         {
-            this.Location = location;
-            this.View?.onChangePosition(location);
+            Location = new Location(x, y, Location.Z, Location.Rot);
+            this.View?.onChangePosition(x, y);
             CalculateLocationCarla();
         }
 
@@ -46,7 +46,7 @@ namespace Entity
         public IBaseView View { get; set; }
         public List<ActionType> Actions { get; set; } // Actions without Triggers
 
-        public Vehicle StartRouteOfOtherVehicle { get; set; }
+        public Adversary StartRouteOfOtherVehicle { get; set; }
 
         public void CalculateLocationCarla()
         {
@@ -58,11 +58,12 @@ namespace Entity
 
         public object Clone()
         {
-            var cloneWaypoint = new Waypoint((Location)this.Location.Clone());
-            cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
-            cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
-            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Vehicle)this.StartRouteOfOtherVehicle.Clone();
-            cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
+            var cloneWaypoint = new Waypoint();
+            if (this.Location != null) cloneWaypoint.Location = (Location)this.Location.Clone();           
+            if (this.LocationCarla != null) cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
+            if (this.ActionTypeInfo != null) cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
+            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Adversary)this.StartRouteOfOtherVehicle.Clone();
+            if (this.TriggerList != null) cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
 
             cloneWaypoint.Actions = new();
             if (this.Actions != null)           
