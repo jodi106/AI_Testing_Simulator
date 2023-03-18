@@ -616,6 +616,7 @@ MonoBehaviour:
   egoPrefab: {fileID: 2646168225723092246, guid: eaf0035b1382a8d4e9e63f42b4cc3c14, type: 3}
   pedPrefab: {fileID: 2779375022895427033, guid: 8390aac25d5b19e4482e8d31db57d702, type: 3}
   skin: {fileID: 11400000, guid: 07c1616acb3e05d4789781b38d6ab800, type: 2}
+  warningPopupController: {fileID: 0}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3007,7 +3008,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774447635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bafef3cdf3af4643a419c2bdcca4f4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7560d28c5f25e3f41acc51dd79c7837d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1774447638
@@ -3024,7 +3025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 5c390006a2f2ac2479e67ef633c1f5c3, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 34c0669275cb17c4aa739a77b2fbff89, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 4e45f2eb262337946a180fd0f81cb87a, type: 3}
   m_SortingOrder: 0
 --- !u!1 &1819913440
 GameObject:
