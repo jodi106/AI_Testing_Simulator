@@ -442,17 +442,8 @@ public class MainController : MonoBehaviour
 
         // Create .xosc file
 
-        // Keep for testing
-        //#if UNITY_EDITOR
-        exportInfo.Path = EditorUtility.SaveFilePanel("Save created scenario as .xosc file", "", "scenario", "xosc");
-        if (exportInfo.Path.Length > 0) // "save" is pressed in explorer
-        {
-            BuildXML doc = new BuildXML(exportInfo);
-            doc.CombineXML();
-        }
-        //#endif
 
-        //StartCoroutine(openSaveDialogWrapper(exportInfo));
+        StartCoroutine(openSaveDialogWrapper(exportInfo));
     }
 
     private void LoadBinaryScenarioInfo()
