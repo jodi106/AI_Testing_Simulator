@@ -232,7 +232,7 @@ public class MainController : MonoBehaviour
         addBikeButton = editorGUI.Q<Button>("addBikeButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
-        loadButton = editorGUI.Q<Button>("importButton");
+        loadButton = editorGUI.Q<Button>("loadButton");
         saveButton = editorGUI.Q<Button>("saveButton");
         homeButton = editorGUI.Q<Button>("homeButton");
         buttonBar = editorGUI.Q<VisualElement>("buttons");
