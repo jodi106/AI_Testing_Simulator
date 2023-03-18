@@ -25,13 +25,6 @@ public class CameraMovement : MonoBehaviour
     {
         mapRenderer = GameObject.Find("Map").GetComponent<SpriteRenderer>();
 
-        //Calculating the Edges for the Map(Background)
-        mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;
-        mapMaxX = mapRenderer.transform.position.x + mapRenderer.bounds.size.x / 2f;
-
-        mapMinY = mapRenderer.transform.position.y - mapRenderer.bounds.size.y / 2f;
-        mapMaxY = mapRenderer.transform.position.y + mapRenderer.bounds.size.y / 2f;
-
         EventManager.StartListening(typeof(MapPanAction), x =>
         {
             var action = new MapPanAction(x);
@@ -40,10 +33,49 @@ public class CameraMovement : MonoBehaviour
 
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
+            var action = new MapChangeAction(x);
+
+            if (action.name != "")
+            {
+                /// Switch Welcome Menu Off
+                /// Switch Welcome Background Off
+                WelcomeCanvas.SetActive(false);
+                WelcomeBackground.SetActive(false);
+
+                mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + action.name);
+
+                var map = GameObject.Find("Map");
+                //Reset collider
+                Destroy(map.GetComponent<BoxCollider2D>());
+                map.AddComponent<BoxCollider2D>();
+                //Recalculate Screen Edges
+                recalulateEdges();
+            } else
+            {
+                ///Set Welcome Menu On
+                ///Set welcome Background On
+                WelcomeCanvas.SetActive(true);
+                WelcomeBackground.SetActive(true);
+
+                //Set the new image as the new Map
+                mapRenderer.sprite = null;
+            }
+
             cam.orthographicSize = 10;
             cam.transform.position = ClampCamera(new Vector3(0, 0, -10));
         });
 
+        recalulateEdges();
+    }
+
+    void recalulateEdges()
+    {
+        //Calculating the Edges for the Map(Background)
+        mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;
+        mapMaxX = mapRenderer.transform.position.x + mapRenderer.bounds.size.x / 2f;
+
+        mapMinY = mapRenderer.transform.position.y - mapRenderer.bounds.size.y / 2f;
+        mapMaxY = mapRenderer.transform.position.y + mapRenderer.bounds.size.y / 2f;
     }
 
     // Update is called once per frame
@@ -97,34 +129,12 @@ public class CameraMovement : MonoBehaviour
 
     public void Home()
     {
-
-        ///Set Welcome Menu On
-        ///Set welcome Background On
-        WelcomeCanvas.SetActive(true);
-        WelcomeBackground.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer.sprite = null;
         EventManager.TriggerEvent(new MapChangeAction(""));
     }
 
     public void ViewMap(int number)
     {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
         var mapName = "Town" + (number == 10 ? "10HD" : ("0" + number));
-
-        mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + mapName);
-
-        var map = GameObject.Find("Map");
-        //Reset collider
-        Destroy(map.GetComponent<BoxCollider2D>());
-        map.AddComponent<BoxCollider2D>();
-        //Recalculate Screen Edges
-        Awake();
         EventManager.TriggerEvent(new MapChangeAction(mapName));
     }
 }

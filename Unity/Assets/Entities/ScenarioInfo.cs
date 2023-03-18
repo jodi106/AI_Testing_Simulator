@@ -21,16 +21,6 @@ namespace Entity
             Vehicles = new ObservableCollection<Adversary>();
         }
 
-        public ScenarioInfo(string path, ObservableCollection<Adversary> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Adversary> vehicles)
-        {
-            Path = path;
-            Pedestrians = pedestrians;
-            MapURL = mapURL;
-            WorldOptions = worldOptions;
-            EgoVehicle = egoVehicle;
-            Vehicles = vehicles;
-        }
-
         /// <summary>
         /// Converts the Model Representation, where Pedestrians are also Vehicles to the Scenario Representation, 
         /// where Pedestrians are represented as their own Objects.

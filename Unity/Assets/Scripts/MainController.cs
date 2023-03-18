@@ -86,6 +86,7 @@ public class MainController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
             buttonBar.visible = action.name != "" ? true : false;
+            info.MapURL = action.name;
             setSelectedEntity(null);
         });
 
@@ -99,10 +100,9 @@ public class MainController : MonoBehaviour
 
     public void loadScenarioInfo(ScenarioInfo info)
     {
-        this.setSelectedEntity(null);
-        info = (ScenarioInfo)info.Clone(); //Do we need this? Exported .bin Info already the one before export changes? - Stefan
-        EventManager.TriggerEvent(new MapChangeAction(""));
-        EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
+        //info = (ScenarioInfo)info.Clone(); //Do we need this? Exported .bin Info already the one before export changes? - Stefan
+        EventManager.TriggerEvent(new MapChangeAction(info.MapURL));
+        info.onEgoChanged = this.info.onEgoChanged;
         this.info = info;
         foreach(Adversary v in info.Vehicles)
         {
@@ -382,14 +382,44 @@ public class MainController : MonoBehaviour
         this.eventList.Rebuild();
     }
 
-    IEnumerator openSaveDialogWrapper(ScenarioInfo exportInfo)
+    IEnumerator saveScenarioInfoWrapper(ScenarioInfo exportInfo, bool binary)
     {
         yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Files);
         if (FileBrowser.Success)
         {
-            exportInfo.Path = FileBrowser.Result[0];
-            BuildXML doc = new BuildXML(exportInfo);
-            doc.CombineXML();
+            if (!binary)
+            {
+                exportInfo.Path = FileBrowser.Result[0];
+                BuildXML doc = new BuildXML(exportInfo);
+                doc.CombineXML();
+            }
+            else
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                using FileStream stream = new FileStream(FileBrowser.Result[0], FileMode.Create);
+                formatter.Serialize(stream, info);
+            }
+        }
+    }
+
+    IEnumerator loadBinaryScenarioInfoWrapper()
+    {
+        yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files);
+        if(FileBrowser.Success)
+        {
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                using (FileStream stream = new FileStream(FileBrowser.Result[0], FileMode.Open))
+                {
+                    ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
+                    loadScenarioInfo(obj);
+                }
+            }
+            catch (System.Exception)
+            {
+                Debug.Log("Error while loading binary file, are you sure the file exists?");
+            }
         }
     }
 
@@ -432,10 +462,6 @@ public class MainController : MonoBehaviour
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // ------------------------------------------------------------------------
-        // TODO remove these lines later once these values are set in Unity
-        exportInfo.MapURL = "Town10HD";
-
-        // ------------------------------------------------------------------------
 
         exportInfo.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
@@ -443,41 +469,18 @@ public class MainController : MonoBehaviour
         // Create .xosc file
 
 
-        StartCoroutine(openSaveDialogWrapper(exportInfo));
+        StartCoroutine(saveScenarioInfoWrapper(exportInfo, false));
     }
 
     private void LoadBinaryScenarioInfo()
     {
-
-        try
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream stream = new FileStream("data.bin", FileMode.Open))
-            {
-                ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
-                loadScenarioInfo(obj);
-            }
-        }
-        catch (System.Exception)
-        {
-            Debug.Log("Error while loading binary file, are you sure the file exists?");
-        }
-
-
+        StartCoroutine(loadBinaryScenarioInfoWrapper());
     }
 
     private void SaveBinaryScenarioInfo(ScenarioInfo info)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        using (FileStream stream = new FileStream("data.bin", FileMode.Create))
-        {
-            formatter.Serialize(stream, info);
-        }
+        StartCoroutine(saveScenarioInfoWrapper(info, true));
     }
-    //private bool isWaypointListEmptyOrNull(Vehicle vehicle)
-    //{
-    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
-    //    return vehicle.Path.WaypointList?.Any() != true;
-    //}
+
 }
 
