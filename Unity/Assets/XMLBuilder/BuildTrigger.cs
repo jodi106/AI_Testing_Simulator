@@ -93,6 +93,32 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
+        public void RelativeDistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// Create RelativeDistanceCondition. Like ReachPositionAction but also works at start of scenario.
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode relativeDistanceCondition = root.CreateElement("RelativeDistanceCondition");
+            SetAttribute("entityRef", triggerInfo.EntitySelf, relativeDistanceCondition);
+            SetAttribute("relativeDistanceType", "cartesianDistance", relativeDistanceCondition);
+            SetAttribute("value", triggerInfo.Value.ToString(), relativeDistanceCondition);
+            SetAttribute("freespace", "false", relativeDistanceCondition);
+            SetAttribute("rule", "lessThan", relativeDistanceCondition);
+            //SetAttribute("tolerance", triggerInfo.Value.ToString(), reachPositionCondition); 
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(relativeDistanceCondition);
+        }
+
         public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
         /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
         /// Same as DistanceCondition but simpler to read

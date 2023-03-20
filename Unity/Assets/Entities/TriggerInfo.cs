@@ -39,6 +39,18 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
+        public TriggerInfo(string triggerType, string entityRef, string entitySelf, double value, string conditionEdge = "rising")
+        /// Constructor for "RelativeDistanceCondition"
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            EntitySelf = entitySelf;
+            Value = value;
+            ConditionEdge = conditionEdge;
+            CalculateLocationCarla();
+        }
+
         public TriggerInfo(string triggerType, string entityRef, double value, Location worldPosition, string conditionEdge = "rising")
         /// Constructor for "ReachPositionCondition"
         {
@@ -77,6 +89,7 @@ namespace Entity
         public double Delay { get; set; } // double: 0 to infinitive, unit: seconds, default: 0 (for most cases 0 fits)
         public string ConditionEdge { get; set; } // has enum; default: "rising"; only in advanced settings
         public string EntityRef {  get; set; } // example: "adversary2" --> "adversary"+id
+        public string EntitySelf {  get; set; } // only relevant for RelativeDistanceCondition
         public double SimulationTimeValue { get; set; } // double: 0 to infinitive, unit: seconds, atm only needed for TriggerType = "SimulationTimeCondition"
         public double Value {  get; set; } // 0 to infinitive, unit: seconds, atm needed for DistanceCondition
         public string Rule {  get; set; } // has enum: "equalTo" , "greaterThan" , "lessThan"
@@ -86,6 +99,7 @@ namespace Entity
 
         public void CalculateLocationCarla()
         {
+            if (WorldPosition == null) return;
             (float xCarla, float yCarla) = SnapController.UnityToCarla(WorldPosition.X, WorldPosition.Y);
             this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
         }

@@ -53,7 +53,9 @@ namespace ExportScenario.XMLBuilder
             // Spawn pedestrians at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate(scenarioInfo.Pedestrians[n], scenarioInfo.Pedestrians[n].getCarlaLocation(), scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6);
+                double initialSpeedMS = scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6;
+                if (scenarioInfo.Pedestrians[n].StartRouteInfo != null) initialSpeedMS = 0;
+                BuildPrivate(scenarioInfo.Pedestrians[n], scenarioInfo.Pedestrians[n].getCarlaLocation(), initialSpeedMS);
             }
         }
 

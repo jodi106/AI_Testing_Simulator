@@ -10,5 +10,7 @@ namespace Assets.Enums
         DistanceCondition,
         [Description("ReachPositionCondition")]
         ReachPositionCondition,
+        [Description("RelativeDistanceCondition")]
+        RelativeDistanceCondition,
     }
 }

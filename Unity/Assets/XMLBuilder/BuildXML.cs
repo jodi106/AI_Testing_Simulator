@@ -357,11 +357,23 @@ namespace ExportScenario.XMLBuilder
                     BuildTrigger buildTrigger = new BuildTrigger(root, scenarioInfo);
                     buildTrigger.CombineTrigger(act, true, new List<TriggerInfo> { startStoryTrigger });
                 }
-                else if (vehicle.StartRouteInfo.Type != "Time")
+                else if (vehicle.StartRouteInfo.Type == "Waypoint") 
                 {
                     startStorySpeedAction = new ActionType("SpeedAction", vehicle.InitialSpeedKMH);
                     string? triggerEntityId = (vehicle.StartRouteInfo.Type == "Ego") ? vehicle.StartRouteInfo.EgoVehicle.Id : vehicle.StartRouteInfo.Vehicle.Id;
                     startStoryTrigger = new TriggerInfo("ReachPositionCondition", triggerEntityId, vehicle.StartRouteInfo.Distance, vehicle.StartRouteInfo.LocationCarla);
+
+                    BuildEvent(maneuver, startStorySpeedAction, new List<TriggerInfo> { startStoryTrigger }, "OverallStartCondition");
+                    vehicle.InitialSpeedKMH = 0;
+
+                    XmlNode actStartTrigger = root.CreateElement("StartTrigger");
+                    act.AppendChild(actStartTrigger);
+                }
+                else if (vehicle.StartRouteInfo.Type == "Ego")
+                {
+                    startStorySpeedAction = new ActionType("SpeedAction", vehicle.InitialSpeedKMH);
+                    string? triggerEntityId = (vehicle.StartRouteInfo.Type == "Ego") ? vehicle.StartRouteInfo.EgoVehicle.Id : vehicle.StartRouteInfo.Vehicle.Id;
+                    startStoryTrigger = new TriggerInfo("RelativeDistanceCondition", triggerEntityId, vehicle.Id, vehicle.StartRouteInfo.Distance);
 
                     BuildEvent(maneuver, startStorySpeedAction, new List<TriggerInfo> { startStoryTrigger }, "OverallStartCondition");
                     vehicle.InitialSpeedKMH = 0;
