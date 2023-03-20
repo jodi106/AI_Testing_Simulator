@@ -1911,9 +1911,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1696202402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a08f4b2bbb4b142a825a068bfef142, type: 3}
+  m_Script: {fileID: 11500000, guid: 17fd2c4bf2a26fa4cac1706803b27e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 1696202404}
+  canvas: {fileID: 962893795}
+  roadPiece: {fileID: 5099815290530910995, guid: 95ad9f8cea2d56b42b252a4fcc62c0b9, type: 3}
 --- !u!1 &1738950675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,7 +2147,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1857751694

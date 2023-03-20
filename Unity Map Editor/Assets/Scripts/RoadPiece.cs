@@ -1,5 +1,5 @@
 using Entity;
-
+using System;
 using UnityEngine;
 using static Drag;
 
@@ -11,9 +11,13 @@ public class RoadPiece : MonoBehaviour {
 
     private RoadPieceController roadPieceController;
 
+    Boolean rotateable = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        rotateable = true;
+
         var mainCamera = GameObject.Find("Main Camera");
         this.roadPieceController = mainCamera.GetComponent<RoadPieceController>();
 
@@ -31,9 +35,10 @@ public class RoadPiece : MonoBehaviour {
 
     private void Update()
     {
-         // Test with to snap to simple rectangle
-         //GameObject square = GameObject.Find("Square");
-         //snapToSquare(piece, square);
+        // Test with to snap to simple rectangle
+        //GameObject square = GameObject.Find("Square");
+        //snapToSquare(piece, square);
+        RotateRoadPiece();
     }
 
     void OnMouseUp()
@@ -45,6 +50,27 @@ public class RoadPiece : MonoBehaviour {
 
         // Code to handle the click event using the clickedObject reference
     }
+
+    public void RotateRoadPiece()
+    {
+         if (rotateable && Input.GetKeyDown(KeyCode.Q))
+                {
+                    this.transform.Rotate(0, 0, 15);
+
+                }
+                else if (rotateable && Input.GetKeyDown(KeyCode.E))
+        {
+            this.transform.Rotate(0, 0, -15);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            rotateable = false;
+        }
+    }
+
+           
 
 
 }

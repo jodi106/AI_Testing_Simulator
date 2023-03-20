@@ -33,9 +33,10 @@ public class RoadPieceController : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-
+        
     }
 
+    
     public void Add(RoadPiece piece)
     {
         pieces.Add(piece.transform.position, piece);
@@ -228,5 +229,7 @@ public class RoadPieceController : MonoBehaviour
     {
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
+
+    
 
 }
