@@ -11,6 +11,7 @@ public class EgoViewController : VehicleViewController
     private Ego ego;
     private DestinationController destination;
     private EgoSettingsPopupController egoSettingsController;
+    private static readonly double INITIAL_SPEED = 10;
     public new void Awake()
     {
         base.Awake();
@@ -73,7 +74,7 @@ public class EgoViewController : VehicleViewController
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
         egoSettingsController.gameObject.SetActive(true);
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, 0); // TODO initial speed: different default later?
+        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, INITIAL_SPEED); // TODO initial speed: different default later?
         ego.setView(this);
         ego.setCategory(cat);
         ego.setColor(color);
