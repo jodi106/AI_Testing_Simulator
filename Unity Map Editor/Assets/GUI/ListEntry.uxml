@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="box" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-bottom: 4px; margin-left: 4px; margin-right: 4px; margin-top: 4px; font-size: 18px;">
+        <ui:Label name="label" style="-unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&apos;); -unity-font-style: bold; font-size: 32px;" />
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:Label name="category" text="Default" />
+            <ui:Label text=" - " style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-right: 5px;" />
+            <ui:Label name="model" text="Default" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
