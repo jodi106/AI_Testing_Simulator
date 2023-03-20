@@ -50,7 +50,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
         this.settingsController.gameObject.SetActive(true);
-        this.settingsController.open(this, pathController.adversaryViewController.getEntity(), mainController.info.Vehicles);
+        this.settingsController.open(this, pathController.adversaryViewController.getEntity(), mainController.info.Vehicles, mainController.warningPopupController);
     }
 
     public void setColor(Color color)
@@ -60,6 +60,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void OnMouseDown()
     {
+        if (MainController.freeze) return;
         if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
@@ -72,6 +73,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
     public void OnMouseDrag()
     {
+        if (MainController.freeze) return;
         if (snapController.IgnoreClicks && !pathController.isBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
@@ -86,17 +88,19 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
             var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
-                pathController.MoveWaypoint(this, waypoint);
+                pathController.MoveWaypoint(this, waypoint.X, waypoint.Y);
             }
         }
         else
         {
-            pathController.MoveWaypoint(this, new Location(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            pathController.MoveWaypoint(this, position.x, position.y);
         }
     }
 
     public void select()
     {
+        if (MainController.freeze) return;
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         pathController.select(true);
     }
@@ -113,9 +117,14 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         Destroy(this.gameObject);
     }
 
-    public void onChangePosition(Location pos)
+    public void onChangePosition(float x, float y)
     {
-        transform.position = new Vector3(pos.X, pos.Y, transform.position.z);
+        transform.position = new Vector3(x, y, transform.position.z);
+    }
+
+    public void onChangeRotation(float angle)
+    {
+
     }
 
     public void onChangeColor(Color c)

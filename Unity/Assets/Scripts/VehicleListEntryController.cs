@@ -22,7 +22,7 @@ public class VehicleListEntryController
         label.text = entity.Id.ToString();
         container.style.backgroundColor = entity.Color.ToUnityColor();
         //TODO: maybe use common subclass for ego and vehicle
-        if (entity is Vehicle v)
+        if (entity is Adversary v)
         {
             category.text = v.Category.ToString();
             model.text = v.Model.DisplayName;

@@ -57,11 +57,15 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     public abstract void init(VehicleCategory cat, Color color);
 
-    public virtual void onChangePosition(Location location)
+    public virtual void onChangePosition(float x, float y)
     {
-        transform.position = HeightUtil.SetZ(location.Vector3Ser.ToVector3(), transform.position.z);
-        transform.eulerAngles = new Vector3(0, 0, location.Rot);
+        transform.position = new Vector3(x, y, transform.position.z);
         mainController.moveActionButtons(transform.position);
+    }
+
+    public virtual void onChangeRotation(float angle)
+    {
+        transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     public virtual void onChangeCategory(VehicleCategory cat)
@@ -113,17 +117,17 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 if (waypoint is not null)
                 {
                     difference = Vector2.zero;
-                    getEntity().setSpawnPoint(waypoint);
+                    getEntity().setPosition(waypoint.X, waypoint.Y);
                     gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
                 }
                 else
                 {
-                    getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0)); // Im not sure this is ok
+                    getEntity().setPosition(mousePosition.x, mousePosition.y); // Im not sure this is ok
                 }
             }
             else
             {
-                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+                getEntity().setPosition(mousePosition.x, mousePosition.y);
             }
 
         }
@@ -142,16 +146,19 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                getEntity().setSpawnPoint(waypoint);
+                getEntity().setPosition(waypoint.X, waypoint.Y);
+                getEntity().setRotation(waypoint.Rot);
             }
             else
             {
-                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+                getEntity().setPosition(mousePosition.x, mousePosition.y);
+                getEntity().setRotation(0);
             }
         }
         else
         {
-            getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+            //rotation is fixed by PathController
+            getEntity().setPosition(mousePosition.x, mousePosition.y);
         }
         mainController.setSelectedEntity(this);
     }
@@ -180,20 +187,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     public virtual void setIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
-    }
-
-    public void alignVehicle(Vector3 direction)
-    {
-        Vector3 vectorToTarget = direction - transform.position;
-        vectorToTarget = HeightUtil.SetZ(vectorToTarget, 0);
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-        Vector3 rot = new Vector3(0, 0, angle);
-        transform.eulerAngles = rot;
-    }
-
-    public void resetVehicleAlignment()
-    {
-        transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
     public abstract BaseEntity getEntity();

@@ -14,16 +14,14 @@ namespace Entity
         public ScenarioInfo()
         {
             Path = null;
-            Pedestrians = new ObservableCollection<Pedestrian>();
+            Pedestrians = new ObservableCollection<Adversary>();
             MapURL = null;
             WorldOptions = new WorldOptions();
             EgoVehicle = null;
-            Vehicles = new ObservableCollection<Vehicle>();
-            allEntities = new List<BaseEntity>();
-            attachListener();
+            Vehicles = new ObservableCollection<Adversary>();
         }
 
-        public ScenarioInfo(string path, ObservableCollection<Pedestrian> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Vehicle> vehicles)
+        public ScenarioInfo(string path, ObservableCollection<Adversary> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Adversary> vehicles)
         {
             Path = path;
             Pedestrians = pedestrians;
@@ -47,46 +45,26 @@ namespace Entity
             WorldOptions CopyWorldOptions = new();
             if (this.WorldOptions != null)
                 CopyWorldOptions = (WorldOptions)this.WorldOptions.Clone();       
-            
-            ObservableCollection<Pedestrian> exPedestrians = new(); //Value but contaisns Path Ref
-            ObservableCollection<Vehicle> exVehicles = new(); // Value but contains Ref Obj. 
-
-            List<BaseEntity> CopyAllEntities = new();
 
             Ego CopyEgoVehicle = new(); 
             if (this.EgoVehicle != null)
                 CopyEgoVehicle = this.EgoVehicle;
 
-            CopyAllEntities.Add(CopyEgoVehicle);
-
-            //if (this.allEntities != null)
-            //CopyAllEntities = this.allEntities; //Ref bc. not accessed in export, so also not changed. 
-
-
-            foreach (Vehicle v in this.Vehicles)
+            ObservableCollection<Adversary> exPedestrians = new();
+            ObservableCollection<Adversary> exVehicles = new();
+            
+            foreach (Adversary v in this.Vehicles)
             {
                 if (v.Category == VehicleCategory.Pedestrian)
                 {
                     //Didn't implement ICloneable interface, since Path can be reference to the Model Object. 
-                    Pedestrian CopyPedestrian = new Pedestrian
-                        (
-                            (Location)v.SpawnPoint.Clone(), //Value
-                            new EntityModel(string.Copy(v.Id), "walker.pedestrian.0001"), //Value
-                            (Path)v.Path.Clone(), //Value
-                            PedestrianType.Girl, //Value
-                            v.InitialSpeedKMH, //Value
-                            v.Id, //Value
-                            v.StartRouteInfo //Reference
-                        );
-
+                    Adversary CopyPedestrian = (Adversary)v.Clone();
                     exPedestrians.Add(CopyPedestrian);
-                    CopyAllEntities.Add(CopyPedestrian);
                 }
                 else
                 {
-                    Vehicle cloneVehicle = (Vehicle)v.Clone();
+                    Adversary cloneVehicle = (Adversary)v.Clone();
                     exVehicles.Add(cloneVehicle); //Value
-                    CopyAllEntities.Add(cloneVehicle);
                 }
             }
 
@@ -99,60 +77,41 @@ namespace Entity
                 WorldOptions = CopyWorldOptions,
                 EgoVehicle = CopyEgoVehicle,
                 Vehicles = exVehicles,
-                allEntities = CopyAllEntities
             };
-            info.attachListener();
             info.onEgoChanged = this.onEgoChanged;
             return info;
         }
 
-
-        void attachListener()
-        {
-            Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
-            {
-                if (args.NewItems is not null)
-                {
-                    foreach (var item in args.NewItems)
-                    {
-                        allEntities.Add((Vehicle)item);
-                    };
-                }
-                if (args.OldItems is not null)
-                {
-                    foreach (var item in args.OldItems)
-                    {
-                        allEntities.Remove((Vehicle)item);
-                    };
-                }
-            };
-        }
-
         public void setEgo(Ego ego)
         {
-            if(EgoVehicle is not null)
-            {
-                this.allEntities.RemoveAt(0);
-            }
-            if (ego is not null)
-            {
-                this.allEntities.Insert(0, ego);
-            }
             this.EgoVehicle = ego;
             onEgoChanged();
         }
         
         public string Path { get; set; }
-        public ObservableCollection<Pedestrian> Pedestrians { get; set; }
+        public ObservableCollection<Adversary> Pedestrians { get; set; }
         public string MapURL { get; set; }
         public WorldOptions WorldOptions { get; set; } // MapRepository.cs has possible Maps. 
         public Ego EgoVehicle { get; private set; }
-        public ObservableCollection<Vehicle> Vehicles { get; set; }
-
-        public List<BaseEntity> allEntities { get; private set; }
+        public ObservableCollection<Adversary> Vehicles { get; set; }
 
         [NonSerialized]
         public System.Action onEgoChanged;
+
+        public List<BaseEntity> allEntities
+        {
+            get
+            {
+                List<BaseEntity> allEntities = new List<BaseEntity>();
+                if (EgoVehicle is not null)
+                {
+                    allEntities.Add(EgoVehicle);
+                }
+                allEntities.AddRange(Vehicles);
+                allEntities.AddRange(Pedestrians);
+                return allEntities;
+            }
+        }
 
     }
 }

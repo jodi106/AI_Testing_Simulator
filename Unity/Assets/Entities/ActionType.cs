@@ -38,16 +38,6 @@ namespace Entity
 
         }
 
-        //public ActionType(string name, double speedActionDynamicsValue, string speedActionDynamicsShape = "step", string dynamicsDimension = "time")
-        ///// for BreakAction
-        //{
-        //    ID = autoIncrementId++;
-        //    Name = name;
-        //    //SpeedActionDynamicsShape = speedActionDynamicsShape;
-        //    SpeedActionDynamicsValue = speedActionDynamicsValue;
-        //    DynamicDimensions = dynamicsDimension;
-        //}
-
         public ActionType(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape = "linear", double laneChangeActionDynamicsValue = 13, string dynamicsDimension = "distance")
         /// for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
         {
@@ -60,20 +50,15 @@ namespace Entity
             DynamicDimensions = dynamicsDimension;
         }
 
-        //public ActionType(string name, string entityRef, string value)
-        ///// For pre-defined SpeedAction or LaneChangeAction or StopAction
-        //{
-        //    // TODO? Is this even necessary??? See WaypointSettingsPopUpController
-        //}
-
         public ActionType(string name, List<Location> positions)
-        /// for AssignRouteAction (List lentgh > 1) or AcquirePositionAction (list length == 1)
+        /// for AssignRouteAction (List lentgh > 2) or AcquirePositionAction (list length == 2)
         {
             ID = autoIncrementId++;
             Name = name;
             Positions = positions;
             CalculateLocationsCarla();
         }
+
         public ActionType()
         {
 

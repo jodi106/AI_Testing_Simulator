@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 public class AdversarySettingsPopupController : MonoBehaviour
 {
     private AdversaryViewController controller;
-    private Vehicle vehicle;
+    private Adversary vehicle;
     private Ego egoVehicle;
     private UIDocument document;
     private TextField iDField;
@@ -43,6 +43,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            MainController.freeze = false;
             saveStartRouteInfo(startRouteType);
             this.vehicle = null;
             this.document.rootVisualElement.style.display = DisplayStyle.None;
@@ -220,7 +221,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
     public void open(AdversaryViewController controller, Color color, Ego egoVehicle)
     {
         this.controller = controller;
-        this.vehicle = (Vehicle) controller.getEntity();
+        this.vehicle = (Adversary) controller.getEntity();
         this.egoVehicle = egoVehicle;
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
@@ -253,6 +254,8 @@ public class AdversarySettingsPopupController : MonoBehaviour
             resetStartRouteFields();
             vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0);
         }
+
+        MainController.freeze = true;
     }
 
 

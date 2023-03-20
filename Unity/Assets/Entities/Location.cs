@@ -45,7 +45,7 @@ namespace Entity
 
         public object Clone()
         {
-            return new Location(this.Y, this.X, this.Rot, this.Rot);
+            return new Location(this.X, this.Y, this.Z, this.Rot);
         }
     }
 }
