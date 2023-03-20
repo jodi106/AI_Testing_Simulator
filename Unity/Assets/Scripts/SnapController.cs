@@ -14,14 +14,17 @@ public class SnapController : MonoBehaviour
 
     private Dictionary<Location, GameObject> waypointGameObjects;
 
-    private Dictionary<string, MapDimension> mapDimensions;
+    private static Dictionary<string, MapDimension> mapDimensions;
 
     private GameObject LastClickedWaypointGameObject;
+
+    private static String mapName = "";
 
     public bool IgnoreClicks { get; set; }
 
     void Start()
     {
+
         IgnoreClicks = false;
 
         roads = new();
@@ -31,6 +34,8 @@ public class SnapController : MonoBehaviour
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
             var action = new MapChangeAction(x);
+
+            mapName = action.name;
 
             foreach (var (_, waypoint) in waypointGameObjects)
             {
@@ -153,7 +158,6 @@ public class SnapController : MonoBehaviour
                     ((jsonWaypoint.X - mapDimensions[mapName].minX) - ((-mapDimensions[mapName].minX + mapDimensions[mapName].maxX) / 2)) / 4,
                     ((jsonWaypoint.Y - mapDimensions[mapName].minY) - ((-mapDimensions[mapName].minY + mapDimensions[mapName].maxY) / 2)) / 4 * (-1),
                     HeightUtil.WAYPOINT_INDICATOR);
-
                 var waypointGameObject = Instantiate(
                     circlePrefab,
                     position,
@@ -411,35 +415,13 @@ public class SnapController : MonoBehaviour
 
         return (waypointPath, laneChangeIndices);
     }
-    public static (float x, float y) CarlaToUnity(float x, float y)
-    {
-
-        //Convert to Mouse Coordinates
-        x = (x - -114.59522247314453f) / 4;
-        y = (y - -68.72904205322266f) / 4 * (-1);
-
-
-        //Handle Offset, so that 0,0 is in the middle
-        x = x + -28.077075f;
-        y = y + 26.24f;
-
-        return (x, y);
-    }
-
 
     //Only for Town06 later do as extension method for Vector3Ser or Location
     public static (float x, float y) UnityToCarla(float x, float y)
     {
+        x = 0.5f * (8f * x + mapDimensions[mapName].minX + mapDimensions[mapName].maxX);
+        y = 0.5f * (-8f * y + mapDimensions[mapName].minY + mapDimensions[mapName].maxY);
 
-        x = x + 28.077075f;
-        y = y + -26.24f;
-
-        x = x * 4;
-        y = y * 4 * (-1);
-
-
-        x = (x + -114.59522247314453f);
-        y = (y + -68.72904205322266f);
 
         return (x, y);
     }
