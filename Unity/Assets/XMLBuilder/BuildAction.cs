@@ -199,13 +199,14 @@ namespace ExportScenario.XMLBuilder
             
             SetAttribute("name", "module", property1);
             SetAttribute("value", controlMode, property1); // "external_control", "simple_vehicle_control", ...
-            if (controlMode == "simple_vehicle_control")
-            {
-                XmlNode property2 = root.CreateElement("Property");
-                SetAttribute("name", "attach_camera", property2);
-                SetAttribute("value", "true", property2);
-                properties.AppendChild(property2);
-            }
+            // nice for testing:
+            //if (controlMode == "simple_vehicle_control")
+            //{
+            //    XmlNode property2 = root.CreateElement("Property");
+            //    SetAttribute("name", "attach_camera", property2);
+            //    SetAttribute("value", "true", property2);
+            //    properties.AppendChild(property2);
+            //}
             
             XmlNode override_controller_value_action = root.CreateElement("OverrideControllerValueAction");
             XmlNode throttle = root.CreateElement("Throttle");
