@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,11 @@ public class Drag : MonoBehaviour
 {
     public GameObject selectedObject;
     Vector3 offset;
+    Boolean rotateable = false;
     // Start is called before the first frame update
     void Start()
     {
-
+        rotateable = true;
     }
 
     // Update is called once per frame
@@ -25,13 +27,17 @@ public class Drag : MonoBehaviour
                 offset = selectedObject.transform.position - mousePosition;
             }
         }
-        if (selectedObject)
+        if (selectedObject && rotateable)
         {
             selectedObject.transform.position = mousePosition + offset;
         }
         if (Input.GetMouseButtonUp(0) && selectedObject)
         {
             selectedObject = null;
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            rotateable = false;
         }
     }
 }

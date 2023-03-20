@@ -20,7 +20,8 @@ public class SidebarButtonHandler : MonoBehaviour
     void createRoadPiece()
     {
         var pos = new Vector3(0, 0, 1); 
-        var createImage = Instantiate(roadPiece, pos, Quaternion.identity) as GameObject; 
+        var createImage = Instantiate(roadPiece, pos, Quaternion.identity) as GameObject;
+        createImage.transform.localScale += new Vector3(7, 7, 0);
         createImage.transform.SetParent(canvas.transform, false); 
     }
 
