@@ -56,7 +56,7 @@ namespace Entity
             ID = autoIncrementId++;
             Name = name;
             Positions = positions;
-            CalculateLocationsCarla();
+            
         }
 
         public ActionType()
@@ -78,17 +78,7 @@ namespace Entity
         public double StopDuration { get; set; }
 
 
-        public void CalculateLocationsCarla()
-        {
-            PositionsCarla = new List<Location>();
-            foreach (Location pos in Positions)
-            {
-                (float xCarla, float yCarla) = RoadPieceController.UnityToCarla(pos.X, pos.Y);
-                float rotCarla = RoadPieceController.UnityRotToRadians(pos.Rot);
-                rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
-                PositionsCarla.Add(new Location(xCarla, yCarla, 0.3f, rotCarla));
-            }
-        }
+       
 
         public object Clone()
         {      

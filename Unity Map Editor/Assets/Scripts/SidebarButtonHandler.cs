@@ -3,34 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SidebarButtonHandler : MonoBehaviour
+namespace scripts
 {
-    public Button sidebarButton;
-    public GameObject canvas; 
-    public GameObject roadPiece; 
-
-    void Start()
+    public class SidebarButtonHandler : MonoBehaviour
     {
-        Button btn = sidebarButton.GetComponent<Button>();
-        string btnText = btn.name;
-        //btn.onClick.AddListener(() => TaskOnClick(btnText));
-        btn.onClick.AddListener(() => createRoadPiece());  
+        public Button sidebarButton;
+
+        void Start()
+        {
+
+            ButtonManager.Instance.addSidebarButton(sidebarButton); 
+            Button btn = sidebarButton.GetComponent<Button>();
+            //btn.onClick.AddListener(() => TaskOnClick(btnText));
+            btn.onClick.AddListener(() => selectRoadType(btn.name));
+        }
+
+        private void Update()
+        {
+            
+        }
+
+        void selectRoadType(string buttonName)
+        {
+            var selectedRoadType = RoadType.None;
+            switch (buttonName)
+            {
+                case "Straight":
+                    selectedRoadType = RoadType.StraightRoad;
+                    break;
+                case "Turn":
+                    selectedRoadType = RoadType.Turn;
+                    break;
+                default:
+                    break;
+            }
+            ButtonManager.Instance.handleButtonClick(sidebarButton, selectedRoadType);
+
+        }
+
+        public void TaskOnClick(string btnText)
+        {
+            //Output this to console when Button1 or Button3 is clicked
+            print("You have selected the '" + btnText + "' Tile!");
+        }
     }
 
-    void createRoadPiece()
-    {
-        var pos = new Vector3(0, 0, 1); 
-        var createImage = Instantiate(roadPiece, pos, Quaternion.identity) as GameObject; 
-        createImage.transform.SetParent(canvas.transform, false); 
-    }
 
-
-
-
-    public void TaskOnClick(string btnText)
-    {
-        //Output this to console when Button1 or Button3 is clicked
-        print("You have selected the '" + btnText + "' Tile!");
-    }
 }
-

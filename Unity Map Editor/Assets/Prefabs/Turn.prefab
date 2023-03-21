@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 56450841412990403}
   - component: {fileID: 5365789675251983569}
-  - component: {fileID: -2230715404748222382}
-  - component: {fileID: -5696522996408066438}
   - component: {fileID: 5394621424303668631}
+  - component: {fileID: 2884884069649534273}
   m_Layer: 0
   m_Name: Turn
   m_TagString: Untagged
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5099815290530910995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2141.7007, y: -33777.35, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,32 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-2230715404748222382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5099815290530910995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a32a1ee6599257f43a54abfb9a268f0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roadType: 0
---- !u!114 &-5696522996408066438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5099815290530910995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5cc1b4005337d499fd1b072c629f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedObject: {fileID: 0}
 --- !u!61 &5394621424303668631
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,3 +112,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 36.40072, y: 9.900001}
   m_EdgeRadius: 0
+--- !u!114 &2884884069649534273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099815290530910995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9d694e0ee49464e8760d714d6a5986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neighbors: []
+  roadType: 2
