@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using scripts;
 
 namespace Entity
 {
@@ -86,8 +87,8 @@ namespace Entity
 
         public void CalculateLocationCarla()
         {
-            (float xCarla, float yCarla) = RoadPieceController.UnityToCarla(WorldPosition.X, WorldPosition.Y);
-            this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
+            //(float xCarla, float yCarla) = RoadManager.UnityToCarla(WorldPosition.X, WorldPosition.Y);
+            //this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
         }
 
         public object Clone()

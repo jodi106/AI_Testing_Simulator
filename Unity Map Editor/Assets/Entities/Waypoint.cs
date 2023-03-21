@@ -29,7 +29,6 @@ namespace Entity
             ActionTypeInfo = actionTypeInfo;
             Priority = priority;
             TriggerList = triggerList;
-            CalculateLocationCarla();
             Actions = new List<ActionType>();
         }
 
@@ -53,13 +52,7 @@ namespace Entity
 
         public Adversary StartRouteOfOtherVehicle { get; set; }
 
-        public void CalculateLocationCarla()
-        {
-            (float xCarla, float yCarla) = RoadPieceController.UnityToCarla(Location.X, Location.Y);
-            float rotCarla = RoadPieceController.UnityRotToRadians(Location.Rot);
-            rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
-            this.LocationCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
-        }
+        
 
         public object Clone()
         {
