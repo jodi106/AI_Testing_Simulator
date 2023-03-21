@@ -11,9 +11,11 @@ using UnityEditor;
 #endif
 using uGUI = UnityEngine.UI;
 using System.IO;
+using Assets.Scripts.ViewControllers.PopupControllers;
 using System.Runtime.Serialization.Formatters.Binary;
 using SimpleFileBrowser;
 using System.Collections;
+using System;
 
 public class MainController : MonoBehaviour
 {
@@ -35,8 +37,9 @@ public class MainController : MonoBehaviour
     private Button exportButton;
     private Button loadButton;
     private Button saveButton;
-
     private Button homeButton;
+    private Button exitButton;
+    
     private VisualElement buttonBar;
 
     //Action Buttons (Center Left)
@@ -52,6 +55,7 @@ public class MainController : MonoBehaviour
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
     public  WarningPopupController warningPopupController;
+    public YesNoPopupController yesNoPopupController;
 
     public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!
 
@@ -96,6 +100,9 @@ public class MainController : MonoBehaviour
 
         this.warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
         this.warningPopupController.gameObject.SetActive(true);
+
+        this.yesNoPopupController = GameObject.Find("PopUps").transform.Find("YesNoPopup").gameObject.GetComponent<YesNoPopupController>();
+        this.yesNoPopupController.gameObject.SetActive(true);
     }
 
     public void loadScenarioInfo(ScenarioInfo info)
@@ -235,6 +242,8 @@ public class MainController : MonoBehaviour
         loadButton = editorGUI.Q<Button>("loadButton");
         saveButton = editorGUI.Q<Button>("saveButton");
         homeButton = editorGUI.Q<Button>("homeButton");
+        exitButton = editorGUI.Q<Button>("exitButton");
+
         buttonBar = editorGUI.Q<VisualElement>("buttons");
         
 
@@ -299,6 +308,13 @@ public class MainController : MonoBehaviour
             if (freeze) return;
             this.setSelectedEntity(null);
             SaveBinaryScenarioInfo(this.info);
+        });
+
+        exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            this.setSelectedEntity(null);
+            QuitApplication();
         });
 
         buttonBar.visible = false;
@@ -480,6 +496,17 @@ public class MainController : MonoBehaviour
     private void SaveBinaryScenarioInfo(ScenarioInfo info)
     {
         StartCoroutine(saveScenarioInfoWrapper(info, true));
+    }
+
+    private async void QuitApplication()
+    {
+        var result = await this.yesNoPopupController.Show("Quit?", "Do you really want to Quit the Application?\nMake sure to save everything! Unsaved Changes WILL be lost!");
+
+        if (result == true)
+        {
+            Application.Quit();
+            Debug.Log("Quitting");
+        }
     }
 
 }
