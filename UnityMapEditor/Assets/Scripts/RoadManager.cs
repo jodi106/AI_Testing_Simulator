@@ -39,7 +39,7 @@ namespace scripts
         void Update()
         {
             DoDragTile();
-
+            rotateRoadPiece();
             if(Input.GetMouseButtonDown(1) && selectedRoad != null && isDragging)
             {
                 isDragging = false;
@@ -113,7 +113,18 @@ namespace scripts
 
         public void rotateRoadPiece()
         {
-            
+            if(selectedRoad != null)
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    selectedRoad.transform.Rotate(new Vector3(0, 0, 90));
+                }
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    selectedRoad.transform.Rotate(new Vector3(0, 0, -90));
+                }
+
+            }
         }
 
         private GameObject GetClickedObject()
