@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 157551664}
   - component: {fileID: 157551663}
   - component: {fileID: 157551662}
+  - component: {fileID: 157551665}
   m_Layer: 0
   m_Name: Roundabout
   m_TagString: Untagged
@@ -380,6 +381,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157551660}
   m_CullTransparentMesh: 1
+--- !u!114 &157551665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157551660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fd2c4bf2a26fa4cac1706803b27e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 157551662}
 --- !u!1 &178770155
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +724,7 @@ GameObject:
   - component: {fileID: 407716457}
   - component: {fileID: 407716456}
   - component: {fileID: 407716455}
+  - component: {fileID: 407716458}
   m_Layer: 0
   m_Name: 3-Road Intersection
   m_TagString: Untagged
@@ -820,6 +835,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407716453}
   m_CullTransparentMesh: 1
+--- !u!114 &407716458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407716453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fd2c4bf2a26fa4cac1706803b27e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 407716455}
 --- !u!1 &408232290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1029,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Straight: {fileID: 3268465651514629649, guid: 4a0eab48642c5a246b7025345be42f49, type: 3}
   Turn: {fileID: 2884884069649534273, guid: 95ad9f8cea2d56b42b252a4fcc62c0b9, type: 3}
+  ThreeWayIntersection: {fileID: 83394976407353207, guid: 73468f0c091fcfb419cd2146efef20a8, type: 3}
+  FourWayIntersection: {fileID: -7288189701348695058, guid: 91e673080b5fa294b86435627d646380, type: 3}
+  ParkingBottom: {fileID: 412474618863446166, guid: 78e21f6ec1288a9489305963f2242488, type: 3}
+  ParkingTopAndBottom: {fileID: 1192553893855053570, guid: 864cafec2cdf77c4b9e2b00880178129, type: 3}
+  ParkingTop: {fileID: -3251072490434861515, guid: 11ec08c27bbdbd64d8788325a0e7527f, type: 3}
+  Crosswalk: {fileID: 1758414879012483493, guid: 676d6eb07dd4fb9478c537d7ec7f0fde, type: 3}
+  RoundAbout: {fileID: 2200703288872540573, guid: dededa8433f319e43b1c36f083c4ff44, type: 3}
 --- !u!1 &794651096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1452,6 +1487,7 @@ GameObject:
   - component: {fileID: 1379122077}
   - component: {fileID: 1379122076}
   - component: {fileID: 1379122075}
+  - component: {fileID: 1379122078}
   m_Layer: 0
   m_Name: 4-Road Intersection
   m_TagString: Untagged
@@ -1562,6 +1598,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379122073}
   m_CullTransparentMesh: 1
+--- !u!114 &1379122078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379122073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fd2c4bf2a26fa4cac1706803b27e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 1379122075}
 --- !u!1 &1410243562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,6 +2564,7 @@ GameObject:
   - component: {fileID: 2072023700}
   - component: {fileID: 2072023699}
   - component: {fileID: 2072023698}
+  - component: {fileID: 2072023701}
   m_Layer: 0
   m_Name: Parking
   m_TagString: Untagged
@@ -2625,6 +2675,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072023696}
   m_CullTransparentMesh: 1
+--- !u!114 &2072023701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072023696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fd2c4bf2a26fa4cac1706803b27e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 2072023698}
 --- !u!1 &2122749252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,6 +2700,7 @@ GameObject:
   - component: {fileID: 2122749256}
   - component: {fileID: 2122749255}
   - component: {fileID: 2122749254}
+  - component: {fileID: 2122749257}
   m_Layer: 0
   m_Name: Crosswalk
   m_TagString: Untagged
@@ -2747,3 +2811,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122749252}
   m_CullTransparentMesh: 1
+--- !u!114 &2122749257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122749252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fd2c4bf2a26fa4cac1706803b27e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sidebarButton: {fileID: 2122749254}
