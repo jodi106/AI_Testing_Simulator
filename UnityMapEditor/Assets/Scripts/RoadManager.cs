@@ -20,7 +20,9 @@ namespace scripts
 
         public List<RoadPiece> roadList = new();
 
-        public RoadPiece lastClickedRoad;
+        public RoadPiece selectedRoad = null;
+
+        private bool isDragging = false;
 
         private void Awake()
         {
@@ -36,19 +38,25 @@ namespace scripts
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                createRoad();
-            }
             DoDragTile();
+
+            if(Input.GetMouseButtonDown(1) && selectedRoad != null && isDragging)
+            {
+                isDragging = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) && selectedRoad != null)
+            {
+                DeselectRoad(); 
+            }
         }
 
         void createRoad()
         {
             var roadPiece = PrefabManager.Instance.GetPieceOfType(ButtonManager.Instance.getSelectedRoadType());
-            var pos = new Vector3(0, 0, 1);
-            var newRoadPiece = Instantiate(roadPiece, pos, Quaternion.identity);
+            var newRoadPiece = Instantiate(roadPiece, GetWorldPositionFromMouseClick(), Quaternion.identity);
             AddRoadToList(newRoadPiece);
+            SelectRoad(newRoadPiece);
         }
 
         public void AddRoadToList(RoadPiece road)
@@ -63,29 +71,44 @@ namespace scripts
                 var go = GetClickedObject();
                 if (go != null)
                 {
-                    Debug.Log($" Hit : {go.name}");
                     if (go.GetComponent<RoadPiece>() != null)
                     {
-                        lastClickedRoad = go.GetComponent<RoadPiece>();
-                        //lastClickedRoad.GetComponent<SpriteRenderer>().color = selectedColor;
+                        DeselectRoad();
+                        SelectRoad(go.GetComponent<RoadPiece>());
+                        isDragging = true; 
                     }
-                    else
-                    {
-                        Debug.Log($" Has no A Tile comp attached");
-                    }
+                }
+
+                else if (selectedRoad == null)
+                {
+                    createRoad();
                 }
             }
 
-            if (lastClickedRoad != null)
-            {
-                lastClickedRoad.transform.position = GetWorldPositionFromMouseClick();
-            }
+            if (selectedRoad != null && isDragging)
 
-            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                lastClickedRoad.GetComponent<SpriteRenderer>().color = Color.white;
-                lastClickedRoad = null;
+                selectedRoad.transform.position = GetWorldPositionFromMouseClick();
+                
             }
+        }
+
+        public void SelectRoad(RoadPiece road)
+        {
+            if(selectedRoad == null)
+            {
+                selectedRoad = road; 
+                selectedRoad.GetComponent<SpriteRenderer>().color = Color.cyan;
+            }
+        }
+        public void DeselectRoad()
+        {
+           if(selectedRoad != null)
+            {
+                selectedRoad.GetComponent<SpriteRenderer>().color = Color.white;
+                selectedRoad = null;
+                isDragging = false;
+            }            
         }
 
         public void rotateRoadPiece()
@@ -112,7 +135,7 @@ namespace scripts
             mouseScreenPosition.z = Camera.main.nearClipPlane;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
             return worldPosition;
-        }
+        } 
     }
-
+      
 }

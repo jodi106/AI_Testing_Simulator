@@ -25,6 +25,7 @@ namespace scripts
 
         void selectRoadType(string buttonName)
         {
+            RoadManager.Instance.DeselectRoad();
             var selectedRoadType = RoadType.None;
             switch (buttonName)
             {
