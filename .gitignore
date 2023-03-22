@@ -165,11 +165,11 @@ dmypy.json
 ExportedObj/
 .consulo/
 [Uu]nity/*.csproj
-Unity Map Editor/*.csproj
+UnityMapEditor/*.csproj
 
 *.unityproj
 [Uu]nity/*.sln
-Unity Map Editor/*.sln
+UnityMapEditor/*.sln
 *.suo
 *.tmp
 *.user
