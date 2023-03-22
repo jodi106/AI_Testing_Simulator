@@ -2363,7 +2363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9fa06b8bc55fb48ac5fe671086e441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 0.7
+  dragSpeed: 200
   zoomSpeed: 500
   minZoom: 1
   maxZoom: 1000
