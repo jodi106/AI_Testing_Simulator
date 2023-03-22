@@ -41,8 +41,6 @@ namespace scripts
         public void setSelectedRoadType(RoadType roadType)
         {
             this.selectedRoadType = roadType;
-            Debug.Log(selectedRoadType);
-
         }
 
         public RoadType getSelectedRoadType()
