@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadList: []
-  lastClickedRoad: {fileID: 0}
+  selectedRoad: {fileID: 0}
 --- !u!4 &336219914
 Transform:
   m_ObjectHideFlags: 0
@@ -2258,6 +2258,7 @@ GameObject:
   - component: {fileID: 1857751697}
   - component: {fileID: 1857751696}
   - component: {fileID: 1857751695}
+  - component: {fileID: 1857751699}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2350,6 +2351,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 6202.578, y: 3608.957}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1857751699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857751694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9fa06b8bc55fb48ac5fe671086e441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 0.7
+  zoomSpeed: 500
+  minZoom: 1
+  maxZoom: 1000
 --- !u!1 &1959689100
 GameObject:
   m_ObjectHideFlags: 0
