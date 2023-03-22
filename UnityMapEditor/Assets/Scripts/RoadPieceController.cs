@@ -16,6 +16,20 @@ namespace scripts
         StraightRoad,
         [Description("Turn")]
         Turn,
+        [Description("ThreeWayIntersection")]
+        ThreeWayIntersection,
+        [Description("FourWayIntersection")]
+        FourWayIntersection,
+        [Description("ParkingBottom")]
+        ParkingBottom,
+        [Description("ParkingTop")]
+        ParkingTop,
+        [Description("ParkingTopAndBottom")]
+        ParkingTopAndBottom,
+        [Description("CrossWalk")]
+        Crosswalk,
+        [Description("RoundAbout")]
+        RoundAbout,
     }
 
     public class RoadPieceController : MonoBehaviour

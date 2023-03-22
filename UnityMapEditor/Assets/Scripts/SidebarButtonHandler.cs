@@ -35,6 +35,27 @@ namespace scripts
                 case "Turn":
                     selectedRoadType = RoadType.Turn;
                     break;
+                case "3-Road Intersection":
+                    selectedRoadType = RoadType.ThreeWayIntersection;
+                    break;
+                case "4-Road Intersection":
+                    selectedRoadType = RoadType.FourWayIntersection;
+                    break;
+                //case "ParkingBottom":
+                //    selectedRoadType = RoadType.ParkingBottom;
+                //    break;
+                //case "ParkingTop":
+                //    selectedRoadType = RoadType.ParkingTop;
+                //    break;
+                case "Parking":
+                    selectedRoadType = RoadType.ParkingTopAndBottom;
+                    break;
+                case "Crosswalk":
+                    selectedRoadType = RoadType.Crosswalk;
+                    break;
+                case "Roundabout":
+                    selectedRoadType = RoadType.RoundAbout;
+                    break;
                 default:
                     break;
             }
