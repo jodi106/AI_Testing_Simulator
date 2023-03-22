@@ -5,19 +5,37 @@ using System.Linq;
 namespace Entity
 {
     [Serializable]
-    public class Waypoint : ICloneable// Event in .xosc
-    /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
+    /// <summary>
+    /// Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path Represents an Event in the .xosc File
+    /// </summary>
+    public class Waypoint : ICloneable // Event in .xosc
     {
+
+        /// <summary>
+        /// Initializes a new instance of the Waypoint class with a given location. Initializes an empty Actions list.
+        /// </summary>
+        /// <param name="location">The location of the Waypoint</param>
         public Waypoint(Location location)
         {
             Location = location;
             Actions = new List<ActionType>();
         }
 
+        /// <summary>
+        /// Initializes a new empty instance of the Waypoint class
+        /// </summary>
         public Waypoint()
         {
         }
 
+
+        /// <summary>
+        /// Initializes a new instance of the Waypoint class with a given location, action type info, trigger list, and priority
+        /// </summary>
+        /// <param name="location">The location of the Waypoint</param>
+        /// <param name="actionTypeInfo">The ActionType info of the Waypoint</param>
+        /// <param name="triggerList">The list of triggers of the Waypoint</param>
+        /// <param name="priority">The priority of the Waypoint</param>
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
             Location = location;
@@ -28,6 +46,11 @@ namespace Entity
             Actions = new List<ActionType>();
         }
 
+        /// <summary>
+        /// Sets the position of the Waypoint to the given coordinates
+        /// </summary>
+        /// <param name="x">The x-coordinate of the Waypoint</param>
+        /// <param name="y">The y-coordinate of the Waypoint</param>
         public void setPosition(float x, float y)
         {
             Location = new Location(x, y, Location.Z, Location.Rot);
@@ -48,6 +71,10 @@ namespace Entity
 
         public Adversary StartRouteOfOtherVehicle { get; set; }
 
+
+        /// <summary>
+        /// Calculates the location of the Waypoint in Carla given the corresponding Unity Coordinates and fills the LocationCarla property.
+        /// </summary>
         public void CalculateLocationCarla()
         {
             (float xCarla, float yCarla) = SnapController.UnityToCarla(Location.X, Location.Y);
@@ -56,6 +83,10 @@ namespace Entity
             this.LocationCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
 
+        /// <summary>
+        /// Clones the Waypoint object
+        /// </summary>
+        /// <returns>A cloned Waypoint object</returns>
         public object Clone()
         {
             var cloneWaypoint = new Waypoint();
@@ -73,8 +104,22 @@ namespace Entity
         }
     }
 
+
+
+    /// <summary>
+    /// Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest path between 2 points
+    /// </summary>
     public class AStarWaypoint : Waypoint
     {
+        /// <summary>
+        /// Constructor for AStarWaypoint class with indexInLane, laneId, location, actionTypeInfo, triggerList and priority parameters
+        /// </summary>
+        /// <param name="indexInLane">Index in Lane of the waypoint</param>
+        /// <param name="laneId">ID of the Lane of the waypoint</param>
+        /// <param name="location">Location of the waypoint</param>
+        /// <param name="actionTypeInfo">ActionType of the waypoint</param>
+        /// <param name="triggerList">List of TriggerInfo objects for the waypoint</param>
+        /// <param name="priority">Priority of the waypoint. Default value is "overwrite"</param>      
         public AStarWaypoint(int indexInLane, int laneId, Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite") : 
             base(location, actionTypeInfo, triggerList, priority)
         {
@@ -82,6 +127,12 @@ namespace Entity
             LaneId = laneId;
         }
 
+        /// <summary>
+        /// Constructor for AStarWaypoint class with indexInLane, laneId and location parameters
+        /// </summary>
+        /// <param name="indexInLane">Index in Lane of the waypoint</param>
+        /// <param name="laneId">ID of the Lane of the waypoint</param>
+        /// <param name="location">Location of the waypoint</param>        
         public AStarWaypoint(int indexInLane, int laneId, Location location) : base(location)
         {
             IndexInLane = indexInLane;

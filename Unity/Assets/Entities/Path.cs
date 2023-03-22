@@ -6,14 +6,26 @@ using UnityEngine;
 namespace Entity
 {
     [Serializable]
+    /// <summary>
+    /// Represents a Path object that contains actions-info for a specific Entity created by Gui-User.
+    /// </summary>
     public class Path : ICloneable// Story in .xosc
-    /// <summary>Creates Path object. Contains Actions-info for a specific Entity created by Gui-User.</summary>
     {
+
+        /// <summary>
+        /// Initializes a new instance of the Path class with an empty WaypointList.
+        /// </summary>
         public Path()
         {
             WaypointList = new List<Waypoint>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the Path class with the specified WaypointList, OverallStartTrigger, and OverallStopTrigger.
+        /// </summary>
+        /// <param name="waypointList">The list of waypoints in the path.</param>
+        /// <param name="overallStartTrigger">A Waypoint object containing information regarding the overall start trigger of an act.</param>
+        /// <param name="overallStopTrigger">A Waypoint object containing information regarding the overall stop trigger of an act.</param>
         public Path(List<Waypoint> waypointList, Waypoint overallStartTrigger = null, Waypoint overallStopTrigger = null)
         {
             OverallStartTrigger = overallStartTrigger;
@@ -33,6 +45,11 @@ namespace Entity
 
         public Waypoint AssignRouteWaypoint { get; set; } // is first waypoint of WaypointList to create OpenScenario Event AssignRouteAction and corresponding Trigger
 
+
+        /// <summary>
+        /// Creates a new Path object that is a deepcopy of the current instance.
+        /// </summary>
+        /// <returns>A new Path object that is a deepcopy of the current instance.</returns>
         public object Clone()
         {
             Path clonePath = new Path();
@@ -50,6 +67,11 @@ namespace Entity
             return clonePath; 
         }
 
+
+        /// <summary>
+        /// Creates a list of all waypoint locations in the path to define the entity's route via an AssignRouteAction.
+        /// </summary>
+        /// <returns>A list of all waypoint locations in the path.</returns>
         public List<Location> GetRouteLocations()
         /// Creates a List of all Waypoint.Locations in the Path to define the Entities Route via a AssignRouteAction
         {
@@ -61,13 +83,21 @@ namespace Entity
             return WaypointList.Select(w => w.Location).ToList();
         }
 
+
+        /// <summary>
+        /// Determines if the WaypointList is empty or not.
+        /// </summary>
+        /// <returns>True if the WaypointList is empty, false otherwise.</returns>
         public bool IsEmpty()
         {
             return this.WaypointList.Count == 0;
         }
 
-        // Needs to be invoked at the End after WayPointList is finished (so when ExportButton is pressed)
-        // Creates Waypoint with the ActionType "AssignRouteAction" that contains all waypoint locations.
+        /// <summary>
+        /// Initializes the AssignRouteWaypoint at the end of the WaypointList with a Waypoint containing the ActionType "AssignRouteAction" 
+        /// and all waypoint locations. Needs to be invoked at the end after WayPointList is finished (so when ExportButton is pressed).
+        /// </summary>
+        /// <param name="spawnpoint">The initial spawnpoint for the Entity.</param>
         public void InitAssignRouteWaypoint(Location spawnpoint)
         {
             var first = WaypointList[0];

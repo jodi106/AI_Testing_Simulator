@@ -8,6 +8,12 @@ namespace Entity
     {
         private static int autoIncrementId = 1;
 
+
+
+        /// <summary>
+        /// Creates an EntityModel object with the given model name.
+        /// </summary>
+        /// <param name="modelName">The name of the model.</param
         public EntityModel(string modelName)
         {
             Id = autoIncrementId++;
@@ -15,6 +21,12 @@ namespace Entity
             CarlaName = modelName;
         }
 
+
+        /// <summary>
+        /// Creates an EntityModel object with the given display name and Carla name.
+        /// </summary>
+        /// <param name="displayName">The display of the model.</param>
+        /// <param name="carlaName">The Carla name of the model.</param>
         public EntityModel(string displayName, string carlaName)
         {
             Id = autoIncrementId++;
@@ -22,6 +34,10 @@ namespace Entity
             CarlaName = carlaName;
         }
 
+
+        /// <summary>
+        /// Creates an empty EntityModel object.
+        /// </summary>
         public EntityModel()
         {
 
@@ -31,6 +47,11 @@ namespace Entity
         public string CarlaName { get; set; } // Name of the model: example "vehicle.lincoln.mkz_2017"
         public string DisplayName { get; set; } // GUI
 
+
+        /// <summary>
+        /// Clones the EntityModel object (deepcopy).
+        /// </summary>
+        /// <returns>A cloned deepcopy of the EntityModel object.</returns>
         public object Clone()
         {
             EntityModel cloneEntityModel = new();

@@ -4,9 +4,12 @@ using System;
 namespace Entity
 {
     [Serializable]
-    public class WorldOptions : ICloneable
     /// <summary>Creates WorldOptions Object. Contains user specified world settings for the scenario</summary>
+    public class WorldOptions : ICloneable
     {
+        /// <summary>
+        /// Creates a new WorldOptions object with default values.
+        /// </summary>        
         public WorldOptions()
         {
             Date_Time = "2023-01-10T12:00:00";
@@ -19,6 +22,19 @@ namespace Entity
             FrictionScaleFactor = 1;
             SunElevation = 1.3;
         }
+
+        /// <summary>
+        /// Creates a new WorldOptions object with user-specified settings.
+        /// </summary>
+        /// <param name="dateTime">The date and time of the scenario.</param>
+        /// <param name="fogVisualRange">The visual range of the fog.</param>
+        /// <param name="sunIntensity">The intensity of the sun.</param>
+        /// <param name="sunAzimuth">The azimuth of the sun.</param>
+        /// <param name="sunElevation">The elevation of the sun.</param>
+        /// <param name="cloudState">The state of the clouds.</param>
+        /// <param name="precipitationType">The type of precipitation.</param>
+        /// <param name="precipitationIntensity">The intensity of the precipitation.</param>
+        /// <param name="frictionScaleFactor">The scale factor for friction.</param>        
         public WorldOptions(string dateTime, float fogVisualRange, float sunIntensity, double sunAzimuth, double sunElevation, CloudState cloudState, PrecipitationType precipitationType, float precipitationIntensity, double frictionScaleFactor)
         {
             Date_Time = dateTime;
@@ -44,6 +60,11 @@ namespace Entity
         public double FogVisualRange { get; set; } // good value: 100000 (should be used); double: 0.0 to infinitive; user can edit in GUI advanced options
         public double FrictionScaleFactor { get; set; } // good value: 1 (should be used); double: 0.0 to infinitive; user can edit in GUI advanced options
 
+
+        /// <summary>
+        /// Creates a deep copy of the WorldOptions object.
+        /// </summary>
+        /// <returns>A deep copy of the WorldOptions object.</returns>
         public object Clone()
         {
             WorldOptions cloneWorldOptions = new();

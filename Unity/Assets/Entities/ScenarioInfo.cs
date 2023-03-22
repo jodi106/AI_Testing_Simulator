@@ -9,8 +9,12 @@ namespace Entity
 {
     [Serializable]
     public class ScenarioInfo : ICloneable
-    /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
+    /// <summary>Create ScenarioInfo Object. Contains all GUI-Userinputs</summary>
     {
+
+        /// <summary>
+        /// Creates a new instance of ScenarioInfo class with default values.
+        /// </summary>
         public ScenarioInfo()
         {
             Path = null;
@@ -72,6 +76,9 @@ namespace Entity
             return info;
         }
 
+        /// </summary>
+        /// <param name="ego">The Ego object to set.</param>
+        /// <returns>void</returns>
         public void setEgo(Ego ego)
         {
             this.EgoVehicle = ego;

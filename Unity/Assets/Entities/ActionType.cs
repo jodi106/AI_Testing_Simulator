@@ -50,6 +50,10 @@ namespace Entity
             DynamicDimensions = dynamicsDimension;
         }
 
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ActionType"/> class.
+        /// </summary>
         public ActionType(string name, List<Location> positions)
         /// for AssignRouteAction (List lentgh > 2) or AcquirePositionAction (list length == 2)
         {
@@ -59,6 +63,10 @@ namespace Entity
             CalculateLocationsCarla();
         }
 
+
+        /// <summary>
+        /// Creates a new empty instance of the <see cref="ActionType"/> class.
+        /// </summary>
         public ActionType()
         {
 
@@ -78,6 +86,12 @@ namespace Entity
         public double StopDuration { get; set; }
 
 
+        /// <summary>
+        /// Calculates the corresponding Carla locations for each position in the Positions list, using the SnapController class.
+        /// </summary>
+        /// <remarks>
+        /// The method converts each Unity position and rotation into its corresponding Carla position and rotation, and adds it to the PositionsCarla list.
+        /// </remarks>
         public void CalculateLocationsCarla()
         {
             PositionsCarla = new List<Location>();
@@ -90,6 +104,11 @@ namespace Entity
             }
         }
 
+
+        /// <summary>
+        /// Creates a deep copy of the current ActionType object.
+        /// </summary>
+        /// <returns>A new ActionType object with the same properties as the current object.</returns>
         public object Clone()
         {      
             ActionType cloneActionType = new ActionType();

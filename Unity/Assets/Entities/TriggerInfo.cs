@@ -4,16 +4,32 @@ using System;
 namespace Entity
 {
     [Serializable]
+
+    /// <summary>
+    /// Contains information about the Trigger of an ActionType in a Waypoint Object.
+    /// </summary>
     public class TriggerInfo : ICloneable
-    /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
     {
         private static int autoIncrementId = 0;
         
+
+        /// <summary>
+        /// Initializes a new empty instance of the <see cref="TriggerInfo"/> class.
+        /// </summary>
         public TriggerInfo()
         {
 
         }
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TriggerInfo"/> class for "SimulationTimeCondition".
+        /// </summary>
+        /// <param name="triggerType">The type of trigger.</param>
+        /// <param name="simulationTimeValue">The simulation time value.</param>
+        /// <param name="rule">The rule to compare the trigger value.</param>
+        /// <param name="delay">The delay in seconds for the trigger.</param>
+        /// <param name="conditionEdge">The condition edge to trigger ("rising" or "falling").</param>
         public TriggerInfo(string triggerType, double simulationTimeValue, string rule, double delay=0, string conditionEdge="rising")
         /// Constructor for "SimulationTimeCondition"
         {
@@ -25,6 +41,17 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TriggerInfo"/> class for "DistanceCondition".
+        /// </summary>
+        /// <param name="triggerType">The type of trigger.</param>
+        /// <param name="entityRef">The entity reference.</param>
+        /// <param name="rule">The rule to compare the trigger value.</param>
+        /// <param name="value">The distance value.</param>
+        /// <param name="worldPosition">The world position to calculate the distance.</param>
+        /// <param name="delay">The delay in seconds for the trigger.</param>
+        /// <param name="conditionEdge">The condition edge to trigger ("rising" or "falling").</param>
         public TriggerInfo(string triggerType, string entityRef, string rule, double value, Location worldPosition, double delay = 0, string conditionEdge = "rising")
         /// Constructor for "DistanceCondition"
         {
@@ -39,6 +66,14 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TriggerInfo"/> class for "RelativeDistanceCondition".
+        /// </summary>
+        /// <param name="triggerType">The type of trigger.</param>
+        /// <param name="entityRef">The entity reference.</param>
+        /// <param name="entitySelf">The entity self reference.</param>
+        /// <param name="value">The distance value.</param>
+        /// <param name="conditionEdge">The condition edge to trigger ("rising" or "falling").</param>
         public TriggerInfo(string triggerType, string entityRef, string entitySelf, double value, string conditionEdge = "rising")
         /// Constructor for "RelativeDistanceCondition"
         {
@@ -51,6 +86,15 @@ namespace Entity
             CalculateLocationCarla();
         }
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TriggerInfo"/> class for "ReachPositionCondition".
+        /// </summary>
+        /// <param name="triggerType">The type of trigger.</param>
+        /// <param name="entityRef">The entity reference.</param>
+        /// <param name="value">The distance value.</param>
+        /// <param name="worldPosition">The world position to reach.</param>
+        /// <param name="conditionEdge">The condition edge to trigger ("rising" or "falling").</param>
         public TriggerInfo(string triggerType, string entityRef, double value, Location worldPosition, string conditionEdge = "rising")
         /// Constructor for "ReachPositionCondition"
         {
@@ -63,6 +107,14 @@ namespace Entity
             CalculateLocationCarla();
         }
 
+        /// <summary>
+        /// Creates a new TriggerInfo object for StandStillCondition.
+        /// </summary>
+        /// <param name="triggerType">The type of trigger.</param>
+        /// <param name="entityRef">The entity reference.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="delay">The delay. Defaults to 0.</param>
+        /// <param name="conditionEdge">The condition edge. Defaults to "rising".</param>
         public TriggerInfo(string triggerType, string entityRef, double duration, double delay = 0, string conditionEdge = "rising")
         /// for StandStillCondition
         {
@@ -74,6 +126,15 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the TriggerInfo class.
+        /// </summary>
+        /// <param name="triggerType">The type of trigger for the StoryboardElementStateCondition.</param>
+        /// <param name="afterAction">The action to perform after the trigger occurs.</param>
+        /// <param name="state">The complete state of the StoryboardElementStateCondition.</param>
+        /// <param name="delay">The amount of delay before the trigger occurs.</param>
+        /// <param name="conditionEdge">The edge (rising or falling) of the StoryboardElementStateCondition.</param>
+        /// <returns>A new instance of the TriggerInfo class.</returns>
         public TriggerInfo(string triggerType, ActionType afterAction, string state = "completeState", double delay = 0, string conditionEdge = "rising")
         /// for StoryboardElementStateCondition
         {
@@ -97,6 +158,10 @@ namespace Entity
         public Location WorldPositionCarla { get;set; } 
         public ActionType AfterAction { get; set; }  // corresponds to a previously executed ActionType
 
+
+        /// <summary>
+        /// Converts the Unity Coordinates to CARLA Coordinates using the UnityToCarla Conversion Function and fills the WorldPositionCarla Attribute with it
+        /// </summary>
         public void CalculateLocationCarla()
         {
             if (WorldPosition == null) return;
@@ -104,6 +169,10 @@ namespace Entity
             this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
         }
 
+        /// <summary>
+        /// Creates a new object that is a deepcopy of the current instance of the TriggerInfo class.
+        /// </summary>
+        /// <returns>A new instance of the TriggerInfo class that is a deepcopy of this instance.</returns>
         public object Clone()
         {
             var cloneTriggerInfo = new TriggerInfo();
