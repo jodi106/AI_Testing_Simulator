@@ -118,6 +118,9 @@ namespace Entity
             (float xCarla, float yCarla) = SnapController.UnityToCarla(SpawnPoint.X, SpawnPoint.Y);
             float rotCarla = SnapController.UnityRotToRadians(SpawnPoint.Rot);
             rotCarla = (float)Math.Round(rotCarla * 100f) / 100f; // otherwise we'll have a number like this 3.339028E-05
+            // Round coordinates important to avoid strange behavior in Carla
+            xCarla = (float)Math.Round(xCarla, 2);
+            yCarla = (float)Math.Round(yCarla, 2);
             return new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
     }
