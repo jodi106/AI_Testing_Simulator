@@ -127,7 +127,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private GameObject WelcomeBackground;
 
-    public void Home()
+    public async void Home()
     {
         EventManager.TriggerEvent(new MapChangeAction(""));
     }

@@ -289,11 +289,10 @@ public class MainController : MonoBehaviour
            //loadScenarioInfo(this.info);
         });
 
-        homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        homeButton.RegisterCallback<ClickEvent>(async (ClickEvent) =>
         {
             if (freeze) return;
-            var m = Camera.main.GetComponent<CameraMovement>();
-            m.Home();
+            ReturnToHome();
         });
 
         loadButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -450,21 +449,11 @@ public class MainController : MonoBehaviour
         // Catch errors and display it to the user
         if (info.EgoVehicle == null)
         {
-            //#if UNITY_EDITOR
-            //EditorUtility.DisplayDialog(
-            //    "No AI vehicle placed",
-            //    "You must place a vehicle first!",
-            //    "Ok");
-            //#else
-
             this.setSelectedEntity(null);
             string title = "No AI vehicle placed";
             string description = "You must place a vehicle first!";
             this.warningPopupController.open(title, description);
             freeze = false;
-
-            //#endif
-
             return;
         }   
 
@@ -483,8 +472,6 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-
-
         StartCoroutine(saveScenarioInfoWrapper(exportInfo, false));
     }
 
@@ -496,6 +483,16 @@ public class MainController : MonoBehaviour
     private void SaveBinaryScenarioInfo(ScenarioInfo info)
     {
         StartCoroutine(saveScenarioInfoWrapper(info, true));
+    }
+
+    private async void ReturnToHome()
+    {
+        var result = await this.yesNoPopupController.Show("Change the map?", "Do you really want to change the map?\nMake sure to save everything! Unsaved changes WILL be lost!");
+        if (result == true)
+        {
+            var m = Camera.main.GetComponent<CameraMovement>();
+            m.Home();
+        }
     }
 
     private async void QuitApplication()
