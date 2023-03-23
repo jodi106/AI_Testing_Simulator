@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <ui:VisualElement name="Background" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgb(147, 147, 147); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-        <ui:Label text="Label" name="Label" style="font-size: 24px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: 10px;" />
+        <ui:Label text="World Settings" name="Label" style="font-size: 24px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: 10px;" />
         <ui:VisualElement name="Content">
             <ui:TextField picking-mode="Ignore" label="Daytime (hh:mm:ss)" value="filler text" text="12:00:00" name="Daytime" max-length="8" password="false" style="flex-direction: row; align-items: center; justify-content: space-around; height: auto; width: auto;" />
             <ui:Slider picking-mode="Ignore" label="Sun Intensity:" value="0.5" high-value="1" name="SunIntensity" style="visibility: hidden;" />
