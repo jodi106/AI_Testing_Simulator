@@ -469,8 +469,9 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
 
         exportInfo.EgoVehicle.getCarlaLocation();
-        // ------------------------------------------------------------------------
 
+        // ------------------------------------------------------------------------
+        
         // Create .xosc file
         StartCoroutine(saveScenarioInfoWrapper(exportInfo, false));
     }

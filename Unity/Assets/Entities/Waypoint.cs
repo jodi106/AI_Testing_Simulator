@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine;
+
 namespace Entity
 {
     [Serializable]
@@ -93,8 +95,18 @@ namespace Entity
             if (this.Location != null) cloneWaypoint.Location = (Location)this.Location.Clone();           
             if (this.LocationCarla != null) cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
             if (this.ActionTypeInfo != null) cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
-            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Adversary)this.StartRouteOfOtherVehicle.Clone();
             if (this.TriggerList != null) cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
+            
+            try
+            {
+                if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Adversary)this.StartRouteOfOtherVehicle.Clone();
+            }
+            catch (StackOverflowException e)
+            {
+                WarningPopupController warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
+                warningPopupController.gameObject.SetActive(true);
+                warningPopupController.open("Illogical behavior", "Your adversary vehicles probably won't start.\nThere's a contradiction in their startPath trigger (Circle).");
+            }
 
             cloneWaypoint.Actions = new();
             if (this.Actions != null)           

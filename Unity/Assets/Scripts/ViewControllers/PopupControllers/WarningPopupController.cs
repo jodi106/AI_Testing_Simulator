@@ -1,11 +1,5 @@
-﻿using Assets.Enums;
-using Entity;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
-using Assets.Repos;
-using System.Text.RegularExpressions;
 
 public class WarningPopupController : MonoBehaviour
 {
@@ -40,5 +34,4 @@ public class WarningPopupController : MonoBehaviour
 
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
     }
-
 }
