@@ -57,7 +57,7 @@ namespace ExportScenario.XMLBuilder
         private void BuildFirstOpenScenarioElements(string scenario_name = "MyScenario", string map = "Town04") // you can rename this method
         /// Creates first ScenarioElements: FileHeader, ParameterDeclarations(EMPTY), CatalogLocations(EMPTY), RoadNetwork.
         {
-            string dateTime = "2022-09-24T12:00:00"; // TODO create datetime string of current time
+            string dateTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
 
             // add elements
             XmlNode file_header = root.CreateElement("FileHeader");
