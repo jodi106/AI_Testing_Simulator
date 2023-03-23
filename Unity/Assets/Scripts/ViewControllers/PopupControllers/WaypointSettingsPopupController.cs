@@ -148,34 +148,38 @@ public class WaypointSettingsPopupController : MonoBehaviour
         {
             foreach (Adversary veh in allVehicles)
             {
-                if (veh.Id == evt.newValue) 
+                if (veh.Id != evt.newValue) continue; // Get the corresponding vehicle instance
+
+                // Check if another vehicle already starts that vehicle's route --> Popup Warning
+                if (veh.StartRouteInfo != null && veh.StartRouteInfo.Type == "Waypoint") 
                 {
-                    if (veh.StartRouteInfo != null && veh.StartRouteInfo.Type == "Waypoint") // check if another vehicle already starts that vehicle's route
-                    {
-                        //#if UNITY_EDITOR
-                        //EditorUtility.DisplayDialog(
-                        //    "Vehicle already chosen by another Waypoint",
-                        //    "This vehicle is already started by another Waypoint! " +
-                        //    "You can remove that option in the corresponding waypoint or in the " + 
-                        //    veh.Id + " vehicle settings.",
-                        //    "Ok");
-                        //#endif
-
-                        string title = "Vehicle already chosen by another Waypoint";
-                        string description = "This vehicle is already started by another Waypoint! " +
-                        "\nYou can remove that option in the corresponding waypoint or in the\n" +
-                            veh.Id + " vehicle settings.";
-                        this.warningPopupController.open(title, description);
-
-                        startRouteVehicleField.value = null;
-                        return;
-                    }
-
-                    veh.StartRouteInfo = new StartRouteInfo(this.vehicle, this.waypoint);
-                    this.waypoint.StartRouteOfOtherVehicle = veh;
-                    Debug.Log("Start route of that vehicle: " + veh.Id);
-                    break;
+                    if (waypoint.StartRouteOfOtherVehicle != null && waypoint.StartRouteOfOtherVehicle.Id == veh.Id) return; // veh just has another id but nothing changend
+                    string title = "Vehicle already chosen by another Waypoint";
+                    string description = "This vehicle is already started by another Waypoint! " +
+                    "\nYou can remove that option in the corresponding waypoint or in the\n" +
+                        veh.Id + " vehicle settings.";
+                    this.warningPopupController.open(title, description);
+                    startRouteVehicleField.value = null;
+                    return;
                 }
+
+                // Delete old startRouteInfo
+                if (evt.previousValue != null)
+                {
+                    foreach (Adversary vehPrevious in allVehicles)
+                    {
+                        if (vehPrevious.Id != evt.previousValue) continue;
+                        this.waypoint.StartRouteOfOtherVehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0);
+                        this.waypoint.StartRouteOfOtherVehicle = null;
+                        break;
+                    }
+                }
+
+                // Set new startRouteInfo 
+                veh.StartRouteInfo = new StartRouteInfo(this.vehicle, this.waypoint);
+                this.waypoint.StartRouteOfOtherVehicle = veh; 
+                Debug.Log("Start route of that vehicle: " + veh.Id);
+                break;
             }
         });
     }
