@@ -185,7 +185,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         {
             if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
             {
-                vehicle.StartRouteInfo.Time = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
+                vehicle.StartPathInfo.Time = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
             }
             else
             {
@@ -196,7 +196,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         {
             if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
             {
-                vehicle.StartRouteInfo.Distance = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
+                vehicle.StartPathInfo.Distance = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
             }
             else
             {
@@ -206,7 +206,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         deleteStartRouteWaypointButton.RegisterCallback<ClickEvent>((clickEvent) =>
         {
-            foreach (Waypoint waypoint in vehicle.StartRouteInfo.Vehicle.Path.WaypointList)
+            foreach (Waypoint waypoint in vehicle.StartPathInfo.Vehicle.Path.WaypointList)
             {
                 if (waypoint.StartRouteOfOtherVehicle == vehicle)
                 {
@@ -214,7 +214,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
                 }
             }
             resetStartRouteFields();
-            vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0); ;
+            vehicle.StartPathInfo = new StartPathInfo(vehicle, 0); ;
         });
     }
 
@@ -234,9 +234,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
         gSlider.value = color.g;
         bSlider.value = color.b;
 
-        if (vehicle.StartRouteInfo != null)
+        if (vehicle.StartPathInfo != null)
         {
-            switch (vehicle.StartRouteInfo.Type)
+            switch (vehicle.StartPathInfo.Type)
             {
                 case "Waypoint":
                     loadStartRouteInfoWaypoint();
@@ -252,7 +252,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         else
         {
             resetStartRouteFields();
-            vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0);
+            vehicle.StartPathInfo = new StartPathInfo(vehicle, 0);
         }
 
         MainController.freeze = true;
@@ -268,7 +268,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         startRouteWaypointTimeLabel.style.display = DisplayStyle.Flex;
         deleteStartRouteWaypointButton.style.display = DisplayStyle.Flex;
         startRouteInfoLabel.style.display = DisplayStyle.None;
-        startRouteWaypointTimeLabel.text = vehicle.StartRouteInfo.Vehicle.Id + " reaches a specific Waypoint";
+        startRouteWaypointTimeLabel.text = vehicle.StartPathInfo.Vehicle.Id + " reaches a specific Waypoint";
     }
 
     private void loadStartRouteInfoTime()
@@ -276,7 +276,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         resetStartRouteFields();
         this.startRouteType = "Time";
         startRouteDropdown.index = 0;
-        startRouteTimeField.value = vehicle.StartRouteInfo.Time.ToString();
+        startRouteTimeField.value = vehicle.StartPathInfo.Time.ToString();
     }
 
     private void loadStartRouteInfoEgo()
@@ -284,7 +284,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         resetStartRouteFields();
         this.startRouteType = "Ego";
         startRouteDropdown.index = 1;
-        startRouteDistanceField.value = vehicle.StartRouteInfo.Distance.ToString();
+        startRouteDistanceField.value = vehicle.StartPathInfo.Distance.ToString();
     }
 
     private void resetStartRouteFields()
@@ -305,10 +305,10 @@ public class AdversarySettingsPopupController : MonoBehaviour
         switch (type)
         {
             case "Time":
-                vehicle.StartRouteInfo = new StartRouteInfo(vehicle, Int32.Parse(startRouteTimeField.value));
+                vehicle.StartPathInfo = new StartPathInfo(vehicle, Int32.Parse(startRouteTimeField.value));
                 break;
             case "Ego":
-                vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 
+                vehicle.StartPathInfo = new StartPathInfo(vehicle, 
                     vehicle.SpawnPoint, Int32.Parse(startRouteDistanceField.value), egoVehicle); 
                 break;
         }

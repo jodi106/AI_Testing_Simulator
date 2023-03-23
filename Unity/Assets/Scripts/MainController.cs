@@ -194,7 +194,7 @@ public class MainController : MonoBehaviour
                 if (w.StartRouteOfOtherVehicle is not null)
                 {
                     Adversary otherVehicle = w.StartRouteOfOtherVehicle;
-                    otherVehicle.StartRouteInfo = null;
+                    otherVehicle.StartPathInfo = null;
                 }
             }
             this.info.Vehicles.Remove(v);

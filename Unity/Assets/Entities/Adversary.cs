@@ -16,7 +16,7 @@ namespace Entity
         public VehicleCategory Category { get; protected set; }
         public EntityModel Model { get; protected set; }
         public Path Path { get; set; }
-        public StartRouteInfo StartRouteInfo { get; set; } // if != null that StartRouteInfo's Vehicle starts this Vehicle's route
+        public StartPathInfo StartPathInfo { get; set; } // if != null that StartPathInfo's Vehicle starts this Vehicle's route
 
         ///<summary>
         ///Constructor for the Adversary class
@@ -26,14 +26,14 @@ namespace Entity
         ///<param name="category">The category of the adversary (Vehicle, Motorcycle, Bike, or Pedestrian)</param>
         ///<param name="model">The model of the adversary</param>
         ///<param name="path">The path of the adversary</param>
-        ///<param name="startRouteInfo">Information about the start route of the adversary's vehicle, if it exists</param>
-        public Adversary(Location spawnPoint, double initialSpeedKMH, VehicleCategory category, EntityModel model, Path path, StartRouteInfo startRouteInfo = null)
+        ///<param name="startRouteInfo">Information about how and when the path of the adversary's vehicle is started, if null it starts after 0 sec</param>
+        public Adversary(Location spawnPoint, double initialSpeedKMH, VehicleCategory category, EntityModel model, Path path, StartPathInfo startRouteInfo = null)
             : base(string.Format("{0} {1}", "Adversary", ++autoIncrementId), spawnPoint, initialSpeedKMH)
         {
             Category = category;
             Model = model;
             Path = path;
-            StartRouteInfo = startRouteInfo;
+            StartPathInfo = startRouteInfo;
         }
 
         ///<summary>
@@ -77,7 +77,7 @@ namespace Entity
             cloneVehicle.Model = (EntityModel)this.Model.Clone();
             cloneVehicle.Path = (Path)this.Path.Clone();
             cloneVehicle.Category = this.Category;
-            cloneVehicle.StartRouteInfo = this.StartRouteInfo; // // TODO copy value, not reference (but works anyway)
+            cloneVehicle.StartPathInfo = this.StartPathInfo; // // TODO copy value, not reference (but works anyway)
 
             //BaseEntity
             cloneVehicle.Id = string.Copy(this.Id);

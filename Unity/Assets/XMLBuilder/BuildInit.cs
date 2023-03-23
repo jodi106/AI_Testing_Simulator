@@ -46,7 +46,7 @@ namespace ExportScenario.XMLBuilder
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
                 double initialSpeedMS = scenarioInfo.Vehicles[n].InitialSpeedKMH / 3.6;
-                if (scenarioInfo.Vehicles[n].StartRouteInfo != null) initialSpeedMS = 0;
+                if (scenarioInfo.Vehicles[n].StartPathInfo != null) initialSpeedMS = 0;
                 BuildPrivate(scenarioInfo.Vehicles[n], scenarioInfo.Vehicles[n].getCarlaLocation(), initialSpeedMS);
             }
 
@@ -54,7 +54,7 @@ namespace ExportScenario.XMLBuilder
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
                 double initialSpeedMS = scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6;
-                if (scenarioInfo.Pedestrians[n].StartRouteInfo != null) initialSpeedMS = 0;
+                if (scenarioInfo.Pedestrians[n].StartPathInfo != null) initialSpeedMS = 0;
                 BuildPrivate(scenarioInfo.Pedestrians[n], scenarioInfo.Pedestrians[n].getCarlaLocation(), initialSpeedMS);
             }
         }

@@ -134,7 +134,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 resetStartRouteVehicleToggle();
                 if (this.waypoint.StartRouteOfOtherVehicle != null)
                 {
-                    this.waypoint.StartRouteOfOtherVehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0); ;
+                    this.waypoint.StartRouteOfOtherVehicle.StartPathInfo = new StartPathInfo(vehicle, 0); ;
                     this.waypoint.StartRouteOfOtherVehicle = null;
                 }
             }
@@ -151,7 +151,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 if (veh.Id != evt.newValue) continue; // Get the corresponding vehicle instance
 
                 // Check if another vehicle already starts that vehicle's route --> Popup Warning
-                if (veh.StartRouteInfo != null && veh.StartRouteInfo.Type == "Waypoint") 
+                if (veh.StartPathInfo != null && veh.StartPathInfo.Type == "Waypoint") 
                 {
                     if (waypoint.StartRouteOfOtherVehicle != null && waypoint.StartRouteOfOtherVehicle.Id == veh.Id) return; // veh just has another id but nothing changend
                     string title = "Vehicle already chosen by another Waypoint";
@@ -169,14 +169,14 @@ public class WaypointSettingsPopupController : MonoBehaviour
                     foreach (Adversary vehPrevious in allVehicles)
                     {
                         if (vehPrevious.Id != evt.previousValue) continue;
-                        this.waypoint.StartRouteOfOtherVehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0);
+                        this.waypoint.StartRouteOfOtherVehicle.StartPathInfo = new StartPathInfo(vehicle, 0);
                         this.waypoint.StartRouteOfOtherVehicle = null;
                         break;
                     }
                 }
 
                 // Set new startRouteInfo 
-                veh.StartRouteInfo = new StartRouteInfo(this.vehicle, this.waypoint);
+                veh.StartPathInfo = new StartPathInfo(this.vehicle, this.waypoint);
                 this.waypoint.StartRouteOfOtherVehicle = veh; 
                 Debug.Log("Start route of that vehicle: " + veh.Id);
                 break;
