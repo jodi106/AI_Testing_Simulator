@@ -5,7 +5,7 @@
         <ui:VisualElement name="Content">
             <ui:TextField label="ID:" name="ID" text="sampleID" />
             <ui:TextField label="Initial Speed (km/h):" name="CarSpeed" text="30" />
-            <ui:TextField label="Location:" name="Location" />
+            <ui:TextField label="Location:" name="Location" style="display: none;" />
             <ui:DropdownField label="Model:" name="AllPossibleModels" />
             <ui:DropdownField label="Category:" name="AllPossibleCategories" />
             <ui:TextField label="Color:" focusable="false" name="Color" />

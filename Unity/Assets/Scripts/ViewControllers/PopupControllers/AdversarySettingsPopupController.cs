@@ -15,7 +15,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
     private UIDocument document;
     private TextField iDField;
     private TextField initialSpeedField;
-    private TextField locationField;
+    //private TextField locationField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
     private TextField colorField;
@@ -74,8 +74,8 @@ public class AdversarySettingsPopupController : MonoBehaviour
             }
         });
 
-        locationField = this.document.rootVisualElement.Q<TextField>("Location");
-        locationField.SetEnabled(false);
+        //locationField = this.document.rootVisualElement.Q<TextField>("Location");
+        //locationField.SetEnabled(false);
 
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
@@ -226,7 +226,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
         initialSpeedField.value = vehicle.InitialSpeedKMH.ToString();
-        locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
+        //locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
         possibleModelsField.value = vehicle.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;

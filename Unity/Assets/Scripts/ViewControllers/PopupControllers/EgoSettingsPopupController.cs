@@ -14,7 +14,7 @@ public class EgoSettingsPopupController : MonoBehaviour
     private UIDocument document;
     private TextField iDField;
     private TextField agentField;
-    private TextField locationField;
+    //private TextField locationField;
     private TextField initialSpeedField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
@@ -73,8 +73,8 @@ public class EgoSettingsPopupController : MonoBehaviour
             // TODO PopUp Window with information about agents
         });
 
-        locationField = this.document.rootVisualElement.Q<TextField>("Location");
-        locationField.SetEnabled(false);
+        //locationField = this.document.rootVisualElement.Q<TextField>("Location");
+        //locationField.SetEnabled(false);
         
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
@@ -174,7 +174,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         iDField.value = ego.Id.ToString();
         initialSpeedField.value = ego.InitialSpeedKMH.ToString();
         agentField.value = ego.Agent.ToString();
-        locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
+        //locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
         possibleModelsField.value = ego.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;

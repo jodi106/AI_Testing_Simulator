@@ -6,7 +6,7 @@
             <ui:TextField label="ID:" name="ID" text="sampleID" />
             <ui:TextField label="Initial Speed (km/h):" name="CarSpeed" text="10" />
             <ui:TextField label="AI Agent:" name="Agent" text="simple_vehicle_control" value="simple_vehicle_control" />
-            <ui:TextField label="Location:" name="Location" />
+            <ui:TextField label="Location:" name="Location" style="display: none;" />
             <ui:DropdownField label="Model:" name="AllPossibleModels" />
             <ui:DropdownField label="Category:" name="AllPossibleCategories" />
             <ui:TextField label="Color:" focusable="false" name="Color" />
