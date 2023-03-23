@@ -26,7 +26,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private DropdownField[] actionDropdownField; // direction
 
     // Text of actionTextField depending if it belongs to SpeedAction or StopAction
-    private static readonly string ACTION_TEXT_SPEED = "Speed:";
+    private static readonly string ACTION_TEXT_SPEED = "Speed (km/h):";
     private static readonly string ACTION_TEXT_STOP_DURATION = "Stop Duration (sec):";
     private static readonly int ACTIONS_NR = 3;
 
