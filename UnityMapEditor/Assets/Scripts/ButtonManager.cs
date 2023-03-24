@@ -23,16 +23,6 @@ namespace scripts
         {
             instance = this; 
         }
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
 
         public void addSidebarButton(Button button) {
             sidebarButtonList.Add(button);
@@ -48,17 +38,10 @@ namespace scripts
             return this.selectedRoadType;
         }
 
-        public void colorSelectedButton(Button button)
-        {
-            ColorBlock colors = button.colors;
-            colors.selectedColor = Color.cyan;
-            button.colors = colors;
-        }
-
         public void handleButtonClick(Button button, RoadType roadType)
         {
             setSelectedRoadType(roadType);
-            colorSelectedButton(button);
+            RoadManager.Instance.createRoad(); 
         }
     }
 }

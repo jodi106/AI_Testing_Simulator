@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace scripts
         private int id;
         public List<RoadPiece> neighbors = new List<RoadPiece>();
         public RoadType roadType;
+        private bool isLocked = false;
 
 
         // Start is called before the first frame update
@@ -20,18 +22,28 @@ namespace scripts
             RoadManager.Instance.AddRoadToList(this);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         public int getID()
         {
             return this.id;
         }
+        
+        public void setIsLocked(bool value)
+        {
+            isLocked = value;
+            if (value)
+            {
+                RoadManager.Instance.colorRoadPiece(SelectionColor.lockedSelected);
+            }
+            else
+            {
+                RoadManager.Instance.colorRoadPiece( SelectionColor.selected);
+            }
+        }
 
-
+        public bool getIsLocked()
+        {
+            return isLocked; 
+        }
     }
 
 }
