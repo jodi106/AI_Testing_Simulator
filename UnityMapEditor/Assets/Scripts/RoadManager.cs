@@ -69,12 +69,9 @@ namespace scripts
             }
 
             // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) && selectedRoad != null)
             {
-                if(selectedRoad != null)
-                {
                     selectedRoad.setIsLocked(!selectedRoad.getIsLocked());
-                }
             }
 
             // This condition checks, whether the user wants to deselect the road he has clicked. 
@@ -112,7 +109,6 @@ namespace scripts
          */
         private void DragAndDropRoad()
         {
-            Debug.Log(selectedRoad);
             // This will only check the object at the start of dragging and not check every frame. Prevents the user from going to fast and "Losing" the road. 
             if (isDragging == false)
             {

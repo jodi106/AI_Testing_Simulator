@@ -30,14 +30,7 @@ namespace scripts
         public void setIsLocked(bool value)
         {
             isLocked = value;
-            if (value)
-            {
-                RoadManager.Instance.colorRoadPiece(SelectionColor.lockedSelected);
-            }
-            else
-            {
-                RoadManager.Instance.colorRoadPiece( SelectionColor.selected);
-            }
+            RoadManager.Instance.colorRoadPiece(isLocked ? SelectionColor.lockedSelected : SelectionColor.selected);
         }
 
         public bool getIsLocked()
