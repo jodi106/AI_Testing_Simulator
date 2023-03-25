@@ -91,17 +91,18 @@ public class AdversaryViewController : VehicleViewController
         {
             case VehicleCategory.Car:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
-                return;
+                break;
             case VehicleCategory.Bike:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
-                return;
+                break;
             case VehicleCategory.Pedestrian:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
-                return;
+                break;
             case VehicleCategory.Motorcycle:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
-                return;
+                break;
         }
+        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(sprite.sprite.bounds.size.x, sprite.sprite.bounds.size.y);
     }
 
     public BoxCollider2D getCollider()
