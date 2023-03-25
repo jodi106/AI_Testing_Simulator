@@ -118,7 +118,7 @@ public class PathController : MonoBehaviour
     public void Init(AdversaryViewController controller, Adversary v, bool building = true)
     {
         Path = v.Path;
-        if(v.Color is not null) this.SetColor(v.Color.ToUnityColor());
+        if (v.Color is not null) this.SetColor(v.Color.ToUnityColor());
         this.adversaryViewController = controller;
         this.building = building;
         if (v.Path.WaypointList.Count == 0)
@@ -269,7 +269,7 @@ public class PathController : MonoBehaviour
             }
         }
         var used = 0;
-        if(addLaneChanges)
+        if (addLaneChanges)
         {
             used = addLaneChangeWaypoints(laneChanges, path);
         }
@@ -382,7 +382,10 @@ public class PathController : MonoBehaviour
         {
             positions[i] = pathRenderer.GetPosition(i);
         }
-        edgeCollider.SetPoints(positions.ToList());
+        var positionList = positions.ToList();
+        if (positionList.Count == 1) positionList.Add(positionList[0]);
+        // points must contain at least two points.
+        edgeCollider.SetPoints(positionList);
     }
 
     /*
