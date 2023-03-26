@@ -2,7 +2,7 @@
 
 namespace Assets.Enums
 {
-    public enum VehicleCategory
+    public enum AdversaryCategory
     {
         [Description("Null")]
         Null,

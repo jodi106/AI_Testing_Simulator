@@ -173,7 +173,7 @@ public class MainController : MonoBehaviour
         this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
-    public void addSimulationEntity(Adversary entity)
+    public void addAdversary(Adversary entity)
     {
         if (entity is Adversary v)
         {
@@ -185,9 +185,9 @@ public class MainController : MonoBehaviour
         }
     }
 
-    public void removeSimulationEntity(Adversary entity)
+    public void removeAdversary(Adversary adversary)
     {
-        if(entity is Adversary v)
+        if(adversary is Adversary v)
         {
             foreach (Waypoint w in v.Path.WaypointList)
             {
@@ -198,7 +198,7 @@ public class MainController : MonoBehaviour
                 }
             }
             this.info.Vehicles.Remove(v);
-        } else if (entity is Adversary p)
+        } else if (adversary is Adversary p)
         {
             this.info.Pedestrians.Remove(p);
         }
@@ -209,7 +209,11 @@ public class MainController : MonoBehaviour
         this.info.setEgo(ego);
     }
 
-    public void createEntity(VehicleCategory category)
+    /**
+     * Create a new adversary but do not add it to the model.
+     * It is added to the model once it is placed by the user.
+     */
+    public void createAdversary(AdversaryCategory category)
     {
         var pos = Input.mousePosition;
         pos.z = -0.1f;
@@ -250,28 +254,28 @@ public class MainController : MonoBehaviour
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createEntity(VehicleCategory.Car);
+            createAdversary(AdversaryCategory.Car);
             setSelectedEntity(null);
         });
 
         addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createEntity(VehicleCategory.Bike);
+            createAdversary(AdversaryCategory.Bike);
             setSelectedEntity(null);
         });
 
         addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createEntity(VehicleCategory.Motorcycle);
+            createAdversary(AdversaryCategory.Motorcycle);
             setSelectedEntity(null);
         });
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createEntity(VehicleCategory.Pedestrian);
+            createAdversary(AdversaryCategory.Pedestrian);
             setSelectedEntity(null);
         });
 

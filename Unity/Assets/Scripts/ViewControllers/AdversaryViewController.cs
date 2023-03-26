@@ -18,7 +18,7 @@ public class AdversaryViewController : VehicleViewController
 
     // act as constructor -- check for alternatives to set initial state
     // create vehicle here and register it after is is placed
-    public override void init(VehicleCategory cat, Color color)
+    public override void init(AdversaryCategory cat, Color color)
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
@@ -31,12 +31,12 @@ public class AdversaryViewController : VehicleViewController
         vehicle.setColor(color);
         switch (cat)
         {
-            case VehicleCategory.Car:
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Car:
+            case AdversaryCategory.Motorcycle:
                 ignoreWaypoints = false;
                 break;
-            case VehicleCategory.Bike:
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Bike:
+            case AdversaryCategory.Pedestrian:
                 ignoreWaypoints = true;
                 break;
         }
@@ -57,12 +57,12 @@ public class AdversaryViewController : VehicleViewController
         vehicleSettingsController.gameObject.SetActive(true);
         switch (vehicle.Category)
         {
-            case VehicleCategory.Car:
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Car:
+            case AdversaryCategory.Motorcycle:
                 ignoreWaypoints = false;
                 break;
-            case VehicleCategory.Bike:
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Bike:
+            case AdversaryCategory.Pedestrian:
                 ignoreWaypoints = true;
                 break;
         }
@@ -84,21 +84,21 @@ public class AdversaryViewController : VehicleViewController
         return Resources.Load<Sprite>("sprites/" + "vehicle");
     }
 
-    public override void onChangeCategory(VehicleCategory cat)
+    public override void onChangeCategory(AdversaryCategory cat)
     {
         base.onChangeCategory(cat);
         switch(cat)
         {
-            case VehicleCategory.Car:
+            case AdversaryCategory.Car:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
                 break;
-            case VehicleCategory.Bike:
+            case AdversaryCategory.Bike:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
                 break;
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Pedestrian:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
                 break;
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Motorcycle:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
                 break;
         }
@@ -132,7 +132,7 @@ public class AdversaryViewController : VehicleViewController
 
     public override void destroy()
     {
-        mainController.removeSimulationEntity(vehicle);
+        mainController.removeAdversary(vehicle);
         pathController?.Destroy();
         Destroy(gameObject);
         snapController.IgnoreClicks = false;
@@ -165,7 +165,7 @@ public class AdversaryViewController : VehicleViewController
     }
     protected override void registerEntity()
     {
-        mainController.addSimulationEntity(this.vehicle);
+        mainController.addAdversary(this.vehicle);
     }
 
     public override void setIgnoreWaypoints(bool b)

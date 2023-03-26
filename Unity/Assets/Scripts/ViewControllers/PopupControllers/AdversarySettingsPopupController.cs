@@ -52,7 +52,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         //Vehicle vehicle = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
-        var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
+        var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
@@ -87,7 +87,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         });
 
         List<string> allPossibleCateogories = new List<string> { };
-        foreach (var option in Enum.GetValues(typeof(VehicleCategory)))
+        foreach (var option in Enum.GetValues(typeof(AdversaryCategory)))
         {
             if (option.ToString() == "Null")
             {
@@ -99,23 +99,23 @@ public class AdversarySettingsPopupController : MonoBehaviour
         possibleCategoriesField.choices = allPossibleCateogories;
         possibleCategoriesField.RegisterValueChangedCallback((evt) =>
         {
-            VehicleCategory cat;
+            AdversaryCategory cat;
             switch (evt.newValue)
             {
                 case "Car":
-                    cat = VehicleCategory.Car;
+                    cat = AdversaryCategory.Car;
                     break;
                 case "Bike":
-                    cat = VehicleCategory.Bike;
+                    cat = AdversaryCategory.Bike;
                     break;
                 case "Motorcycle":
-                    cat = VehicleCategory.Motorcycle;
+                    cat = AdversaryCategory.Motorcycle;
                     break;
                 case "Pedestrian":
-                    cat = VehicleCategory.Pedestrian;
+                    cat = AdversaryCategory.Pedestrian;
                     break;
                 default:
-                    cat = VehicleCategory.Null;
+                    cat = AdversaryCategory.Null;
                     break;
             }
             List<string> allPossibleModels = new List<string> { };

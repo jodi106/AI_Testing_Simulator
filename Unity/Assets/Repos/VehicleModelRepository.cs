@@ -6,10 +6,10 @@ namespace Assets.Repos
 {
     public class VehicleModelRepository
     {
-        private readonly static Dictionary<VehicleCategory, List<EntityModel>> _EntityModels = new Dictionary<VehicleCategory, List<EntityModel>>();
+        private readonly static Dictionary<AdversaryCategory, List<EntityModel>> _EntityModels = new Dictionary<AdversaryCategory, List<EntityModel>>();
         static VehicleModelRepository()
         {
-            _EntityModels.Add(VehicleCategory.Car, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Car, new List<EntityModel>
             {
                 new EntityModel("Ambulance", "vehicle.ford.ambulance"),
                 new EntityModel("Audi TT","vehicle.audi.tt"),
@@ -32,14 +32,14 @@ namespace Assets.Repos
                 new EntityModel("Volkswagen T2", "vehicle.volkswagen.t2_2021"),
             });
 
-            _EntityModels.Add(VehicleCategory.Bike, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Bike, new List<EntityModel>
             {
                 new EntityModel("Leisure Bike", "vehicle.gazelle.omafiets"),
                 new EntityModel("Road Bike", "vehicle.diamondback.century"),
                 new EntityModel("Cross Bike", "vehicle.bh.crossbike"),
             });
 
-            _EntityModels.Add(VehicleCategory.Motorcycle, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Motorcycle, new List<EntityModel>
             {
                 new EntityModel("Kawasaki Ninja", "vehicle.kawasaki.ninja"),
                 new EntityModel("Harley", "vehicle.harley-davidson.low_rider"),
@@ -47,7 +47,7 @@ namespace Assets.Repos
                 new EntityModel("Vespa", "vehicle.vespa.zx125"),
             });
 
-            _EntityModels.Add(VehicleCategory.Pedestrian, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Pedestrian, new List<EntityModel>
             {
                 new EntityModel("Female", "walker.pedestrian.0001"),
                 new EntityModel("Male", "walker.pedestrian.0002"),
@@ -58,22 +58,22 @@ namespace Assets.Repos
         }
 
 
-        public static List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
+        public static List<EntityModel> GetModelsBasedOnCategory(AdversaryCategory category)
         {
             return _EntityModels[category];
         }
 
-        public static EntityModel getDefaultModel(VehicleCategory cat)
+        public static EntityModel getDefaultModel(AdversaryCategory cat)
         {
             switch(cat)
             {
-                case VehicleCategory.Car:
+                case AdversaryCategory.Car:
                     return getDefaultCarModel();
-                case VehicleCategory.Bike:
+                case AdversaryCategory.Bike:
                     return getDefaultBikeModel();
-                case VehicleCategory.Motorcycle:
+                case AdversaryCategory.Motorcycle:
                     return getDefaultMotorcycleModel();
-                case VehicleCategory.Pedestrian:
+                case AdversaryCategory.Pedestrian:
                     return _EntityModels[cat][0];
             }
             return null;
@@ -81,17 +81,17 @@ namespace Assets.Repos
 
         public static EntityModel getDefaultCarModel()
         {
-            return _EntityModels[VehicleCategory.Car][1]; // Audi TT
+            return _EntityModels[AdversaryCategory.Car][1]; // Audi TT
         }
 
         public static EntityModel getDefaultBikeModel()
         {
-            return _EntityModels[VehicleCategory.Bike][0];
+            return _EntityModels[AdversaryCategory.Bike][0];
         }
 
         public static EntityModel getDefaultMotorcycleModel()
         {
-            return _EntityModels[VehicleCategory.Motorcycle][0];
+            return _EntityModels[AdversaryCategory.Motorcycle][0];
         }
 
         public static EntityModel findModel(string description)

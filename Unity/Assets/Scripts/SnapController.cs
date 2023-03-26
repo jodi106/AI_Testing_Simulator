@@ -20,6 +20,7 @@ public class SnapController : MonoBehaviour
 
     private static String mapName = "";
 
+    // signals that an entity is currently selected so that waypoints can be placed on top of waypoints and paths of other entities
     public bool IgnoreClicks { get; set; }
 
     void Start()

@@ -51,7 +51,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         return this.getEntity().SpawnPoint;
     }
 
-    public abstract void init(VehicleCategory cat, Color color);
+    public abstract void init(AdversaryCategory cat, Color color);
 
     public virtual void onChangePosition(float x, float y)
     {
@@ -64,7 +64,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-    public virtual void onChangeCategory(VehicleCategory cat)
+    public virtual void onChangeCategory(AdversaryCategory cat)
     {
         mainController.refreshEntityList();
     }

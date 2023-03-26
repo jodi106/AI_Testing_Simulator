@@ -20,7 +20,7 @@ namespace Entity
         /// <param name="model">The model of the Ego vehicle.</param>
         /// <param name="category">The category of the Ego vehicle.</param>
         /// <param name="initialSpeedKMH">The initial speed of the Ego vehicle in km/h.</param>
-        public Ego(Location spawnPoint, EntityModel model, VehicleCategory category = VehicleCategory.Null, double initialSpeedKMH = 0) : base("Ego Vehicle", spawnPoint, initialSpeedKMH)
+        public Ego(Location spawnPoint, EntityModel model, AdversaryCategory category = AdversaryCategory.Null, double initialSpeedKMH = 0) : base("Ego Vehicle", spawnPoint, initialSpeedKMH)
         {
             Model = model;
             Category = category;
@@ -41,7 +41,7 @@ namespace Entity
         /// Sets the category of the Ego vehicle.
         /// </summary>
         /// <param name="category">The category of the Ego vehicle.</param>
-        public void setCategory(VehicleCategory category)
+        public void setCategory(AdversaryCategory category)
         {
             this.Category = category;
             this.View?.onChangeCategory(category);
@@ -75,7 +75,7 @@ namespace Entity
 
         public Location Destination { get; set; }
         public EntityModel Model { get; private set; }
-        public VehicleCategory Category { get; set; }
+        public AdversaryCategory Category { get; set; }
         public string Agent { get; set; } // "external_control", "simple_vehicle_control", ...
     }
 }

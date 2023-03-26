@@ -69,23 +69,23 @@ public class EgoViewController : VehicleViewController
         mainController.refreshEntityList();
     }
 
-    public override void init(VehicleCategory cat, Color color)
+    public override void init(AdversaryCategory cat, Color color)
     {
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
         egoSettingsController.gameObject.SetActive(true);
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), VehicleCategory.Car, INITIAL_SPEED); // TODO initial speed: different default later?
+        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), AdversaryCategory.Car, INITIAL_SPEED); // TODO initial speed: different default later?
         ego.setView(this);
         ego.setCategory(cat);
         ego.setColor(color);
         switch (cat)
         {
-            case VehicleCategory.Car:
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Car:
+            case AdversaryCategory.Motorcycle:
                 ignoreWaypoints = false;
                 return;
-            case VehicleCategory.Bike:
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Bike:
+            case AdversaryCategory.Pedestrian:
                 ignoreWaypoints = true;
                 return;
         }
@@ -104,12 +104,12 @@ public class EgoViewController : VehicleViewController
         egoSettingsController.gameObject.SetActive(true);
         switch (ego.Category)
         {
-            case VehicleCategory.Car:
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Car:
+            case AdversaryCategory.Motorcycle:
                 ignoreWaypoints = false;
                 break;
-            case VehicleCategory.Bike:
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Bike:
+            case AdversaryCategory.Pedestrian:
                 ignoreWaypoints = true;
                 break;
         }
@@ -120,21 +120,21 @@ public class EgoViewController : VehicleViewController
         }
     }
 
-    public override void onChangeCategory(VehicleCategory cat)
+    public override void onChangeCategory(AdversaryCategory cat)
     {
         base.onChangeCategory(cat);
         switch (cat)
         {
-            case VehicleCategory.Car:
+            case AdversaryCategory.Car:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
                 return;
-            case VehicleCategory.Bike:
+            case AdversaryCategory.Bike:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
                 return;
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Pedestrian:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
                 return;
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Motorcycle:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
                 return;
         }

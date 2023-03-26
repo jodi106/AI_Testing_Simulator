@@ -44,7 +44,7 @@ public class EgoSettingsPopupController : MonoBehaviour
         //Vehicle ego = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
-        var egoModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
+        var egoModels = VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
@@ -87,7 +87,7 @@ public class EgoSettingsPopupController : MonoBehaviour
 
 
         List<string> allPossibleCateogories = new List<string> { };
-        foreach (var option in Enum.GetValues(typeof(VehicleCategory)))
+        foreach (var option in Enum.GetValues(typeof(AdversaryCategory)))
         {
             if (option.ToString() == "Null")
             {
@@ -102,12 +102,12 @@ public class EgoSettingsPopupController : MonoBehaviour
             if (evt.newValue == "Car")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
                 possibleModelsField.choices = allPossibleModels;
-                ego.setCategory(VehicleCategory.Car);
+                ego.setCategory(AdversaryCategory.Car);
                 EntityModel model = VehicleModelRepository.getDefaultCarModel();
                 ego.setModel(model);
                 possibleModelsField.value = ego.Model.DisplayName.ToString();
@@ -115,12 +115,12 @@ public class EgoSettingsPopupController : MonoBehaviour
             if (evt.newValue == "Bike")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Bike))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Bike))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
                 possibleModelsField.choices = allPossibleModels;
-                ego.setCategory(VehicleCategory.Bike);
+                ego.setCategory(AdversaryCategory.Bike);
                 EntityModel model = VehicleModelRepository.getDefaultBikeModel();
                 ego.setModel(model);
                 possibleModelsField.value = ego.Model.DisplayName.ToString();
@@ -128,12 +128,12 @@ public class EgoSettingsPopupController : MonoBehaviour
             if (evt.newValue == "Motorcycle")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Motorcycle))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Motorcycle))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
                 possibleModelsField.choices = allPossibleModels;
-                ego.setCategory(VehicleCategory.Motorcycle);
+                ego.setCategory(AdversaryCategory.Motorcycle);
                 EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
                 ego.setModel(model);
                 possibleModelsField.value = ego.Model.DisplayName.ToString();

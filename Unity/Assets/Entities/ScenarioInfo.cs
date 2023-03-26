@@ -49,7 +49,7 @@ namespace Entity
             
             foreach (Adversary v in this.Vehicles)
             {
-                if (v.Category == VehicleCategory.Pedestrian)
+                if (v.Category == AdversaryCategory.Pedestrian)
                 {
                     //Didn't implement ICloneable interface, since Path can be reference to the Model Object. 
                     Adversary CopyPedestrian = (Adversary)v.Clone();

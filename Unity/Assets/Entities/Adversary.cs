@@ -13,7 +13,7 @@ namespace Entity
     {
         private static int autoIncrementId = 0;
 
-        public VehicleCategory Category { get; protected set; }
+        public AdversaryCategory Category { get; protected set; }
         public EntityModel Model { get; protected set; }
         public Path Path { get; set; }
         public StartPathInfo StartPathInfo { get; set; } // if != null that StartPathInfo's Vehicle starts this Vehicle's route
@@ -27,7 +27,7 @@ namespace Entity
         ///<param name="model">The model of the adversary</param>
         ///<param name="path">The path of the adversary</param>
         ///<param name="startRouteInfo">Information about how and when the path of the adversary's vehicle is started, if null it starts after 0 sec</param>
-        public Adversary(Location spawnPoint, double initialSpeedKMH, VehicleCategory category, EntityModel model, Path path, StartPathInfo startRouteInfo = null)
+        public Adversary(Location spawnPoint, double initialSpeedKMH, AdversaryCategory category, EntityModel model, Path path, StartPathInfo startRouteInfo = null)
             : base(string.Format("{0} {1}", "Adversary", ++autoIncrementId), spawnPoint, initialSpeedKMH)
         {
             Category = category;
@@ -60,7 +60,7 @@ namespace Entity
         ///Sets the category of the adversary
         ///</summary>
         ///<param name="category">The category to set for the adversary</param>
-        public void setCategory(VehicleCategory category)
+        public void setCategory(AdversaryCategory category)
         {
             this.Category = category;
             this.View?.onChangeCategory(category);

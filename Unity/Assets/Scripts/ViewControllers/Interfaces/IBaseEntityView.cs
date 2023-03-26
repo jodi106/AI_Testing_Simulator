@@ -6,7 +6,7 @@ using System;
 
 public interface IBaseEntityView : IBaseView
 {
-    public void onChangeCategory(VehicleCategory cat);
+    public void onChangeCategory(AdversaryCategory cat);
 
     public void onChangeModel(EntityModel model);
 
