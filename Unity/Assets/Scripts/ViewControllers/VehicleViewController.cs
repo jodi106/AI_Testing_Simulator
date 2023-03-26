@@ -105,6 +105,12 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         }
         if (!placed)
         {
+
+            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                this.destroy();
+            }
+
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (!this.shouldIgnoreWaypoints())

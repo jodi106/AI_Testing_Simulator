@@ -42,7 +42,6 @@ public class MainController : MonoBehaviour
     
     private VisualElement buttonBar;
 
-    //Action Buttons (Center Left)
     private uGUI.Button removeEntityButton;
     private uGUI.Button editEntityButton;
     private uGUI.Toggle snapToggle;
