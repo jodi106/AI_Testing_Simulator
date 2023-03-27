@@ -592,7 +592,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   zoomStep: 1
   minCamSize: 1
-  maxCamSize: 10
+  maxCamSize: 15
   ScrollSpeed: 10
   mapRenderer: {fileID: 0}
   mapMinX: 0

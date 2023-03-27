@@ -91,6 +91,7 @@ public class MainController : MonoBehaviour
             buttonBar.visible = action.name != "" ? true : false;
             info.MapURL = action.name;
             setSelectedEntity(null);
+            Adversary.resetAutoIncrementID();
         });
 
         GameObject popups = GameObject.Find("PopUps");

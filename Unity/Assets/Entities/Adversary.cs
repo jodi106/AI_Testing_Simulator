@@ -44,6 +44,11 @@ namespace Entity
 
         }
 
+        public static void resetAutoIncrementID()
+        {
+            autoIncrementId = 0;
+        }
+
 
         ///<summary>
         ///Sets the model of the adversary
