@@ -26,12 +26,22 @@ namespace scripts
         ParkingTop,
         [Description("ParkingTopAndBottom")]
         ParkingTopAndBottom,
-        [Description("CrossWalk")]
+        [Description("Crosswalk")]
         Crosswalk,
         [Description("RoundAbout")]
         RoundAbout,
     }
+    public enum SelectionColor 
+    {
+        normal,
+        selected,
+        invalid,
+        snapped,
+        locked,
+        lockedSelected,
+        lockedSnapped, 
 
+    }
     public class RoadPieceController : MonoBehaviour
     {
         private const float innerCircleRadius = 66.5f;

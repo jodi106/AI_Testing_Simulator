@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2792534828195495554}
   - component: {fileID: 8910450445957666408}
   - component: {fileID: 1758414879012483493}
+  - component: {fileID: 5304581360853174322}
   m_Layer: 0
   m_Name: Crosswalk
   m_TagString: Untagged
@@ -99,3 +100,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighbors: []
   roadType: 8
+--- !u!61 &5304581360853174322
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272570966567540459}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 34.02, y: 37.8041}
+    newSize: {x: 34.02, y: 37.8041}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 34.02, y: 37.8041}
+  m_EdgeRadius: 0
