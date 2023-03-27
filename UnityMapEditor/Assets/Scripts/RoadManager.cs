@@ -109,7 +109,7 @@ namespace scripts
          */
         private void DragAndDropRoad()
         {
-            // This will only check the object at the start of dragging and not check every frame. Prevents the user from going to fast and "Losing" the road. 
+            // This will only check the object at the start of dragging and not check every frame. Prevents the user from going too fast and "Losing" the road. 
             if (isDragging == false)
             {
                 selectedObject = GetClickedObject();
@@ -123,7 +123,6 @@ namespace scripts
                     DeselectRoad();
                     SelectRoad(selectedObject.GetComponent<RoadPiece>());
                     
-                    // This will only run, when the road is not locked. So it wont move its position.
                     if (!selectedRoad.getIsLocked())
                     {
                         isDragging = true;
