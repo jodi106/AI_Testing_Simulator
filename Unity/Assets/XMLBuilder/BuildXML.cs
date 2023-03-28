@@ -58,6 +58,12 @@ namespace ExportScenario.XMLBuilder
         /// Creates first ScenarioElements: FileHeader, ParameterDeclarations(EMPTY), CatalogLocations(EMPTY), RoadNetwork.
         {
             string dateTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            
+            // split scenario_name: e.g. C:\\Users\\jonas\\Desktop\\myScenario.xosc --> myScenario
+            char[] separators = new char[] { '/', '\\' };
+            string[] name_split = scenario_name.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            scenario_name = name_split[name_split.Length - 1];
+            scenario_name = scenario_name.Split(".")[0];
 
             // add elements
             XmlNode file_header = root.CreateElement("FileHeader");
