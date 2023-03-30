@@ -7,6 +7,10 @@ using UnityEngine.UIElements;
 using Assets.Repos;
 using System.Text.RegularExpressions;
 
+
+///<summary>
+/// Represents a controller for the ego settings popup.
+///</summary>
 public class EgoSettingsPopupController : MonoBehaviour
 {
     private EgoViewController controller;
@@ -23,7 +27,9 @@ public class EgoSettingsPopupController : MonoBehaviour
     private Slider gSlider;
     private Slider bSlider;
 
-
+    /// <summary>
+    /// This method is called when the script instance is being loaded. It initializes the UIDocument and sets its rootVisualElement to display none. It also sets the text of a Label to "Options", and registers a callback for a Button to set MainController.freeze to false, set this.ego to null, and set the rootVisualElement display to none. Additionally, it creates a new Location and obtains a list of ego models based on AdversaryCategory.Car. The method registers callbacks for TextFields iDField, initialSpeedField, and agentField, and sets the choices of two DropdownFields based on the AdversaryCategory selected. Finally, the method registers callbacks for three Sliders to update the color of ego's vehicle.
+    /// </summary>
     public void Awake()
     {
         this.document = gameObject.GetComponent<UIDocument>();
@@ -166,6 +172,13 @@ public class EgoSettingsPopupController : MonoBehaviour
             colorField.ElementAt(1).style.backgroundColor = color;
         });
     }
+    
+
+    /// <summary>
+    /// Opens the EgoViewController and initializes the fields with the given values.
+    /// </summary>
+    /// <param name="controller">The EgoViewController instance to open.</param>
+    /// <param name="color">The Color object to set the background color of the field.</param>
     public void open(EgoViewController controller, Color color)
     {
         this.controller = controller;

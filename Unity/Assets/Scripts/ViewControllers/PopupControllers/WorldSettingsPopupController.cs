@@ -5,10 +5,18 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// A controller for the World Settings Popup UI that handles user input and updates WorldOptions accordingly.
+/// </summary>
 public class WorldSettingsPopupController : MonoBehaviour
 {
     private WorldOptions options;
     private UIDocument document;
+
+    /// <summary>
+    /// Initializes the controller with the provided WorldOptions and sets the UI to be active but hidden.
+    /// </summary>
+    /// <param name="options">The WorldOptions to use for initializing the UI.</param>
     public void init(WorldOptions options)
     {
         this.options = options;
@@ -138,6 +146,10 @@ public class WorldSettingsPopupController : MonoBehaviour
         });
 
     }
+    
+    /// <summary>
+    /// Sets the display style of the root visual element of the document to 'flex', and freezes the MainController.
+    /// </summary>
     public void open()
     {
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
