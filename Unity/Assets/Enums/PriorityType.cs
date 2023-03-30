@@ -2,6 +2,10 @@
 
 namespace Assets.Enums
 {
+
+    ///<summary>
+    /// Defines the priority of an event.
+    ///</summary>
     public enum PriorityType
     {
         //	If a starting event has priority Overwrite, all events in running state, within the same scope (maneuver) as the starting event, should be issued a stop command (stop transition).
