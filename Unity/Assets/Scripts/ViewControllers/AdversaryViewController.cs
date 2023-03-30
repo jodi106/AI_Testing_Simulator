@@ -3,6 +3,10 @@ using Assets.Repos;
 using Entity;
 using UnityEngine;
 
+
+/// <summary>
+/// Controller for the Adversary entity in the scene.
+/// </summary>
 public class AdversaryViewController : VehicleViewController
 {
     public GameObject pathPrefab;
@@ -11,6 +15,11 @@ public class AdversaryViewController : VehicleViewController
     private AdversarySettingsPopupController vehicleSettingsController;
     private static readonly double INITIAL_SPEED = 30;
 
+
+    /// <summary>
+    /// Returns the current PathController of the vehicle.
+    /// </summary>
+    /// <returns>The current PathController of the vehicle</returns>
     public PathController getPathController()
     {
         return this.pathController;
@@ -18,6 +27,11 @@ public class AdversaryViewController : VehicleViewController
 
     // act as constructor -- check for alternatives to set initial state
     // create vehicle here and register it after is is placed
+    /// <summary>
+    /// Initializes the Adversary entity with the specified category and color.
+    /// </summary>
+    /// <param name="cat">The category of the Adversary entity</param>
+    /// <param name="color">The color of the Adversary entity</param>
     public override void init(AdversaryCategory cat, Color color)
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
@@ -44,6 +58,10 @@ public class AdversaryViewController : VehicleViewController
 
     // vehicle is passed as a parameter and is already registered with the main controller.
     // registerEntity is not called because placed is set to true.
+    /// <summary>
+    /// Initializes the Adversary entity with the specified entity.
+    /// </summary>
+    /// <param name="s">The Adversary entity to be initialized</param>
     public void init(Adversary s)
     {
         vehicle = s;
@@ -73,17 +91,31 @@ public class AdversaryViewController : VehicleViewController
         }
     }
 
+    /// <summary>
+    /// Moves the first waypoint of the PathController of the vehicle to the specified position.
+    /// </summary>
+    /// <param name="x">The x coordinate of the position</param>
+    /// <param name="y">The y coordinate of the position</param>
     public override void onChangePosition(float x, float y)
     {
         base.onChangePosition(x, y);
         pathController?.MoveFirstWaypoint(x, y);
     }
 
+    /// <summary>
+    /// Gets the sprite for this vehicle.
+    /// </summary>
+    /// <returns>The sprite for this vehicle.</returns>
     public override Sprite getSprite()
     {
         return Resources.Load<Sprite>("sprites/" + "vehicle");
     }
 
+    /// <summary>
+    /// Called when the category of this adversary changes.
+    /// Changes the sprite of this adversary based on the new category and sets the size of the BoxCollider2D accordingly.
+    /// </summary>
+    /// <param name="cat">The new category of this adversary.</param>
     public override void onChangeCategory(AdversaryCategory cat)
     {
         base.onChangeCategory(cat);
@@ -105,11 +137,18 @@ public class AdversaryViewController : VehicleViewController
         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(sprite.sprite.bounds.size.x, sprite.sprite.bounds.size.y);
     }
 
+    /// <summary>
+    /// Gets the BoxCollider2D component of this adversary.
+    /// </summary>
+    /// <returns>The BoxCollider2D component of this adversary.</returns>
     public BoxCollider2D getCollider()
     {
         return gameObject.GetComponent<BoxCollider2D>();
     }
 
+    /// <summary>
+    /// Selects this adversary and creates a path controller if none exists.
+    /// </summary>
     public override void select()
     {
         base.select();
@@ -123,6 +162,9 @@ public class AdversaryViewController : VehicleViewController
         snapController.IgnoreClicks = true;
     }
 
+    /// <summary>
+    /// Deselects this adversary and deselects its path controller.
+    /// </summary>
     public override void deselect()
     {
         base.deselect();
@@ -130,6 +172,9 @@ public class AdversaryViewController : VehicleViewController
         snapController.IgnoreClicks = false;
     }
 
+    /// <summary>
+    /// Removes this adversary from the main controller and destroys it.
+    /// </summary>
     public override void destroy()
     {
         mainController.removeAdversary(vehicle);
@@ -138,6 +183,11 @@ public class AdversaryViewController : VehicleViewController
         snapController.IgnoreClicks = false;
     }
 
+    /// <summary>
+    /// Called when the color of this adversary changes.
+    /// Sets the color of the sprite and path controller accordingly and refreshes the entity list of the main controller.
+    /// </summary>
+    /// <param name="color">The new color of this adversary.</param>
     public override void onChangeColor(Color color)
     {
         if (placed)
@@ -154,20 +204,37 @@ public class AdversaryViewController : VehicleViewController
         mainController.refreshEntityList();
     }
 
+
+    /// <summary>
+    /// Gets the entity of this adversary.
+    /// </summary>
+    /// <returns>The entity of this adversary.</returns>
     public override BaseEntity getEntity()
     {
         return this.vehicle;
     }
 
+    /// <summary>
+    /// Opens the edit dialog for this adversary.
+    /// </summary>
     public override void openEditDialog()
     {
         this.vehicleSettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
     }
+
+    /// <summary>
+    /// Registers this adversary entity with the main controller.
+    /// </summary>
     protected override void registerEntity()
     {
         mainController.addAdversary(this.vehicle);
+        EventManager.TriggerEvent(new CompletePlacementAction());
     }
 
+    /// <summary>
+    /// Sets whether to ignore waypoints for this adversary and its path controller.
+    /// </summary>
+    /// <param name="b">The boolean value to set for ignoring waypoints.</param>
     public override void setIgnoreWaypoints(bool b)
     {
         base.setIgnoreWaypoints(b);

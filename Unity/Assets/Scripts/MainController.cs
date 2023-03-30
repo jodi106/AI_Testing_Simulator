@@ -100,6 +100,16 @@ public class MainController : MonoBehaviour
             Adversary.resetAutoIncrementID();
         });
 
+        EventManager.StartListening(typeof(CompletePlacementAction), x =>
+        {
+            enableButtonBar();
+        });
+
+        EventManager.StartListening(typeof(CancelPlacementAction), x =>
+        {
+            enableButtonBar();
+        });
+
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
@@ -243,6 +253,7 @@ public class MainController : MonoBehaviour
             color = new Color(color.r, color.g, color.b, 1);
         }
         viewController.init(category, color);
+        disableButtonBar();
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -331,6 +342,35 @@ public class MainController : MonoBehaviour
         });
 
         buttonBar.visible = false;
+    }
+
+
+    public void disableButtonBar()
+    {
+        addPedestrianButton.SetEnabled(false);
+        addBikeButton.SetEnabled(false);
+        addCarButton.SetEnabled(false);
+        addMotorcycleButton.SetEnabled(false);
+        worldSettingsButton.SetEnabled(false);
+        exportButton.SetEnabled(false);
+        loadButton.SetEnabled(false);
+        saveButton.SetEnabled(false);
+        homeButton.SetEnabled(false);
+        exitButton.SetEnabled(false);
+    }
+
+    public void enableButtonBar()
+    {
+        addPedestrianButton.SetEnabled(true);
+        addBikeButton.SetEnabled(true);
+        addCarButton.SetEnabled(true);
+        addMotorcycleButton.SetEnabled(true);
+        worldSettingsButton.SetEnabled(true);
+        exportButton.SetEnabled(true);
+        loadButton.SetEnabled(true);
+        saveButton.SetEnabled(true);
+        homeButton.SetEnabled(true);
+        exitButton.SetEnabled(true);
     }
 
     private void initializeActionButtons()

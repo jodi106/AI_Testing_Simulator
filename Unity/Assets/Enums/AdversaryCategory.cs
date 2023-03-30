@@ -2,6 +2,9 @@
 
 namespace Assets.Enums
 {
+    /// <summary>
+    /// The "AdversaryCategory" enum represents the different categories of adversarial entities that exist.
+    /// </summary>
     public enum AdversaryCategory
     {
         [Description("Null")]

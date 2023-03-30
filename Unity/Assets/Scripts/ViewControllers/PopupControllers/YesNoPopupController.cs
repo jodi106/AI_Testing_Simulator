@@ -8,6 +8,10 @@ using UnityEngine.UIElements;
 
 namespace Assets.Scripts.ViewControllers.PopupControllers
 {
+
+    /// <summary>
+    /// Controller for a yes/no popup dialog box that can be displayed to the user.
+    /// </summary>
     public class YesNoPopupController : MonoBehaviour
     {
 
@@ -20,6 +24,9 @@ namespace Assets.Scripts.ViewControllers.PopupControllers
 
         private bool result;
 
+        /// <summary>
+        /// Initializes the controller by getting the UIDocument component and setting the rootVisualElement to not be displayed.
+        /// </summary>
         public void Awake()
         {
             this.document = gameObject.GetComponent<UIDocument>();
@@ -31,6 +38,12 @@ namespace Assets.Scripts.ViewControllers.PopupControllers
             yesButton = this.document.rootVisualElement.Q<Button>("ConfirmButton");
         }
 
+        /// <summary>
+        /// Shows the yes/no popup dialog box to the user and waits for a response.
+        /// </summary>
+        /// <param name="title">The title of the dialog box.</param>
+        /// <param name="message">The message displayed in the dialog box.</param>
+        /// <returns>A Task<bool> representing the user's response. True if they clicked "Yes", false if they clicked "No".</returns>
         public async Task<bool> Show(string title, string message)
         {
             Title.text = title;

@@ -11,6 +11,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+///<summary>
+///This class is responsible for the waypoint settings popup.
+///</summary>
 public class WaypointSettingsPopupController : MonoBehaviour
 {
     private WaypointViewController controller;
@@ -40,6 +44,10 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private Toggle startRouteToggle;
     private DropdownField startRouteVehicleField;
 
+    /// <summary>
+    /// Called when the object is created. It retrieves references to UI elements in the scene and initializes them.
+    /// It also initializes the event handlers for the action fields, exit button, add action button and delete actions button.
+    /// </summary>
     public void Awake()
     {
         this.document = gameObject.GetComponent<UIDocument>();
@@ -184,7 +192,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
-
+    /// <summary>
+    /// Opens the GUI for the given waypoint and vehicle, setting GUI elements to corresponding data.
+    /// </summary>
+    /// <param name="controller">The WaypointViewController controlling the waypoint to open.</param>
+    /// <param name="vehicle">The BaseEntity vehicle to open the waypoint for.</param>
+    /// <param name="allSimVehicles">An ObservableCollection of Adversary vehicles in the simulation.</param>
+    /// <param name="warning">The WarningPopupController for the GUI.</param>
     public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
     {
         this.controller = controller;
@@ -255,7 +269,11 @@ public class WaypointSettingsPopupController : MonoBehaviour
         MainController.freeze = true;
     }
 
-
+    /// <summary>
+    /// Initializes an event handler for a given action field at the specified index in the list of possible actions.
+    /// The event handler updates the corresponding GUI element based on the selected action.
+    /// </summary>
+    /// <param name="index">The index of the action field in the list of possible actions.</param>
     private void initActionEventHandler(int index)
     {
         possibleActionsField[index].RegisterValueChangedCallback((inputEvent) =>
@@ -275,6 +293,19 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// Initializes the event handler for the action fields at a specific index.
+    /// </summary>
+    /// <param name="index">The index of the action field.</param>
+    /// <remarks>
+    /// This method registers the callback events for the action text and action dropdown fields at the specified index.
+    /// If the input data in the action text field contains only digits, the method sets the corresponding action values
+    /// in the actions array. If the possible action field value is "SpeedAction", the method sets the absolute target speed
+    /// value, otherwise, it sets the stop duration. If the input data in the action text field contains non-digit characters,
+    /// the method restores the previous data. If the possible action field value is "LaneChangeAction", the method sets the
+    /// relative target lane value based on the selected value in the action dropdown field. If the selected value is "right",
+    /// the method sets the value to -1, otherwise, it sets it to 1.
+    /// </remarks>
     private void initActionFieldsEventHandler(int index)
     {
         actionTextField[index].RegisterCallback<InputEvent>((InputEvent) =>
@@ -315,6 +346,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// Updates the action text field based on the given action name, value, index and text.
+    /// </summary>
+    /// <param name="actionName">The name of the action to be updated.</param>
+    /// <param name="value">The value of the action to be updated.</param>
+    /// <param name="i">The index of the action to be updated.</param>
+    /// <param name="text">The text to be displayed in the action text field.</param>
     private void updateActionTextField(string actionName, double value, int i, string text)
     {
         this.possibleActionsField[i].value = actionName;
@@ -334,6 +372,12 @@ public class WaypointSettingsPopupController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the action dropdown field with the specified action name and target lane value, and sets the action type for the specified index.
+    /// </summary>
+    /// <param name="actionName">The name of the action to be set in the dropdown field.</param>
+    /// <param name="targetLaneValue">The target lane value to be set in the dropdown field.</param>
+    /// <param name="i">The index of the action to be updated.</param>
     private void updateActionDropownField(string actionName, int targetLaneValue, int i)
     {
         this.possibleActionsField[i].value = actionName;
@@ -349,6 +393,15 @@ public class WaypointSettingsPopupController : MonoBehaviour
         this.actions[i] = new ActionType(actionName, vehicle.Id, targetLaneValue); // LaneChangeAction
     }
 
+    /// <summary>
+    /// Configures the available action choices for a specific index, based on the previously selected actions for the other indices.
+    /// </summary>
+    /// <param name="index">The index of the action field to be configured.</param>
+    /// <remarks>
+    /// The method loops through all the possible action types and adds them as choices to the action field for the specified index,
+    /// with the exception of the "AssignRouteAction" type. Then, for indices 1 and 2, it removes the previously selected action types
+    /// from the choices of the other action fields, to prevent duplicate selections.
+    /// </remarks>
     private void configureActionChoices(int index)
     {
         possibleActionsField[index].choices = new List<string> { };
@@ -381,6 +434,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets all action fields to their default state and initializes the action type array.
+    /// </summary>
+    /// <remarks>
+    /// This method is used to reset all the action fields to their default state when the user clears the action configuration.
+    /// It initializes the action type array and hides all the action fields except the first one.
+    /// </remarks>
     private void resetAllActionFields()
     {
         for (int i = 0; i < ACTIONS_NR; i++)
@@ -396,7 +456,14 @@ public class WaypointSettingsPopupController : MonoBehaviour
         this.possibleActionsField[0].style.display = DisplayStyle.Flex;
         AddActionButton.style.display = DisplayStyle.Flex;
     }
-
+    
+    /// <summary>
+    /// Resets the start route vehicle toggle to its default state.
+    /// </summary>
+    /// <remarks>
+    /// This method is used to reset the start route vehicle toggle to its default state when the user clears the action configuration.
+    /// It sets the toggle value to false, clears the selected vehicle from the vehicle dropdown, and disables the dropdown.
+    /// </remarks>
     private void resetStartRouteVehicleToggle()
     {
         startRouteToggle.value = false;
@@ -404,6 +471,10 @@ public class WaypointSettingsPopupController : MonoBehaviour
         startRouteVehicleField.SetEnabled(false);
     }
 
+    /// <summary>
+    /// Overwrites the actions of a waypoint with the given list of ActionType objects.
+    /// </summary>
+    /// <param name="actions">The list of ActionType objects to be added to the waypoint's attribute 'Actions'.</param>
     private void overwriteActionsCarla(ActionType[] actions)
     {
         /// Add all GUI actions to the waypoint's attribute 'Actions'
@@ -420,8 +491,12 @@ public class WaypointSettingsPopupController : MonoBehaviour
             }
         }
     }
-
+    
+    // <summary>
+    /// Sets the correct current speed to the next StopAction in the vehicle's path.
     /// User changes currentSpeed after a StopAction in another waypoint was added
+    /// </summary>
+    /// <param name="currentSpeed">The current speed value.</param>
     private void SetCorrectCurrentSpeedToNextStopAction(double currentSpeed)
     {
         bool done = false;
@@ -451,6 +526,10 @@ public class WaypointSettingsPopupController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the current speed of the vehicle up to the current waypoint.
+    /// </summary>
+    /// <returns>The current speed in km/h.</returns
     private double GetCurrentSpeed()
     {
         double currentSpeed = vehicle.InitialSpeedKMH;

@@ -4,9 +4,21 @@ using System.Collections.Generic;
 
 namespace Assets.Repos
 {
+    /// <summary>
+    /// Repository for vehicle models used by adversaries.
+    /// </summary>
     public class VehicleModelRepository
     {
+
+        /// <summary>
+        /// Dictionary that maps AdversaryCategories to lists of EntityModels.
+        /// </summary>
         private readonly static Dictionary<AdversaryCategory, List<EntityModel>> _EntityModels = new Dictionary<AdversaryCategory, List<EntityModel>>();
+        
+        
+        /// <summary>
+        /// Initializes _EntityModels with predefined values.
+        /// </summary>
         static VehicleModelRepository()
         {
             _EntityModels.Add(AdversaryCategory.Car, new List<EntityModel>
@@ -57,12 +69,21 @@ namespace Assets.Repos
 
         }
 
-
+        /// <summary>
+        /// Retrieves a list of EntityModels based on the provided AdversaryCategory.
+        /// </summary>
+        /// <param name="category">The AdversaryCategory to retrieve EntityModels for.</param>
+        /// <returns>A list of EntityModels associated with the provided AdversaryCategory.</returns>
         public static List<EntityModel> GetModelsBasedOnCategory(AdversaryCategory category)
         {
             return _EntityModels[category];
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel based on the provided AdversaryCategory.
+        /// </summary>
+        /// <param name="cat">The AdversaryCategory to retrieve the default EntityModel for.</param>
+        /// <returns>The default EntityModel associated with the provided AdversaryCategory.</returns>
         public static EntityModel getDefaultModel(AdversaryCategory cat)
         {
             switch(cat)
@@ -79,21 +100,38 @@ namespace Assets.Repos
             return null;
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel for a car.
+        /// </summary>
+        /// <returns>The default EntityModel for a car.</returns>
         public static EntityModel getDefaultCarModel()
         {
             return _EntityModels[AdversaryCategory.Car][1]; // Audi TT
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel for a bike.
+        /// </summary>
+        /// <returns>The default EntityModel for a bike.</returns>
         public static EntityModel getDefaultBikeModel()
         {
             return _EntityModels[AdversaryCategory.Bike][0];
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel for a motorcycle.
+        /// </summary>
+        /// <returns>The default EntityModel for a motorcycle.</returns>
         public static EntityModel getDefaultMotorcycleModel()
         {
             return _EntityModels[AdversaryCategory.Motorcycle][0];
         }
 
+        /// <summary>
+        /// Finds the EntityModel that matches the provided description.
+        /// </summary>
+        /// <param name="description">The description to match against EntityModel DisplayNames.</param>
+        /// <returns>The EntityModel that matches the provided description, or null if no match is found.</returns> s
         public static EntityModel findModel(string description)
         {
             EntityModel model = null;

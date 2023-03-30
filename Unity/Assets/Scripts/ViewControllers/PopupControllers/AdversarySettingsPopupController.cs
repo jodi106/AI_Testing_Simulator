@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 using Assets.Repos;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Represents a controller for the adversary settings popup.
+/// </summary>
 public class AdversarySettingsPopupController : MonoBehaviour
 {
     private AdversaryViewController controller;
@@ -31,6 +34,11 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
     private string startRouteType = null;
 
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded. It initializes the UIDocument of the gameObject and sets it to not visible.
+    /// It sets the label text to "Options" and registers callback for ExitButton. It sets the initial values for various fields and dropdowns.
+    /// </summary>
     public void Awake()
     {
         this.document = gameObject.GetComponent<UIDocument>();
@@ -218,6 +226,13 @@ public class AdversarySettingsPopupController : MonoBehaviour
         });
     }
 
+
+    /// <summary>
+    /// Opens the adversary view controller with specified parameters.
+    /// </summary>
+    /// <param name="controller">The adversary view controller.</param>
+    /// <param name="color">The color of the adversary.</param>
+    /// <param name="egoVehicle">The ego vehicle.</param>
     public void open(AdversaryViewController controller, Color color, Ego egoVehicle)
     {
         this.controller = controller;
@@ -259,6 +274,10 @@ public class AdversarySettingsPopupController : MonoBehaviour
     }
 
 
+
+    /// <summary>
+    /// Loads start route information for a specific waypoint.
+    /// </summary>
     private void loadStartRouteInfoWaypoint()
     {
         this.startRouteType = "Waypoint";
@@ -271,6 +290,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
         startRouteWaypointTimeLabel.text = vehicle.StartPathInfo.Vehicle.Id + " reaches a specific Waypoint";
     }
 
+    /// <summary>
+    /// Loads start route information for a specific time.
+    /// </summary>
     private void loadStartRouteInfoTime()
     {
         resetStartRouteFields();
@@ -279,6 +301,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
         startRouteTimeField.value = vehicle.StartPathInfo.Time.ToString();
     }
 
+    /// <summary>
+    /// Loads start route information for a specific ego vehicle
+    /// </summary>
     private void loadStartRouteInfoEgo()
     {
         resetStartRouteFields();
@@ -287,6 +312,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
         startRouteDistanceField.value = vehicle.StartPathInfo.Distance.ToString();
     }
 
+    /// <summary>
+    /// Resets the start route fields to their default values.
+    /// </summary>
     private void resetStartRouteFields()
     {
         startRouteDistanceField.value = "5";
@@ -300,6 +328,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
         startRouteInfoLabel.style.display = DisplayStyle.Flex;
     }
 
+    /// <summary>
+    /// Saves start route information of a specific type.
+    /// </summary
     private void saveStartRouteInfo(String type)
     {
         switch (type)
