@@ -120,11 +120,12 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 {
                     difference = Vector2.zero;
                     getEntity().setPosition(waypoint.X, waypoint.Y);
-                    gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
+                    getEntity().setRotation(waypoint.Rot);
                 }
                 else
                 {
-                    getEntity().setPosition(mousePosition.x, mousePosition.y); // Im not sure this is ok
+                    getEntity().setPosition(mousePosition.x, mousePosition.y);
+                    getEntity().setRotation(0);
                 }
             }
             else

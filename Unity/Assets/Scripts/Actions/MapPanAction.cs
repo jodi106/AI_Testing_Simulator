@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-#
-#/// <summary>
+
+/// <summary>
 /// Represents a MapPanAction that implements the IAction interface.
 /// </summary>
 public class MapPanAction : IAction
