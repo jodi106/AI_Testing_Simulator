@@ -53,8 +53,14 @@ public class MainController : MonoBehaviour
 
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
-    public  WarningPopupController warningPopupController;
+    public WarningPopupController warningPopupController;
     public YesNoPopupController yesNoPopupController;
+    public HelpPopupController helpPopupController;
+
+    // If true don't show this explanation anymore because the user has clicked 'DoNotShowAgain'
+    public static bool[] helpComplete = new bool[] { false }; 
+    // [0] --> false: user clicks 'snapToggle' in actionButtonCanvas, show explanation
+    // ... in case more help popups are needed
 
     public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!
 
@@ -103,6 +109,10 @@ public class MainController : MonoBehaviour
 
         this.yesNoPopupController = GameObject.Find("PopUps").transform.Find("YesNoPopup").gameObject.GetComponent<YesNoPopupController>();
         this.yesNoPopupController.gameObject.SetActive(true);
+
+        //this.helpPopupController = GameObject.FindWithTag("HelpPopup").gameObject.GetComponent<HelpPopupController>();
+        this.helpPopupController = GameObject.Find("PopUps").transform.Find("HelpPopUp").gameObject.GetComponent<HelpPopupController>();
+        this.helpPopupController.gameObject.SetActive(true);
     }
 
     public void loadScenarioInfo(ScenarioInfo info)
@@ -346,6 +356,14 @@ public class MainController : MonoBehaviour
         snapToggle.onValueChanged.AddListener(x =>
         {
             if (freeze) return;
+            if (!helpComplete[0])
+            {
+                string text = "You've changed the Tied-Path-Option.\n"
+                + "If activated: The movement of this entity/waypoint is no longer tied to the road.\n"
+                + "If deactivated: You can move this entity/waypoint freely now.\n"
+                + "You can change this anytime by clicking the white icon again.";
+                helpPopupController.open("Tied path Explanation", text, 0);
+            }
             this.selectedEntity?.setIgnoreWaypoints(!x);
         });
 
@@ -510,6 +528,8 @@ public class MainController : MonoBehaviour
             Debug.Log("Quitting");
         }
     }
+
+   
 
 }
 
