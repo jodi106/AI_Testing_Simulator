@@ -58,8 +58,9 @@ public class MainController : MonoBehaviour
     public HelpPopupController helpPopupController;
 
     // If true don't show this explanation anymore because the user has clicked 'DoNotShowAgain'
-    public static bool[] helpComplete = new bool[] { false }; 
-    // [0] --> false: user clicks 'snapToggle' in actionButtonCanvas, show explanation
+    public static bool[] helpComplete = new bool[] { false, false }; 
+    // [0] --> false: user clicks 'snapToggle' in actionButtonCanvas, show Free/Tied path explanation
+    // [1] --> false: WaypointSettings, show 'LaneChangeAction' explanation
     // ... in case more help popups are needed
 
     public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!

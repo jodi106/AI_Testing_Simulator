@@ -22,9 +22,10 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private Waypoint waypoint;
     private Adversary vehicle;
     private ObservableCollection<Adversary> allVehicles;
-    private int waypointId;
 
     private UIDocument document;
+    private HelpPopupController helpPopupController;
+
     private DropdownField[] possibleActionsField; // SpeedAction, StopAction, LaneChangeOption
     private TextField[] actionTextField; // speed value, stop duration
     private DropdownField[] actionDropdownField; // direction
@@ -32,9 +33,9 @@ public class WaypointSettingsPopupController : MonoBehaviour
     // Text of actionTextField depending if it belongs to SpeedAction or StopAction
     private static readonly string ACTION_TEXT_SPEED = "Speed (km/h):";
     private static readonly string ACTION_TEXT_STOP_DURATION = "Stop Duration (sec):";
-    private static readonly int ACTIONS_NR = 3;
+    private static int ACTIONS_NR = 3;
 
-    // Logic: after pressing EXIT button, these local actions will override the previous waypoint.actions
+    // Logic: after pressing EXIT button, these local actions will override the previous waypoint.actions (Carla)
     private ActionType[] actions = new ActionType[ACTIONS_NR];
 
     Button ExitButton;
@@ -44,6 +45,8 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private Toggle startRouteToggle;
     private DropdownField startRouteVehicleField;
 
+    private bool deactivateLaneChangeOption = false; 
+
     /// <summary>
     /// Called when the object is created. It retrieves references to UI elements in the scene and initializes them.
     /// It also initializes the event handlers for the action fields, exit button, add action button and delete actions button.
@@ -52,6 +55,9 @@ public class WaypointSettingsPopupController : MonoBehaviour
     {
         this.document = gameObject.GetComponent<UIDocument>();
         this.document.rootVisualElement.style.display = DisplayStyle.None;
+
+        helpPopupController = GameObject.Find("PopUps").transform.Find("HelpPopUp").gameObject.GetComponent<HelpPopupController>();
+        helpPopupController.gameObject.SetActive(true);
 
         possibleActionsField = new DropdownField[ACTIONS_NR];
         possibleActionsField[0] = this.document.rootVisualElement.Q<DropdownField>("Actions1");
@@ -67,6 +73,11 @@ public class WaypointSettingsPopupController : MonoBehaviour
         actionDropdownField[0] = this.document.rootVisualElement.Q<DropdownField>("Dropdown1");
         actionDropdownField[1] = this.document.rootVisualElement.Q<DropdownField>("Dropdown2");
         actionDropdownField[2] = this.document.rootVisualElement.Q<DropdownField>("Dropdown3");
+
+        if (deactivateLaneChangeOption)
+        {
+            ACTIONS_NR = 2;
+        }
 
         for (int i = 0; i < ACTIONS_NR; i++)
         {
@@ -99,13 +110,6 @@ public class WaypointSettingsPopupController : MonoBehaviour
             if ((possibleActionsField[numberOfActions].style.display == DisplayStyle.Flex) 
             && possibleActionsField[numberOfActions].value == null)
             {
-                //#if UNITY_EDITOR
-                //EditorUtility.DisplayDialog(
-                //"No Action selected",
-                //"You must select an action first before adding new actions!",
-                //"Ok");
-                //#endif
-
                 string title = "No Action selected";
                 string description = "You must select an action first before adding new actions!";
                 this.warningPopupController.open(title, description);
@@ -289,6 +293,13 @@ public class WaypointSettingsPopupController : MonoBehaviour
             else if (inputEvent.newValue == "LaneChangeAction")
             {
                 updateActionDropownField(inputEvent.newValue, 0, index);
+                if (!MainController.helpComplete[1])
+                {
+                    string title = "LaneChangeAction only for experienced users!";
+                    string description = "To do a lane change, you should just place more waypoints on an entity's path."
+                    + "\nThis option will BREAK your scenario if it's near an intersection! Do NOT do that!";
+                    this.helpPopupController.open(title, description, 1);
+                }
             }
         });
     }
@@ -405,30 +416,40 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private void configureActionChoices(int index)
     {
         possibleActionsField[index].choices = new List<string> { };
+        
         foreach (var option in Enum.GetValues(typeof(ActionTypeName)))
         {
-            if (option.ToString() != "AssignRouteAction")
+            // Special cases: Do not add options to the dropdown
+            if (deactivateLaneChangeOption && option.ToString() == "LaneChangeAction")
             {
-                if (index == 0)
+                continue;
+            }
+
+            if (option.ToString() == "AssignRouteAction")
+            {
+                continue;
+            }
+
+            // Add options to the dropdown
+            if (index == 0)
+            {
+                possibleActionsField[index].choices.Add(option.ToString());
+            }
+            if (index == 1)
+            {
+                if (option.ToString() != possibleActionsField[0].value)
                 {
                     possibleActionsField[index].choices.Add(option.ToString());
+                    possibleActionsField[0].choices.Remove(option.ToString());
                 }
-                if (index == 1)
+            }
+            if (index == 2)
+            {
+                if (option.ToString() != possibleActionsField[0].value && option.ToString() != possibleActionsField[1].value)
                 {
-                    if (option.ToString() != possibleActionsField[0].value)
-                    {
-                        possibleActionsField[index].choices.Add(option.ToString());
-                        possibleActionsField[0].choices.Remove(option.ToString());
-                    }
-                }
-                if (index == 2)
-                {
-                    if (option.ToString() != possibleActionsField[0].value && option.ToString() != possibleActionsField[1].value)
-                    {
-                        possibleActionsField[index].choices.Add(option.ToString());
-                        possibleActionsField[0].choices.Remove(option.ToString());
-                        possibleActionsField[1].choices.Remove(option.ToString());
-                    }
+                    possibleActionsField[index].choices.Add(option.ToString());
+                    possibleActionsField[0].choices.Remove(option.ToString());
+                    possibleActionsField[1].choices.Remove(option.ToString());
                 }
             }
         }
