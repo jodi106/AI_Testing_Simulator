@@ -2,6 +2,7 @@ using Assets.Enums;
 using Entity;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class VehicleViewController : MonoBehaviour, IBaseEntityController, IBaseEntityView
 {
@@ -29,7 +30,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
-            if (!placed)
+            if (!placed && !EventSystem.current.IsPointerOverGameObject())
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
@@ -109,6 +110,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
             {
                 this.destroy();
+                EventManager.TriggerEvent(new CancelPlacementAction());
             }
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -137,6 +139,10 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void OnMouseDrag()
     {
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mousePosition.x == lastClickPos.x && mousePosition.y == lastClickPos.y)
         {
@@ -167,6 +173,10 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void OnMouseDown()
     {
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (snapController.IgnoreClicks)
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));

@@ -228,6 +228,7 @@ public class AdversaryViewController : VehicleViewController
     protected override void registerEntity()
     {
         mainController.addAdversary(this.vehicle);
+        EventManager.TriggerEvent(new CompletePlacementAction());
     }
 
     /// <summary>

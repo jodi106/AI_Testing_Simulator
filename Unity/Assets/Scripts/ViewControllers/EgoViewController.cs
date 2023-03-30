@@ -46,6 +46,7 @@ public class EgoViewController : VehicleViewController
     public void submitDestination(Location destination)
     {
         ego.Destination = destination;
+        EventManager.TriggerEvent(new CompletePlacementAction());
     }
 
     public override void destroy()
