@@ -9,7 +9,8 @@ namespace Assets.Helpers
 {
     // <summary>
     // Color Class that is Serializable and partly compatible with UnityEngine.Color
-    // </summary>    [Serializable]
+    // </summary>   
+    [Serializable]
     public class ColorSer
     {
         public float r;
