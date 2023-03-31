@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa76a54e021311843b654b10dcac90e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Straight: {fileID: 3268465651514629649, guid: 4a0eab48642c5a246b7025345be42f49, type: 3}
+  Straight: {fileID: 3383910417227496093, guid: 59d227d1f03942842b7b7189939df3cf, type: 3}
   Turn: {fileID: 2884884069649534273, guid: 95ad9f8cea2d56b42b252a4fcc62c0b9, type: 3}
   ThreeWayIntersection: {fileID: 83394976407353207, guid: 73468f0c091fcfb419cd2146efef20a8, type: 3}
   FourWayIntersection: {fileID: -7288189701348695058, guid: 91e673080b5fa294b86435627d646380, type: 3}
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 653b3cc2cbea98f46ac68b19dc61b8c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f95c4f52c85eb8498520a3108eb5260, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
