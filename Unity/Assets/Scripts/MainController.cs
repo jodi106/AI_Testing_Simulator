@@ -53,8 +53,15 @@ public class MainController : MonoBehaviour
 
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
-    public  WarningPopupController warningPopupController;
+    public WarningPopupController warningPopupController;
     public YesNoPopupController yesNoPopupController;
+    public HelpPopupController helpPopupController;
+
+    // If true don't show this explanation anymore because the user has clicked 'DoNotShowAgain'
+    public static bool[] helpComplete = new bool[] { false, false }; 
+    // [0] --> false: user clicks 'snapToggle' in actionButtonCanvas, show Free/Tied path explanation
+    // [1] --> false: WaypointSettings, show 'LaneChangeAction' explanation
+    // ... in case more help popups are needed
 
     public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!
 
@@ -94,6 +101,16 @@ public class MainController : MonoBehaviour
             Adversary.resetAutoIncrementID();
         });
 
+        EventManager.StartListening(typeof(CompletePlacementAction), x =>
+        {
+            enableButtonBar();
+        });
+
+        EventManager.StartListening(typeof(CancelPlacementAction), x =>
+        {
+            enableButtonBar();
+        });
+
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
@@ -103,6 +120,10 @@ public class MainController : MonoBehaviour
 
         this.yesNoPopupController = GameObject.Find("PopUps").transform.Find("YesNoPopup").gameObject.GetComponent<YesNoPopupController>();
         this.yesNoPopupController.gameObject.SetActive(true);
+
+        //this.helpPopupController = GameObject.FindWithTag("HelpPopup").gameObject.GetComponent<HelpPopupController>();
+        this.helpPopupController = GameObject.Find("PopUps").transform.Find("HelpPopUp").gameObject.GetComponent<HelpPopupController>();
+        this.helpPopupController.gameObject.SetActive(true);
     }
 
     public void loadScenarioInfo(ScenarioInfo info)
@@ -233,6 +254,7 @@ public class MainController : MonoBehaviour
             color = new Color(color.r, color.g, color.b, 1);
         }
         viewController.init(category, color);
+        disableButtonBar();
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
@@ -323,6 +345,35 @@ public class MainController : MonoBehaviour
         buttonBar.visible = false;
     }
 
+
+    public void disableButtonBar()
+    {
+        addPedestrianButton.SetEnabled(false);
+        addBikeButton.SetEnabled(false);
+        addCarButton.SetEnabled(false);
+        addMotorcycleButton.SetEnabled(false);
+        worldSettingsButton.SetEnabled(false);
+        exportButton.SetEnabled(false);
+        loadButton.SetEnabled(false);
+        saveButton.SetEnabled(false);
+        homeButton.SetEnabled(false);
+        exitButton.SetEnabled(false);
+    }
+
+    public void enableButtonBar()
+    {
+        addPedestrianButton.SetEnabled(true);
+        addBikeButton.SetEnabled(true);
+        addCarButton.SetEnabled(true);
+        addMotorcycleButton.SetEnabled(true);
+        worldSettingsButton.SetEnabled(true);
+        exportButton.SetEnabled(true);
+        loadButton.SetEnabled(true);
+        saveButton.SetEnabled(true);
+        homeButton.SetEnabled(true);
+        exitButton.SetEnabled(true);
+    }
+
     private void initializeActionButtons()
     {
         actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
@@ -346,6 +397,14 @@ public class MainController : MonoBehaviour
         snapToggle.onValueChanged.AddListener(x =>
         {
             if (freeze) return;
+            if (!helpComplete[0])
+            {
+                string text = "You've changed the Tied-Path-Option.\n"
+                + "If activated: The movement of this entity/waypoint is no longer tied to the road.\n"
+                + "If deactivated: You can move this entity/waypoint freely now.\n"
+                + "You can change this anytime by clicking the white icon again.";
+                helpPopupController.open("Tied path Explanation", text, 0);
+            }
             this.selectedEntity?.setIgnoreWaypoints(!x);
         });
 
@@ -510,6 +569,8 @@ public class MainController : MonoBehaviour
             Debug.Log("Quitting");
         }
     }
+
+   
 
 }
 

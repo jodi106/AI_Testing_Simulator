@@ -58,6 +58,12 @@ namespace ExportScenario.XMLBuilder
         /// Creates first ScenarioElements: FileHeader, ParameterDeclarations(EMPTY), CatalogLocations(EMPTY), RoadNetwork.
         {
             string dateTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            
+            // split scenario_name: e.g. C:\\Users\\jonas\\Desktop\\myScenario.xosc --> myScenario
+            char[] separators = new char[] { '/', '\\' };
+            string[] name_split = scenario_name.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            scenario_name = name_split[name_split.Length - 1];
+            scenario_name = scenario_name.Split(".")[0];
 
             // add elements
             XmlNode file_header = root.CreateElement("FileHeader");
@@ -197,6 +203,18 @@ namespace ExportScenario.XMLBuilder
                     }
                 }
 
+                // Each adversary needs a StopAction at the end of their path. Otherwise they might run into walls and do non intentional stuff.
+                ActionType stopActionEndOfPath = new ActionType("StopAction", 5, 0);
+                TriggerInfo triggerEndOfPathReached1 = new TriggerInfo("StoryboardElementStateCondition", vehicle.Path.WaypointList[0].ActionTypeInfo);
+                TriggerInfo triggerEndOfPathReached2 = new TriggerInfo("ReachPositionCondition", vehicle.Id, 10, vehicle.Path.WaypointList[vehicle.Path.WaypointList.Count-1].Location);
+                List<TriggerInfo> triggerList = new List<TriggerInfo> { triggerEndOfPathReached1, triggerEndOfPathReached2 };
+                foreach (Waypoint w in vehicle.Path.WaypointList)
+                {
+                    foreach (ActionType action in w.Actions)
+                    triggerList.Add(new TriggerInfo("StoryboardElementStateCondition", action));
+                }
+                BuildEvent(maneuver, stopActionEndOfPath, triggerList);
+
                 // hierarchy
                 storyBoard.AppendChild(story);
                 story.AppendChild(act);
@@ -249,6 +267,18 @@ namespace ExportScenario.XMLBuilder
                         BuildEventsInWaypoint(maneuver, pedestrian.Path.WaypointList[i], pedestrian);
                     }
                 }
+
+                // Each adversary needs a StopAction at the end of their path. Otherwise they might run into walls and do non intentional stuff.
+                ActionType stopActionEndOfPath = new ActionType("StopAction", 5, 0);
+                TriggerInfo triggerEndOfPathReached1 = new TriggerInfo("StoryboardElementStateCondition", pedestrian.Path.WaypointList[0].ActionTypeInfo);
+                TriggerInfo triggerEndOfPathReached2 = new TriggerInfo("ReachPositionCondition", pedestrian.Id, 10, pedestrian.Path.WaypointList[pedestrian.Path.WaypointList.Count - 1].Location);
+                List<TriggerInfo> triggerList = new List<TriggerInfo> { triggerEndOfPathReached1, triggerEndOfPathReached2 };
+                foreach (Waypoint w in pedestrian.Path.WaypointList)
+                {
+                    foreach (ActionType action in w.Actions)
+                        triggerList.Add(new TriggerInfo("StoryboardElementStateCondition", action));
+                }
+                BuildEvent(maneuver, stopActionEndOfPath, triggerList);
 
                 // hierarchy
                 storyBoard.AppendChild(story);

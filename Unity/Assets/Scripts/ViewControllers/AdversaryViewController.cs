@@ -14,6 +14,7 @@ public class AdversaryViewController : VehicleViewController
     private PathController pathController;
     private AdversarySettingsPopupController vehicleSettingsController;
     private static readonly double INITIAL_SPEED = 30;
+    private static readonly double INITIAL_SPEED_PEDESTRIAN = 5;
 
 
     /// <summary>
@@ -36,7 +37,14 @@ public class AdversaryViewController : VehicleViewController
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path);
+        if (cat == AdversaryCategory.Pedestrian)
+        {
+            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED_PEDESTRIAN, cat, VehicleModelRepository.getDefaultModel(cat), path);
+        }
+        else
+        {
+            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path);
+        }
         vehicle.setView(this);
         vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
         vehicleSettingsController.gameObject.SetActive(true);
@@ -228,6 +236,7 @@ public class AdversaryViewController : VehicleViewController
     protected override void registerEntity()
     {
         mainController.addAdversary(this.vehicle);
+        EventManager.TriggerEvent(new CompletePlacementAction());
     }
 
     /// <summary>

@@ -136,7 +136,7 @@ namespace Entity
         /// <param name="conditionEdge">The edge (rising or falling) of the StoryboardElementStateCondition.</param>
         /// <returns>A new instance of the TriggerInfo class.</returns>
         public TriggerInfo(string triggerType, ActionType afterAction, string state = "completeState", double delay = 0, string conditionEdge = "rising")
-        /// for StoryboardElementStateCondition
+        /// for StoryboardElementStateCondition. string triggerType must be StoryboardElementStateCondition
         {
             ID = autoIncrementId++;
             TriggerType = triggerType; // "examples: SimulationTimeCondition", "DistanceCondition"
