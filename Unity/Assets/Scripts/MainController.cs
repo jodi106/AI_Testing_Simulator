@@ -260,15 +260,25 @@ public class MainController : MonoBehaviour
     private void initializeButtonBar(VisualElement editorGUI)
     {
         addPedestrianButton = editorGUI.Q<Button>("addPedestrianButton");
+        addPedestrianButton.AddManipulator(new ToolTipManipulator("Add Pedestrian"));
         addCarButton = editorGUI.Q<Button>("addCarButton");
+        addCarButton.AddManipulator(new ToolTipManipulator("Add Vehicle"));
         addMotorcycleButton = editorGUI.Q<Button>("addMotorcycleButton");
+        addMotorcycleButton.AddManipulator(new ToolTipManipulator("Add Motorcycle"));
         addBikeButton = editorGUI.Q<Button>("addBikeButton");
+        addBikeButton.AddManipulator(new ToolTipManipulator("Add Bike"));
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
+        worldSettingsButton.AddManipulator(new ToolTipManipulator("Open world settings"));
         exportButton = editorGUI.Q<Button>("exportButton");
+        exportButton.AddManipulator(new ToolTipManipulator("Export Scenario"));
         loadButton = editorGUI.Q<Button>("loadButton");
+        loadButton.AddManipulator(new ToolTipManipulator("Load Scenario"));
         saveButton = editorGUI.Q<Button>("saveButton");
+        saveButton.AddManipulator(new ToolTipManipulator("Save Scenario"));
         homeButton = editorGUI.Q<Button>("homeButton");
+        homeButton.AddManipulator(new ToolTipManipulator("Open Menu"));
         exitButton = editorGUI.Q<Button>("exitButton");
+        exitButton.AddManipulator(new ToolTipManipulator("Exit"));
 
         buttonBar = editorGUI.Q<VisualElement>("buttons");
         
