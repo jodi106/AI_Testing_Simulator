@@ -17,6 +17,10 @@ using SimpleFileBrowser;
 using System.Collections;
 using System;
 
+
+/// <summary>
+/// MainController manages the user interface and the interactions with the scenario editor.
+/// </summary>
 public class MainController : MonoBehaviour
 {
     public VisualTreeAsset eventEntryTemplate;
@@ -47,6 +51,10 @@ public class MainController : MonoBehaviour
     private uGUI.Toggle snapToggle;
     private GameObject actionButtonCanvas;
 
+
+    /// <summary>
+    /// The ScenarioInfo for the current scenario being edited.
+    /// </summary>
     public ScenarioInfo info { get; private set; }
 
     private IBaseController selectedEntity;
@@ -65,6 +73,9 @@ public class MainController : MonoBehaviour
 
     public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!
 
+    /// <summary>
+    /// Initializes the MainController and sets up event listeners.
+    /// </summary
     void Start()
     {
         this.info = new ScenarioInfo();
@@ -126,6 +137,10 @@ public class MainController : MonoBehaviour
         this.helpPopupController.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Loads a ScenarioInfo object into the editor.
+    /// </summary>
+    /// <param name="info">The ScenarioInfo object to load.</param>
     public void loadScenarioInfo(ScenarioInfo info)
     {
         //info = (ScenarioInfo)info.Clone(); //Do we need this? Exported .bin Info already the one before export changes? - Stefan
@@ -153,6 +168,9 @@ public class MainController : MonoBehaviour
         refreshEntityList();
     }
 
+    /// <summary>
+    /// Updates the MainController and handles user input.
+    /// </summary>
     public void Update()
     {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
@@ -161,6 +179,10 @@ public class MainController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the selected entity in the scenario editor.
+    /// </summary>
+    /// <param name="entity">The entity to set as the selected entity. Pass null to deselect the current entity.</param
     public void setSelectedEntity(IBaseController entity)
     {
         if (entity != null)
@@ -189,11 +211,19 @@ public class MainController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the action buttons to the specified position.
+    /// </summary>
+    /// <param name="pos">A Vector2 representing the new position for the action buttons.</param>
     public void moveActionButtons(Vector2 pos)
     {
         this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
+    /// <summary>
+    /// Adds an adversary to the scenario.
+    /// </summary>
+    /// <param name="entity">The Adversary object to be added.</param>
     public void addAdversary(Adversary entity)
     {
         if (entity is Adversary v)
@@ -206,6 +236,10 @@ public class MainController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Removes an adversary from the scenario.
+    /// </summary>
+    /// <param name="adversary">The Adversary object to be removed.</param>
     public void removeAdversary(Adversary adversary)
     {
         if(adversary is Adversary v)
@@ -225,15 +259,20 @@ public class MainController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the ego vehicle in the scenario.
+    /// </summary>
+    /// <param name="ego">The Ego object representing the ego vehicle.</param>
     public void setEgo(Ego ego)
     {
         this.info.setEgo(ego);
     }
 
-    /**
-     * Create a new adversary but do not add it to the model.
-     * It is added to the model once it is placed by the user.
-     */
+    /// <summary>
+    /// Creates a new adversary object without adding it to the scenario model.
+    /// It will be added to the model once it is placed by the user.
+    /// </summary>
+    /// <param name="category">The AdversaryCategory for the new adversary.</param>
     public void createAdversary(AdversaryCategory category)
     {
         var pos = Input.mousePosition;
@@ -257,6 +296,10 @@ public class MainController : MonoBehaviour
         disableButtonBar();
     }
 
+    /// <summary>
+    /// Initializes the button bar with the appropriate event listeners.
+    /// </summary>
+    /// <param name="editorGUI">A reference to the editor GUI's VisualElement.</param>
     private void initializeButtonBar(VisualElement editorGUI)
     {
         addPedestrianButton = editorGUI.Q<Button>("addPedestrianButton");
@@ -355,7 +398,9 @@ public class MainController : MonoBehaviour
         buttonBar.visible = false;
     }
 
-
+    /// <summary>
+    /// Disables the button bar, making all buttons unresponsive.
+    /// </summary>
     public void disableButtonBar()
     {
         addPedestrianButton.SetEnabled(false);
@@ -370,6 +415,9 @@ public class MainController : MonoBehaviour
         exitButton.SetEnabled(false);
     }
 
+    /// <summary>
+    /// Enables all buttons in the button bar.
+    /// </summary>
     public void enableButtonBar()
     {
         addPedestrianButton.SetEnabled(true);
@@ -384,6 +432,9 @@ public class MainController : MonoBehaviour
         exitButton.SetEnabled(true);
     }
 
+    /// <summary>
+    /// Initializes action buttons and their corresponding event listeners.
+    /// </summary>
     private void initializeActionButtons()
     {
         actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
@@ -421,6 +472,10 @@ public class MainController : MonoBehaviour
         actionButtonCanvas.SetActive(false);
     }
 
+    /// <summary>
+    /// Initializes the event list and sets up the related event handlers.
+    /// </summary>
+    /// <param name="editorGUI">The parent VisualElement for the event list.</param>
     private void initializeEventList(VisualElement editorGUI)
     {
         // Store a reference to the character list element
@@ -465,11 +520,20 @@ public class MainController : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Refreshes the Entity list.
+    /// </summary>
     public void refreshEntityList()
     {
         this.eventList.Rebuild();
     }
 
+    /// <summary>
+    /// Coroutine to save the ScenarioInfo in the specified format (binary or XML).
+    /// </summary>
+    /// <param name="exportInfo">The ScenarioInfo object to be saved.</param>
+    /// <param name="binary">A boolean value indicating whether to save in binary format (true) or XML format (false).</param>
+    /// <returns>Returns an IEnumerator for the coroutine.</returns>
     IEnumerator saveScenarioInfoWrapper(ScenarioInfo exportInfo, bool binary)
     {
         // Set the default extension
@@ -507,7 +571,10 @@ public class MainController : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Coroutine to load the binary ScenarioInfo file.
+    /// </summary>
+    /// <returns>Returns an IEnumerator for the coroutine.</returns>
     IEnumerator loadBinaryScenarioInfoWrapper()
     {
 
@@ -535,8 +602,10 @@ public class MainController : MonoBehaviour
         }
     }
 
-    //This Function is bind with the "Export button". The actual binding is made in the Start function of the script
-    //Anything written here will be run at the time of pressing "Export" Button
+
+    /// <summary>
+    /// Exports the current scenario upon clicking the "Export" button.
+    /// </summary>
     void ExportOnClick()
     {
         //Uncomment to test Loading and Saving
@@ -573,16 +642,26 @@ public class MainController : MonoBehaviour
         StartCoroutine(saveScenarioInfoWrapper(exportInfo, false));
     }
 
+    /// <summary>
+    /// Loads the binary ScenarioInfo file.
+    /// </summary>
     private void LoadBinaryScenarioInfo()
     {
         StartCoroutine(loadBinaryScenarioInfoWrapper());
     }
 
+    /// <summary>
+    /// Saves the ScenarioInfo in binary format.
+    /// </summary>
+    /// <param name="info">The ScenarioInfo object to be saved.</param>
     private void SaveBinaryScenarioInfo(ScenarioInfo info)
     {
         StartCoroutine(saveScenarioInfoWrapper(info, true));
     }
 
+    /// <summary>
+    /// Returns the camera to the home position asynchronously.
+    /// </summary>
     private async void ReturnToHome()
     {
         var result = await this.yesNoPopupController.Show("Change the map?", "Do you really want to change the map?\nMake sure to save everything! Unsaved changes WILL be lost!");
@@ -593,6 +672,9 @@ public class MainController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Quits the application asynchronously after prompting the user for confirmation.
+    /// </summary>
     private async void QuitApplication()
     {
         var result = await this.yesNoPopupController.Show("Quit?", "Do you really want to Quit the Application?\nMake sure to save everything! Unsaved Changes WILL be lost!");

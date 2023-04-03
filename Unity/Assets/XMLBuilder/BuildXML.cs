@@ -10,8 +10,11 @@ using System.Xml;
 
 namespace ExportScenario.XMLBuilder
 {
+
+    /// <summary>
+    /// Class to create an combine all relevant XML Blocks to final OpenScenario file
+    /// </summary>
     public class BuildXML
-    /// <summary>Class to create an combine all relevant XML Blocks to final OpenScenario file.</summary>
     {
         private XmlDocument root;
         private XmlNode openScenario;
@@ -20,9 +23,11 @@ namespace ExportScenario.XMLBuilder
 
         private bool builtAtLeastOneStory = false;
 
-
+        /// <summary>
+        /// Constructor that initializes BuildXML object with head section.
+        /// </summary>
+        /// <param name="scenarioInfo">Scenario information object</param>
         public BuildXML(ScenarioInfo scenarioInfo)
-        /// Constructor to initializes BuildXML object with head section.
         {
             this.scenarioInfo = scenarioInfo;
 
@@ -33,8 +38,10 @@ namespace ExportScenario.XMLBuilder
             root.AppendChild(openScenario);
         }
 
+        /// <summary>
+        /// Combines all XML blocks.
+        /// </summary>
         public void CombineXML()
-        /// Combines all xml blocks.
         {
             BuildFirstOpenScenarioElements(scenarioInfo.Path, scenarioInfo.MapURL);
 
@@ -45,8 +52,11 @@ namespace ExportScenario.XMLBuilder
             ExportXML(scenarioInfo.Path);
         }
 
+        /// <summary>
+        /// Exports the finished OpenScenario file to the defined path.
+        /// </summary>
+        /// <param name="path">Path where the OpenScenario file will be saved</param>
         public void ExportXML(string path)
-        /// Exports the finished OpenScenario file to defined path.
         {
             root.Save(path);
             //root.Save(scenario_name + "3.xosc");
@@ -54,6 +64,11 @@ namespace ExportScenario.XMLBuilder
             //root.Save(Console.Out);
         }
 
+        /// <summary>
+        /// Creates the first ScenarioElements: FileHeader, ParameterDeclarations (EMPTY), CatalogLocations (EMPTY), and RoadNetwork.
+        /// </summary>
+        /// <param name="scenario_name">The name of the scenario (default is "MyScenario")</param>
+        /// <param name="map">The name of the map (default is "Town04")</param>
         private void BuildFirstOpenScenarioElements(string scenario_name = "MyScenario", string map = "Town04") // you can rename this method
         /// Creates first ScenarioElements: FileHeader, ParameterDeclarations(EMPTY), CatalogLocations(EMPTY), RoadNetwork.
         {
@@ -89,8 +104,10 @@ namespace ExportScenario.XMLBuilder
             road_network.AppendChild(scene_graph_file);
         }
 
+        /// <summary>
+        /// Combines Init block and all Entity Story blocks. Every Entity has one separate Story.
+        /// </summary>
         public void BuildStoryboard()
-        /// Combines Init block and all Entity Story blocks. Every Entity has one seperate Story.
         {
             builtAtLeastOneStory = false;
 
@@ -125,6 +142,10 @@ namespace ExportScenario.XMLBuilder
             buildTrigger.CriteriaConditions(stoptrigger);
         }
 
+        /// <summary>
+        /// Creates Ego Vehicle Stories from the story head and Events.
+        /// </summary>
+        /// <param name="ego">The Ego vehicle object</param>
         public void BuildEgoStory(Ego ego)
         /// Creates Vehicle Stories from story head and Events.
         {
@@ -163,6 +184,10 @@ namespace ExportScenario.XMLBuilder
             builtAtLeastOneStory = true;
         }
 
+        /// <summary>
+        /// Creates Vehicle Stories from the story head and Events.
+        /// </summary>
+        /// <param name="vehicle">The Adversary vehicle object</param>
         public void BuildVehicleStories(Adversary vehicle)
         /// Creates Vehicle Stories from story head and Events.
         {
@@ -229,6 +254,11 @@ namespace ExportScenario.XMLBuilder
                 builtAtLeastOneStory = true;
             }
         }
+
+        /// <summary>
+        /// Creates Pedestrian Stories from the story head and Events.
+        /// </summary>
+        /// <param name="pedestrian">The Adversary pedestrian object</param>
         public void BuildPedestrianStories(Adversary pedestrian)
         /// Creates Pedestrian Stories from story head and Events.
         {
@@ -295,6 +325,14 @@ namespace ExportScenario.XMLBuilder
             }
         }
 
+        /// <summary>
+        /// Builds an event by combining actions and triggers and appends it to a given XML node.
+        /// One event corresponds to one waypoint object in the path.
+        /// </summary>
+        /// <param name="maneuver">The XML node to which the event will be appended.</param>
+        /// <param name="actionType">The action type to be executed in the event.</param>
+        /// <param name="triggerInfo">The list of trigger information to be executed in the event.</param>
+        /// <param name="name">The name of the event. If null, a default name will be set based on the action type.</param>
         public void BuildEvent(XmlNode maneuver, ActionType actionType, List<TriggerInfo> triggerInfo, string name = null)
         {
             XmlNode new_event = root.CreateElement("Event");
@@ -317,8 +355,14 @@ namespace ExportScenario.XMLBuilder
             maneuver.AppendChild(new_event);
         }
 
+        /// <summary>
+        /// Builds events by combining actions and triggers and combines them to one XML block.
+        /// One event corresponds to one waypoint object in the path.
+        /// </summary>
+        /// <param name="maneuver">The XML node to which the events will be appended.</param>
+        /// <param name="waypoint">The waypoint object containing the actions and location information.</param>
+        /// <param name="entity">The entity associated with the events.</param>
         public void BuildEventsInWaypoint(XmlNode maneuver, Waypoint waypoint, BaseEntity entity)
-        /// Creates Events by combining Actions and Triggers and combines them to one XML Block. One Event corresponds to one Waypoint Object in the Path.
         {
             int indexStopAction = waypoint.Actions.FindIndex(action => action.Name == "StopAction");
             int indexSpeedAction = waypoint.Actions.FindIndex(action => action.Name == "SpeedAction");
@@ -367,7 +411,12 @@ namespace ExportScenario.XMLBuilder
             }
         }
 
-
+        /// <summary>
+        /// Starts the story by creating and appending the start trigger to a given XML node.
+        /// </summary>
+        /// <param name="act">The XML node representing the act to which the start trigger will be appended.</param>
+        /// <param name="maneuver">The XML node representing the maneuver to which the start trigger will be appended.</param>
+        /// <param name="vehicle">The adversary vehicle associated with the start trigger.</param>
         private void StartStory(XmlNode act, XmlNode maneuver, Adversary vehicle)
         {
             ActionType startStorySpeedAction;
@@ -419,6 +468,9 @@ namespace ExportScenario.XMLBuilder
             }
         }
 
+        /// <summary>
+        /// Builds an empty story by creating and appending the necessary XML nodes.
+        /// </summary>
         public void BuildEmptyStory()
         {
             XmlNode story = root.CreateElement("Story");
@@ -439,8 +491,12 @@ namespace ExportScenario.XMLBuilder
             maneuverGroup.AppendChild(actors);
         }
 
-
-        // Helper
+        /// <summary>
+        /// Helper method to set an attribute with a given name and value for a specified XML element.
+        /// </summary>
+        /// <param name="name">The name of the attribute to be set.</param>
+        /// <param name="value">The value to be assigned to the attribute.</param>
+        /// <param name="element">The XML element to which the attribute is to be added.</param>
         private void SetAttribute(string name, string value, XmlNode element)
         {
             XmlAttribute attribute = root.CreateAttribute(name);

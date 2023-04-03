@@ -9,19 +9,33 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace ExportScenario.XMLBuilder
 {
+
+    /// <summary>
+    ///  Class to create Tiggers. Trigger allow to define start or stop conditions for Storys or Events.
+    /// </summary>
     internal class BuildTrigger
-    /// Class to create Tiggers. Trigger allow to define start or stop conditions for Storys or Events.
     {
         private XmlDocument root;
         private ScenarioInfo scenarioInfo;
+
+        /// <summary>
+        /// Constructor for the BuildTrigger class.
+        /// </summary>
+        /// <param name="root">XmlDocument instance representing the root element.</param>
+        /// <param name="scenarioInfo">ScenarioInfo instance containing scenario information.</param>
         public BuildTrigger(XmlDocument root, ScenarioInfo scenarioInfo)
         {
             this.root = root;
             this.scenarioInfo = scenarioInfo;
         }
 
+        /// <summary>
+        /// Combines Trigger xmlBlock - if required - with multiple conditions in a condition group.
+        /// </summary>
+        /// <param name="parentNode">Parent XmlNode where the trigger will be appended.</param>
+        /// <param name="start">True if creating a StartTrigger, false if creating a StopTrigger.</param>
+        /// <param name="TriggerList">List of TriggerInfo objects containing the trigger information.</param>
         public void CombineTrigger(XmlNode parentNode, bool start, List<TriggerInfo> TriggerList)
-        /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group.
         {
             XmlNode trigger;
             if (start)
@@ -50,6 +64,11 @@ namespace ExportScenario.XMLBuilder
             trigger.AppendChild(conditionGroup);
         }
 
+        /// <summary>
+        /// Creates SimulationTimeCondition. Triggers after the simulation has run for a specified time.
+        /// </summary>
+        /// <param name="condition">XmlNode representing the condition element.</param>
+        /// <param name="triggerInfo">TriggerInfo object containing the trigger information.</param>
         public void SimulationTimeCondition(XmlNode condition, TriggerInfo triggerInfo)
         /// Creates SimulationTimeCondition. Triggers after simulation ran for specified time.
         {
@@ -61,8 +80,12 @@ namespace ExportScenario.XMLBuilder
             byValueCondition.AppendChild(simulationTimeCondition);
         }
 
+        /// <summary>
+        /// Creates DistanceCondition. Triggers when a specified entity has traveled a specified distance.
+        /// </summary>
+        /// <param name="condition">XmlNode representing the condition element.</param>
+        /// <param name="triggerInfo">TriggerInfo object containing the trigger information.</param>
         public void DistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
-        /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -93,8 +116,12 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
-        public void RelativeDistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// <summary>
         /// Create RelativeDistanceCondition. Like ReachPositionAction but also works at start of scenario.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param
+        public void RelativeDistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -118,10 +145,14 @@ namespace ExportScenario.XMLBuilder
             triggeringEntities.AppendChild(entityRef);
             entityCondition.AppendChild(relativeDistanceCondition);
         }
-
-        public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
+        
+        /// <summary>
         /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
-        /// Same as DistanceCondition but simpler to read
+        /// Same as DistanceCondition but simpler to read.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param>
+        public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -151,8 +182,12 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
-        public void StandStillCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// <summary>
         /// Create StandStillCondition. Triggers when specified entity does not move for a specific time.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param>
+        public void StandStillCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -172,8 +207,12 @@ namespace ExportScenario.XMLBuilder
             entityCondition.AppendChild(standStillCondition);
         }
 
-        public void StoryboardElementStateCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// <summary>
         /// Trigger that is true if another Action is completed. Useful to create follow up actions.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param>
+        public void StoryboardElementStateCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byValueCondition = root.CreateElement("ByValueCondition");
             condition.AppendChild(byValueCondition);
@@ -184,6 +223,10 @@ namespace ExportScenario.XMLBuilder
             byValueCondition.AppendChild(storyboardElementStateCondition);
         }
 
+        /// <summary>
+        /// Creates a group of CriteriaConditions and appends it to the given stopTrigger XmlNode.
+        /// </summary>
+        /// <param name="stopTrigger">An XmlNode to which the created ConditionGroup will be appended</param>
         public void CriteriaConditions(XmlNode stopTrigger)
         {
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
@@ -199,6 +242,13 @@ namespace ExportScenario.XMLBuilder
             stopTrigger.AppendChild(conditionGroup);
         }
 
+        /// <summary>
+        /// Creates a CriteriaCondition XmlNode and appends it to the given conditionGroup XmlNode.
+        /// </summary>
+        /// <param name="conditionGroup">An XmlNode to which the created CriteriaCondition will be appended</param>
+        /// <param name="name">The name of the CriteriaCondition</param>
+        /// <param name="parameterRef">The parameter reference for the ParameterCondition XmlNode</param>
+        /// <param name="value">The value for the ParameterCondition XmlNode</param>
         private void CriteriaCondition(XmlNode conditionGroup, string name, string parameterRef, string value)
         {
             XmlNode condition = root.CreateElement("Condition");
@@ -374,7 +424,12 @@ namespace ExportScenario.XMLBuilder
         }
         */
 
-        /// helper
+        /// <summary>
+        /// Creates and appends an XmlAttribute to the given XmlNode element.
+        /// </summary>
+        /// <param name="name">The name of the attribute</param>
+        /// <param name="value">The value of the attribute</param>
+        /// <param name="element">The XmlNode element to which the attribute will be appended</param>
         private void SetAttribute(string name, string value, XmlNode element)
         {
             XmlAttribute attribute = root.CreateAttribute(name);
@@ -387,6 +442,12 @@ namespace ExportScenario.XMLBuilder
 
 public static class Helper
 {
+
+    /// <summary>
+    /// Converts the first character of a string to lowercase, if it is an uppercase character.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <returns>A string with the first character in lowercase, if it was uppercase; otherwise, the original string</returns
     public static string? FirstCharToLowerCase(this string? str)
     {
         if (!string.IsNullOrEmpty(str) && char.IsUpper(str[0]))

@@ -7,14 +7,23 @@ using Entity;
 
 namespace ExportScenario.XMLBuilder
 {
+
+    /// <summary>
+    /// Class to create scenario entities
+    /// </summary>
     internal class BuildEntities
-    /// <summary>Class to create scenario entities.</summary>
     {
         private ScenarioInfo scenarioInfo;
         private XmlDocument root;
         private XmlNode openScenario;
         private XmlNode entities;
 
+        /// <summary>
+        /// Initializes a new instance of the BuildEntities class to create scenario entities.
+        /// </summary>
+        /// <param name="scenarioInfo">The ScenarioInfo containing the necessary attributes for creating the entities.</param>
+        /// <param name="root">The XmlDocument for creating the XML structure.</param>
+        /// <param name="openScenario">The XmlNode for the OpenScenario element.</param>
         public BuildEntities(ScenarioInfo scenarioInfo, XmlDocument root, XmlNode openScenario)
         /// Constructor 
         {
@@ -25,6 +34,9 @@ namespace ExportScenario.XMLBuilder
             openScenario.AppendChild(entities);
         }
 
+        /// <summary>
+        /// Combines ScenarioObject XML blocks for vehicles and pedestrians.
+        /// </summary>
         public void CombineEntities()
         /// Combines ScenarioObject xml blocks
         {
@@ -44,6 +56,14 @@ namespace ExportScenario.XMLBuilder
             }
         }
 
+        /// <summary>
+        /// Creates a vehicle entity with the specified parameters.
+        /// </summary>
+        /// <param name="model">The vehicle model name.</param>
+        /// <param name="scenarioObjectName">The scenario object name.</param>
+        /// <param name="propertyValue1">The first property value.</param>
+        /// <param name="propertyValue2">The second property value.</param>
+        /// <param name="maxSpeed">The maximum speed of the vehicle in m/s. Default is 69.444 (250 km/h).</param>
         public void BuildVehicle(string model, string scenarioObjectName, string propertyValue1, string propertyValue2, double maxSpeed = 69.444)
         /// Creates vehicle entity.
         {
@@ -103,6 +123,12 @@ namespace ExportScenario.XMLBuilder
             properties.AppendChild(property2);
         }
 
+        /// <summary>
+        /// Creates a pedestrian entity with the specified parameters.
+        /// </summary>
+        /// <param name="model">The pedestrian model name.</param>
+        /// <param name="scenarioObjectName">The scenario object name.</param>
+        /// <param name="mass">The mass of the pedestrian in kg. Default is "90.0".</param>
         public void BuildPedestrian(string model, string scenarioObjectName, string mass = "90.0")
         /// Creates Pedestrian entity.
         {
@@ -139,7 +165,12 @@ namespace ExportScenario.XMLBuilder
             properties.AppendChild(property);
         }
 
-        // Helper
+        /// <summary>
+        /// Helper method to set an attribute for an XmlNode.
+        /// </summary>
+        /// <param name="name">The name of the attribute.</param>
+        /// <param name="value">The value of the attribute.</param>
+        /// <param name="element">The XmlNode for which the attribute will be set.</param>
         private void SetAttribute(string name, string value, XmlNode element)
         {
             XmlAttribute attribute = root.CreateAttribute(name);
@@ -147,6 +178,11 @@ namespace ExportScenario.XMLBuilder
             element.Attributes.Append(attribute);
         }
 
+        /// <summary>
+        /// Converts a Unity Color to a comma-separated string.
+        /// </summary>
+        /// <param name="vehicle">The BaseEntity containing the Unity Color.</param>
+        /// <returns>A comma-separated string representation of the Unity Color.</returns>
         private string ConvertUnityColorToString(BaseEntity vehicle)
         {
             UnityEngine.Color32 c = new UnityEngine.Color(vehicle.Color.r, vehicle.Color.g, vehicle.Color.b, 1f);

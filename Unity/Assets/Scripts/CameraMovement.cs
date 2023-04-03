@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// This class handles the camera movement, zoom, and map boundaries in a Unity scene.
+/// </summary>
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
@@ -20,7 +24,10 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float mapMinX, mapMaxX, mapMinY, mapMaxY;
 
-    //Function Awake is called at Run
+    /// <summary>
+    /// Called at runtime when the script instance is being loaded.
+    /// Initializes the map renderer, event listeners, and calculates map edges.
+    /// </summary>
     public void Awake()
     {
         mapRenderer = GameObject.Find("Map").GetComponent<SpriteRenderer>();
@@ -68,6 +75,10 @@ public class CameraMovement : MonoBehaviour
         recalulateEdges();
     }
 
+
+    /// <summary>
+    /// Recalculates the edges of the map.
+    /// </summary>
     void recalulateEdges()
     {
         //Calculating the Edges for the Map(Background)
@@ -78,7 +89,10 @@ public class CameraMovement : MonoBehaviour
         mapMaxY = mapRenderer.transform.position.y + mapRenderer.bounds.size.y / 2f;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame.
+    /// Handles camera zooming and checks if the pointer is over a UI element.
+    /// </summary>
     void Update()
     {
 
@@ -94,6 +108,10 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pans the camera to the specified origin.
+    /// </summary>
+    /// <param name="origin">The target origin to pan the camera to.</param>
     private void PanCamera(Vector3 origin)
     {
         //Set the actual camera to new position using ClampCameraFunction
@@ -101,6 +119,11 @@ public class CameraMovement : MonoBehaviour
         cam.transform.position = ClampCamera(cam.transform.position + diff);
     }
 
+    /// <summary>
+    /// Clamps the camera position to the map boundaries.
+    /// </summary>
+    /// <param name="targetPosition">The target position to move the camera to.</param>
+    /// <returns>The clamped camera position.</returns>
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
         //Moves the actual camera to target position
@@ -127,11 +150,18 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private GameObject WelcomeBackground;
 
+    /// <summary>
+    /// Handles the "Home" button click event.
+    /// </summary>
     public async void Home()
     {
         EventManager.TriggerEvent(new MapChangeAction(""));
     }
 
+    /// <summary>
+    /// Handles the "View Map" button click event.
+    /// </summary>
+    /// <param name="number">The map number to be displayed.</param>
     public void ViewMap(int number)
     {
         var mapName = "Town" + (number == 10 ? "10HD" : ("0" + number));
