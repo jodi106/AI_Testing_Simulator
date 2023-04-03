@@ -472,26 +472,50 @@ public class MainController : MonoBehaviour
 
     IEnumerator saveScenarioInfoWrapper(ScenarioInfo exportInfo, bool binary)
     {
+        // Set the default extension
+        string defaultExtension = binary ? ".sced" : ".xosc";
+        string defaultFilterString = binary ? "SCED Files (.sced)" : "XOSC Files (.xosc)";
+
+        // Set the default filter
+        FileBrowser.SetFilters(true, new FileBrowser.Filter(defaultFilterString, defaultExtension));
+        FileBrowser.SetDefaultFilter(defaultExtension);
+
         yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Files);
+        
         if (FileBrowser.Success)
         {
+            string filePath = FileBrowser.Result[0];
+
+            // Check if the file has the correct extension, otherwise append it
+            if (System.IO.Path.GetExtension(filePath) != defaultExtension)
+            {
+                filePath += defaultExtension;
+            }
+
             if (!binary)
             {
-                exportInfo.Path = FileBrowser.Result[0];
+                exportInfo.Path = filePath;
                 BuildXML doc = new BuildXML(exportInfo);
                 doc.CombineXML();
             }
             else
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                using FileStream stream = new FileStream(FileBrowser.Result[0], FileMode.Create);
+                using FileStream stream = new FileStream(filePath, FileMode.Create);
                 formatter.Serialize(stream, info);
             }
         }
     }
 
+
     IEnumerator loadBinaryScenarioInfoWrapper()
     {
+
+        // Set the filter to only allow .sced files
+        var scedFilter = new FileBrowser.Filter("SCED Files (.sced)", "sced");
+        FileBrowser.SetFilters(true, scedFilter);
+        FileBrowser.SetDefaultFilter("sced");
+
         yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files);
         if(FileBrowser.Success)
         {
