@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+/// <summary>
+/// This class handles the path system for an adversary in a game. It manages waypoints, line renderers, and interaction with the adversary view controller.
+/// </summary>
 public class PathController : MonoBehaviour
 {
     public GameObject waypointPrefab;
@@ -21,6 +25,10 @@ public class PathController : MonoBehaviour
 
     public Path Path { get; set; }
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// Initializes components and sets up event listeners.
+    /// </summary>
     private void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
@@ -60,16 +68,28 @@ public class PathController : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// Determines if the path should ignore waypoints.
+    /// </summary>
+    /// <returns>Returns true if waypoints should be ignored, otherwise false.</returns
     public bool shouldIgnoreWaypoints()
     {
         return adversaryViewController.shouldIgnoreWaypoints();
     }
 
+    /// <summary>
+    /// Checks if the path is currently in building mode.
+    /// </summary>
+    /// <returns>Returns true if building, otherwise false.</returns>
     public bool isBuilding()
     {
         return building;
     }
 
+    /// <summary>
+    /// Selects the path and enables building mode.
+    /// </summary>
+    /// <param name="forward">If true, calls the select method on the adversary view controller. Default is false.</param>
     public void select(bool forward = false)
     {
         adjustHeights(true);
@@ -81,6 +101,11 @@ public class PathController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Adjusts the heights of the path and waypoints based on the selected state.
+    /// </summary>
+    /// <param name="selected">True if the path should be set as selected, otherwise false.</param>
     public void adjustHeights(bool selected)
     {
         for (var i = 0; i < pathRenderer.positionCount; i++)
@@ -94,6 +119,10 @@ public class PathController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Deselects the path and disables building mode.
+    /// </summary>
+    /// <param name="forward">If true, calls the deselect method on the adversary view controller. Default is false.</param
     public void deselect(bool forward = false)
     {
         adjustHeights(false);
@@ -106,6 +135,9 @@ public class PathController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Destroys the path and its associated waypoints.
+    /// </summary>
     public void Destroy()
     {
         foreach (var (wp, _) in waypointViewControllers)
@@ -115,6 +147,12 @@ public class PathController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Initializes the path controller with the specified parameters.
+    /// </summary>
+    /// <param name="controller">The adversary view controller associated with this path.</param>
+    /// <param name="v">The adversary object associated with this path.</param>
+    /// <param name="building">Optional parameter to set the initial building state. Default is true.</param>
     public void Init(AdversaryViewController controller, Adversary v, bool building = true)
     {
         Path = v.Path;
@@ -137,9 +175,15 @@ public class PathController : MonoBehaviour
         waypointViewControllers.First.Value.Item1.gameObject.SetActive(false);
     }
 
-    //Target of a click is either a waypoint or the mouse position itself, if waypoints are ignored
+
+    ///<summary>
+    ///Target of a click is either a waypoint or the mouse position itself, if waypoints are ignored
+    ///</summary>
+    ///<param name="mousePosition">The position of the mouse in the game world</param>
+    ///<returns>A Location object representing the target of the click</returns>
     public Location FindMouseTarget(Vector2 mousePosition)
     {
+        //Target of a click is either a waypoint or the mouse position itself, if waypoints are ignored
         Location waypoint;
         if (!this.adversaryViewController.shouldIgnoreWaypoints())
         {
@@ -152,6 +196,12 @@ public class PathController : MonoBehaviour
         return waypoint;
     }
 
+
+    /// <summary>
+    /// Determines the type of collision at a given position by checking if the position hits any specific collider.
+    /// </summary>
+    /// <param name="position">The position to check for collision as a Vector2.</param>
+    /// <returns>A CollisionType enum value representing the type of collision at the given position.</returns>
     CollisionType findCollisionType(Vector2 position)
     {
         RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(position, -10), -Vector2.up);
@@ -175,11 +225,12 @@ public class PathController : MonoBehaviour
         return CollisionType.None;
     }
 
-    /*
-     * Only updates the preview renderer. Does not change the model in any way.
-     */
+    /// <summary>
+    /// Updates the preview renderer without changing the model. Displays preview based on different collision types and building state.
+    /// </summary>
     public void Update()
     {
+        //Only updates the preview renderer. Does not change the model in any way.
         if (MainController.freeze) return;
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (building)
@@ -236,12 +287,12 @@ public class PathController : MonoBehaviour
         }
     }
 
-    /*
-     * Add a Waypoint to the end of the path.
-     * If the optional waypoint is passed, no Waypoint will be generated and appended to Path.
-     * waypointViewControllers and pathRenderer are always in sync.
-     * Path may have more Waypoints than there are controllers in waypointsViewControllers, if the controller is being generated from an existing Path.
-     */
+    /// <summary>
+    /// Adds a waypoint to the end of the path, either generated or passed as an argument. Keeps waypointViewControllers and pathRenderer in sync.
+    /// </summary>
+    /// <param name="position">The position to add the waypoint as a Vector2.</param>
+    /// <param name="waypoint">An optional Waypoint object to be added to the path.</param>
+    /// <param name="addLaneChanges">A boolean flag to indicate whether to add lane changes or not. Defaults to true.</param>
     public void AddMoveToWaypoint(Vector2 position, Waypoint waypoint = null, bool addLaneChanges = true)
     {
         var pathLen = 0;
@@ -287,11 +338,13 @@ public class PathController : MonoBehaviour
         afterEdit();
     }
 
-    /*
-     * Add secondary waypoints to the Path and waypointViewControllers.
-     * If a linked list node is passed then the generated waypoint and and waypointViewController will be inserted after the node.
-     * Otherwise they are added to the end of both containers.
-     */
+    /// <summary>
+    /// Adds secondary waypoints for lane changes to the Path and waypointViewControllers. Inserts the generated waypoint and waypointViewController after the specified node, or at the end of both containers if no node is provided.
+    /// </summary>
+    /// <param name="laneChanges">A list of integers representing lane change positions.</param>
+    /// <param name="path">A list of Vector2 points representing the path.</param>
+    /// <param name="node">An optional LinkedListNode containing a tuple of WaypointViewController and an integer, used to insert the new waypoint after this node. Default is null.</param>
+    /// <returns>Returns the number of lane changes used in the path.</returns>
     public int addLaneChangeWaypoints(List<int> laneChanges, List<Vector2> path, LinkedListNode<(WaypointViewController, int)>? node = null)
     {
         laneChanges.Sort();
@@ -341,6 +394,14 @@ public class PathController : MonoBehaviour
         return used;
     }
 
+    /// <summary>
+    /// Creates a Waypoint GameObject and initializes it with the provided parameters.
+    /// </summary>
+    /// <param name="x">The x-coordinate of the waypoint.</param>
+    /// <param name="y">The y-coordinate of the waypoint.</param>
+    /// <param name="secondary">An optional boolean indicating whether the waypoint is secondary. Default is false.</param>
+    /// <param name="w">An optional Waypoint instance to be used. Default is null.</param>
+    /// <returns>Returns a WaypointViewController with the initialized waypoint GameObject.</returns>
     WaypointViewController createWaypointGameObject(float x, float y, bool secondary = false, Waypoint w = null)
     {
         GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(x, y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
@@ -363,6 +424,12 @@ public class PathController : MonoBehaviour
         return viewController;
     }
 
+    /// <summary>
+    /// Generates a Waypoint with the given location and action type, and a list of triggers for lane changes.
+    /// </summary>
+    /// <param name="loc">A Location object representing the location of the waypoint.</param>
+    /// <param name="actionType">An ActionType object specifying the action associated with the waypoint.</param>
+    /// <returns>Returns a new Waypoint with the specified location, action type, and triggers for lane changes.</returns>
     Waypoint generateWaypoint(Location loc, ActionType actionType)
     {
         List<TriggerInfo> triggersLaneChange = new List<TriggerInfo>();
@@ -375,6 +442,9 @@ public class PathController : MonoBehaviour
         return new Waypoint(loc, actionType, triggersLaneChange);
     }
 
+    /// <summary>
+    /// Resets the EdgeCollider2D with the positions of the pathRenderer.
+    /// </summary>
     void resetEdgeCollider()
     {
         Vector2[] positions = new Vector2[pathRenderer.positionCount];
@@ -388,12 +458,11 @@ public class PathController : MonoBehaviour
         edgeCollider.SetPoints(positionList);
     }
 
-    /*
-     * Given a waypointViewController, finds the first predecessor and successor which are not secondary waypoints
-     * and optionally deletes all secondary waypoints along the path.
-     * prevIndex indicates which pathRenderer position the previous non-secondary waypoint corresponds to.
-     * This value is neccessary in order to restore the pathrenderer positions after an edit.
-     */
+    /// Finds the first predecessor and successor of the given waypointController that are not secondary waypoints, and optionally deletes all secondary waypoints along the path. Also calculates the prevIndex, which corresponds to the position of the previous non-secondary waypoint in the pathRenderer.
+    /// </summary>
+    /// <param name="waypointController">A WaypointViewController instance for which to find the predecessor and successor.</param>
+    /// <param name="removeSecondaries">An optional boolean indicating whether to remove secondary waypoints. Default is true.</param>
+    /// <returns>Returns a tuple containing the LinkedListNodes for the previous, current, and next waypoints, and the prevIndex value.</returns>
     private (LinkedListNode<(WaypointViewController, int)>,
         LinkedListNode<(WaypointViewController, int)>,
         LinkedListNode<(WaypointViewController, int)>,
@@ -440,6 +509,12 @@ public class PathController : MonoBehaviour
         return (prev, cur, next, prevIndex);
     }
 
+    /// <summary>
+    /// Moves the specified waypoint to the new x and y coordinates, updating the path and secondary waypoints as needed.
+    /// </summary>
+    /// <param name="waypointController">The WaypointViewController instance to be moved.</param>
+    /// <param name="x">The new x-coordinate of the waypoint.</param>
+    /// <param name="y">The new y-coordinate of the waypoint.</param>
     public void MoveWaypoint(WaypointViewController waypointController, float x, float y)
     {
         var (prev, cur, next, prevIndex) = getNeighbors(waypointController);
@@ -514,6 +589,11 @@ public class PathController : MonoBehaviour
         afterEdit();
     }
 
+    /// <summary>
+    /// Removes a waypoint from the path and optionally restores the path between the previous and next waypoints.
+    /// </summary>
+    /// <param name="controller">The WaypointViewController associated with the waypoint to remove.</param>
+    /// <param name="restorePath">Whether to restore the path between the previous and next waypoints after removing the waypoint. Default is true.</param>
     public void removeWaypoint(WaypointViewController controller, bool restorePath = true)
     {
         var (prev, cur, next, prevIndex) = getNeighbors(controller, restorePath);
@@ -576,6 +656,9 @@ public class PathController : MonoBehaviour
         afterEdit();
     }
 
+    /// <summary>
+    /// Updates the adversary rotation and edge collider after a path edit.
+    /// </summary>
     public void afterEdit()
     {
         if (adversaryViewController.shouldIgnoreWaypoints())
@@ -597,6 +680,11 @@ public class PathController : MonoBehaviour
         resetEdgeCollider();
     }
 
+    /// <summary>
+    /// Moves the first waypoint to the specified x and y coordinates.
+    /// </summary>
+    /// <param name="x">The x coordinate of the new location.</param>
+    /// <param name="y">The y coordinate of the new location.</param>
     public void MoveFirstWaypoint(float x, float y)
     {
         var first = this.waypointViewControllers.First.Value.Item1.getLocation();
@@ -607,6 +695,10 @@ public class PathController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the color of the path, preview, and waypoints.
+    /// </summary>
+    /// <param name="color">The Color to set for the path, preview, and waypoints.</param>
     public void SetColor(Color color)
     {
         this.pathRenderer.startColor = this.pathRenderer.endColor = color;
@@ -619,6 +711,9 @@ public class PathController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles mouse down events on the path, allowing the user to interact with the waypoints and path.
+    /// </summary>
     public void OnMouseDown()
     {
         if (MainController.freeze) return;
@@ -690,13 +785,19 @@ public class PathController : MonoBehaviour
     }
 
     //TODO find better solution
+    /// <summary>
+    /// Returns the WaypointViewController for the first waypoint in the path.
+    /// </summary>
+    /// <returns>The WaypointViewController of the first waypoint in the path.</returns>
     public WaypointViewController getFirstWaypointController()
     {
         return this.waypointViewControllers.First.Value.Item1;
     }
 }
 
-//Collider type for a given position. None means position is over map collider
+/// <summary>
+/// Enumeration representing the type of collider at a given position.
+/// </summary>
 enum CollisionType
 {
     Path,

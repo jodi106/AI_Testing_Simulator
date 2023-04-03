@@ -4,7 +4,9 @@ using Entity;
 using System;
 using UnityEngine;
 
-
+/// <summary>
+/// Controller for the Adversary entity in the scene.
+/// </summary>
 public class EgoViewController : VehicleViewController
 {
     public GameObject DestinationPrefab;
@@ -12,16 +14,30 @@ public class EgoViewController : VehicleViewController
     private DestinationController destination;
     private EgoSettingsPopupController egoSettingsController;
     private static readonly double INITIAL_SPEED = 10;
+
+
+    /// <summary>
+    /// Calls the Awake Method of the superclass.
+    /// </summary>
     public new void Awake()
     {
         base.Awake();
     }
 
+
+    /// <summary>
+    /// Gets the corresponding Sprite for the Ego Vehicle
+    /// </summary>
+    /// <returns>Sprite of the Ego</returns>
     public override Sprite getSprite()
     {
         return Resources.Load<Sprite>("sprites/" + "ego");
     }
 
+
+    /// <summary>
+    /// Selects the current object and creates a destination if not already present.
+    /// </summary>
     public override void select()
     {
         base.select();
@@ -36,6 +52,10 @@ public class EgoViewController : VehicleViewController
         snapController.IgnoreClicks = true;
     }
 
+
+    /// <summary>
+    /// Deselects the current object and its destination.
+    /// </summary>
     public override void deselect()
     {
         base.deselect();
@@ -43,12 +63,19 @@ public class EgoViewController : VehicleViewController
         snapController.IgnoreClicks = false;
     }
 
+    /// <summary>
+    /// Submits the selected destination location.
+    /// </summary>
+    /// <param name="destination">The destination location to submit.</param>
     public void submitDestination(Location destination)
     {
         ego.Destination = destination;
         EventManager.TriggerEvent(new CompletePlacementAction());
     }
 
+    /// <summary>
+    /// Destroys the current object and its associated destination.
+    /// </summary>
     public override void destroy()
     {
         this.mainController.setEgo(null);
@@ -56,6 +83,11 @@ public class EgoViewController : VehicleViewController
         Destroy(gameObject);
     }
 
+
+    /// <summary>
+    /// Changes the color of the current object and its associated destination.
+    /// </summary>
+    /// <param name="color">The color to change to.</param>
     public override void onChangeColor(Color color)
     {
         if (placed)
@@ -70,6 +102,11 @@ public class EgoViewController : VehicleViewController
         mainController.refreshEntityList();
     }
 
+    /// <summary>
+    /// Initializes the Ego object with the given AdversaryCategory and color.
+    /// </summary>
+    /// <param name="cat">The AdversaryCategory to assign to the Ego object.</param>
+    /// <param name="color">The color to assign to the Ego object.</param>
     public override void init(AdversaryCategory cat, Color color)
     {
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
@@ -92,6 +129,10 @@ public class EgoViewController : VehicleViewController
         }
     }
 
+    /// <summary>
+    /// Initializes the Ego object with the given Ego instance.
+    /// </summary>
+    /// <param name="ego">The Ego instance to initialize the object with.</param>
     public void init(Ego ego)
     {
         this.ego = ego;
@@ -121,6 +162,10 @@ public class EgoViewController : VehicleViewController
         }
     }
 
+    /// <summary>
+    /// Changes the category of the current object and updates its sprite accordingly.
+    /// </summary>
+    /// <param name="cat">The new AdversaryCategory to assign to the current object.</param>
     public override void onChangeCategory(AdversaryCategory cat)
     {
         base.onChangeCategory(cat);
@@ -141,16 +186,26 @@ public class EgoViewController : VehicleViewController
         }
     }
 
+    /// <summary>
+    /// Returns the BaseEntity representing the current Ego object.
+    /// </summary>
+    /// <returns>The BaseEntity instance of the current object.</returns>
     public override BaseEntity getEntity()
     {
         return this.ego;
     }
 
+    /// <summary>
+    /// Opens the edit dialog for the current object.
+    /// </summary>
     public override void openEditDialog()
     {
         this.egoSettingsController.open(this, sprite.color);
     }
 
+    /// <summary>
+    /// Registers the current object as the Ego in the main controller.
+    /// </summary>
     protected override void registerEntity()
     {
         mainController.setEgo(this.ego);
