@@ -18,11 +18,12 @@ namespace Entity
         /// <param name="id">The unique identifier of the BaseEntity object.</param>
         /// <param name="spawnPoint">The Coord3D spawn point of the BaseEntity object.</param>
         /// <param name="initialSpeedKMH">The initial speed of the BaseEntity object in kilometers per hour.</param>
-        public BaseEntity(string id, Location spawnPoint, double initialSpeedKMH)
+        public BaseEntity(string id, Location spawnPoint, double initialSpeedKMH, Color color)
         {
             Id = id;
             SpawnPoint = spawnPoint;
             InitialSpeedKMH = initialSpeedKMH;
+            Color = new ColorSer(color);
         }
 
 

@@ -153,10 +153,10 @@ public class PathController : MonoBehaviour
     /// <param name="controller">The adversary view controller associated with this path.</param>
     /// <param name="v">The adversary object associated with this path.</param>
     /// <param name="building">Optional parameter to set the initial building state. Default is true.</param>
-    public void Init(AdversaryViewController controller, Adversary v, bool building = true)
+    public void Init(AdversaryViewController controller, Adversary v, bool building)
     {
         Path = v.Path;
-        if (v.Color is not null) this.SetColor(v.Color.ToUnityColor());
+        this.SetColor(v.Color.ToUnityColor());
         this.adversaryViewController = controller;
         this.building = building;
         if (v.Path.WaypointList.Count == 0)

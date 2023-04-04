@@ -19,9 +19,11 @@ public class EgoViewController : VehicleViewController
     /// <summary>
     /// Calls the Awake Method of the superclass.
     /// </summary>
-    public new void Awake()
+    public override void Awake()
     {
         base.Awake();
+        egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
+        egoSettingsController.gameObject.SetActive(true);
     }
 
 
@@ -41,14 +43,7 @@ public class EgoViewController : VehicleViewController
     public override void select()
     {
         base.select();
-        if(this.destination is null)
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
-            this.destination = destinationGameObject.GetComponent<DestinationController>();
-            this.destination.init(this, this.sprite.color);
-        }
-        this.destination?.select();
+        this.destination.select();
         snapController.IgnoreClicks = true;
     }
 
@@ -112,10 +107,9 @@ public class EgoViewController : VehicleViewController
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
         egoSettingsController.gameObject.SetActive(true);
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), AdversaryCategory.Car, INITIAL_SPEED); // TODO initial speed: different default later?
+        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), AdversaryCategory.Car, INITIAL_SPEED, color); // TODO initial speed: different default later?
         ego.setView(this);
         ego.setCategory(cat);
-        ego.setColor(color);
         switch (cat)
         {
             case AdversaryCategory.Car:
@@ -139,11 +133,10 @@ public class EgoViewController : VehicleViewController
         placed = true;
         ego.setView(this);
         onChangePosition(ego.SpawnPoint.X, ego.SpawnPoint.Y);
+        onChangeRotation(ego.SpawnPoint.Rot);
         onChangeCategory(ego.Category);
         onChangeModel(ego.Model);
         onChangeColor(ego.Color.ToUnityColor());
-        egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
-        egoSettingsController.gameObject.SetActive(true);
         switch (ego.Category)
         {
             case AdversaryCategory.Car:
@@ -155,11 +148,8 @@ public class EgoViewController : VehicleViewController
                 ignoreWaypoints = true;
                 break;
         }
-        if (ego.Destination is not null)
-        {
-            this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<DestinationController>();
-            this.destination.init(this, sprite.color, true);
-        }
+        this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<DestinationController>();
+        this.destination.init(this, sprite.color, true);
     }
 
     /// <summary>
@@ -209,5 +199,9 @@ public class EgoViewController : VehicleViewController
     protected override void registerEntity()
     {
         mainController.setEgo(this.ego);
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
+        this.destination = destinationGameObject.GetComponent<DestinationController>();
+        this.destination.init(this, this.sprite.color);
     }
 }

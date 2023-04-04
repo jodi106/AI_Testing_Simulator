@@ -16,14 +16,11 @@ public class AdversaryViewController : VehicleViewController
     private static readonly double INITIAL_SPEED = 30;
     private static readonly double INITIAL_SPEED_PEDESTRIAN = 5;
 
-
-    /// <summary>
-    /// Returns the current PathController of the vehicle.
-    /// </summary>
-    /// <returns>The current PathController of the vehicle</returns>
-    public PathController getPathController()
+    public override void Awake()
     {
-        return this.pathController;
+        base.Awake();
+        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        vehicleSettingsController.gameObject.SetActive(true);
     }
 
     // act as constructor -- check for alternatives to set initial state
@@ -39,18 +36,16 @@ public class AdversaryViewController : VehicleViewController
         var path = new Path();
         if (cat == AdversaryCategory.Pedestrian)
         {
-            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED_PEDESTRIAN, cat, VehicleModelRepository.getDefaultModel(cat), path);
+            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED_PEDESTRIAN, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
         }
         else
         {
-            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path);
+            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
         }
         vehicle.setView(this);
-        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        vehicleSettingsController.gameObject.SetActive(true);
-        vehicle.setCategory(cat);
-        vehicle.setModel(VehicleModelRepository.getDefaultModel(cat));
-        vehicle.setColor(color);
+        onChangeCategory(vehicle.Category);
+        onChangeModel(vehicle.Model);
+        onChangeColor(vehicle.Color.ToUnityColor());
         switch (cat)
         {
             case AdversaryCategory.Car:
@@ -69,18 +64,17 @@ public class AdversaryViewController : VehicleViewController
     /// <summary>
     /// Initializes the Adversary entity with the specified entity.
     /// </summary>
-    /// <param name="s">The Adversary entity to be initialized</param>
-    public void init(Adversary s)
+    /// <param name="adversary">The Adversary entity to be initialized</param>
+    public void init(Adversary adversary)
     {
-        vehicle = s;
+        vehicle = adversary;
         placed = true;
         vehicle.setView(this);
         onChangePosition(vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
+        onChangeRotation(vehicle.SpawnPoint.Rot);
         onChangeCategory(vehicle.Category);
         onChangeModel(vehicle.Model);
-        if(vehicle.Color is not null) onChangeColor(vehicle.Color.ToUnityColor());
-        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        vehicleSettingsController.gameObject.SetActive(true);
+        onChangeColor(vehicle.Color.ToUnityColor());
         switch (vehicle.Category)
         {
             case AdversaryCategory.Car:
@@ -92,11 +86,8 @@ public class AdversaryViewController : VehicleViewController
                 ignoreWaypoints = true;
                 break;
         }
-        if (s.Path is not null)
-        {
-            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-            this.pathController.Init(this, this.vehicle, false);
-        }
+        this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+        this.pathController.Init(this, this.vehicle, false);
     }
 
     /// <summary>
@@ -127,7 +118,7 @@ public class AdversaryViewController : VehicleViewController
     public override void onChangeCategory(AdversaryCategory cat)
     {
         base.onChangeCategory(cat);
-        switch(cat)
+        switch (cat)
         {
             case AdversaryCategory.Car:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
@@ -160,12 +151,6 @@ public class AdversaryViewController : VehicleViewController
     public override void select()
     {
         base.select();
-        if(this.pathController is null)
-        {
-            //PathController must have position 0, otherwise edgecollider is not aligned
-            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-            this.pathController.Init(this, this.vehicle);
-        }
         pathController?.select();
         snapController.IgnoreClicks = true;
     }
@@ -201,14 +186,12 @@ public class AdversaryViewController : VehicleViewController
         if (placed)
         {
             this.sprite.color = color;
-        } else
+        }
+        else
         {
             this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
-        if(this.pathController is not null)
-        {
-            this.pathController.SetColor(this.sprite.color);
-        }
+        pathController?.SetColor(this.sprite.color);
         mainController.refreshEntityList();
     }
 
@@ -237,6 +220,9 @@ public class AdversaryViewController : VehicleViewController
     {
         mainController.addAdversary(this.vehicle);
         EventManager.TriggerEvent(new CompletePlacementAction());
+        //PathController must have position 0, otherwise edgecollider is not aligned
+        this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+        this.pathController.Init(this, this.vehicle, true);
     }
 
     /// <summary>
@@ -246,9 +232,6 @@ public class AdversaryViewController : VehicleViewController
     public override void setIgnoreWaypoints(bool b)
     {
         base.setIgnoreWaypoints(b);
-        if(this.pathController is not null)
-        {
-            this.pathController.getFirstWaypointController().setIgnoreWaypoints(b);
-        }
+        this.pathController?.getFirstWaypointController().setIgnoreWaypoints(b);
     }
 }

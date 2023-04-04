@@ -1,5 +1,6 @@
 ﻿using Assets.Enums;
 using System;
+using UnityEngine;
 
 namespace Entity
 {
@@ -20,7 +21,7 @@ namespace Entity
         /// <param name="model">The model of the Ego vehicle.</param>
         /// <param name="category">The category of the Ego vehicle.</param>
         /// <param name="initialSpeedKMH">The initial speed of the Ego vehicle in km/h.</param>
-        public Ego(Location spawnPoint, EntityModel model, AdversaryCategory category = AdversaryCategory.Null, double initialSpeedKMH = 0) : base("Ego Vehicle", spawnPoint, initialSpeedKMH)
+        public Ego(Location spawnPoint, EntityModel model, AdversaryCategory category, double initialSpeedKMH, Color color) : base("Ego Vehicle", spawnPoint, initialSpeedKMH, color)
         {
             Model = model;
             Category = category;

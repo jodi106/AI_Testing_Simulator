@@ -25,7 +25,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <summary>
     /// Initializes the vehicle view controller, setting up necessary components, materials, and event listeners.
     /// </summary>
-    public void Awake()
+    public virtual void Awake()
     {
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();

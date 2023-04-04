@@ -1,5 +1,6 @@
 ﻿using Assets.Enums;
 using System;
+using UnityEngine;
 
 namespace Entity
 {
@@ -27,8 +28,8 @@ namespace Entity
         ///<param name="model">The model of the adversary</param>
         ///<param name="path">The path of the adversary</param>
         ///<param name="startRouteInfo">Information about how and when the path of the adversary's vehicle is started, if null it starts after 0 sec</param>
-        public Adversary(Location spawnPoint, double initialSpeedKMH, AdversaryCategory category, EntityModel model, Path path, StartPathInfo startRouteInfo = null)
-            : base(string.Format("{0} {1}", "Adversary", ++autoIncrementId), spawnPoint, initialSpeedKMH)
+        public Adversary(Location spawnPoint, double initialSpeedKMH, AdversaryCategory category, EntityModel model, Path path, Color color, StartPathInfo startRouteInfo = null)
+            : base(string.Format("{0} {1}", "Adversary", ++autoIncrementId), spawnPoint, initialSpeedKMH, color)
         {
             Category = category;
             Model = model;
