@@ -11,7 +11,7 @@ from argparse import RawTextHelpFormatter
 from colorama import init, Fore, Back, Style
 init()
 
-RUNNER_TOOL_VERSION = "1.0"
+RUNNER_TOOL_VERSION = "1.01"
 
 #------------------------- SET INPUTS --------------------------------------------------------------------------------#
 # SET PATHS IN CONFIG.JSON FILE # 
@@ -44,10 +44,10 @@ class RunnerTool(object):
     low_quality : bool
         Set Carla renderquality to low
     speed : int
-        Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Max stable value 500-1000 can vary for different maps(50-10X Speed)
+        Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Might cause carla physics bugs on high speeds. Max stable value 500-1000 can vary for different maps(5-10X Speed)
         Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
     camera : str{bird, ego} 
-        Set camera perspectiv (bird, ego) fixed to ego vehicle (default: None)
+        Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100. (default: None)
     agent: str
         Replaces HeroAgent controller value with provided string
 
@@ -216,7 +216,7 @@ class RunnerTool(object):
     
     def set_camera_perspective(self):
         ''' 
-        Create string tp adjust camera perspective.
+        Create string to adjust camera perspective.
 
         Returns
         -------
@@ -580,8 +580,9 @@ def main():
     parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
     parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
     parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nValues >500 might lead to physics bugs')
-    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
-    parser.add_argument('--agent', default=None, type=str, help='Specify agent name to run all scenarios in dir')
+    #parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
+    parser.add_argument('--camera', default=None, action="store_true", help='Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100.')
+    parser.add_argument('--agent', default=None, type=str, help='Specify agent name (name of Self Driving KI) to run all scenarios in dir')
 
     arguments = parser.parse_args()
 
