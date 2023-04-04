@@ -17,8 +17,6 @@ RUNNER_TOOL_VERSION = "1.01"
 # SET PATHS IN CONFIG.JSON FILE # 
 #---------------------------------------------------------------------------------------------------------------------#
 
-# Sort by Mapname 
-
 class RunnerTool(object):
     '''
     Inititates runnerTool object. Checks config paths, creates result and log dir if not exist.
@@ -50,6 +48,8 @@ class RunnerTool(object):
         Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100. (default: None)
     agent: str
         Replaces HeroAgent controller value with provided string
+    sort_maps: bool
+        Enable sorting by map names
 
 
 
@@ -59,6 +59,8 @@ class RunnerTool(object):
         Loads required user specified paths from config.json file.
     check_paths(conf)
         Checks whether paths were specified by user and are valid.
+    get_xosc(sort=False)
+        Gets xosc files in directory and sorts them by maps if sort is true.
     set_agent(file)
         Opens specified file and replaces HeroAgent value with self.agent string.
     start_carla()
@@ -154,6 +156,15 @@ class RunnerTool(object):
             k+=1
 
     def get_xosc(self, sort=False):
+        '''
+        Gets xosc files in directory and sorts them by maps if sort is true.
+        
+        Parameters
+        ----------
+        sort : bool
+            Enable sorting by map names
+
+        '''        
         folder_addr = self.config["PATH_TO_XOSC_FILES"]
         file_list = os.listdir(folder_addr)
         file_list = [x for x in file_list if ".xosc" in x]
