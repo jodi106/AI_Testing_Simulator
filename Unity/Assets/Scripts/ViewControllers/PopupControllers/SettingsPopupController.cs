@@ -21,4 +21,12 @@ public abstract class SettingsPopupController : MonoBehaviour
             onExit();
         });
     }
+
+    public void Update()
+    {
+        if (this.document.rootVisualElement.style.display != DisplayStyle.None && Input.GetKeyDown(KeyCode.Escape))
+        {
+            onExit();
+        }
+    }
 }
