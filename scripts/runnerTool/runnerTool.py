@@ -105,6 +105,7 @@ class RunnerTool(object):
         self.speed = args.speed
         self.camera = args.camera
         self.agent = args.agent
+        self.sort_maps = args.sortMaps
 
         # Args for start_carla
         self.host = args.host
@@ -151,6 +152,29 @@ class RunnerTool(object):
                 self.log.create_entry('Path {path} specified in config.json does not exist'.format(path=key))
                 raise ValueError(self.log.get_top(print_out=False))
             k+=1
+
+    def get_xosc(self, sort=False):
+        folder_addr = self.config["PATH_TO_XOSC_FILES"]
+        file_list = os.listdir(folder_addr)
+        file_list = [x for x in file_list if ".xosc" in x]
+
+        if sort:
+            xosc_maps = {}
+            for file in file_list:
+                path = folder_addr + "/" + file
+                with open(path, 'r') as f:
+                    xosc = f.read() 
+                
+                idx1 = xosc.index("LogicFile filepath=")
+                quote1 = idx1 + xosc[idx1:].index("\"")
+                quote2 = quote1 + xosc[quote1+1:].index("\"")
+                Map = xosc[quote1+1:quote2+1]
+                xosc_maps[file] = Map
+
+            xosc_maps_sorted = dict(sorted(xosc_maps.items(), key=lambda item: item[1]))
+            file_list = list(xosc_maps_sorted.keys())
+
+        return file_list 
 
     def set_agent(self, file:str):
         '''
@@ -234,7 +258,7 @@ class RunnerTool(object):
         conf = self.config
 
         folder_addr = conf["PATH_TO_XOSC_FILES"]
-        file_list = os.listdir(folder_addr)
+        file_list = self.get_xosc(self.sort_maps)
         self.log.create_entry("INFO: Found scenarios in directory:\n" + '\t\n'.join([x for x in file_list if ".xosc" in x]))
         for file in file_list:
             if ".xosc" in file:
@@ -583,6 +607,7 @@ def main():
     #parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
     parser.add_argument('--camera', default=None, action="store_true", help='Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100.')
     parser.add_argument('--agent', default=None, type=str, help='Specify agent name (name of Self Driving KI) to run all scenarios in dir')
+    parser.add_argument('--sortMaps', action="store_true", help='Sorts xosc files in dir by map name and plays them in ascending order')   
 
     arguments = parser.parse_args()
 
