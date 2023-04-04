@@ -15,7 +15,7 @@ using UnityEngine.UIElements;
 ///<summary>
 ///This class is responsible for the waypoint settings popup.
 ///</summary>
-public class WaypointSettingsPopupController : MonoBehaviour
+public class WaypointSettingsPopupController : SettingsPopupController
 {
     private WaypointViewController controller;
     private WarningPopupController warningPopupController;
@@ -23,7 +23,6 @@ public class WaypointSettingsPopupController : MonoBehaviour
     private Adversary vehicle;
     private ObservableCollection<Adversary> allVehicles;
 
-    private UIDocument document;
     private HelpPopupController helpPopupController;
 
     private DropdownField[] possibleActionsField; // SpeedAction, StopAction, LaneChangeOption
@@ -51,10 +50,9 @@ public class WaypointSettingsPopupController : MonoBehaviour
     /// Called when the object is created. It retrieves references to UI elements in the scene and initializes them.
     /// It also initializes the event handlers for the action fields, exit button, add action button and delete actions button.
     /// </summary>
-    public void Awake()
+    public override void Awake()
     {
-        this.document = gameObject.GetComponent<UIDocument>();
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
+        base.Awake();
 
         helpPopupController = GameObject.Find("PopUps").transform.Find("HelpPopUp").gameObject.GetComponent<HelpPopupController>();
         helpPopupController.gameObject.SetActive(true);
@@ -91,16 +89,7 @@ public class WaypointSettingsPopupController : MonoBehaviour
         
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (startRouteToggle.value == true && startRouteVehicleField.value == null)
-            {
-                string title = "No Vehicle selected";
-                string description = "You must select another vehicle to start that vehicle's route\nor disable the toggle!";
-                warningPopupController.open(title, description);
-                return;
-            }
-            overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
-            MainController.freeze = false;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
+            onExit();
         });
 
         AddActionButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -194,6 +183,20 @@ public class WaypointSettingsPopupController : MonoBehaviour
                 break;
             }
         });
+    }
+
+    protected override void onExit()
+    {
+        if (startRouteToggle.value == true && startRouteVehicleField.value == null)
+        {
+            string title = "No Vehicle selected";
+            string description = "You must select another vehicle to start that vehicle's route\nor disable the toggle!";
+            warningPopupController.open(title, description);
+            return;
+        }
+        overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
+        MainController.freeze = false;
+        this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
 
     /// <summary>

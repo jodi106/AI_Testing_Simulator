@@ -10,12 +10,11 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// Represents a controller for the adversary settings popup.
 /// </summary>
-public class AdversarySettingsPopupController : MonoBehaviour
+public class AdversarySettingsPopupController : SettingsPopupController
 {
     private AdversaryViewController controller;
     private Adversary vehicle;
     private Ego egoVehicle;
-    private UIDocument document;
     private TextField iDField;
     private TextField initialSpeedField;
     //private TextField locationField;
@@ -39,11 +38,9 @@ public class AdversarySettingsPopupController : MonoBehaviour
     /// Awake is called when the script instance is being loaded. It initializes the UIDocument of the gameObject and sets it to not visible.
     /// It sets the label text to "Options" and registers callback for ExitButton. It sets the initial values for various fields and dropdowns.
     /// </summary>
-    public void Awake()
+    public override void Awake()
     {
-        this.document = gameObject.GetComponent<UIDocument>();
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
-
+        base.Awake();
         Label label = this.document.rootVisualElement.Q<Label>("Label");
         label.text = "Options";
 
@@ -51,10 +48,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            MainController.freeze = false;
-            saveStartRouteInfo(startRouteType);
-            this.vehicle = null;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
+            onExit();
         });
 
         //Vehicle vehicle = selectedEntity.getEntity();
@@ -226,6 +220,13 @@ public class AdversarySettingsPopupController : MonoBehaviour
         });
     }
 
+    protected override void onExit()
+    {
+        MainController.freeze = false;
+        saveStartRouteInfo(startRouteType);
+        this.vehicle = null;
+        this.document.rootVisualElement.style.display = DisplayStyle.None;
+    }
 
     /// <summary>
     /// Opens the adversary view controller with specified parameters.

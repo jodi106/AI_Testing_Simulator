@@ -11,11 +11,10 @@ using System.Text.RegularExpressions;
 ///<summary>
 /// Represents a controller for the ego settings popup.
 ///</summary>
-public class EgoSettingsPopupController : MonoBehaviour
+public class EgoSettingsPopupController : SettingsPopupController
 {
     private EgoViewController controller;
     private Ego ego;
-    private UIDocument document;
     private TextField iDField;
     private TextField agentField;
     //private TextField locationField;
@@ -30,10 +29,9 @@ public class EgoSettingsPopupController : MonoBehaviour
     /// <summary>
     /// This method is called when the script instance is being loaded. It initializes the UIDocument and sets its rootVisualElement to display none. It also sets the text of a Label to "Options", and registers a callback for a Button to set MainController.freeze to false, set this.ego to null, and set the rootVisualElement display to none. Additionally, it creates a new Location and obtains a list of ego models based on AdversaryCategory.Car. The method registers callbacks for TextFields iDField, initialSpeedField, and agentField, and sets the choices of two DropdownFields based on the AdversaryCategory selected. Finally, the method registers callbacks for three Sliders to update the color of ego's vehicle.
     /// </summary>
-    public void Awake()
+    public override void Awake()
     {
-        this.document = gameObject.GetComponent<UIDocument>();
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
+        base.Awake();
 
         Label label = this.document.rootVisualElement.Q<Label>("Label");
         label.text = "Options";
@@ -42,9 +40,7 @@ public class EgoSettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            MainController.freeze = false;
-            this.ego = null;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
+            onExit();
         });
 
         //Vehicle ego = selectedEntity.getEntity();
@@ -172,7 +168,13 @@ public class EgoSettingsPopupController : MonoBehaviour
             colorField.ElementAt(1).style.backgroundColor = color;
         });
     }
-    
+
+    protected override void onExit()
+    {
+        MainController.freeze = false;
+        this.ego = null;
+        this.document.rootVisualElement.style.display = DisplayStyle.None;
+    }
 
     /// <summary>
     /// Opens the EgoViewController and initializes the fields with the given values.

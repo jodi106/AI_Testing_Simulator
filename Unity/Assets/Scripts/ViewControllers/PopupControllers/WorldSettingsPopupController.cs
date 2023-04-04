@@ -8,10 +8,14 @@ using UnityEngine.UIElements;
 /// <summary>
 /// A controller for the World Settings Popup UI that handles user input and updates WorldOptions accordingly.
 /// </summary>
-public class WorldSettingsPopupController : MonoBehaviour
+public class WorldSettingsPopupController : SettingsPopupController
 {
     private WorldOptions options;
-    private UIDocument document;
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     /// <summary>
     /// Initializes the controller with the provided WorldOptions and sets the UI to be active but hidden.
@@ -27,8 +31,7 @@ public class WorldSettingsPopupController : MonoBehaviour
         var exitButton = this.document.rootVisualElement.Q<Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            MainController.freeze = false;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
+            onExit();
         });
 
         var dayTime = this.document.rootVisualElement.Q<TextField>("Daytime");
@@ -146,7 +149,13 @@ public class WorldSettingsPopupController : MonoBehaviour
         });
 
     }
-    
+
+    protected override void onExit()
+    {
+        MainController.freeze = false;
+        this.document.rootVisualElement.style.display = DisplayStyle.None;
+    }
+
     /// <summary>
     /// Sets the display style of the root visual element of the document to 'flex', and freezes the MainController.
     /// </summary>
