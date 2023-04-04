@@ -11,7 +11,7 @@ from argparse import RawTextHelpFormatter
 from colorama import init, Fore, Back, Style
 init()
 
-RUNNER_TOOL_VERSION = "1.0"
+RUNNER_TOOL_VERSION = "1.01"
 
 #------------------------- SET INPUTS --------------------------------------------------------------------------------#
 # SET PATHS IN CONFIG.JSON FILE # 
@@ -42,9 +42,17 @@ class RunnerTool(object):
     low_quality : bool
         Set Carla renderquality to low
     speed : int
-        Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Max stable value 1000 (10X Speed)
+
+        Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Might cause carla physics bugs on high speeds. Max stable value 500-1000 can vary for different maps(5-10X Speed)
+        Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
     camera : str{bird, ego} 
-        Set camera perspectiv (bird, ego) fixed to ego vehicle (default: None)
+        Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100. (default: None)
+    agent: str
+        Replaces HeroAgent controller value with provided string
+    sort_maps: bool
+        Enable sorting by map names
+
+
 
     Methods
     -------
@@ -52,6 +60,8 @@ class RunnerTool(object):
         Loads required user specified paths from config.json file.
     check_paths(conf)
         Checks whether paths were specified by user and are valid.
+    get_xosc(sort=False)
+        Gets xosc files in directory and sorts them by maps if sort is true.
     set_agent(file)
         Opens specified file and replaces HeroAgent value with self.agent string.
     start_carla()
@@ -99,6 +109,8 @@ class RunnerTool(object):
         self.camera = args.camera
         self.agent = args.agent
 
+        self.sort_maps = args.sortMaps
+
         # Args for start_carla
         self.host = args.host
         self.port = args.port
@@ -144,6 +156,38 @@ class RunnerTool(object):
                 self.log.create_entry('Path {path} specified in config.json does not exist'.format(path=key))
                 raise ValueError(self.log.get_top(print_out=False))
             k+=1
+
+    def get_xosc(self, sort=False):
+        '''
+        Gets xosc files in directory and sorts them by maps if sort is true.
+        
+        Parameters
+        ----------
+        sort : bool
+            Enable sorting by map names
+
+        '''        
+        folder_addr = self.config["PATH_TO_XOSC_FILES"]
+        file_list = os.listdir(folder_addr)
+        file_list = [x for x in file_list if ".xosc" in x]
+
+        if sort:
+            xosc_maps = {}
+            for file in file_list:
+                path = folder_addr + "/" + file
+                with open(path, 'r') as f:
+                    xosc = f.read() 
+                
+                idx1 = xosc.index("LogicFile filepath=")
+                quote1 = idx1 + xosc[idx1:].index("\"")
+                quote2 = quote1 + xosc[quote1+1:].index("\"")
+                Map = xosc[quote1+1:quote2+1]
+                xosc_maps[file] = Map
+
+            xosc_maps_sorted = dict(sorted(xosc_maps.items(), key=lambda item: item[1]))
+            file_list = list(xosc_maps_sorted.keys())
+
+        return file_list 
 
     def set_agent(self, file:str):
         '''
@@ -195,6 +239,8 @@ class RunnerTool(object):
     def adjust_speed(self):
         ''' 
         Create string to adjust play speed of scenario.
+        Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
+
 
         Returns
         -------
@@ -202,12 +248,14 @@ class RunnerTool(object):
             String in command line argument format containing user defined or default value for scenario display speed.
         '''
         speed_cmd = " --speed %i" %self.speed
-        self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
+        if self.speed != 100:
+            self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
         return speed_cmd
     
     def set_camera_perspective(self):
         ''' 
-        Create string tp adjust camera perspective.
+        Create string to adjust camera perspective.
+
 
         Returns
         -------
@@ -225,7 +273,7 @@ class RunnerTool(object):
         conf = self.config
 
         folder_addr = conf["PATH_TO_XOSC_FILES"]
-        file_list = os.listdir(folder_addr)
+        file_list = self.get_xosc(self.sort_maps)
         self.log.create_entry("INFO: Found scenarios in directory:\n" + '\t\n'.join([x for x in file_list if ".xosc" in x]))
         for file in file_list:
             if ".xosc" in file:
@@ -410,9 +458,11 @@ class RunnerTool(object):
                         criteria.append(criteria_dict["name"])
                 s = s + ','.join(criteria) + ")"
                 failed.append(s)
-            if print_out:
-                self.log.create_entry(s)
-            
+            try:
+                if print_out:
+                    self.log.create_entry(s)
+            except Exception:
+                pass    
         return failed
 
     def user_specific_results(self, result_dict:dict):
@@ -569,8 +619,11 @@ def main():
     parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
     parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
     parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nValues >500 might lead to physics bugs')
-    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
-    parser.add_argument('--agent', default=None, type=str, help='Specify agent name to run all scenarios in dir')
+    #parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
+    parser.add_argument('--camera', default=None, action="store_true", help='Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100.')
+    parser.add_argument('--agent', default=None, type=str, help='Specify agent name (name of Self Driving KI) to run all scenarios in dir')
+    parser.add_argument('--sortMaps', action="store_true", help='Sorts xosc files in dir by map name and plays them in ascending order')   
+
 
     arguments = parser.parse_args()
 

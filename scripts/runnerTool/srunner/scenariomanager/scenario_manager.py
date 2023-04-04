@@ -22,6 +22,8 @@ from srunner.scenariomanager.result_writer import ResultOutputProvider
 from srunner.scenariomanager.timer import GameTime
 from srunner.scenariomanager.watchdog import Watchdog
 
+from srunner.scenariomanager.actorcontrols.visualizer import Visualizer
+
 
 class ScenarioManager(object):
 
@@ -68,6 +70,9 @@ class ScenarioManager(object):
         self.runnerTool_cam = runnerTool_params["camera"]
         self.runnerTool_speed = runnerTool_params["speed"]
 
+        self._visualizer = None
+
+
     def _reset(self):
         """
         Reset all parameters
@@ -96,6 +101,10 @@ class ScenarioManager(object):
             self._agent.cleanup()
             self._agent = None
 
+        #runnerTool
+        if self._visualizer is not None:
+            self._visualizer.reset()
+
         CarlaDataProvider.cleanup()
 
     def load_scenario(self, scenario, agent=None):
@@ -114,7 +123,13 @@ class ScenarioManager(object):
 
         #runnerTool set speed and camera
         world = CarlaDataProvider.get_world()
-        self.set_speed(world)
+
+        if self.runnerTool_speed != 100:
+            self.set_speed(world)
+
+        if self.runnerTool_cam is not None and self.runnerTool_speed == 100: 
+            self._visualizer = Visualizer(self.ego_vehicles[0])
+
         self.get_camera(world)
 
         # To print the scenario tree uncomment the next line
@@ -143,7 +158,13 @@ class ScenarioManager(object):
         time.sleep(1)
 
     def reset_camera(self, actor, spectator):
-        ''' [RUNNERTOOL] fixes spectator to ego vehicle either in bird or ego perspective. '''
+        ''' [RUNNERTOOL] fixes spectator to ego vehicle either in bird or ego perspective. 
+            Removed with runnerTool v1.01 due to problems in comination with runnerTool_speed settings.
+            Instead visualizer is used if runnerTool_speed is 100 i.e. not changed from default
+        '''
+
+        raise NotImplementedError
+
         target = actor.get_location()
         if self.runnerTool_cam == "bird":
             transform = carla.Transform(carla.Location(x = target.x, y = target.y, z = 60), carla.Rotation(pitch=270, yaw=0, roll=0))
@@ -168,20 +189,22 @@ class ScenarioManager(object):
         self._watchdog.start()
         self._running = True
 
-        k = 0
+        #k = 0
         while self._running:
             timestamp = None
             world = CarlaDataProvider.get_world()          
             if world:
-                if self.runnerTool_cam != None:
-                    if k % 5000 == 0:
-                        self.reset_camera(world.get_actor(self.ego_vehicles[0].id),world.get_spectator())
+                #if self._visualizer is None and self.runnerTool_cam is not None:
+                    #self._visualizer.render()
+                    #if k % 5000 == 0:
+                        #self.reset_camera(world.get_actor(self.ego_vehicles[0].id),world.get_spectator())
+
                 snapshot = world.get_snapshot()
                 if snapshot:
                     timestamp = snapshot.timestamp
             if timestamp:
                 self._tick_scenario(timestamp)
-            k+=1
+            #k+=1
 
         self.cleanup()
 
@@ -213,6 +236,10 @@ class ScenarioManager(object):
             GameTime.on_carla_tick(timestamp)
             CarlaDataProvider.on_carla_tick()
 
+            ##runnerTool
+            if self._visualizer is not None:
+                self._visualizer.render()
+            ##
             if self._agent is not None:
                 ego_action = self._agent()  # pylint: disable=not-callable
 

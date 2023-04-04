@@ -1,0 +1,449 @@
+{
+    "1:  23:00:41": "INFO: Results directory found.",
+    "2:  23:00:41": "INFO: logs directory found.",
+    "3:  23:00:43": "INFO: Carla is already running, starting scenario..",
+    "4:  23:00:43": "INFO: Found scenarios in directory:\nmap2.xosc\t\nmap2_close.xosc",
+    "5:  23:00:43": "INFO: Running scenario -> map2.xosc...",
+    "6:  23:00:43": "INFO: Setting Scenario display Speed to 2.00X",
+    "7:  23:01:20": "SCENARIO RUNNER STDOUT: b'INFO: Global variables set succesfully.\\r\\nPreparing scenario: map2\\r\\nSetting Scenario Speed to 2.00X\\r\\nScenarioManager: Running scenario map2\\r\\nNot all scenario tests were successful\\r\\nPlease run with --output for further information\\r\\nNo more scenarios .... Exiting\\r\\nINFO:  Found the required file in cache!  Carla/Maps/TM/Town02.bin \\n'",
+    "8:  23:01:20": "SCENARIO RUNNER STDERR: b\"scenario_runner.py:117: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.\\r\\n  if LooseVersion(dist.version) < LooseVersion('0.9.12'):\\r\\nWARNING:[SR:OpenScenarioConfiguration]: Wrong map in use. Forcing reload of CARLA world\\r\\n\"",
+    "9:  23:01:20": "INFO: Not all scenario tests were successful\n",
+    "10:  23:01:20": "INFO: Running scenario -> map2_close.xosc...",
+    "11:  23:01:20": "INFO: Setting Scenario display Speed to 2.00X",
+    "12:  23:01:40": "SCENARIO RUNNER STDOUT: b'INFO: Global variables set succesfully.\\r\\nPreparing scenario: map2_close\\r\\nSetting Scenario Speed to 2.00X\\r\\nScenarioManager: Running scenario map2_close\\r\\nNot all scenario tests were successful\\r\\nPlease run with --output for further information\\r\\nNo more scenarios .... Exiting\\r\\nINFO:  Found the required file in cache!  Carla/Maps/TM/Town02.bin \\n'",
+    "13:  23:01:40": "SCENARIO RUNNER STDERR: b\"scenario_runner.py:117: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.\\r\\n  if LooseVersion(dist.version) < LooseVersion('0.9.12'):\\r\\n\"",
+    "14:  23:01:40": "INFO: Not all scenario tests were successful\n",
+    "15:  23:01:40": "----------------- RESULTS OVERVIEW -----------------",
+    "16:  23:01:40": "SCNEARIO NAMES | SUCCESS",
+    "17:  23:01:40": "1. map2 | False",
+    "18:  23:01:40": "2. map2_close | False",
+    "19:  23:01:40": "3. OurScenario1 | True",
+    "20:  23:01:40": "4. OurScenario2 | False",
+    "21:  23:01:40": "5. OurScenario3 | True",
+    "22:  23:01:40": "6. OurScenario4 | False",
+    "23:  23:01:40": "----------------------------------------------------",
+    "24:  23:01:40": "Browse Scenario Results (enter 0 to exit, h for help)",
+    "25:  23:05:47": "Exiting results...",
+    "All_Results": {
+        "map22023-04-03-23-01-20.json": {
+            "scenario": "map2",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 1,
+                    "success": false
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "audi.tt-319",
+                    "optional": false,
+                    "expected": 1.0,
+                    "actual": 97.27,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 36.4857144895941,
+                    "success": true
+                }
+            ]
+        },
+        "map2_close2023-04-03-23-01-40.json": {
+            "scenario": "map2_close",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "audi.tt-324",
+                    "optional": false,
+                    "expected": 1.0,
+                    "actual": 0.27,
+                    "success": false
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.771428676322103,
+                    "success": true
+                }
+            ]
+        },
+        "scenario1.json": {
+            "scenario": "OurScenario1",
+            "success": true,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        },
+        "scenario2.json": {
+            "scenario": "OurScenario2",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": false
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        },
+        "scenario3.json": {
+            "scenario": "OurScenario3",
+            "success": true,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        },
+        "scenario4.json": {
+            "scenario": "OurScenario4",
+            "success": false,
+            "criteria": [
+                {
+                    "name": "RunningStopTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": false
+                },
+                {
+                    "name": "RunningRedLightTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "WrongLaneTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "OnSidewalkTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckKeepLane",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CollisionTest",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0,
+                    "actual": 0,
+                    "success": true
+                },
+                {
+                    "name": "CheckDrivenDistance",
+                    "actor": "nissan.micra-1146",
+                    "optional": false,
+                    "expected": 0.1,
+                    "actual": 0.26,
+                    "success": true
+                },
+                {
+                    "name": "Duration",
+                    "actor": "all",
+                    "optional": false,
+                    "expected": 100000,
+                    "actual": 18.153107300400734,
+                    "success": true
+                }
+            ]
+        }
+    }
+}

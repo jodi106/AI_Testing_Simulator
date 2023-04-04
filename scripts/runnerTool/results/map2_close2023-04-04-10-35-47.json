@@ -1,18 +1,18 @@
 {
-    "scenario": "OurScenario3",
-    "success": false,
+    "scenario": "map2_close",
+    "success": true,
     "criteria": [
         {
             "name": "RunningStopTest",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
             "expected": 0,
             "actual": 0,
-            "success": false
+            "success": true
         },
         {
             "name": "RunningRedLightTest",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -20,7 +20,7 @@
         },
         {
             "name": "WrongLaneTest",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -28,7 +28,7 @@
         },
         {
             "name": "OnSidewalkTest",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -36,7 +36,7 @@
         },
         {
             "name": "CheckKeepLane",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -44,7 +44,7 @@
         },
         {
             "name": "CollisionTest",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
             "expected": 0,
             "actual": 0,
@@ -52,10 +52,10 @@
         },
         {
             "name": "CheckDrivenDistance",
-            "actor": "nissan.micra-1146",
+            "actor": "audi.tt-224",
             "optional": false,
-            "expected": 0.1,
-            "actual": 0.26,
+            "expected": 1.0,
+            "actual": 30.45,
             "success": true
         },
         {
@@ -63,7 +63,7 @@
             "actor": "all",
             "optional": false,
             "expected": 100000,
-            "actual": 18.153107300400734,
+            "actual": 19.000000849366188,
             "success": true
         }
     ]
