@@ -57,7 +57,8 @@ public class CameraMovement : MonoBehaviour
                 map.AddComponent<BoxCollider2D>();
                 //Recalculate Screen Edges
                 recalulateEdges();
-            } else
+            }
+            else
             {
                 ///Set Welcome Menu On
                 ///Set welcome Background On
@@ -105,6 +106,29 @@ public class CameraMovement : MonoBehaviour
             cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
             if (cam.orthographicSize > maxCamSize) cam.orthographicSize = maxCamSize;
             if (cam.orthographicSize < minCamSize) cam.orthographicSize = minCamSize;
+
+            var dir = Vector2.zero;
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+            {
+                dir = Vector2.up;
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                dir = Vector2.left;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                dir = Vector2.right;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                dir = Vector2.down;
+            }
+            if (dir != Vector2.zero)
+            {
+                dir = dir * 0.5f;
+                cam.transform.position = ClampCamera(cam.transform.position + new Vector3(dir.x, dir.y, 0));
+            }
         }
     }
 
