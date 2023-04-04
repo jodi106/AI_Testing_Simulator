@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Xml.Linq;
+using UnityEngine.UIElements;
+using Entity;
 
 namespace scripts
 {
@@ -56,13 +59,13 @@ namespace scripts
                 isDragging = false;
                 validateRoadPosition();
             }
-            
+
             // These conditions checks, whether the user wants to rotate the piece clockwise or counter-clockwise
             if (Input.GetKeyDown(KeyCode.E))
             {
                 rotateRoadPiece(-90);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 rotateRoadPiece(90);
@@ -71,11 +74,16 @@ namespace scripts
             // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
             if (Input.GetKeyDown(KeyCode.L) && selectedRoad != null)
             {
-                    selectedRoad.setIsLocked(!selectedRoad.getIsLocked());
+                selectedRoad.setIsLocked(!selectedRoad.getIsLocked());
+            }
+
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                DeleteRoad();
             }
 
             // This condition checks, whether the user wants to deselect the road he has clicked. 
-            if (Input.GetKeyDown(KeyCode.Escape) && selectedRoad != null)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 DeselectRoad();
             }
@@ -88,7 +96,14 @@ namespace scripts
         {
             roadList.Add(road);
         }
-       
+
+        /*
+         * Removes a road from the Roads List
+         */
+        public void RemoveRoadFromList(RoadPiece road)
+        {
+            roadList.Remove(road);
+        }
         /* 
          * This method creates a new road piece. It gets the selected road type from the sidebar and creates the corresponding prefab on the screen. 
          */
@@ -97,11 +112,27 @@ namespace scripts
             // Creates the new roadpiece
             var roadPiece = PrefabManager.Instance.GetPieceOfType(ButtonManager.Instance.getSelectedRoadType());
             var newRoadPiece = Instantiate(roadPiece, GetWorldPositionFromMouseClick(), Quaternion.identity);
-           
+
             // Sets the valid position to false (As it will always spawn on the sidebar), adds the road to the list of roads and selects the road automatically upon creation, allowing the user to instantly drag it)
             inValidPosition = false;
-            AddRoadToList(newRoadPiece);
             SelectRoad(newRoadPiece);
+        }
+
+        /*
+         * This method deletes the selected road
+         */
+        public void DeleteRoad()
+        {
+            if (selectedRoad != null && !selectedRoad.getIsLocked())
+            {
+                // We have to destroy the selectedObject, as the selectedRoad is not a GameObject, but a RoadPiece. The effect will be the same, though. 
+                RemoveRoadFromList(selectedRoad);
+                DeselectRoad();
+                Destroy(selectedObject);
+
+                // To be implemented, as soon as references are implemented. VERY IMPORTANT!
+                // RemoveReferences();
+            }
         }
 
         /*
@@ -122,14 +153,88 @@ namespace scripts
                 {
                     DeselectRoad();
                     SelectRoad(selectedObject.GetComponent<RoadPiece>());
-                    
+
                     if (!selectedRoad.getIsLocked())
                     {
                         isDragging = true;
                         selectedRoad.transform.position = GetWorldPositionFromMouseClick();
+                        if (!Input.GetKey(KeyCode.LeftShift))
+                        {
+                            SnapRoadPiece();
+                        }
                         validateRoadPosition();
                     }
-                    
+
+                }
+            }
+        }
+
+
+        public RoadPiece GetNearestNeighbor()
+        {
+            float nearestDistance = -1;
+            RoadPiece closestRoad = null;
+            if(roadList.Count > 1)
+            {
+                foreach (RoadPiece road in roadList)
+                {
+                    if ((nearestDistance == -1 || Vector3.Distance(selectedRoad.transform.position, road.transform.position) < nearestDistance) && road != selectedRoad)
+                    {
+                        nearestDistance = Vector3.Distance(selectedRoad.transform.position, road.transform.position);
+                        if (nearestDistance < 300.00) {
+                            closestRoad = road;
+                        }
+                        else
+                        {
+                            closestRoad = null;
+                        }
+                       
+                        
+                    }
+                }
+            }
+
+            return closestRoad;
+        }
+       
+        /*
+         * Method that will set position of selected road piece according to the nearest road piece. 
+         */
+        public void SnapRoadPiece()
+        {
+            RoadPiece nearestNeighbor = GetNearestNeighbor();
+            if (nearestNeighbor != null)
+            {
+                float distanceX = nearestNeighbor.transform.position.x - selectedRoad.transform.position.x;
+                float distanceY = nearestNeighbor.transform.position.y - selectedRoad.transform.position.y;
+
+                // Snapping to left or right
+                if (Math.Abs(distanceX) > Math.Abs(distanceY))
+                {
+                    // Snapping to left
+                    if (distanceX > 0)
+                    {
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x - nearestNeighbor.GetComponent<Renderer>().bounds.size.x / 2 - selectedObject.GetComponent<Renderer>().bounds.size.x / 2, nearestNeighbor.transform.position.y, 0);
+                    }
+                    // Snapping to right
+                    else
+                    {
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x + nearestNeighbor.GetComponent<Renderer>().bounds.size.x / 2 + selectedObject.GetComponent<Renderer>().bounds.size.x / 2, nearestNeighbor.transform.position.y, 0);
+                    }
+                }
+                // Snapping to top or bottom
+                else
+                {
+                    // Snapping to top
+                    if (distanceY > 0)
+                    {
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y - nearestNeighbor.GetComponent<Renderer>().bounds.size.y / 2 - selectedObject.GetComponent<Renderer>().bounds.size.y / 2, 0);
+                    }
+                    // Snapping to bottom
+                    else
+                    {
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y + nearestNeighbor.GetComponent<Renderer>().bounds.size.y / 2 + selectedObject.GetComponent<Renderer>().bounds.size.y / 2, 0);
+                    }
                 }
             }
         }
@@ -153,7 +258,7 @@ namespace scripts
         public void DeselectRoad()
         {
             if (selectedRoad != null)
-            { 
+            {
                 colorRoadPiece(selectedRoad.getIsLocked() ? SelectionColor.locked : SelectionColor.normal);
                 selectedRoad = null;
                 isDragging = false;
@@ -198,7 +303,7 @@ namespace scripts
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
             return worldPosition;
         }
-    
+
         /*
          * This method validates the road position. Currently always true, as not implemented yet. 
          */
@@ -213,7 +318,7 @@ namespace scripts
         public void colorRoadPiece(SelectionColor sColor)
         {
             Color color = new Color();
-            switch(sColor)
+            switch (sColor)
             {
                 case SelectionColor.normal:
                     color = Color.white;
@@ -242,5 +347,5 @@ namespace scripts
 
             selectedRoad.GetComponent<SpriteRenderer>().color = color;
         }
-    } 
+    }
 }
