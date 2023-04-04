@@ -10,12 +10,11 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
     protected SpriteRenderer sprite;
     protected Boolean placed = false;
-    protected Boolean selected = true;
-    protected Boolean expectingAction = false;
     protected Vector2 difference = Vector2.zero;
     protected Vector2 lastClickPos = Vector2.zero;
     protected SnapController snapController;
     protected MainController mainController;
+    protected bool ignoreWaypoints;
 
     public void Awake()
     {
@@ -25,43 +24,78 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         sprite.sprite = getSprite();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
+        ignoreWaypoints = false;
+        gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
+
+        EventManager.StartListening(typeof(MouseClickAction), x =>
+        {
+            if (!placed)
+            {
+                placed = true;
+                sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
+                this.registerEntity();
+                mainController.setSelectedEntity(this);
+            }
+        });
+
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+            if(action.name == "")
+            {
+                this.destroy();
+            }
+        });
     }
 
     public abstract Sprite getSprite();
 
-    public virtual void onChangePosition(Location location)
+    public Location getLocation()
     {
-        transform.position = HeightUtil.SetZ(location.Vector3, transform.position.z);
-        transform.eulerAngles = new Vector3(0, 0, location.Rot);
+        return this.getEntity().SpawnPoint;
     }
 
-    public void onChangeType(VehicleCategory cat)
+    public abstract void init(VehicleCategory cat, Color color);
+
+    public virtual void onChangePosition(float x, float y)
     {
-        throw new NotImplementedException();
+        transform.position = new Vector3(x, y, transform.position.z);
+        mainController.moveActionButtons(transform.position);
     }
 
-    public void select()
+    public virtual void onChangeRotation(float angle)
     {
-        this.selected = true;
+        transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+    public virtual void onChangeCategory(VehicleCategory cat)
+    {
+        mainController.refreshEntityList();
+    }
+
+    public void onChangeModel(EntityModel model)
+    {
+        mainController.refreshEntityList();
+    }
+
+    public void onChangeID(string id)
+    {
+        mainController.refreshEntityList();
+    }
+
+    public virtual void select()
+    {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_SELECTED);
         sprite.material = selectionMaterial;
     }
 
-    public void deselect()
+    public virtual void deselect()
     {
-        this.selected = false;
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
         sprite.material = defaultMaterial;
-        if (expectingAction)
-        {
-            EventManager.TriggerEvent(new CancelPathSelectionAction());
-        }
     }
 
-    public void destroy()
-    {
-        Destroy(gameObject);
-    }
+    public abstract void destroy();
 
     public Vector2 getPosition()
     {
@@ -69,20 +103,33 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     }
     public void Update()
     {
+        if(getEntity() == null)
+        {
+            return; //not initialized yet
+        }
         if (!placed)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (waypoint is not null)
+
+            if (!this.shouldIgnoreWaypoints())
             {
-                difference = Vector2.zero;
-                getEntity().setSpawnPoint(waypoint);
-                gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
+                var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (waypoint is not null)
+                {
+                    difference = Vector2.zero;
+                    getEntity().setPosition(waypoint.X, waypoint.Y);
+                    gameObject.transform.eulerAngles = new Vector3(0, 0, waypoint.Rot);
+                }
+                else
+                {
+                    getEntity().setPosition(mousePosition.x, mousePosition.y); // Im not sure this is ok
+                }
             }
             else
             {
-                getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0)); // Im not sure this is ok
+                getEntity().setPosition(mousePosition.x, mousePosition.y);
             }
+
         }
     }
     public void OnMouseDrag()
@@ -92,39 +139,58 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             return;
         }
-        var waypoint = snapController.FindWaypoint(mousePosition);
-        if (waypoint is not null)
+
+        if (!this.shouldIgnoreWaypoints())
         {
-            difference = Vector2.zero;
-            getEntity().setSpawnPoint(waypoint);
+            var waypoint = snapController.FindWaypoint(mousePosition);
+            if (waypoint is not null)
+            {
+                difference = Vector2.zero;
+                getEntity().setPosition(waypoint.X, waypoint.Y);
+                getEntity().setRotation(waypoint.Rot);
+            }
+            else
+            {
+                getEntity().setPosition(mousePosition.x, mousePosition.y);
+                getEntity().setRotation(0);
+            }
         }
         else
         {
-            getEntity().setSpawnPoint(new Location(mousePosition.x, mousePosition.y, 0, 0));
+            //rotation is fixed by PathController
+            getEntity().setPosition(mousePosition.x, mousePosition.y);
         }
+        mainController.setSelectedEntity(this);
     }
-
     public void OnMouseDown()
     {
+        if (snapController.IgnoreClicks)
+        {
+            EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            return;
+        }
         difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         lastClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (!placed)
         {
             placed = true;
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-            this.registerVehicle();
+            this.registerEntity();
         }
-        if (!selected)
-        {
-            mainController.setSelectedEntity(this);
-        }
+        mainController.setSelectedEntity(this);
+    }
+    public bool shouldIgnoreWaypoints()
+    {
+        return this.ignoreWaypoints;
     }
 
-    public abstract bool hasAction();
-    public abstract void deleteAction();
-    public abstract void triggerActionSelection();
-    public abstract void setColor(Color color);
+    public virtual void setIgnoreWaypoints(bool b)
+    {
+        this.ignoreWaypoints = b;
+    }
+
     public abstract BaseEntity getEntity();
     public abstract void openEditDialog();
-    protected abstract void registerVehicle();
+    protected abstract void registerEntity();
+    public abstract void onChangeColor(Color c);
 }

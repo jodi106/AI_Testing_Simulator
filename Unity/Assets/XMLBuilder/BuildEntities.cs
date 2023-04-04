@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Enums;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -29,20 +30,21 @@ namespace ExportScenario.XMLBuilder
         {
             // Build Cars           
             // ego-vehicle
-            BuildVehicle(scenarioInfo.EgoVehicle.Model.Name, "hero", "ego_vehicle");
+            BuildVehicle(scenarioInfo.EgoVehicle.Model.CarlaName, scenarioInfo.EgoVehicle.Id, "ego_vehicle", ConvertUnityColorToString(scenarioInfo.EgoVehicle));
             // other vehicles
             for (int i = 0; i < scenarioInfo.Vehicles.Count; i++)
             {
-                BuildVehicle(scenarioInfo.Vehicles[i].Model.Name, "adversary" + scenarioInfo.Vehicles[i].Id, "simulation");
+                BuildVehicle(scenarioInfo.Vehicles[i].Model.CarlaName, scenarioInfo.Vehicles[i].Id, "simulation", ConvertUnityColorToString(scenarioInfo.Vehicles[i]));               
             }         
+            
             // pedestrians
             for (int i = 0; i < scenarioInfo.Pedestrians.Count; i++)
             {
-                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.Name, "adversary_pedestrian" + scenarioInfo.Pedestrians[i].Id);
+                BuildPedestrian(scenarioInfo.Pedestrians[i].Model.CarlaName, scenarioInfo.Pedestrians[i].Id);
             }
         }
 
-        public void BuildVehicle(string model, string scenarioObjectName, string propertyValue, double maxSpeed = 69.444)
+        public void BuildVehicle(string model, string scenarioObjectName, string propertyValue1, string propertyValue2, double maxSpeed = 69.444)
         /// Creates vehicle entity.
         {
             XmlNode scenario_object = root.CreateElement("ScenarioObject");
@@ -78,10 +80,13 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("positionX", "0.0", rear_axle);
             SetAttribute("positionZ", "0.3", rear_axle);
             XmlNode properties = root.CreateElement("Properties");
-            XmlNode property = root.CreateElement("Property");
-            SetAttribute("name", "type", property);
-            SetAttribute("value", propertyValue, property);
-
+            XmlNode property1 = root.CreateElement("Property");
+            SetAttribute("name", "type", property1);
+            SetAttribute("value", propertyValue1, property1);
+            XmlNode property2 = root.CreateElement("Property");
+            SetAttribute("name", "color", property2);
+            SetAttribute("value", propertyValue2, property2);
+            
             // Hierarchy
             entities.AppendChild(scenario_object);
             scenario_object.AppendChild(vehicle);
@@ -94,7 +99,8 @@ namespace ExportScenario.XMLBuilder
             axles.AppendChild(front_axle);
             axles.AppendChild(rear_axle);
             vehicle.AppendChild(properties);
-            properties.AppendChild(property);
+            properties.AppendChild(property1);
+            properties.AppendChild(property2);
         }
 
         public void BuildPedestrian(string model, string scenarioObjectName, string mass = "90.0")
@@ -139,6 +145,12 @@ namespace ExportScenario.XMLBuilder
             XmlAttribute attribute = root.CreateAttribute(name);
             attribute.Value = value;
             element.Attributes.Append(attribute);
+        }
+
+        private string ConvertUnityColorToString(BaseEntity vehicle)
+        {
+            UnityEngine.Color32 c = new UnityEngine.Color(vehicle.Color.r, vehicle.Color.g, vehicle.Color.b, 1f);
+            return c.r + "," + c.g + "," + c.b;
         }
     }
 }

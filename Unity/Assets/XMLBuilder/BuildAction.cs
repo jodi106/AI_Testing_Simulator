@@ -22,18 +22,19 @@ namespace ExportScenario.XMLBuilder
 
         //---------------------------------- StoryActions -----------------------------------------
         // Input always has to be XmlNode action, Waypoint waypoint
-        public void AcquirePositionAction(XmlNode action, Waypoint waypoint)
-        /// Creates AcquirePositionAction. Defines specific position to go to for a scenario entity.
+        public void AcquirePositionAction(XmlNode action, ActionType actionType)
+        /// Creates AcquirePositionAction. Defines specific position to go to for a scenario entity (Ego vehicle).
+        /// Invoked in BuildXML.cs BuildEvent()
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
             XmlNode acquirePositionAction = root.CreateElement("AcquirePositionAction");
             XmlNode position = root.CreateElement("Position");
             XmlNode worldPosition = root.CreateElement("WorldPosition");
-            SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.x.ToString(), worldPosition);
-            SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.y.ToString(), worldPosition);
-            SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[0].Vector3.z.ToString(), worldPosition);
-            SetAttribute("h", waypoint.ActionTypeInfo.PositionsCarla[0].Rot.ToString(), worldPosition);
+            SetAttribute("x", actionType.PositionsCarla[0].Vector3Ser.ToVector3().x.ToString(), worldPosition);
+            SetAttribute("y", actionType.PositionsCarla[0].Vector3Ser.ToVector3().y.ToString(), worldPosition);
+            SetAttribute("z", actionType.PositionsCarla[0].Vector3Ser.ToVector3().z.ToString(), worldPosition);
+            SetAttribute("h", actionType.PositionsCarla[0].Rot.ToString(), worldPosition);
 
             // Hierarchy
             action.AppendChild(privateAction);
@@ -43,11 +44,11 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldPosition);
         }
 
-        public void AssignRouteAction(XmlNode action, Waypoint waypoint)
+        // Invoked in BuildXML.cs Method BuildEvents
+        public void AssignRouteAction(XmlNode action, ActionType actionType)
         /// Creates AssignRouteAction. Defines entire route with multiple postisions for a scenario entity.
         {
-            // routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
-            string routeStrategy = "fastest";
+            // TODO routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
 
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
@@ -56,16 +57,17 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("name", "Route", route);
             SetAttribute("closed", "false", route);
 
-            for (int i = 0; i < waypoint.ActionTypeInfo.PositionsCarla.Count; i++)
+            for (int i = 0; i < actionType.PositionsCarla.Count; i++)
             {
+                string? routeStrategy = (i == 1) ? "shortest" : "fastest"; // Bugfix to avoid strange Carla behavior
                 XmlNode _waypoint = root.CreateElement("Waypoint");
                 SetAttribute("routeStrategy", routeStrategy, _waypoint);
                 XmlNode position = root.CreateElement("Position");
                 XmlNode worldPosition = root.CreateElement("WorldPosition");
-                SetAttribute("x", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.x.ToString(), worldPosition);
-                SetAttribute("y", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.y.ToString(), worldPosition);
-                SetAttribute("z", waypoint.ActionTypeInfo.PositionsCarla[i].Vector3.z.ToString(), worldPosition);
-                SetAttribute("h", waypoint.ActionTypeInfo.PositionsCarla[i].Rot.ToString(), worldPosition);
+                SetAttribute("x", actionType.PositionsCarla[i].Vector3Ser.ToVector3().x.ToString(), worldPosition);
+                SetAttribute("y", actionType.PositionsCarla[i].Vector3Ser.ToVector3().y.ToString(), worldPosition);
+                SetAttribute("z", actionType.PositionsCarla[i].Vector3Ser.ToVector3().z.ToString(), worldPosition);
+                SetAttribute("h", actionType.PositionsCarla[i].Rot.ToString(), worldPosition);
 
                 route.AppendChild(_waypoint);
                 _waypoint.AppendChild(position);
@@ -77,7 +79,7 @@ namespace ExportScenario.XMLBuilder
             assignRouteAction.AppendChild(route);
         }
 
-        public void SpeedAction(XmlNode action, Waypoint waypoint)
+        public void SpeedAction(XmlNode action, ActionType actionType)
         /// Creates SpeedAction. Defines speed for a scenario entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
@@ -87,10 +89,10 @@ namespace ExportScenario.XMLBuilder
             XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
             XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
 
-            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.DynamicsShape, SpeedActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
-            SetAttribute("dynamicsDimension", waypoint.ActionTypeInfo.DynamicDimensions, SpeedActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.AbsoluteTargetSpeedValue.ToString(), AbsoluteTargetSpeed);
+            SetAttribute("dynamicsShape", actionType.DynamicsShape, SpeedActionDynamics);
+            SetAttribute("value", actionType.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("dynamicsDimension", actionType.DynamicDimensions, SpeedActionDynamics);
+            SetAttribute("value", ((double) actionType.AbsoluteTargetSpeedValueKMH / 3.6).ToString(), AbsoluteTargetSpeed);
 
             action.AppendChild(privateAction);
             privateAction.AppendChild(longitudinalAction);
@@ -100,8 +102,8 @@ namespace ExportScenario.XMLBuilder
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
         }
 
-        public void BreakAction(XmlNode action, Waypoint waypoint)
-        /// Creates SpeedAction. Defines speed for a scenario entity.
+        public void StopAction(XmlNode action, ActionType actionType)
+        /// Creates SpeedAction to speed 0. Then creates another SpeedAction to previous speed.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode longitudinalAction = root.CreateElement("LongitudinalAction");
@@ -110,10 +112,11 @@ namespace ExportScenario.XMLBuilder
             XmlNode SpeedActionTarget = root.CreateElement("SpeedActionTarget");
             XmlNode AbsoluteTargetSpeed = root.CreateElement("AbsoluteTargetSpeed");
 
-            //SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.SpeedActionDynamicsShape, SpeedActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
+            SetAttribute("dynamicsShape", actionType.DynamicsShape, SpeedActionDynamics);
+            SetAttribute("value", actionType.SpeedActionDynamicsValue.ToString(), SpeedActionDynamics);
             SetAttribute("dynamicsDimension", "time", SpeedActionDynamics);
             SetAttribute("value", "0", AbsoluteTargetSpeed);
+            
 
             action.AppendChild(privateAction);
             privateAction.AppendChild(longitudinalAction);
@@ -122,20 +125,20 @@ namespace ExportScenario.XMLBuilder
             speedAction.AppendChild(SpeedActionTarget);
             SpeedActionTarget.AppendChild(AbsoluteTargetSpeed);
         }
-        public void LaneChangeAction(XmlNode action, Waypoint waypoint)
+        public void LaneChangeAction(XmlNode action, ActionType actionType)
         /// Creates LaneChangeAction. Defines amount of lanes to change for a scenario entity relative to a specified entity.
         {
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode lateralAction = root.CreateElement("LateralAction");
             XmlNode laneChangeAction = root.CreateElement("LaneChangeAction");
             XmlNode laneChangeActionDynamics = root.CreateElement("LaneChangeActionDynamics");
-            SetAttribute("dynamicsShape", waypoint.ActionTypeInfo.DynamicsShape, laneChangeActionDynamics);
-            SetAttribute("value", waypoint.ActionTypeInfo.LaneChangeActionDynamicsValue.ToString(), laneChangeActionDynamics);
-            SetAttribute("dynamicsDimension", waypoint.ActionTypeInfo.DynamicDimensions, laneChangeActionDynamics);
+            SetAttribute("dynamicsShape", actionType.DynamicsShape, laneChangeActionDynamics);
+            SetAttribute("value", actionType.LaneChangeActionDynamicsValue.ToString(), laneChangeActionDynamics);
+            SetAttribute("dynamicsDimension", actionType.DynamicDimensions, laneChangeActionDynamics);
             XmlNode laneChangeTarget = root.CreateElement("LaneChangeTarget");
             XmlNode relativeTargetLane = root.CreateElement("RelativeTargetLane");
-            SetAttribute("entityRef", waypoint.ActionTypeInfo.EntityRef, relativeTargetLane);
-            SetAttribute("value", waypoint.ActionTypeInfo.RelativeTargetLaneValue.ToString(), relativeTargetLane);
+            SetAttribute("entityRef", actionType.EntityRef, relativeTargetLane);
+            SetAttribute("value", actionType.RelativeTargetLaneValue.ToString(), relativeTargetLane);
 
             action.AppendChild(privateAction);
             privateAction.AppendChild(lateralAction);
@@ -173,9 +176,9 @@ namespace ExportScenario.XMLBuilder
             XmlNode position = root.CreateElement("Position");
             XmlNode world_position = root.CreateElement("WorldPosition");
 
-            SetAttribute("x", spawnPoint.Vector3.x.ToString(), world_position);
-            SetAttribute("y", spawnPoint.Vector3.y.ToString(), world_position);
-            SetAttribute("z", spawnPoint.Vector3.z.ToString(), world_position);
+            SetAttribute("x", spawnPoint.Vector3Ser.ToVector3().x.ToString(), world_position);
+            SetAttribute("y", spawnPoint.Vector3Ser.ToVector3().y.ToString(), world_position);
+            SetAttribute("z", spawnPoint.Vector3Ser.ToVector3().z.ToString(), world_position);
             SetAttribute("h", spawnPoint.Rot.ToString(), world_position);
 
             privateAction.AppendChild(teleport_action);
@@ -183,7 +186,7 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(world_position);
         }
 
-        public void ControllerAction(XmlNode privateAction, string controlMode = "external_control", string propertyName = "module", string controllerName = "HeroAgent")
+        public void ControllerAction(XmlNode privateAction, string controlMode, string controllerName = "HeroAgent")
         /// Creates ControllerAction for Ego Vehicle Init.
         // ToDo: validate whether this is necessary for Ego Intit
         {
@@ -192,9 +195,18 @@ namespace ExportScenario.XMLBuilder
             XmlNode controller = root.CreateElement("Controller");
             SetAttribute("name", controllerName, controller);
             XmlNode properties = root.CreateElement("Properties");
-            XmlNode property = root.CreateElement("Property");
-            SetAttribute("name", propertyName, property);
-            SetAttribute("value", controlMode, property);
+            XmlNode property1 = root.CreateElement("Property");
+            
+            SetAttribute("name", "module", property1);
+            SetAttribute("value", controlMode, property1); // "external_control", "simple_vehicle_control", ...
+            if (controlMode == "simple_vehicle_control")
+            {
+                XmlNode property2 = root.CreateElement("Property");
+                SetAttribute("name", "attach_camera", property2);
+                SetAttribute("value", "true", property2);
+                properties.AppendChild(property2);
+            }
+            
             XmlNode override_controller_value_action = root.CreateElement("OverrideControllerValueAction");
             XmlNode throttle = root.CreateElement("Throttle");
             SetAttribute("value", "0", throttle);
@@ -220,7 +232,7 @@ namespace ExportScenario.XMLBuilder
             controller_action.AppendChild(assign_controller_action);
             assign_controller_action.AppendChild(controller);
             controller.AppendChild(properties);
-            properties.AppendChild(property);
+            properties.AppendChild(property1);
             controller_action.AppendChild(override_controller_value_action);
             override_controller_value_action.AppendChild(throttle);
             override_controller_value_action.AppendChild(brake);

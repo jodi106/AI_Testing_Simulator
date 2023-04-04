@@ -1,9 +1,14 @@
 ﻿using Assets.Enums;
 using Entity;
+using UnityEngine;
+using System;
 
-public interface IBaseEntityView
+
+public interface IBaseEntityView : IBaseView
 {
-    public void onChangePosition(Location pos);
+    public void onChangeCategory(VehicleCategory cat);
 
-    public void onChangeType(VehicleCategory cat);
+    public void onChangeModel(EntityModel model);
+
+    public void onChangeID(string id);
 }

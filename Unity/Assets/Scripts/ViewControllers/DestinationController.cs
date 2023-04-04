@@ -9,34 +9,27 @@ public class DestinationController : MonoBehaviour
     private SnapController snapController;
     private bool placed;
 
-    public void setEgo(EgoViewController ego)
-    {
-        this.ego = ego;
-    }
-
     void Awake()
     {
         this.sprite = gameObject.GetComponent<SpriteRenderer>();
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.WAYPOINT_SELECTED);
         this.snapController = Camera.main.GetComponent<SnapController>();
 
-        placed = false;
-
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-            if (!placed)
-            {
-                this.Destroy();
-            }
-        });
-
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
             if (!placed)
             {
                 placed = true;
+                var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                ego.submitDestination(waypoint);
             }
         });
+    }
+
+    public void init(EgoViewController ego, Color color, bool placed = false)
+    {
+        this.ego = ego;
+        this.placed = placed;
     }
 
     public void Destroy()
@@ -47,6 +40,11 @@ public class DestinationController : MonoBehaviour
     public void setColor(Color color)
     {
         this.sprite.color = color;
+    }
+
+    public bool isPlaced()
+    {
+        return this.placed;
     }
 
     public void Update()

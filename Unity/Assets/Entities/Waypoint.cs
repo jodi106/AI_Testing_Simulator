@@ -1,32 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using System.Linq;
 namespace Entity
-{ 
-    public class Waypoint : BaseEntity// Event in .xosc
+{
+    [Serializable]
+    public class Waypoint : ICloneable// Event in .xosc
     /// <summary>Create Waypoint Object. Contains User defined Input for a specific Event on a Entity Path</summary>
     {
         public Waypoint(Location location)
         {
-            Id = -1;
             Location = location;
+            Actions = new List<ActionType>();
+        }
+
+        public Waypoint()
+        {
         }
 
         public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
         {
-            Id = -1;
             Location = location;
             ActionTypeInfo = actionTypeInfo;
             Priority = priority;
             TriggerList = triggerList;
             CalculateLocationCarla();
+            Actions = new List<ActionType>();
         }
 
-        public void setLocation(Location location)
+        public void setPosition(float x, float y)
         {
-            this.Location = location;
-            this.View?.onChangePosition(location);
+            Location = new Location(x, y, Location.Z, Location.Rot);
+            this.View?.onChangePosition(x, y);
             CalculateLocationCarla();
         }
 
@@ -37,6 +42,12 @@ namespace Entity
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
 
+        [field: NonSerialized]
+        public IBaseView View { get; set; }
+        public List<ActionType> Actions { get; set; } // Actions without Triggers
+
+        public Adversary StartRouteOfOtherVehicle { get; set; }
+
         public void CalculateLocationCarla()
         {
             (float xCarla, float yCarla) = SnapController.UnityToCarla(Location.X, Location.Y);
@@ -45,6 +56,21 @@ namespace Entity
             this.LocationCarla = new Location(xCarla, yCarla, 0.3f, rotCarla);
         }
 
+        public object Clone()
+        {
+            var cloneWaypoint = new Waypoint();
+            if (this.Location != null) cloneWaypoint.Location = (Location)this.Location.Clone();           
+            if (this.LocationCarla != null) cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
+            if (this.ActionTypeInfo != null) cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
+            if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Adversary)this.StartRouteOfOtherVehicle.Clone();
+            if (this.TriggerList != null) cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
+
+            cloneWaypoint.Actions = new();
+            if (this.Actions != null)           
+                cloneWaypoint.Actions = this.Actions.Select(x => (ActionType)x.Clone()).ToList();
+            
+            return cloneWaypoint;
+        }
     }
 
     public class AStarWaypoint : Waypoint

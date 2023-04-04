@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class MapController : MonoBehaviour
 {
