@@ -51,6 +51,15 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             this.destroy();
         });
+
+        EventManager.StartListening(typeof(EntityListEntryClickedAction), x =>
+        {
+            var action = new EntityListEntryClickedAction(x);
+            if(action.entity == this.getEntity())
+            {
+                mainController.setSelectedEntity(this);
+            }
+        });
     }
 
     /// <summary>

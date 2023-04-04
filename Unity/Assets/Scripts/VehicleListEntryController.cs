@@ -11,6 +11,7 @@ public class VehicleListEntryController
     Label category;
     Label model;
     VisualElement container;
+    public BaseEntity entity { get; protected set; }
 
     /// <summary>
     /// Sets the VisualElement that the controller will update.
@@ -30,9 +31,9 @@ public class VehicleListEntryController
     /// <param name="entity">The BaseEntity containing the data to display.</param>
     public void setEventData(BaseEntity entity)
     {
+        this.entity = entity;
         label.text = entity.Id.ToString();
         container.style.backgroundColor = entity.Color.ToUnityColor();
-        //TODO: maybe use common subclass for ego and vehicle
         if (entity is Adversary v)
         {
             category.text = v.Category.ToString();

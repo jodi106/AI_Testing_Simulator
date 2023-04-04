@@ -42,7 +42,7 @@ public class MainController : MonoBehaviour
     private Button saveButton;
     private Button homeButton;
     private Button exitButton;
-    
+
     private VisualElement buttonBar;
 
     private uGUI.Button removeEntityButton;
@@ -65,7 +65,7 @@ public class MainController : MonoBehaviour
     public HelpPopupController helpPopupController;
 
     // If true don't show this explanation anymore because the user has clicked 'DoNotShowAgain'
-    public static bool[] helpComplete = new bool[] { false, false }; 
+    public static bool[] helpComplete = new bool[] { false, false };
     // [0] --> false: user clicks 'snapToggle' in actionButtonCanvas, show Free/Tied path explanation
     // [1] --> false: WaypointSettings, show 'LaneChangeAction' explanation
     // ... in case more help popups are needed
@@ -146,7 +146,7 @@ public class MainController : MonoBehaviour
         EventManager.TriggerEvent(new MapChangeAction(info.MapURL));
         info.onEgoChanged = this.info.onEgoChanged;
         this.info = info;
-        foreach(Adversary v in info.Vehicles)
+        foreach (Adversary v in info.Vehicles)
         {
             var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
             viewController.init(v);
@@ -181,15 +181,15 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// Sets the selected entity in the scenario editor.
     /// </summary>
-    /// <param name="entity">The entity to set as the selected entity. Pass null to deselect the current entity.</param
-    public void setSelectedEntity(IBaseController entity)
+    /// <param name="controller">The entity to set as the selected entity. Pass null to deselect the current entity.</param
+    public void setSelectedEntity(IBaseController controller)
     {
-        if (entity != null)
+        if (controller != null)
         {
-            var position = entity.getLocation();
+            var position = controller.getLocation();
             this.actionButtonCanvas.transform.position = new Vector3(position.X, (float)(position.Y - 0.5), -1f);
-            snapToggle.SetIsOnWithoutNotify(!entity.shouldIgnoreWaypoints());
-            if (this.actionButtonCanvas.activeSelf && entity != selectedEntity)
+            snapToggle.SetIsOnWithoutNotify(!controller.shouldIgnoreWaypoints());
+            if (this.actionButtonCanvas.activeSelf && controller != selectedEntity)
             {
                 var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
                 anim.onMove();
@@ -199,14 +199,20 @@ public class MainController : MonoBehaviour
                 this.actionButtonCanvas.SetActive(true);
             }
             this.selectedEntity?.deselect();
-            this.selectedEntity = entity;
+            this.selectedEntity = controller;
             this.selectedEntity?.select();
+            if (controller is IBaseEntityController entityController)
+            {
+                var index = eventList.itemsSource.IndexOf(entityController.getEntity());
+                eventList.SetSelectionWithoutNotify(new List<int> { index });
+            }
         }
         else
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = null;
             this.actionButtonCanvas.SetActive(false);
+            eventList.ClearSelection();
         }
     }
 
@@ -258,7 +264,7 @@ public class MainController : MonoBehaviour
     /// <param name="adversary">The Adversary object to be removed.</param>
     public void removeAdversary(Adversary adversary)
     {
-        if(adversary is Adversary v)
+        if (adversary is Adversary v)
         {
             foreach (Waypoint w in v.Path.WaypointList)
             {
@@ -269,7 +275,8 @@ public class MainController : MonoBehaviour
                 }
             }
             this.info.Vehicles.Remove(v);
-        } else if (adversary is Adversary p)
+        }
+        else if (adversary is Adversary p)
         {
             this.info.Pedestrians.Remove(p);
         }
@@ -340,7 +347,7 @@ public class MainController : MonoBehaviour
         exitButton.AddManipulator(new ToolTipManipulator("Exit"));
 
         buttonBar = editorGUI.Q<VisualElement>("buttons");
-        
+
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
@@ -381,7 +388,7 @@ public class MainController : MonoBehaviour
         {
             if (freeze) return;
             ExportOnClick();
-           //loadScenarioInfo(this.info);
+            //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>(async (ClickEvent) =>
@@ -536,6 +543,12 @@ public class MainController : MonoBehaviour
             eventList.itemsSource = info.allEntities;
             refreshEntityList();
         };
+
+        eventList.onSelectionChange += (objects) =>
+        {
+            var entity = (BaseEntity)objects.FirstOrDefault();
+            EventManager.TriggerEvent(new EntityListEntryClickedAction(entity));
+        };
     }
 
     /// <summary>
@@ -563,7 +576,7 @@ public class MainController : MonoBehaviour
         FileBrowser.SetDefaultFilter(defaultExtension);
 
         yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Files);
-        
+
         if (FileBrowser.Success)
         {
             string filePath = FileBrowser.Result[0];
@@ -602,7 +615,7 @@ public class MainController : MonoBehaviour
         FileBrowser.SetDefaultFilter("sced");
 
         yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files);
-        if(FileBrowser.Success)
+        if (FileBrowser.Success)
         {
             try
             {
@@ -639,14 +652,14 @@ public class MainController : MonoBehaviour
             this.warningPopupController.open(title, description);
             freeze = false;
             return;
-        }   
+        }
 
         //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
         ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
 
         // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
         //exportInfo = this.info;
-        
+
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
@@ -655,7 +668,7 @@ public class MainController : MonoBehaviour
         exportInfo.EgoVehicle.getCarlaLocation();
 
         // ------------------------------------------------------------------------
-        
+
         // Create .xosc file
         StartCoroutine(saveScenarioInfoWrapper(exportInfo, false));
     }
@@ -704,7 +717,7 @@ public class MainController : MonoBehaviour
         }
     }
 
-   
+
 
 }
 
