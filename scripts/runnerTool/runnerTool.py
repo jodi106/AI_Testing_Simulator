@@ -17,43 +17,80 @@ RUNNER_TOOL_VERSION = "1.0"
 # SET PATHS IN CONFIG.JSON FILE # 
 #---------------------------------------------------------------------------------------------------------------------#
 
-# TODOS: 
-# check carla crash when speed+camera k = 1000 applied
-# Add string exchange for vehicle controller
-# Fix camera update to ego instead of dummy
-# Docstrings
-# Create .exe
-# Write Doku, also highlight/write about changed code part in scenario_runner.py and dependencies
-
+# Sort by Mapname 
 
 class RunnerTool(object):
+    '''
+    Inititates runnerTool object. Checks config paths, creates result and log dir if not exist.
+
+    Attributes
+    ----------
+    log : Log
+        Log object to create logfile
+    config : dict
+        Contains required dir paths set in config.json
+    host : 
+        IP of the host server (default: localhost)
+    port : int
+        TCP port to listen to (default: 2000)
+    checks : bool
+        Disable checks for config.json
+    detailed_log : bool  
+        Saves detailed json log to root dir
+    save_overview : bool
+        Saves scenario success overview txt to root dir
+    failed_scenarios : bool
+        Saves failed scenarios overview txt to root dir
+    low_quality : bool
+        Set Carla renderquality to low
+    speed : int
+        Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Max stable value 500-1000 can vary for different maps(50-10X Speed)
+        Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
+    camera : str{bird, ego} 
+        Set camera perspectiv (bird, ego) fixed to ego vehicle (default: None)
+    agent: str
+        Replaces HeroAgent controller value with provided string
+
+
+
+    Methods
+    -------
+    get_config()
+        Loads required user specified paths from config.json file.
+    check_paths(conf)
+        Checks whether paths were specified by user and are valid.
+    set_agent(file)
+        Opens specified file and replaces HeroAgent value with self.agent string.
+    start_carla()
+        Starts Carla.exe if not already running.
+    adjust_speed()
+        Create string to adjust play speed of scenario.
+    set_camera_perspective()
+        Create string tp adjust camera perspective.
+    runner()
+        Runs all n .xosc files in specified dir by executing scenario_runner.py in n subprocesses.
+    print_subprocess_output(result)
+        Prints subprocess output.
+    create_result_dir()
+        Creates new dir in RUNNER_ROOT to store scenario results, if none exists.
+    create_logs_dir()
+        Creates new dir in RUNNER_ROOT to store logs and overview files, if none exists.'
+    load_results()
+        Loads scenario results .json files form result dir.
+    create_results_overview(call=True)
+        Creates scenario success overview of all scenario results .json files in results dir.
+    get_failed(result_dict, print_out = True)
+        Creates list of failed scenarios including the respective failed tests.
+    user_specific_results(result_dict)
+        Takes user input to browse results.
+    '''
 
     def __init__(self, args:argparse.Namespace):
         '''
-        Inititates runnerTool object. Checks config paths, creates result and log dir if not exist.
-        
         Parameters
         ----------
-        log: Log
-            Log object to create logfile
-        config: dict
-            Contains required dir paths set in config.json
         args : Namespace
-            Namespace containing command line arguments:
-            - host: IP of the host server (default: localhost)
-            - port: TCP port to listen to (default: 2000)
-            - noChecks: Disable checks for config.json
-            - log: Saves detailed json log to root dir
-            - overview: Saves scenario success overview txt to root dir
-            - failed: Saves failed scenarios overview txt to root dir
-            - lowQuality: Set Carla renderquality to low
-            - speed: Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics.
-                            Max stable value 1000 (10X Speed)
-            - camera: Set camera perspectiv (bird, ego) fixed to ego vehicle
-
-        Returns
-        -------
-        None
+            Namespace containing command line arguments
         '''
         self.log = Log()
         self.config = self.get_config()
@@ -67,6 +104,7 @@ class RunnerTool(object):
         self.failed_scenarios = args.failed
         self.speed = args.speed
         self.camera = args.camera
+        self.agent = args.agent
 
         # Args for start_carla
         self.host = args.host
@@ -114,6 +152,33 @@ class RunnerTool(object):
                 raise ValueError(self.log.get_top(print_out=False))
             k+=1
 
+    def set_agent(self, file:str):
+        '''
+        Opens specified file and replaces HeroAgent value with self.agent string.
+        
+        Parameters
+        ----------
+        file : str
+            full path to .xosc file
+
+        '''
+        try:
+            with open(file, 'r') as f:
+                xosc = f.read() 
+
+            heroindex = xosc.index("HeroAgent")
+            valueindex = heroindex + xosc[heroindex:].index("value")
+            quot1 = valueindex + xosc[valueindex:].index("\"")
+            quot2 = quot1 + xosc[quot1+1:].index("\"")
+            controller = xosc[quot1+1:quot2+1]
+            xosc = xosc.replace(controller, self.agent)
+
+            with open(file, "w") as f:
+                f.write(xosc)
+            self.log.create_entry("INFO: Agent name changed from \"{old}\" to \"{new}\"".format(old=controller, new=self.agent))
+        except Exception as e:
+            self.log.create_entry("ERROR: Could not change Agent name due to exception: {error}".format(error=e))
+
     def start_carla(self):
         ''' Starts Carla.exe if not already running.'''
         
@@ -125,6 +190,8 @@ class RunnerTool(object):
             client = carla.Client(self.host, self.port) 
             world = client.get_world()
             self.log.create_entry("INFO: Carla is already running, starting scenario..")
+            if self.low_quality:
+                self.log.create_entry("INFO: Changing renderquality when carla is already running is not possible! Keeping old settings.")
         except Exception:
             self.log.create_entry("INFO: Carla not Running, Starting exe..")
             self.carla_exe = subprocess.Popen(self.config["PATH_TO_CARLA_ROOT"]+"/CarlaUE4.exe -quality-level={quality}".format(quality=quality))
@@ -134,7 +201,8 @@ class RunnerTool(object):
 
     def adjust_speed(self):
         ''' 
-        Create string to adjust play speed of scenario
+        Create string to adjust play speed of scenario.
+        Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
 
         Returns
         -------
@@ -142,12 +210,13 @@ class RunnerTool(object):
             String in command line argument format containing user defined or default value for scenario display speed.
         '''
         speed_cmd = " --speed %i" %self.speed
-        self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
+        if self.speed != 100:
+            self.log.create_entry("INFO: Setting Scenario display Speed to %.2fX" %(self.speed/100))
         return speed_cmd
     
     def set_camera_perspective(self):
         ''' 
-        Create string tp adjust camera perspective
+        Create string tp adjust camera perspective.
 
         Returns
         -------
@@ -161,7 +230,7 @@ class RunnerTool(object):
         return camera_cmd
 
     def runner(self):
-        ''' Runs all n .xosc files in specified dir by executing scenario_runner.py in n subprocesses'''
+        ''' Runs all n .xosc files in specified dir by executing scenario_runner.py in n subprocesses.'''
         conf = self.config
 
         folder_addr = conf["PATH_TO_XOSC_FILES"]
@@ -170,8 +239,10 @@ class RunnerTool(object):
         for file in file_list:
             if ".xosc" in file:
                 try:
-                    self.log.create_entry("INFO: Running scenario -> {scenario}...".format(scenario=file))
                     openscenario = folder_addr + "/" + file
+                    self.log.create_entry("INFO: Running scenario -> {scenario}...".format(scenario=file)) 
+                    if self.agent:
+                        self.set_agent(openscenario)          
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python env root is required.)
                     cmd = """cd \"{runner_root}\"\
                                 &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"{speed} {camera}
@@ -184,8 +255,6 @@ class RunnerTool(object):
                     result = subprocess.run(cmd, shell=True, capture_output=True)
                     self.print_subprocess_output(result)
 
-                    self.log.create_entry("SCENARIO RUNNER STDOUT: {error}".format(error=result.stdout))
-                    self.log.create_entry("SCENARIO RUNNER STDERR: {error}".format(error=result.stderr))
                 except Exception as e:
                     self.log.create_entry("ERROR: An error occured while running scenario {s_name}.".format(s_name=file))
                     show = input("Show error message?(y/n): ")
@@ -194,13 +263,9 @@ class RunnerTool(object):
         
         self.create_results_overview()
 
-    def create_linux_cmd(self):
-        pass
-
-
-    def print_subprocess_output(self, result):
+    def print_subprocess_output(self, result: subprocess):
         '''
-        Prints individual scenario results directly after execution.
+        Prints subprocess output.
 
         Parameters
         ----------
@@ -211,10 +276,13 @@ class RunnerTool(object):
         -------
         None
         '''
+        self.log.create_entry("SCENARIO RUNNER STDOUT: {error}".format(error=result.stdout))
+        self.log.create_entry("SCENARIO RUNNER STDERR: {error}".format(error=result.stderr))
+
         if "Not all scenario tests were successful" in result.stdout.decode("utf-8"):
-            self.log.create_entry("INFO: Not all scenario tests were successful")
+            self.log.create_entry("INFO: Not all scenario tests were successful\n")
         elif "All scenario tests were passed successfully" in result.stdout.decode("utf-8"):
-            self.log.create_entry("INFO: All scenario tests were passed successfully")
+            self.log.create_entry("INFO: All scenario tests were passed successfully\n")
 
         if "exception" in result.stderr.decode("utf-8"):
             self.log.create_entry(result.stderr.decode("utf-8"))
@@ -265,8 +333,23 @@ class RunnerTool(object):
         return results_dict
 
     def create_results_overview(self, call = True):
-        ''' Creates scenario success overview of all scenario results .json files in results dir'''
+        ''' 
+        Creates scenario success overview of all scenario results .json files in results dir.
         
+        Parameters
+        ----------
+        call: bool
+            Boolean variable to enable/disable calling parts of the function to prevent redundant actions if function is called multiple times. This includes:
+            - calling user_specific_results()
+            - appending result dict to log
+            - storing log.json
+            - storing overview.txt
+            - storing failed scenarios
+
+        Returns
+        -------
+        None
+        '''        
         result_dict = self.load_results()
         overview = ["SCNEARIO NAMES | SUCCESS"]
         count = 1
@@ -308,8 +391,22 @@ class RunnerTool(object):
                                                                         date = date),'w', encoding='utf-8') as fp:
                     json.dump(self.get_failed(result_dict, False), fp, sort_keys=False, indent=4)
 
-
     def get_failed(self, result_dict:dict, print_out = True):
+        '''
+        Creates list of failed scenarios including the respective failed tests.
+
+        Parameters
+        ----------
+        result_dict: dict
+            Dictonary containing all scenario results stored in results dir
+        print_out: bool
+            Enable/Disable printing to console
+
+        Returns
+        -------
+        failed: list
+            List of the names of failed scenarios including the respective failed tests
+        '''
         failed = []
         if print_out:
             self.log.create_entry("----------------- FAILED SCENARIOS -----------------")
@@ -322,15 +419,16 @@ class RunnerTool(object):
                         criteria.append(criteria_dict["name"])
                 s = s + ','.join(criteria) + ")"
                 failed.append(s)
-            if print_out:
-                self.log.create_entry(s)
-            
+            try:
+                if print_out:
+                    self.log.create_entry(s)
+            except Exception:
+                pass    
         return failed
-
 
     def user_specific_results(self, result_dict:dict):
         '''
-        Loads scenario results .json files form result dir.
+        Takes user input to browse results.
 
         Parameters
         ----------
@@ -375,21 +473,78 @@ class RunnerTool(object):
                 Scenario Overview: \"o\"\n""")
 
 class Log:
-    
+    '''
+    Inititates runnerTool object. Checks config paths, creates result and log dir if not exist.
+
+    Attributes
+    ----------
+    logfile : dict
+        Dict for logfile entries
+    count : int
+        Iterable to create unique log entries
+
+    Methods
+    -------
+    create_entry(entry, print_result = True)
+        Creates new count numbered log entry with timestamp
+    get_log()
+        Returns logfile
+    get_top(print_out)
+        Returns most recent log entry
+    append_dict(name, dict)
+        Appends a dict with name to logfile
+    store(path="")
+        Stores the logfile at path
+    '''
     def __init__(self):
         self.logfile = {}
         self.count = 1
 
     def create_entry(self, entry: str, print_result = True):
+        '''
+        Creates new count numbered log entry with timestamp.
+
+        Attributes
+        ----------
+        entry : str
+            Content of log entry as a string
+        print_result: bool
+            Enables/Disables calling get_top() to print entry to console
+        
+        Returns
+        -------
+        None
+        '''
         self.logfile[str(self.count) + ": " + str(datetime.now())[10:19]] = entry
         if print_result:
             self.get_top(print_result)
         self.count+=1
 
     def get_log(self):
+        '''
+        Returns Logfile.
+
+        Returns
+        -------
+        logfile : dict
+            logfile as dict
+        '''
         return self.logfile
     
     def get_top(self, print_out):
+        '''
+        Returns most recent log entry.
+
+        Attributes
+        ----------
+        print_out: bool
+            Enables/Disables printing entry to console
+        
+        Returns
+        -------
+        str
+            Most recent logfile element as string
+        '''
         keys = list(self.logfile.keys())
         if print_out:
             print(self.logfile[keys[-1]])
@@ -397,9 +552,11 @@ class Log:
         return self.logfile[keys[-1]] 
     
     def append_dict(self, name, dict):
+        '''Appends a dict with name to logfile.'''
         self.logfile[name] = dict
     
     def store(self, path:str=""):
+        '''Stores the logfile at path'''
         with open(path+ 'runnerTool_Log_{date}.json'
                   .format(date = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')), 
                   'w', encoding='utf-8') as fp:
@@ -407,7 +564,6 @@ class Log:
 
 
 def main():
-
     description = ("OpenSCENARIO runnerTool for CARLA Simulator: Run and Evaluate multiple OpenScenario scenarios using CARLA\n"
                    "Current version: " + RUNNER_TOOL_VERSION)
    
@@ -423,14 +579,17 @@ def main():
     parser.add_argument('--overview', action="store_true", help='Saves scenario success overview txt to root dir')
     parser.add_argument('--failed', action="store_true", help='Saves failed scenarios overview txt to root dir')
     parser.add_argument('--lowQuality', action="store_true", help='Set Carla renderquality to low')   
-    parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nMax stable value 1000 (10X Speed)')
-    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle')
+    parser.add_argument('--speed', default=100, type=int, help='Play speed of scenario in percent(Default=100). Doesn\'t effect (time)metrics.\nValues >500 might lead to physics bugs')
+    parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
+    parser.add_argument('--agent', default=None, type=str, help='Specify agent name to run all scenarios in dir')
 
     arguments = parser.parse_args()
 
     runner_tool = RunnerTool(arguments)
     runner_tool.start_carla()
     runner_tool.runner()
+    
+    #uncomment line below and comment the two lines above to skip directly to results overview without running scenarios
     #runner_tool.create_results_overview()
   
 if __name__ == "__main__":
