@@ -9,7 +9,6 @@ using UnityEngine.UIElements;
 /// </summary>
 public class ToolTipManipulator : Manipulator
 {
-    GameObject tooltip;
     private String toolTipText;
 
     /// <summary>
@@ -18,7 +17,6 @@ public class ToolTipManipulator : Manipulator
     /// <param name="text">The text to display in the tooltip.</param>
     public ToolTipManipulator(String text)
     {
-        tooltip = GameObject.Find("ToolTip");
         toolTipText = text;
     }
 
@@ -46,12 +44,8 @@ public class ToolTipManipulator : Manipulator
     /// <param name="e">The MouseEnterEvent data.</param>
     private void MouseIn(MouseEnterEvent e)
     {
-        tooltip.SetActive(true);
-        tooltip.GetComponent<TMPro.TextMeshProUGUI>().SetText(toolTipText);
-        var x = this.target.worldBound.center.x;
-        var y = this.target.worldBound.yMin - 20;
-        var pos = Camera.main.ScreenToWorldPoint(new Vector2(x, Camera.main.pixelHeight - y));
-        tooltip.gameObject.transform.position = new Vector3(pos.x, pos.y, -1f);
+        Vector2 pos = new Vector2(this.target.worldBound.center.x, this.target.worldBound.yMin);
+        MainController.moveToolTip(pos, Vector2.up, this.toolTipText);
     }
 
     /// <summary>
@@ -60,6 +54,6 @@ public class ToolTipManipulator : Manipulator
     /// <param name="e">The MouseLeaveEvent data.</param>
     private void MouseOut(MouseLeaveEvent e)
     {
-        tooltip.SetActive(false);
+        MainController.hideToolTip();
     }
 }

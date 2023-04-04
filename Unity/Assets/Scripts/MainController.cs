@@ -17,7 +17,6 @@ using SimpleFileBrowser;
 using System.Collections;
 using System;
 
-
 /// <summary>
 /// MainController manages the user interface and the interactions with the scenario editor.
 /// </summary>
@@ -218,6 +217,23 @@ public class MainController : MonoBehaviour
     public void moveActionButtons(Vector2 pos)
     {
         this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
+    }
+
+    public static void moveToolTip(Vector2 pos, Vector2 direction, String text)
+    {
+        var tooltip = GameObject.Find("ToolTip");
+        var textElement = tooltip.GetComponent<TMPro.TextMeshProUGUI>();
+        textElement.enabled = true;
+        textElement.SetText(text);
+        var x = pos.x;
+        var y = pos.y - 35 * direction.y;
+        var target = Camera.main.ScreenToWorldPoint(new Vector2(x, Camera.main.pixelHeight - y));
+        tooltip.gameObject.transform.position = new Vector3(target.x, target.y, -1f);
+    }
+
+    public static void hideToolTip()
+    {
+        GameObject.Find("ToolTip").GetComponent<TMPro.TextMeshProUGUI>().enabled = false;
     }
 
     /// <summary>
@@ -447,6 +463,8 @@ public class MainController : MonoBehaviour
             if (freeze) return;
             selectedEntity?.destroy();
             setSelectedEntity(null);
+            // Pointer exit event is not called
+            MainController.hideToolTip();
         });
 
         editEntityButton.onClick.AddListener(() =>
