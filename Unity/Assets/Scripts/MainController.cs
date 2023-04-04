@@ -226,7 +226,7 @@ public class MainController : MonoBehaviour
         textElement.enabled = true;
         textElement.SetText(text);
         var x = pos.x;
-        var y = pos.y - 35 * direction.y;
+        var y = pos.y - Camera.main.pixelHeight * 0.03f * direction.y;
         var target = Camera.main.ScreenToWorldPoint(new Vector2(x, Camera.main.pixelHeight - y));
         tooltip.gameObject.transform.position = new Vector3(target.x, target.y, -1f);
     }
