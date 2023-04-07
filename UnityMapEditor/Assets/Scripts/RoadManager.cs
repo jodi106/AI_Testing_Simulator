@@ -222,24 +222,40 @@ namespace scripts
             }
         }
 
-        public Vector3 newSnappedPosition(RoadPiece nearestNeighbor)
+        public Vector3 newSnappedPosition(RoadPiece nearestNeighbor, RoadSides roadSide)
         {
             if (selectedRoad.getRotation() == nearestNeighbor.getRotation())
             {
                 float rad = nearestNeighbor.getRotation() * (float)(Math.PI / 180);
+                float x = selectedRoad.transform.position.x;
+                float y = selectedRoad.transform.position.y;
 
-                //snap down
-                //float x = selectedRoad.transform.position.x * (float)Math.Cos(rad) - selectedRoad.transform.position.y * (float)Math.Sin(rad);
-                //float y = selectedRoad.transform.position.x * (float)Math.Sin(rad) + selectedRoad.transform.position.y * (float)Math.Cos(rad);
+                if (roadSide == RoadSides.top)
+                {
+                    x = nearestNeighbor.transform.position.x - nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
+                    y = (nearestNeighbor.transform.position.y + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 +
+                        selectedRoad.height * selectedRoad.transform.localScale.y / 2) - nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
+                }
+                else if (roadSide == RoadSides.bottom)
+                {
+                    x = nearestNeighbor.transform.position.x + nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
+                    y = (nearestNeighbor.transform.position.y - nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 -
+                        selectedRoad.height * selectedRoad.transform.localScale.y / 2) + nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
+                }
+                else if (roadSide == RoadSides.left)
+                {
+                    x = nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 -
+                        selectedRoad.width * selectedRoad.transform.localScale.x / 2 + nearestNeighbor.width / 2 * (float)Math.Sin(rad);
+                    y = nearestNeighbor.transform.position.y + nearestNeighbor.width * nearestNeighbor.transform.localScale.y / 2 * (1 - (float)Math.Cos(rad));
+                    Debug.Log("l");
 
-                float x = nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
-                Debug.Log(x);
-                float y = (nearestNeighbor.transform.position.y + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 +
-                    selectedRoad.height * selectedRoad.transform.localScale.y / 2) + nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
+                    //x = nearestNeighbor.transform.position.y - nearestNeighbor.width * nearestNeighbor.transform.localScale.y / 2 -
+                    //     selectedRoad.width * selectedRoad.transform.localScale.y / 2    + nearestNeighbor.width * nearestNeighbor.transform.localScale.y * (float)Math.Sin(rad); ;
+                    //y = nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.y * (float)Math.Sin(rad); ;
+                }
                 return new Vector3(x, y, selectedRoad.transform.position.z);
             }
             return selectedRoad.transform.position;
-
         }
 
 
@@ -263,13 +279,12 @@ namespace scripts
                         // Snapping to left
                         if (distanceX > 0)
                         {
-                            Debug.Log("Left");
-                            selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 - selectedRoad.width * selectedRoad.transform.localScale.x / 2, nearestNeighbor.transform.position.y, 0);
+                            //selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 - selectedRoad.width * selectedRoad.transform.localScale.x / 2, nearestNeighbor.transform.position.y, 0);
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.left);
                         }
                         // Snapping to right
                         else
                         {
-                            Debug.Log("Right");
                             selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x + nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 + selectedRoad.width * selectedRoad.transform.localScale.x / 2, nearestNeighbor.transform.position.y, 0);
                         }
                         //selectedRoad.transform.position = newSnappedPosition(nearestNeighbor);
@@ -283,16 +298,15 @@ namespace scripts
                         // Snapping to top
                         if (distanceY < 0)
                         {
-                            Debug.Log("Top");
                             //selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 + selectedRoad.height * selectedRoad.transform.localScale.y / 2, 0);
-                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor);
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.top);
                         }
                         // Snapping to bottom
                         else
                         {
-                            Debug.Log("Bot");
-                            selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y - nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 - selectedRoad.height * selectedRoad.transform.localScale.y / 2, 0);
-}
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.bottom);
+                            //selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y - nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 - selectedRoad.height * selectedRoad.transform.localScale.y / 2, 0);
+                        }
                     }
                 }
             }
