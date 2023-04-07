@@ -16,7 +16,7 @@ namespace scripts
 
         public float width; 
         public float height;
-        private float rotation; 
+        private float rotation = 0; 
 
 
         // Start is called before the first frame update
@@ -47,6 +47,10 @@ namespace scripts
             return rotation;
         }
 
+        public void setRotation(float rotation)
+        {
+            this.rotation = rotation;
+        }
     }
 
 }
