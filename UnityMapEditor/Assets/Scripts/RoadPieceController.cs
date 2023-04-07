@@ -42,6 +42,14 @@ namespace scripts
         lockedSnapped, 
 
     }
+
+    public enum RoadSides
+    {
+        bottom, 
+        top, 
+        left, 
+        right,
+    }
     public class RoadPieceController : MonoBehaviour
     {
         private const float innerCircleRadius = 66.5f;

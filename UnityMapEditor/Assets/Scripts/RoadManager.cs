@@ -63,12 +63,12 @@ namespace scripts
             // These conditions checks, whether the user wants to rotate the piece clockwise or counter-clockwise
             if (Input.GetKeyDown(KeyCode.E))
             {
-                rotateRoadPiece(-90);
+                rotateRoadPiece(-15);
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                rotateRoadPiece(90);
+                rotateRoadPiece(15);
             }
 
             // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
@@ -181,9 +181,9 @@ namespace scripts
                     if ((nearestDistance == -1 || Vector3.Distance(selectedRoad.transform.position, road.transform.position) < nearestDistance) && road != selectedRoad)
                     {
                         nearestDistance = Vector3.Distance(selectedRoad.transform.position, road.transform.position);
-                        if (nearestDistance < 300.00) {
+                        if (nearestDistance < road.GetComponent<Renderer>().bounds.size.x / 2  + selectedRoad.GetComponent<Renderer>().bounds.size.x / 2  + 10) {
                             closestRoad = road;
-                        }
+                       }
                         else
                         {
                             closestRoad = null;
@@ -197,6 +197,18 @@ namespace scripts
             return closestRoad;
         }
        
+        /*
+         * Method that checks distance between two roads dependent on parameters
+         */
+        public float calculateDistance(RoadPiece nearestNeighbor, RoadPiece selectedRoad)
+        {
+            float distance = 0;
+
+            distance = nearestNeighbor.width * 5 / 2 - selectedRoad.width * 5 / 2;
+
+            return distance;
+        }
+
         /*
          * Method that will set position of selected road piece according to the nearest road piece. 
          */
@@ -214,12 +226,12 @@ namespace scripts
                     // Snapping to left
                     if (distanceX > 0)
                     {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x - nearestNeighbor.GetComponent<Renderer>().bounds.size.x / 2 - selectedObject.GetComponent<Renderer>().bounds.size.x / 2, nearestNeighbor.transform.position.y, 0);
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x - nearestNeighbor.width * 5 / 2 - selectedRoad.width * 5 / 2, nearestNeighbor.transform.position.y, 0);
                     }
                     // Snapping to right
                     else
                     {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x + nearestNeighbor.GetComponent<Renderer>().bounds.size.x / 2 + selectedObject.GetComponent<Renderer>().bounds.size.x / 2, nearestNeighbor.transform.position.y, 0);
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x + nearestNeighbor.width * 5 / 2 + selectedRoad.width * 5 / 2, nearestNeighbor.transform.position.y, 0);
                     }
                 }
                 // Snapping to top or bottom
@@ -228,12 +240,12 @@ namespace scripts
                     // Snapping to top
                     if (distanceY > 0)
                     {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y - nearestNeighbor.GetComponent<Renderer>().bounds.size.y / 2 - selectedObject.GetComponent<Renderer>().bounds.size.y / 2, 0);
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y - nearestNeighbor.height * 5 / 2 - selectedRoad.height * 5 / 2 , 0);
                     }
                     // Snapping to bottom
                     else
                     {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y + nearestNeighbor.GetComponent<Renderer>().bounds.size.y / 2 + selectedObject.GetComponent<Renderer>().bounds.size.y / 2, 0);
+                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y + nearestNeighbor.height * 5 / 2 + selectedRoad.height * 5 / 2, 0);
                     }
                 }
             }

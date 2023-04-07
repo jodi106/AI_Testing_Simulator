@@ -126,3 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighbors: []
   roadType: 7
+  width: 64.26739
+  height: 75.6

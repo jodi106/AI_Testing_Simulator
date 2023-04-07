@@ -14,6 +14,10 @@ namespace scripts
         public RoadType roadType;
         private bool isLocked = false;
 
+        public float width; 
+        public float height;
+        private float rotation; 
+
 
         // Start is called before the first frame update
         void Start()
@@ -37,6 +41,12 @@ namespace scripts
         {
             return isLocked; 
         }
+
+        public float getRotation()
+        {
+            return rotation;
+        }
+
     }
 
 }
