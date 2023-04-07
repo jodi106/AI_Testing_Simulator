@@ -232,10 +232,9 @@ namespace scripts
                 //float x = selectedRoad.transform.position.x * (float)Math.Cos(rad) - selectedRoad.transform.position.y * (float)Math.Sin(rad);
                 //float y = selectedRoad.transform.position.x * (float)Math.Sin(rad) + selectedRoad.transform.position.y * (float)Math.Cos(rad);
 
-                float x = nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
-                Debug.Log(x);
+                float x = nearestNeighbor.transform.position.x - nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
                 float y = (nearestNeighbor.transform.position.y + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 +
-                    selectedRoad.height * selectedRoad.transform.localScale.y / 2) + nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
+                    selectedRoad.height * selectedRoad.transform.localScale.y / 2) - nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
                 return new Vector3(x, y, selectedRoad.transform.position.z);
             }
             return selectedRoad.transform.position;
