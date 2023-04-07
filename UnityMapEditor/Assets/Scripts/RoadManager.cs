@@ -248,10 +248,6 @@ namespace scripts
                         selectedRoad.width * selectedRoad.transform.localScale.x / 2 + nearestNeighbor.width / 2 * (float)Math.Sin(rad);
                     y = nearestNeighbor.transform.position.y + nearestNeighbor.width * nearestNeighbor.transform.localScale.y / 2 * (1 - (float)Math.Cos(rad));
                     Debug.Log("l");
-
-                    //x = nearestNeighbor.transform.position.y - nearestNeighbor.width * nearestNeighbor.transform.localScale.y / 2 -
-                    //     selectedRoad.width * selectedRoad.transform.localScale.y / 2    + nearestNeighbor.width * nearestNeighbor.transform.localScale.y * (float)Math.Sin(rad); ;
-                    //y = nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.y * (float)Math.Sin(rad); ;
                 }
                 return new Vector3(x, y, selectedRoad.transform.position.z);
             }
