@@ -1,8 +1,10 @@
 ﻿using Assets.Enums;
 using Entity;
 using System.Collections;
+using System.Drawing;
 using System.Numerics;
 using UnityEngine;
+using Color = UnityEngine.Color;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -18,8 +20,22 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private SnapController snapController;
     private MainController mainController;
     private WaypointSettingsPopupController settingsController;
+    // strategy field in Waypoint corresponds to this field and is kept in sync
     private bool ignoreWaypoints = false;
     private bool secondary = false;
+
+    public void Init(Waypoint waypoint, PathController pathController, Color color, bool ignoreWaypoints, bool secondary)
+    {
+        this.waypoint = waypoint;
+        waypoint.View = this;
+        this.pathController = pathController;
+        this.ignoreWaypoints = ignoreWaypoints;
+        onChangeColor(color);
+        if (secondary)
+        {
+            this.makeSecondary();
+        }
+    }
 
     /// <summary>
     /// Sets the PathController for the WaypointViewController.
@@ -99,7 +115,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         }
         else
         {
-            if(!secondary) mainController.setSelectedEntity(this);
+            if (!secondary) mainController.setSelectedEntity(this);
         }
 
     }
@@ -115,7 +131,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;
         }
-        if(secondary)
+        if (secondary)
         {
             return;
         }
@@ -180,16 +196,17 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// <param name="angle"></param>
     public void onChangeRotation(float angle)
     {
-        
+
     }
 
     /// <summary>
-    /// Gets called when Color is Changed (Not implemented for Waypoint)
+    /// Gets called when Color is Changed (Not implemented for Waypoint).
+    /// Waypoint has no color.
     /// </summary>
     /// <param name="c"></param>
-    public void onChangeColor(Color c)
+    public void onChangeColor(Color color)
     {
-
+        this.sprite.color = new Color(color.r, color.g, color.b, 1);
     }
 
     /// <summary>

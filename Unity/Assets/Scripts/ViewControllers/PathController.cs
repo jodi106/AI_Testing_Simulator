@@ -406,9 +406,6 @@ public class PathController : MonoBehaviour
     {
         GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(x, y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
         WaypointViewController viewController = wpGameObject.GetComponent<WaypointViewController>();
-        viewController.setPathController(this);
-        viewController.setColor(pathRenderer.startColor);
-        viewController.setIgnoreWaypoints(this.shouldIgnoreWaypoints());
         Waypoint waypoint;
         if (w is not null)
         {
@@ -418,9 +415,7 @@ public class PathController : MonoBehaviour
         {
             waypoint = generateWaypoint(new Location(new Vector3(x, y, 0), 0), new ActionType("MoveToAction"));
         }
-        viewController.waypoint = waypoint;
-        viewController.waypoint.View = viewController;
-        if (secondary) viewController.makeSecondary();
+        viewController.Init(waypoint, this, pathRenderer.startColor, this.shouldIgnoreWaypoints(), secondary);
         return viewController;
     }
 

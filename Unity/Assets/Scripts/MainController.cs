@@ -246,16 +246,9 @@ public class MainController : MonoBehaviour
     /// Adds an adversary to the scenario.
     /// </summary>
     /// <param name="entity">The Adversary object to be added.</param>
-    public void addAdversary(Adversary entity)
+    public void addAdversary(Adversary adversary)
     {
-        if (entity is Adversary v)
-        {
-            this.info.Vehicles.Add(v);
-        }
-        else if (entity is Adversary p)
-        {
-            this.info.Pedestrians.Add(p);
-        }
+        this.info.Vehicles.Add(adversary);
     }
 
     /// <summary>
@@ -264,22 +257,16 @@ public class MainController : MonoBehaviour
     /// <param name="adversary">The Adversary object to be removed.</param>
     public void removeAdversary(Adversary adversary)
     {
-        if (adversary is Adversary v)
+
+        foreach (Waypoint w in adversary.Path.WaypointList)
         {
-            foreach (Waypoint w in v.Path.WaypointList)
+            if (w.StartRouteOfOtherVehicle is not null)
             {
-                if (w.StartRouteOfOtherVehicle is not null)
-                {
-                    Adversary otherVehicle = w.StartRouteOfOtherVehicle;
-                    otherVehicle.StartPathInfo = null;
-                }
+                Adversary otherVehicle = w.StartRouteOfOtherVehicle;
+                otherVehicle.StartPathInfo = null;
             }
-            this.info.Vehicles.Remove(v);
         }
-        else if (adversary is Adversary p)
-        {
-            this.info.Pedestrians.Remove(p);
-        }
+        this.info.Vehicles.Remove(adversary);
     }
 
     /// <summary>
@@ -717,7 +704,4 @@ public class MainController : MonoBehaviour
         }
     }
 
-
-
 }
-
