@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine;
+using Assets.Enums;
 
 namespace Entity
 {
@@ -13,15 +14,19 @@ namespace Entity
     public class Waypoint : ICloneable // Event in .xosc
     {
 
-        /// <summary>
-        /// Initializes a new instance of the Waypoint class with a given location. Initializes an empty Actions list.
-        /// </summary>
-        /// <param name="location">The location of the Waypoint</param>
-        public Waypoint(Location location)
-        {
-            Location = location;
-            Actions = new List<ActionType>();
-        }
+        public Location Location { get; private set; } // coords of unity editor GUI
+        public Location LocationCarla { get; set; } // coords of Carla. Used in Export xosc.
+        public ActionType ActionTypeInfo { get; set; }
+        public string Priority { get; set; } // has enum: PriorityType
+        public List<TriggerInfo> TriggerList { get; set; }
+        // One Waypoint can have mutliple triggers for an event
+
+        [field: NonSerialized]
+        public IBaseView View { get; set; }
+        public List<ActionType> Actions { get; set; } // Actions without Triggers
+        public Adversary StartRouteOfOtherVehicle { get; set; }
+        public WaypointStrategy Strategy { get; set; }
+
 
         /// <summary>
         /// Initializes a new empty instance of the Waypoint class
@@ -30,7 +35,6 @@ namespace Entity
         {
         }
 
-
         /// <summary>
         /// Initializes a new instance of the Waypoint class with a given location, action type info, trigger list, and priority
         /// </summary>
@@ -38,14 +42,14 @@ namespace Entity
         /// <param name="actionTypeInfo">The ActionType info of the Waypoint</param>
         /// <param name="triggerList">The list of triggers of the Waypoint</param>
         /// <param name="priority">The priority of the Waypoint</param>
-        public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite")
+        public Waypoint(Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, WaypointStrategy strategy = WaypointStrategy.FASTEST)
         {
             Location = location;
             ActionTypeInfo = actionTypeInfo;
-            Priority = priority;
             TriggerList = triggerList;
             CalculateLocationCarla();
             Actions = new List<ActionType>();
+            Strategy = strategy;
         }
 
         /// <summary>
@@ -59,21 +63,6 @@ namespace Entity
             this.View?.onChangePosition(x, y);
             CalculateLocationCarla();
         }
-
-        public Location Location { get; private set; } // coords of unity editor GUI
-        public Location LocationCarla { get; set; } // coords of Carla. Used in Export xosc.
-        public ActionType ActionTypeInfo { get; set; }
-        public string Priority { get; set; } // has enum: PriorityType
-        public List<TriggerInfo> TriggerList { get; set; }
-        // One Waypoint can have mutliple triggers for an event
-
-        [field: NonSerialized]
-        public IBaseView View { get; set; }
-        public List<ActionType> Actions { get; set; } // Actions without Triggers
-
-        public Adversary StartRouteOfOtherVehicle { get; set; }
-
-
         /// <summary>
         /// Calculates the location of the Waypoint in Carla given the corresponding Unity Coordinates and fills the LocationCarla property.
         /// </summary>
@@ -111,6 +100,8 @@ namespace Entity
             cloneWaypoint.Actions = new();
             if (this.Actions != null)
                 cloneWaypoint.Actions = this.Actions.Select(x => (ActionType)x.Clone()).ToList();
+
+            cloneWaypoint.Strategy = Strategy;
 
             return cloneWaypoint;
         }

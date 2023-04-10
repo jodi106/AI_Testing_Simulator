@@ -225,6 +225,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void setIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
+        waypoint.Strategy = b ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
     }
 
     /// <summary>

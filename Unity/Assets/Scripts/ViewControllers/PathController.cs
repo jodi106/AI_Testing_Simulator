@@ -1,3 +1,4 @@
+using Assets.Enums;
 using Entity;
 using System.Collections.Generic;
 using System.Linq;
@@ -434,7 +435,8 @@ public class PathController : MonoBehaviour
             locationTrigger = waypointViewControllers.Last.Value.Item1.waypoint.Location;
         }
         triggersLaneChange.Add(new TriggerInfo("DistanceCondition", null, "lessThan", 20, locationTrigger)); // TODO change 20
-        return new Waypoint(loc, actionType, triggersLaneChange);
+        var strategy = this.shouldIgnoreWaypoints() ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
+        return new Waypoint(loc, actionType, triggersLaneChange, strategy);
     }
 
     /// <summary>
