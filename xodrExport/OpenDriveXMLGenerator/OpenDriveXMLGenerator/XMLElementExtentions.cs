@@ -102,31 +102,31 @@ namespace OpenDriveXMLGenerator
 
 
 
-        public static XmlElement AddElevationElement(this XmlElement parent, string s, string a, string b, string c)
-        {
-            var elevationProfile = parent.OwnerDocument.CreateElement("elevationProfile");
-            parent.AppendChild(elevationProfile);
+        //public static XmlElement AddElevationElement(this XmlElement parent, string s, string a, string b, string c)
+        //{
+        //    var elevationProfile = parent.OwnerDocument.CreateElement("elevationProfile");
+        //    parent.AppendChild(elevationProfile);
 
-            var elevation = parent.OwnerDocument.CreateElement("elevation");
-            elevationProfile.AppendChild(elevation);
-            elevation.SetAttribute("s", s);
+        //    var elevation = parent.OwnerDocument.CreateElement("elevation");
+        //    elevationProfile.AppendChild(elevation);
+        //    elevation.SetAttribute("s", s);
 
-            var shape = parent.OwnerDocument.CreateElement("shape");
-            elevation.AppendChild(shape);
+        //    var shape = parent.OwnerDocument.CreateElement("shape");
+        //    elevation.AppendChild(shape);
 
-            var aNode = parent.OwnerDocument.CreateElement("a");
-            aNode.InnerText = a;
-            shape.AppendChild(aNode);
+        //    var aNode = parent.OwnerDocument.CreateElement("a");
+        //    aNode.InnerText = a;
+        //    shape.AppendChild(aNode);
 
-            var bNode = parent.OwnerDocument.CreateElement("b");
-            bNode.InnerText = b;
-            shape.AppendChild(bNode);
+        //    var bNode = parent.OwnerDocument.CreateElement("b");
+        //    bNode.InnerText = b;
+        //    shape.AppendChild(bNode);
 
-            var cNode = parent.OwnerDocument.CreateElement("c");
-            cNode.InnerText = c;
-            shape.AppendChild(cNode);
+        //    var cNode = parent.OwnerDocument.CreateElement("c");
+        //    cNode.InnerText = c;
+        //    shape.AppendChild(cNode);
 
-            return elevation;
-        }
+        //    return elevation;
+        //}
     }
 }

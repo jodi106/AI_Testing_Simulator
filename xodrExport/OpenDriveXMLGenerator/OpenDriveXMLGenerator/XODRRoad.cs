@@ -27,5 +27,29 @@ namespace OpenDriveXMLGenerator
             return link;
         }
 
+        public static XODRLane AddLaneElement(this XODRRoad parent)
+        {
+            var lane = (XODRLane)parent.OwnerDocument.CreateElement("lane");
+            parent.AppendChild(lane);
+
+            return lane;
+        }
+
+        public static XODRObjects AddObjectsElement(this XODRRoad parent)
+        {
+            var objects = (XODRObjects)parent.OwnerDocument.CreateElement("objects");
+            parent.AppendChild(objects);
+
+            return objects;
+        }
+
+        public static XODRSignals AddSignalsElement(this XODRRoad parent)
+        {
+            var signals = (XODRSignals)parent.OwnerDocument.CreateElement("signals");
+            parent.AppendChild(signals);
+
+            return signals;
+        }
+
     }
 }

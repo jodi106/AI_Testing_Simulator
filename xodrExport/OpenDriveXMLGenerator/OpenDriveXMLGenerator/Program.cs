@@ -11,8 +11,6 @@ namespace OpenDriveXMLGenerator
         {
             var builder = new OpenDriveXMLBuilder();
 
-            var document = builder.Document;
-
             var rootElement = builder.RootElement;
 
             rootElement.AddHeaderElement(
@@ -39,12 +37,6 @@ namespace OpenDriveXMLGenerator
                 id: "64",
                 junction: "-1");
 
-            var link = road64.AddLinkElement(elementType: "junction", elementId: "455");
-
-            var type = road64.AddTypeElement(s: "0.0", type: "town");
-
-            var speed = type.AddSpeedElement(max: "55", unit: "mph");
-
             var plainView = road64.AddPlainViewElement();
 
             var geometry1 = plainView.AddGeometryElement(
@@ -55,10 +47,7 @@ namespace OpenDriveXMLGenerator
                 length: "1.4798839982417746e+1",
                 curvature: "-1.0668617530566759e-2");
 
-
-
-
-            document.Save("OpenDrive.xml");
+            builder.Document.Save("OpenDrive.xml");
 
             Console.WriteLine("OpenDrive.xml generated");
         }
