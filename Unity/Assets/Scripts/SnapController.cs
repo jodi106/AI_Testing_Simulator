@@ -530,3 +530,31 @@ public struct MapDimension
     public float minX { get; set; }
     public float minY { get; set; }
 }
+
+/// <summary>
+/// Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest path between 2 points
+/// </summary>
+public class AStarWaypoint
+{
+    /// <summary>
+    /// Constructor for AStarWaypoint class with indexInLane, laneId, location, actionTypeInfo, triggerList and priority parameters
+    /// </summary>
+    /// <param name="indexInLane">Index in Lane of the waypoint</param>
+    /// <param name="laneId">ID of the Lane of the waypoint</param>
+    /// <param name="location">Location of the waypoint</param>
+    /// <param name="actionTypeInfo">ActionType of the waypoint</param>
+    /// <param name="triggerList">List of TriggerInfo objects for the waypoint</param>
+    /// <param name="priority">Priority of the waypoint. Default value is "overwrite"</param>
+    public AStarWaypoint(int indexInLane, int laneId, Location location)
+    {
+        IndexInLane = indexInLane;
+        LaneId = laneId;
+        Location = location;
+    }
+
+    public int IndexInLane { get; set; }
+
+    public int LaneId { get; set; }
+
+    public Location Location { get; set; }
+}

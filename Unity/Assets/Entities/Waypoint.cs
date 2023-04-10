@@ -62,7 +62,7 @@ namespace Entity
 
         public Location Location { get; private set; } // coords of unity editor GUI
         public Location LocationCarla { get; set; } // coords of Carla. Used in Export xosc.
-        public ActionType ActionTypeInfo { get; set; } 
+        public ActionType ActionTypeInfo { get; set; }
         public string Priority { get; set; } // has enum: PriorityType
         public List<TriggerInfo> TriggerList { get; set; }
         // One Waypoint can have mutliple triggers for an event
@@ -92,11 +92,11 @@ namespace Entity
         public object Clone()
         {
             var cloneWaypoint = new Waypoint();
-            if (this.Location != null) cloneWaypoint.Location = (Location)this.Location.Clone();           
+            if (this.Location != null) cloneWaypoint.Location = (Location)this.Location.Clone();
             if (this.LocationCarla != null) cloneWaypoint.LocationCarla = (Location)this.LocationCarla.Clone();
             if (this.ActionTypeInfo != null) cloneWaypoint.ActionTypeInfo = (ActionType)this.ActionTypeInfo.Clone();
             if (this.TriggerList != null) cloneWaypoint.TriggerList = this.TriggerList.Select(x => (TriggerInfo)x.Clone()).ToList();
-            
+
             try
             {
                 if (this.StartRouteOfOtherVehicle != null) cloneWaypoint.StartRouteOfOtherVehicle = (Adversary)this.StartRouteOfOtherVehicle.Clone();
@@ -109,50 +109,10 @@ namespace Entity
             }
 
             cloneWaypoint.Actions = new();
-            if (this.Actions != null)           
+            if (this.Actions != null)
                 cloneWaypoint.Actions = this.Actions.Select(x => (ActionType)x.Clone()).ToList();
-            
+
             return cloneWaypoint;
         }
-    }
-
-
-
-    /// <summary>
-    /// Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest path between 2 points
-    /// </summary>
-    public class AStarWaypoint : Waypoint
-    {
-        /// <summary>
-        /// Constructor for AStarWaypoint class with indexInLane, laneId, location, actionTypeInfo, triggerList and priority parameters
-        /// </summary>
-        /// <param name="indexInLane">Index in Lane of the waypoint</param>
-        /// <param name="laneId">ID of the Lane of the waypoint</param>
-        /// <param name="location">Location of the waypoint</param>
-        /// <param name="actionTypeInfo">ActionType of the waypoint</param>
-        /// <param name="triggerList">List of TriggerInfo objects for the waypoint</param>
-        /// <param name="priority">Priority of the waypoint. Default value is "overwrite"</param>      
-        public AStarWaypoint(int indexInLane, int laneId, Location location, ActionType actionTypeInfo, List<TriggerInfo> triggerList, string priority = "overwrite") : 
-            base(location, actionTypeInfo, triggerList, priority)
-        {
-            IndexInLane = indexInLane;
-            LaneId = laneId;
-        }
-
-        /// <summary>
-        /// Constructor for AStarWaypoint class with indexInLane, laneId and location parameters
-        /// </summary>
-        /// <param name="indexInLane">Index in Lane of the waypoint</param>
-        /// <param name="laneId">ID of the Lane of the waypoint</param>
-        /// <param name="location">Location of the waypoint</param>        
-        public AStarWaypoint(int indexInLane, int laneId, Location location) : base(location)
-        {
-            IndexInLane = indexInLane;
-            LaneId = laneId;
-        }
-
-        public int IndexInLane { get; set; }
-
-        public int LaneId { get; set; }
     }
 }
