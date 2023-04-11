@@ -18,7 +18,10 @@ public abstract class SettingsPopupController : MonoBehaviour
         tint = this.document.rootVisualElement.Q<VisualElement>("Tint");
         tint.RegisterCallback<ClickEvent>((clickEvent) =>
         {
-            onExit();
+            if (clickEvent.target == tint)
+            {
+                onExit();
+            }
         });
     }
 
