@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,6 +8,7 @@ using UnityEngine.UIElements;
 public class ToolTipManipulator : Manipulator
 {
     private String toolTipText;
+    public PanelSettings panelSettings;
 
     /// <summary>
     /// Creates a new ToolTipManipulator with the specified text.
@@ -44,7 +43,18 @@ public class ToolTipManipulator : Manipulator
     /// <param name="e">The MouseEnterEvent data.</param>
     private void MouseIn(MouseEnterEvent e)
     {
-        Vector2 pos = new Vector2(this.target.worldBound.center.x, this.target.worldBound.yMin);
+        // based on https://forum.unity.com/threads/positioning-gameobjects-based-on-visualelement-coordinates.1002876/#post-6516077
+        var sourcePos = new Vector2(this.target.worldBound.center.x, this.target.worldBound.yMin);
+        var refSize = new Vector2(1920, 1080);
+        var sizeRatio = new Vector2(Screen.width / refSize.x, Screen.height / refSize.y);
+
+        var denominator = 0.0f;
+        var widthHeightRatio = Mathf.Clamp01(0f);
+        denominator = Mathf.Lerp(sizeRatio.x, sizeRatio.y, widthHeightRatio);
+
+        var xPos = sourcePos.x * denominator;
+        var yPos = sourcePos.y * denominator;
+        Vector2 pos = new Vector2(xPos, yPos);
         MainController.moveToolTip(pos, Vector2.up, this.toolTipText);
     }
 

@@ -529,8 +529,8 @@ public class PathController : MonoBehaviour
         if (prev != null)
         {
             var laneChanges = new List<int>();
-            (prevPath, laneChanges) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), new Vector3(x, y, 0), ignoreWaypoints || prev.Value.Item1.shouldIgnoreWaypoints());
-            prev.Value.Item1.waypoint.setPosition(prevPath[0].x, prevPath[0].y);
+            (prevPath, laneChanges) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), new Vector3(x, y, 0), ignoreWaypoints);
+            // prev.Value.Item1.waypoint.setPosition(prevPath[0].x, prevPath[0].y);
             prevPath.RemoveAt(0);
             offset = offset + prevPath.Count - cur.Value.Item2;
             usedPrev = addLaneChangeWaypoints(laneChanges, prevPath, prev);
@@ -538,7 +538,7 @@ public class PathController : MonoBehaviour
         if (next != null)
         {
             var laneChanges = new List<int>();
-            (nextPath, laneChanges) = snapController.FindPath(new Vector3(x, y, 0), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), ignoreWaypoints || next.Value.Item1.shouldIgnoreWaypoints());
+            (nextPath, laneChanges) = snapController.FindPath(new Vector3(x, y, 0), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), next.Value.Item1.shouldIgnoreWaypoints());
             next.Value.Item1.waypoint.setPosition(nextPath[nextPath.Count - 1].x, nextPath[nextPath.Count - 1].y);
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
