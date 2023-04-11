@@ -100,13 +100,14 @@ namespace Entity
         /// <param name="spawnpoint">The initial spawnpoint for the Entity.</param>
         public void InitAssignRouteWaypoint(Location spawnpoint)
         {
+            // Calculate dummy waypoint coordinates 4m after spawn coordinate
             var first = WaypointList[0];
             Quaternion rotation = Quaternion.Euler(0f, 0f, spawnpoint.Rot);
             var originalStartLocation = (Location) first.Location.Clone();
             first.Location.Vector3Ser.SetFromVector3(first.Location.Vector3Ser.ToVector3() + rotation * Vector3.right);
 
             var locations = GetRouteLocations();
-            locations.Insert(0, spawnpoint); // To avoid having a AssignRouteAction with just 2 waypoints
+            locations.Insert(0, spawnpoint); // Insert spawn coodinate as waypoint to avoid having a AssignRouteAction with just 2 waypoints
 
             Waypoint assignRouteWaypoint = new Waypoint(
                     originalStartLocation,
@@ -114,7 +115,7 @@ namespace Entity
                     new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan") });
 
             AssignRouteWaypoint = assignRouteWaypoint;
-            WaypointList.Insert(0, AssignRouteWaypoint);
+            WaypointList.Insert(0, AssignRouteWaypoint); // Insert dummy waypoint after spawn waypoint
         }
     }
 }
