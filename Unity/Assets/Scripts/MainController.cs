@@ -42,6 +42,8 @@ public class MainController : MonoBehaviour
     private Button saveButton;
     private Button homeButton;
     private Button exitButton;
+    private Button helpButton;
+
 
     private VisualElement buttonBar;
 
@@ -333,6 +335,8 @@ public class MainController : MonoBehaviour
         saveButton.AddManipulator(new ToolTipManipulator("Save Scenario"));
         homeButton = editorGUI.Q<Button>("homeButton");
         homeButton.AddManipulator(new ToolTipManipulator("Open Menu"));
+        helpButton = editorGUI.Q<Button>("helpButton");
+        helpButton.AddManipulator(new ToolTipManipulator("Open Documentation"));
         exitButton = editorGUI.Q<Button>("exitButton");
         exitButton.AddManipulator(new ToolTipManipulator("Exit"));
 
@@ -408,8 +412,16 @@ public class MainController : MonoBehaviour
             QuitApplication();
         });
 
+        helpButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            this.setSelectedEntity(null);
+            OpenHelp();
+        });
+
         buttonBar.visible = false;
     }
+
 
     /// <summary>
     /// Disables the button bar, making all buttons unresponsive.
@@ -710,6 +722,13 @@ public class MainController : MonoBehaviour
             Application.Quit();
             Debug.Log("Quitting");
         }
+    }
+
+    
+    private void OpenHelp()
+    {
+        string url = "https://github.com/jodi106/AI_Testing_Simulator/blob/dev_.NET/Unity/README.md";
+        Application.OpenURL(url);
     }
 
 }
