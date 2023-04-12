@@ -175,6 +175,9 @@ public class MainController : MonoBehaviour
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             this.setSelectedEntity(null);
+        } else if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            deleteSelectedEntity();
         }
     }
 
@@ -442,6 +445,14 @@ public class MainController : MonoBehaviour
         exitButton.SetEnabled(true);
     }
 
+    private void deleteSelectedEntity()
+    {
+        selectedEntity?.destroy();
+        setSelectedEntity(null);
+        // Pointer exit event is not called
+        MainController.hideToolTip();
+    }
+
     /// <summary>
     /// Initializes action buttons and their corresponding event listeners.
     /// </summary>
@@ -455,10 +466,7 @@ public class MainController : MonoBehaviour
         removeEntityButton.onClick.AddListener(() =>
         {
             if (freeze) return;
-            selectedEntity?.destroy();
-            setSelectedEntity(null);
-            // Pointer exit event is not called
-            MainController.hideToolTip();
+            deleteSelectedEntity();
         });
 
         editEntityButton.onClick.AddListener(() =>
