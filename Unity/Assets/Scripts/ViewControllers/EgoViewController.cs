@@ -102,7 +102,7 @@ public class EgoViewController : VehicleViewController
     /// </summary>
     /// <param name="cat">The AdversaryCategory to assign to the Ego object.</param>
     /// <param name="color">The color to assign to the Ego object.</param>
-    public override void init(AdversaryCategory cat, Color color)
+    public override void Init(AdversaryCategory cat, Color color)
     {
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
         egoSettingsController.gameObject.SetActive(true);

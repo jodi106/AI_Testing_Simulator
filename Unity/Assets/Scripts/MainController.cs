@@ -151,12 +151,12 @@ public class MainController : MonoBehaviour
         foreach (Adversary v in info.Vehicles)
         {
             var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
-            viewController.init(v);
+            viewController.Init(v);
         }
         foreach (Adversary p in info.Pedestrians)
         {
             var viewController = Instantiate(vehiclePrefab, p.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
-            viewController.init(p);
+            viewController.Init(p);
         }
         if (info.EgoVehicle is not null)
         {
@@ -307,7 +307,7 @@ public class MainController : MonoBehaviour
             color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             color = new Color(color.r, color.g, color.b, 1);
         }
-        viewController.init(category, color);
+        viewController.Init(category, color);
         disableButtonBar();
     }
 

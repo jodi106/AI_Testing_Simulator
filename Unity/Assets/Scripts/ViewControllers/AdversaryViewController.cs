@@ -10,17 +10,17 @@ using UnityEngine;
 public class AdversaryViewController : VehicleViewController
 {
     public GameObject pathPrefab;
-    private Adversary vehicle;
+    private Adversary adversary;
     private PathController pathController;
-    private AdversarySettingsPopupController vehicleSettingsController;
+    private AdversarySettingsPopupController adversarySettingsController;
     private static readonly double INITIAL_SPEED = 30;
     private static readonly double INITIAL_SPEED_PEDESTRIAN = 5;
 
     public override void Awake()
     {
         base.Awake();
-        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        vehicleSettingsController.gameObject.SetActive(true);
+        adversarySettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        adversarySettingsController.gameObject.SetActive(true);
     }
 
     // act as constructor -- check for alternatives to set initial state
@@ -30,22 +30,22 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     /// <param name="cat">The category of the Adversary entity</param>
     /// <param name="color">The color of the Adversary entity</param>
-    public override void init(AdversaryCategory cat, Color color)
+    public override void Init(AdversaryCategory cat, Color color)
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
         if (cat == AdversaryCategory.Pedestrian)
         {
-            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED_PEDESTRIAN, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
+            adversary = new Adversary(vehiclePosition, INITIAL_SPEED_PEDESTRIAN, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
         }
         else
         {
-            vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
+            adversary = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
         }
-        vehicle.setView(this);
-        onChangeCategory(vehicle.Category);
-        onChangeModel(vehicle.Model);
-        onChangeColor(vehicle.Color.ToUnityColor());
+        adversary.setView(this);
+        onChangeCategory(adversary.Category);
+        onChangeModel(adversary.Model);
+        onChangeColor(adversary.Color.ToUnityColor());
         switch (cat)
         {
             case AdversaryCategory.Car:
@@ -65,17 +65,17 @@ public class AdversaryViewController : VehicleViewController
     /// Initializes the Adversary entity with the specified entity.
     /// </summary>
     /// <param name="adversary">The Adversary entity to be initialized</param>
-    public void init(Adversary adversary)
+    public void Init(Adversary adversary)
     {
-        vehicle = adversary;
+        this.adversary = adversary;
         placed = true;
-        vehicle.setView(this);
-        onChangePosition(vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
-        onChangeRotation(vehicle.SpawnPoint.Rot);
-        onChangeCategory(vehicle.Category);
-        onChangeModel(vehicle.Model);
-        onChangeColor(vehicle.Color.ToUnityColor());
-        switch (vehicle.Category)
+        this.adversary.setView(this);
+        onChangePosition(this.adversary.SpawnPoint.X, this.adversary.SpawnPoint.Y);
+        base.onChangeRotation(this.adversary.SpawnPoint.Rot);
+        onChangeCategory(this.adversary.Category);
+        onChangeModel(this.adversary.Model);
+        onChangeColor(this.adversary.Color.ToUnityColor());
+        switch (this.adversary.Category)
         {
             case AdversaryCategory.Car:
             case AdversaryCategory.Motorcycle:
@@ -87,7 +87,7 @@ public class AdversaryViewController : VehicleViewController
                 break;
         }
         this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-        this.pathController.Init(this, this.vehicle, false);
+        this.pathController.Init(this, this.adversary, false);
     }
 
     /// <summary>
@@ -170,7 +170,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     public override void destroy()
     {
-        mainController.removeAdversary(vehicle);
+        mainController.removeAdversary(adversary);
         pathController?.Destroy();
         Destroy(gameObject);
         snapController.IgnoreClicks = false;
@@ -202,7 +202,7 @@ public class AdversaryViewController : VehicleViewController
     /// <returns>The entity of this adversary.</returns>
     public override BaseEntity getEntity()
     {
-        return this.vehicle;
+        return this.adversary;
     }
 
     /// <summary>
@@ -210,7 +210,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     public override void openEditDialog()
     {
-        this.vehicleSettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
+        this.adversarySettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
     }
 
     /// <summary>
@@ -218,11 +218,11 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     protected override void registerEntity()
     {
-        mainController.addAdversary(this.vehicle);
+        mainController.addAdversary(this.adversary);
         EventManager.TriggerEvent(new CompletePlacementAction());
         //PathController must have position 0, otherwise edgecollider is not aligned
         this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-        this.pathController.Init(this, this.vehicle, true);
+        this.pathController.Init(this, this.adversary, true);
     }
 
     /// <summary>

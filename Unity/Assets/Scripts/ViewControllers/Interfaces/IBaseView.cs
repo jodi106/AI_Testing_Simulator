@@ -21,6 +21,6 @@ public interface IBaseView
     /// <summary>
     /// Called when the color of the view changes.
     /// </summary>
-    /// <param name="c">The new color of the view.</param>
-    public void onChangeColor(Color c);
+    /// <param name="color">The new color of the view.</param>
+    public void onChangeColor(Color color);
 }

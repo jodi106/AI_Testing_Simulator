@@ -14,7 +14,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     private Material defaultMaterial;
 
     protected SpriteRenderer sprite;
-    protected Boolean placed = false;
+    protected bool placed = false;
     protected Vector2 difference = Vector2.zero;
     protected Vector2 lastClickPos = Vector2.zero;
     protected SnapController snapController;
@@ -82,7 +82,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     /// <param name="cat">The AdversaryCategory to initialize the vehicle with.</param>
     /// <param name="color">The Color to initialize the vehicle with.</param>
-    public abstract void init(AdversaryCategory cat, Color color);
+    public abstract void Init(AdversaryCategory cat, Color color);
 
     /// <summary>
     /// Changes the position of the entity to the given coordinates.
