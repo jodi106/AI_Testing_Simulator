@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Straight: {fileID: 3383910417227496093, guid: 59d227d1f03942842b7b7189939df3cf, type: 3}
   Turn: {fileID: 2884884069649534273, guid: 95ad9f8cea2d56b42b252a4fcc62c0b9, type: 3}
-  ThreeWayIntersection: {fileID: 83394976407353207, guid: 73468f0c091fcfb419cd2146efef20a8, type: 3}
+  ThreeWayIntersection: {fileID: -2610391219153664245, guid: a591a9ecdd1feab4e894d3faa2032324, type: 3}
   FourWayIntersection: {fileID: -7288189701348695058, guid: 91e673080b5fa294b86435627d646380, type: 3}
   ParkingBottom: {fileID: 412474618863446166, guid: 78e21f6ec1288a9489305963f2242488, type: 3}
   ParkingTopAndBottom: {fileID: 1192553893855053570, guid: 864cafec2cdf77c4b9e2b00880178129, type: 3}

@@ -16,6 +16,7 @@ namespace scripts
 
         public float width; 
         public float height;
+   
         private float rotation = 0; 
 
 
@@ -51,6 +52,8 @@ namespace scripts
         {
             this.rotation = rotation;
         }
+
+        
     }
 
 }
