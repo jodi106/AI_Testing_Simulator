@@ -438,6 +438,7 @@ public class MainController : MonoBehaviour
         saveButton.SetEnabled(false);
         homeButton.SetEnabled(false);
         exitButton.SetEnabled(false);
+        helpButton.SetEnabled(false);
     }
 
     /// <summary>
@@ -455,6 +456,7 @@ public class MainController : MonoBehaviour
         saveButton.SetEnabled(true);
         homeButton.SetEnabled(true);
         exitButton.SetEnabled(true);
+        helpButton.SetEnabled(true);
     }
 
     private void deleteSelectedEntity()
