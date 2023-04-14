@@ -183,7 +183,7 @@ namespace scripts
         {
             float nearestDistance = -1;
             RoadPiece closestRoad = null;
-            if(roadList.Count > 1)
+            if (roadList.Count > 1)
             {
                 foreach (RoadPiece road in roadList)
                 {
@@ -197,7 +197,7 @@ namespace scripts
 
             return closestRoad;
         }
-       
+
         /*
          * Method that checks distance between two roads dependent on parameters
          */
@@ -225,31 +225,40 @@ namespace scripts
                 float x = selectedRoad.transform.position.x;
                 float y = selectedRoad.transform.position.y;
 
+                float nearestNeighborX = nearestNeighbor.transform.position.x;
+                float nearestNeighborY = nearestNeighbor.transform.position.y;
+                float nearestNeighborHeight = nearestNeighbor.height * nearestNeighbor.transform.localScale.y;
+                float nearestNeighborWidth = nearestNeighbor.width * nearestNeighbor.transform.localScale.x;
+
+                float selectedRoadX = selectedRoad.transform.position.x;
+                float selectedRoadY = selectedRoad.transform.position.y;
+                float selectedRoadHeight = selectedRoad.height * selectedRoad.transform.localScale.y;
+                float selectedRoadWidth = selectedRoad.width * selectedRoad.transform.localScale.x;
+
+                float arithmeticHeight = (selectedRoadHeight + nearestNeighborHeight) / 2;
+                float arithmeticWidth = (selectedRoadWidth + nearestNeighborWidth) / 2;
+
                 if (roadSide == RoadSides.top)
                 {
-                    x = nearestNeighbor.transform.position.x - nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
-                    y = (nearestNeighbor.transform.position.y + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 +
-                        selectedRoad.height * selectedRoad.transform.localScale.y / 2) - nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
+                    x = nearestNeighborX - (arithmeticHeight * Mathf.Sin(rad));
+                    y = (nearestNeighborY + arithmeticHeight) - (arithmeticHeight * (1 - Mathf.Cos(rad)));
                 }
                 else if (roadSide == RoadSides.bottom)
                 {
-                    x = nearestNeighbor.transform.position.x + nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (float)Math.Sin(rad);
-                    y = (nearestNeighbor.transform.position.y - nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 -
-                        selectedRoad.height * selectedRoad.transform.localScale.y / 2) + nearestNeighbor.height * nearestNeighbor.transform.localScale.x * (1 - (float)Math.Cos(rad));
+                    x = nearestNeighborX + (arithmeticHeight * Mathf.Sin(rad));
+                    y = (nearestNeighborY - arithmeticHeight) + (arithmeticHeight * (1 - Mathf.Cos(rad)));
                 }
                 else if (roadSide == RoadSides.left)
                 {
-                    x = nearestNeighbor.transform.position.x - nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 -
-                        selectedRoad.width * selectedRoad.transform.localScale.x / 2 + nearestNeighbor.width * nearestNeighbor.transform.localScale.y * (1 - Mathf.Cos(rad));
-                    y = nearestNeighbor.transform.position.y - nearestNeighbor.width * nearestNeighbor.transform.localScale.y * Mathf.Sin(rad);
+                    x = (nearestNeighborX - arithmeticWidth) + (arithmeticWidth * (1 - Mathf.Cos(rad)));
+                    y = nearestNeighborY - (arithmeticWidth * Mathf.Sin(rad));
                 }
                 else if (roadSide == RoadSides.right)
                 {
-                    x = nearestNeighbor.transform.position.x + nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 +
-                        selectedRoad.width * selectedRoad.transform.localScale.x / 2 - nearestNeighbor.width * nearestNeighbor.transform.localScale.y * (1 - Mathf.Cos(rad));
-                    y = nearestNeighbor.transform.position.y + nearestNeighbor.width * nearestNeighbor.transform.localScale.y * Mathf.Sin(rad);
+                    x = (nearestNeighborX + arithmeticWidth) - (arithmeticWidth * (1 - Mathf.Cos(rad)));
+                    y = nearestNeighborY + (arithmeticWidth * Mathf.Sin(rad));
                 }
-                
+
                 return new Vector3(x, y, selectedRoad.transform.position.z);
             }
             return selectedRoad.transform.position;
@@ -264,7 +273,7 @@ namespace scripts
             RoadPiece nearestNeighbor = GetNearestNeighbor();
             if (nearestNeighbor != null)
             {
-                
+
                 float distanceX = nearestNeighbor.transform.position.x - selectedRoad.transform.position.x;
                 float distanceY = nearestNeighbor.transform.position.y - selectedRoad.transform.position.y;
 

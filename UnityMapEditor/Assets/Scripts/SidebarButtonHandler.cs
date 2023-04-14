@@ -12,9 +12,9 @@ namespace scripts
 
 
         void Start()
-        { 
+        {
             //Every button gets added to the list of sidebar buttons at the start
-            ButtonManager.Instance.addSidebarButton(sidebarButton); 
+            ButtonManager.Instance.addSidebarButton(sidebarButton);
         }
 
         /*
@@ -35,42 +35,42 @@ namespace scripts
          */
         void selectRoadType(string buttonName)
         {
-            
-                RoadManager.Instance.DeselectRoad();
-                var selectedRoadType = RoadType.None;
-                switch (buttonName)
-                {
-                    case "Straight":
-                        selectedRoadType = RoadType.StraightRoad;
-                        break;
-                    case "Turn":
-                        selectedRoadType = RoadType.Turn;
-                        break;
-                    case "ThreeWayIntersection":
-                        selectedRoadType = RoadType.ThreeWayIntersection;
-                        break;
-                    case "FourWayIntersection":
-                        selectedRoadType = RoadType.FourWayIntersection;
-                        break;
-                    //case "ParkingBottom":
-                    //    selectedRoadType = RoadType.ParkingBottom;
-                    //    break;
-                    //case "ParkingTop":
-                    //    selectedRoadType = RoadType.ParkingTop;
-                    //    break;
-                    case "ParkingTopBottom":
-                        selectedRoadType = RoadType.ParkingTopAndBottom;
-                        break;
-                    case "Crosswalk":
-                        selectedRoadType = RoadType.Crosswalk;
-                        break;
-                    case "Roundabout":
-                        selectedRoadType = RoadType.RoundAbout;
-                        break;
-                    default:
-                        break;
-                }
-                ButtonManager.Instance.handleButtonClick(sidebarButton, selectedRoadType);
+
+            RoadManager.Instance.DeselectRoad();
+            var selectedRoadType = RoadType.None;
+            switch (buttonName)
+            {
+                case "Straight":
+                    selectedRoadType = RoadType.StraightRoad;
+                    break;
+                case "Turn":
+                    selectedRoadType = RoadType.Turn;
+                    break;
+                case "ThreeWayIntersection":
+                    selectedRoadType = RoadType.ThreeWayIntersection;
+                    break;
+                case "FourWayIntersection":
+                    selectedRoadType = RoadType.FourWayIntersection;
+                    break;
+                case "ParkingBottom":
+                    selectedRoadType = RoadType.ParkingBottom;
+                    break;
+                case "ParkingTop":
+                    selectedRoadType = RoadType.ParkingTop;
+                    break;
+                case "ParkingTopBottom":
+                    selectedRoadType = RoadType.ParkingTopAndBottom;
+                    break;
+                case "Crosswalk":
+                    selectedRoadType = RoadType.Crosswalk;
+                    break;
+                case "Roundabout":
+                    selectedRoadType = RoadType.RoundAbout;
+                    break;
+                default:
+                    break;
+            }
+            ButtonManager.Instance.handleButtonClick(sidebarButton, selectedRoadType);
 
         }
     }
