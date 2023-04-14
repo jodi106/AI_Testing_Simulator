@@ -209,7 +209,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
     {
         this.controller = controller;
-        this.controller.deselect();
+        this.controller.Deselect();
         this.warningPopupController = warning;
         this.waypoint = controller.waypoint;
         this.vehicle = (Adversary)vehicle;

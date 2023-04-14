@@ -49,13 +49,13 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
-            this.destroy();
+            this.Destroy();
         });
 
         EventManager.StartListening(typeof(EntityListEntryClickedAction), x =>
         {
             var action = new EntityListEntryClickedAction(x);
-            if(action.entity == this.getEntity())
+            if(action.entity == this.GetEntity())
             {
                 mainController.setSelectedEntity(this);
             }
@@ -72,9 +72,9 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Gets the location of the vehicle.
     /// </summary>
     /// <returns>A Location object representing the vehicle's location.</returns>
-    public Location getLocation()
+    public Location GetLocation()
     {
-        return this.getEntity().SpawnPoint;
+        return this.GetEntity().SpawnPoint;
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     /// <param name="x">The X coordinate of the new position.</param>
     /// <param name="y">The Y coordinate of the new position.</param>
-    public virtual void onChangePosition(float x, float y)
+    public virtual void OnChangePosition(float x, float y)
     {
         transform.position = new Vector3(x, y, transform.position.z);
         mainController.moveActionButtons(transform.position);
@@ -99,7 +99,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Changes the rotation of the entity to the given angle.
     /// </summary>
     /// <param name="angle">The new angle in degrees.</param>
-    public virtual void onChangeRotation(float angle)
+    public virtual void OnChangeRotation(float angle)
     {
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
@@ -108,7 +108,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Changes the category of the entity to the given category.
     /// </summary>
     /// <param name="cat">The new AdversaryCategory of the entity.</param>
-    public virtual void onChangeCategory(AdversaryCategory cat)
+    public virtual void OnChangeCategory(AdversaryCategory cat)
     {
         mainController.refreshEntityList();
     }
@@ -117,7 +117,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Changes the model of the entity to the given model.
     /// </summary>
     /// <param name="model">The new EntityModel of the entity.</param>
-    public void onChangeModel(EntityModel model)
+    public void OnChangeModel(EntityModel model)
     {
         mainController.refreshEntityList();
     }
@@ -126,7 +126,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Changes the ID of the entity to the given ID.
     /// </summary>
     /// <param name="id">The new ID of the entity.</param>
-    public void onChangeID(string id)
+    public void OnChangeID(string id)
     {
         mainController.refreshEntityList();
     }
@@ -134,7 +134,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <summary>
     /// Selects the entity and changes its position and material.
     /// </summary>
-    public virtual void select()
+    public virtual void Select()
     {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_SELECTED);
         sprite.material = selectionMaterial;
@@ -143,7 +143,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <summary>
     /// Deselects the entity and changes its position and material.
     /// </summary>
-    public virtual void deselect()
+    public virtual void Deselect()
     {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.VEHICLE_DESELECTED);
         sprite.material = defaultMaterial;
@@ -152,7 +152,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <summary>
     /// Destroys the entity.
     /// </summary>
-    public abstract void destroy();
+    public abstract void Destroy();
 
     /// <summary>
     /// Gets the position of the entity.
@@ -168,7 +168,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     public void Update()
     {
-        if(getEntity() == null)
+        if(GetEntity() == null)
         {
             return; //not initialized yet
         }
@@ -177,30 +177,30 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
             {
-                this.destroy();
+                this.Destroy();
                 EventManager.TriggerEvent(new CancelPlacementAction());
             }
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (!this.shouldIgnoreWaypoints())
+            if (!this.IsIgnoringWaypoints())
             {
                 var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 if (waypoint is not null)
                 {
                     difference = Vector2.zero;
-                    getEntity().setPosition(waypoint.X, waypoint.Y);
-                    getEntity().setRotation(waypoint.Rot);
+                    GetEntity().setPosition(waypoint.X, waypoint.Y);
+                    GetEntity().setRotation(waypoint.Rot);
                 }
                 else
                 {
-                    getEntity().setPosition(mousePosition.x, mousePosition.y);
-                    getEntity().setRotation(0);
+                    GetEntity().setPosition(mousePosition.x, mousePosition.y);
+                    GetEntity().setRotation(0);
                 }
             }
             else
             {
-                getEntity().setPosition(mousePosition.x, mousePosition.y);
+                GetEntity().setPosition(mousePosition.x, mousePosition.y);
             }
 
         }
@@ -221,25 +221,25 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             return;
         }
 
-        if (!this.shouldIgnoreWaypoints())
+        if (!this.IsIgnoringWaypoints())
         {
             var waypoint = snapController.FindWaypoint(mousePosition);
             if (waypoint is not null)
             {
                 difference = Vector2.zero;
-                getEntity().setPosition(waypoint.X, waypoint.Y);
-                getEntity().setRotation(waypoint.Rot);
+                GetEntity().setPosition(waypoint.X, waypoint.Y);
+                GetEntity().setRotation(waypoint.Rot);
             }
             else
             {
-                getEntity().setPosition(mousePosition.x, mousePosition.y);
-                getEntity().setRotation(0);
+                GetEntity().setPosition(mousePosition.x, mousePosition.y);
+                GetEntity().setRotation(0);
             }
         }
         else
         {
             //rotation is fixed by PathController
-            getEntity().setPosition(mousePosition.x, mousePosition.y);
+            GetEntity().setPosition(mousePosition.x, mousePosition.y);
         }
         mainController.setSelectedEntity(this);
     }
@@ -273,7 +273,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Returns whether the entity should ignore waypoints.
     /// </summary>
     /// <returns>True if the entity should ignore waypoints, false otherwise.</returns>
-    public bool shouldIgnoreWaypoints()
+    public bool IsIgnoringWaypoints()
     {
         return this.ignoreWaypoints;
     }
@@ -282,7 +282,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Sets whether the entity should ignore waypoints.
     /// </summary>
     /// <param name="b">True to ignore waypoints, false otherwise.</param>
-    public virtual void setIgnoreWaypoints(bool b)
+    public virtual void ShouldIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
     }
@@ -291,11 +291,11 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Gets the BaseEntity instance of the entity.
     /// </summary>
     /// <returns>The BaseEntity instance of the entity.</returns>
-    public abstract BaseEntity getEntity();
+    public abstract BaseEntity GetEntity();
     /// <summary>
     /// Opens the edit dialog for the entity.
     /// </summary>
-    public abstract void openEditDialog();
+    public abstract void OpenEditDialog();
     /// <summary>
     /// Registers the entity with the main controller.
     /// </summary>
@@ -304,5 +304,5 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Changes the color of the entity.
     /// </summary>
     /// <param name="c">The new color of the entity.</param>
-    public abstract void onChangeColor(Color c);
+    public abstract void OnChangeColor(Color c);
 }

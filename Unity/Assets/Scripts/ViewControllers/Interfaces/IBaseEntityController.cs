@@ -9,5 +9,5 @@ public interface IBaseEntityController : IBaseController
     /// Returns the entity associated with the controller.
     /// </summary>
     /// <returns>The entity associated with the controller.</returns>
-    public BaseEntity getEntity();
+    public BaseEntity GetEntity();
 }

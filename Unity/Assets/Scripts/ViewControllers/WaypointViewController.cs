@@ -30,7 +30,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         waypoint.View = this;
         this.pathController = pathController;
         this.ignoreWaypoints = ignoreWaypoints;
-        onChangeColor(color);
+        OnChangeColor(color);
         if (secondary)
         {
             this.makeSecondary();
@@ -87,11 +87,11 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// <summary>
     /// Opens the edit dialog for the waypoint.
     /// </summary>
-    public void openEditDialog()
+    public void OpenEditDialog()
     {
         this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
         this.settingsController.gameObject.SetActive(true);
-        this.settingsController.open(this, pathController.adversaryViewController.getEntity(), mainController.info.Vehicles, mainController.warningPopupController);
+        this.settingsController.open(this, pathController.adversaryViewController.GetEntity(), mainController.info.Vehicles, mainController.warningPopupController);
     }
 
     /// <summary>
@@ -135,7 +135,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         {
             return;
         }
-        if (!this.shouldIgnoreWaypoints())
+        if (!this.IsIgnoringWaypoints())
         {
             var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
@@ -154,7 +154,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Selects the waypoint and scales it up to make it distinctly visible.
     /// </summary>
     /// <param name="pathSelected">If set to true, also selects the waypoint's path.</param>
-    public void select()
+    public void Select()
     {
         if (MainController.freeze) return;
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
@@ -165,7 +165,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Deselects the waypoint and scales it down again.
     /// </summary>
     /// <param name="pathDeselected">If set to true, also deselects the waypoint's path.</param>
-    public void deselect()
+    public void Deselect()
     {
         gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         pathController.deselect(true);
@@ -174,7 +174,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// <summary>
     /// Removes the waypoint from its path and destroys the game object.
     /// </summary>
-    public void destroy()
+    public void Destroy()
     {
         pathController.removeWaypoint(this);
         Destroy(this.gameObject);
@@ -185,7 +185,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// </summary>
     /// <param name="x">The new x-coordinate.</param>
     /// <param name="y">The new y-coordinate.</param>
-    public void onChangePosition(float x, float y)
+    public void OnChangePosition(float x, float y)
     {
         transform.position = new Vector3(x, y, transform.position.z);
     }
@@ -194,7 +194,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Gets Called when Rotation is Changed (Not implemented for Waypoint)
     /// </summary>
     /// <param name="angle"></param>
-    public void onChangeRotation(float angle)
+    public void OnChangeRotation(float angle)
     {
 
     }
@@ -204,7 +204,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Waypoint has no color.
     /// </summary>
     /// <param name="c"></param>
-    public void onChangeColor(Color color)
+    public void OnChangeColor(Color color)
     {
         this.sprite.color = new Color(color.r, color.g, color.b, 1);
     }
@@ -213,7 +213,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Returns whether the waypoint should ignore other waypoints on its path.
     /// </summary>
     /// <returns>True if the waypoint should ignore other waypoints, false otherwise.</returns>
-    public bool shouldIgnoreWaypoints()
+    public bool IsIgnoringWaypoints()
     {
         return this.ignoreWaypoints;
     }
@@ -222,7 +222,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Sets whether the waypoint should ignore other waypoints on its path.
     /// </summary>
     /// <param name="ignore">True to ignore other waypoints, false to not ignore them.</param>
-    public void setIgnoreWaypoints(bool b)
+    public void ShouldIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
         waypoint.Strategy = b ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
@@ -232,7 +232,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Returns the location of the waypoint.
     /// </summary>
     /// <returns>The location of the waypoint.</returns>
-    public Location getLocation()
+    public Location GetLocation()
     {
         return this.waypoint.Location;
     }

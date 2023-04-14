@@ -40,9 +40,9 @@ public class EgoViewController : VehicleViewController
     /// <summary>
     /// Selects the current object and creates a destination if not already present.
     /// </summary>
-    public override void select()
+    public override void Select()
     {
-        base.select();
+        base.Select();
         this.destination.select();
         snapController.IgnoreClicks = true;
     }
@@ -51,9 +51,9 @@ public class EgoViewController : VehicleViewController
     /// <summary>
     /// Deselects the current object and its destination.
     /// </summary>
-    public override void deselect()
+    public override void Deselect()
     {
-        base.deselect();
+        base.Deselect();
         destination?.deselect();
         snapController.IgnoreClicks = false;
     }
@@ -71,7 +71,7 @@ public class EgoViewController : VehicleViewController
     /// <summary>
     /// Destroys the current object and its associated destination.
     /// </summary>
-    public override void destroy()
+    public override void Destroy()
     {
         this.mainController.setEgo(null);
         destination?.Destroy();
@@ -83,7 +83,7 @@ public class EgoViewController : VehicleViewController
     /// Changes the color of the current object and its associated destination.
     /// </summary>
     /// <param name="color">The color to change to.</param>
-    public override void onChangeColor(Color color)
+    public override void OnChangeColor(Color color)
     {
         if (placed)
         {
@@ -132,11 +132,11 @@ public class EgoViewController : VehicleViewController
         this.ego = ego;
         placed = true;
         ego.setView(this);
-        onChangePosition(ego.SpawnPoint.X, ego.SpawnPoint.Y);
-        onChangeRotation(ego.SpawnPoint.Rot);
-        onChangeCategory(ego.Category);
-        onChangeModel(ego.Model);
-        onChangeColor(ego.Color.ToUnityColor());
+        OnChangePosition(ego.SpawnPoint.X, ego.SpawnPoint.Y);
+        OnChangeRotation(ego.SpawnPoint.Rot);
+        OnChangeCategory(ego.Category);
+        OnChangeModel(ego.Model);
+        OnChangeColor(ego.Color.ToUnityColor());
         switch (ego.Category)
         {
             case AdversaryCategory.Car:
@@ -156,9 +156,9 @@ public class EgoViewController : VehicleViewController
     /// Changes the category of the current object and updates its sprite accordingly.
     /// </summary>
     /// <param name="cat">The new AdversaryCategory to assign to the current object.</param>
-    public override void onChangeCategory(AdversaryCategory cat)
+    public override void OnChangeCategory(AdversaryCategory cat)
     {
-        base.onChangeCategory(cat);
+        base.OnChangeCategory(cat);
         switch (cat)
         {
             case AdversaryCategory.Car:
@@ -180,7 +180,7 @@ public class EgoViewController : VehicleViewController
     /// Returns the BaseEntity representing the current Ego object.
     /// </summary>
     /// <returns>The BaseEntity instance of the current object.</returns>
-    public override BaseEntity getEntity()
+    public override BaseEntity GetEntity()
     {
         return this.ego;
     }
@@ -188,7 +188,7 @@ public class EgoViewController : VehicleViewController
     /// <summary>
     /// Opens the edit dialog for the current object.
     /// </summary>
-    public override void openEditDialog()
+    public override void OpenEditDialog()
     {
         this.egoSettingsController.open(this, sprite.color);
     }

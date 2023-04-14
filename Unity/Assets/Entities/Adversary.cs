@@ -58,7 +58,7 @@ namespace Entity
         public void setModel(EntityModel model)
         {
             this.Model = model;
-            this.View?.onChangeModel(model);
+            this.View?.OnChangeModel(model);
         }
 
 
@@ -69,7 +69,7 @@ namespace Entity
         public void setCategory(AdversaryCategory category)
         {
             this.Category = category;
-            this.View?.onChangeCategory(category);
+            this.View?.OnChangeCategory(category);
         }
 
 

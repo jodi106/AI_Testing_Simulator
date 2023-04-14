@@ -60,7 +60,7 @@ namespace Entity
         public void setPosition(float x, float y)
         {
             Location = new Location(x, y, Location.Z, Location.Rot);
-            this.View?.onChangePosition(x, y);
+            this.View?.OnChangePosition(x, y);
             CalculateLocationCarla();
         }
         /// <summary>

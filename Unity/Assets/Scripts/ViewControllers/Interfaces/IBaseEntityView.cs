@@ -12,15 +12,15 @@ public interface IBaseEntityView : IBaseView
     /// Called when the category of the entity changes.
     /// </summary
     /// <param name="cat">The new category of the entity.</param>
-    public void onChangeCategory(AdversaryCategory cat);
+    public void OnChangeCategory(AdversaryCategory cat);
     /// <summary>
     /// Called when the model of the entity changes.
     /// </summary>
     /// <param name="model">The new model of the entity.</param>
-    public void onChangeModel(EntityModel model);
+    public void OnChangeModel(EntityModel model);
     /// <summary>
     /// Called when the ID of the entity changes.
     /// </summary>
     /// <param name="id">The new ID of the entity.</param>
-    public void onChangeID(string id);
+    public void OnChangeID(string id);
 }

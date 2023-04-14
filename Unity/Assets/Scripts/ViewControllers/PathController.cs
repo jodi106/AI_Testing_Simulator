@@ -73,9 +73,9 @@ public class PathController : MonoBehaviour
     /// Determines if the path should ignore waypoints.
     /// </summary>
     /// <returns>Returns true if waypoints should be ignored, otherwise false.</returns
-    public bool shouldIgnoreWaypoints()
+    public bool IsIgnoringWaypoints()
     {
-        return adversaryViewController.shouldIgnoreWaypoints();
+        return adversaryViewController.IsIgnoringWaypoints();
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class PathController : MonoBehaviour
         building = true;
         if (forward)
         {
-            adversaryViewController.select();
+            adversaryViewController.Select();
         }
     }
 
@@ -132,7 +132,7 @@ public class PathController : MonoBehaviour
         building = false;
         if (forward)
         {
-            adversaryViewController.deselect();
+            adversaryViewController.Deselect();
         }
     }
 
@@ -186,7 +186,7 @@ public class PathController : MonoBehaviour
     {
         //Target of a click is either a waypoint or the mouse position itself, if waypoints are ignored
         Location waypoint;
-        if (!this.adversaryViewController.shouldIgnoreWaypoints())
+        if (!this.adversaryViewController.IsIgnoringWaypoints())
         {
             waypoint = snapController.FindWaypoint(mousePosition);
         }
@@ -261,7 +261,7 @@ public class PathController : MonoBehaviour
             previewRenderer.positionCount = 1;
             previewRenderer.SetPosition(0, HeightUtil.SetZ(waypointViewControllers.Last.Value.Item1.transform.position, HeightUtil.PATH_SELECTED));
 
-            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, target.Vector3Ser.ToVector3(), this.adversaryViewController.shouldIgnoreWaypoints());
+            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, target.Vector3Ser.ToVector3(), this.adversaryViewController.IsIgnoringWaypoints());
             path.RemoveAt(0);
 
             foreach (var coord in path)
@@ -306,7 +306,7 @@ public class PathController : MonoBehaviour
         }
         else
         {
-            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, this.adversaryViewController.shouldIgnoreWaypoints());
+            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, this.adversaryViewController.IsIgnoringWaypoints());
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -416,7 +416,7 @@ public class PathController : MonoBehaviour
         {
             waypoint = generateWaypoint(new Location(new Vector3(x, y, 0), 0), new ActionType("MoveToAction"));
         }
-        viewController.Init(waypoint, this, pathRenderer.startColor, this.shouldIgnoreWaypoints(), secondary);
+        viewController.Init(waypoint, this, pathRenderer.startColor, this.IsIgnoringWaypoints(), secondary);
         return viewController;
     }
 
@@ -435,7 +435,7 @@ public class PathController : MonoBehaviour
             locationTrigger = waypointViewControllers.Last.Value.Item1.waypoint.Location;
         }
         triggersLaneChange.Add(new TriggerInfo("DistanceCondition", null, "lessThan", 20, locationTrigger)); // TODO change 20
-        var strategy = this.shouldIgnoreWaypoints() ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
+        var strategy = this.IsIgnoringWaypoints() ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
         return new Waypoint(loc, actionType, triggersLaneChange, strategy);
     }
 
@@ -521,7 +521,7 @@ public class PathController : MonoBehaviour
         List<Vector2> prevPath = new List<Vector2>();
         List<Vector2> nextPath = new List<Vector2>();
 
-        bool ignoreWaypoints = waypointController.shouldIgnoreWaypoints();
+        bool ignoreWaypoints = waypointController.IsIgnoringWaypoints();
 
         var offset = 0;
         var usedPrev = 0;
@@ -538,7 +538,7 @@ public class PathController : MonoBehaviour
         if (next != null)
         {
             var laneChanges = new List<int>();
-            (nextPath, laneChanges) = snapController.FindPath(new Vector3(x, y, 0), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), next.Value.Item1.shouldIgnoreWaypoints());
+            (nextPath, laneChanges) = snapController.FindPath(new Vector3(x, y, 0), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), next.Value.Item1.IsIgnoringWaypoints());
             next.Value.Item1.waypoint.setPosition(nextPath[nextPath.Count - 1].x, nextPath[nextPath.Count - 1].y);
             nextPath.RemoveAt(0);
             offset = offset + nextPath.Count - next.Value.Item2;
@@ -606,8 +606,8 @@ public class PathController : MonoBehaviour
         {
             if (next != null)
             {
-                bool ignoreWaypoints = controller.shouldIgnoreWaypoints();
-                var (path, laneChanges) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), ignoreWaypoints || next.Value.Item1.shouldIgnoreWaypoints());
+                bool ignoreWaypoints = controller.IsIgnoringWaypoints();
+                var (path, laneChanges) = snapController.FindPath(prev.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), next.Value.Item1.waypoint.Location.Vector3Ser.ToVector3(), ignoreWaypoints || next.Value.Item1.IsIgnoringWaypoints());
                 path.RemoveAt(0);
                 used = addLaneChangeWaypoints(laneChanges, path, prev);
                 var offset = path.Count - cur.Value.Item2 - next.Value.Item2;
@@ -658,12 +658,12 @@ public class PathController : MonoBehaviour
     /// </summary>
     public void afterEdit()
     {
-        if (adversaryViewController.shouldIgnoreWaypoints())
+        if (adversaryViewController.IsIgnoringWaypoints())
         {
             if (waypointViewControllers.Count >= 2)
             {
-                var adversary = adversaryViewController.getEntity();
-                var direction = waypointViewControllers.First.Next.Value.Item1.getLocation().Vector3Ser.ToVector3();
+                var adversary = adversaryViewController.GetEntity();
+                var direction = waypointViewControllers.First.Next.Value.Item1.GetLocation().Vector3Ser.ToVector3();
                 Vector3 vectorToTarget = direction - adversary.SpawnPoint.Vector3Ser.ToVector3();
                 vectorToTarget = HeightUtil.SetZ(vectorToTarget, 0);
                 float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
@@ -671,7 +671,7 @@ public class PathController : MonoBehaviour
             }
             else
             {
-                adversaryViewController.getEntity().setRotation(0);
+                adversaryViewController.GetEntity().setRotation(0);
             }
         }
         resetEdgeCollider();
@@ -684,7 +684,7 @@ public class PathController : MonoBehaviour
     /// <param name="y">The y coordinate of the new location.</param>
     public void MoveFirstWaypoint(float x, float y)
     {
-        var first = this.waypointViewControllers.First.Value.Item1.getLocation();
+        var first = this.waypointViewControllers.First.Value.Item1.GetLocation();
         //prevent stackoverflow from onChangeLocation callback
         if (first.X != x || first.Y != y)
         {
@@ -748,7 +748,7 @@ public class PathController : MonoBehaviour
         }
         if (nearestWaypoint != null)
         {
-            nearestWaypoint.select();
+            nearestWaypoint.Select();
         }
         else
         {

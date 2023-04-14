@@ -184,7 +184,7 @@ public class EgoSettingsPopupController : SettingsPopupController
     public void open(EgoViewController controller, Color color)
     {
         this.controller = controller;
-        this.ego = (Ego)controller.getEntity();
+        this.ego = (Ego)controller.GetEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = ego.Id.ToString();
         initialSpeedField.value = ego.InitialSpeedKMH.ToString();

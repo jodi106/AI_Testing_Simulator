@@ -43,9 +43,9 @@ public class AdversaryViewController : VehicleViewController
             adversary = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
         }
         adversary.setView(this);
-        onChangeCategory(adversary.Category);
-        onChangeModel(adversary.Model);
-        onChangeColor(adversary.Color.ToUnityColor());
+        OnChangeCategory(adversary.Category);
+        OnChangeModel(adversary.Model);
+        OnChangeColor(adversary.Color.ToUnityColor());
         switch (cat)
         {
             case AdversaryCategory.Car:
@@ -70,11 +70,11 @@ public class AdversaryViewController : VehicleViewController
         this.adversary = adversary;
         placed = true;
         this.adversary.setView(this);
-        onChangePosition(this.adversary.SpawnPoint.X, this.adversary.SpawnPoint.Y);
-        base.onChangeRotation(this.adversary.SpawnPoint.Rot);
-        onChangeCategory(this.adversary.Category);
-        onChangeModel(this.adversary.Model);
-        onChangeColor(this.adversary.Color.ToUnityColor());
+        OnChangePosition(this.adversary.SpawnPoint.X, this.adversary.SpawnPoint.Y);
+        base.OnChangeRotation(this.adversary.SpawnPoint.Rot);
+        OnChangeCategory(this.adversary.Category);
+        OnChangeModel(this.adversary.Model);
+        OnChangeColor(this.adversary.Color.ToUnityColor());
         switch (this.adversary.Category)
         {
             case AdversaryCategory.Car:
@@ -95,9 +95,9 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     /// <param name="x">The x coordinate of the position</param>
     /// <param name="y">The y coordinate of the position</param>
-    public override void onChangePosition(float x, float y)
+    public override void OnChangePosition(float x, float y)
     {
-        base.onChangePosition(x, y);
+        base.OnChangePosition(x, y);
         pathController?.MoveFirstWaypoint(x, y);
     }
 
@@ -115,9 +115,9 @@ public class AdversaryViewController : VehicleViewController
     /// Changes the sprite of this adversary based on the new category and sets the size of the BoxCollider2D accordingly.
     /// </summary>
     /// <param name="cat">The new category of this adversary.</param>
-    public override void onChangeCategory(AdversaryCategory cat)
+    public override void OnChangeCategory(AdversaryCategory cat)
     {
-        base.onChangeCategory(cat);
+        base.OnChangeCategory(cat);
         switch (cat)
         {
             case AdversaryCategory.Car:
@@ -148,9 +148,9 @@ public class AdversaryViewController : VehicleViewController
     /// <summary>
     /// Selects this adversary and creates a path controller if none exists.
     /// </summary>
-    public override void select()
+    public override void Select()
     {
-        base.select();
+        base.Select();
         pathController?.select();
         snapController.IgnoreClicks = true;
     }
@@ -158,9 +158,9 @@ public class AdversaryViewController : VehicleViewController
     /// <summary>
     /// Deselects this adversary and deselects its path controller.
     /// </summary>
-    public override void deselect()
+    public override void Deselect()
     {
-        base.deselect();
+        base.Deselect();
         pathController?.deselect();
         snapController.IgnoreClicks = false;
     }
@@ -168,7 +168,7 @@ public class AdversaryViewController : VehicleViewController
     /// <summary>
     /// Removes this adversary from the main controller and destroys it.
     /// </summary>
-    public override void destroy()
+    public override void Destroy()
     {
         mainController.removeAdversary(adversary);
         pathController?.Destroy();
@@ -181,7 +181,7 @@ public class AdversaryViewController : VehicleViewController
     /// Sets the color of the sprite and path controller accordingly and refreshes the entity list of the main controller.
     /// </summary>
     /// <param name="color">The new color of this adversary.</param>
-    public override void onChangeColor(Color color)
+    public override void OnChangeColor(Color color)
     {
         if (placed)
         {
@@ -200,7 +200,7 @@ public class AdversaryViewController : VehicleViewController
     /// Gets the entity of this adversary.
     /// </summary>
     /// <returns>The entity of this adversary.</returns>
-    public override BaseEntity getEntity()
+    public override BaseEntity GetEntity()
     {
         return this.adversary;
     }
@@ -208,7 +208,7 @@ public class AdversaryViewController : VehicleViewController
     /// <summary>
     /// Opens the edit dialog for this adversary.
     /// </summary>
-    public override void openEditDialog()
+    public override void OpenEditDialog()
     {
         this.adversarySettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
     }
@@ -229,9 +229,9 @@ public class AdversaryViewController : VehicleViewController
     /// Sets whether to ignore waypoints for this adversary and its path controller.
     /// </summary>
     /// <param name="b">The boolean value to set for ignoring waypoints.</param>
-    public override void setIgnoreWaypoints(bool b)
+    public override void ShouldIgnoreWaypoints(bool b)
     {
-        base.setIgnoreWaypoints(b);
-        this.pathController?.getFirstWaypointController().setIgnoreWaypoints(b);
+        base.ShouldIgnoreWaypoints(b);
+        this.pathController?.getFirstWaypointController().ShouldIgnoreWaypoints(b);
     }
 }

@@ -191,9 +191,9 @@ public class MainController : MonoBehaviour
     {
         if (controller != null)
         {
-            var position = controller.getLocation();
+            var position = controller.GetLocation();
             this.actionButtonCanvas.transform.position = new Vector3(position.X, (float)(position.Y - 0.5), -1f);
-            snapToggle.SetIsOnWithoutNotify(!controller.shouldIgnoreWaypoints());
+            snapToggle.SetIsOnWithoutNotify(!controller.IsIgnoringWaypoints());
             if (this.actionButtonCanvas.activeSelf && controller != selectedEntity)
             {
                 var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
@@ -203,18 +203,18 @@ public class MainController : MonoBehaviour
             {
                 this.actionButtonCanvas.SetActive(true);
             }
-            this.selectedEntity?.deselect();
+            this.selectedEntity?.Deselect();
             this.selectedEntity = controller;
-            this.selectedEntity?.select();
+            this.selectedEntity?.Select();
             if (controller is IBaseEntityController entityController)
             {
-                var index = eventList.itemsSource.IndexOf(entityController.getEntity());
+                var index = eventList.itemsSource.IndexOf(entityController.GetEntity());
                 eventList.SetSelectionWithoutNotify(new List<int> { index });
             }
         }
         else
         {
-            this.selectedEntity?.deselect();
+            this.selectedEntity?.Deselect();
             this.selectedEntity = null;
             this.actionButtonCanvas.SetActive(false);
             eventList.ClearSelection();
@@ -461,7 +461,7 @@ public class MainController : MonoBehaviour
 
     private void deleteSelectedEntity()
     {
-        selectedEntity?.destroy();
+        selectedEntity?.Destroy();
         setSelectedEntity(null);
         // Pointer exit event is not called
         MainController.hideToolTip();
@@ -486,7 +486,7 @@ public class MainController : MonoBehaviour
         editEntityButton.onClick.AddListener(() =>
         {
             if (freeze) return;
-            this.selectedEntity?.openEditDialog();
+            this.selectedEntity?.OpenEditDialog();
         });
 
         snapToggle.onValueChanged.AddListener(x =>
@@ -500,7 +500,7 @@ public class MainController : MonoBehaviour
                 + "You can change this anytime by clicking the white icon again.";
                 helpPopupController.open("Tied path Explanation", text, 0);
             }
-            this.selectedEntity?.setIgnoreWaypoints(!x);
+            this.selectedEntity?.ShouldIgnoreWaypoints(!x);
         });
 
         actionButtonCanvas.SetActive(false);

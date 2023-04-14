@@ -237,7 +237,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
     public void open(AdversaryViewController controller, Color color, Ego egoVehicle)
     {
         this.controller = controller;
-        this.vehicle = (Adversary) controller.getEntity();
+        this.vehicle = (Adversary) controller.GetEntity();
         this.egoVehicle = egoVehicle;
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();

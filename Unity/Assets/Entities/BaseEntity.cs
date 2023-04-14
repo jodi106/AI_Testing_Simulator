@@ -46,7 +46,7 @@ namespace Entity
             get => id; set
             {
                 id = value;
-                View?.onChangeID(value);
+                View?.OnChangeID(value);
             }
         }
         public Location SpawnPoint { get; set; }
@@ -69,7 +69,7 @@ namespace Entity
             if (SpawnPoint.X != x || SpawnPoint.Y != y)
             {
                 SpawnPoint = new Location(x, y, SpawnPoint.Z, SpawnPoint.Rot);
-                View?.onChangePosition(x, y);
+                View?.OnChangePosition(x, y);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Entity
             if (SpawnPoint.Rot != angle)
             {
                 SpawnPoint = new Location(SpawnPoint.X, SpawnPoint.Y, SpawnPoint.Z, angle);
-                View?.onChangeRotation(angle);
+                View?.OnChangeRotation(angle);
             }
         }
 
@@ -105,7 +105,7 @@ namespace Entity
         {
             this.Color = new ColorSer(c);
             
-            this.View?.onChangeColor(c);
+            this.View?.OnChangeColor(c);
         }
 
 
