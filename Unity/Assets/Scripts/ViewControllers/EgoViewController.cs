@@ -190,7 +190,7 @@ public class EgoViewController : VehicleViewController
     /// </summary>
     public override void OpenEditDialog()
     {
-        this.egoSettingsController.open(this, sprite.color);
+        this.egoSettingsController.Open(this, sprite.color);
     }
 
     /// <summary>

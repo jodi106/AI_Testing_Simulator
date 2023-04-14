@@ -21,7 +21,7 @@ public class WorldSettingsPopupController : SettingsPopupController
     /// Initializes the controller with the provided WorldOptions and sets the UI to be active but hidden.
     /// </summary>
     /// <param name="options">The WorldOptions to use for initializing the UI.</param>
-    public void init(WorldOptions options)
+    public void Init(WorldOptions options)
     {
         this.options = options;
         this.gameObject.SetActive(true);
@@ -31,7 +31,7 @@ public class WorldSettingsPopupController : SettingsPopupController
         var exitButton = this.document.rootVisualElement.Q<Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            onExit();
+            OnExit();
         });
 
         var dayTime = this.document.rootVisualElement.Q<TextField>("Daytime");
@@ -150,7 +150,7 @@ public class WorldSettingsPopupController : SettingsPopupController
 
     }
 
-    protected override void onExit()
+    protected override void OnExit()
     {
         MainController.freeze = false;
         this.document.rootVisualElement.style.display = DisplayStyle.None;
@@ -159,7 +159,7 @@ public class WorldSettingsPopupController : SettingsPopupController
     /// <summary>
     /// Sets the display style of the root visual element of the document to 'flex', and freezes the MainController.
     /// </summary>
-    public void open()
+    public void Open()
     {
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         MainController.freeze = true;

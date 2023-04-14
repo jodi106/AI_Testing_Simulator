@@ -29,7 +29,7 @@ public class HelpPopupController : MonoBehaviour
         });
     }
 
-    public void open(string title, string description, int helpIndex)
+    public void Open(string title, string description, int helpIndex)
     {
         MainController.freeze = true;
 

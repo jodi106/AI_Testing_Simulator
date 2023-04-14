@@ -124,7 +124,7 @@ public class MainController : MonoBehaviour
 
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
-        this.worldSettingsController.init(this.Info.WorldOptions);
+        this.worldSettingsController.Init(this.Info.WorldOptions);
 
         this.warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
         this.warningPopupController.gameObject.SetActive(true);
@@ -374,7 +374,7 @@ public class MainController : MonoBehaviour
         {
             if (freeze) return;
             this.SetSelectedEntity(null);
-            worldSettingsController.open();
+            worldSettingsController.Open();
         });
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -497,7 +497,7 @@ public class MainController : MonoBehaviour
                 + "If activated: The movement of this entity/waypoint is no longer tied to the road.\n"
                 + "If deactivated: You can move this entity/waypoint freely now.\n"
                 + "You can change this anytime by clicking the white icon again.";
-                helpPopupController.open("Tied path Explanation", text, 0);
+                helpPopupController.Open("Tied path Explanation", text, 0);
             }
             this.selectedEntity?.ShouldIgnoreWaypoints(!x);
         });
@@ -657,7 +657,7 @@ public class MainController : MonoBehaviour
             this.SetSelectedEntity(null);
             string title = "No AI vehicle placed";
             string description = "You must place a vehicle first!";
-            this.warningPopupController.open(title, description);
+            this.warningPopupController.Open(title, description);
             freeze = false;
             return;
         }

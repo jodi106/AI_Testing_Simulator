@@ -210,7 +210,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     public override void OpenEditDialog()
     {
-        this.adversarySettingsController.open(this, sprite.color, mainController.Info.EgoVehicle);
+        this.adversarySettingsController.Open(this, sprite.color, mainController.Info.EgoVehicle);
     }
 
     /// <summary>

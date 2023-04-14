@@ -79,8 +79,8 @@ public class WaypointSettingsPopupController : SettingsPopupController
 
         for (int i = 0; i < ACTIONS_NR; i++)
         {
-            initActionEventHandler(i);
-            initActionFieldsEventHandler(i);
+            InitActionEventHandler(i);
+            InitActionFieldsEventHandler(i);
         }
         
         ExitButton = this.document.rootVisualElement.Q<Button>("Exit");
@@ -89,7 +89,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
         
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            onExit();
+            OnExit();
         });
 
         AddActionButton.RegisterCallback<ClickEvent>((ClickEvent) =>
@@ -101,13 +101,13 @@ public class WaypointSettingsPopupController : SettingsPopupController
             {
                 string title = "No Action selected";
                 string description = "You must select an action first before adding new actions!";
-                this.warningPopupController.open(title, description);
+                this.warningPopupController.Open(title, description);
 
                 return;
             }
 
             possibleActionsField[numberOfActions].style.display = DisplayStyle.Flex;
-            configureActionChoices(numberOfActions);
+            ConfigureActionChoices(numberOfActions);
 
             if (numberOfActions >= ACTIONS_NR-1) // max number of actions reached
             {
@@ -117,8 +117,8 @@ public class WaypointSettingsPopupController : SettingsPopupController
 
         DeleteActionsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            resetAllActionFields();
-            configureActionChoices(0);
+            ResetAllActionFields();
+            ConfigureActionChoices(0);
         });
 
         // ---------------------- Start Route Properties ----------------------
@@ -132,7 +132,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
         {
             if (evt.newValue == false)
             {
-                resetStartRouteVehicleToggle();
+                ResetStartRouteVehicleToggle();
                 if (this.waypoint.StartRouteOfOtherVehicle != null)
                 {
                     this.waypoint.StartRouteOfOtherVehicle.StartPathInfo = new StartPathInfo(vehicle, 0); ;
@@ -159,7 +159,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
                     string description = "This vehicle is already started by another Waypoint! " +
                     "\nYou can remove that option in the corresponding waypoint or in the\n" +
                         veh.Id + " vehicle settings.";
-                    this.warningPopupController.open(title, description);
+                    this.warningPopupController.Open(title, description);
                     startRouteVehicleField.value = null;
                     return;
                 }
@@ -185,16 +185,16 @@ public class WaypointSettingsPopupController : SettingsPopupController
         });
     }
 
-    protected override void onExit()
+    protected override void OnExit()
     {
         if (startRouteToggle.value == true && startRouteVehicleField.value == null)
         {
             string title = "No Vehicle selected";
             string description = "You must select another vehicle to start that vehicle's route\nor disable the toggle!";
-            warningPopupController.open(title, description);
+            warningPopupController.Open(title, description);
             return;
         }
-        overwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
+        OverwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
         MainController.freeze = false;
         this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
@@ -206,7 +206,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// <param name="vehicle">The BaseEntity vehicle to open the waypoint for.</param>
     /// <param name="allSimVehicles">An ObservableCollection of Adversary vehicles in the simulation.</param>
     /// <param name="warning">The WarningPopupController for the GUI.</param>
-    public void open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
+    public void Open(WaypointViewController controller, BaseEntity vehicle, ObservableCollection<Adversary> allSimVehicles, WarningPopupController warning)
     {
         this.controller = controller;
         this.controller.Deselect();
@@ -216,8 +216,8 @@ public class WaypointSettingsPopupController : SettingsPopupController
         this.allVehicles = allSimVehicles;
 
         // Set GUI elements to corresponding data
-        resetAllActionFields();
-        configureActionChoices(0);
+        ResetAllActionFields();
+        ConfigureActionChoices(0);
 
         if (waypoint.Actions?.Any() == true) // actions not null or empty)
         {
@@ -226,18 +226,18 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 switch (waypoint.Actions[i].Name)
                 {
                     case "SpeedAction":
-                        updateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].AbsoluteTargetSpeedValueKMH, i, ACTION_TEXT_SPEED);
-                        if (i <= 1) configureActionChoices(i+1);
+                        UpdateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].AbsoluteTargetSpeedValueKMH, i, ACTION_TEXT_SPEED);
+                        if (i <= 1) ConfigureActionChoices(i+1);
                         break;
 
                     case "StopAction":
-                        updateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].StopDuration, i, ACTION_TEXT_STOP_DURATION);
-                        if (i <= 1) configureActionChoices(i + 1);
+                        UpdateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].StopDuration, i, ACTION_TEXT_STOP_DURATION);
+                        if (i <= 1) ConfigureActionChoices(i + 1);
                         break;
 
                     case "LaneChangeAction":
-                        updateActionDropownField(waypoint.Actions[i].Name, waypoint.Actions[i].RelativeTargetLaneValue, i);
-                        if (i <= 1) configureActionChoices(i + 1);
+                        UpdateActionDropownField(waypoint.Actions[i].Name, waypoint.Actions[i].RelativeTargetLaneValue, i);
+                        if (i <= 1) ConfigureActionChoices(i + 1);
                         break;
                 }
             }
@@ -261,7 +261,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
             }
         }
 
-        if (waypoint.StartRouteOfOtherVehicle == null || !otherVehicleExists) resetStartRouteVehicleToggle();
+        if (waypoint.StartRouteOfOtherVehicle == null || !otherVehicleExists) ResetStartRouteVehicleToggle();
         else
         {
             startRouteToggle.SetEnabled(true);
@@ -281,27 +281,27 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// The event handler updates the corresponding GUI element based on the selected action.
     /// </summary>
     /// <param name="index">The index of the action field in the list of possible actions.</param>
-    private void initActionEventHandler(int index)
+    private void InitActionEventHandler(int index)
     {
         possibleActionsField[index].RegisterValueChangedCallback((inputEvent) =>
         {
             if (inputEvent.newValue == "SpeedAction")
             {
-                updateActionTextField(inputEvent.newValue, 0, index, ACTION_TEXT_SPEED);
+                UpdateActionTextField(inputEvent.newValue, 0, index, ACTION_TEXT_SPEED);
             }
             else if (inputEvent.newValue == "StopAction")
             {
-                updateActionTextField(inputEvent.newValue, 0, index, ACTION_TEXT_STOP_DURATION);
+                UpdateActionTextField(inputEvent.newValue, 0, index, ACTION_TEXT_STOP_DURATION);
             }
             else if (inputEvent.newValue == "LaneChangeAction")
             {
-                updateActionDropownField(inputEvent.newValue, 0, index);
+                UpdateActionDropownField(inputEvent.newValue, 0, index);
                 if (!MainController.helpComplete[1])
                 {
                     string title = "LaneChangeAction only for experienced users!";
                     string description = "To do a lane change, you should just place more waypoints on an entity's path."
                     + "\nThis option will BREAK your scenario if it's near an intersection! Do NOT do that!";
-                    this.helpPopupController.open(title, description, 1);
+                    this.helpPopupController.Open(title, description, 1);
                 }
             }
         });
@@ -320,7 +320,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// relative target lane value based on the selected value in the action dropdown field. If the selected value is "right",
     /// the method sets the value to -1, otherwise, it sets it to 1.
     /// </remarks>
-    private void initActionFieldsEventHandler(int index)
+    private void InitActionFieldsEventHandler(int index)
     {
         actionTextField[index].RegisterCallback<InputEvent>((InputEvent) =>
         {
@@ -367,7 +367,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// <param name="value">The value of the action to be updated.</param>
     /// <param name="i">The index of the action to be updated.</param>
     /// <param name="text">The text to be displayed in the action text field.</param>
-    private void updateActionTextField(string actionName, double value, int i, string text)
+    private void UpdateActionTextField(string actionName, double value, int i, string text)
     {
         this.possibleActionsField[i].value = actionName;
         this.possibleActionsField[i].style.display = DisplayStyle.Flex;
@@ -392,7 +392,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// <param name="actionName">The name of the action to be set in the dropdown field.</param>
     /// <param name="targetLaneValue">The target lane value to be set in the dropdown field.</param>
     /// <param name="i">The index of the action to be updated.</param>
-    private void updateActionDropownField(string actionName, int targetLaneValue, int i)
+    private void UpdateActionDropownField(string actionName, int targetLaneValue, int i)
     {
         this.possibleActionsField[i].value = actionName;
         this.possibleActionsField[i].style.display = DisplayStyle.Flex;
@@ -416,7 +416,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// with the exception of the "AssignRouteAction" type. Then, for indices 1 and 2, it removes the previously selected action types
     /// from the choices of the other action fields, to prevent duplicate selections.
     /// </remarks>
-    private void configureActionChoices(int index)
+    private void ConfigureActionChoices(int index)
     {
         possibleActionsField[index].choices = new List<string> { };
         
@@ -465,7 +465,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// This method is used to reset all the action fields to their default state when the user clears the action configuration.
     /// It initializes the action type array and hides all the action fields except the first one.
     /// </remarks>
-    private void resetAllActionFields()
+    private void ResetAllActionFields()
     {
         for (int i = 0; i < ACTIONS_NR; i++)
         {
@@ -488,7 +488,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// This method is used to reset the start route vehicle toggle to its default state when the user clears the action configuration.
     /// It sets the toggle value to false, clears the selected vehicle from the vehicle dropdown, and disables the dropdown.
     /// </remarks>
-    private void resetStartRouteVehicleToggle()
+    private void ResetStartRouteVehicleToggle()
     {
         startRouteToggle.value = false;
         startRouteVehicleField.value = null;
@@ -499,7 +499,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     /// Overwrites the actions of a waypoint with the given list of ActionType objects.
     /// </summary>
     /// <param name="actions">The list of ActionType objects to be added to the waypoint's attribute 'Actions'.</param>
-    private void overwriteActionsCarla(ActionType[] actions)
+    private void OverwriteActionsCarla(ActionType[] actions)
     {
         /// Add all GUI actions to the waypoint's attribute 'Actions'
         waypoint.Actions = new List<ActionType>();

@@ -38,7 +38,7 @@ public class WarningPopupController : MonoBehaviour
     /// </summary>
     /// <param name="title">The title text to set.</param>
     /// <param name="description">The description text to set.</param>
-    public void open(string title, string description)
+    public void Open(string title, string description)
     {
         MainController.freeze = true;
 

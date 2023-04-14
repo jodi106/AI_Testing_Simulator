@@ -48,7 +48,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            onExit();
+            OnExit();
         });
 
         //Vehicle vehicle = selectedEntity.getEntity();
@@ -215,15 +215,15 @@ public class AdversarySettingsPopupController : SettingsPopupController
                     waypoint.StartRouteOfOtherVehicle = null;
                 }
             }
-            resetStartRouteFields();
+            ResetStartRouteFields();
             vehicle.StartPathInfo = new StartPathInfo(vehicle, 0); ;
         });
     }
 
-    protected override void onExit()
+    protected override void OnExit()
     {
         MainController.freeze = false;
-        saveStartRouteInfo(startRouteType);
+        SaveStartRouteInfo(startRouteType);
         this.vehicle = null;
         this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
@@ -234,7 +234,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
     /// <param name="controller">The adversary view controller.</param>
     /// <param name="color">The color of the adversary.</param>
     /// <param name="egoVehicle">The ego vehicle.</param>
-    public void open(AdversaryViewController controller, Color color, Ego egoVehicle)
+    public void Open(AdversaryViewController controller, Color color, Ego egoVehicle)
     {
         this.controller = controller;
         this.vehicle = (Adversary) controller.GetEntity();
@@ -255,19 +255,19 @@ public class AdversarySettingsPopupController : SettingsPopupController
             switch (vehicle.StartPathInfo.Type)
             {
                 case "Waypoint":
-                    loadStartRouteInfoWaypoint();
+                    LoadStartRouteInfoWaypoint();
                     break;
                 case "Time":
-                    loadStartRouteInfoTime();
+                    LoadStartRouteInfoTime();
                     break;
                 case "Ego":
-                    loadStartRouteInfoEgo();
+                    LoadStartRouteInfoEgo();
                     break;
             }
         }
         else
         {
-            resetStartRouteFields();
+            ResetStartRouteFields();
             vehicle.StartPathInfo = new StartPathInfo(vehicle, 0);
         }
 
@@ -279,7 +279,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
     /// <summary>
     /// Loads start route information for a specific waypoint.
     /// </summary>
-    private void loadStartRouteInfoWaypoint()
+    private void LoadStartRouteInfoWaypoint()
     {
         this.startRouteType = "Waypoint";
         startRouteDropdown.style.display = DisplayStyle.None;
@@ -294,9 +294,9 @@ public class AdversarySettingsPopupController : SettingsPopupController
     /// <summary>
     /// Loads start route information for a specific time.
     /// </summary>
-    private void loadStartRouteInfoTime()
+    private void LoadStartRouteInfoTime()
     {
-        resetStartRouteFields();
+        ResetStartRouteFields();
         this.startRouteType = "Time";
         startRouteDropdown.index = 0;
         startRouteTimeField.value = vehicle.StartPathInfo.Time.ToString();
@@ -305,9 +305,9 @@ public class AdversarySettingsPopupController : SettingsPopupController
     /// <summary>
     /// Loads start route information for a specific ego vehicle
     /// </summary>
-    private void loadStartRouteInfoEgo()
+    private void LoadStartRouteInfoEgo()
     {
-        resetStartRouteFields();
+        ResetStartRouteFields();
         this.startRouteType = "Ego";
         startRouteDropdown.index = 1;
         startRouteDistanceField.value = vehicle.StartPathInfo.Distance.ToString();
@@ -316,7 +316,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
     /// <summary>
     /// Resets the start route fields to their default values.
     /// </summary>
-    private void resetStartRouteFields()
+    private void ResetStartRouteFields()
     {
         startRouteDistanceField.value = "5";
         startRouteTimeField.value = "0";
@@ -332,7 +332,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
     /// <summary>
     /// Saves start route information of a specific type.
     /// </summary
-    private void saveStartRouteInfo(String type)
+    private void SaveStartRouteInfo(String type)
     {
         switch (type)
         {

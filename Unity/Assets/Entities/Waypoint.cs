@@ -94,7 +94,7 @@ namespace Entity
             {
                 WarningPopupController warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
                 warningPopupController.gameObject.SetActive(true);
-                warningPopupController.open("Illogical behavior", "Your adversary vehicles probably won't start.\nThere's a contradiction in their startPath trigger (Circle).");
+                warningPopupController.Open("Illogical behavior", "Your adversary vehicles probably won't start.\nThere's a contradiction in their startPath trigger (Circle).");
             }
 
             cloneWaypoint.Actions = new();

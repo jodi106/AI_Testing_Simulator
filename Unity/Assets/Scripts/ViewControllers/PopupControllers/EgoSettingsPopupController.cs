@@ -40,7 +40,7 @@ public class EgoSettingsPopupController : SettingsPopupController
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            onExit();
+            OnExit();
         });
 
         //Vehicle ego = selectedEntity.getEntity();
@@ -169,7 +169,7 @@ public class EgoSettingsPopupController : SettingsPopupController
         });
     }
 
-    protected override void onExit()
+    protected override void OnExit()
     {
         MainController.freeze = false;
         this.ego = null;
@@ -181,7 +181,7 @@ public class EgoSettingsPopupController : SettingsPopupController
     /// </summary>
     /// <param name="controller">The EgoViewController instance to open.</param>
     /// <param name="color">The Color object to set the background color of the field.</param>
-    public void open(EgoViewController controller, Color color)
+    public void Open(EgoViewController controller, Color color)
     {
         this.controller = controller;
         this.ego = (Ego)controller.GetEntity();

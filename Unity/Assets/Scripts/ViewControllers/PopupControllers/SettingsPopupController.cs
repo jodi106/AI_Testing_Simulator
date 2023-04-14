@@ -8,7 +8,7 @@ public abstract class SettingsPopupController : MonoBehaviour
     protected VisualElement tint;
     protected UIDocument document;
 
-    protected abstract void onExit();
+    protected abstract void OnExit();
 
     public virtual void Awake()
     {
@@ -20,7 +20,7 @@ public abstract class SettingsPopupController : MonoBehaviour
         {
             if (clickEvent.target == tint)
             {
-                onExit();
+                OnExit();
             }
         });
     }
@@ -29,7 +29,7 @@ public abstract class SettingsPopupController : MonoBehaviour
     {
         if (this.document.rootVisualElement.style.display != DisplayStyle.None && Input.GetKeyDown(KeyCode.Escape))
         {
-            onExit();
+            OnExit();
         }
     }
 }
