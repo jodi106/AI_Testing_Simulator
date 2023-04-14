@@ -230,8 +230,6 @@ namespace scripts
                 float nearestNeighborHeight = nearestNeighbor.height * nearestNeighbor.transform.localScale.y;
                 float nearestNeighborWidth = nearestNeighbor.width * nearestNeighbor.transform.localScale.x;
 
-                float selectedRoadX = selectedRoad.transform.position.x;
-                float selectedRoadY = selectedRoad.transform.position.y;
                 float selectedRoadHeight = selectedRoad.height * selectedRoad.transform.localScale.y;
                 float selectedRoadWidth = selectedRoad.width * selectedRoad.transform.localScale.x;
 
