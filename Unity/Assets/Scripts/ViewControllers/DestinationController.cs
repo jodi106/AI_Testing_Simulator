@@ -28,7 +28,7 @@ public class DestinationController : MonoBehaviour
             {
                 placed = true;
                 var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                ego.submitDestination(waypoint);
+                ego.SubmitDestination(waypoint);
             }
         });
     }
@@ -39,7 +39,7 @@ public class DestinationController : MonoBehaviour
     /// <param name="ego">The EgoViewController to be initialized with.</param>
     /// <param name="color">The color to set the waypoint to.</param>
     /// <param name="placed">Whether the waypoint has already been placed or not.</param>
-    public void init(EgoViewController ego, Color color, bool placed = false)
+    public void Init(EgoViewController ego, Color color, bool placed = false)
     {
         this.ego = ego;
         this.placed = placed;
@@ -57,7 +57,7 @@ public class DestinationController : MonoBehaviour
     /// Sets the color of the waypoint.
     /// </summary>
     /// <param name="color">The color to set the waypoint to.</param>
-    public void setColor(Color color)
+    public void SetColor(Color color)
     {
         this.sprite.color = color;
     }
@@ -66,7 +66,7 @@ public class DestinationController : MonoBehaviour
     /// Returns whether the waypoint has been placed or not.
     /// </summary>
     /// <returns>Whether the waypoint has been placed or not.</returns>
-    public bool isPlaced()
+    public bool IsPlaced()
     {
         return this.placed;
     }
@@ -78,7 +78,6 @@ public class DestinationController : MonoBehaviour
     {
         if (!placed)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             if (waypoint is not null)
             {
@@ -92,7 +91,6 @@ public class DestinationController : MonoBehaviour
     /// </summary>
     public void OnMouseDown()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (!placed)
         {
             placed = true;
@@ -102,7 +100,7 @@ public class DestinationController : MonoBehaviour
     /// <summary>
     /// Deselects the waypoint.
     /// </summary>
-    public void deselect()
+    public void Deselect()
     {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.WAYPOINT_DESELECTED);
     }
@@ -110,7 +108,7 @@ public class DestinationController : MonoBehaviour
     /// <summary>
     /// Selects the waypoint.
     /// </summary>
-    public void select()
+    public void Select()
     {
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.WAYPOINT_SELECTED);
     }
@@ -124,7 +122,7 @@ public class DestinationController : MonoBehaviour
         if (waypoint is not null)
         {
             gameObject.transform.position = new Vector3(waypoint.X, waypoint.Y, HeightUtil.WAYPOINT_SELECTED);
-            ego.submitDestination(waypoint);
+            ego.SubmitDestination(waypoint);
         }
     }
 }

@@ -15,7 +15,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 {
     // Use this for initialization
     private PathController pathController;
-    public Waypoint waypoint { get; set; }
+    public Waypoint Waypoint { get; set; }
     private SpriteRenderer sprite;
     private SnapController snapController;
     private MainController mainController;
@@ -26,14 +26,14 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
 
     public void Init(Waypoint waypoint, PathController pathController, Color color, bool ignoreWaypoints, bool secondary)
     {
-        this.waypoint = waypoint;
+        this.Waypoint = waypoint;
         waypoint.View = this;
         this.pathController = pathController;
         this.ignoreWaypoints = ignoreWaypoints;
         OnChangeColor(color);
         if (secondary)
         {
-            this.makeSecondary();
+            this.MakeSecondary();
         }
     }
 
@@ -41,7 +41,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Sets the PathController for the WaypointViewController.
     /// </summary>
     /// <param name="pathController">The PathController to set.</param>
-    public void setPathController(PathController pathController)
+    public void SetPathController(PathController pathController)
     {
         this.pathController = pathController;
     }
@@ -50,7 +50,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Gets the PathController for the WaypointViewController.
     /// </summary>
     /// <returns>The PathController for the WaypointViewController.</returns>
-    public PathController getPathController()
+    public PathController GetPathController()
     {
         return this.pathController;
     }
@@ -68,7 +68,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// <summary>
     /// Makes the waypoint entity a secondary waypoint.
     /// </summary>
-    public void makeSecondary()
+    public void MakeSecondary()
     {
         secondary = true;
         var c = this.sprite.color;
@@ -79,7 +79,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// Returns whether the waypoint entity is a secondary waypoint.
     /// </summary>
     /// <returns>True if the waypoint entity is a secondary waypoint, false otherwise.</returns>
-    public bool isSecondary()
+    public bool IsSecondary()
     {
         return secondary;
     }
@@ -91,14 +91,14 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
         this.settingsController.gameObject.SetActive(true);
-        this.settingsController.open(this, pathController.adversaryViewController.GetEntity(), mainController.info.Vehicles, mainController.warningPopupController);
+        this.settingsController.open(this, pathController.AdversaryViewController.GetEntity(), mainController.info.Vehicles, mainController.warningPopupController);
     }
 
     /// <summary>
     /// Sets the color of the waypoint
     /// </summary>
     /// <param name="color">The new color for the waypoint entity.</param>
-    public void setColor(Color color)
+    public void SetColor(Color color)
     {
         this.sprite.color = new Color(color.r, color.g, color.b, 1);
     }
@@ -109,7 +109,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void OnMouseDown()
     {
         if (MainController.freeze) return;
-        if (snapController.IgnoreClicks && !pathController.isBuilding())
+        if (snapController.IgnoreClicks && !pathController.IsBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
@@ -126,7 +126,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void OnMouseDrag()
     {
         if (MainController.freeze) return;
-        if (snapController.IgnoreClicks && !pathController.isBuilding())
+        if (snapController.IgnoreClicks && !pathController.IsBuilding())
         {
             EventManager.TriggerEvent(new MouseClickAction(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             return;
@@ -158,7 +158,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         if (MainController.freeze) return;
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        pathController.select(true);
+        pathController.Select(true);
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void Deselect()
     {
         gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-        pathController.deselect(true);
+        pathController.Deselect(true);
     }
 
     /// <summary>
@@ -176,7 +176,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// </summary>
     public void Destroy()
     {
-        pathController.removeWaypoint(this);
+        pathController.RemoveWaypoint(this);
         Destroy(this.gameObject);
     }
 
@@ -225,7 +225,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     public void ShouldIgnoreWaypoints(bool b)
     {
         this.ignoreWaypoints = b;
-        waypoint.Strategy = b ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
+        Waypoint.Strategy = b ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// <returns>The location of the waypoint.</returns>
     public Location GetLocation()
     {
-        return this.waypoint.Location;
+        return this.Waypoint.Location;
     }
 
 }

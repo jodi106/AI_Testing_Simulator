@@ -31,7 +31,7 @@ public class EgoViewController : VehicleViewController
     /// Gets the corresponding Sprite for the Ego Vehicle
     /// </summary>
     /// <returns>Sprite of the Ego</returns>
-    public override Sprite getSprite()
+    public override Sprite GetSprite()
     {
         return Resources.Load<Sprite>("sprites/" + "ego");
     }
@@ -43,7 +43,7 @@ public class EgoViewController : VehicleViewController
     public override void Select()
     {
         base.Select();
-        this.destination.select();
+        this.destination.Select();
         snapController.IgnoreClicks = true;
     }
 
@@ -54,7 +54,7 @@ public class EgoViewController : VehicleViewController
     public override void Deselect()
     {
         base.Deselect();
-        destination?.deselect();
+        destination?.Deselect();
         snapController.IgnoreClicks = false;
     }
 
@@ -62,7 +62,7 @@ public class EgoViewController : VehicleViewController
     /// Submits the selected destination location.
     /// </summary>
     /// <param name="destination">The destination location to submit.</param>
-    public void submitDestination(Location destination)
+    public void SubmitDestination(Location destination)
     {
         ego.Destination = destination;
         EventManager.TriggerEvent(new CompletePlacementAction());
@@ -93,7 +93,7 @@ public class EgoViewController : VehicleViewController
         {
             this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
-        this.destination?.setColor(color);
+        this.destination?.SetColor(color);
         mainController.refreshEntityList();
     }
 
@@ -127,7 +127,7 @@ public class EgoViewController : VehicleViewController
     /// Initializes the Ego object with the given Ego instance.
     /// </summary>
     /// <param name="ego">The Ego instance to initialize the object with.</param>
-    public void init(Ego ego)
+    public void Init(Ego ego)
     {
         this.ego = ego;
         placed = true;
@@ -149,7 +149,7 @@ public class EgoViewController : VehicleViewController
                 break;
         }
         this.destination = Instantiate(DestinationPrefab, ego.Destination.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<DestinationController>();
-        this.destination.init(this, sprite.color, true);
+        this.destination.Init(this, sprite.color, true);
     }
 
     /// <summary>
@@ -196,12 +196,12 @@ public class EgoViewController : VehicleViewController
     /// <summary>
     /// Registers the current object as the Ego in the main controller.
     /// </summary>
-    protected override void registerEntity()
+    protected override void RegisterEntity()
     {
         mainController.setEgo(this.ego);
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
         this.destination = destinationGameObject.GetComponent<DestinationController>();
-        this.destination.init(this, this.sprite.color);
+        this.destination.Init(this, this.sprite.color);
     }
 }

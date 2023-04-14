@@ -105,7 +105,7 @@ public class AdversaryViewController : VehicleViewController
     /// Gets the sprite for this vehicle.
     /// </summary>
     /// <returns>The sprite for this vehicle.</returns>
-    public override Sprite getSprite()
+    public override Sprite GetSprite()
     {
         return Resources.Load<Sprite>("sprites/" + "vehicle");
     }
@@ -140,7 +140,7 @@ public class AdversaryViewController : VehicleViewController
     /// Gets the BoxCollider2D component of this adversary.
     /// </summary>
     /// <returns>The BoxCollider2D component of this adversary.</returns>
-    public BoxCollider2D getCollider()
+    public BoxCollider2D GetCollider()
     {
         return gameObject.GetComponent<BoxCollider2D>();
     }
@@ -151,7 +151,7 @@ public class AdversaryViewController : VehicleViewController
     public override void Select()
     {
         base.Select();
-        pathController?.select();
+        pathController?.Select();
         snapController.IgnoreClicks = true;
     }
 
@@ -161,7 +161,7 @@ public class AdversaryViewController : VehicleViewController
     public override void Deselect()
     {
         base.Deselect();
-        pathController?.deselect();
+        pathController?.Deselect();
         snapController.IgnoreClicks = false;
     }
 
@@ -216,7 +216,7 @@ public class AdversaryViewController : VehicleViewController
     /// <summary>
     /// Registers this adversary entity with the main controller.
     /// </summary>
-    protected override void registerEntity()
+    protected override void RegisterEntity()
     {
         mainController.addAdversary(this.adversary);
         EventManager.TriggerEvent(new CompletePlacementAction());
@@ -232,6 +232,6 @@ public class AdversaryViewController : VehicleViewController
     public override void ShouldIgnoreWaypoints(bool b)
     {
         base.ShouldIgnoreWaypoints(b);
-        this.pathController?.getFirstWaypointController().ShouldIgnoreWaypoints(b);
+        this.pathController?.GetFirstWaypointController().ShouldIgnoreWaypoints(b);
     }
 }

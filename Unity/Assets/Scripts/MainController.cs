@@ -161,7 +161,7 @@ public class MainController : MonoBehaviour
         if (info.EgoVehicle is not null)
         {
             var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<EgoViewController>();
-            egoController.init(info.EgoVehicle);
+            egoController.Init(info.EgoVehicle);
         }
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
         initializeEventList(editorGUI);

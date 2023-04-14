@@ -211,7 +211,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
         this.controller = controller;
         this.controller.Deselect();
         this.warningPopupController = warning;
-        this.waypoint = controller.waypoint;
+        this.waypoint = controller.Waypoint;
         this.vehicle = (Adversary)vehicle;
         this.allVehicles = allSimVehicles;
 

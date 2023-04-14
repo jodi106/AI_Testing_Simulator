@@ -30,7 +30,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         this.snapController = Camera.main.GetComponent<SnapController>();
         this.mainController = Camera.main.GetComponent<MainController>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        sprite.sprite = getSprite();
+        sprite.sprite = GetSprite();
         sprite.color = new Color(1, 1, 1, 0.5f);
         defaultMaterial = sprite.material;
         ignoreWaypoints = false;
@@ -42,7 +42,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.registerEntity();
+                this.RegisterEntity();
                 mainController.setSelectedEntity(this);
             }
         });
@@ -66,7 +66,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Returns the Sprite associated with the vehicle.
     /// </summary>
     /// <returns>The Sprite associated with the vehicle.</returns>
-    public abstract Sprite getSprite();
+    public abstract Sprite GetSprite();
 
     /// <summary>
     /// Gets the location of the vehicle.
@@ -158,7 +158,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// Gets the position of the entity.
     /// </summary>
     /// <returns>The position of the entity.</returns>
-    public Vector2 getPosition()
+    public Vector2 GetPosition()
     {
         return gameObject.transform.position;
     }
@@ -264,7 +264,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             placed = true;
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-            this.registerEntity();
+            this.RegisterEntity();
         }
         mainController.setSelectedEntity(this);
     }
@@ -299,7 +299,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <summary>
     /// Registers the entity with the main controller.
     /// </summary>
-    protected abstract void registerEntity();
+    protected abstract void RegisterEntity();
     /// <summary>
     /// Changes the color of the entity.
     /// </summary>
