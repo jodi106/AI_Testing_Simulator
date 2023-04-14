@@ -175,8 +175,8 @@ public class SnapController : MonoBehaviour
             foreach (var jsonWaypoint in jsonWaypoints)
             {
                 var position = new Vector3(
-                    ((jsonWaypoint.X - mapDimensions[mapName].minX) - ((-mapDimensions[mapName].minX + mapDimensions[mapName].maxX) / 2)) / 4,
-                    ((jsonWaypoint.Y - mapDimensions[mapName].minY) - ((-mapDimensions[mapName].minY + mapDimensions[mapName].maxY) / 2)) / 4 * (-1),
+                    ((jsonWaypoint.X - mapDimensions[mapName].MinX) - ((-mapDimensions[mapName].MinX + mapDimensions[mapName].MaxX) / 2)) / 4,
+                    ((jsonWaypoint.Y - mapDimensions[mapName].MinY) - ((-mapDimensions[mapName].MinY + mapDimensions[mapName].MaxY) / 2)) / 4 * (-1),
                     HeightUtil.WAYPOINT_INDICATOR);
                 var waypointGameObject = Instantiate(
                     circlePrefab,
@@ -262,7 +262,7 @@ public class SnapController : MonoBehaviour
     /// </summary>
     /// <param name="l">A Lane object.</param>
     /// <returns>A tuple containing the previous and next lanes of the given Lane.</returns>
-    public (Lane, Lane) getNeighboringLanes(Lane l)
+    public (Lane, Lane) GetNeighboringLanes(Lane l)
     {
         var r = roads[l.RoadId];
 
@@ -283,7 +283,7 @@ public class SnapController : MonoBehaviour
     /// <param name="startWaypoint">The starting AStarWaypoint.</param>
     /// <param name="endWaypoint">The ending AStarWaypoint.</param>
     /// <returns>True if a lane change is possible, false otherwise.</returns
-    public bool checkLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
+    public bool CheckLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
     {
         if ((startLane.RoadId == endLane.RoadId && endWaypoint.IndexInLane <= startWaypoint.IndexInLane)
             || endLane.Id * startLane.Id < 0 || FastEuclideanDistance(startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3()) > 15)
@@ -291,7 +291,7 @@ public class SnapController : MonoBehaviour
             return false;
         }
 
-        (var left, var right) = getNeighboringLanes(startLane);
+        (var left, var right) = GetNeighboringLanes(startLane);
 
         List<Lane> lanes = new List<Lane>();
         if (left is not null)
@@ -345,7 +345,7 @@ public class SnapController : MonoBehaviour
             throw new Exception("Invalid start or end coordinates");
         }
 
-        if (checkLaneChange(startLane, endLane, startWaypoint, endWaypoint))
+        if (CheckLaneChange(startLane, endLane, startWaypoint, endWaypoint))
         {
             return (new List<Vector2>() { startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3() },
                 new List<int>() { 0 });
@@ -479,8 +479,8 @@ public class SnapController : MonoBehaviour
     public static (float x, float y) UnityToCarla(float x, float y)
     {
         //Only for Town06 later do as extension method for Vector3Ser or Location
-        x = 0.5f * (8f * x + mapDimensions[mapName].minX + mapDimensions[mapName].maxX);
-        y = 0.5f * (-8f * y + mapDimensions[mapName].minY + mapDimensions[mapName].maxY);
+        x = 0.5f * (8f * x + mapDimensions[mapName].MinX + mapDimensions[mapName].MaxX);
+        y = 0.5f * (-8f * y + mapDimensions[mapName].MinY + mapDimensions[mapName].MaxY);
 
 
         return (x, y);
@@ -525,10 +525,10 @@ public struct JsonWaypoint
 /// </summary>
 public struct MapDimension
 {
-    public float maxX { get; set; }
-    public float maxY { get; set; }
-    public float minX { get; set; }
-    public float minY { get; set; }
+    public float MaxX { get; set; }
+    public float MaxY { get; set; }
+    public float MinX { get; set; }
+    public float MinY { get; set; }
 }
 
 /// <summary>

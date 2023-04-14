@@ -62,7 +62,7 @@ public class PathController : MonoBehaviour
                     if (Path.IsEmpty() || (waypointColliderType == CollisionType.None && mouseColliderType == CollisionType.None))
                     {
                         AddMoveToWaypoint(position.Vector3Ser.ToVector3());
-                        mainController.setSelectedEntity(waypointViewControllers.Last.Value.Item1);
+                        mainController.SetSelectedEntity(waypointViewControllers.Last.Value.Item1);
                     }
                 }
             }
@@ -582,7 +582,7 @@ public class PathController : MonoBehaviour
         }
 
         waypointController.Waypoint.setPosition(x, y);
-        mainController.moveActionButtons(new Vector3(x, y, 0));
+        mainController.MoveActionButtons(new Vector3(x, y, 0));
         AfterEdit();
     }
 
@@ -777,7 +777,7 @@ public class PathController : MonoBehaviour
             MoveWaypoint(viewController, viewController.Waypoint.Location.X, viewController.Waypoint.Location.Y); // fix paths / deleting waypoint may make A* necessary
             AfterEdit();
 
-            mainController.setSelectedEntity(viewController);
+            mainController.SetSelectedEntity(viewController);
         }
     }
 

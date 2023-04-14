@@ -43,7 +43,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
                 this.RegisterEntity();
-                mainController.setSelectedEntity(this);
+                mainController.SetSelectedEntity(this);
             }
         });
 
@@ -57,7 +57,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             var action = new EntityListEntryClickedAction(x);
             if(action.entity == this.GetEntity())
             {
-                mainController.setSelectedEntity(this);
+                mainController.SetSelectedEntity(this);
             }
         });
     }
@@ -92,7 +92,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     public virtual void OnChangePosition(float x, float y)
     {
         transform.position = new Vector3(x, y, transform.position.z);
-        mainController.moveActionButtons(transform.position);
+        mainController.MoveActionButtons(transform.position);
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <param name="cat">The new AdversaryCategory of the entity.</param>
     public virtual void OnChangeCategory(AdversaryCategory cat)
     {
-        mainController.refreshEntityList();
+        mainController.RefreshEntityList();
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <param name="model">The new EntityModel of the entity.</param>
     public void OnChangeModel(EntityModel model)
     {
-        mainController.refreshEntityList();
+        mainController.RefreshEntityList();
     }
 
     /// <summary>
@@ -128,7 +128,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <param name="id">The new ID of the entity.</param>
     public void OnChangeID(string id)
     {
-        mainController.refreshEntityList();
+        mainController.RefreshEntityList();
     }
 
     /// <summary>
@@ -241,7 +241,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             //rotation is fixed by PathController
             GetEntity().setPosition(mousePosition.x, mousePosition.y);
         }
-        mainController.setSelectedEntity(this);
+        mainController.SetSelectedEntity(this);
     }
 
     /// <summary>
@@ -266,7 +266,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
             this.RegisterEntity();
         }
-        mainController.setSelectedEntity(this);
+        mainController.SetSelectedEntity(this);
     }
 
     /// <summary>

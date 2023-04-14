@@ -8,10 +8,10 @@ public class ActionButtonMouseOverHandler : MonoBehaviour, IPointerEnterHandler,
     public void OnPointerEnter(PointerEventData eventData) {
         var pos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         pos = new Vector2(pos.x, Camera.main.pixelHeight - pos.y);
-        MainController.moveToolTip(pos, Vector2.down, toolTipText);
+        MainController.MoveToolTip(pos, Vector2.down, toolTipText);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        MainController.hideToolTip();
+        MainController.HideToolTip();
     }
 }

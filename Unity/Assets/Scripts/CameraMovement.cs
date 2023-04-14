@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
                 Destroy(map.GetComponent<BoxCollider2D>());
                 map.AddComponent<BoxCollider2D>();
                 //Recalculate Screen Edges
-                recalulateEdges();
+                RecalulateEdges();
             }
             else
             {
@@ -73,14 +73,14 @@ public class CameraMovement : MonoBehaviour
             cam.transform.position = ClampCamera(new Vector3(0, 0, -10));
         });
 
-        recalulateEdges();
+        RecalulateEdges();
     }
 
 
     /// <summary>
     /// Recalculates the edges of the map.
     /// </summary>
-    void recalulateEdges()
+    void RecalulateEdges()
     {
         //Calculating the Edges for the Map(Background)
         mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;

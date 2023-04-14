@@ -16,7 +16,7 @@ public class MapController : MonoBehaviour
     private void OnMouseDown()
     {
         origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (shouldIgnoreMouseAction())
+        if (ShouldIgnoreMouseAction())
         {
             return;
         }
@@ -28,7 +28,7 @@ public class MapController : MonoBehaviour
     /// </summary>
     private void OnMouseUp()
     {
-        if (shouldIgnoreMouseAction())
+        if (ShouldIgnoreMouseAction())
         {
             return;
         }
@@ -43,7 +43,7 @@ public class MapController : MonoBehaviour
     /// </summary>
     private void OnMouseDrag()
     {
-        if (shouldIgnoreMouseAction())
+        if (ShouldIgnoreMouseAction())
         {
             return;
         }
@@ -54,7 +54,7 @@ public class MapController : MonoBehaviour
     /// Determines if the mouse action should be ignored based on whether the pointer is over a game object.
     /// </summary>
     /// <returns>Returns true if the pointer is over a game object, false otherwise.</returns>
-    public bool shouldIgnoreMouseAction() {
+    public bool ShouldIgnoreMouseAction() {
         return EventSystem.current.IsPointerOverGameObject();
     }
 }

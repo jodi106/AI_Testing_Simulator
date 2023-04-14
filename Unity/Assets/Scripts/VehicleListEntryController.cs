@@ -11,7 +11,7 @@ public class VehicleListEntryController
     Label category;
     Label model;
     VisualElement container;
-    public BaseEntity entity { get; protected set; }
+    public BaseEntity Entity { get; protected set; }
 
     /// <summary>
     /// Sets the VisualElement that the controller will update.
@@ -29,9 +29,9 @@ public class VehicleListEntryController
     /// Updates the UI elements with data from the given BaseEntity.
     /// </summary>
     /// <param name="entity">The BaseEntity containing the data to display.</param>
-    public void setEventData(BaseEntity entity)
+    public void SetEventData(BaseEntity entity)
     {
-        this.entity = entity;
+        this.Entity = entity;
         label.text = entity.Id.ToString();
         container.style.backgroundColor = entity.Color.ToUnityColor();
         if (entity is Adversary v)

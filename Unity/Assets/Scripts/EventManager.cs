@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     /// <summary>
     /// Singleton instance of EventManager.
     /// </summary>
-    public static EventManager instance
+    public static EventManager Instance
     {
         get
         {
@@ -59,7 +59,7 @@ public class EventManager : MonoBehaviour
     public static void StartListening(System.Type type, UnityAction<Dictionary<string, object>> listener)
     {
         UnityEvent<Dictionary<string, object>> thisEvent = null;
-        if (instance.eventDictionary.TryGetValue(type, out thisEvent))
+        if (Instance.eventDictionary.TryGetValue(type, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
@@ -67,7 +67,7 @@ public class EventManager : MonoBehaviour
         {
             thisEvent = new UnityEvent<Dictionary<string, object>>();
             thisEvent.AddListener(listener);
-            instance.eventDictionary.Add(type, thisEvent);
+            Instance.eventDictionary.Add(type, thisEvent);
         }
     }
 
@@ -80,7 +80,7 @@ public class EventManager : MonoBehaviour
     {
         if (eventManager == null) return;
         UnityEvent<Dictionary<string, object>> thisEvent = null;
-        if (instance.eventDictionary.TryGetValue(type, out thisEvent))
+        if (Instance.eventDictionary.TryGetValue(type, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
         }
@@ -93,7 +93,7 @@ public class EventManager : MonoBehaviour
     public static void TriggerEvent(IAction action)
     {
         UnityEvent<Dictionary<string, object>> thisEvent = null;
-        if (instance.eventDictionary.TryGetValue(action.GetType(), out thisEvent))
+        if (Instance.eventDictionary.TryGetValue(action.GetType(), out thisEvent))
         {
             thisEvent.Invoke(action.toDict());
         }

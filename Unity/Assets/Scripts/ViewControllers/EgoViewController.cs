@@ -73,7 +73,7 @@ public class EgoViewController : VehicleViewController
     /// </summary>
     public override void Destroy()
     {
-        this.mainController.setEgo(null);
+        this.mainController.SetEgo(null);
         destination?.Destroy();
         Destroy(gameObject);
     }
@@ -94,7 +94,7 @@ public class EgoViewController : VehicleViewController
             this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
         this.destination?.SetColor(color);
-        mainController.refreshEntityList();
+        mainController.RefreshEntityList();
     }
 
     /// <summary>
@@ -198,7 +198,7 @@ public class EgoViewController : VehicleViewController
     /// </summary>
     protected override void RegisterEntity()
     {
-        mainController.setEgo(this.ego);
+        mainController.SetEgo(this.ego);
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
         this.destination = destinationGameObject.GetComponent<DestinationController>();

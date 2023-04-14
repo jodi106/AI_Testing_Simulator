@@ -170,7 +170,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     public override void Destroy()
     {
-        mainController.removeAdversary(adversary);
+        mainController.RemoveAdversary(adversary);
         pathController?.Destroy();
         Destroy(gameObject);
         snapController.IgnoreClicks = false;
@@ -192,7 +192,7 @@ public class AdversaryViewController : VehicleViewController
             this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
         pathController?.SetColor(this.sprite.color);
-        mainController.refreshEntityList();
+        mainController.RefreshEntityList();
     }
 
 
@@ -210,7 +210,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     public override void OpenEditDialog()
     {
-        this.adversarySettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
+        this.adversarySettingsController.open(this, sprite.color, mainController.Info.EgoVehicle);
     }
 
     /// <summary>
@@ -218,7 +218,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     protected override void RegisterEntity()
     {
-        mainController.addAdversary(this.adversary);
+        mainController.AddAdversary(this.adversary);
         EventManager.TriggerEvent(new CompletePlacementAction());
         //PathController must have position 0, otherwise edgecollider is not aligned
         this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();

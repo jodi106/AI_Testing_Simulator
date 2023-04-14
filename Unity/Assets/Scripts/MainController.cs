@@ -56,10 +56,9 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// The ScenarioInfo for the current scenario being edited.
     /// </summary>
-    public ScenarioInfo info { get; private set; }
+    public ScenarioInfo Info { get; private set; }
 
     private IBaseController selectedEntity;
-
     private WorldSettingsPopupController worldSettingsController;
     private SnapController snapController;
     public WarningPopupController warningPopupController;
@@ -79,18 +78,18 @@ public class MainController : MonoBehaviour
     /// </summary
     void Start()
     {
-        this.info = new ScenarioInfo();
-        this.info.onEgoChanged = () =>
+        this.Info = new ScenarioInfo();
+        this.Info.onEgoChanged = () =>
         {
-            eventList.itemsSource = info.allEntities;
-            refreshEntityList();
+            eventList.itemsSource = Info.allEntities;
+            RefreshEntityList();
         };
         this.selectedEntity = null;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
-        initializeEventList(editorGUI);
-        initializeButtonBar(editorGUI);
-        initializeActionButtons();
+        InitializeEventList(editorGUI);
+        InitializeButtonBar(editorGUI);
+        InitializeActionButtons();
 
         FileBrowser.Skin = skin;
 
@@ -100,7 +99,7 @@ public class MainController : MonoBehaviour
         {
             if (!snapController.IgnoreClicks)
             {
-                this.setSelectedEntity(null);
+                this.SetSelectedEntity(null);
             }
         });
 
@@ -108,24 +107,24 @@ public class MainController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
             buttonBar.visible = action.name != "" ? true : false;
-            info.MapURL = action.name;
-            setSelectedEntity(null);
+            Info.MapURL = action.name;
+            SetSelectedEntity(null);
             Adversary.resetAutoIncrementID();
         });
 
         EventManager.StartListening(typeof(CompletePlacementAction), x =>
         {
-            enableButtonBar();
+            EnableButtonBar();
         });
 
         EventManager.StartListening(typeof(CancelPlacementAction), x =>
         {
-            enableButtonBar();
+            EnableButtonBar();
         });
 
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
-        this.worldSettingsController.init(this.info.WorldOptions);
+        this.worldSettingsController.init(this.Info.WorldOptions);
 
         this.warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
         this.warningPopupController.gameObject.SetActive(true);
@@ -142,12 +141,12 @@ public class MainController : MonoBehaviour
     /// Loads a ScenarioInfo object into the editor.
     /// </summary>
     /// <param name="info">The ScenarioInfo object to load.</param>
-    public void loadScenarioInfo(ScenarioInfo info)
+    public void LoadScenarioInfo(ScenarioInfo info)
     {
         //info = (ScenarioInfo)info.Clone(); //Do we need this? Exported .bin Info already the one before export changes? - Stefan
         EventManager.TriggerEvent(new MapChangeAction(info.MapURL));
-        info.onEgoChanged = this.info.onEgoChanged;
-        this.info = info;
+        info.onEgoChanged = this.Info.onEgoChanged;
+        this.Info = info;
         foreach (Adversary v in info.Vehicles)
         {
             var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
@@ -164,9 +163,9 @@ public class MainController : MonoBehaviour
             egoController.Init(info.EgoVehicle);
         }
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
-        initializeEventList(editorGUI);
+        InitializeEventList(editorGUI);
         eventList.itemsSource = info.allEntities;
-        refreshEntityList();
+        RefreshEntityList();
     }
 
     /// <summary>
@@ -176,10 +175,10 @@ public class MainController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
-            this.setSelectedEntity(null);
+            this.SetSelectedEntity(null);
         } else if (Input.GetKeyDown(KeyCode.Delete))
         {
-            deleteSelectedEntity();
+            DeleteSelectedEntity();
         }
     }
 
@@ -187,7 +186,7 @@ public class MainController : MonoBehaviour
     /// Sets the selected entity in the scenario editor.
     /// </summary>
     /// <param name="controller">The entity to set as the selected entity. Pass null to deselect the current entity.</param
-    public void setSelectedEntity(IBaseController controller)
+    public void SetSelectedEntity(IBaseController controller)
     {
         if (controller != null)
         {
@@ -197,7 +196,7 @@ public class MainController : MonoBehaviour
             if (this.actionButtonCanvas.activeSelf && controller != selectedEntity)
             {
                 var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
-                anim.onMove();
+                anim.OnMove();
             }
             else
             {
@@ -225,12 +224,12 @@ public class MainController : MonoBehaviour
     /// Moves the action buttons to the specified position.
     /// </summary>
     /// <param name="pos">A Vector2 representing the new position for the action buttons.</param>
-    public void moveActionButtons(Vector2 pos)
+    public void MoveActionButtons(Vector2 pos)
     {
         this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
-    public static void moveToolTip(Vector2 pos, Vector2 direction, String text)
+    public static void MoveToolTip(Vector2 pos, Vector2 direction, String text)
     {
         var tooltip = GameObject.Find("ToolTip");
         var textElement = tooltip.GetComponent<TMPro.TextMeshProUGUI>();
@@ -242,7 +241,7 @@ public class MainController : MonoBehaviour
         tooltip.gameObject.transform.position = new Vector3(target.x, target.y, -1f);
     }
 
-    public static void hideToolTip()
+    public static void HideToolTip()
     {
         GameObject.Find("ToolTip").GetComponent<TMPro.TextMeshProUGUI>().enabled = false;
     }
@@ -251,16 +250,16 @@ public class MainController : MonoBehaviour
     /// Adds an adversary to the scenario.
     /// </summary>
     /// <param name="entity">The Adversary object to be added.</param>
-    public void addAdversary(Adversary adversary)
+    public void AddAdversary(Adversary adversary)
     {
-        this.info.Vehicles.Add(adversary);
+        this.Info.Vehicles.Add(adversary);
     }
 
     /// <summary>
     /// Removes an adversary from the scenario.
     /// </summary>
     /// <param name="adversary">The Adversary object to be removed.</param>
-    public void removeAdversary(Adversary adversary)
+    public void RemoveAdversary(Adversary adversary)
     {
 
         foreach (Waypoint w in adversary.Path.WaypointList)
@@ -271,16 +270,16 @@ public class MainController : MonoBehaviour
                 otherVehicle.StartPathInfo = null;
             }
         }
-        this.info.Vehicles.Remove(adversary);
+        this.Info.Vehicles.Remove(adversary);
     }
 
     /// <summary>
     /// Sets the ego vehicle in the scenario.
     /// </summary>
     /// <param name="ego">The Ego object representing the ego vehicle.</param>
-    public void setEgo(Ego ego)
+    public void SetEgo(Ego ego)
     {
-        this.info.setEgo(ego);
+        this.Info.setEgo(ego);
     }
 
     /// <summary>
@@ -288,15 +287,15 @@ public class MainController : MonoBehaviour
     /// It will be added to the model once it is placed by the user.
     /// </summary>
     /// <param name="category">The AdversaryCategory for the new adversary.</param>
-    public void createAdversary(AdversaryCategory category)
+    public void CreateAdversary(AdversaryCategory category)
     {
         var pos = Input.mousePosition;
         pos.z = -0.1f;
-        GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : vehiclePrefab;
+        GameObject prefab = this.Info.EgoVehicle is null ? egoPrefab : vehiclePrefab;
         var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
         VehicleViewController viewController;
         Color color;
-        if (this.info.EgoVehicle is null)
+        if (this.Info.EgoVehicle is null)
         {
             viewController = vehicleGameObject.GetComponent<EgoViewController>();
             color = new Color(1f, 1f, 1f, 1f); // make Ego vehicle white
@@ -308,14 +307,14 @@ public class MainController : MonoBehaviour
             color = new Color(color.r, color.g, color.b, 1);
         }
         viewController.Init(category, color);
-        disableButtonBar();
+        DisableButtonBar();
     }
 
     /// <summary>
     /// Initializes the button bar with the appropriate event listeners.
     /// </summary>
     /// <param name="editorGUI">A reference to the editor GUI's VisualElement.</param>
-    private void initializeButtonBar(VisualElement editorGUI)
+    private void InitializeButtonBar(VisualElement editorGUI)
     {
         addPedestrianButton = editorGUI.Q<Button>("addPedestrianButton");
         addPedestrianButton.AddManipulator(new ToolTipManipulator("Add Pedestrian"));
@@ -346,35 +345,35 @@ public class MainController : MonoBehaviour
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createAdversary(AdversaryCategory.Car);
-            setSelectedEntity(null);
+            CreateAdversary(AdversaryCategory.Car);
+            SetSelectedEntity(null);
         });
 
         addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createAdversary(AdversaryCategory.Bike);
-            setSelectedEntity(null);
+            CreateAdversary(AdversaryCategory.Bike);
+            SetSelectedEntity(null);
         });
 
         addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createAdversary(AdversaryCategory.Motorcycle);
-            setSelectedEntity(null);
+            CreateAdversary(AdversaryCategory.Motorcycle);
+            SetSelectedEntity(null);
         });
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            createAdversary(AdversaryCategory.Pedestrian);
-            setSelectedEntity(null);
+            CreateAdversary(AdversaryCategory.Pedestrian);
+            SetSelectedEntity(null);
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            this.setSelectedEntity(null);
+            this.SetSelectedEntity(null);
             worldSettingsController.open();
         });
 
@@ -394,28 +393,28 @@ public class MainController : MonoBehaviour
         loadButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            this.setSelectedEntity(null);
+            this.SetSelectedEntity(null);
             LoadBinaryScenarioInfo();
         });
 
         saveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            this.setSelectedEntity(null);
-            SaveBinaryScenarioInfo(this.info);
+            this.SetSelectedEntity(null);
+            SaveBinaryScenarioInfo(this.Info);
         });
 
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            this.setSelectedEntity(null);
+            this.SetSelectedEntity(null);
             QuitApplication();
         });
 
         helpButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
-            this.setSelectedEntity(null);
+            this.SetSelectedEntity(null);
             OpenHelp();
         });
 
@@ -426,7 +425,7 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// Disables the button bar, making all buttons unresponsive.
     /// </summary>
-    public void disableButtonBar()
+    public void DisableButtonBar()
     {
         addPedestrianButton.SetEnabled(false);
         addBikeButton.SetEnabled(false);
@@ -444,7 +443,7 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// Enables all buttons in the button bar.
     /// </summary>
-    public void enableButtonBar()
+    public void EnableButtonBar()
     {
         addPedestrianButton.SetEnabled(true);
         addBikeButton.SetEnabled(true);
@@ -459,18 +458,18 @@ public class MainController : MonoBehaviour
         helpButton.SetEnabled(true);
     }
 
-    private void deleteSelectedEntity()
+    private void DeleteSelectedEntity()
     {
         selectedEntity?.Destroy();
-        setSelectedEntity(null);
+        SetSelectedEntity(null);
         // Pointer exit event is not called
-        MainController.hideToolTip();
+        MainController.HideToolTip();
     }
 
     /// <summary>
     /// Initializes action buttons and their corresponding event listeners.
     /// </summary>
-    private void initializeActionButtons()
+    private void InitializeActionButtons()
     {
         actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
         removeEntityButton = GameObject.Find("ActionButtonCanvas/DeleteButton").GetComponent<uGUI.Button>();
@@ -480,7 +479,7 @@ public class MainController : MonoBehaviour
         removeEntityButton.onClick.AddListener(() =>
         {
             if (freeze) return;
-            deleteSelectedEntity();
+            DeleteSelectedEntity();
         });
 
         editEntityButton.onClick.AddListener(() =>
@@ -510,7 +509,7 @@ public class MainController : MonoBehaviour
     /// Initializes the event list and sets up the related event handlers.
     /// </summary>
     /// <param name="editorGUI">The parent VisualElement for the event list.</param>
-    private void initializeEventList(VisualElement editorGUI)
+    private void InitializeEventList(VisualElement editorGUI)
     {
         // Store a reference to the character list element
         eventList = editorGUI.Q<ListView>("vehicle-list");
@@ -537,20 +536,20 @@ public class MainController : MonoBehaviour
         // Set up bind function for a specific list entry
         eventList.bindItem = (item, index) =>
         {
-            List<BaseEntity> allEntities = info.allEntities;
-            (item.userData as VehicleListEntryController).setEventData(allEntities.ElementAt(index));
+            List<BaseEntity> allEntities = Info.allEntities;
+            (item.userData as VehicleListEntryController).SetEventData(allEntities.ElementAt(index));
         };
 
-        info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        Info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
-            eventList.itemsSource = info.allEntities;
-            refreshEntityList();
+            eventList.itemsSource = Info.allEntities;
+            RefreshEntityList();
         };
 
-        info.Pedestrians.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        Info.Pedestrians.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
-            eventList.itemsSource = info.allEntities;
-            refreshEntityList();
+            eventList.itemsSource = Info.allEntities;
+            RefreshEntityList();
         };
 
         eventList.onSelectionChange += (objects) =>
@@ -563,7 +562,7 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// Refreshes the Entity list.
     /// </summary>
-    public void refreshEntityList()
+    public void RefreshEntityList()
     {
         this.eventList.Rebuild();
     }
@@ -574,7 +573,7 @@ public class MainController : MonoBehaviour
     /// <param name="exportInfo">The ScenarioInfo object to be saved.</param>
     /// <param name="binary">A boolean value indicating whether to save in binary format (true) or XML format (false).</param>
     /// <returns>Returns an IEnumerator for the coroutine.</returns>
-    IEnumerator saveScenarioInfoWrapper(ScenarioInfo exportInfo, bool binary)
+    IEnumerator SaveScenarioInfoWrapper(ScenarioInfo exportInfo, bool binary)
     {
         // Set the default extension
         string defaultExtension = binary ? ".sced" : ".xosc";
@@ -606,7 +605,7 @@ public class MainController : MonoBehaviour
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 using FileStream stream = new FileStream(filePath, FileMode.Create);
-                formatter.Serialize(stream, info);
+                formatter.Serialize(stream, Info);
             }
         }
     }
@@ -615,7 +614,7 @@ public class MainController : MonoBehaviour
     /// Coroutine to load the binary ScenarioInfo file.
     /// </summary>
     /// <returns>Returns an IEnumerator for the coroutine.</returns>
-    IEnumerator loadBinaryScenarioInfoWrapper()
+    IEnumerator LoadBinaryScenarioInfoWrapper()
     {
 
         // Set the filter to only allow .sced files
@@ -632,7 +631,7 @@ public class MainController : MonoBehaviour
                 using (FileStream stream = new FileStream(FileBrowser.Result[0], FileMode.Open))
                 {
                     ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
-                    loadScenarioInfo(obj);
+                    LoadScenarioInfo(obj);
                 }
             }
             catch (System.Exception)
@@ -653,9 +652,9 @@ public class MainController : MonoBehaviour
         //LoadBinaryScenarioInfo();
 
         // Catch errors and display it to the user
-        if (info.EgoVehicle == null)
+        if (Info.EgoVehicle == null)
         {
-            this.setSelectedEntity(null);
+            this.SetSelectedEntity(null);
             string title = "No AI vehicle placed";
             string description = "You must place a vehicle first!";
             this.warningPopupController.open(title, description);
@@ -664,7 +663,7 @@ public class MainController : MonoBehaviour
         }
 
         //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
-        ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
+        ScenarioInfo exportInfo = (ScenarioInfo)Info.Clone();
 
         // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
         //exportInfo = this.info;
@@ -679,7 +678,7 @@ public class MainController : MonoBehaviour
         // ------------------------------------------------------------------------
 
         // Create .xosc file
-        StartCoroutine(saveScenarioInfoWrapper(exportInfo, false));
+        StartCoroutine(SaveScenarioInfoWrapper(exportInfo, false));
     }
 
     /// <summary>
@@ -687,7 +686,7 @@ public class MainController : MonoBehaviour
     /// </summary>
     private void LoadBinaryScenarioInfo()
     {
-        StartCoroutine(loadBinaryScenarioInfoWrapper());
+        StartCoroutine(LoadBinaryScenarioInfoWrapper());
     }
 
     /// <summary>
@@ -696,7 +695,7 @@ public class MainController : MonoBehaviour
     /// <param name="info">The ScenarioInfo object to be saved.</param>
     private void SaveBinaryScenarioInfo(ScenarioInfo info)
     {
-        StartCoroutine(saveScenarioInfoWrapper(info, true));
+        StartCoroutine(SaveScenarioInfoWrapper(info, true));
     }
 
     /// <summary>

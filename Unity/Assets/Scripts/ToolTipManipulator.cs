@@ -55,7 +55,7 @@ public class ToolTipManipulator : Manipulator
         var xPos = sourcePos.x * denominator;
         var yPos = sourcePos.y * denominator;
         Vector2 pos = new Vector2(xPos, yPos);
-        MainController.moveToolTip(pos, Vector2.up, this.toolTipText);
+        MainController.MoveToolTip(pos, Vector2.up, this.toolTipText);
     }
 
     /// <summary>
@@ -64,6 +64,6 @@ public class ToolTipManipulator : Manipulator
     /// <param name="e">The MouseLeaveEvent data.</param>
     private void MouseOut(MouseLeaveEvent e)
     {
-        MainController.hideToolTip();
+        MainController.HideToolTip();
     }
 }

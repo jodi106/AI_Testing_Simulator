@@ -91,7 +91,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     {
         this.settingsController = GameObject.Find("PopUps").transform.Find("WaypointSettingsPopUp").gameObject.GetComponent<WaypointSettingsPopupController>();
         this.settingsController.gameObject.SetActive(true);
-        this.settingsController.open(this, pathController.AdversaryViewController.GetEntity(), mainController.info.Vehicles, mainController.warningPopupController);
+        this.settingsController.open(this, pathController.AdversaryViewController.GetEntity(), mainController.Info.Vehicles, mainController.warningPopupController);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
         }
         else
         {
-            if (!secondary) mainController.setSelectedEntity(this);
+            if (!secondary) mainController.SetSelectedEntity(this);
         }
 
     }

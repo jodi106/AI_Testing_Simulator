@@ -22,7 +22,7 @@ public class ActionButtonsAnimation : MonoBehaviour
     /// This method is called to animate the action button when it moves.
     /// It resets the game object's scale and animates it using LeanTween.
     /// </summary>
-    public void onMove()
+    public void OnMove()
     {
         gameObject.transform.localScale = new Vector3(0, 0, 0);
         LeanTween.scale(gameObject, new Vector3(0.01f, 0.01f, 0.01f), 0.1f);
