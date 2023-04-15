@@ -24,12 +24,12 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private bool ignoreWaypoints = false;
     private bool secondary = false;
 
-    public void Init(Waypoint waypoint, PathController pathController, Color color, bool ignoreWaypoints, bool secondary)
+    public void Init(Waypoint waypoint, PathController pathController, Color color, bool secondary)
     {
         this.Waypoint = waypoint;
         waypoint.View = this;
         this.pathController = pathController;
-        this.ignoreWaypoints = ignoreWaypoints;
+        this.ignoreWaypoints = waypoint.Strategy == WaypointStrategy.SHORTEST ? true : false;
         OnChangeColor(color);
         if (secondary)
         {
@@ -224,8 +224,17 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     /// <param name="ignore">True to ignore other waypoints, false to not ignore them.</param>
     public void ShouldIgnoreWaypoints(bool b)
     {
-        this.ignoreWaypoints = b;
+        ignoreWaypoints = b;
         Waypoint.Strategy = b ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
+        if(!ignoreWaypoints)
+        {
+            var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (waypoint is not null)
+            {
+                pathController.MoveWaypoint(this, waypoint.X, waypoint.Y);
+            }
+        }
+        pathController.UpdateAdjacentPaths(this);
     }
 
     /// <summary>

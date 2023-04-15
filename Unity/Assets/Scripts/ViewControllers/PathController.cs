@@ -154,19 +154,19 @@ public class PathController : MonoBehaviour
     /// <param name="controller">The adversary view controller associated with this path.</param>
     /// <param name="v">The adversary object associated with this path.</param>
     /// <param name="building">Optional parameter to set the initial building state. Default is true.</param>
-    public void Init(AdversaryViewController controller, Adversary v, bool building)
+    public void Init(AdversaryViewController controller, Color color, Path path, bool building)
     {
-        Path = v.Path;
-        SetColor(v.Color.ToUnityColor());
+        Path = path;
+        SetColor(color);
         AdversaryViewController = controller;
         this.building = building;
-        if (v.Path.WaypointList.Count == 0)
+        if (Path.WaypointList.Count == 0)
         {
             AddMoveToWaypoint(controller.GetPosition()); // have PathController create Waypoint
         }
         else
         {
-            foreach (Waypoint w in v.Path.WaypointList)
+            foreach (Waypoint w in Path.WaypointList)
             {
                 var pos = w.Location.Vector3Ser.ToVector3();
                 AddMoveToWaypoint(pos, w, false); //waypoint already exists, dont create it
@@ -306,7 +306,17 @@ public class PathController : MonoBehaviour
         }
         else
         {
-            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, AdversaryViewController.IsIgnoringWaypoints());
+            bool ignoreWaypoints;
+            if (waypoint is not null)
+            {
+                ignoreWaypoints = waypoint.Strategy == WaypointStrategy.SHORTEST ? true : false;
+
+            }
+            else
+            {
+                ignoreWaypoints = AdversaryViewController.IsIgnoringWaypoints();
+            }
+            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, ignoreWaypoints);
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -416,7 +426,7 @@ public class PathController : MonoBehaviour
         {
             waypoint = GenerateWaypoint(new Location(new Vector3(x, y, 0), 0), new ActionType("MoveToAction"));
         }
-        viewController.Init(waypoint, this, pathRenderer.startColor, IsIgnoringWaypoints(), secondary);
+        viewController.Init(waypoint, this, pathRenderer.startColor, secondary);
         return viewController;
     }
 
@@ -504,6 +514,11 @@ public class PathController : MonoBehaviour
             }
         }
         return (prev, cur, next, prevIndex);
+    }
+
+    public void UpdateAdjacentPaths(WaypointViewController waypointController)
+    {
+        MoveWaypoint(waypointController, waypointController.GetLocation().X, waypointController.GetLocation().Y);
     }
 
     /// <summary>

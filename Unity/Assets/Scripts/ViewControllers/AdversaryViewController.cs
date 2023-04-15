@@ -71,23 +71,30 @@ public class AdversaryViewController : VehicleViewController
         placed = true;
         this.adversary.setView(this);
         OnChangePosition(this.adversary.SpawnPoint.X, this.adversary.SpawnPoint.Y);
-        base.OnChangeRotation(this.adversary.SpawnPoint.Rot);
+        OnChangeRotation(this.adversary.SpawnPoint.Rot);
         OnChangeCategory(this.adversary.Category);
         OnChangeModel(this.adversary.Model);
         OnChangeColor(this.adversary.Color.ToUnityColor());
-        switch (this.adversary.Category)
+        if (adversary.Path.WaypointList.Count > 0)
         {
-            case AdversaryCategory.Car:
-            case AdversaryCategory.Motorcycle:
-                ignoreWaypoints = false;
-                break;
-            case AdversaryCategory.Bike:
-            case AdversaryCategory.Pedestrian:
-                ignoreWaypoints = true;
-                break;
+            ignoreWaypoints = adversary.Path.WaypointList[0].Strategy == WaypointStrategy.SHORTEST ? true : false;
+        }
+        else
+        {
+            switch (this.adversary.Category)
+            {
+                case AdversaryCategory.Car:
+                case AdversaryCategory.Motorcycle:
+                    ignoreWaypoints = false;
+                    break;
+                case AdversaryCategory.Bike:
+                case AdversaryCategory.Pedestrian:
+                    ignoreWaypoints = true;
+                    break;
+            }
         }
         pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-        pathController.Init(this, this.adversary, false);
+        pathController.Init(this, this.adversary.Color.ToUnityColor(), this.adversary.Path, false);
     }
 
     /// <summary>
@@ -222,7 +229,7 @@ public class AdversaryViewController : VehicleViewController
         EventManager.TriggerEvent(new CompletePlacementAction());
         //PathController must have position 0, otherwise edgecollider is not aligned
         pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-        pathController.Init(this, adversary, true);
+        pathController.Init(this, adversary.Color.ToUnityColor(), adversary.Path, true);
     }
 
     /// <summary>
@@ -232,6 +239,28 @@ public class AdversaryViewController : VehicleViewController
     public override void ShouldIgnoreWaypoints(bool b)
     {
         base.ShouldIgnoreWaypoints(b);
-        pathController?.GetFirstWaypointController().ShouldIgnoreWaypoints(b);
+        if (pathController is not null)
+        {
+            if (!ignoreWaypoints)
+            {
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var waypoint = snapController.FindWaypoint(mousePosition);
+                if (waypoint is not null)
+                {
+                    difference = Vector2.zero;
+                    GetEntity().setPosition(waypoint.X, waypoint.Y);
+                    GetEntity().setRotation(waypoint.Rot);
+                }
+                else
+                {
+                    GetEntity().setPosition(mousePosition.x, mousePosition.y);
+                    GetEntity().setRotation(0);
+                }
+                pathController.MoveFirstWaypoint(waypoint.X, waypoint.Y);
+            }
+            WaypointViewController firstWaypoint = pathController.GetFirstWaypointController();
+            firstWaypoint.ShouldIgnoreWaypoints(b);
+            pathController.UpdateAdjacentPaths(firstWaypoint);
+        }
     }
 }
