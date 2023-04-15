@@ -300,7 +300,7 @@ class RunnerTool(object):
                         result.wait(timeout=self.timeout)
                         
                     except subprocess.TimeoutExpired:
-                        print(f'Timeout for {file} ({self.timeout-10}s) expired')
+                        self.log.create_entry(f'Timeout for {file} ({self.timeout-10}s) expired')
                         result.kill()
                     
                     #removed in v1.02:                
