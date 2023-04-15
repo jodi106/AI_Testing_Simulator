@@ -113,7 +113,6 @@ class RunnerTool(object):
 
         self.sort_maps = args.sortMaps
         self.timeout = args.timeout + 10
-        print(self.timeout)
 
         # Args for start_carla
         self.host = args.host
