@@ -367,6 +367,15 @@ public class MainController : MonoBehaviour
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
+            if (Info.EgoVehicle == null)
+            {
+                string title = "Ego entity must be a vehicle!";
+                string description = "The first placed entity is the Ego vehicle (AI).\nThe Ego vehicle cannot be a pedestrian." +
+                "\nPlace a car, motorcycle or bike instead!";
+                warningPopupController.Open(title, description);
+                freeze = false;
+                return;
+            }
             CreateAdversary(AdversaryCategory.Pedestrian);
             SetSelectedEntity(null);
         });
@@ -1085,6 +1094,15 @@ public class CopyOfMainController : MonoBehaviour
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             if (freeze) return;
+            if (Info.EgoVehicle == null)
+            {
+                string title = "Ego entity must be a vehicle!";
+                string description = "The first placed entity is the Ego vehicle (AI).\nThe Ego vehicle cannot be a pedestrian." +
+                "\nPlace a car, motorcycle or bike instead!";
+                warningPopupController.Open(title, description);
+                freeze = false;
+                return;
+            }
             CreateAdversary(AdversaryCategory.Pedestrian);
             SetSelectedEntity(null);
         });
