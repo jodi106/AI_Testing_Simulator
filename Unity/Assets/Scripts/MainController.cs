@@ -345,28 +345,24 @@ public class MainController : MonoBehaviour
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             CreateAdversary(AdversaryCategory.Car);
             SetSelectedEntity(null);
         });
 
         addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             CreateAdversary(AdversaryCategory.Bike);
             SetSelectedEntity(null);
         });
 
         addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             CreateAdversary(AdversaryCategory.Motorcycle);
             SetSelectedEntity(null);
         });
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             if (Info.EgoVehicle == null)
             {
                 string title = "Ego entity must be a vehicle!";
@@ -382,48 +378,41 @@ public class MainController : MonoBehaviour
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             worldSettingsController.Open();
         });
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             ExportOnClick();
             //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>(async (ClickEvent) =>
         {
-            if (freeze) return;
             ReturnToHome();
         });
 
         loadButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             LoadBinaryScenarioInfo();
         });
 
         saveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             SaveBinaryScenarioInfo(Info);
         });
 
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             QuitApplication();
         });
 
         helpButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             OpenHelp();
         });
@@ -1072,28 +1061,24 @@ public class CopyOfMainController : MonoBehaviour
 
         addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             CreateAdversary(AdversaryCategory.Car);
             SetSelectedEntity(null);
         });
 
         addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             CreateAdversary(AdversaryCategory.Bike);
             SetSelectedEntity(null);
         });
 
         addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             CreateAdversary(AdversaryCategory.Motorcycle);
             SetSelectedEntity(null);
         });
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             if (Info.EgoVehicle == null)
             {
                 string title = "Ego entity must be a vehicle!";
@@ -1109,48 +1094,41 @@ public class CopyOfMainController : MonoBehaviour
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             worldSettingsController.Open();
         });
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             ExportOnClick();
             //loadScenarioInfo(this.info);
         });
 
         homeButton.RegisterCallback<ClickEvent>(async (ClickEvent) =>
         {
-            if (freeze) return;
             ReturnToHome();
         });
 
         loadButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             LoadBinaryScenarioInfo();
         });
 
         saveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             SaveBinaryScenarioInfo(Info);
         });
 
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             QuitApplication();
         });
 
         helpButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            if (freeze) return;
             SetSelectedEntity(null);
             OpenHelp();
         });

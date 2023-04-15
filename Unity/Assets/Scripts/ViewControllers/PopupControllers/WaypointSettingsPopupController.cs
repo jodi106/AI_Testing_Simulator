@@ -300,7 +300,8 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 {
                     string title = "LaneChangeAction only for experienced users!";
                     string description = "To do a lane change, you should just place more waypoints on an entity's path."
-                    + "\nThis option will BREAK your scenario if it's near an intersection! Do NOT do that!";
+                    + "\nThis manual lane change is more precise if \nmultiple direct following lane changes are needed."
+                    + "\nBut this option will BREAK your scenario in Carla if it's near an intersection!\nDo NOT do that!";
                     this.helpPopupController.Open(title, description, 1);
                 }
             }
