@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MainController">
+    <Position X="17" Y="10.25" Width="5" />
+    <Members>
+      <Field Name="egoPrefab" Hidden="true" />
+      <Field Name="eventEntryTemplate" Hidden="true" />
+      <Field Name="helpPopupController" Hidden="true" />
+      <Method Name="HideToolTip" Hidden="true" />
+      <Method Name="MoveActionButtons" Hidden="true" />
+      <Method Name="MoveToolTip" Hidden="true" />
+      <Field Name="pedPrefab" Hidden="true" />
+      <Field Name="skin" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Field Name="vehiclePrefab" Hidden="true" />
+      <Field Name="warningPopupController" Hidden="true" />
+      <Field Name="yesNoPopupController" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Info" Type="Entity.ScenarioInfo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.193" Y="0.101" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ygWIAAQYAGCAAGBEMgATASQsQACeCgIIBARaAkCCkQA=</HashCode>
+      <FileName>Assets\Scripts\MainController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="selectedEntity" />
+      <Property Name="Info" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity.ScenarioInfo">
+    <Position X="25.5" Y="17" Width="3" />
+    <Members>
+      <Property Name="allEntities" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Property Name="Pedestrians" Hidden="true" />
+    </Members>
+    <AssociationLine Name="EgoVehicle" Type="Entity.Ego">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.344" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Vehicles" Type="Entity.Adversary">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.042" Y="0.399" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>hAAAAAAgBAAAgAIAAAAACAAAIAAAAEAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Entities\ScenarioInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="EgoVehicle" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Vehicles" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entity.Ego" Collapsed="true">
+    <Position X="22.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAACAEAAAAAAAAAAAAEAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Ego.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entity.Adversary" Collapsed="true">
+    <Position X="26" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAABIADAAgAAAAAAAAAAAAAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Adversary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VehicleViewController" Collapsed="true">
+    <Position X="24.25" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAQEAAwSIKAAECAAAARBAAAIBBDAQAQoIAACQAAAEEA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\VehicleViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mainController" />
+      <Field Name="snapController" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdversaryViewController" Collapsed="true">
+    <Position X="25.75" Y="12.75" Width="2" />
+    <AssociationLine Name="adversary" Type="Entity.Adversary">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.17" Y="0.248" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAEAEwAMIAAMAAAAAABAAAQAADAAAAAACECQAAAAEg=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\AdversaryViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="adversary" />
+      <Field Name="pathController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EgoViewController" Collapsed="true">
+    <Position X="22.75" Y="12.75" Width="1.75" />
+    <AssociationLine Name="ego" Type="Entity.Ego">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.088" Y="0.399" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIIAAFAAAABABAAAAAADAAAAAAAEGRAAAAUA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\EgoViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="ego" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SnapController">
+    <Position X="29" Y="10.5" Width="4.25" />
+    <Members>
+      <Method Name="CalculateTargetLaneValueCarla" Hidden="true" />
+      <Method Name="CheckLaneChange" Hidden="true" />
+      <Field Name="circlePrefab" Hidden="true" />
+      <Method Name="FastEuclideanDistance" Hidden="true" />
+      <Method Name="GetNeighboringLanes" Hidden="true" />
+      <Method Name="GetRoadIdAndLaneIdFromString" Hidden="true" />
+      <Field Name="LastClickedWaypointGameObject" Hidden="true" />
+      <Method Name="LoadRoads" Hidden="true" />
+      <Field Name="mapDimensions" Hidden="true" />
+      <Field Name="mapName" Hidden="true" />
+      <Field Name="roads" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Method Name="UnityRotToRadians" Hidden="true" />
+      <Method Name="UnityToCarla" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Field Name="waypointGameObjects" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AEQAAAAQACAAAEAAAAARAEAARAAAEMEQAAAKAAgFAAA=</HashCode>
+      <FileName>Assets\Scripts\SnapController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PathController" Collapsed="true">
+    <Position X="29.25" Y="13.25" Width="1.5" />
+    <AssociationLine Name="mainController" Type="MainController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="30.062" Y="13.941" />
+        <Point X="30.062" Y="15.642" />
+        <Point X="26.833" Y="15.642" Type="JumpStart" />
+        <Point X="26.667" Y="15.642" Type="JumpEnd" />
+        <Point X="23.583" Y="15.642" Type="JumpStart" />
+        <Point X="23.417" Y="15.642" Type="JumpEnd" />
+        <Point X="22" Y="15.642" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ECRCEBIwAIAAEIIAAAIAwAAIBCFAAiAgIAgSQCAAAkA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\PathController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mainController" />
+      <Field Name="snapController" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="IBaseController" Collapsed="true">
+    <Position X="24.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAACIIAAAAAAAAAAAAAIAABAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

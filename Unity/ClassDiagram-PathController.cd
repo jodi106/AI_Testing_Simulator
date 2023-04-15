@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="AdversaryViewController">
+    <Position X="5.25" Y="5.75" Width="3.5" />
+    <Members>
+      <Field Name="adversarySettingsController" Hidden="true" />
+      <Method Name="Awake" Hidden="true" />
+      <Method Name="GetCollider" Hidden="true" />
+      <Method Name="GetSprite" Hidden="true" />
+      <Field Name="INITIAL_SPEED" Hidden="true" />
+      <Field Name="INITIAL_SPEED_PEDESTRIAN" Hidden="true" />
+      <Method Name="OpenEditDialog" Hidden="true" />
+      <Field Name="pathPrefab" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAAEAEwAMIAAMAAAAAABAAAQAADAAAAAACECQAAAAEg=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\AdversaryViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="adversary" />
+      <Field Name="pathController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity.Adversary" Collapsed="true">
+    <Position X="2" Y="7" Width="1.5" />
+    <Members>
+      <Field Name="autoIncrementId" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="resetAutoIncrementID" Hidden="true" />
+      <Property Name="StartPathInfo" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Path" Type="Entity.Path">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.047" Y="0.185" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAABIADAAgAAAAAAAAAAAAAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Adversary.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Path" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PathController">
+    <Position X="1.75" Y="11.25" Width="7.25" />
+    <Members>
+      <Method Name="AdjustHeights" Hidden="true" />
+      <Field Name="edgeCollider" Hidden="true" />
+      <Method Name="FindCollisionType" Hidden="true" />
+      <Method Name="FindMouseTarget" Hidden="true" />
+      <Method Name="OnMouseDown" Hidden="true" />
+      <Field Name="pathRenderer" Hidden="true" />
+      <Field Name="previewRenderer" Hidden="true" />
+      <Field Name="previewSprite" Hidden="true" />
+      <Field Name="waypointPrefab" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ECRCEBIwAIAAEIIAAAIAwAAIBCFAAiAgIAgSQCAAAkA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\PathController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Path" />
+      <Property Name="AdversaryViewController" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="waypointViewControllers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Entity.Path" Collapsed="true">
+    <Position X="2" Y="9.5" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="InitAssignRouteWaypoint" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAAAAAAAgAAAAAAAAAAABQBAAABAAIAABA=</HashCode>
+      <FileName>Assets\Entities\Path.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="WaypointList" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WaypointViewController">
+    <Position X="10.5" Y="11.25" Width="5.75" />
+    <Members>
+      <Method Name="Awake" Hidden="true" />
+      <Field Name="settingsController" Hidden="true" />
+      <Field Name="sprite" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAAFAEASYIAAAAAgQAQAAhAIABDAAAQgIAgGQAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\WaypointViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pathController" />
+      <Property Name="Waypoint" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entity.Waypoint" Collapsed="true">
+    <Position X="12.25" Y="9.75" Width="1.5" />
+    <Members>
+      <Method Name="CalculateLocationCarla" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEAAIAAAACAwAAAAiAAAAAABABABA=</HashCode>
+      <FileName>Assets\Entities\Waypoint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
