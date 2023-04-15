@@ -7,11 +7,10 @@ import sys
 import json
 import argparse
 from argparse import RawTextHelpFormatter
-
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore, Style
 init()
 
-RUNNER_TOOL_VERSION = "1.01"
+RUNNER_TOOL_VERSION = "1.02"
 
 #------------------------- SET INPUTS --------------------------------------------------------------------------------#
 # SET PATHS IN CONFIG.JSON FILE # 
@@ -44,12 +43,15 @@ class RunnerTool(object):
     speed : int
         Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Might cause carla physics bugs on high speeds. Max stable value 500-1000 can vary for different maps(5-10X Speed)
         Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
-    camera : str{bird, ego} 
+    camera : bool
         Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100. (default: None)
     agent: str
         Replaces HeroAgent controller value with provided string
     sort_maps: bool
         Enable sorting by map names
+    timeout: int (default: 200)
+        scenario timeout in seconds. 10s automaticcaly added to specified value as timeout starts with start of supbprocess which is not necessarily the start of the scenario.
+        Does not scale with set speed value.
 
 
 
@@ -108,6 +110,8 @@ class RunnerTool(object):
         self.camera = args.camera
         self.agent = args.agent
         self.sort_maps = args.sortMaps
+        self.timeout = args.timeout + 10
+        print(self.timeout)
 
         # Args for start_carla
         self.host = args.host
@@ -280,27 +284,35 @@ class RunnerTool(object):
                         self.set_agent(openscenario)          
                     # Building subprocess command. (Subprocess is executed in new cmd terminal, thus python env root is required.)
                     cmd = """cd \"{runner_root}\"\
-                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --json --outputDir \"{result_path}\"{speed} {camera}
+                                &{python_root}/python scenario_runner.py --openscenario \"{file}\" --reloadWorld --json --outputDir \"{result_path}\"{speed} {camera}
                             """.format(runner_root= conf["PATH_TO_SCENARIO_RUNNER_ROOT"],
                                        python_root=conf["PATH_TO_PYTHON_ENV"],
                                        file=openscenario, 
                                        result_path=self.results_path, 
                                        speed=self.adjust_speed(),
                                        camera=self.set_camera_perspective())
-                    result = subprocess.run(cmd, shell=True, capture_output=True)
-                    self.print_subprocess_output(result)
+                                       
+                    try:
+                        result = subprocess.Popen(cmd, shell=True, start_new_session=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        result.wait(timeout=self.timeout)
+                        
+                    except subprocess.TimeoutExpired:
+                        print(f'Timeout for {file} ({self.timeout-10}s) expired')
+                        result.kill()
+                    
+                    #removed in v1.02:                
+                    #result = subprocess.run(cmd, shell=True, capture_output=True)
+                    #self.print_subprocess_output(result)
 
                 except Exception as e:
                     self.log.create_entry("ERROR: An error occured while running scenario {s_name}.".format(s_name=file))
-                    show = input("Show error message?(y/n): ")
-                    if show == "y":
-                        self.log.create_entry(e)
-        
+                    self.log.create_entry(e)
+
         self.create_results_overview()
 
     def print_subprocess_output(self, result: subprocess):
         '''
-        Prints subprocess output.
+        Prints subprocess output (Removed in v1.02).
 
         Parameters
         ----------
@@ -311,16 +323,17 @@ class RunnerTool(object):
         -------
         None
         '''
-        self.log.create_entry("SCENARIO RUNNER STDOUT: {error}".format(error=result.stdout))
-        self.log.create_entry("SCENARIO RUNNER STDERR: {error}".format(error=result.stderr))
+        #self.log.create_entry("SCENARIO RUNNER STDOUT: {error}".format(error=result.stdout.read().decode()))
+        #self.log.create_entry("SCENARIO RUNNER STDERR: {error}".format(error=result.stderr.read().decode()))
+        #out, err = proc.communicate()
 
-        if "Not all scenario tests were successful" in result.stdout.decode("utf-8"):
-            self.log.create_entry("INFO: Not all scenario tests were successful\n")
-        elif "All scenario tests were passed successfully" in result.stdout.decode("utf-8"):
-            self.log.create_entry("INFO: All scenario tests were passed successfully\n")
+        #if "Not all scenario tests were successful" in result.stdout.decode("utf-8"):
+        #    self.log.create_entry("INFO: Not all scenario tests were successful\n")
+        #elif "All scenario tests were passed successfully" in result.stdout.decode("utf-8"):
+        #    self.log.create_entry("INFO: All scenario tests were passed successfully\n")
 
-        if "exception" in result.stderr.decode("utf-8"):
-            self.log.create_entry(result.stderr.decode("utf-8"))
+        #if "exception" in result.stderr.decode("utf-8"):
+        #    self.log.create_entry(result.stderr.decode("utf-8"))
 
     def create_result_dir(self):
         ''' Creates new dir in RUNNER_ROOT to store scenario results, if none exists.'''
@@ -395,11 +408,11 @@ class RunnerTool(object):
 
         for scenario in result_dict.keys():
             if result_dict[scenario]["success"]:
-                print("\t" + str(count) + ". " + result_dict[scenario]["scenario"] + "\t | \t " + str(result_dict[scenario]["success"]))
+                print("\t" + str(count) + ". " + result_dict[scenario]["scenario"] + ": " + str(result_dict[scenario]["success"]))
                 self.log.create_entry(str(count) + ". " + result_dict[scenario]["scenario"] + " | " + str(result_dict[scenario]["success"]), print_result=False)
                 overview.append(self.log.get_top(print_out=False))
             else:
-                print("\t" + str(count) + ". " + Fore.RED + result_dict[scenario]["scenario"] + Style.RESET_ALL +"\t | \t " + Fore.RED + str(result_dict[scenario]["success"]) + Style.RESET_ALL)
+                print("\t" + str(count) + ". " + Fore.RED + result_dict[scenario]["scenario"] + Style.RESET_ALL +": " + Fore.RED + str(result_dict[scenario]["success"]) + Style.RESET_ALL)
                 self.log.create_entry(str(count) + ". " + result_dict[scenario]["scenario"]  +" | "  + str(result_dict[scenario]["success"]), print_result =False)
                 overview.append(self.log.get_top(print_out=False))
             count+=1
@@ -618,7 +631,8 @@ def main():
     #parser.add_argument('--camera', default=None, type=str, help='Set camera perspectiv (bird, ego) fixed to ego vehicle. Might cause carla crash if bird view is combined with high speed.')
     parser.add_argument('--camera', default=None, action="store_true", help='Initializes bird, ego camera perspective fixed to ego vehicle in seperate Window. Does NOT work if --speed has been changed to other than 100.')
     parser.add_argument('--agent', default=None, type=str, help='Specify agent name (name of Self Driving KI) to run all scenarios in dir')
-    parser.add_argument('--sortMaps', action="store_true", help='Sorts xosc files in dir by map name and plays them in ascending order')   
+    parser.add_argument('--sortMaps', action="store_true", help='Sorts xosc files in dir by map name and plays them in ascending order')
+    parser.add_argument('--timeout', default=200, type=int, help='Stops scenario on timeout in seconds and runs next scenario (default: 200)')
 
     arguments = parser.parse_args()
 
