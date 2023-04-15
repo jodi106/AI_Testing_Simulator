@@ -54,7 +54,8 @@ public class MapController : MonoBehaviour
     /// Determines if the mouse action should be ignored based on whether the pointer is over a game object.
     /// </summary>
     /// <returns>Returns true if the pointer is over a game object, false otherwise.</returns>
-    public bool ShouldIgnoreMouseAction() {
+    public bool ShouldIgnoreMouseAction()
+    {
         return EventSystem.current.IsPointerOverGameObject();
     }
 }

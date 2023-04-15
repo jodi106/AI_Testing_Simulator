@@ -95,7 +95,7 @@ public class EventManager : MonoBehaviour
         UnityEvent<Dictionary<string, object>> thisEvent = null;
         if (Instance.eventDictionary.TryGetValue(action.GetType(), out thisEvent))
         {
-            thisEvent.Invoke(action.toDict());
+            thisEvent.Invoke(action.ToDict());
         }
     }
 }

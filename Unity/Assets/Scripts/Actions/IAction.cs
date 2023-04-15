@@ -9,5 +9,5 @@ public interface IAction
     /// Converts the IAction object to a dictionary.
     /// </summary>
     /// <returns>A dictionary containing the data from the IAction object.</returns>  
-    public Dictionary<string, object> toDict();
+    public Dictionary<string, object> ToDict();
 }

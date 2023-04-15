@@ -6,7 +6,7 @@
 /// </summary>
 public class CancelPlacementAction : IAction
 {
-    public string name { get; }
+    public string Name { get; }
 
     /// <summary>
     /// Constructs a new CancelPlacementAction.
@@ -19,7 +19,7 @@ public class CancelPlacementAction : IAction
     /// Converts the CancelPlacementAction object to a dictionary.
     /// </summary>
     /// <returns>A dictionary containing the data from the CancelPlacementAction object.</returns>
-    public Dictionary<string, object> toDict()
+    public Dictionary<string, object> ToDict()
     {
         return new Dictionary<string, object>();
     }

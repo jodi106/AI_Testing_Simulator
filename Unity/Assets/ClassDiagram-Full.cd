@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="NameAndType">
+  <Class Name="VehicleViewController">
+    <Position X="14.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAQEAAwSIKAAECAAAARBAAAIBBDAQAQoIAACQAAAEEA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\VehicleViewController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="UnityEngine.MonoBehaviour" Collapsed="true">
+    <Position X="12.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="AdversaryViewController">
+    <Position X="11.25" Y="13.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>gAAEAEwAMIAAMAAAAAABAAAQAADAAAAAACECQAAAAEg=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\AdversaryViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="adversary" />
+      <Field Name="pathController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EgoViewController">
+    <Position X="16.25" Y="13.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIIAAFAAAABABAAAAAADAAAAAAAEGRAAAAUA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\EgoViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="ego" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity.Adversary">
+    <Position X="11.25" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAABIADAAgAAAAAAAAAAAAAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Adversary.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Path" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entity.Ego" Collapsed="true">
+    <Position X="17.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAACAEAAAAAAAAAAAAEAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Ego.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PathController">
+    <Position X="6.75" Y="5.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ECRCEBIwAIAAEIIAAAIAwAAIBCFAAgAgIAgSQCAAAkA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\PathController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdversaryViewController" />
+      <Property Name="Path" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity.Path">
+    <Position X="7.25" Y="1.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAAAAAAAgAAAAAAAAAAABQBAAABAAIAABA=</HashCode>
+      <FileName>Assets\Entities\Path.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="WaypointList" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MainController">
+    <Position X="20.5" Y="5.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ygWIAAQYAGCAAGBEMgATASQsQACeCgIIBARaAkCCkQA=</HashCode>
+      <FileName>Assets\Scripts\MainController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Info" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity.ScenarioInfo">
+    <Position X="16.25" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>hAAAAAAgBAAAgAIAAAAACAAAIAAAAEAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Entities\ScenarioInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Vehicles" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entity.Waypoint">
+    <Position X="3.75" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEAAIAAAACAwABAAiAAAAAABABABA=</HashCode>
+      <FileName>Assets\Entities\Waypoint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WaypointViewController">
+    <Position X="2.25" Y="5.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>gAAFAEASYIAAAAAgQAQAAhAIABDAAAQgIAgGQAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\WaypointViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Waypoint" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="IBaseController">
+    <Position X="5.25" Y="13.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAACIIAAAAAAAAAAAAAIAABAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBaseEntityController">
+    <Position X="5.5" Y="16.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseEntityController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBaseEntityView">
+    <Position X="1.25" Y="15" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseEntityView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBaseView">
+    <Position X="1.25" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAQAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

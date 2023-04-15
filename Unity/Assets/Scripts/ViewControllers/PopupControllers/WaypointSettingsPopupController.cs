@@ -44,7 +44,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     private Toggle startRouteToggle;
     private DropdownField startRouteVehicleField;
 
-    private bool deactivateLaneChangeOption = false; 
+    private bool deactivateLaneChangeOption = false;
 
     /// <summary>
     /// Called when the object is created. It retrieves references to UI elements in the scene and initializes them.
@@ -82,11 +82,11 @@ public class WaypointSettingsPopupController : SettingsPopupController
             InitActionEventHandler(i);
             InitActionFieldsEventHandler(i);
         }
-        
+
         ExitButton = this.document.rootVisualElement.Q<Button>("Exit");
         AddActionButton = this.document.rootVisualElement.Q<Button>("AddAction");
         DeleteActionsButton = this.document.rootVisualElement.Q<Button>("DeleteActions");
-        
+
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             OnExit();
@@ -95,8 +95,8 @@ public class WaypointSettingsPopupController : SettingsPopupController
         AddActionButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             int numberOfActions = actions.Count(s => s != null);
-            
-            if ((possibleActionsField[numberOfActions].style.display == DisplayStyle.Flex) 
+
+            if ((possibleActionsField[numberOfActions].style.display == DisplayStyle.Flex)
             && possibleActionsField[numberOfActions].value == null)
             {
                 string title = "No Action selected";
@@ -109,7 +109,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
             possibleActionsField[numberOfActions].style.display = DisplayStyle.Flex;
             ConfigureActionChoices(numberOfActions);
 
-            if (numberOfActions >= ACTIONS_NR-1) // max number of actions reached
+            if (numberOfActions >= ACTIONS_NR - 1) // max number of actions reached
             {
                 AddActionButton.style.display = DisplayStyle.None;
             }
@@ -152,7 +152,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 if (veh.Id != evt.newValue) continue; // Get the corresponding vehicle instance
 
                 // Check if another vehicle already starts that vehicle's route --> Popup Warning
-                if (veh.StartPathInfo != null && veh.StartPathInfo.Type == "Waypoint") 
+                if (veh.StartPathInfo != null && veh.StartPathInfo.Type == "Waypoint")
                 {
                     if (waypoint.StartRouteOfOtherVehicle != null && waypoint.StartRouteOfOtherVehicle.Id == veh.Id) return; // veh just has another id but nothing changend
                     string title = "Vehicle already chosen by another Waypoint";
@@ -178,7 +178,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
 
                 // Set new startRouteInfo 
                 veh.StartPathInfo = new StartPathInfo(this.vehicle, this.waypoint);
-                this.waypoint.StartRouteOfOtherVehicle = veh; 
+                this.waypoint.StartRouteOfOtherVehicle = veh;
                 Debug.Log("Start route of that vehicle: " + veh.Id);
                 break;
             }
@@ -227,7 +227,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 {
                     case "SpeedAction":
                         UpdateActionTextField(waypoint.Actions[i].Name, waypoint.Actions[i].AbsoluteTargetSpeedValueKMH, i, ACTION_TEXT_SPEED);
-                        if (i <= 1) ConfigureActionChoices(i+1);
+                        if (i <= 1) ConfigureActionChoices(i + 1);
                         break;
 
                     case "StopAction":
@@ -257,7 +257,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 startRouteVehicleField.choices.Add(veh.Id.ToString());
 
                 if (waypoint.StartRouteOfOtherVehicle == veh) otherVehicleExists = true;
-               
+
             }
         }
 
@@ -382,7 +382,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
         else if (actionName == "StopAction")
         {
             this.actionTextField[i].value = value.ToString();
-            this.actions[i] = new ActionType(actionName, value, GetCurrentSpeed()); 
+            this.actions[i] = new ActionType(actionName, value, GetCurrentSpeed());
         }
     }
 
@@ -419,7 +419,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
     private void ConfigureActionChoices(int index)
     {
         possibleActionsField[index].choices = new List<string> { };
-        
+
         foreach (var option in Enum.GetValues(typeof(ActionTypeName)))
         {
             // Special cases: Do not add options to the dropdown
@@ -480,7 +480,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
         this.possibleActionsField[0].style.display = DisplayStyle.Flex;
         AddActionButton.style.display = DisplayStyle.Flex;
     }
-    
+
     /// <summary>
     /// Resets the start route vehicle toggle to its default state.
     /// </summary>
@@ -515,7 +515,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
             }
         }
     }
-    
+
     // <summary>
     /// Sets the correct current speed to the next StopAction in the vehicle's path.
     /// User changes currentSpeed after a StopAction in another waypoint was added

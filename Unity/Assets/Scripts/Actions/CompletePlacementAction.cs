@@ -6,7 +6,7 @@
 /// </summary>
 public class CompletePlacementAction : IAction
 {
-    public string name { get; }
+    public string Name { get; }
 
     /// <summary>
     /// Constructs a new CompletePlacementAction.
@@ -19,7 +19,7 @@ public class CompletePlacementAction : IAction
     /// Converts the CompletePlacementAction object to a dictionary.
     /// </summary>
     /// <returns>A dictionary containing the data from the CompletePlacementAction object.</returns>
-    public Dictionary<string, object> toDict()
+    public Dictionary<string, object> ToDict()
     {
         return new Dictionary<string, object>();
     }

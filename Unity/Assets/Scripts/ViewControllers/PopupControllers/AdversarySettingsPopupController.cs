@@ -237,7 +237,7 @@ public class AdversarySettingsPopupController : SettingsPopupController
     public void Open(AdversaryViewController controller, Color color, Ego egoVehicle)
     {
         this.controller = controller;
-        this.vehicle = (Adversary) controller.GetEntity();
+        this.vehicle = (Adversary)controller.GetEntity();
         this.egoVehicle = egoVehicle;
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
@@ -322,8 +322,8 @@ public class AdversarySettingsPopupController : SettingsPopupController
         startRouteTimeField.value = "0";
         startRouteDropdown.index = 0;
         startRouteDropdown.style.display = DisplayStyle.Flex;
-        startRouteTimeField.style.display= DisplayStyle.Flex;
-        startRouteDistanceField.style.display= DisplayStyle.None;
+        startRouteTimeField.style.display = DisplayStyle.Flex;
+        startRouteDistanceField.style.display = DisplayStyle.None;
         startRouteWaypointTimeLabel.style.display = DisplayStyle.None;
         deleteStartRouteWaypointButton.style.display = DisplayStyle.None;
         startRouteInfoLabel.style.display = DisplayStyle.Flex;
@@ -340,8 +340,8 @@ public class AdversarySettingsPopupController : SettingsPopupController
                 vehicle.StartPathInfo = new StartPathInfo(vehicle, Int32.Parse(startRouteTimeField.value));
                 break;
             case "Ego":
-                vehicle.StartPathInfo = new StartPathInfo(vehicle, 
-                    vehicle.SpawnPoint, Int32.Parse(startRouteDistanceField.value), egoVehicle); 
+                vehicle.StartPathInfo = new StartPathInfo(vehicle,
+                    vehicle.SpawnPoint, Int32.Parse(startRouteDistanceField.value), egoVehicle);
                 break;
         }
     }

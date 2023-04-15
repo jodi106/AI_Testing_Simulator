@@ -3,22 +3,22 @@ using System.Collections.Generic;
 
 public class EntityListEntryClickedAction : IAction
 {
-    public BaseEntity entity { get; }
+    public BaseEntity Entity { get; }
     public EntityListEntryClickedAction(BaseEntity entity)
     {
-        this.entity = entity;
+        this.Entity = entity;
     }
 
     public EntityListEntryClickedAction(Dictionary<string, object> dict)
     {
-        this.entity = (BaseEntity)dict.GetValueOrDefault("entity");
+        Entity = (BaseEntity)dict.GetValueOrDefault("entity");
     }
 
-    public Dictionary<string, object> toDict()
+    public Dictionary<string, object> ToDict()
     {
         return new Dictionary<string, object>
         {
-            {"entity", this.entity },
+            {"entity", Entity },
         };
     }
 }

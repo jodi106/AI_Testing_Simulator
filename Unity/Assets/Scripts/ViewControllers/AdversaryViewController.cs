@@ -86,8 +86,8 @@ public class AdversaryViewController : VehicleViewController
                 ignoreWaypoints = true;
                 break;
         }
-        this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-        this.pathController.Init(this, this.adversary, false);
+        pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+        pathController.Init(this, this.adversary, false);
     }
 
     /// <summary>
@@ -185,13 +185,13 @@ public class AdversaryViewController : VehicleViewController
     {
         if (placed)
         {
-            this.sprite.color = color;
+            sprite.color = color;
         }
         else
         {
-            this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
+            sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
-        pathController?.SetColor(this.sprite.color);
+        pathController?.SetColor(sprite.color);
         mainController.RefreshEntityList();
     }
 
@@ -202,7 +202,7 @@ public class AdversaryViewController : VehicleViewController
     /// <returns>The entity of this adversary.</returns>
     public override BaseEntity GetEntity()
     {
-        return this.adversary;
+        return adversary;
     }
 
     /// <summary>
@@ -210,7 +210,7 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     public override void OpenEditDialog()
     {
-        this.adversarySettingsController.Open(this, sprite.color, mainController.Info.EgoVehicle);
+        adversarySettingsController.Open(this, sprite.color, mainController.Info.EgoVehicle);
     }
 
     /// <summary>
@@ -218,11 +218,11 @@ public class AdversaryViewController : VehicleViewController
     /// </summary>
     protected override void RegisterEntity()
     {
-        mainController.AddAdversary(this.adversary);
+        mainController.AddAdversary(adversary);
         EventManager.TriggerEvent(new CompletePlacementAction());
         //PathController must have position 0, otherwise edgecollider is not aligned
-        this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-        this.pathController.Init(this, this.adversary, true);
+        pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+        pathController.Init(this, adversary, true);
     }
 
     /// <summary>
@@ -232,6 +232,6 @@ public class AdversaryViewController : VehicleViewController
     public override void ShouldIgnoreWaypoints(bool b)
     {
         base.ShouldIgnoreWaypoints(b);
-        this.pathController?.GetFirstWaypointController().ShouldIgnoreWaypoints(b);
+        pathController?.GetFirstWaypointController().ShouldIgnoreWaypoints(b);
     }
 }

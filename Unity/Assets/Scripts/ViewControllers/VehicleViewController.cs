@@ -27,8 +27,8 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     public virtual void Awake()
     {
-        this.snapController = Camera.main.GetComponent<SnapController>();
-        this.mainController = Camera.main.GetComponent<MainController>();
+        snapController = Camera.main.GetComponent<SnapController>();
+        mainController = Camera.main.GetComponent<MainController>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.sprite = GetSprite();
         sprite.color = new Color(1, 1, 1, 0.5f);
@@ -42,20 +42,20 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             {
                 placed = true;
                 sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-                this.RegisterEntity();
+                RegisterEntity();
                 mainController.SetSelectedEntity(this);
             }
         });
 
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
-            this.Destroy();
+            Destroy();
         });
 
         EventManager.StartListening(typeof(EntityListEntryClickedAction), x =>
         {
             var action = new EntityListEntryClickedAction(x);
-            if(action.entity == this.GetEntity())
+            if (action.Entity == GetEntity())
             {
                 mainController.SetSelectedEntity(this);
             }
@@ -74,7 +74,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <returns>A Location object representing the vehicle's location.</returns>
     public Location GetLocation()
     {
-        return this.GetEntity().SpawnPoint;
+        return GetEntity().SpawnPoint;
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     public void Update()
     {
-        if(GetEntity() == null)
+        if (GetEntity() == null)
         {
             return; //not initialized yet
         }
@@ -177,13 +177,13 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
 
             if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
             {
-                this.Destroy();
+                Destroy();
                 EventManager.TriggerEvent(new CancelPlacementAction());
             }
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (!this.IsIgnoringWaypoints())
+            if (!IsIgnoringWaypoints())
             {
                 var waypoint = snapController.FindWaypoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 if (waypoint is not null)
@@ -211,7 +211,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     public void OnMouseDrag()
     {
-        if(EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
@@ -221,7 +221,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
             return;
         }
 
-        if (!this.IsIgnoringWaypoints())
+        if (!IsIgnoringWaypoints())
         {
             var waypoint = snapController.FindWaypoint(mousePosition);
             if (waypoint is not null)
@@ -249,7 +249,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// </summary>
     public void OnMouseDown()
     {
-        if(EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
@@ -264,7 +264,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
         {
             placed = true;
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
-            this.RegisterEntity();
+            RegisterEntity();
         }
         mainController.SetSelectedEntity(this);
     }
@@ -275,7 +275,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <returns>True if the entity should ignore waypoints, false otherwise.</returns>
     public bool IsIgnoringWaypoints()
     {
-        return this.ignoreWaypoints;
+        return ignoreWaypoints;
     }
 
     /// <summary>
@@ -284,7 +284,7 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     /// <param name="b">True to ignore waypoints, false otherwise.</param>
     public virtual void ShouldIgnoreWaypoints(bool b)
     {
-        this.ignoreWaypoints = b;
+        ignoreWaypoints = b;
     }
 
     /// <summary>

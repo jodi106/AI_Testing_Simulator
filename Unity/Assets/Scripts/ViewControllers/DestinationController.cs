@@ -18,9 +18,9 @@ public class DestinationController : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        this.sprite = gameObject.GetComponent<SpriteRenderer>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
         gameObject.transform.position = HeightUtil.SetZ(gameObject.transform.position, HeightUtil.WAYPOINT_SELECTED);
-        this.snapController = Camera.main.GetComponent<SnapController>();
+        snapController = Camera.main.GetComponent<SnapController>();
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
@@ -59,7 +59,7 @@ public class DestinationController : MonoBehaviour
     /// <param name="color">The color to set the waypoint to.</param>
     public void SetColor(Color color)
     {
-        this.sprite.color = color;
+        sprite.color = color;
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class DestinationController : MonoBehaviour
     /// <returns>Whether the waypoint has been placed or not.</returns>
     public bool IsPlaced()
     {
-        return this.placed;
+        return placed;
     }
 
     /// <summary>

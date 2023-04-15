@@ -14,8 +14,8 @@ namespace Assets.Repos
         /// Dictionary that maps AdversaryCategories to lists of EntityModels.
         /// </summary>
         private readonly static Dictionary<AdversaryCategory, List<EntityModel>> _EntityModels = new Dictionary<AdversaryCategory, List<EntityModel>>();
-        
-        
+
+
         /// <summary>
         /// Initializes _EntityModels with predefined values.
         /// </summary>
@@ -86,7 +86,7 @@ namespace Assets.Repos
         /// <returns>The default EntityModel associated with the provided AdversaryCategory.</returns>
         public static EntityModel getDefaultModel(AdversaryCategory cat)
         {
-            switch(cat)
+            switch (cat)
             {
                 case AdversaryCategory.Car:
                     return getDefaultCarModel();
@@ -141,7 +141,7 @@ namespace Assets.Repos
                 {
                     return x.DisplayName == description;
                 });
-                if(model is not null)
+                if (model is not null)
                 {
                     return model;
                 }

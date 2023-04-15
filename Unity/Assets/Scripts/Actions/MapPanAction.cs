@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class MapPanAction : IAction
 {
-    public Vector3 origin { get; }
+    public Vector3 Origin { get; }
 
     /// <summary>
     /// Constructs a new MapPanAction object with the provided origin point.
@@ -14,7 +14,7 @@ public class MapPanAction : IAction
     /// <param name="dragOrigin">The origin point of the drag action.</param>
     public MapPanAction(Vector3 dragOrigin)
     {
-        this.origin = dragOrigin;
+        Origin = dragOrigin;
     }
 
     /// <summary>
@@ -23,18 +23,18 @@ public class MapPanAction : IAction
     /// <param name="dict">The dictionary containing data for the MapPanAction object.</param>
     public MapPanAction(Dictionary<string, object> dict)
     {
-        this.origin = (Vector3)dict.GetValueOrDefault("origin");
+        Origin = (Vector3)dict.GetValueOrDefault("origin");
     }
 
     /// <summary>
     /// Converts the MapPanAction object to a dictionary.
     /// </summary>
     /// <returns>A dictionary containing the data from the MapPanAction object.</returns>
-    public Dictionary<string, object> toDict()
+    public Dictionary<string, object> ToDict()
     {
         return new Dictionary<string, object>
         {
-            {"origin", this.origin },
+            {"origin", Origin },
         };
     }
 }

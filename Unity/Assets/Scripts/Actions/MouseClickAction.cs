@@ -8,7 +8,7 @@ using UnityEngine;
 public class MouseClickAction : IAction
 {
 
-    public Vector3 position { get; }
+    public Vector3 Position { get; }
 
 
 
@@ -18,7 +18,7 @@ public class MouseClickAction : IAction
     /// <param name="position">The position of the mouse click action.</param>
     public MouseClickAction(Vector3 dragOrigin)
     {
-        this.position = dragOrigin;
+        Position = dragOrigin;
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class MouseClickAction : IAction
     /// <param name="dict">The dictionary containing data for the MouseClickAction object.</param>
     public MouseClickAction(Dictionary<string, object> dict)
     {
-        this.position = (Vector3)dict.GetValueOrDefault("position");
+        Position = (Vector3)dict.GetValueOrDefault("position");
     }
 
 
@@ -35,11 +35,11 @@ public class MouseClickAction : IAction
     /// Converts the MouseClickAction object to a dictionary.
     /// </summary>
     /// <returns>A dictionary containing the data from the MouseClickAction object.</returns>
-    public Dictionary<string, object> toDict()
+    public Dictionary<string, object> ToDict()
     {
         return new Dictionary<string, object>
         {
-            {"position", this.position },
+            {"position", Position },
         };
     }
 }

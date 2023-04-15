@@ -32,8 +32,8 @@ public class PathController : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        this.snapController = Camera.main.GetComponent<SnapController>();
-        this.mainController = Camera.main.GetComponent<MainController>();
+        snapController = Camera.main.GetComponent<SnapController>();
+        mainController = Camera.main.GetComponent<MainController>();
 
         waypointViewControllers = new LinkedList<(WaypointViewController, int)>();
 
@@ -52,10 +52,10 @@ public class PathController : MonoBehaviour
             if (building)
             {
                 var action = new MouseClickAction(x);
-                var position = FindMouseTarget(action.position);
+                var position = FindMouseTarget(action.Position);
 
                 CollisionType waypointColliderType = FindCollisionType(position.Vector3Ser.ToVector3());
-                CollisionType mouseColliderType = FindCollisionType(action.position);
+                CollisionType mouseColliderType = FindCollisionType(action.Position);
 
                 if (position is not null)
                 {
@@ -157,8 +157,8 @@ public class PathController : MonoBehaviour
     public void Init(AdversaryViewController controller, Adversary v, bool building)
     {
         Path = v.Path;
-        this.SetColor(v.Color.ToUnityColor());
-        this.AdversaryViewController = controller;
+        SetColor(v.Color.ToUnityColor());
+        AdversaryViewController = controller;
         this.building = building;
         if (v.Path.WaypointList.Count == 0)
         {
@@ -186,7 +186,7 @@ public class PathController : MonoBehaviour
     {
         //Target of a click is either a waypoint or the mouse position itself, if waypoints are ignored
         Location waypoint;
-        if (!this.AdversaryViewController.IsIgnoringWaypoints())
+        if (!AdversaryViewController.IsIgnoringWaypoints())
         {
             waypoint = snapController.FindWaypoint(mousePosition);
         }
@@ -206,7 +206,7 @@ public class PathController : MonoBehaviour
     CollisionType FindCollisionType(Vector2 position)
     {
         RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(position, -10), -Vector2.up);
-        if (hit.collider == this.edgeCollider)
+        if (hit.collider == edgeCollider)
         {
             return CollisionType.Path;
         }
@@ -261,7 +261,7 @@ public class PathController : MonoBehaviour
             previewRenderer.positionCount = 1;
             previewRenderer.SetPosition(0, HeightUtil.SetZ(waypointViewControllers.Last.Value.Item1.transform.position, HeightUtil.PATH_SELECTED));
 
-            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, target.Vector3Ser.ToVector3(), this.AdversaryViewController.IsIgnoringWaypoints());
+            (var path, _) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, target.Vector3Ser.ToVector3(), AdversaryViewController.IsIgnoringWaypoints());
             path.RemoveAt(0);
 
             foreach (var coord in path)
@@ -276,7 +276,7 @@ public class PathController : MonoBehaviour
         {
             var waypoint = snapController.FindWaypoint(mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(HeightUtil.SetZ(mousePosition, -10), -Vector2.up);
-            if (hit.collider == this.edgeCollider)
+            if (hit.collider == edgeCollider)
             {
                 previewSprite.enabled = true;
                 previewSprite.transform.position = HeightUtil.SetZ(waypoint.Vector3Ser.ToVector3(), -0.1f);
@@ -306,7 +306,7 @@ public class PathController : MonoBehaviour
         }
         else
         {
-            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, this.AdversaryViewController.IsIgnoringWaypoints());
+            (path, laneChanges) = snapController.FindPath(waypointViewControllers.Last.Value.Item1.transform.position, position, AdversaryViewController.IsIgnoringWaypoints());
             path.RemoveAt(0);
             pathLen = path.Count;
 
@@ -333,7 +333,7 @@ public class PathController : MonoBehaviour
         else //waypoint is already in Path
         {
             viewController = CreateWaypointGameObject(position.x, position.y);
-            this.Path.WaypointList.Add(viewController.Waypoint);
+            Path.WaypointList.Add(viewController.Waypoint);
         }
         waypointViewControllers.AddLast((viewController, pathLen - used));
         AfterEdit();
@@ -367,7 +367,7 @@ public class PathController : MonoBehaviour
                 }
                 else
                 {
-                    this.Path.WaypointList.Add(viewController.Waypoint);
+                    Path.WaypointList.Add(viewController.Waypoint);
                     waypointViewControllers.AddAfter(waypointViewControllers.Last, (viewController, pathLen));
                 }
             }
@@ -385,7 +385,7 @@ public class PathController : MonoBehaviour
                 }
                 else
                 {
-                    this.Path.WaypointList.Add(viewController.Waypoint);
+                    Path.WaypointList.Add(viewController.Waypoint);
                     waypointViewControllers.AddAfter(waypointViewControllers.Last, (viewController, pathLen));
                 }
             }
@@ -416,7 +416,7 @@ public class PathController : MonoBehaviour
         {
             waypoint = GenerateWaypoint(new Location(new Vector3(x, y, 0), 0), new ActionType("MoveToAction"));
         }
-        viewController.Init(waypoint, this, pathRenderer.startColor, this.IsIgnoringWaypoints(), secondary);
+        viewController.Init(waypoint, this, pathRenderer.startColor, IsIgnoringWaypoints(), secondary);
         return viewController;
     }
 
@@ -435,7 +435,7 @@ public class PathController : MonoBehaviour
             locationTrigger = waypointViewControllers.Last.Value.Item1.Waypoint.Location;
         }
         triggersLaneChange.Add(new TriggerInfo("DistanceCondition", null, "lessThan", 20, locationTrigger)); // TODO change 20
-        var strategy = this.IsIgnoringWaypoints() ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
+        var strategy = IsIgnoringWaypoints() ? WaypointStrategy.SHORTEST : WaypointStrategy.FASTEST;
         return new Waypoint(loc, actionType, triggersLaneChange, strategy);
     }
 
@@ -684,11 +684,11 @@ public class PathController : MonoBehaviour
     /// <param name="y">The y coordinate of the new location.</param>
     public void MoveFirstWaypoint(float x, float y)
     {
-        var first = this.waypointViewControllers.First.Value.Item1.GetLocation();
+        var first = waypointViewControllers.First.Value.Item1.GetLocation();
         //prevent stackoverflow from onChangeLocation callback
         if (first.X != x || first.Y != y)
         {
-            this.MoveWaypoint(this.waypointViewControllers.First.Value.Item1, x, y);
+            MoveWaypoint(waypointViewControllers.First.Value.Item1, x, y);
         }
     }
 
@@ -698,10 +698,10 @@ public class PathController : MonoBehaviour
     /// <param name="color">The Color to set for the path, preview, and waypoints.</param>
     public void SetColor(Color color)
     {
-        this.pathRenderer.startColor = this.pathRenderer.endColor = color;
+        pathRenderer.startColor = pathRenderer.endColor = color;
         color = new Color(color.r, color.g, color.b, 0.5f);
-        this.previewRenderer.startColor = this.previewRenderer.endColor = color;
-        this.previewSprite.color = color;
+        previewRenderer.startColor = previewRenderer.endColor = color;
+        previewSprite.color = color;
         foreach (var (waypoint, _) in waypointViewControllers)
         {
             waypoint.SetColor(color);
@@ -772,7 +772,7 @@ public class PathController : MonoBehaviour
             waypointViewControllers.AddAfter(cur, (viewController, index));
             next.Value = (next.Value.Item1, next.Value.Item2 - index);
 
-            this.Path.WaypointList.Insert(curPathIndex + 1, viewController.Waypoint);
+            Path.WaypointList.Insert(curPathIndex + 1, viewController.Waypoint);
 
             MoveWaypoint(viewController, viewController.Waypoint.Location.X, viewController.Waypoint.Location.Y); // fix paths / deleting waypoint may make A* necessary
             AfterEdit();
@@ -788,7 +788,7 @@ public class PathController : MonoBehaviour
     /// <returns>The WaypointViewController of the first waypoint in the path.</returns>
     public WaypointViewController GetFirstWaypointController()
     {
-        return this.waypointViewControllers.First.Value.Item1;
+        return waypointViewControllers.First.Value.Item1;
     }
 }
 

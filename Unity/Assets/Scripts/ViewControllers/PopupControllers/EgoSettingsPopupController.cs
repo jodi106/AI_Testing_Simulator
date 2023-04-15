@@ -77,7 +77,7 @@ public class EgoSettingsPopupController : SettingsPopupController
 
         //locationField = this.document.rootVisualElement.Q<TextField>("Location");
         //locationField.SetEnabled(false);
-        
+
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
         possibleModelsField.choices = allPossibleModels;

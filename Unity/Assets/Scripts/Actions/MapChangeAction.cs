@@ -5,7 +5,7 @@
 /// </summary>
 public class MapChangeAction : IAction
 {
-    public string name { get; }
+    public string Name { get; }
 
     /// <summary>
     /// Constructs a new MapChangeAction object with the provided name.
@@ -13,7 +13,7 @@ public class MapChangeAction : IAction
     /// <param name="name">The name of the map to change to.</param>
     public MapChangeAction(string name)
     {
-        this.name = name;
+        this.Name = name;
     }
 
     /// <summary>
@@ -22,18 +22,18 @@ public class MapChangeAction : IAction
     /// <param name="dict">The dictionary containing data for the MapChangeAction object.</param>
     public MapChangeAction(Dictionary<string, object> dict)
     {
-        this.name = (string)dict.GetValueOrDefault("name");
+        this.Name = (string)dict.GetValueOrDefault("name");
     }
 
     /// <summary>
     /// Converts the MapChangeAction object to a dictionary.
     /// </summary>
     /// <returns>A dictionary containing the data from the MapChangeAction object.</returns>
-    public Dictionary<string, object> toDict()
+    public Dictionary<string, object> ToDict()
     {
         return new Dictionary<string, object>
         {
-            {"name", this.name },
+            {"name", this.Name },
         };
     }
 }

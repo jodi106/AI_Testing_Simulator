@@ -42,7 +42,7 @@ public class SnapController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
 
-            mapName = action.name;
+            mapName = action.Name;
 
             foreach (var (_, waypoint) in waypointGameObjects)
             {
@@ -53,7 +53,7 @@ public class SnapController : MonoBehaviour
             roads.Clear();
             LastClickedWaypointGameObject = null;
 
-            if (action.name != "") LoadRoads(action.name);
+            if (action.Name != "") LoadRoads(action.Name);
         });
 
         var dimensions = Resources.Load<TextAsset>("waypoints/dimensions");
@@ -422,7 +422,7 @@ public class SnapController : MonoBehaviour
 
                     cameFrom[nextLane.Waypoints[0]] = currentWaypoint;
                     laneChanges.Add(nextLane.Waypoints[0]);
-                    if(!currentLane.PhysicalNextRoadAndLaneIds.Contains((nextRoadId, nextLaneId)))
+                    if (!currentLane.PhysicalNextRoadAndLaneIds.Contains((nextRoadId, nextLaneId)))
                     {
                         physicalLaneChanges.Add(nextLane.Waypoints[0]);
                     }
@@ -485,7 +485,7 @@ public class SnapController : MonoBehaviour
 
         return (x, y);
     }
-    
+
     /// <summary>
     /// Converts a Unity rotation value to radians.
     /// </summary>

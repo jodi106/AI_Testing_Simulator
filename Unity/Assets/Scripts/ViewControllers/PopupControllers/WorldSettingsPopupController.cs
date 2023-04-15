@@ -44,7 +44,7 @@ public class WorldSettingsPopupController : SettingsPopupController
             }
         });
 
-        var sunIntesity =  this.document.rootVisualElement.Q<Slider>("SunIntensity");
+        var sunIntesity = this.document.rootVisualElement.Q<Slider>("SunIntensity");
         sunIntesity.RegisterValueChangedCallback((evt) =>
         {
             //Debug.Log("Sun Intensity: "+evt.newValue);
@@ -56,7 +56,7 @@ public class WorldSettingsPopupController : SettingsPopupController
         {
             cloudStateOptions.Add(option.ToString());
         }
-        var cloudState =  this.document.rootVisualElement.Q<DropdownField>("CloudState");
+        var cloudState = this.document.rootVisualElement.Q<DropdownField>("CloudState");
         cloudState.choices = cloudStateOptions;
         cloudState.RegisterValueChangedCallback((evt) =>
         {
@@ -71,7 +71,7 @@ public class WorldSettingsPopupController : SettingsPopupController
         {
             precipitationTypeOptions.Add(option.ToString());
         }
-        var precipitationType =  this.document.rootVisualElement.Q<DropdownField>("PrecipitationType");
+        var precipitationType = this.document.rootVisualElement.Q<DropdownField>("PrecipitationType");
         precipitationType.choices = precipitationTypeOptions;
         precipitationType.RegisterValueChangedCallback((evt) =>
         {
@@ -81,28 +81,28 @@ public class WorldSettingsPopupController : SettingsPopupController
             this.options.PrecipitationType = userOption;
         });
 
-        var precipitationIntesity =  this.document.rootVisualElement.Q<Slider>("PrecipitationIntensity");
+        var precipitationIntesity = this.document.rootVisualElement.Q<Slider>("PrecipitationIntensity");
         precipitationIntesity.RegisterValueChangedCallback((evt) =>
         {
             //Debug.Log("Precipitation Intensity: " + precipitationIntesity.showInputField + " " + evt.newValue);
             this.options.PrecipitationIntensity = (float)evt.newValue;
         });
 
-        var sunAzimuth =  this.document.rootVisualElement.Q<Slider>("SunAzimuth");
+        var sunAzimuth = this.document.rootVisualElement.Q<Slider>("SunAzimuth");
         sunAzimuth.RegisterValueChangedCallback((evt) =>
         {
             //Debug.Log("Sun Azimuth: " + sunAzimuth.showInputField + " " + evt.newValue);
             this.options.SunAzimuth = (double)evt.newValue;
         });
 
-        var sunElevation =  this.document.rootVisualElement.Q<Slider>("SunElevation");
+        var sunElevation = this.document.rootVisualElement.Q<Slider>("SunElevation");
         sunElevation.RegisterValueChangedCallback((evt) =>
         {
             //Debug.Log("Sun Elevation: " + sunElevation.showInputField + " " + evt.newValue);
             this.options.SunElevation = (double)evt.newValue;
         });
 
-        var fogVisualRange =  this.document.rootVisualElement.Q<TextField>("FogVisualRange");
+        var fogVisualRange = this.document.rootVisualElement.Q<TextField>("FogVisualRange");
         fogVisualRange.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
         {
             if (KeyDownEvent.keyCode == KeyCode.Return)
@@ -112,7 +112,7 @@ public class WorldSettingsPopupController : SettingsPopupController
             }
         });
 
-        var frictionScaleFactor =  this.document.rootVisualElement.Q<TextField>("FrictionScaleFactor");
+        var frictionScaleFactor = this.document.rootVisualElement.Q<TextField>("FrictionScaleFactor");
         frictionScaleFactor.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
         {
             if (KeyDownEvent.keyCode == KeyCode.Return)
@@ -121,8 +121,8 @@ public class WorldSettingsPopupController : SettingsPopupController
                 //this.options.FrictionScaleFactor = (double)frictionScaleFactor.value;
             }
         });
-        var simpleSettingsButton =  this.document.rootVisualElement.Q<Button>("SimpleSettings");
-        var advancedSettingsButton =  this.document.rootVisualElement.Q<Button>("AdvancedSettings");
+        var simpleSettingsButton = this.document.rootVisualElement.Q<Button>("SimpleSettings");
+        var advancedSettingsButton = this.document.rootVisualElement.Q<Button>("AdvancedSettings");
         advancedSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
             frictionScaleFactor.visible = true;

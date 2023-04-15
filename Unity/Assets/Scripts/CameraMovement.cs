@@ -35,21 +35,21 @@ public class CameraMovement : MonoBehaviour
         EventManager.StartListening(typeof(MapPanAction), x =>
         {
             var action = new MapPanAction(x);
-            PanCamera(action.origin);
+            PanCamera(action.Origin);
         });
 
         EventManager.StartListening(typeof(MapChangeAction), x =>
         {
             var action = new MapChangeAction(x);
 
-            if (action.name != "")
+            if (action.Name != "")
             {
                 /// Switch Welcome Menu Off
                 /// Switch Welcome Background Off
                 WelcomeCanvas.SetActive(false);
                 WelcomeBackground.SetActive(false);
 
-                mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + action.name);
+                mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + action.Name);
 
                 var map = GameObject.Find("Map");
                 //Reset collider

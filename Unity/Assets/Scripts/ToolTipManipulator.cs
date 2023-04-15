@@ -44,7 +44,7 @@ public class ToolTipManipulator : Manipulator
     private void MouseIn(MouseEnterEvent e)
     {
         // based on https://forum.unity.com/threads/positioning-gameobjects-based-on-visualelement-coordinates.1002876/#post-6516077
-        var sourcePos = new Vector2(this.target.worldBound.center.x, this.target.worldBound.yMin);
+        var sourcePos = new Vector2(target.worldBound.center.x, target.worldBound.yMin);
         var refSize = new Vector2(1920, 1080);
         var sizeRatio = new Vector2(Screen.width / refSize.x, Screen.height / refSize.y);
 
@@ -55,7 +55,7 @@ public class ToolTipManipulator : Manipulator
         var xPos = sourcePos.x * denominator;
         var yPos = sourcePos.y * denominator;
         Vector2 pos = new Vector2(xPos, yPos);
-        MainController.MoveToolTip(pos, Vector2.up, this.toolTipText);
+        MainController.MoveToolTip(pos, Vector2.up, toolTipText);
     }
 
     /// <summary>
