@@ -1,7 +1,9 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace Models
 {
+    [Serializable]
     public class Map
     {
         public Map(Vector2 topLeft, Vector2 bottomRight, string url)

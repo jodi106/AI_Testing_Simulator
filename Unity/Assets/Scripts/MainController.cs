@@ -5,256 +5,332 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
-using System.Collections.ObjectModel;
 using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using uGUI = UnityEngine.UI;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using SimpleFileBrowser;
+using System.Collections;
 
 public class MainController : MonoBehaviour
 {
     public VisualTreeAsset eventEntryTemplate;
     //Spawned Cars
-    public GameObject carPrefab;
+    public GameObject vehiclePrefab;
     public GameObject egoPrefab;
     public GameObject pedPrefab;
 
+    public UISkin skin;
+
     //Event Bar (Center Bottom)
     private ListView eventList;
-    private Button addPedestrianButton;// TODO: Incorporate into addEntityButton or not? Q?
-    //Either Seperate Buttons for PEdestrians and Cars or a single button that spawns a dropdown menu? 
-    private Button addEntityButton;
-    private Button removeEntityButton;
-    private Button editEntityButton;
+    private Button addCarButton;
+    private Button addMotorcycleButton;
+    private Button addBikeButton;
+    private Button addPedestrianButton;
     private Button worldSettingsButton;
     private Button exportButton;
+    private Button loadButton;
+    private Button saveButton;
+
+    private Button homeButton;
+    private VisualElement buttonBar;
 
     //Action Buttons (Center Left)
-    private VisualElement actionButtons;
-    private Button setPathButton;
-    private Button deletePathButton;
-    private Button cancelPathButton;
-    private Button submitPathButton;
+    private uGUI.Button removeEntityButton;
+    private uGUI.Button editEntityButton;
+    private uGUI.Toggle snapToggle;
+    private GameObject actionButtonCanvas;
 
-    private ScenarioInfo info;
+    public ScenarioInfo info { get; private set; }
 
-    private IBaseEntityController selectedEntity;
-    private bool preventDeselection;
+    private IBaseController selectedEntity;
 
     private WorldSettingsPopupController worldSettingsController;
+    private SnapController snapController;
+    public  WarningPopupController warningPopupController;
+
+    public static bool freeze = false; // if true, a popup GUI is open and the user shouln't change paths or vehicles!
 
     void Start()
     {
         this.info = new ScenarioInfo();
+        this.info.onEgoChanged = () =>
+        {
+            eventList.itemsSource = info.allEntities;
+            refreshEntityList();
+        };
         this.selectedEntity = null;
-        this.preventDeselection = false;
         var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
 
         initializeEventList(editorGUI);
         initializeButtonBar(editorGUI);
-        initializeEventButtons(editorGUI);
+        initializeActionButtons();
+
+        FileBrowser.Skin = skin;
+
+        this.snapController = Camera.main.GetComponent<SnapController>();
 
         EventManager.StartListening(typeof(MouseClickAction), x =>
         {
-            if (!preventDeselection)
+            if (!snapController.IgnoreClicks)
             {
                 this.setSelectedEntity(null);
             }
         });
 
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
+        EventManager.StartListening(typeof(MapChangeAction), x =>
         {
-            this.preventDeselection = false;
-        });
-
-        EventManager.StartListening(typeof(SubmitPathSelectionAction), x =>
-        {
-            this.preventDeselection = false;
-            deletePathButton.style.display = DisplayStyle.Flex;
-            submitPathButton.style.display = DisplayStyle.None;
-            cancelPathButton.style.display = DisplayStyle.None;
+            var action = new MapChangeAction(x);
+            buttonBar.visible = action.name != "" ? true : false;
+            setSelectedEntity(null);
         });
 
         GameObject popups = GameObject.Find("PopUps");
         this.worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
         this.worldSettingsController.init(this.info.WorldOptions);
+
+        this.warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
+        this.warningPopupController.gameObject.SetActive(true);
     }
 
-    public void setSelectedEntity(IBaseEntityController entity)
+    public void loadScenarioInfo(ScenarioInfo info)
+    {
+        this.setSelectedEntity(null);
+        info = (ScenarioInfo)info.Clone(); //Do we need this? Exported .bin Info already the one before export changes? - Stefan
+        EventManager.TriggerEvent(new MapChangeAction(""));
+        EventManager.TriggerEvent(new MapChangeAction("Town10HD"));//info.MapURL));
+        this.info = info;
+        foreach(Adversary v in info.Vehicles)
+        {
+            var viewController = Instantiate(vehiclePrefab, v.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
+            viewController.init(v);
+        }
+        foreach (Adversary p in info.Pedestrians)
+        {
+            var viewController = Instantiate(vehiclePrefab, p.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<AdversaryViewController>();
+            viewController.init(p);
+        }
+        if (info.EgoVehicle is not null)
+        {
+            var egoController = Instantiate(egoPrefab, info.EgoVehicle.SpawnPoint.Vector3Ser.ToVector3(), Quaternion.identity).GetComponent<EgoViewController>();
+            egoController.init(info.EgoVehicle);
+        }
+        var editorGUI = GameObject.Find("EditorGUI").GetComponent<UIDocument>().rootVisualElement;
+        initializeEventList(editorGUI);
+        eventList.itemsSource = info.allEntities;
+        refreshEntityList();
+    }
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            this.setSelectedEntity(null);
+        }
+    }
+
+    public void setSelectedEntity(IBaseController entity)
     {
         if (entity != null)
         {
-            this.selectedEntity?.deselect();
-            this.selectedEntity = entity;
-            this.selectedEntity?.select();
-            this.removeEntityButton.style.display = DisplayStyle.Flex;
-            this.editEntityButton.style.display = DisplayStyle.Flex;
-            this.actionButtons.style.display = DisplayStyle.Flex;
-            if (entity.hasAction())
+            var position = entity.getLocation();
+            this.actionButtonCanvas.transform.position = new Vector3(position.X, (float)(position.Y - 0.5), -1f);
+            snapToggle.SetIsOnWithoutNotify(!entity.shouldIgnoreWaypoints());
+            if (this.actionButtonCanvas.activeSelf && entity != selectedEntity)
             {
-                this.setPathButton.style.display = DisplayStyle.None;
-                this.deletePathButton.style.display = DisplayStyle.Flex;
+                var anim = actionButtonCanvas.GetComponent<ActionButtonsAnimation>();
+                anim.onMove();
             }
             else
             {
-                this.setPathButton.style.display = DisplayStyle.Flex;
-                this.deletePathButton.style.display = DisplayStyle.None;
+                this.actionButtonCanvas.SetActive(true);
             }
-            this.submitPathButton.style.display = DisplayStyle.None;
-            this.cancelPathButton.style.display = DisplayStyle.None;
+            this.selectedEntity?.deselect();
+            this.selectedEntity = entity;
+            this.selectedEntity?.select();
         }
         else
         {
             this.selectedEntity?.deselect();
             this.selectedEntity = null;
-            removeEntityButton.style.display = DisplayStyle.None;
-            editEntityButton.style.display = DisplayStyle.None;
-            this.actionButtons.style.display = DisplayStyle.None;
+            this.actionButtonCanvas.SetActive(false);
         }
-
     }
 
-    public void addVehicle(Vehicle vehicle)
+    public void moveActionButtons(Vector2 pos)
     {
-        this.info.Vehicles.Add(vehicle);
-        this.preventDeselection = false;
+        this.actionButtonCanvas.transform.position = new Vector3(pos.x, (float)(pos.y - 0.5), -1f);
     }
 
-    public void addPedestrian(Pedestrian pedestrian)
+    public void addSimulationEntity(Adversary entity)
     {
-
-        this.info.Pedestrians.Add(pedestrian);
-        this.preventDeselection = false;
-
+        if (entity is Adversary v)
+        {
+            this.info.Vehicles.Add(v);
+        }
+        else if (entity is Adversary p)
+        {
+            this.info.Pedestrians.Add(p);
+        }
     }
 
-    public void removeVehicle(Vehicle vehicle)
+    public void removeSimulationEntity(Adversary entity)
     {
-        this.info.Vehicles.Remove(vehicle);
-    }
-
-    public void removePedestrian(Pedestrian pedestrian)
-    {
-        this.info.Pedestrians.Remove(pedestrian);
+        if(entity is Adversary v)
+        {
+            foreach (Waypoint w in v.Path.WaypointList)
+            {
+                if (w.StartRouteOfOtherVehicle is not null)
+                {
+                    Adversary otherVehicle = w.StartRouteOfOtherVehicle;
+                    otherVehicle.StartRouteInfo = null;
+                }
+            }
+            this.info.Vehicles.Remove(v);
+        } else if (entity is Adversary p)
+        {
+            this.info.Pedestrians.Remove(p);
+        }
     }
 
     public void setEgo(Ego ego)
     {
-        this.info.EgoVehicle = ego;
-        this.preventDeselection = false;
+        this.info.setEgo(ego);
+    }
+
+    public void createEntity(VehicleCategory category)
+    {
+        var pos = Input.mousePosition;
+        pos.z = -0.1f;
+        GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : vehiclePrefab;
+        var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
+        VehicleViewController viewController;
+        Color color;
+        if (this.info.EgoVehicle is null)
+        {
+            viewController = vehicleGameObject.GetComponent<EgoViewController>();
+            color = new Color(1f, 1f, 1f, 1f); // make Ego vehicle white
+        }
+        else
+        {
+            viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
+            color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            color = new Color(color.r, color.g, color.b, 1);
+        }
+        viewController.init(category, color);
     }
 
     private void initializeButtonBar(VisualElement editorGUI)
     {
         addPedestrianButton = editorGUI.Q<Button>("addPedestrianButton");
-        addEntityButton = editorGUI.Q<Button>("addEntityButton");
-        removeEntityButton = editorGUI.Q<Button>("removeEntityButton");
-        editEntityButton = editorGUI.Q<Button>("editEntityButton");
+        addCarButton = editorGUI.Q<Button>("addCarButton");
+        addMotorcycleButton = editorGUI.Q<Button>("addMotorcycleButton");
+        addBikeButton = editorGUI.Q<Button>("addBikeButton");
         worldSettingsButton = editorGUI.Q<Button>("worldSettingsButton");
         exportButton = editorGUI.Q<Button>("exportButton");
+        loadButton = editorGUI.Q<Button>("loadButton");
+        saveButton = editorGUI.Q<Button>("saveButton");
+        homeButton = editorGUI.Q<Button>("homeButton");
+        buttonBar = editorGUI.Q<VisualElement>("buttons");
+        
 
-        addEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        addCarButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            var pos = Input.mousePosition;
-            pos.z = -0.1f;
-            GameObject prefab = this.info.EgoVehicle is null ? egoPrefab : carPrefab;
-            var vehicleGameObject = Instantiate(prefab, pos, Quaternion.identity);
-            VehicleViewController viewController = null;
-            if (this.info.EgoVehicle is null)
-            {
-                viewController = vehicleGameObject.GetComponent<EgoViewController>();
-            } else
-            {
-                viewController = vehicleGameObject.GetComponent<AdversaryViewController>();
-            }
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            color = new Color(color.r, color.g, color.b, 1);
-            viewController.setColor(color);
-            setSelectedEntity(viewController);
-            this.preventDeselection = true;
+            if (freeze) return;
+            createEntity(VehicleCategory.Car);
+            setSelectedEntity(null);
+        });
+
+        addBikeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            createEntity(VehicleCategory.Bike);
+            setSelectedEntity(null);
+        });
+
+        addMotorcycleButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            createEntity(VehicleCategory.Motorcycle);
+            setSelectedEntity(null);
         });
 
         addPedestrianButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            var pos = Input.mousePosition;
-            pos.z = -0.1f;
-
-            var pedestrianGameObject = Instantiate(pedPrefab, pos, Quaternion.identity);
-            pedestrianGameObject.transform.localScale = Vector3.one * 0.1f;
-            PedestrianViewController viewController = pedestrianGameObject.GetComponent<PedestrianViewController>();
-            
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            color = new Color(color.r, color.g, color.b, 1);
-            viewController.setColor(color);
-            setSelectedEntity(viewController);
-            this.preventDeselection = true;
-        });
-
-
-
-        removeEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            selectedEntity?.destroy();
+            if (freeze) return;
+            createEntity(VehicleCategory.Pedestrian);
             setSelectedEntity(null);
-        });
-
-        editEntityButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            this.selectedEntity?.openEditDialog();
         });
 
         worldSettingsButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
+            this.setSelectedEntity(null);
             worldSettingsController.open();
         });
 
         exportButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
+            if (freeze) return;
             ExportOnClick();
+           //loadScenarioInfo(this.info);
         });
+
+        homeButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            var m = Camera.main.GetComponent<CameraMovement>();
+            m.Home();
+        });
+
+        loadButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            this.setSelectedEntity(null);
+            LoadBinaryScenarioInfo();
+        });
+
+        saveButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        {
+            if (freeze) return;
+            this.setSelectedEntity(null);
+            SaveBinaryScenarioInfo(this.info);
+        });
+
+        buttonBar.visible = false;
     }
 
-    private void initializeEventButtons(VisualElement editorGUI)
+    private void initializeActionButtons()
     {
-        setPathButton = editorGUI.Q<Button>("setPathButton");
-        deletePathButton = editorGUI.Q<Button>("deletePathButton");
-        cancelPathButton = editorGUI.Q<Button>("cancelPathButton");
-        submitPathButton = editorGUI.Q<Button>("submitPathButton");
+        actionButtonCanvas = GameObject.Find("ActionButtonCanvas");
+        removeEntityButton = GameObject.Find("ActionButtonCanvas/DeleteButton").GetComponent<uGUI.Button>();
+        editEntityButton = GameObject.Find("ActionButtonCanvas/EditButton").GetComponent<uGUI.Button>();
+        snapToggle = GameObject.Find("ActionButtonCanvas/SnapToggle").GetComponent<uGUI.Toggle>();
 
-        actionButtons = editorGUI.Q<VisualElement>("actionButtons");
-
-        setPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        removeEntityButton.onClick.AddListener(() =>
         {
-            this.selectedEntity.triggerActionSelection();
-            this.preventDeselection = true;
-            setPathButton.style.display = DisplayStyle.None;
-            cancelPathButton.style.display = DisplayStyle.Flex;
-            submitPathButton.style.display = DisplayStyle.Flex;
+            if (freeze) return;
+            selectedEntity?.destroy();
+            setSelectedEntity(null);
         });
 
-        deletePathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        editEntityButton.onClick.AddListener(() =>
         {
-            this.selectedEntity.deleteAction();
-            setPathButton.style.display = DisplayStyle.Flex;
-            deletePathButton.style.display = DisplayStyle.None;
+            if (freeze) return;
+            this.selectedEntity?.openEditDialog();
         });
 
-        cancelPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
+        snapToggle.onValueChanged.AddListener(x =>
         {
-            EventManager.TriggerEvent(new CancelPathSelectionAction());
+            if (freeze) return;
+            this.selectedEntity?.setIgnoreWaypoints(!x);
         });
 
-        submitPathButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
-            EventManager.TriggerEvent(new SubmitPathSelectionAction());
-        });
-
-        EventManager.StartListening(typeof(CancelPathSelectionAction), x =>
-        {
-
-            setPathButton.style.display = DisplayStyle.Flex;
-            cancelPathButton.style.display = DisplayStyle.None;
-            submitPathButton.style.display = DisplayStyle.None;
-        });
-
-        actionButtons.style.display = DisplayStyle.None;
+        actionButtonCanvas.SetActive(false);
     }
 
     private void initializeEventList(VisualElement editorGUI)
@@ -284,95 +360,124 @@ public class MainController : MonoBehaviour
         // Set up bind function for a specific list entry
         eventList.bindItem = (item, index) =>
         {
-            (item.userData as VehicleListEntryController).setEventData(info.Vehicles[index]);
+            List<BaseEntity> allEntities = info.allEntities;
+            (item.userData as VehicleListEntryController).setEventData(allEntities.ElementAt(index));
         };
 
         info.Vehicles.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
         {
-            this.eventList.Rebuild();
+            eventList.itemsSource = info.allEntities;
+            refreshEntityList();
         };
 
-        eventList.itemsSource = info.Vehicles;
+        info.Pedestrians.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) =>
+        {
+            eventList.itemsSource = info.allEntities;
+            refreshEntityList();
+        };
     }
 
+    public void refreshEntityList()
+    {
+        this.eventList.Rebuild();
+    }
+
+    IEnumerator openSaveDialogWrapper(ScenarioInfo exportInfo)
+    {
+        yield return FileBrowser.WaitForSaveDialog(FileBrowser.PickMode.Files);
+        if (FileBrowser.Success)
+        {
+            exportInfo.Path = FileBrowser.Result[0];
+            BuildXML doc = new BuildXML(exportInfo);
+            doc.CombineXML();
+        }
+    }
+
+    //This Function is bind with the "Export button". The actual binding is made in the Start function of the script
+    //Anything written here will be run at the time of pressing "Export" Button
     void ExportOnClick()
     {
-        //This Function is bind with the "Export button"
-        //The actual binding is made in the Start function of the script
-        //Make sure to change this function to export the desired version or desired files.
-        //Anything written here will be run at the time of pressing "Export" Button
+        //Uncomment to test Loading and Saving
+        //SaveBinaryScenarioInfo(info);
+        //LoadBinaryScenarioInfo();
 
+        // Catch errors and display it to the user
+        if (info.EgoVehicle == null)
+        {
+            //#if UNITY_EDITOR
+            //EditorUtility.DisplayDialog(
+            //    "No AI vehicle placed",
+            //    "You must place a vehicle first!",
+            //    "Ok");
+            //#else
+
+            this.setSelectedEntity(null);
+            string title = "No AI vehicle placed";
+            string description = "You must place a vehicle first!";
+            this.warningPopupController.open(title, description);
+            freeze = false;
+
+            //#endif
+
+            return;
+        }   
+
+        //Creates a deepcopy of the ScenarioInfo object. This is done to prevent the fixes here to change the original object and lead to problems. 
+        ScenarioInfo exportInfo = (ScenarioInfo)info.Clone();
+
+        // use the following line to use the original object to export, for troubleshooting if the fault is maybe with the cloning
+        //exportInfo = this.info;
+        
         // To have right number format e.g. 80.5 instead of 80,5
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         // ------------------------------------------------------------------------
         // TODO remove these lines later once these values are set in Unity
-        info.Name = "OurScenario3";
-        info.MapURL = "Town10HD";
-        info.EgoVehicle.Model = new EntityModel("vehicle.nissan.micra");
-        foreach (Vehicle veh in info.Vehicles)
-        {
-            veh.InitialSpeed = 10;
-            veh.Model = new EntityModel("vehicle.audi.tt");
-        }
+        exportInfo.MapURL = "Town10HD";
+
         // ------------------------------------------------------------------------
-        // Trigger: TODO Once we have a settings window for a waypoint we can remove these values
-        foreach (Vehicle vehicle in info.Vehicles)
-        {
-            if (vehicle.Path is null) break;
-            foreach (Waypoint waypoint in vehicle.Path.WaypointList)
-            {
-                if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
-                {
-                    foreach (TriggerInfo trigger in waypoint.TriggerList)
-                    {
-                        // At the moment we set the entityRef of all LaneChangeTriggers to the story's entity.
-                        // After we added the waypoint setting window, a user can decide to set if to another entity too.
-                        // e.g. So a car can do a laneChange after a pedestrian is at location xy or whatever
-                        trigger.EntityRef = "adversary" + vehicle.Id;
-                    }
-                }
-            }
-        }
+
+        exportInfo.EgoVehicle.getCarlaLocation();
         // ------------------------------------------------------------------------
-        // Actions: TODO Remove this after we found a better solution in SnapController to set the entityRef for LaneChanges there
-        foreach (Vehicle vehicle in info.Vehicles)
-        {
-            if (vehicle.Path is null) break;
-            foreach (Waypoint waypoint in vehicle.Path.WaypointList)
-            {
-                if (waypoint.ActionTypeInfo.Name.Contains("LaneChangeAction"))
-                {
-                    waypoint.ActionTypeInfo.EntityRef = "adversary" + vehicle.Id;
-                }
-            }
-        }
-        // ------------------------------------------------------------------------
-        // Required to create AssignRouteAction and coordinate conversion (do not delete this!) 
-        foreach (Vehicle vehicle in info.Vehicles)
-        {
-            vehicle.CalculateLocationCarla();
-            if (vehicle.Path is not null && !isWaypointListEmptyOrNull(vehicle))
-            {
-                vehicle.Path.InitAssignRouteWaypoint();
-            }
-        }
-        info.EgoVehicle.CalculateLocationCarla();
-        // ------------------------------------------------------------------------
-        
-        
+
         // Create .xosc file
-        BuildXML doc = new BuildXML(info);
-        doc.CombineXML();
+
+
+        StartCoroutine(openSaveDialogWrapper(exportInfo));
     }
 
-    private bool isWaypointListEmptyOrNull(Vehicle vehicle)
+    private void LoadBinaryScenarioInfo()
     {
-        //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
-        return vehicle.Path.WaypointList?.Any() != true;
+
+        try
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream("data.bin", FileMode.Open))
+            {
+                ScenarioInfo obj = (ScenarioInfo)formatter.Deserialize(stream);
+                loadScenarioInfo(obj);
+            }
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("Error while loading binary file, are you sure the file exists?");
+        }
+
+
     }
 
-
-    //Only for Town06 later do as extension method for Vector3 or Location
-
+    private void SaveBinaryScenarioInfo(ScenarioInfo info)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (FileStream stream = new FileStream("data.bin", FileMode.Create))
+        {
+            formatter.Serialize(stream, info);
+        }
+    }
+    //private bool isWaypointListEmptyOrNull(Vehicle vehicle)
+    //{
+    //    //return (vehicle.Path.WaypointList is not null && vehicle.Path.WaypointList.Count >= 1);
+    //    return vehicle.Path.WaypointList?.Any() != true;
+    //}
 }
+

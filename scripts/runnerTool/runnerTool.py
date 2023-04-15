@@ -41,6 +41,7 @@ class RunnerTool(object):
     low_quality : bool
         Set Carla renderquality to low
     speed : int
+
         Play speed of scenario in percent(Default=100). Doesn't effect (time)metrics. Might cause carla physics bugs on high speeds. Max stable value 500-1000 can vary for different maps(5-10X Speed)
         Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
     camera : bool
@@ -109,6 +110,7 @@ class RunnerTool(object):
         self.speed = args.speed
         self.camera = args.camera
         self.agent = args.agent
+
         self.sort_maps = args.sortMaps
         self.timeout = args.timeout + 10
         print(self.timeout)
@@ -243,6 +245,7 @@ class RunnerTool(object):
         Create string to adjust play speed of scenario.
         Setting speed to 100 again in a running carla session after all scenarios were run by starting new runnerTool session doesnt work. (simply close carla before new runnerTool session to fix)
 
+
         Returns
         -------
         speed_cmd: str
@@ -256,6 +259,7 @@ class RunnerTool(object):
     def set_camera_perspective(self):
         ''' 
         Create string to adjust camera perspective.
+
 
         Returns
         -------
@@ -633,6 +637,7 @@ def main():
     parser.add_argument('--agent', default=None, type=str, help='Specify agent name (name of Self Driving KI) to run all scenarios in dir')
     parser.add_argument('--sortMaps', action="store_true", help='Sorts xosc files in dir by map name and plays them in ascending order')
     parser.add_argument('--timeout', default=200, type=int, help='Stops scenario on timeout in seconds and runs next scenario (default: 200)')
+
 
     arguments = parser.parse_args()
 

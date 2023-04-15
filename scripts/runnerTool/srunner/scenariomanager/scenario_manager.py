@@ -72,6 +72,7 @@ class ScenarioManager(object):
 
         self._visualizer = None
 
+
     def _reset(self):
         """
         Reset all parameters
@@ -122,6 +123,7 @@ class ScenarioManager(object):
 
         #runnerTool set speed and camera
         world = CarlaDataProvider.get_world()
+
         if self.runnerTool_speed != 100:
             self.set_speed(world)
 
@@ -196,6 +198,7 @@ class ScenarioManager(object):
                     #self._visualizer.render()
                     #if k % 5000 == 0:
                         #self.reset_camera(world.get_actor(self.ego_vehicles[0].id),world.get_spectator())
+
                 snapshot = world.get_snapshot()
                 if snapshot:
                     timestamp = snapshot.timestamp

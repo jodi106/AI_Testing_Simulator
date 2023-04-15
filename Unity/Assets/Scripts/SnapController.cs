@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PriorityQueue;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SnapController : MonoBehaviour
@@ -13,10 +14,16 @@ public class SnapController : MonoBehaviour
 
     private Dictionary<Location, GameObject> waypointGameObjects;
 
+    private Dictionary<string, MapDimension> mapDimensions;
+
     private GameObject LastClickedWaypointGameObject;
+
+    public bool IgnoreClicks { get; set; }
 
     void Start()
     {
+        IgnoreClicks = false;
+
         roads = new();
 
         waypointGameObjects = new();
@@ -30,11 +37,21 @@ public class SnapController : MonoBehaviour
                 Destroy(waypoint);
             }
 
-            LoadRoads(action.name);
+            waypointGameObjects.Clear();
+            roads.Clear();
+            LastClickedWaypointGameObject = null;
+
+            if (action.name != "") LoadRoads(action.name);
         });
+
+        var dimensions = Resources.Load<TextAsset>("waypoints/dimensions");
+
+        mapDimensions = JsonConvert.DeserializeObject<Dictionary<string, MapDimension>>(dimensions.text);
     }
     public void Update()
     {
+        if (MainController.freeze) return;
+
         if (LastClickedWaypointGameObject is not null)
         {
             var sprite = LastClickedWaypointGameObject.GetComponent<SpriteRenderer>();
@@ -67,7 +84,7 @@ public class SnapController : MonoBehaviour
     {
         roads = new Dictionary<int, Road>();
 
-        var text = Resources.Load<TextAsset>("Waypoints/" + mapName + "_topology");
+        var text = Resources.Load<TextAsset>("topology/" + mapName + "_topology");
 
         var jsonLanes = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(text.text);
 
@@ -81,12 +98,13 @@ public class SnapController : MonoBehaviour
             }
 
             var nextRoadAndLaneIds = new List<(int, int)>();
+            var physicalNextRoadAndLaneIds = new List<(int, int)>();
 
             nextRoadAndLaneIdStrings.ForEach(nextString =>
                 nextRoadAndLaneIds.Add(GetRoadIdAndLaneIdFromString(nextString))
             );
 
-            roads[roadId].Lanes.Add(laneId, new Lane(laneId, roadId, nextRoadAndLaneIds));
+            roads[roadId].Lanes.Add(laneId, new Lane(laneId, roadId, nextRoadAndLaneIds, physicalNextRoadAndLaneIds));
         }
 
         foreach (var (roadId, road) in roads)
@@ -98,6 +116,7 @@ public class SnapController : MonoBehaviour
                 foreach ((var nextRoadId, var nextLaneId) in lane.NextRoadAndLaneIds)
                 {
                     nextPossibleRoadAndLaneIds.Add((nextRoadId, nextLaneId));
+                    lane.PhysicalNextRoadAndLaneIds.Add((nextRoadId, nextLaneId));
 
                     var nextRoad = roads[nextRoadId];
 
@@ -130,8 +149,10 @@ public class SnapController : MonoBehaviour
 
             foreach (var jsonWaypoint in jsonWaypoints)
             {
-                var position = new Vector3((jsonWaypoint.X - -114.59522247314453f) / 4 - 28.077075f,
-                                    (jsonWaypoint.Y - -68.72904205322266f) / 4 * (-1) + 26.24f, HeightUtil.WAYPOINT_INDICATOR);
+                var position = new Vector3(
+                    ((jsonWaypoint.X - mapDimensions[mapName].minX) - ((-mapDimensions[mapName].minX + mapDimensions[mapName].maxX) / 2)) / 4,
+                    ((jsonWaypoint.Y - mapDimensions[mapName].minY) - ((-mapDimensions[mapName].minY + mapDimensions[mapName].maxY) / 2)) / 4 * (-1),
+                    HeightUtil.WAYPOINT_INDICATOR);
 
                 var waypointGameObject = Instantiate(
                     circlePrefab,
@@ -144,7 +165,7 @@ public class SnapController : MonoBehaviour
 
                 waypoints.Add(new AStarWaypoint(index++, laneId, location));
 
-                waypointGameObjects.Add(location,waypointGameObject);
+                waypointGameObjects.Add(location, waypointGameObject);
             }
 
             roads[roadId].Lanes[laneId].Waypoints = waypoints;
@@ -176,7 +197,7 @@ public class SnapController : MonoBehaviour
             {
                 foreach (var waypoint in lane.Waypoints)
                 {
-                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3, mousePosition);    
+                    double currDistance = FastEuclideanDistance(waypoint.Location.Vector3Ser.ToVector3(), mousePosition);
 
                     if (currDistance == 0) return (lane, waypoint);
 
@@ -198,8 +219,66 @@ public class SnapController : MonoBehaviour
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
 
-    public (List<Vector2>,ActionType) FindPath(Vector2 start, Vector2 end)
+    public (Lane, Lane) getNeighboringLanes(Lane l)
     {
+        var r = roads[l.RoadId];
+
+        var index = r.Lanes.IndexOfKey(l.Id);
+
+        Lane prev = index > 0 ? r.Lanes.Values[index - 1] : null;
+        Lane next = index < r.Lanes.Count - 1 ? r.Lanes.Values[index + 1] : null;
+
+        return (prev, next);
+
+    }
+
+    public bool checkLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
+    {
+        if ((startLane.RoadId == endLane.RoadId && endWaypoint.IndexInLane <= startWaypoint.IndexInLane)
+            || endLane.Id * startLane.Id < 0 || FastEuclideanDistance(startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3()) > 15)
+        {
+            return false;
+        }
+
+        (var left, var right) = getNeighboringLanes(startLane);
+
+        List<Lane> lanes = new List<Lane>();
+        if (left is not null)
+        {
+            lanes.Add(left);
+            foreach ((var roadIndex, var laneIndex) in left.NextRoadAndLaneIds)
+            {
+                lanes.Add(roads[roadIndex].Lanes[laneIndex]);
+            }
+        }
+        if (right is not null)
+        {
+            lanes.Add(right);
+            foreach ((var roadIndex, var laneIndex) in right.NextRoadAndLaneIds)
+            {
+                lanes.Add(roads[roadIndex].Lanes[laneIndex]);
+            }
+        }
+
+        foreach (var lane in lanes)
+        {
+            if (endLane.RoadId == lane.RoadId && endWaypoint.LaneId == lane.Id)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // return a tuple containing a list of waypoints and indices of lanechanges
+    public (List<Vector2>, List<int>) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
+    {
+        if (ignoreWaypoints)
+        {
+            return (new List<Vector2> { start, end }, new List<int>());
+        }
+
         (Lane startLane, AStarWaypoint startWaypoint) = FindLaneAndWaypoint(start);
         (Lane endLane, AStarWaypoint endWaypoint) = FindLaneAndWaypoint(end);
 
@@ -208,20 +287,15 @@ public class SnapController : MonoBehaviour
             throw new Exception("Invalid start or end coordinates");
         }
 
-        if (endLane.RoadId == startLane.RoadId && endLane.Id * startLane.Id > 0 && // user wants to change lanes
-               (endLane.Id == startLane.Id + 1 || endLane.Id == startLane.Id - 1) && // lanes are next to eachother
-               (endWaypoint.IndexInLane >= startWaypoint.IndexInLane)) // lane change in forward direction
+        if (checkLaneChange(startLane, endLane, startWaypoint, endWaypoint))
         {
-            // TODO -1 or 1 laneChange
-            // TODOD set entityRef to "adversary"+Vehicle.Id
-            // TODO how to get the entityRef? I don't have access to the Vehicle to get it. Atm entityRef is set after export button is pressed. This is ugly.
-            return (new List<Vector2>() { startWaypoint.Location.Vector3, endWaypoint.Location.Vector3 }, 
-                new ActionType("LaneChangeAction", null, -1));
-
-            //lineRenderer.SetPosition(lineRenderer.positionCount++, HeightUtil.SetZ(nextWaypoint.Location.Vector3, HeightUtil.PATH_SELECTED));
+            return (new List<Vector2>() { startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3() },
+                new List<int>() { 0 });
         }
 
         var prioQueue = new SimplePriorityQueue<Lane, double>();
+
+        var laneChangeIndices = new List<int>();
 
         prioQueue.Enqueue(startLane, 0);
 
@@ -230,11 +304,15 @@ public class SnapController : MonoBehaviour
             { startWaypoint, null }
         };
 
-        var costSoFar = new Dictionary<Lane, double>{};
+        var costSoFar = new Dictionary<Lane, double> { };
+
+        var laneChanges = new HashSet<AStarWaypoint>();
+        var physicalLaneChanges = new HashSet<AStarWaypoint>();
 
         var firstIteration = true;
 
         AStarWaypoint currentWaypoint;
+
 
         while (prioQueue.Count != 0)
         {
@@ -278,13 +356,18 @@ public class SnapController : MonoBehaviour
                     costSoFar[nextLane] = newCost;
 
                     var priority = newCost + FastEuclideanDistance(
-                        endWaypoint.Location.Vector3, 
-                        nextLane.Waypoints[0].Location.Vector3
+                        endWaypoint.Location.Vector3Ser.ToVector3(),
+                        nextLane.Waypoints[0].Location.Vector3Ser.ToVector3()
                         );
 
                     prioQueue.Enqueue(nextLane, priority);
 
                     cameFrom[nextLane.Waypoints[0]] = currentWaypoint;
+                    laneChanges.Add(nextLane.Waypoints[0]);
+                    if(!currentLane.PhysicalNextRoadAndLaneIds.Contains((nextRoadId, nextLaneId)))
+                    {
+                        physicalLaneChanges.Add(nextLane.Waypoints[0]);
+                    }
                 }
             }
 
@@ -296,21 +379,37 @@ public class SnapController : MonoBehaviour
         if (!cameFrom.ContainsKey(endWaypoint))
         {
             Debug.Log("No Path");
-            return (null,null);
+            return (null, null);
         }
 
         currentWaypoint = endWaypoint;
+        int index = 0;
 
         while (currentWaypoint != startWaypoint)
         {
-            waypointPath.Add(currentWaypoint.Location.Vector3);
+            if (laneChanges.Contains(currentWaypoint))
+            {
+                if (physicalLaneChanges.Contains(currentWaypoint))
+                {
+                    laneChangeIndices.Add(index + 1);
+                }
+                var i = 4;
+                while (i > 0 && cameFrom[currentWaypoint] != startWaypoint)
+                {
+                    currentWaypoint = cameFrom[currentWaypoint];
+                    i--;
+                }
+            }
+            waypointPath.Add(currentWaypoint.Location.Vector3Ser.ToVector3());
             currentWaypoint = cameFrom[currentWaypoint];
+            index++;
         }
 
-        waypointPath.Add(startWaypoint.Location.Vector3);
+        waypointPath.Add(startWaypoint.Location.Vector3Ser.ToVector3());
         waypointPath.Reverse();
+        laneChangeIndices = laneChangeIndices.Select(x => waypointPath.Count() - x - 1).ToList();
 
-        return (waypointPath,new ActionType("MoveToAction"));
+        return (waypointPath, laneChangeIndices);
     }
     public static (float x, float y) CarlaToUnity(float x, float y)
     {
@@ -328,7 +427,7 @@ public class SnapController : MonoBehaviour
     }
 
 
-    //Only for Town06 later do as extension method for Vector3 or Location
+    //Only for Town06 later do as extension method for Vector3Ser or Location
     public static (float x, float y) UnityToCarla(float x, float y)
     {
 
@@ -347,7 +446,13 @@ public class SnapController : MonoBehaviour
 
     public static float UnityRotToRadians(float rotation)
     {
-        return (float)(Math.PI / 180 * rotation);
+        return (float)(Math.PI / 180 * -rotation);
+    }
+
+    public static int CalculateTargetLaneValueCarla(Lane startLane, Lane endLane)
+    {
+        // later for code refactoring
+        return -1;
     }
 
 }
@@ -359,3 +464,10 @@ public struct JsonWaypoint
     public float Rot { get; set; }
 }
 
+public struct MapDimension
+{
+    public float maxX { get; set; }
+    public float maxY { get; set; }
+    public float minX { get; set; }
+    public float minY { get; set; }
+}

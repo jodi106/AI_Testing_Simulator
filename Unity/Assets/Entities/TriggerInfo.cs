@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Entity
 {
-    public class TriggerInfo
+    [Serializable]
+    public class TriggerInfo : ICloneable
     /// <summary>Contains information about the Trigger of an ActionType in a Waypoint Object.</summary>
     {
         private static int autoIncrementId = 0;
-               
+        
+        public TriggerInfo()
+        {
+
+        }
+
         public TriggerInfo(string triggerType, double simulationTimeValue, string rule, double delay=0, string conditionEdge="rising")
         /// Constructor for "SimulationTimeCondition"
         {
@@ -32,14 +39,37 @@ namespace Entity
             ConditionEdge = conditionEdge;
         }
 
-        public TriggerInfo(string triggerType, double delay, string conditionEdge, ActionType afterAction)
+        public TriggerInfo(string triggerType, string entityRef, double value, Location worldPosition, string conditionEdge = "rising")
+        /// Constructor for "ReachPositionCondition"
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Value = value;
+            WorldPosition = worldPosition;
+            ConditionEdge = conditionEdge;
+            CalculateLocationCarla();
+        }
+
+        public TriggerInfo(string triggerType, string entityRef, double duration, double delay = 0, string conditionEdge = "rising")
+        /// for StandStillCondition
+        {
+            ID = autoIncrementId++;
+            TriggerType = triggerType;
+            EntityRef = entityRef;
+            Value = duration;
+            Delay = delay;
+            ConditionEdge = conditionEdge;
+        }
+
+        public TriggerInfo(string triggerType, ActionType afterAction, string state = "completeState", double delay = 0, string conditionEdge = "rising")
         /// for StoryboardElementStateCondition
         {
             ID = autoIncrementId++;
             TriggerType = triggerType; // "examples: SimulationTimeCondition", "DistanceCondition"
+            AfterAction = afterAction; // use ActionType.Name + ActionType.ID
             Delay = delay;
             ConditionEdge = conditionEdge;
-            AfterAction = afterAction; // use ActionType.Name + ActionType.ID
         }
 
         public int ID { get; set; }
@@ -58,6 +88,37 @@ namespace Entity
         {
             (float xCarla, float yCarla) = SnapController.UnityToCarla(WorldPosition.X, WorldPosition.Y);
             this.WorldPositionCarla = new Location(new Vector3(xCarla, yCarla, 0.3f));
+        }
+
+        public object Clone()
+        {
+            var cloneTriggerInfo = new TriggerInfo();
+            cloneTriggerInfo.ID = this.ID;
+            cloneTriggerInfo.TriggerType = String.Copy(this.TriggerType);
+            cloneTriggerInfo.Delay = this.Delay;
+            cloneTriggerInfo.ConditionEdge = String.Copy(this.ConditionEdge);
+
+            cloneTriggerInfo.EntityRef = String.IsNullOrEmpty(this.EntityRef) ? String.Empty : string.Copy(this.EntityRef); //Value
+
+            cloneTriggerInfo.SimulationTimeValue = this.SimulationTimeValue;
+            cloneTriggerInfo.Value = this.Value;
+            cloneTriggerInfo.Rule = String.Copy(this.Rule);
+
+            cloneTriggerInfo.WorldPosition = new();
+            if (this.WorldPosition != null)
+               cloneTriggerInfo.WorldPosition = (Location)this.WorldPosition.Clone();
+
+            cloneTriggerInfo.WorldPositionCarla = new();
+            if (this.WorldPositionCarla != null)
+                cloneTriggerInfo.WorldPositionCarla = (Location)this.WorldPositionCarla.Clone();
+
+            this.AfterAction = new();
+            if (this.AfterAction != null)
+                cloneTriggerInfo.AfterAction = (ActionType)this.AfterAction.Clone();
+
+            
+
+            return cloneTriggerInfo;
         }
     }
 }

@@ -1,3 +1,5 @@
+*.xosc
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -139,7 +141,6 @@ dmypy.json
 [Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
-Unity/Assets/TextMesh Pro/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

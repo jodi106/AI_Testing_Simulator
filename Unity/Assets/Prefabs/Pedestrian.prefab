@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7d9f8f1ff08d54b840104f7ba18dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionMaterial: {fileID: 0}
-  pathPrefab: {fileID: 0}
+  selectionMaterial: {fileID: 2100000, guid: fa2676c1dc2f0084d9c9b375841b5fb9, type: 2}
+  DestinationPrefab: {fileID: 5439023999274121120, guid: cfe1647fb2572a9488472378c80cd454, type: 3}
 --- !u!61 &-6821528364438782690
 BoxCollider2D:
   m_ObjectHideFlags: 0

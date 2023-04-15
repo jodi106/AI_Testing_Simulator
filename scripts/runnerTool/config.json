@@ -1,5 +1,5 @@
-{"PATH_TO_CARLA_ROOT": "C:/CARLA/WindowsNoEditor", 
-"PATH_TO_SCENARIO_RUNNER_ROOT": "C:/Users/jonas/OneDrive - bwedu/Studium_Master/2_HWS_2022/AI Testing Simulator/code/AI_Testing_Simulator/scripts/runnerTool", 
-"PATH_TO_XOSC_FILES": "C:/Users/jonas/OneDrive - bwedu/Studium_Master/2_HWS_2022/AI Testing Simulator/code/AI_Testing_Simulator/scripts/runnerTool/scenarios", 
-"PATH_TO_PYTHON_ENV": "E:/Programme/Miniconda/envs/carla",
+{"PATH_TO_CARLA_ROOT": "INSERT_PATH", 
+"PATH_TO_SCENARIO_RUNNER_ROOT": "INSERT_PATH", 
+"PATH_TO_XOSC_FILES": "INSERT_PATH", 
+"PATH_TO_PYTHON_ENV": "INSERT_PATH",
 "CARLA_VERSION": "0.9.13"}
