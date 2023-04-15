@@ -214,10 +214,20 @@ namespace ExportScenario.XMLBuilder
                 SetAttribute("name", vehicle.Id + "_Maneuver", maneuver);
 
                 for (int i = 0; i < vehicle.Path.WaypointList.Count; i++)
-                //foreach
                 {
-                    if (vehicle.Path.WaypointList[i].ActionTypeInfo.Name == "AssignRouteAction"
-                        || vehicle.Path.WaypointList[i].ActionTypeInfo.Name == "AcquirePositionAction")
+                    if (vehicle.Path.WaypointList[i].ActionTypeInfo.Name == "AssignRouteAction")
+                    {
+                        // Get route strategies of all waypoints and save them in one array
+                        List<WaypointStrategy> routeStrategies = new List<WaypointStrategy>();
+                        foreach (Waypoint w in vehicle.Path.WaypointList)
+                        {
+                            routeStrategies.Add(w.Strategy);
+                        }
+                        BuildEvent(maneuver, vehicle.Path.WaypointList[i].ActionTypeInfo, vehicle.Path.WaypointList[i].TriggerList, 
+                            null, routeStrategies);
+                    }
+
+                    else if (vehicle.Path.WaypointList[i].ActionTypeInfo.Name == "AcquirePositionAction")
                     {
                         BuildEvent(maneuver, vehicle.Path.WaypointList[i].ActionTypeInfo, vehicle.Path.WaypointList[i].TriggerList);
                     }
@@ -286,8 +296,18 @@ namespace ExportScenario.XMLBuilder
 
                 for (int i = 0; i < pedestrian.Path.WaypointList.Count; i++)
                 {
-                    if (pedestrian.Path.WaypointList[i].ActionTypeInfo.Name == "AssignRouteAction"
-                        || pedestrian.Path.WaypointList[i].ActionTypeInfo.Name == "AcquirePositionAction")
+                    if (pedestrian.Path.WaypointList[i].ActionTypeInfo.Name == "AssignRouteAction")
+                    {
+                        // Get route strategies of all waypoints and save them in one array
+                        List<WaypointStrategy> routeStrategies = new List<WaypointStrategy>();
+                        foreach (Waypoint w in pedestrian.Path.WaypointList)
+                        {
+                            routeStrategies.Add(w.Strategy);
+                        }
+                        BuildEvent(maneuver, pedestrian.Path.WaypointList[i].ActionTypeInfo, pedestrian.Path.WaypointList[i].TriggerList, null, routeStrategies);
+                    }
+
+                    else if (pedestrian.Path.WaypointList[i].ActionTypeInfo.Name == "AcquirePositionAction")
                     {
                         BuildEvent(maneuver, pedestrian.Path.WaypointList[i].ActionTypeInfo, pedestrian.Path.WaypointList[i].TriggerList);
                     }
@@ -333,7 +353,7 @@ namespace ExportScenario.XMLBuilder
         /// <param name="actionType">The action type to be executed in the event.</param>
         /// <param name="triggerInfo">The list of trigger information to be executed in the event.</param>
         /// <param name="name">The name of the event. If null, a default name will be set based on the action type.</param>
-        public void BuildEvent(XmlNode maneuver, ActionType actionType, List<TriggerInfo> triggerInfo, string name = null)
+        public void BuildEvent(XmlNode maneuver, ActionType actionType, List<TriggerInfo> triggerInfo, string name = null, List<WaypointStrategy> routeStrategies = null)
         {
             XmlNode new_event = root.CreateElement("Event");
             if (name == null) SetAttribute("name", actionType.Name + actionType.ID, new_event);
@@ -346,7 +366,15 @@ namespace ExportScenario.XMLBuilder
             BuildAction buildAction = new BuildAction(root, "buildAction");
             Type type = typeof(BuildAction);
             MethodInfo mi = type.GetMethod(actionType.Name);
-            mi.Invoke(buildAction, new object[2] { action, actionType });
+            if (actionType.Name == "AssignRouteAction")
+            {
+                mi.Invoke(buildAction, new object[3] { action, actionType, routeStrategies});
+            }
+            else
+            {
+                mi.Invoke(buildAction, new object[2] { action, actionType });
+            }
+            
             new_event.AppendChild(action);
 
             // Create Trigger(s)

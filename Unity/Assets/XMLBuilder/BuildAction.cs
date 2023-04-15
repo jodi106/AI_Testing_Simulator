@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 using Entity;
+using Assets.Enums;
+using System.Collections.Generic;
 
 namespace ExportScenario.XMLBuilder
 {
@@ -69,12 +68,11 @@ namespace ExportScenario.XMLBuilder
         /// </summary>
         /// <param name="action">The parent XmlNode to which the AssignRouteAction element will be appended.</param>
         /// <param name="actionType">The ActionType object containing the necessary route data.</param>
-        public void AssignRouteAction(XmlNode action, ActionType actionType)
-        /// Creates AssignRouteAction. Defines entire route with multiple postisions for a scenario entity.
+        /// <param name="routeStrategies">How each position is reached. "fastest" and "shortest" is possible.</param>
+        public void AssignRouteAction(XmlNode action, ActionType actionType, List<WaypointStrategy> routeStrategies)
+        /// Creates AssignRouteAction. Defines entire route with multiple positions for a scenario entity.
         {
-            // Invoked in BuildXML.cs Method BuildEvents
-
-            // TODO routeStrategy is 'fastest' for vehicles and 'shortest' for pedestrians
+            // Invoked in BuildXML.cs Method BuildEvent
 
             XmlNode privateAction = root.CreateElement("PrivateAction");
             XmlNode routingAction = root.CreateElement("RoutingAction");
@@ -85,9 +83,11 @@ namespace ExportScenario.XMLBuilder
 
             for (int i = 0; i < actionType.PositionsCarla.Count; i++)
             {
-                string? routeStrategy = (i == 1) ? "shortest" : "fastest"; // Bugfix to avoid strange Carla behavior
+                WaypointStrategy? strategy = (routeStrategies != null) ? routeStrategies[i] : WaypointStrategy.FASTEST;
+                if (i == 1) strategy = WaypointStrategy.SHORTEST; // Bugfix to avoid strange Carla behavior for vehicles
                 XmlNode _waypoint = root.CreateElement("Waypoint");
-                SetAttribute("routeStrategy", routeStrategy, _waypoint);
+                SetAttribute("routeStrategy", strategy.ToString().ToLower(), _waypoint);
+
                 XmlNode position = root.CreateElement("Position");
                 XmlNode worldPosition = root.CreateElement("WorldPosition");
                 SetAttribute("x", actionType.PositionsCarla[i].Vector3Ser.ToVector3().x.ToString(), worldPosition);
