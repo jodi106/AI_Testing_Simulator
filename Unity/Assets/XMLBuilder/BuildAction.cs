@@ -320,7 +320,7 @@ namespace ExportScenario.XMLBuilder
             SetAttribute("name", "Environment1", environment);
             XmlNode time_of_day = root.CreateElement("TimeOfDay");
             SetAttribute("animation", "false", time_of_day);
-            SetAttribute("dateTime", worldOptions.Date_Time, time_of_day);
+            SetAttribute("dateTime", "2023-01-01T"+worldOptions.Date_Time, time_of_day);
             XmlNode weather = root.CreateElement("Weather");
             SetAttribute("cloudState", worldOptions.CloudState.ToString().ToLower(), weather);
             XmlNode sun = root.CreateElement("Sun");

@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// A controller for the World Settings Popup UI that handles user input and updates WorldOptions accordingly.
 /// </summary>
 public class WorldSettingsPopupController : SettingsPopupController
 {
+    private WarningPopupController warningPopupController;
     private WorldOptions options;
 
     public override void Awake()
@@ -21,27 +23,24 @@ public class WorldSettingsPopupController : SettingsPopupController
     /// Initializes the controller with the provided WorldOptions and sets the UI to be active but hidden.
     /// </summary>
     /// <param name="options">The WorldOptions to use for initializing the UI.</param>
-    public void Init(WorldOptions options)
+    public void Init(WorldOptions options, WarningPopupController warningPopupController)
     {
         this.options = options;
+        this.warningPopupController = warningPopupController;
         this.gameObject.SetActive(true);
         this.document = gameObject.GetComponent<UIDocument>();
         this.document.rootVisualElement.style.display = DisplayStyle.None;
 
         var exitButton = this.document.rootVisualElement.Q<Button>("Exit");
         exitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
-        {
+        {        
             OnExit();
         });
 
         var dayTime = this.document.rootVisualElement.Q<TextField>("Daytime");
-        dayTime.RegisterCallback<KeyDownEvent>((KeyDownEvent) =>
+        dayTime.RegisterValueChangedCallback((evt) =>
         {
-            if (KeyDownEvent.keyCode == KeyCode.Return)
-            {
-                //Debug.Log("Daytime: "+dayTime.text);
-                options.Date_Time = (string)dayTime.text;
-            }
+            options.Date_Time = (string)evt.newValue;
         });
 
         var sunIntesity = this.document.rootVisualElement.Q<Slider>("SunIntensity");
@@ -152,7 +151,13 @@ public class WorldSettingsPopupController : SettingsPopupController
 
     protected override void OnExit()
     {
-        MainController.freeze = false;
+        if (!Regex.IsMatch(options.Date_Time, @"^(([01][0-9])|(2[0-4])):[0-5][0-9]:[0-9][0-9]$"))  // Input format should be hh:mm:ss
+        {
+            string title = "DayTime is in the wrong format!";
+            string description = "Daytime must be in the format hh:mm:ss\nFor example: 12:00:00.\nAdjust it to close this GUI!";
+            warningPopupController.Open(title, description);
+            return;
+        }
         this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
 
@@ -162,6 +167,5 @@ public class WorldSettingsPopupController : SettingsPopupController
     public void Open()
     {
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
-        MainController.freeze = true;
     }
 }

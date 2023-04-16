@@ -12,7 +12,7 @@ namespace Entity
         /// </summary>        
         public WorldOptions()
         {
-            Date_Time = "2023-01-10T12:00:00";
+            Date_Time = "12:00:00";
             FogVisualRange = 100000;
             SunIntensity = 0.8F;
             SunAzimuth = 1.5;

@@ -123,18 +123,19 @@ public class MainController : MonoBehaviour
         });
 
         GameObject popups = GameObject.Find("PopUps");
-        worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
-        worldSettingsController.Init(Info.WorldOptions);
 
-        warningPopupController = GameObject.Find("PopUps").transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
+        warningPopupController = popups.transform.Find("WarningPopUp").gameObject.GetComponent<WarningPopupController>();
         warningPopupController.gameObject.SetActive(true);
 
-        yesNoPopupController = GameObject.Find("PopUps").transform.Find("YesNoPopup").gameObject.GetComponent<YesNoPopupController>();
+        yesNoPopupController = popups.transform.Find("YesNoPopup").gameObject.GetComponent<YesNoPopupController>();
         yesNoPopupController.gameObject.SetActive(true);
 
         //this.helpPopupController = GameObject.FindWithTag("HelpPopup").gameObject.GetComponent<HelpPopupController>();
-        helpPopupController = GameObject.Find("PopUps").transform.Find("HelpPopUp").gameObject.GetComponent<HelpPopupController>();
+        helpPopupController = popups.transform.Find("HelpPopUp").gameObject.GetComponent<HelpPopupController>();
         helpPopupController.gameObject.SetActive(true);
+
+        worldSettingsController = popups.transform.Find("WorldSettingsPopUpAdvanced").gameObject.GetComponent<WorldSettingsPopupController>();
+        worldSettingsController.Init(Info.WorldOptions, warningPopupController);
     }
 
     /// <summary>
