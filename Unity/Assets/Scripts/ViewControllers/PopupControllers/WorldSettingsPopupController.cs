@@ -46,7 +46,6 @@ public class WorldSettingsPopupController : SettingsPopupController
         var sunIntesity = this.document.rootVisualElement.Q<Slider>("SunIntensity");
         sunIntesity.RegisterValueChangedCallback((evt) =>
         {
-            //Debug.Log("Sun Intensity: "+evt.newValue);
             this.options.SunIntensity = (float)evt.newValue;
         });
 
@@ -61,14 +60,12 @@ public class WorldSettingsPopupController : SettingsPopupController
         {
             int index = cloudStateOptions.IndexOf(evt.newValue);
             CloudState userOption = (CloudState)index;
-            //Debug.Log("Cloud State: " + userOption);
             this.options.CloudState = userOption;
         });
 
         var precipitationIntesity = this.document.rootVisualElement.Q<Slider>("PrecipitationIntensity");
         precipitationIntesity.RegisterValueChangedCallback((evt) =>
         {
-            //Debug.Log("Precipitation Intensity: " + precipitationIntesity.showInputField + " " + evt.newValue);
             this.options.PrecipitationIntensity = (float)evt.newValue;
         });
 
@@ -101,14 +98,12 @@ public class WorldSettingsPopupController : SettingsPopupController
         var sunAzimuth = this.document.rootVisualElement.Q<Slider>("SunAzimuth");
         sunAzimuth.RegisterValueChangedCallback((evt) =>
         {
-            //Debug.Log("Sun Azimuth: " + sunAzimuth.showInputField + " " + evt.newValue);
             this.options.SunAzimuth = (double)evt.newValue;
         });
 
         var sunElevation = this.document.rootVisualElement.Q<Slider>("SunElevation");
         sunElevation.RegisterValueChangedCallback((evt) =>
         {
-            //Debug.Log("Sun Elevation: " + sunElevation.showInputField + " " + evt.newValue);
             this.options.SunElevation = (double)evt.newValue;
         });
 
@@ -160,6 +155,7 @@ public class WorldSettingsPopupController : SettingsPopupController
 
     }
 
+
     protected override void OnExit()
     {
         if (!Regex.IsMatch(options.Date_Time, @"^(([01][0-9])|(2[0-4])):[0-5][0-9]:[0-9][0-9]$"))  // Input format should be hh:mm:ss
@@ -169,12 +165,10 @@ public class WorldSettingsPopupController : SettingsPopupController
             warningPopupController.Open(title, description);
             return;
         }
+
         this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
 
-    /// <summary>
-    /// Sets the display style of the root visual element of the document to 'flex', and freezes the MainController.
-    /// </summary>
     public void Open()
     {
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;

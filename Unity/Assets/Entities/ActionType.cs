@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/*
+ * The name in the ActionType constructors should be like the name described in each constructor (e.g. "SpeedAction" or "StopAction")! 
+ * This must be the case for Export functionality.
+ */
+
 namespace Entity
 {
     [Serializable]
@@ -16,7 +21,7 @@ namespace Entity
             Name = name;
         }
         public ActionType(string name, double absoluteTargetSpeedValue, string speedActionDynamicsShape = "step", double speedActionDynamicsValue = 0.0, string dynamicsDimension = "time")
-        /// for SpeedAction
+        /// for "SpeedAction"
         {
             ID = autoIncrementId++;
             Name = name;
@@ -26,7 +31,7 @@ namespace Entity
             DynamicDimensions = dynamicsDimension;
         }
         public ActionType(string name, double stopduration, double speedValue, string speedActionDynamicsShape = "step", double speedActionDynamicsValue = 0.0, string dynamicsDimension = "time")
-        /// for StopAction
+        /// for "StopAction"
         {
             ID = autoIncrementId++;
             Name = name;
@@ -39,7 +44,7 @@ namespace Entity
         }
 
         public ActionType(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape = "linear", double laneChangeActionDynamicsValue = 13, string dynamicsDimension = "distance")
-        /// for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
+        /// for "LaneChangeAction": laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error
         {
             ID = autoIncrementId++;
             Name = name;
@@ -55,7 +60,7 @@ namespace Entity
         /// Creates a new instance of the <see cref="ActionType"/> class.
         /// </summary>
         public ActionType(string name, List<Location> positions)
-        /// for AssignRouteAction (List lentgh > 2) or AcquirePositionAction (list length == 2)
+        /// for "AssignRouteAction" (List length > 2) or AcquirePositionAction (list length == 2)
         {
             ID = autoIncrementId++;
             Name = name;
@@ -73,7 +78,7 @@ namespace Entity
         }
 
         public int ID { get; private set; }
-        public string Name { get; set; } // Todo rename?; has enum ActionTypeName; examples: SpeedAction, LaneChangeAction, AssignRouteAction
+        public string Name { get; set; } // TODO has enum ActionTypeName; examples: SpeedAction, LaneChangeAction, AssignRouteAction
         public double AbsoluteTargetSpeedValueKMH { get; set; } // double from 0 to infinitive(but ~300kmh should be max value); unit: meter per second; needed for SpeedAction
         public string DynamicsShape { get; set; } // has enum; good values: linear, step; only in advanced settings
         public double SpeedActionDynamicsValue { get; set; } // double: 0 to infinitive, good value: 0
@@ -82,7 +87,7 @@ namespace Entity
         public List<Location> Positions { get; set; }
         public List<Location> PositionsCarla { get; set; }
         public string EntityRef { get; set; } // example: "adversary2" --> "adversary"+id
-        public int RelativeTargetLaneValue { get; set; } // TODO: -1 or 1
+        public int RelativeTargetLaneValue { get; set; } // -1 or 1
         public double StopDuration { get; set; }
 
 

@@ -10,9 +10,6 @@ namespace Entity
 
     public class Ego : BaseEntity, ICloneable
     {
-
-
-
         /// <summary>
         /// Creates an Ego vehicle object with a spawn point, model, category, and initial speed.
         /// Object has no actions, only start point and destination
@@ -27,7 +24,6 @@ namespace Entity
             Category = category;
             Agent = "simple_vehicle_control"; 
         }
-
 
         /// <summary>
         /// Creates an empty Ego vehicle object.

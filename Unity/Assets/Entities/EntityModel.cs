@@ -9,7 +9,6 @@ namespace Entity
         private static int autoIncrementId = 1;
 
 
-
         /// <summary>
         /// Creates an EntityModel object with the given model name.
         /// </summary>

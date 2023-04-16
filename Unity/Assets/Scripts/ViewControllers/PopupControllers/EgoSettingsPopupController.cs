@@ -17,7 +17,6 @@ public class EgoSettingsPopupController : SettingsPopupController
     private Ego ego;
     private TextField iDField;
     private TextField agentField;
-    //private TextField locationField;
     private TextField initialSpeedField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
@@ -43,7 +42,6 @@ public class EgoSettingsPopupController : SettingsPopupController
             OnExit();
         });
 
-        //Vehicle ego = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
         var egoModels = VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car);
@@ -189,7 +187,6 @@ public class EgoSettingsPopupController : SettingsPopupController
         iDField.value = ego.Id.ToString();
         initialSpeedField.value = ego.InitialSpeedKMH.ToString();
         agentField.value = ego.Agent.ToString();
-        //locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
         possibleModelsField.value = ego.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;

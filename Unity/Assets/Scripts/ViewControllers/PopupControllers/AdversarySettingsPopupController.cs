@@ -17,7 +17,6 @@ public class AdversarySettingsPopupController : SettingsPopupController
     private Ego egoVehicle;
     private TextField iDField;
     private TextField initialSpeedField;
-    //private TextField locationField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
     private TextField colorField;
@@ -51,7 +50,6 @@ public class AdversarySettingsPopupController : SettingsPopupController
             OnExit();
         });
 
-        //Vehicle vehicle = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
         var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car);
@@ -242,7 +240,6 @@ public class AdversarySettingsPopupController : SettingsPopupController
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
         initialSpeedField.value = vehicle.InitialSpeedKMH.ToString();
-        //locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
         possibleModelsField.value = vehicle.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;

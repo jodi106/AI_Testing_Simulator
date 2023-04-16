@@ -51,7 +51,6 @@ namespace Entity
             PhysicalNextRoadAndLaneIds = physicalNextRoadAndLaneIds;
         }
 
-
         /// <summary>
         /// Initializes a new instance of the Lane class with the specified ID, road ID, waypoints, and next road and lane IDs.
         /// </summary>

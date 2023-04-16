@@ -58,7 +58,6 @@ namespace Entity
         public IBaseEntityView View { get; set; }
 
 
-
         /// <summary>
         /// Sets the position of the BaseEntity object.
         /// </summary>
@@ -72,7 +71,6 @@ namespace Entity
                 View?.OnChangePosition(x, y);
             }
         }
-
 
         /// <summary>
         /// Sets the rotation angle of the BaseEntity object.
@@ -96,7 +94,6 @@ namespace Entity
             this.View = view;
         }
 
-
         /// <summary>
         /// Sets the color of the BaseEntity object.
         /// </summary>
@@ -107,7 +104,6 @@ namespace Entity
             
             this.View?.OnChangeColor(c);
         }
-
 
 
         /// <summary>

@@ -194,7 +194,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
             warningPopupController.Open(title, description);
             return;
         }
-        OverwriteActionsCarla(this.actions); // TODO move method to waypoint class ?
+        OverwriteActionsCarla(this.actions); 
         MainController.freeze = false;
         this.document.rootVisualElement.style.display = DisplayStyle.None;
     }
@@ -334,7 +334,6 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 else if (possibleActionsField[index].value == "StopAction")
                 {
                     actions[index].StopDuration = InputEvent.newData.Length == 0 ? 0 : Double.Parse(InputEvent.newData);
-                    //actions[index].AbsoluteTargetSpeedValueKMH = vehicle.InitialSpeedKMH; // TODO
                 }
             }
             else

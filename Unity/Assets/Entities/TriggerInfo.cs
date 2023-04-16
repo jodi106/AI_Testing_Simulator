@@ -149,9 +149,9 @@ namespace Entity
         public string TriggerType { get; set; } // has enum; can be extended; "examples: SimulationTimeCondition", "DistanceCondition"
         public double Delay { get; set; } // double: 0 to infinitive, unit: seconds, default: 0 (for most cases 0 fits)
         public string ConditionEdge { get; set; } // has enum; default: "rising"; only in advanced settings
-        public string EntityRef {  get; set; } // example: "adversary2" --> "adversary"+id
+        public string EntityRef {  get; set; } // example: "adversary2"
         public string EntitySelf {  get; set; } // only relevant for RelativeDistanceCondition
-        public double SimulationTimeValue { get; set; } // double: 0 to infinitive, unit: seconds, atm only needed for TriggerType = "SimulationTimeCondition"
+        public double SimulationTimeValue { get; set; } // double: 0 to infinitive, unit: seconds
         public double Value {  get; set; } // 0 to infinitive, unit: seconds, atm needed for DistanceCondition
         public string Rule {  get; set; } // has enum: "equalTo" , "greaterThan" , "lessThan"
         public Location WorldPosition { get;set; } 

@@ -57,7 +57,6 @@ namespace Entity
 
         public Vector3Ser Vector3Ser { get; set; }
         public float Rot { get; set; }
-
         public float X { get => Vector3Ser.X; }
         public float Y { get => Vector3Ser.Y; }
         public float Z { get => Vector3Ser.Z; }

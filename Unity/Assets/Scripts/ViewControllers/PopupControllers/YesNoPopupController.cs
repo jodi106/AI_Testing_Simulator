@@ -71,9 +71,7 @@ namespace Assets.Scripts.ViewControllers.PopupControllers
             });
 
             return await tcs.Task;
-
         }
-
     }
 }
 

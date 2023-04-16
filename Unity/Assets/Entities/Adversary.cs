@@ -17,7 +17,8 @@ namespace Entity
         public AdversaryCategory Category { get; protected set; }
         public EntityModel Model { get; protected set; }
         public Path Path { get; set; }
-        public StartPathInfo StartPathInfo { get; set; } // if != null that StartPathInfo's Vehicle starts this Vehicle's route
+        public StartPathInfo StartPathInfo { get; set; } // if != null that StartPathInfo's Vehicle starts this Adversary's route
+
 
         ///<summary>
         ///Constructor for the Adversary class
@@ -45,11 +46,11 @@ namespace Entity
 
         }
 
+
         public static void resetAutoIncrementID()
         {
             autoIncrementId = 0;
         }
-
 
         ///<summary>
         ///Sets the model of the adversary
@@ -60,7 +61,6 @@ namespace Entity
             this.Model = model;
             this.View?.OnChangeModel(model);
         }
-
 
         ///<summary>
         ///Sets the category of the adversary
@@ -83,7 +83,7 @@ namespace Entity
             cloneVehicle.Model = (EntityModel)this.Model.Clone();
             cloneVehicle.Path = (Path)this.Path.Clone();
             cloneVehicle.Category = this.Category;
-            cloneVehicle.StartPathInfo = this.StartPathInfo; // // TODO copy value, not reference (but works anyway)
+            cloneVehicle.StartPathInfo = this.StartPathInfo; // copies reference, not value
 
             //BaseEntity
             cloneVehicle.Id = string.Copy(this.Id);
@@ -91,7 +91,6 @@ namespace Entity
             cloneVehicle.InitialSpeedKMH = this.InitialSpeedKMH;
             cloneVehicle.Color = this.Color;
 
-            //I don't think we need BaseEntity.View here since its only for the export? 
             return cloneVehicle;
         }
     }
