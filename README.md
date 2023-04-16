@@ -21,6 +21,9 @@ The goal of this international team project is the development of a simulated te
 3. Run the AI_Testing_Simulator.exe file
 
 General Instructions on how to use the Scenario Editor can be found [here (TODO)](https://example.com/)
+runnerTool User Manual
+Scenario Editor User Manual
+
 
 ### How to setup the RunnerTool
 
