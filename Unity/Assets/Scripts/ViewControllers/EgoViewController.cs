@@ -16,9 +16,6 @@ public class EgoViewController : VehicleViewController
     private static readonly double INITIAL_SPEED = 10;
 
 
-    /// <summary>
-    /// Calls the Awake Method of the superclass.
-    /// </summary>
     public override void Awake()
     {
         base.Awake();
@@ -38,7 +35,8 @@ public class EgoViewController : VehicleViewController
 
 
     /// <summary>
-    /// Selects the current object and creates a destination if not already present.
+    /// Selects the current object and the Destination.
+    /// Signals the SnapController to ignore clicks.
     /// </summary>
     public override void Select()
     {
@@ -49,7 +47,8 @@ public class EgoViewController : VehicleViewController
 
 
     /// <summary>
-    /// Deselects the current object and its destination.
+    /// Deselects the current object and the Destination.
+    /// Signals the SnapController not to ignore clicks.
     /// </summary>
     public override void Deselect()
     {
@@ -59,7 +58,7 @@ public class EgoViewController : VehicleViewController
     }
 
     /// <summary>
-    /// Submits the selected destination location.
+    /// Set the Destination of the Ego vehicle.
     /// </summary>
     /// <param name="destination">The destination location to submit.</param>
     public void SubmitDestination(Location destination)
@@ -69,7 +68,7 @@ public class EgoViewController : VehicleViewController
     }
 
     /// <summary>
-    /// Destroys the current object and its associated destination.
+    /// Destroys the Ego GameObject and the Destination.
     /// </summary>
     public override void Destroy()
     {
@@ -80,7 +79,7 @@ public class EgoViewController : VehicleViewController
 
 
     /// <summary>
-    /// Changes the color of the current object and its associated destination.
+    /// Changes the color of the current the Ego GameObject and its associated destination.
     /// </summary>
     /// <param name="color">The color to change to.</param>
     public override void OnChangeColor(Color color)
@@ -98,7 +97,7 @@ public class EgoViewController : VehicleViewController
     }
 
     /// <summary>
-    /// Initializes the Ego object with the given AdversaryCategory and color.
+    /// Initializes the controller with the given AdversaryCategory and color.
     /// </summary>
     /// <param name="cat">The AdversaryCategory to assign to the Ego object.</param>
     /// <param name="color">The color to assign to the Ego object.</param>
@@ -124,7 +123,7 @@ public class EgoViewController : VehicleViewController
     }
 
     /// <summary>
-    /// Initializes the Ego object with the given Ego instance.
+    /// Initializes the controller with the given Ego instance.
     /// </summary>
     /// <param name="ego">The Ego instance to initialize the object with.</param>
     public void Init(Ego ego)
@@ -153,9 +152,9 @@ public class EgoViewController : VehicleViewController
     }
 
     /// <summary>
-    /// Changes the category of the current object and updates its sprite accordingly.
+    /// Changes the sprite according to the new category.
     /// </summary>
-    /// <param name="cat">The new AdversaryCategory to assign to the current object.</param>
+    /// <param name="cat">The new category of the Ego vehicle.</param>
     public override void OnChangeCategory(AdversaryCategory cat)
     {
         base.OnChangeCategory(cat);
@@ -177,7 +176,7 @@ public class EgoViewController : VehicleViewController
     }
 
     /// <summary>
-    /// Returns the BaseEntity representing the current Ego object.
+    /// Returns the BaseEntity representing the current Ego vehicle.
     /// </summary>
     /// <returns>The BaseEntity instance of the current object.</returns>
     public override BaseEntity GetEntity()

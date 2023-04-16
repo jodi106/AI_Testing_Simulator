@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Represents a MouseClickAction that implements the IAction interface.
+/// An action that is triggered when the map is clicked.
+/// Can cause a newly created entity to be placed or adds a waypoint to the selected entity.
 /// </summary>
 public class MouseClickAction : IAction
 {
-
     public Vector3 Position { get; }
-
-
 
     /// <summary>
     /// Constructs a new MouseClickAction object with the provided position.

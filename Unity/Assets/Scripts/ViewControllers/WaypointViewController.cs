@@ -24,6 +24,13 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     private bool ignoreWaypoints = false;
     private bool secondary = false;
 
+    /// <summary>
+    /// Initializes the Waypoint controller with the specified parameters.
+    /// </summary>
+    /// <param name="waypoint">The waypoint associated with this controller.</param>
+    /// <param name="pathController">The controller of the Path that this waypoint is part of.</param>
+    /// <param name="color">The color for this waypoint.</param>
+    /// <param name="pathController">Indicates wether this waypoint should be secondary.</param>
     public void Init(Waypoint waypoint, PathController pathController, Color color, bool secondary)
     {
         this.Waypoint = waypoint;
@@ -66,7 +73,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
 
     /// <summary>
-    /// Makes the waypoint entity a secondary waypoint.
+    /// Makes the waypoint a secondary waypoint.
     /// </summary>
     public void MakeSecondary()
     {
@@ -76,7 +83,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
 
     /// <summary>
-    /// Returns whether the waypoint entity is a secondary waypoint.
+    /// Returns whether the waypoint is a secondary waypoint.
     /// </summary>
     /// <returns>True if the waypoint entity is a secondary waypoint, false otherwise.</returns>
     public bool IsSecondary()
@@ -181,7 +188,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
 
     /// <summary>
-    /// Changes the position of the waypoint.
+    /// Changes the position of the waypoint GameObject.
     /// </summary>
     /// <param name="x">The new x-coordinate.</param>
     /// <param name="y">The new y-coordinate.</param>
@@ -200,8 +207,7 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
 
     /// <summary>
-    /// Gets called when Color is Changed (Not implemented for Waypoint).
-    /// Waypoint has no color.
+    /// Gets called when Color is Changed.
     /// </summary>
     /// <param name="c"></param>
     public void OnChangeColor(Color color)
@@ -210,18 +216,18 @@ public class WaypointViewController : MonoBehaviour, IBaseController, IBaseView
     }
 
     /// <summary>
-    /// Returns whether the waypoint should ignore other waypoints on its path.
+    /// Returns whether the waypoint is ignoring waypoint indicators.
     /// </summary>
-    /// <returns>True if the waypoint should ignore other waypoints, false otherwise.</returns>
+    /// <returns>True if the waypoint should ignore waypoint indicators, false otherwise.</returns>
     public bool IsIgnoringWaypoints()
     {
         return this.ignoreWaypoints;
     }
 
     /// <summary>
-    /// Sets whether the waypoint should ignore other waypoints on its path.
+    /// Sets whether the waypoint should ignore waypoint indicators.
     /// </summary>
-    /// <param name="ignore">True to ignore other waypoints, false to not ignore them.</param>
+    /// <param name="ignore">True to ignore waypoint indicators, false to not ignore them.</param>
     public void ShouldIgnoreWaypoints(bool b)
     {
         ignoreWaypoints = b;

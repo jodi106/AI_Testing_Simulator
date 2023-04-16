@@ -32,8 +32,8 @@ public interface IBaseController
     /// <param name="b">The value indicating whether or not the controller should ignore waypoints.</param>
     public void ShouldIgnoreWaypoints(bool b);
     /// <summary>
-    /// Returns the location of the controller.
+    /// Returns the location of the object that the controller belongs to.
     /// </summary>
-    /// <returns>The location of the controller.</returns>    
+    /// <returns>The location of the object the controller belongs to.</returns>    
     public Location GetLocation();
 }

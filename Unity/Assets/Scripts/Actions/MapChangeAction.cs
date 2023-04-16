@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
 /// <summary>
-/// Represents a MapChangeAction that implements the IAction interface.
+/// An action that causes the currently loaded Map to change.
+/// All entities will be despawned.
 /// </summary>
 public class MapChangeAction : IAction
 {

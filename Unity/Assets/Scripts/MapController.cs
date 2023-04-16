@@ -25,6 +25,7 @@ public class MapController : MonoBehaviour
 
     /// <summary>
     /// Called when the mouse button is released.
+    /// Triggers a MouseClickAction if the time delta is small enough.
     /// </summary>
     private void OnMouseUp()
     {
@@ -51,7 +52,7 @@ public class MapController : MonoBehaviour
     }
 
     /// <summary>
-    /// Determines if the mouse action should be ignored based on whether the pointer is over a game object.
+    /// Determines if the mouse action should be ignored based on whether the pointer is over a game object (the UI).
     /// </summary>
     /// <returns>Returns true if the pointer is over a game object, false otherwise.</returns>
     public bool ShouldIgnoreMouseAction()

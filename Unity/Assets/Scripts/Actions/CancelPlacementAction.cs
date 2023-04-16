@@ -2,7 +2,7 @@
 
 /// <summary>
 /// An action that signals that the placement of a newly created vehicle has been cancelled.
-/// Causes the MainController to reenable the button bar
+/// Causes the MainController to reenable the button bar.
 /// </summary>
 public class CancelPlacementAction : IAction
 {

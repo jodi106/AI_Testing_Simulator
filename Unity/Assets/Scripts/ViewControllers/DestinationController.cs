@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Controller for a destination waypoint in the scene.
+/// Controller for the Destination of the Ego vehicle.
 /// </summary>
 public class DestinationController : MonoBehaviour
 {
@@ -13,9 +13,6 @@ public class DestinationController : MonoBehaviour
     private SnapController snapController;
     private bool placed;
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
     void Awake()
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -46,7 +43,7 @@ public class DestinationController : MonoBehaviour
     }
 
     /// <summary>
-    /// Destroys the destination waypoint.
+    /// Destroys the GameObject.
     /// </summary>
     public void Destroy()
     {
@@ -54,25 +51,25 @@ public class DestinationController : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the color of the waypoint.
+    /// Sets the color of the Destination GameObject.
     /// </summary>
-    /// <param name="color">The color to set the waypoint to.</param>
+    /// <param name="color">The color to set the Destination GameObject to.</param>
     public void SetColor(Color color)
     {
         sprite.color = color;
     }
 
     /// <summary>
-    /// Returns whether the waypoint has been placed or not.
+    /// Returns whether the Destination has been placed or not.
     /// </summary>
-    /// <returns>Whether the waypoint has been placed or not.</returns>
+    /// <returns>Whether the Destination has been placed or not.</returns>
     public bool IsPlaced()
     {
         return placed;
     }
 
     /// <summary>
-    /// Updates the position of the waypoint based on the mouse position.
+    /// Updates the position of the Destination based on the mouse position.
     /// </summary>
     public void Update()
     {
@@ -87,7 +84,8 @@ public class DestinationController : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when the destination waypoint is clicked.
+    /// Called when the Destination GameObject is clicked.
+    /// Places the vehicle if it is not placed yet.
     /// </summary>
     public void OnMouseDown()
     {
@@ -114,7 +112,7 @@ public class DestinationController : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when the destination waypoint is being dragged.
+    /// Called when the Destination GameObject is being dragged.
     /// </summary>
     public void OnMouseDrag()
     {

@@ -14,7 +14,7 @@ public class VehicleListEntryController
     public BaseEntity Entity { get; protected set; }
 
     /// <summary>
-    /// Sets the VisualElement that the controller will update.
+    /// Sets the UI elements that the controller will update.
     /// </summary>
     /// <param name="visualElement">The VisualElement containing the label, category, model, and container elements.</param>
     public void SetVisualElement(VisualElement visualElement)

@@ -2,7 +2,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Represents a MapPanAction that implements the IAction interface.
+/// An action that is triggered a drag event on the map occurs.
+/// Causes the camera to move.
 /// </summary>
 public class MapPanAction : IAction
 {

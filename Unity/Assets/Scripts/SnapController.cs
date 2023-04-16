@@ -62,7 +62,7 @@ public class SnapController : MonoBehaviour
     }
 
     /// <summary>
-    /// Update is called once per frame.
+    /// Highlights the waypoint indicator nearest to the mouse position.
     /// </summary>
     public void Update()
     {

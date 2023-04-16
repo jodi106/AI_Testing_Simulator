@@ -26,10 +26,6 @@ public class PathController : MonoBehaviour
 
     public Path Path { get; set; }
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// Initializes components and sets up event listeners.
-    /// </summary>
     private void Awake()
     {
         snapController = Camera.main.GetComponent<SnapController>();
@@ -70,7 +66,7 @@ public class PathController : MonoBehaviour
     }
 
     /// <summary>
-    /// Determines if the path should ignore waypoints.
+    /// Determines if newly placed Waypoints whould ignore Waypoints based on wether the AdversaryController ignores waypoints.
     /// </summary>
     /// <returns>Returns true if waypoints should be ignored, otherwise false.</returns
     public bool IsIgnoringWaypoints()
@@ -106,7 +102,7 @@ public class PathController : MonoBehaviour
     /// <summary>
     /// Adjusts the heights of the path and waypoints based on the selected state.
     /// </summary>
-    /// <param name="selected">True if the path should be set as selected, otherwise false.</param>
+    /// <param name="selected">True if heights should be adjusted, false otherwise.</param>
     public void AdjustHeights(bool selected)
     {
         for (var i = 0; i < pathRenderer.positionCount; i++)
@@ -152,7 +148,8 @@ public class PathController : MonoBehaviour
     /// Initializes the path controller with the specified parameters.
     /// </summary>
     /// <param name="controller">The adversary view controller associated with this path.</param>
-    /// <param name="v">The adversary object associated with this path.</param>
+    /// <param name="color">The color for the path.</param>
+    /// <param name="path">The Path for this controller.</param>
     /// <param name="building">Optional parameter to set the initial building state. Default is true.</param>
     public void Init(AdversaryViewController controller, Color color, Path path, bool building)
     {
@@ -228,6 +225,7 @@ public class PathController : MonoBehaviour
 
     /// <summary>
     /// Updates the preview renderer without changing the model. Displays preview based on different collision types and building state.
+    /// Does not change the Path model in any way.
     /// </summary>
     public void Update()
     {
@@ -412,7 +410,7 @@ public class PathController : MonoBehaviour
     /// <param name="y">The y-coordinate of the waypoint.</param>
     /// <param name="secondary">An optional boolean indicating whether the waypoint is secondary. Default is false.</param>
     /// <param name="w">An optional Waypoint instance to be used. Default is null.</param>
-    /// <returns>Returns a WaypointViewController with the initialized waypoint GameObject.</returns>
+    /// <returns>Returns a WaypointViewController with a valid Waypoint.</returns>
     WaypointViewController CreateWaypointGameObject(float x, float y, bool secondary = false, Waypoint w = null)
     {
         GameObject wpGameObject = Instantiate(waypointPrefab, new Vector3(x, y, HeightUtil.WAYPOINT_SELECTED), Quaternion.identity);
@@ -465,7 +463,10 @@ public class PathController : MonoBehaviour
         edgeCollider.SetPoints(positionList);
     }
 
-    /// Finds the first predecessor and successor of the given waypointController that are not secondary waypoints, and optionally deletes all secondary waypoints along the path. Also calculates the prevIndex, which corresponds to the position of the previous non-secondary waypoint in the pathRenderer.
+    /// <summary>
+    /// Finds the first predecessor and successor of the given waypointController that are not secondary waypoints, 
+    /// and optionally deletes all secondary waypoints along the path. 
+    /// Also calculates the prevIndex, which corresponds to the position of the previous non-secondary waypoint in the pathRenderer.
     /// </summary>
     /// <param name="waypointController">A WaypointViewController instance for which to find the predecessor and successor.</param>
     /// <param name="removeSecondaries">An optional boolean indicating whether to remove secondary waypoints. Default is true.</param>

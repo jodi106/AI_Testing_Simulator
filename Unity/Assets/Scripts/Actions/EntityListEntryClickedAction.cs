@@ -1,6 +1,10 @@
 ﻿using Entity;
 using System.Collections.Generic;
 
+/// <summary>
+/// An action that signals that an entry in the entity list has been clicked.
+/// Causes the entity corresponding to the entry to be selected.
+/// </summary>
 public class EntityListEntryClickedAction : IAction
 {
     public BaseEntity Entity { get; }

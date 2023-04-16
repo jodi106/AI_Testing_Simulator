@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
 /// <summary>
-/// An action that signals that the placement of a newly created vehicle has been cancelled.
-/// Causes the MainController to reenable the button bar
+/// An action that signals that the placement of a newly created vehicle has been completed.
+/// Causes the MainController to reenable the button bar.
 /// </summary>
 public class CompletePlacementAction : IAction
 {

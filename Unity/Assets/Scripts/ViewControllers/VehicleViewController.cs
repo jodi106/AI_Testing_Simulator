@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 
 /// <summary>
-/// An abstract base class for vehicle view controllers, providing shared functionality for handling vehicle positions, rotations, and selections.
+/// An abstract base class for a BaseEntity providing shared functionality for handling positions, rotations, and selections.
 /// </summary>
 public abstract class VehicleViewController : MonoBehaviour, IBaseEntityController, IBaseEntityView
 {
@@ -22,9 +22,6 @@ public abstract class VehicleViewController : MonoBehaviour, IBaseEntityControll
     protected bool ignoreWaypoints;
 
 
-    /// <summary>
-    /// Initializes the vehicle view controller, setting up necessary components, materials, and event listeners.
-    /// </summary>
     public virtual void Awake()
     {
         snapController = Camera.main.GetComponent<SnapController>();

@@ -1,9 +1,6 @@
 [link](img\ClassDiagram-MainController.jpg)
 [![image](img\ClassDiagram-MainController.jpg)](img\ClassDiagram-MainController.jpg)
 
-[link](img\ClassDiagram-MainController.jpg)
-[![image](img\ClassDiagram-Controllers.jpg)](img\ClassDiagram-Controllers.jpg)
-
 ## Important classes
 
 ###MainController
@@ -31,6 +28,10 @@ WaypointViewController is the final class implementing IBaseController. Compared
 Similar to the other two classes, the WaypointViewController is responsible for handling the clicking and dragging of a Waypoint. It communicates with the PathController to adjust the path.
 
 ###SnapController
+
+##MVC-Interactions
+[link](img\ClassDiagram-MainController.jpg)
+[![image](img\ClassDiagram-Controllers.jpg)](img\ClassDiagram-Controllers.jpg)
 
 ##Converting between Carla and Unity Coordinates
 

@@ -183,7 +183,8 @@ public class CameraMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles the "View Map" button click event.
+    /// Handles the "View Map" button click event on the home screen.
+    /// Referenced in Unity Editor.
     /// </summary>
     /// <param name="number">The map number to be displayed.</param>
     public void ViewMap(int number)
