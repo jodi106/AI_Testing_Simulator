@@ -165,8 +165,8 @@
       <Field Name="snapController" />
     </ShowAsAssociation>
   </Class>
-  <Interface Name="IBaseController" Collapsed="true">
-    <Position X="24.25" Y="9.5" Width="1.5" />
+  <Interface Name="IBaseController">
+    <Position X="24.25" Y="8" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAACIIAAAAAAAAAAAAAIAABAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseController.cs</FileName>

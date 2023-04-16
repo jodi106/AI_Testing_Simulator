@@ -7,7 +7,8 @@ public class ActionButtonMouseOverHandler : MonoBehaviour, IPointerEnterHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var pos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        var offset = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.25f , gameObject.transform.position.z);
+        var pos = Camera.main.WorldToScreenPoint(offset);
         pos = new Vector2(pos.x, Camera.main.pixelHeight - pos.y);
         MainController.MoveToolTip(pos, Vector2.down, toolTipText);
     }
