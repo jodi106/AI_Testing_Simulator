@@ -261,15 +261,7 @@ namespace ExportScenario.XMLBuilder
             XmlNode property1 = root.CreateElement("Property");
             
             SetAttribute("name", "module", property1);
-            SetAttribute("value", controlMode, property1); // "external_control", "simple_vehicle_control", ...
-            // nice for testing:
-            //if (controlMode == "simple_vehicle_control")
-            //{
-            //    XmlNode property2 = root.CreateElement("Property");
-            //    SetAttribute("name", "attach_camera", property2);
-            //    SetAttribute("value", "true", property2);
-            //    properties.AppendChild(property2);
-            //}
+            SetAttribute("value", controlMode, property1); // "external_control", "simple_vehicle_control", your own AI
             
             XmlNode override_controller_value_action = root.CreateElement("OverrideControllerValueAction");
             XmlNode throttle = root.CreateElement("Throttle");
