@@ -65,6 +65,13 @@ public class WorldSettingsPopupController : SettingsPopupController
             this.options.CloudState = userOption;
         });
 
+        var precipitationIntesity = this.document.rootVisualElement.Q<Slider>("PrecipitationIntensity");
+        precipitationIntesity.RegisterValueChangedCallback((evt) =>
+        {
+            //Debug.Log("Precipitation Intensity: " + precipitationIntesity.showInputField + " " + evt.newValue);
+            this.options.PrecipitationIntensity = (float)evt.newValue;
+        });
+
         List<string> precipitationTypeOptions = new List<string> { };
         foreach (var option in Enum.GetValues(typeof(PrecipitationType)))
         {
@@ -76,15 +83,19 @@ public class WorldSettingsPopupController : SettingsPopupController
         {
             int index = precipitationTypeOptions.IndexOf(evt.newValue);
             PrecipitationType userOption = (PrecipitationType)index;
-            //Debug.Log("Precipitation Type: " + userOption);
             this.options.PrecipitationType = userOption;
-        });
 
-        var precipitationIntesity = this.document.rootVisualElement.Q<Slider>("PrecipitationIntensity");
-        precipitationIntesity.RegisterValueChangedCallback((evt) =>
-        {
-            //Debug.Log("Precipitation Intensity: " + precipitationIntesity.showInputField + " " + evt.newValue);
-            this.options.PrecipitationIntensity = (float)evt.newValue;
+            // PrecipitationType is changed --> Set PrecipitationIntensity to a fitting default value
+            if (this.options.PrecipitationType == PrecipitationType.Rain)
+            {
+                this.options.PrecipitationIntensity = (float)0.8;
+                precipitationIntesity.value = (float)0.8;
+            } 
+            else if (this.options.PrecipitationType == PrecipitationType.Dry)
+            {
+                this.options.PrecipitationIntensity = (float)0.0;
+                precipitationIntesity.value = (float)0.0;
+            }
         });
 
         var sunAzimuth = this.document.rootVisualElement.Q<Slider>("SunAzimuth");

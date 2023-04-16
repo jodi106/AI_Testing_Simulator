@@ -7,7 +7,7 @@
                 <ui:Slider picking-mode="Ignore" label="Sun Intensity:" value="0.5" high-value="1" name="SunIntensity" style="visibility: hidden;" />
                 <ui:DropdownField label="CloudState:" index="0" name="CloudState" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; height: auto; width: auto;" />
                 <ui:DropdownField label="Precipitation Type:" index="0" name="PrecipitationType" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; width: auto;" />
-                <ui:Slider picking-mode="Ignore" label="Precipitation Intensity:" value="0.5" high-value="1" name="PrecipitationIntensity" style="visibility: hidden;" />
+                <ui:Slider picking-mode="Ignore" label="Precipitation Intensity:" value="0" high-value="1" name="PrecipitationIntensity" style="visibility: hidden;" />
                 <ui:Slider picking-mode="Ignore" label="Sun Azimuth:" value="1.5" high-value="6.28" name="SunAzimuth" style="visibility: hidden;" />
                 <ui:Slider picking-mode="Ignore" label="Sun Elevation:" value="0" high-value="3.14" name="SunElevation" low-value="-3.14" style="visibility: hidden;" />
                 <ui:TextField picking-mode="Ignore" label="Fog Visual Range:" name="FogVisualRange" style="visibility: hidden;" />
