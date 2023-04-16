@@ -865,7 +865,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Please Select The Map Your Want to create your scene
+  m_Text: Please select a map to create a scenario
 --- !u!222 &534408671
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2416,7 +2416,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Welcome To Our Scenario Editor
+  m_Text: 'Scenario Editor '
 --- !u!222 &1388376204
 CanvasRenderer:
   m_ObjectHideFlags: 0
