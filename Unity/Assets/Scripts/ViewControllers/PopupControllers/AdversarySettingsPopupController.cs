@@ -7,15 +7,16 @@ using UnityEngine.UIElements;
 using Assets.Repos;
 using System.Text.RegularExpressions;
 
-public class AdversarySettingsPopupController : MonoBehaviour
+/// <summary>
+/// Represents a controller for the adversary settings popup.
+/// </summary>
+public class AdversarySettingsPopupController : SettingsPopupController
 {
     private AdversaryViewController controller;
     private Adversary vehicle;
     private Ego egoVehicle;
-    private UIDocument document;
     private TextField iDField;
     private TextField initialSpeedField;
-    private TextField locationField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
     private TextField colorField;
@@ -31,11 +32,14 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
     private string startRouteType = null;
 
-    public void Awake()
-    {
-        this.document = gameObject.GetComponent<UIDocument>();
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded. It initializes the UIDocument of the gameObject and sets it to not visible.
+    /// It sets the label text to "Options" and registers callback for ExitButton. It sets the initial values for various fields and dropdowns.
+    /// </summary>
+    public override void Awake()
+    {
+        base.Awake();
         Label label = this.document.rootVisualElement.Q<Label>("Label");
         label.text = "Options";
 
@@ -43,16 +47,12 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            MainController.freeze = false;
-            saveStartRouteInfo(startRouteType);
-            this.vehicle = null;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
+            OnExit();
         });
 
-        //Vehicle vehicle = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
-        var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
+        var vehicleModels = VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
@@ -74,8 +74,8 @@ public class AdversarySettingsPopupController : MonoBehaviour
             }
         });
 
-        locationField = this.document.rootVisualElement.Q<TextField>("Location");
-        locationField.SetEnabled(false);
+        //locationField = this.document.rootVisualElement.Q<TextField>("Location");
+        //locationField.SetEnabled(false);
 
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
@@ -87,7 +87,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         });
 
         List<string> allPossibleCateogories = new List<string> { };
-        foreach (var option in Enum.GetValues(typeof(VehicleCategory)))
+        foreach (var option in Enum.GetValues(typeof(AdversaryCategory)))
         {
             if (option.ToString() == "Null")
             {
@@ -99,23 +99,23 @@ public class AdversarySettingsPopupController : MonoBehaviour
         possibleCategoriesField.choices = allPossibleCateogories;
         possibleCategoriesField.RegisterValueChangedCallback((evt) =>
         {
-            VehicleCategory cat;
+            AdversaryCategory cat;
             switch (evt.newValue)
             {
                 case "Car":
-                    cat = VehicleCategory.Car;
+                    cat = AdversaryCategory.Car;
                     break;
                 case "Bike":
-                    cat = VehicleCategory.Bike;
+                    cat = AdversaryCategory.Bike;
                     break;
                 case "Motorcycle":
-                    cat = VehicleCategory.Motorcycle;
+                    cat = AdversaryCategory.Motorcycle;
                     break;
                 case "Pedestrian":
-                    cat = VehicleCategory.Pedestrian;
+                    cat = AdversaryCategory.Pedestrian;
                     break;
                 default:
-                    cat = VehicleCategory.Null;
+                    cat = AdversaryCategory.Null;
                     break;
             }
             List<string> allPossibleModels = new List<string> { };
@@ -185,7 +185,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         {
             if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
             {
-                vehicle.StartRouteInfo.Time = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
+                vehicle.StartPathInfo.Time = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
             }
             else
             {
@@ -196,7 +196,7 @@ public class AdversarySettingsPopupController : MonoBehaviour
         {
             if (Regex.Match(InputEvent.newData, @"^(\d)*$").Success) // only digits
             {
-                vehicle.StartRouteInfo.Distance = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
+                vehicle.StartPathInfo.Distance = InputEvent.newData.Length == 0 ? 0 : Int32.Parse(InputEvent.newData);
             }
             else
             {
@@ -206,27 +206,40 @@ public class AdversarySettingsPopupController : MonoBehaviour
 
         deleteStartRouteWaypointButton.RegisterCallback<ClickEvent>((clickEvent) =>
         {
-            foreach (Waypoint waypoint in vehicle.StartRouteInfo.Vehicle.Path.WaypointList)
+            foreach (Waypoint waypoint in vehicle.StartPathInfo.Vehicle.Path.WaypointList)
             {
                 if (waypoint.StartRouteOfOtherVehicle == vehicle)
                 {
                     waypoint.StartRouteOfOtherVehicle = null;
                 }
             }
-            resetStartRouteFields();
-            vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0); ;
+            ResetStartRouteFields();
+            vehicle.StartPathInfo = new StartPathInfo(vehicle, 0); ;
         });
     }
 
-    public void open(AdversaryViewController controller, Color color, Ego egoVehicle)
+    protected override void OnExit()
+    {
+        MainController.freeze = false;
+        SaveStartRouteInfo(startRouteType);
+        this.vehicle = null;
+        this.document.rootVisualElement.style.display = DisplayStyle.None;
+    }
+
+    /// <summary>
+    /// Opens the adversary view controller with specified parameters.
+    /// </summary>
+    /// <param name="controller">The adversary view controller.</param>
+    /// <param name="color">The color of the adversary.</param>
+    /// <param name="egoVehicle">The ego vehicle.</param>
+    public void Open(AdversaryViewController controller, Color color, Ego egoVehicle)
     {
         this.controller = controller;
-        this.vehicle = (Adversary) controller.getEntity();
+        this.vehicle = (Adversary)controller.GetEntity();
         this.egoVehicle = egoVehicle;
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = vehicle.Id.ToString();
         initialSpeedField.value = vehicle.InitialSpeedKMH.ToString();
-        locationField.value = String.Format("{0}, {1}", vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
         possibleCategoriesField.value = vehicle.Category.ToString();
         possibleModelsField.value = vehicle.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;
@@ -234,32 +247,36 @@ public class AdversarySettingsPopupController : MonoBehaviour
         gSlider.value = color.g;
         bSlider.value = color.b;
 
-        if (vehicle.StartRouteInfo != null)
+        if (vehicle.StartPathInfo != null)
         {
-            switch (vehicle.StartRouteInfo.Type)
+            switch (vehicle.StartPathInfo.Type)
             {
                 case "Waypoint":
-                    loadStartRouteInfoWaypoint();
+                    LoadStartRouteInfoWaypoint();
                     break;
                 case "Time":
-                    loadStartRouteInfoTime();
+                    LoadStartRouteInfoTime();
                     break;
                 case "Ego":
-                    loadStartRouteInfoEgo();
+                    LoadStartRouteInfoEgo();
                     break;
             }
         }
         else
         {
-            resetStartRouteFields();
-            vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 0);
+            ResetStartRouteFields();
+            vehicle.StartPathInfo = new StartPathInfo(vehicle, 0);
         }
 
         MainController.freeze = true;
     }
 
 
-    private void loadStartRouteInfoWaypoint()
+
+    /// <summary>
+    /// Loads start route information for a specific waypoint.
+    /// </summary>
+    private void LoadStartRouteInfoWaypoint()
     {
         this.startRouteType = "Waypoint";
         startRouteDropdown.style.display = DisplayStyle.None;
@@ -268,48 +285,60 @@ public class AdversarySettingsPopupController : MonoBehaviour
         startRouteWaypointTimeLabel.style.display = DisplayStyle.Flex;
         deleteStartRouteWaypointButton.style.display = DisplayStyle.Flex;
         startRouteInfoLabel.style.display = DisplayStyle.None;
-        startRouteWaypointTimeLabel.text = vehicle.StartRouteInfo.Vehicle.Id + " reaches a specific Waypoint";
+        startRouteWaypointTimeLabel.text = vehicle.StartPathInfo.Vehicle.Id + " reaches a specific Waypoint";
     }
 
-    private void loadStartRouteInfoTime()
+    /// <summary>
+    /// Loads start route information for a specific time.
+    /// </summary>
+    private void LoadStartRouteInfoTime()
     {
-        resetStartRouteFields();
+        ResetStartRouteFields();
         this.startRouteType = "Time";
         startRouteDropdown.index = 0;
-        startRouteTimeField.value = vehicle.StartRouteInfo.Time.ToString();
+        startRouteTimeField.value = vehicle.StartPathInfo.Time.ToString();
     }
 
-    private void loadStartRouteInfoEgo()
+    /// <summary>
+    /// Loads start route information for a specific ego vehicle
+    /// </summary>
+    private void LoadStartRouteInfoEgo()
     {
-        resetStartRouteFields();
+        ResetStartRouteFields();
         this.startRouteType = "Ego";
         startRouteDropdown.index = 1;
-        startRouteDistanceField.value = vehicle.StartRouteInfo.Distance.ToString();
+        startRouteDistanceField.value = vehicle.StartPathInfo.Distance.ToString();
     }
 
-    private void resetStartRouteFields()
+    /// <summary>
+    /// Resets the start route fields to their default values.
+    /// </summary>
+    private void ResetStartRouteFields()
     {
         startRouteDistanceField.value = "5";
         startRouteTimeField.value = "0";
         startRouteDropdown.index = 0;
         startRouteDropdown.style.display = DisplayStyle.Flex;
-        startRouteTimeField.style.display= DisplayStyle.Flex;
-        startRouteDistanceField.style.display= DisplayStyle.None;
+        startRouteTimeField.style.display = DisplayStyle.Flex;
+        startRouteDistanceField.style.display = DisplayStyle.None;
         startRouteWaypointTimeLabel.style.display = DisplayStyle.None;
         deleteStartRouteWaypointButton.style.display = DisplayStyle.None;
         startRouteInfoLabel.style.display = DisplayStyle.Flex;
     }
 
-    private void saveStartRouteInfo(String type)
+    /// <summary>
+    /// Saves start route information of a specific type.
+    /// </summary
+    private void SaveStartRouteInfo(String type)
     {
         switch (type)
         {
             case "Time":
-                vehicle.StartRouteInfo = new StartRouteInfo(vehicle, Int32.Parse(startRouteTimeField.value));
+                vehicle.StartPathInfo = new StartPathInfo(vehicle, Int32.Parse(startRouteTimeField.value));
                 break;
             case "Ego":
-                vehicle.StartRouteInfo = new StartRouteInfo(vehicle, 
-                    vehicle.SpawnPoint, Int32.Parse(startRouteDistanceField.value), egoVehicle); 
+                vehicle.StartPathInfo = new StartPathInfo(vehicle,
+                    vehicle.SpawnPoint, Int32.Parse(startRouteDistanceField.value), egoVehicle);
                 break;
         }
     }

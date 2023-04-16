@@ -7,14 +7,16 @@ using UnityEngine.UIElements;
 using Assets.Repos;
 using System.Text.RegularExpressions;
 
-public class EgoSettingsPopupController : MonoBehaviour
+
+///<summary>
+/// Represents a controller for the ego settings popup.
+///</summary>
+public class EgoSettingsPopupController : SettingsPopupController
 {
     private EgoViewController controller;
     private Ego ego;
-    private UIDocument document;
     private TextField iDField;
     private TextField agentField;
-    private TextField locationField;
     private TextField initialSpeedField;
     private DropdownField possibleModelsField;
     private DropdownField possibleCategoriesField;
@@ -23,11 +25,12 @@ public class EgoSettingsPopupController : MonoBehaviour
     private Slider gSlider;
     private Slider bSlider;
 
-
-    public void Awake()
+    /// <summary>
+    /// This method is called when the script instance is being loaded. It initializes the UIDocument and sets its rootVisualElement to display none. It also sets the text of a Label to "Options", and registers a callback for a Button to set MainController.freeze to false, set this.ego to null, and set the rootVisualElement display to none. Additionally, it creates a new Location and obtains a list of ego models based on AdversaryCategory.Car. The method registers callbacks for TextFields iDField, initialSpeedField, and agentField, and sets the choices of two DropdownFields based on the AdversaryCategory selected. Finally, the method registers callbacks for three Sliders to update the color of ego's vehicle.
+    /// </summary>
+    public override void Awake()
     {
-        this.document = gameObject.GetComponent<UIDocument>();
-        this.document.rootVisualElement.style.display = DisplayStyle.None;
+        base.Awake();
 
         Label label = this.document.rootVisualElement.Q<Label>("Label");
         label.text = "Options";
@@ -36,15 +39,12 @@ public class EgoSettingsPopupController : MonoBehaviour
 
         ExitButton.RegisterCallback<ClickEvent>((ClickEvent) =>
         {
-            MainController.freeze = false;
-            this.ego = null;
-            this.document.rootVisualElement.style.display = DisplayStyle.None;
+            OnExit();
         });
 
-        //Vehicle ego = selectedEntity.getEntity();
         var spawnPoint = new Location(new Vector3(1, 1, 1), 1);
 
-        var egoModels = VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car);
+        var egoModels = VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car);
 
         iDField = this.document.rootVisualElement.Q<TextField>("ID");
         iDField.RegisterCallback<InputEvent>((InputEvent) =>
@@ -73,9 +73,9 @@ public class EgoSettingsPopupController : MonoBehaviour
             // TODO PopUp Window with information about agents
         });
 
-        locationField = this.document.rootVisualElement.Q<TextField>("Location");
-        locationField.SetEnabled(false);
-        
+        //locationField = this.document.rootVisualElement.Q<TextField>("Location");
+        //locationField.SetEnabled(false);
+
         List<string> allPossibleModels = new List<string> { };
         possibleModelsField = this.document.rootVisualElement.Q<DropdownField>("AllPossibleModels");
         possibleModelsField.choices = allPossibleModels;
@@ -87,7 +87,7 @@ public class EgoSettingsPopupController : MonoBehaviour
 
 
         List<string> allPossibleCateogories = new List<string> { };
-        foreach (var option in Enum.GetValues(typeof(VehicleCategory)))
+        foreach (var option in Enum.GetValues(typeof(AdversaryCategory)))
         {
             if (option.ToString() == "Null")
             {
@@ -102,12 +102,12 @@ public class EgoSettingsPopupController : MonoBehaviour
             if (evt.newValue == "Car")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Car))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Car))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
                 possibleModelsField.choices = allPossibleModels;
-                ego.setCategory(VehicleCategory.Car);
+                ego.setCategory(AdversaryCategory.Car);
                 EntityModel model = VehicleModelRepository.getDefaultCarModel();
                 ego.setModel(model);
                 possibleModelsField.value = ego.Model.DisplayName.ToString();
@@ -115,12 +115,12 @@ public class EgoSettingsPopupController : MonoBehaviour
             if (evt.newValue == "Bike")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Bike))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Bike))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
                 possibleModelsField.choices = allPossibleModels;
-                ego.setCategory(VehicleCategory.Bike);
+                ego.setCategory(AdversaryCategory.Bike);
                 EntityModel model = VehicleModelRepository.getDefaultBikeModel();
                 ego.setModel(model);
                 possibleModelsField.value = ego.Model.DisplayName.ToString();
@@ -128,12 +128,12 @@ public class EgoSettingsPopupController : MonoBehaviour
             if (evt.newValue == "Motorcycle")
             {
                 List<string> allPossibleModels = new List<string> { };
-                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(VehicleCategory.Motorcycle))
+                foreach (var option in VehicleModelRepository.GetModelsBasedOnCategory(AdversaryCategory.Motorcycle))
                 {
                     allPossibleModels.Add(option.DisplayName);
                 }
                 possibleModelsField.choices = allPossibleModels;
-                ego.setCategory(VehicleCategory.Motorcycle);
+                ego.setCategory(AdversaryCategory.Motorcycle);
                 EntityModel model = VehicleModelRepository.getDefaultMotorcycleModel();
                 ego.setModel(model);
                 possibleModelsField.value = ego.Model.DisplayName.ToString();
@@ -166,15 +166,27 @@ public class EgoSettingsPopupController : MonoBehaviour
             colorField.ElementAt(1).style.backgroundColor = color;
         });
     }
-    public void open(EgoViewController controller, Color color)
+
+    protected override void OnExit()
+    {
+        MainController.freeze = false;
+        this.ego = null;
+        this.document.rootVisualElement.style.display = DisplayStyle.None;
+    }
+
+    /// <summary>
+    /// Opens the EgoViewController and initializes the fields with the given values.
+    /// </summary>
+    /// <param name="controller">The EgoViewController instance to open.</param>
+    /// <param name="color">The Color object to set the background color of the field.</param>
+    public void Open(EgoViewController controller, Color color)
     {
         this.controller = controller;
-        this.ego = (Ego)controller.getEntity();
+        this.ego = (Ego)controller.GetEntity();
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
         iDField.value = ego.Id.ToString();
         initialSpeedField.value = ego.InitialSpeedKMH.ToString();
         agentField.value = ego.Agent.ToString();
-        locationField.value = String.Format("{0}, {1}", ego.SpawnPoint.X, ego.SpawnPoint.Y);
         possibleCategoriesField.value = ego.Category.ToString();
         possibleModelsField.value = ego.Model.DisplayName.ToString();
         colorField.ElementAt(1).style.backgroundColor = color;

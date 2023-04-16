@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="VehicleViewController">
+    <Position X="12.5" Y="8.25" Width="3.5" />
+    <Members>
+      <Method Name="Awake" Hidden="true" />
+      <Field Name="defaultMaterial" Hidden="true" />
+      <Field Name="difference" Hidden="true" />
+      <Method Name="GetSprite" Hidden="true" />
+      <Field Name="lastClickPos" Hidden="true" />
+      <Method Name="OnMouseDown" Hidden="true" />
+      <Method Name="OnMouseDrag" Hidden="true" />
+      <Method Name="OpenEditDialog" Hidden="true" />
+      <Field Name="selectionMaterial" Hidden="true" />
+      <Field Name="sprite" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAQEAAwSIKAAECAAAARBAAAIBBDAQAQoIAACQAAAEEA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\VehicleViewController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdversaryViewController">
+    <Position X="10.5" Y="14" Width="3.5" />
+    <Members>
+      <Field Name="adversarySettingsController" Hidden="true" />
+      <Method Name="Awake" Hidden="true" />
+      <Method Name="GetCollider" Hidden="true" />
+      <Method Name="GetSprite" Hidden="true" />
+      <Field Name="INITIAL_SPEED" Hidden="true" />
+      <Field Name="INITIAL_SPEED_PEDESTRIAN" Hidden="true" />
+      <Method Name="OpenEditDialog" Hidden="true" />
+      <Field Name="pathPrefab" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gAAEAEwAMIAAMAAAAAABAAAQAADAAAAAACECQAAAAEg=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\AdversaryViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="adversary" />
+      <Field Name="pathController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EgoViewController">
+    <Position X="14.75" Y="14" Width="3.5" />
+    <Members>
+      <Method Name="Awake" Hidden="true" />
+      <Field Name="DestinationPrefab" Hidden="true" />
+      <Field Name="egoSettingsController" Hidden="true" />
+      <Method Name="GetSprite" Hidden="true" />
+      <Field Name="INITIAL_SPEED" Hidden="true" />
+      <Method Name="OpenEditDialog" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIIAAFAAAABABAAAAAADAAAAAAAEGRAAAAUA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\EgoViewController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="ego" />
+      <Field Name="destination" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entity.Adversary" Collapsed="true">
+    <Position X="9.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAABIADAAgAAAAAAAAAAAAAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Adversary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Entity.Ego" Collapsed="true">
+    <Position X="16.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAACAEAAAAAAAAAAAAEAAgAAAAACBA=</HashCode>
+      <FileName>Assets\Entities\Ego.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PathController" Collapsed="true">
+    <Position X="8.25" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="UnityEngine.MonoBehaviour" ManuallyRouted="true">
+      <Path>
+        <Point X="14.25" Y="7.191" />
+        <Point X="14.25" Y="7.491" />
+        <Point X="9" Y="7.491" />
+        <Point X="9" Y="8.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ECRCEBIwAIAAEIIAAAIAwAAIBCFAAiAgIAgSQCAAAkA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\PathController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DestinationController" Collapsed="true">
+    <Position X="19" Y="8.25" Width="1.75" />
+    <InheritanceLine Type="UnityEngine.MonoBehaviour" ManuallyRouted="true">
+      <Path>
+        <Point X="14.25" Y="7.191" />
+        <Point X="14.25" Y="7.476" />
+        <Point X="19.875" Y="7.476" />
+        <Point X="19.875" Y="8.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAIAABAAAAAAAAAAABBBAQAQAIAgCQAAAAFA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\DestinationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityEngine.MonoBehaviour" Collapsed="true">
+    <Position X="13.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="IBaseController">
+    <Position X="15.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAACIIAAAAAAAAAAAAAIAABAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBaseEntityController">
+    <Position X="16" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseEntityController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBaseEntityView">
+    <Position X="10.5" Y="4.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseEntityView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBaseView">
+    <Position X="10.75" Y="2" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAQAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewControllers\Interfaces\IBaseView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

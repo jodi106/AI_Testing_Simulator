@@ -9,19 +9,33 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace ExportScenario.XMLBuilder
 {
+
+    /// <summary>
+    ///  Class to create Tiggers. Trigger allow to define start or stop conditions for Storys or Events.
+    /// </summary>
     internal class BuildTrigger
-    /// Class to create Tiggers. Trigger allow to define start or stop conditions for Storys or Events.
     {
         private XmlDocument root;
         private ScenarioInfo scenarioInfo;
+
+        /// <summary>
+        /// Constructor for the BuildTrigger class.
+        /// </summary>
+        /// <param name="root">XmlDocument instance representing the root element.</param>
+        /// <param name="scenarioInfo">ScenarioInfo instance containing scenario information.</param>
         public BuildTrigger(XmlDocument root, ScenarioInfo scenarioInfo)
         {
             this.root = root;
             this.scenarioInfo = scenarioInfo;
         }
 
+        /// <summary>
+        /// Combines Trigger xmlBlock - if required - with multiple conditions in a condition group.
+        /// </summary>
+        /// <param name="parentNode">Parent XmlNode where the trigger will be appended.</param>
+        /// <param name="start">True if creating a StartTrigger, false if creating a StopTrigger.</param>
+        /// <param name="TriggerList">List of TriggerInfo objects containing the trigger information.</param>
         public void CombineTrigger(XmlNode parentNode, bool start, List<TriggerInfo> TriggerList)
-        /// Combines Trigger xmlBlock - if required - with multiple condtitions in a condition group.
         {
             XmlNode trigger;
             if (start)
@@ -50,6 +64,11 @@ namespace ExportScenario.XMLBuilder
             trigger.AppendChild(conditionGroup);
         }
 
+        /// <summary>
+        /// Creates SimulationTimeCondition. Triggers after the simulation has run for a specified time.
+        /// </summary>
+        /// <param name="condition">XmlNode representing the condition element.</param>
+        /// <param name="triggerInfo">TriggerInfo object containing the trigger information.</param>
         public void SimulationTimeCondition(XmlNode condition, TriggerInfo triggerInfo)
         /// Creates SimulationTimeCondition. Triggers after simulation ran for specified time.
         {
@@ -61,8 +80,12 @@ namespace ExportScenario.XMLBuilder
             byValueCondition.AppendChild(simulationTimeCondition);
         }
 
+        /// <summary>
+        /// Creates DistanceCondition. Triggers when a specified entity has traveled a specified distance.
+        /// </summary>
+        /// <param name="condition">XmlNode representing the condition element.</param>
+        /// <param name="triggerInfo">TriggerInfo object containing the trigger information.</param>
         public void DistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
-        /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -93,9 +116,43 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
-        public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// <summary>
+        /// Create RelativeDistanceCondition. Like ReachPositionAction but also works at start of scenario.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param
+        public void RelativeDistanceCondition(XmlNode condition, TriggerInfo triggerInfo)
+        {
+            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
+            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
+            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
+            XmlNode entityRef = root.CreateElement("EntityRef");
+            SetAttribute("entityRef", triggerInfo.EntityRef, entityRef);
+
+            XmlNode entityCondition = root.CreateElement("EntityCondition");
+            XmlNode relativeDistanceCondition = root.CreateElement("RelativeDistanceCondition");
+            SetAttribute("entityRef", triggerInfo.EntitySelf, relativeDistanceCondition);
+            SetAttribute("relativeDistanceType", "cartesianDistance", relativeDistanceCondition);
+            SetAttribute("value", triggerInfo.Value.ToString(), relativeDistanceCondition);
+            SetAttribute("freespace", "false", relativeDistanceCondition);
+            SetAttribute("rule", "lessThan", relativeDistanceCondition);
+            //SetAttribute("tolerance", triggerInfo.Value.ToString(), reachPositionCondition); 
+
+            // hierarchy
+            condition.AppendChild(byEntityCondition);
+            byEntityCondition.AppendChild(triggeringEntities);
+            byEntityCondition.AppendChild(entityCondition);
+            triggeringEntities.AppendChild(entityRef);
+            entityCondition.AppendChild(relativeDistanceCondition);
+        }
+        
+        /// <summary>
         /// Create DistanceCondition. Triggers when specified entity traveled specified distance.
-        /// Same as DistanceCondition but simpler to read
+        /// Same as DistanceCondition but simpler to read.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param>
+        public void ReachPositionCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -125,8 +182,12 @@ namespace ExportScenario.XMLBuilder
             position.AppendChild(worldposition);
         }
 
-        public void StandStillCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// <summary>
         /// Create StandStillCondition. Triggers when specified entity does not move for a specific time.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param>
+        public void StandStillCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
             XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
@@ -146,8 +207,12 @@ namespace ExportScenario.XMLBuilder
             entityCondition.AppendChild(standStillCondition);
         }
 
-        public void StoryboardElementStateCondition(XmlNode condition, TriggerInfo triggerInfo)
+        /// <summary>
         /// Trigger that is true if another Action is completed. Useful to create follow up actions.
+        /// </summary>
+        /// <param name="condition">An XmlNode to store the condition</param>
+        /// <param name="triggerInfo">A TriggerInfo object containing the required information for creating the condition</param>
+        public void StoryboardElementStateCondition(XmlNode condition, TriggerInfo triggerInfo)
         {
             XmlNode byValueCondition = root.CreateElement("ByValueCondition");
             condition.AppendChild(byValueCondition);
@@ -158,6 +223,10 @@ namespace ExportScenario.XMLBuilder
             byValueCondition.AppendChild(storyboardElementStateCondition);
         }
 
+        /// <summary>
+        /// Creates a group of CriteriaConditions and appends it to the given stopTrigger XmlNode.
+        /// </summary>
+        /// <param name="stopTrigger">An XmlNode to which the created ConditionGroup will be appended</param>
         public void CriteriaConditions(XmlNode stopTrigger)
         {
             XmlNode conditionGroup = root.CreateElement("ConditionGroup");
@@ -173,6 +242,13 @@ namespace ExportScenario.XMLBuilder
             stopTrigger.AppendChild(conditionGroup);
         }
 
+        /// <summary>
+        /// Creates a CriteriaCondition XmlNode and appends it to the given conditionGroup XmlNode.
+        /// </summary>
+        /// <param name="conditionGroup">An XmlNode to which the created CriteriaCondition will be appended</param>
+        /// <param name="name">The name of the CriteriaCondition</param>
+        /// <param name="parameterRef">The parameter reference for the ParameterCondition XmlNode</param>
+        /// <param name="value">The value for the ParameterCondition XmlNode</param>
         private void CriteriaCondition(XmlNode conditionGroup, string name, string parameterRef, string value)
         {
             XmlNode condition = root.CreateElement("Condition");
@@ -191,176 +267,29 @@ namespace ExportScenario.XMLBuilder
         }
 
 
-        // AccelerationCondition(XmlNode conditionGroup, Waypoint waypoint)
-
-
-        // ---------------------------------------------------------------------------------------------------------------------
-        // ---------------------------------------------------------------------------------------------------------------------
-        // ---------------------------------------------------------------------------------------------------------------------
-        // ToDo create designated methods for all relevant triggers instead of only ByValueCondition and ByEntityCondition
-        // ---------------------------------------------------------------------------------------------------------------------
-        // ---------------------------------------------------------------------------------------------------------------------
-        // ---------------------------------------------------------------------------------------------------------------------
-
-        /*
-        public void ByValueCondition(XmlNode conditionGroup, string ValueCondition, string dict_args) // original: dict args
-
-        {
-            // TODO ScenarioInfo
-
-            string conditionEdge = "rising"; // possible string values: "rising" , "falling" , "none" , "risingOrFalling"
-            // doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/ConditionEdge.html
-
-            // SimulationTimeCondition
-            double simulationTimeValue = 1;
-            string simulationTimeRule = "greaterThan"; // "equalTo" , "greaterThan" , "lessThan" ,
-                                                       // (not sure if supported) "greaterOrEqual" , "lessOrEqual" , "notEqualTo"
-
-            // StoryBoardElementStateCondition
-            string storyboardElementRef = "STORY_BOARD_ELEMENT_NAME"; // story, act, maneuverGroup, maneuver, event, or action name
-            string storyboardElementType = "action"; // "story", "act", "maneuverGroup", "maneuver", "event", "action" 
-                                               // This variable must have the same type as the storyboardElementRef name is referring to.
-                                               // e.g. storyboardElementRef = "StartCar". This is of type action --> storyboardElementType = "action";
-            string storyboardState = "completeState"; // "completeState", "endTransition", "runningState", "skipTransition", 
-                                                      // "standbyState", "startTransition", "stopTransition"
-                                                      // Doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/StoryboardElementState.html
-
-            // -----------------------------------------------------------------------------------------
-
-            XmlNode condition = root.CreateElement("Condition");
-            SetAttribute("name", "condition", condition);
-            // conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted. -> does not need new name
-            SetAttribute("delay", "0", condition);
-            SetAttribute("conditionEdge", conditionEdge, condition);
-            XmlNode byValueCondition = root.CreateElement("ByValueCondition");
-
-            conditionGroup.AppendChild(condition);
-            condition.AppendChild(byValueCondition);
-
-            if (ValueCondition.Equals("SimulationTimeCondition"))
-            {
-                XmlNode simulationTimeCondition = root.CreateElement("SimulationTimeCondition");
-                SetAttribute("value", simulationTimeValue.ToString(), simulationTimeCondition);
-                SetAttribute("rule", simulationTimeRule, simulationTimeCondition);
-                byValueCondition.AppendChild(simulationTimeCondition);
-            } 
-            else if (ValueCondition.Equals("StoryboardElementStateCondition"))
-            {
-                XmlNode storyboardElementStateCondition = root.CreateElement("StoryboardElementStateCondition");
-                SetAttribute("storyboardElementRef", storyboardElementRef, storyboardElementStateCondition);
-                SetAttribute("storyboardElementType", storyboardElementType, storyboardElementStateCondition);
-                SetAttribute("state", storyboardState, storyboardElementStateCondition);
-                byValueCondition.AppendChild(storyboardElementStateCondition);
-            } else
-            {
-                Console.WriteLine("Naming error in value condition. This name is not supported.");
-            }
-        }
-
-         <Condition>
-           <ByEntityCondition>
-               <TriggeringEntities>
-                   <EntityRef entityRef="adversary0"/>
-               </TriggeringEntities>
-                   <EntityCondition>
-                       //Space for entity condition
-                   </EntityCondition>
-           </ByEntityCondition>
-         <Condition>
-
-        public void ByEntityCondition(XmlNode conditionGroup, string EntityCondition, List<string> allEntityRefs, string dict_args) // original: Dict args
-        {
-            // TODO ScenarioInfo
-
-            string conditionEdge = "rising"; // possible string values: "rising" , "falling" , "none" , "risingOrFalling"
-            // doc: https://www.asam.net/static_downloads/ASAM_OpenSCENARIO_V1.2.0_Model_Documentation/modelDocumentation/content/ConditionEdge.html
-
-            List<string> allEntityRefs_; // contains strings like "adversary0" , "adversary0" , "hero", ...
-
-            // ReachPositionCondition
-            double tolerance = 3.0;
-
-            //DistanceCondition
-            string rule = "greaterThan"; // "equalTo", "greaterThan", "lessThan", (not sure if supported) "greaterOrEqual", "lessOrEqual", "notEqualTo"
-            double value = 3.0; // The distance value. Unit: [m]. Range: [0..inf[.
-            string routingAlgorithm = "fastest"; // "undefined", "fastest" , "shortest" , ... (these 2 are the relevant options)
-
-            // -----------------------------------------------------------------------
-
-            XmlNode condition = root.CreateElement("Condition");
-            SetAttribute("name", "condition", condition);
-            //conditionNr++; // I assume every condition needs a unique name. If not, this conditionNr can be deleted.
-            SetAttribute("delay", "0", condition);
-            SetAttribute("conditionEdge", conditionEdge, condition);
-            XmlNode byEntityCondition = root.CreateElement("ByEntityCondition");
-            XmlNode triggeringEntities = root.CreateElement("TriggeringEntities");
-            SetAttribute("triggeringEntitiesRule", "any", triggeringEntities);
-            
-            foreach (string r in allEntityRefs)
-            {
-                XmlNode entityRef = root.CreateElement("EntityRef");
-                SetAttribute("entityRef", r, entityRef);
-                triggeringEntities.AppendChild(entityRef);
-            }
-
-            XmlNode entityCondition = root.CreateElement("EntityCondition");
-
-            conditionGroup.AppendChild(condition);
-            condition.AppendChild(byEntityCondition);
-            byEntityCondition.AppendChild(triggeringEntities);
-            byEntityCondition.AppendChild(entityCondition);
-
-            if (EntityCondition.Equals("DistanceCondition"))
-            {
-                //XmlNode distanceCondition = root.CreateElement("DistanceCondition");
-                //SetAttribute("freespace", "false", distanceCondition); // true is not implemented in carla
-                //SetAttribute("rule", rule, distanceCondition);
-                //SetAttribute("value", value.ToString(), distanceCondition);
-                //SetAttribute("routingAlgorithm", routingAlgorithm, distanceCondition);
-                //XmlNode position = root.CreateAttribute("Position");
-                //XmlNode worldposition = root.CreateElement("WorldPosition");
-                //SetAttribute("x", "300.0", worldposition);
-                //SetAttribute("y", "300.0", worldposition);
-                //SetAttribute("z", "0.3", worldposition);
-                //SetAttribute("h", "90", worldposition);
-                //entityCondition.AppendChild(distanceCondition);
-                //distanceCondition.AppendChild(position);
-                //position.AppendChild(worldposition);
-            }
-            else if (EntityCondition.Equals("ReachPositionCondition"))
-            {
-                XmlNode reachPositionCondition = root.CreateElement("ReachPositionCondition");
-                SetAttribute("tolerance", tolerance.ToString(), reachPositionCondition);
-                XmlNode position = root.CreateAttribute("Position");
-                XmlNode worldposition = root.CreateElement("WorldPosition");
-                SetAttribute("x", "300.0", worldposition);
-                SetAttribute("y", "300.0", worldposition);
-                SetAttribute("z", "0.3", worldposition);
-                SetAttribute("h", "90", worldposition);
-                entityCondition.AppendChild(reachPositionCondition);
-                reachPositionCondition.AppendChild(position);
-                position.AppendChild(worldposition);
-            }
-            else
-            {
-                Console.WriteLine("Naming error in Entity condition. This name is not supported.");
-            }
-        }
-        */
-
-        /// helper
+        /// <summary>
+        /// Creates and appends an XmlAttribute to the given XmlNode element.
+        /// </summary>
+        /// <param name="name">The name of the attribute</param>
+        /// <param name="value">The value of the attribute</param>
+        /// <param name="element">The XmlNode element to which the attribute will be appended</param>
         private void SetAttribute(string name, string value, XmlNode element)
         {
             XmlAttribute attribute = root.CreateAttribute(name);
             attribute.Value = value;
             element.Attributes.Append(attribute);
         }
-
     }
 }
 
 public static class Helper
 {
+
+    /// <summary>
+    /// Converts the first character of a string to lowercase, if it is an uppercase character.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <returns>A string with the first character in lowercase, if it was uppercase; otherwise, the original string</returns
     public static string? FirstCharToLowerCase(this string? str)
     {
         if (!string.IsNullOrEmpty(str) && char.IsUpper(str[0]))

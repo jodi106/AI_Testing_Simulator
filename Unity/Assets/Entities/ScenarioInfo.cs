@@ -9,8 +9,12 @@ namespace Entity
 {
     [Serializable]
     public class ScenarioInfo : ICloneable
-    /// <summary>Create ScenarioInfo Obejct. Contains all GUI-Userinputs</summary>
+    /// <summary>Create ScenarioInfo Object. Contains all GUI-Userinputs</summary>
     {
+
+        /// <summary>
+        /// Creates a new instance of ScenarioInfo class with default values.
+        /// </summary>
         public ScenarioInfo()
         {
             Path = null;
@@ -19,16 +23,6 @@ namespace Entity
             WorldOptions = new WorldOptions();
             EgoVehicle = null;
             Vehicles = new ObservableCollection<Adversary>();
-        }
-
-        public ScenarioInfo(string path, ObservableCollection<Adversary> pedestrians, string mapURL, WorldOptions worldOptions, Ego egoVehicle, ObservableCollection<Adversary> vehicles)
-        {
-            Path = path;
-            Pedestrians = pedestrians;
-            MapURL = mapURL;
-            WorldOptions = worldOptions;
-            EgoVehicle = egoVehicle;
-            Vehicles = vehicles;
         }
 
         /// <summary>
@@ -55,7 +49,7 @@ namespace Entity
             
             foreach (Adversary v in this.Vehicles)
             {
-                if (v.Category == VehicleCategory.Pedestrian)
+                if (v.Category == AdversaryCategory.Pedestrian)
                 {
                     //Didn't implement ICloneable interface, since Path can be reference to the Model Object. 
                     Adversary CopyPedestrian = (Adversary)v.Clone();
@@ -82,6 +76,9 @@ namespace Entity
             return info;
         }
 
+        /// </summary>
+        /// <param name="ego">The Ego object to set.</param>
+        /// <returns>void</returns>
         public void setEgo(Ego ego)
         {
             this.EgoVehicle = ego;

@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+
+///<summary>
+/// Defines the different heights of the different objects in the scene
+///</summary>
 public static class HeightUtil
 {
     public const float VEHICLE_SELECTED = -0.04f;
@@ -11,6 +15,10 @@ public static class HeightUtil
     public const float WAYPOINT_DESELECTED = -0.03f;
     public const float WAYPOINT_SELECTED = -0.05f;
 
+
+    /// <summary>
+    /// Sets the z component of the specified vector to the specified value.
+    /// </summary>
     public static Vector3 SetZ(Vector3 vector, float z)
     {
         vector.z = z;

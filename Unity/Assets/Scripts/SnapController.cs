@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// SnapController class handles loading and updating of road and waypoint data for the map.
+/// </summary>
 public class SnapController : MonoBehaviour
 {
     public GameObject circlePrefab;
@@ -14,14 +17,21 @@ public class SnapController : MonoBehaviour
 
     private Dictionary<Location, GameObject> waypointGameObjects;
 
-    private Dictionary<string, MapDimension> mapDimensions;
+    private static Dictionary<string, MapDimension> mapDimensions;
 
     private GameObject LastClickedWaypointGameObject;
 
+    private static String mapName = "";
+
+    // signals that an entity is currently selected so that waypoints can be placed on top of waypoints and paths of other entities
     public bool IgnoreClicks { get; set; }
 
+    /// <summary>
+    /// Start is called before the first frame update.
+    /// </summary>
     void Start()
     {
+
         IgnoreClicks = false;
 
         roads = new();
@@ -32,6 +42,8 @@ public class SnapController : MonoBehaviour
         {
             var action = new MapChangeAction(x);
 
+            mapName = action.Name;
+
             foreach (var (_, waypoint) in waypointGameObjects)
             {
                 Destroy(waypoint);
@@ -41,13 +53,17 @@ public class SnapController : MonoBehaviour
             roads.Clear();
             LastClickedWaypointGameObject = null;
 
-            if (action.name != "") LoadRoads(action.name);
+            if (action.Name != "") LoadRoads(action.Name);
         });
 
         var dimensions = Resources.Load<TextAsset>("waypoints/dimensions");
 
         mapDimensions = JsonConvert.DeserializeObject<Dictionary<string, MapDimension>>(dimensions.text);
     }
+
+    /// <summary>
+    /// Highlights the waypoint indicator nearest to the mouse position.
+    /// </summary>
     public void Update()
     {
         if (MainController.freeze) return;
@@ -74,12 +90,21 @@ public class SnapController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Parses a lane ID string and returns the corresponding road ID and lane ID as a tuple.
+    /// </summary>
+    /// <param name="laneIdString">The lane ID string to parse.</param>
+    /// <returns>Returns a tuple containing the road ID and lane ID.</returns>
     public (int, int) GetRoadIdAndLaneIdFromString(string laneIdString)
     {
         var laneIdSplit = laneIdString.Split("R")[1].Split("L");
         return (int.Parse(laneIdSplit[0]), int.Parse(laneIdSplit[1]));
     }
 
+    /// <summary>
+    /// Loads the road and waypoint data for a specified map.
+    /// </summary>
+    /// <param name="mapName">The name of the map to load road and waypoint data for.</param>
     void LoadRoads(string mapName)
     {
         roads = new Dictionary<int, Road>();
@@ -150,10 +175,9 @@ public class SnapController : MonoBehaviour
             foreach (var jsonWaypoint in jsonWaypoints)
             {
                 var position = new Vector3(
-                    ((jsonWaypoint.X - mapDimensions[mapName].minX) - ((-mapDimensions[mapName].minX + mapDimensions[mapName].maxX) / 2)) / 4,
-                    ((jsonWaypoint.Y - mapDimensions[mapName].minY) - ((-mapDimensions[mapName].minY + mapDimensions[mapName].maxY) / 2)) / 4 * (-1),
+                    ((jsonWaypoint.X - mapDimensions[mapName].MinX) - ((-mapDimensions[mapName].MinX + mapDimensions[mapName].MaxX) / 2)) / 4,
+                    ((jsonWaypoint.Y - mapDimensions[mapName].MinY) - ((-mapDimensions[mapName].MinY + mapDimensions[mapName].MaxY) / 2)) / 4 * (-1),
                     HeightUtil.WAYPOINT_INDICATOR);
-
                 var waypointGameObject = Instantiate(
                     circlePrefab,
                     position,
@@ -173,19 +197,26 @@ public class SnapController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Finds the nearest waypoint to a given mouse position.
+    /// </summary>
+    /// <param name="mousePosition">The Vector2 representing the mouse position.</param>
+    /// <returns>Returns a Location object of the nearest waypoint.</returns>
     public Location FindWaypoint(Vector2 mousePosition)
     {
         (_, var waypoint) = FindLaneAndWaypoint(mousePosition);
         return waypoint?.Location;
     }
 
-    /*
-     * waypoints in Carla Coordinates
-     * pos in World Coordinates (Pixel Coordinates / 100)
-     * 
-    */
+
+    /// <summary>
+    /// Finds the closest Lane and AStarWaypoint to the given mouse position.
+    /// </summary>
+    /// <param name="mousePosition">A Vector2 representing the position of the mouse cursor.</param>
+    /// <returns>A tuple containing the closest Lane and AStarWaypoint to the given mouse position.</returns
     public (Lane, AStarWaypoint) FindLaneAndWaypoint(Vector2 mousePosition)
     {
+        //waypoints in Carla Coordinates, pos in World Coordinates (Pixel Coordinates / 100)
         AStarWaypoint closestWaypoint = null;
         Lane laneToReturn = null;
 
@@ -214,12 +245,24 @@ public class SnapController : MonoBehaviour
         return (laneToReturn, closestWaypoint);
     }
 
+
+    /// <summary>
+    /// Computes the fast Euclidean distance between two Vector2 points.
+    /// </summary>
+    /// <param name="a">A Vector2 representing the first point.</param>
+    /// <param name="b">A Vector2 representing the second point.</param>
+    /// <returns>A double representing the fast Euclidean distance between the two points.</returns>
     public static double FastEuclideanDistance(Vector2 a, Vector2 b)
     {
         return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
     }
 
-    public (Lane, Lane) getNeighboringLanes(Lane l)
+    /// <summary>
+    /// Returns the neighboring lanes of a given Lane.
+    /// </summary>
+    /// <param name="l">A Lane object.</param>
+    /// <returns>A tuple containing the previous and next lanes of the given Lane.</returns>
+    public (Lane, Lane) GetNeighboringLanes(Lane l)
     {
         var r = roads[l.RoadId];
 
@@ -232,7 +275,15 @@ public class SnapController : MonoBehaviour
 
     }
 
-    public bool checkLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
+    /// <summary>
+    /// Checks if a lane change is possible between the start and end lanes and waypoints.
+    /// </summary>
+    /// <param name="startLane">The starting Lane.</param>
+    /// <param name="endLane">The ending Lane.</param>
+    /// <param name="startWaypoint">The starting AStarWaypoint.</param>
+    /// <param name="endWaypoint">The ending AStarWaypoint.</param>
+    /// <returns>True if a lane change is possible, false otherwise.</returns
+    public bool CheckLaneChange(Lane startLane, Lane endLane, AStarWaypoint startWaypoint, AStarWaypoint endWaypoint)
     {
         if ((startLane.RoadId == endLane.RoadId && endWaypoint.IndexInLane <= startWaypoint.IndexInLane)
             || endLane.Id * startLane.Id < 0 || FastEuclideanDistance(startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3()) > 15)
@@ -240,7 +291,7 @@ public class SnapController : MonoBehaviour
             return false;
         }
 
-        (var left, var right) = getNeighboringLanes(startLane);
+        (var left, var right) = GetNeighboringLanes(startLane);
 
         List<Lane> lanes = new List<Lane>();
         if (left is not null)
@@ -271,7 +322,14 @@ public class SnapController : MonoBehaviour
         return false;
     }
 
-    // return a tuple containing a list of waypoints and indices of lanechanges
+
+    /// <summary>
+    /// Finds a path between the start and end positions, considering lane changes and optional waypoint ignoring.
+    /// </summary>
+    /// <param name="start">A Vector2 representing the starting position.</param>
+    /// <param name="end">A Vector2 representing the ending position.</param>
+    /// <param name="ignoreWaypoints">A boolean indicating whether to ignore waypoints and return a direct path.</param>
+    /// <returns>A tuple containing a list of Vector2 waypoints and a list of integer indices representing lane changes in the path.</returns>
     public (List<Vector2>, List<int>) FindPath(Vector2 start, Vector2 end, bool ignoreWaypoints)
     {
         if (ignoreWaypoints)
@@ -287,7 +345,7 @@ public class SnapController : MonoBehaviour
             throw new Exception("Invalid start or end coordinates");
         }
 
-        if (checkLaneChange(startLane, endLane, startWaypoint, endWaypoint))
+        if (CheckLaneChange(startLane, endLane, startWaypoint, endWaypoint))
         {
             return (new List<Vector2>() { startWaypoint.Location.Vector3Ser.ToVector3(), endWaypoint.Location.Vector3Ser.ToVector3() },
                 new List<int>() { 0 });
@@ -364,7 +422,7 @@ public class SnapController : MonoBehaviour
 
                     cameFrom[nextLane.Waypoints[0]] = currentWaypoint;
                     laneChanges.Add(nextLane.Waypoints[0]);
-                    if(!currentLane.PhysicalNextRoadAndLaneIds.Contains((nextRoadId, nextLaneId)))
+                    if (!currentLane.PhysicalNextRoadAndLaneIds.Contains((nextRoadId, nextLaneId)))
                     {
                         physicalLaneChanges.Add(nextLane.Waypoints[0]);
                     }
@@ -411,44 +469,39 @@ public class SnapController : MonoBehaviour
 
         return (waypointPath, laneChangeIndices);
     }
-    public static (float x, float y) CarlaToUnity(float x, float y)
-    {
 
-        //Convert to Mouse Coordinates
-        x = (x - -114.59522247314453f) / 4;
-        y = (y - -68.72904205322266f) / 4 * (-1);
-
-
-        //Handle Offset, so that 0,0 is in the middle
-        x = x + -28.077075f;
-        y = y + 26.24f;
-
-        return (x, y);
-    }
-
-
-    //Only for Town06 later do as extension method for Vector3Ser or Location
+    /// <summary>
+    /// Converts Unity coordinates to Carla coordinates.
+    /// </summary>
+    /// <param name="x">A float representing the X coordinate in Unity.</param>
+    /// <param name="y">A float representing the Y coordinate in Unity.</param>
+    /// <returns>A tuple containing the X and Y coordinates in Carla.</returns>
     public static (float x, float y) UnityToCarla(float x, float y)
     {
+        //Only for Town06 later do as extension method for Vector3Ser or Location
+        x = 0.5f * (8f * x + mapDimensions[mapName].MinX + mapDimensions[mapName].MaxX);
+        y = 0.5f * (-8f * y + mapDimensions[mapName].MinY + mapDimensions[mapName].MaxY);
 
-        x = x + 28.077075f;
-        y = y + -26.24f;
-
-        x = x * 4;
-        y = y * 4 * (-1);
-
-
-        x = (x + -114.59522247314453f);
-        y = (y + -68.72904205322266f);
 
         return (x, y);
     }
 
+    /// <summary>
+    /// Converts a Unity rotation value to radians.
+    /// </summary>
+    /// <param name="rotation">A float representing the rotation value in Unity.</param>
+    /// <returns>A float representing the rotation value in radians.</returns>
     public static float UnityRotToRadians(float rotation)
     {
         return (float)(Math.PI / 180 * -rotation);
     }
 
+    /// <summary>
+    /// Calculates the target lane value for Carla, given start and end lanes. (NOT IMPLEMENTD)
+    /// </summary>
+    /// <param name="startLane">The starting Lane object.</param>
+    /// <param name="endLane">The ending Lane object.</param>
+    /// <returns>An integer representing the target lane value for Carla.</returns>
     public static int CalculateTargetLaneValueCarla(Lane startLane, Lane endLane)
     {
         // later for code refactoring
@@ -457,6 +510,9 @@ public class SnapController : MonoBehaviour
 
 }
 
+/// <summary>
+/// A struct representing a JSON waypoint with X, Y coordinates, and rotation.
+/// </summary>
 public struct JsonWaypoint
 {
     public float X { get; set; }
@@ -464,10 +520,41 @@ public struct JsonWaypoint
     public float Rot { get; set; }
 }
 
+/// <summary>
+/// A struct representing the dimensions of a map.
+/// </summary>
 public struct MapDimension
 {
-    public float maxX { get; set; }
-    public float maxY { get; set; }
-    public float minX { get; set; }
-    public float minY { get; set; }
+    public float MaxX { get; set; }
+    public float MaxY { get; set; }
+    public float MinX { get; set; }
+    public float MinY { get; set; }
+}
+
+/// <summary>
+/// Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest path between 2 points
+/// </summary>
+public class AStarWaypoint
+{
+    /// <summary>
+    /// Constructor for AStarWaypoint class with indexInLane, laneId, location, actionTypeInfo, triggerList and priority parameters
+    /// </summary>
+    /// <param name="indexInLane">Index in Lane of the waypoint</param>
+    /// <param name="laneId">ID of the Lane of the waypoint</param>
+    /// <param name="location">Location of the waypoint</param>
+    /// <param name="actionTypeInfo">ActionType of the waypoint</param>
+    /// <param name="triggerList">List of TriggerInfo objects for the waypoint</param>
+    /// <param name="priority">Priority of the waypoint. Default value is "overwrite"</param>
+    public AStarWaypoint(int indexInLane, int laneId, Location location)
+    {
+        IndexInLane = indexInLane;
+        LaneId = laneId;
+        Location = location;
+    }
+
+    public int IndexInLane { get; set; }
+
+    public int LaneId { get; set; }
+
+    public Location Location { get; set; }
 }

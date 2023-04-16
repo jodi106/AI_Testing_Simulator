@@ -2,6 +2,10 @@
 
 namespace Assets.Enums
 {
+
+    /// <summary>
+    /// The "CloudState" enum represents the different states of the clouds and sky in CARLA
+    /// </summary>
     public enum CloudState
     {
         [Description("Cloudy")]

@@ -7,8 +7,11 @@ using Entity;
 
 namespace ExportScenario.XMLBuilder
 {
+
+    /// <summary>
+    /// Class to init Carla World Environment and Entities
+    /// </summary>
     internal class BuildInit
-    /// <summary>Class to init Carla World Environment and Entities</summary>
     {
         private ScenarioInfo scenarioInfo;
         private XmlDocument root;
@@ -17,8 +20,13 @@ namespace ExportScenario.XMLBuilder
         private XmlNode init;
         private XmlNode actions;
 
+        /// <summary>
+        /// Initializes a new instance of the BuildInit class to set up the Carla World Environment and Entities.
+        /// </summary>
+        /// <param name="scenarioInfo">The ScenarioInfo containing the necessary attributes for initializing the entities.</param>
+        /// <param name="root">The XmlDocument for creating the XML structure.</param>
+        /// <param name="storyBoard">The XmlNode for the StoryBoard element.</param>
         public BuildInit(ScenarioInfo scenarioInfo, XmlDocument root, XmlNode storyBoard)
-        /// Constructor
         {
 
             this.scenarioInfo = scenarioInfo;
@@ -32,8 +40,10 @@ namespace ExportScenario.XMLBuilder
 
         }
 
+        /// <summary>
+        /// Combines GlobalAction and Private XML blocks for the initialization of the scenario.
+        /// </summary>
         public void CombineInit()
-        /// Combines GlobalAction and Private xml blocks .
         {
             BuildGlobalAction(scenarioInfo.WorldOptions);
 
@@ -46,19 +56,24 @@ namespace ExportScenario.XMLBuilder
             for (int n = 0; n < scenarioInfo.Vehicles.Count; n++)
             {
                 double initialSpeedMS = scenarioInfo.Vehicles[n].InitialSpeedKMH / 3.6;
-                if (scenarioInfo.Vehicles[n].StartRouteInfo != null) initialSpeedMS = 0;
+                if (scenarioInfo.Vehicles[n].StartPathInfo != null) initialSpeedMS = 0;
                 BuildPrivate(scenarioInfo.Vehicles[n], scenarioInfo.Vehicles[n].getCarlaLocation(), initialSpeedMS);
             }
 
             // Spawn pedestrians at requested coordinates and speed
             for (int n = 0; n < scenarioInfo.Pedestrians.Count; n++)
             {
-                BuildPrivate(scenarioInfo.Pedestrians[n], scenarioInfo.Pedestrians[n].getCarlaLocation(), scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6);
+                double initialSpeedMS = scenarioInfo.Pedestrians[n].InitialSpeedKMH / 3.6;
+                if (scenarioInfo.Pedestrians[n].StartPathInfo != null) initialSpeedMS = 0;
+                BuildPrivate(scenarioInfo.Pedestrians[n], scenarioInfo.Pedestrians[n].getCarlaLocation(), initialSpeedMS);
             }
         }
 
+        /// <summary>
+        /// Creates a GlobalAction EnvironmentAction XML block (only EnvironmentAction implemented).
+        /// </summary>
+        /// <param name="worldOptions">The WorldOptions object containing the necessary attributes for setting the environment actions.</param>
         public void BuildGlobalAction(WorldOptions worldOptions)
-        /// Creates GlobalAction EnvironmentAction xml block (only EnvironmentAction implemented).
         {
             XmlNode global_action = root.CreateElement("GlobalAction");
             BuildAction buildPublicAction = new BuildAction(root, "BuildPublic");
@@ -67,9 +82,15 @@ namespace ExportScenario.XMLBuilder
             actions.AppendChild(global_action);
 
         }
-
+        
+        /// <summary>
+        /// Builds a Private XML block for a given entity, specifying its spawn position and speed.
+        /// </summary>
+        /// <param name="entity">The BaseEntity for which the Private XML block will be created.</param>
+        /// <param name="spawnPoint">The Location object representing the spawn point of the entity.</param>
+        /// <param name="initialSpeed">The initial speed of the entity in m/s.</param>
+        /// <param name="isEgoVehicle">A flag to indicate if the entity is the ego vehicle. Default is false.</param>
         public void BuildPrivate(BaseEntity entity, Location spawnPoint, double initialSpeed, bool isEgoVehicle = false)
-        /// Builds Private xml block. Specifies Spawnpostition and speed for scenario entities.
         {
             string entityRef = entity.Id;
             XmlNode _private = root.CreateElement("Private");
@@ -97,7 +118,12 @@ namespace ExportScenario.XMLBuilder
             _private.AppendChild(private_action2);
         }
 
-        /// helper
+        /// <summary>
+        /// Helper method to set an attribute for an XmlNode.
+        /// </summary>
+        /// <param name="name">The name of the attribute.</param>
+        /// <param name="value">The value of the attribute.</param>
+        /// <param name="element">The XmlNode for which the attribute will be set.</param>        
         private void SetAttribute(string name, string value, XmlNode element)
         {
             XmlAttribute attribute = root.CreateAttribute(name);

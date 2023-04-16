@@ -4,12 +4,24 @@ using System.Collections.Generic;
 
 namespace Assets.Repos
 {
+    /// <summary>
+    /// Repository for vehicle models used by adversaries.
+    /// </summary>
     public class VehicleModelRepository
     {
-        private readonly static Dictionary<VehicleCategory, List<EntityModel>> _EntityModels = new Dictionary<VehicleCategory, List<EntityModel>>();
+
+        /// <summary>
+        /// Dictionary that maps AdversaryCategories to lists of EntityModels.
+        /// </summary>
+        private readonly static Dictionary<AdversaryCategory, List<EntityModel>> _EntityModels = new Dictionary<AdversaryCategory, List<EntityModel>>();
+
+
+        /// <summary>
+        /// Initializes _EntityModels with predefined values.
+        /// </summary>
         static VehicleModelRepository()
         {
-            _EntityModels.Add(VehicleCategory.Car, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Car, new List<EntityModel>
             {
                 new EntityModel("Ambulance", "vehicle.ford.ambulance"),
                 new EntityModel("Audi TT","vehicle.audi.tt"),
@@ -32,14 +44,14 @@ namespace Assets.Repos
                 new EntityModel("Volkswagen T2", "vehicle.volkswagen.t2_2021"),
             });
 
-            _EntityModels.Add(VehicleCategory.Bike, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Bike, new List<EntityModel>
             {
                 new EntityModel("Leisure Bike", "vehicle.gazelle.omafiets"),
                 new EntityModel("Road Bike", "vehicle.diamondback.century"),
                 new EntityModel("Cross Bike", "vehicle.bh.crossbike"),
             });
 
-            _EntityModels.Add(VehicleCategory.Motorcycle, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Motorcycle, new List<EntityModel>
             {
                 new EntityModel("Kawasaki Ninja", "vehicle.kawasaki.ninja"),
                 new EntityModel("Harley", "vehicle.harley-davidson.low_rider"),
@@ -47,7 +59,7 @@ namespace Assets.Repos
                 new EntityModel("Vespa", "vehicle.vespa.zx125"),
             });
 
-            _EntityModels.Add(VehicleCategory.Pedestrian, new List<EntityModel>
+            _EntityModels.Add(AdversaryCategory.Pedestrian, new List<EntityModel>
             {
                 new EntityModel("Female", "walker.pedestrian.0001"),
                 new EntityModel("Male", "walker.pedestrian.0002"),
@@ -57,43 +69,69 @@ namespace Assets.Repos
 
         }
 
-
-        public static List<EntityModel> GetModelsBasedOnCategory(VehicleCategory category)
+        /// <summary>
+        /// Retrieves a list of EntityModels based on the provided AdversaryCategory.
+        /// </summary>
+        /// <param name="category">The AdversaryCategory to retrieve EntityModels for.</param>
+        /// <returns>A list of EntityModels associated with the provided AdversaryCategory.</returns>
+        public static List<EntityModel> GetModelsBasedOnCategory(AdversaryCategory category)
         {
             return _EntityModels[category];
         }
 
-        public static EntityModel getDefaultModel(VehicleCategory cat)
+        /// <summary>
+        /// Retrieves the default EntityModel based on the provided AdversaryCategory.
+        /// </summary>
+        /// <param name="cat">The AdversaryCategory to retrieve the default EntityModel for.</param>
+        /// <returns>The default EntityModel associated with the provided AdversaryCategory.</returns>
+        public static EntityModel getDefaultModel(AdversaryCategory cat)
         {
-            switch(cat)
+            switch (cat)
             {
-                case VehicleCategory.Car:
+                case AdversaryCategory.Car:
                     return getDefaultCarModel();
-                case VehicleCategory.Bike:
+                case AdversaryCategory.Bike:
                     return getDefaultBikeModel();
-                case VehicleCategory.Motorcycle:
+                case AdversaryCategory.Motorcycle:
                     return getDefaultMotorcycleModel();
-                case VehicleCategory.Pedestrian:
+                case AdversaryCategory.Pedestrian:
                     return _EntityModels[cat][0];
             }
             return null;
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel for a car.
+        /// </summary>
+        /// <returns>The default EntityModel for a car.</returns>
         public static EntityModel getDefaultCarModel()
         {
-            return _EntityModels[VehicleCategory.Car][1]; // Audi TT
+            return _EntityModels[AdversaryCategory.Car][1]; // Audi TT
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel for a bike.
+        /// </summary>
+        /// <returns>The default EntityModel for a bike.</returns>
         public static EntityModel getDefaultBikeModel()
         {
-            return _EntityModels[VehicleCategory.Bike][0];
+            return _EntityModels[AdversaryCategory.Bike][0];
         }
 
+        /// <summary>
+        /// Retrieves the default EntityModel for a motorcycle.
+        /// </summary>
+        /// <returns>The default EntityModel for a motorcycle.</returns>
         public static EntityModel getDefaultMotorcycleModel()
         {
-            return _EntityModels[VehicleCategory.Motorcycle][0];
+            return _EntityModels[AdversaryCategory.Motorcycle][0];
         }
 
+        /// <summary>
+        /// Finds the EntityModel that matches the provided description.
+        /// </summary>
+        /// <param name="description">The description to match against EntityModel DisplayNames.</param>
+        /// <returns>The EntityModel that matches the provided description, or null if no match is found.</returns> s
         public static EntityModel findModel(string description)
         {
             EntityModel model = null;
@@ -103,7 +141,7 @@ namespace Assets.Repos
                 {
                     return x.DisplayName == description;
                 });
-                if(model is not null)
+                if (model is not null)
                 {
                     return model;
                 }

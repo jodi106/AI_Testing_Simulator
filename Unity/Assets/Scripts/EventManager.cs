@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class manages the event system and allows for listening, stopping listening, and triggering events.
+/// </summary>
 public class EventManager : MonoBehaviour
 {
 
@@ -12,7 +15,10 @@ public class EventManager : MonoBehaviour
 
     private static EventManager eventManager;
 
-    public static EventManager instance
+    /// <summary>
+    /// Singleton instance of EventManager.
+    /// </summary>
+    public static EventManager Instance
     {
         get
         {
@@ -34,6 +40,9 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initializes the EventManager with an empty event dictionary.
+    /// </summary>
     void Init()
     {
         if (eventDictionary == null)
@@ -42,10 +51,15 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Registers a listener for an event of the specified type.
+    /// </summary>
+    /// <param name="type">The type of the event to listen for.</param>
+    /// <param name="listener">The listener to register.</param>
     public static void StartListening(System.Type type, UnityAction<Dictionary<string, object>> listener)
     {
         UnityEvent<Dictionary<string, object>> thisEvent = null;
-        if (instance.eventDictionary.TryGetValue(type, out thisEvent))
+        if (Instance.eventDictionary.TryGetValue(type, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
@@ -53,26 +67,35 @@ public class EventManager : MonoBehaviour
         {
             thisEvent = new UnityEvent<Dictionary<string, object>>();
             thisEvent.AddListener(listener);
-            instance.eventDictionary.Add(type, thisEvent);
+            Instance.eventDictionary.Add(type, thisEvent);
         }
     }
 
+    /// <summary>
+    /// Unregisters a listener for an event of the specified type.
+    /// </summary>
+    /// <param name="type">The type of the event to stop listening for.</param>
+    /// <param name="listener">The listener to unregister.</param>
     public static void StopListening(System.Type type, UnityAction<Dictionary<string, object>> listener)
     {
         if (eventManager == null) return;
         UnityEvent<Dictionary<string, object>> thisEvent = null;
-        if (instance.eventDictionary.TryGetValue(type, out thisEvent))
+        if (Instance.eventDictionary.TryGetValue(type, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
         }
     }
 
+    /// <summary>
+    /// Triggers an event of the specified action.
+    /// </summary>
+    /// <param name="action">The action to trigger the event for.</param>
     public static void TriggerEvent(IAction action)
     {
         UnityEvent<Dictionary<string, object>> thisEvent = null;
-        if (instance.eventDictionary.TryGetValue(action.GetType(), out thisEvent))
+        if (Instance.eventDictionary.TryGetValue(action.GetType(), out thisEvent))
         {
-            thisEvent.Invoke(action.toDict());
+            thisEvent.Invoke(action.ToDict());
         }
     }
 }

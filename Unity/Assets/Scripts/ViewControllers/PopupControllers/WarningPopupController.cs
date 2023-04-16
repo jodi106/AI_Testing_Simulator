@@ -1,12 +1,10 @@
-﻿using Assets.Enums;
-using Entity;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
-using Assets.Repos;
-using System.Text.RegularExpressions;
 
+
+///<summary>
+///Represents a Warning Popup
+///</summary>
 public class WarningPopupController : MonoBehaviour
 {
     //private GameObject FreezeCanvas;
@@ -16,6 +14,10 @@ public class WarningPopupController : MonoBehaviour
     private Label Description;
     private Button ExitButton;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded. 
+    /// This method initializes the UI elements and sets their default values.
+    /// </summary>
     public void Awake()
     {
         this.document = gameObject.GetComponent<UIDocument>();
@@ -31,7 +33,12 @@ public class WarningPopupController : MonoBehaviour
         });
     }
 
-    public void open(string title, string description)
+    /// <summary>
+    /// Opens the UI element and sets the title and description text.
+    /// </summary>
+    /// <param name="title">The title text to set.</param>
+    /// <param name="description">The description text to set.</param>
+    public void Open(string title, string description)
     {
         MainController.freeze = true;
 
@@ -40,5 +47,4 @@ public class WarningPopupController : MonoBehaviour
 
         this.document.rootVisualElement.style.display = DisplayStyle.Flex;
     }
-
 }

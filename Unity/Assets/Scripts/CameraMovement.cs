@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// This class handles the camera movement, zoom, and map boundaries in a Unity scene.
+/// </summary>
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
@@ -20,33 +24,76 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float mapMinX, mapMaxX, mapMinY, mapMaxY;
 
-    //Function Awake is called at Run
+    /// <summary>
+    /// Called at runtime when the script instance is being loaded.
+    /// Initializes the map renderer, event listeners, and calculates map edges.
+    /// </summary>
     public void Awake()
     {
         mapRenderer = GameObject.Find("Map").GetComponent<SpriteRenderer>();
 
+        EventManager.StartListening(typeof(MapPanAction), x =>
+        {
+            var action = new MapPanAction(x);
+            PanCamera(action.Origin);
+        });
+
+        EventManager.StartListening(typeof(MapChangeAction), x =>
+        {
+            var action = new MapChangeAction(x);
+
+            if (action.Name != "")
+            {
+                /// Switch Welcome Menu Off
+                /// Switch Welcome Background Off
+                WelcomeCanvas.SetActive(false);
+                WelcomeBackground.SetActive(false);
+
+                mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + action.Name);
+
+                var map = GameObject.Find("Map");
+                //Reset collider
+                Destroy(map.GetComponent<BoxCollider2D>());
+                map.AddComponent<BoxCollider2D>();
+                //Recalculate Screen Edges
+                RecalulateEdges();
+            }
+            else
+            {
+                ///Set Welcome Menu On
+                ///Set welcome Background On
+                WelcomeCanvas.SetActive(true);
+                WelcomeBackground.SetActive(true);
+
+                //Set the new image as the new Map
+                mapRenderer.sprite = null;
+            }
+
+            cam.orthographicSize = 10;
+            cam.transform.position = ClampCamera(new Vector3(0, 0, -10));
+        });
+
+        RecalulateEdges();
+    }
+
+
+    /// <summary>
+    /// Recalculates the edges of the map.
+    /// </summary>
+    void RecalulateEdges()
+    {
         //Calculating the Edges for the Map(Background)
         mapMinX = mapRenderer.transform.position.x - mapRenderer.bounds.size.x / 2f;
         mapMaxX = mapRenderer.transform.position.x + mapRenderer.bounds.size.x / 2f;
 
         mapMinY = mapRenderer.transform.position.y - mapRenderer.bounds.size.y / 2f;
         mapMaxY = mapRenderer.transform.position.y + mapRenderer.bounds.size.y / 2f;
-
-        EventManager.StartListening(typeof(MapPanAction), x =>
-        {
-            var action = new MapPanAction(x);
-            PanCamera(action.origin);
-        });
-
-        EventManager.StartListening(typeof(MapChangeAction), x =>
-        {
-            cam.orthographicSize = 10;
-            cam.transform.position = ClampCamera(new Vector3(0, 0, -10));
-        });
-
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame.
+    /// Handles camera zooming and checks if the pointer is over a UI element.
+    /// </summary>
     void Update()
     {
 
@@ -59,9 +106,36 @@ public class CameraMovement : MonoBehaviour
             cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
             if (cam.orthographicSize > maxCamSize) cam.orthographicSize = maxCamSize;
             if (cam.orthographicSize < minCamSize) cam.orthographicSize = minCamSize;
+
+            var dir = Vector2.zero;
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+            {
+                dir = Vector2.up;
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                dir = Vector2.left;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                dir = Vector2.right;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                dir = Vector2.down;
+            }
+            if (dir != Vector2.zero)
+            {
+                dir = dir * 0.5f;
+                cam.transform.position = ClampCamera(cam.transform.position + new Vector3(dir.x, dir.y, 0));
+            }
         }
     }
 
+    /// <summary>
+    /// Pans the camera to the specified origin.
+    /// </summary>
+    /// <param name="origin">The target origin to pan the camera to.</param>
     private void PanCamera(Vector3 origin)
     {
         //Set the actual camera to new position using ClampCameraFunction
@@ -69,6 +143,11 @@ public class CameraMovement : MonoBehaviour
         cam.transform.position = ClampCamera(cam.transform.position + diff);
     }
 
+    /// <summary>
+    /// Clamps the camera position to the map boundaries.
+    /// </summary>
+    /// <param name="targetPosition">The target position to move the camera to.</param>
+    /// <returns>The clamped camera position.</returns>
     private Vector3 ClampCamera(Vector3 targetPosition)
     {
         //Moves the actual camera to target position
@@ -95,36 +174,22 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private GameObject WelcomeBackground;
 
-    public void Home()
+    /// <summary>
+    /// Handles the "Home" button click event.
+    /// </summary>
+    public async void Home()
     {
-
-        ///Set Welcome Menu On
-        ///Set welcome Background On
-        WelcomeCanvas.SetActive(true);
-        WelcomeBackground.SetActive(true);
-
-        //Set the new image as the new Map
-        mapRenderer.sprite = null;
         EventManager.TriggerEvent(new MapChangeAction(""));
     }
 
+    /// <summary>
+    /// Handles the "View Map" button click event on the home screen.
+    /// Referenced in Unity Editor.
+    /// </summary>
+    /// <param name="number">The map number to be displayed.</param>
     public void ViewMap(int number)
     {
-        /// Switch Welcome Menu Off 
-        /// Switch Welcome Background Off
-        WelcomeCanvas.SetActive(false);
-        WelcomeBackground.SetActive(false);
-
         var mapName = "Town" + (number == 10 ? "10HD" : ("0" + number));
-
-        mapRenderer.sprite = Resources.Load<Sprite>("backgrounds/" + mapName);
-
-        var map = GameObject.Find("Map");
-        //Reset collider
-        Destroy(map.GetComponent<BoxCollider2D>());
-        map.AddComponent<BoxCollider2D>();
-        //Recalculate Screen Edges
-        Awake();
         EventManager.TriggerEvent(new MapChangeAction(mapName));
     }
 }

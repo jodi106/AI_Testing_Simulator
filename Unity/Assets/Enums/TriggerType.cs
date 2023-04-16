@@ -2,6 +2,9 @@
 
 namespace Assets.Enums
 {
+
+    ///<summary>
+    ///Defines the type of a trigger that is used to trigger an event
     public enum TriggerType
     {
         [Description("SimulationTimeCondition")]
@@ -10,5 +13,7 @@ namespace Assets.Enums
         DistanceCondition,
         [Description("ReachPositionCondition")]
         ReachPositionCondition,
+        [Description("RelativeDistanceCondition")]
+        RelativeDistanceCondition,
     }
 }

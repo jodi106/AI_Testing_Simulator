@@ -2,13 +2,21 @@ using Entity;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// A controller class for updating vehicle list entries in the UI.
+/// </summary>
 public class VehicleListEntryController
 {
     Label label;
     Label category;
     Label model;
     VisualElement container;
+    public BaseEntity Entity { get; protected set; }
 
+    /// <summary>
+    /// Sets the UI elements that the controller will update.
+    /// </summary>
+    /// <param name="visualElement">The VisualElement containing the label, category, model, and container elements.</param>
     public void SetVisualElement(VisualElement visualElement)
     {
         label = visualElement.Q<Label>("label");
@@ -17,11 +25,15 @@ public class VehicleListEntryController
         container = visualElement.Q<VisualElement>("box");
     }
 
-    public void setEventData(BaseEntity entity)
+    /// <summary>
+    /// Updates the UI elements with data from the given BaseEntity.
+    /// </summary>
+    /// <param name="entity">The BaseEntity containing the data to display.</param>
+    public void SetEventData(BaseEntity entity)
     {
+        this.Entity = entity;
         label.text = entity.Id.ToString();
         container.style.backgroundColor = entity.Color.ToUnityColor();
-        //TODO: maybe use common subclass for ego and vehicle
         if (entity is Adversary v)
         {
             category.text = v.Category.ToString();

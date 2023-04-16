@@ -3,176 +3,261 @@ using Assets.Repos;
 using Entity;
 using UnityEngine;
 
+
+/// <summary>
+/// Controller for an Adversary.
+/// </summary>
 public class AdversaryViewController : VehicleViewController
 {
     public GameObject pathPrefab;
-    private Adversary vehicle;
+    private Adversary adversary;
     private PathController pathController;
-    private AdversarySettingsPopupController vehicleSettingsController;
+    private AdversarySettingsPopupController adversarySettingsController;
     private static readonly double INITIAL_SPEED = 30;
+    private static readonly double INITIAL_SPEED_PEDESTRIAN = 5;
 
-    public PathController getPathController()
+    public override void Awake()
     {
-        return this.pathController;
+        base.Awake();
+        adversarySettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
+        adversarySettingsController.gameObject.SetActive(true);
     }
 
-    // act as constructor -- check for alternatives to set initial state
-    // create vehicle here and register it after is is placed
-    public override void init(VehicleCategory cat, Color color)
+    /// <summary>
+    /// Initializes the Adversary entity with the specified category and color.
+    /// </summary>
+    /// <param name="cat">The category of the Adversary entity</param>
+    /// <param name="color">The color of the Adversary entity</param>
+    public override void Init(AdversaryCategory cat, Color color)
     {
         var vehiclePosition = new Location(transform.position.x, transform.position.y, 0, 0);
         var path = new Path();
-        vehicle = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path);
-        vehicle.setView(this);
-        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        vehicleSettingsController.gameObject.SetActive(true);
-        vehicle.setCategory(cat);
-        vehicle.setModel(VehicleModelRepository.getDefaultModel(cat));
-        vehicle.setColor(color);
+        if (cat == AdversaryCategory.Pedestrian)
+        {
+            adversary = new Adversary(vehiclePosition, INITIAL_SPEED_PEDESTRIAN, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
+        }
+        else
+        {
+            adversary = new Adversary(vehiclePosition, INITIAL_SPEED, cat, VehicleModelRepository.getDefaultModel(cat), path, color);
+        }
+        adversary.setView(this);
+        OnChangeCategory(adversary.Category);
+        OnChangeModel(adversary.Model);
+        OnChangeColor(adversary.Color.ToUnityColor());
         switch (cat)
         {
-            case VehicleCategory.Car:
-            case VehicleCategory.Motorcycle:
+            case AdversaryCategory.Car:
+            case AdversaryCategory.Motorcycle:
                 ignoreWaypoints = false;
                 break;
-            case VehicleCategory.Bike:
-            case VehicleCategory.Pedestrian:
+            case AdversaryCategory.Bike:
+            case AdversaryCategory.Pedestrian:
                 ignoreWaypoints = true;
                 break;
         }
     }
 
-    // vehicle is passed as a parameter and is already registered with the main controller.
-    // registerEntity is not called because placed is set to true.
-    public void init(Adversary s)
+    /// <summary>
+    /// Initializes the Adversary field with the specified Adversary.
+    /// </summary>
+    /// <param name="adversary">The Adversary entity to be initialized</param>
+    public void Init(Adversary adversary)
     {
-        vehicle = s;
+        this.adversary = adversary;
         placed = true;
-        vehicle.setView(this);
-        onChangePosition(vehicle.SpawnPoint.X, vehicle.SpawnPoint.Y);
-        onChangeCategory(vehicle.Category);
-        onChangeModel(vehicle.Model);
-        if(vehicle.Color is not null) onChangeColor(vehicle.Color.ToUnityColor());
-        vehicleSettingsController = GameObject.Find("PopUps").transform.Find("CarSettingsPopUp").gameObject.GetComponent<AdversarySettingsPopupController>();
-        vehicleSettingsController.gameObject.SetActive(true);
-        switch (vehicle.Category)
+        this.adversary.setView(this);
+        OnChangePosition(this.adversary.SpawnPoint.X, this.adversary.SpawnPoint.Y);
+        OnChangeRotation(this.adversary.SpawnPoint.Rot);
+        OnChangeCategory(this.adversary.Category);
+        OnChangeModel(this.adversary.Model);
+        OnChangeColor(this.adversary.Color.ToUnityColor());
+        if (adversary.Path.WaypointList.Count > 0)
         {
-            case VehicleCategory.Car:
-            case VehicleCategory.Motorcycle:
-                ignoreWaypoints = false;
-                break;
-            case VehicleCategory.Bike:
-            case VehicleCategory.Pedestrian:
-                ignoreWaypoints = true;
-                break;
+            ignoreWaypoints = adversary.Path.WaypointList[0].Strategy == WaypointStrategy.SHORTEST ? true : false;
         }
-        if (s.Path is not null)
+        else
         {
-            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-            this.pathController.Init(this, this.vehicle, false);
+            switch (this.adversary.Category)
+            {
+                case AdversaryCategory.Car:
+                case AdversaryCategory.Motorcycle:
+                    ignoreWaypoints = false;
+                    break;
+                case AdversaryCategory.Bike:
+                case AdversaryCategory.Pedestrian:
+                    ignoreWaypoints = true;
+                    break;
+            }
         }
+        pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+        pathController.Init(this, this.adversary.Color.ToUnityColor(), this.adversary.Path, false);
     }
 
-    public override void onChangePosition(float x, float y)
+    /// <summary>
+    /// Moves the Adversary GameObject and, if available, the first Waypoint of the Adversary.
+    /// </summary>
+    /// <param name="x">The x coordinate of the position</param>
+    /// <param name="y">The y coordinate of the position</param>
+    public override void OnChangePosition(float x, float y)
     {
-        base.onChangePosition(x, y);
+        base.OnChangePosition(x, y);
         pathController?.MoveFirstWaypoint(x, y);
     }
 
-    public override Sprite getSprite()
+    /// <summary>
+    /// Gets the sprite for this adversary.
+    /// </summary>
+    /// <returns>The sprite for this vehicle.</returns>
+    public override Sprite GetSprite()
     {
         return Resources.Load<Sprite>("sprites/" + "vehicle");
     }
 
-    public override void onChangeCategory(VehicleCategory cat)
+    /// <summary>
+    /// Called when the category of this adversary changes.
+    /// Changes the sprite of this adversary based on the new category and sets the size of the BoxCollider2D accordingly.
+    /// </summary>
+    /// <param name="cat">The new category of this adversary.</param>
+    public override void OnChangeCategory(AdversaryCategory cat)
     {
-        base.onChangeCategory(cat);
-        switch(cat)
+        base.OnChangeCategory(cat);
+        switch (cat)
         {
-            case VehicleCategory.Car:
+            case AdversaryCategory.Car:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "vehicle");
-                return;
-            case VehicleCategory.Bike:
+                break;
+            case AdversaryCategory.Bike:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "bike");
-                return;
-            case VehicleCategory.Pedestrian:
+                break;
+            case AdversaryCategory.Pedestrian:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "pedestrian");
-                return;
-            case VehicleCategory.Motorcycle:
+                break;
+            case AdversaryCategory.Motorcycle:
                 sprite.sprite = Resources.Load<Sprite>("sprites/" + "motorcycle");
-                return;
+                break;
         }
+        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(sprite.sprite.bounds.size.x, sprite.sprite.bounds.size.y);
     }
 
-    public BoxCollider2D getCollider()
+    /// <summary>
+    /// Gets the BoxCollider2D component of this adversary.
+    /// </summary>
+    /// <returns>The BoxCollider2D component of this adversary.</returns>
+    public BoxCollider2D GetCollider()
     {
         return gameObject.GetComponent<BoxCollider2D>();
     }
 
-    public override void select()
+    /// <summary>
+    /// Selects this adversary, the pathController, if available, and signals the SnapController to ignore clicks.
+    /// </summary>
+    public override void Select()
     {
-        base.select();
-        if(this.pathController is null)
-        {
-            //PathController must have position 0, otherwise edgecollider is not aligned
-            this.pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
-            this.pathController.Init(this, this.vehicle);
-        }
-        pathController?.select();
+        base.Select();
+        pathController?.Select();
         snapController.IgnoreClicks = true;
     }
 
-    public override void deselect()
+    /// <summary>
+    /// Deselects this adversary, the pathController, if available, and signals the SnapController not to ignore clicks.
+    /// </summary>
+    public override void Deselect()
     {
-        base.deselect();
-        pathController?.deselect();
+        base.Deselect();
+        pathController?.Deselect();
         snapController.IgnoreClicks = false;
     }
 
-    public override void destroy()
+    /// <summary>
+    /// Removes this adversary from the main controller and destroys it and the PathController.
+    /// </summary>
+    public override void Destroy()
     {
-        mainController.removeSimulationEntity(vehicle);
+        mainController.RemoveAdversary(adversary);
         pathController?.Destroy();
         Destroy(gameObject);
         snapController.IgnoreClicks = false;
     }
 
-    public override void onChangeColor(Color color)
+    /// <summary>
+    /// Called when the color of this adversary changes.
+    /// Sets the color of the sprite and path controller accordingly and refreshes the entity list of the main controller.
+    /// </summary>
+    /// <param name="color">The new color of this adversary.</param>
+    public override void OnChangeColor(Color color)
     {
         if (placed)
         {
-            this.sprite.color = color;
-        } else
-        {
-            this.sprite.color = new Color(color.r, color.g, color.b, 0.5f);
+            sprite.color = color;
         }
-        if(this.pathController is not null)
+        else
         {
-            this.pathController.SetColor(this.sprite.color);
+            sprite.color = new Color(color.r, color.g, color.b, 0.5f);
         }
-        mainController.refreshEntityList();
+        pathController?.SetColor(sprite.color);
+        mainController.RefreshEntityList();
     }
 
-    public override BaseEntity getEntity()
+
+    /// <summary>
+    /// Returns the Adversary.
+    /// </summary>
+    /// <returns>The entity of this adversary.</returns>
+    public override BaseEntity GetEntity()
     {
-        return this.vehicle;
+        return adversary;
     }
 
-    public override void openEditDialog()
+    /// <summary>
+    /// Opens the edit dialog for this adversary.
+    /// </summary>
+    public override void OpenEditDialog()
     {
-        this.vehicleSettingsController.open(this, sprite.color, mainController.info.EgoVehicle);
-    }
-    protected override void registerEntity()
-    {
-        mainController.addSimulationEntity(this.vehicle);
+        adversarySettingsController.Open(this, sprite.color, mainController.Info.EgoVehicle);
     }
 
-    public override void setIgnoreWaypoints(bool b)
+    /// <summary>
+    /// Registers this adversary entity with the main controller.
+    /// </summary>
+    protected override void RegisterEntity()
     {
-        base.setIgnoreWaypoints(b);
-        if(this.pathController is not null)
+        mainController.AddAdversary(adversary);
+        EventManager.TriggerEvent(new CompletePlacementAction());
+        //PathController must have position 0, otherwise edgecollider is not aligned
+        pathController = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).GetComponent<PathController>();
+        pathController.Init(this, adversary.Color.ToUnityColor(), adversary.Path, true);
+    }
+
+    /// <summary>
+    /// Sets whether to ignore waypoints for this adversary and its path controller.
+    /// If waypoints should not be ignored, moves the Adversary and its first waypoint to the nearest waypoint.
+    /// </summary>
+    /// <param name="b">The boolean value to set for ignoring waypoints.</param>
+    public override void ShouldIgnoreWaypoints(bool b)
+    {
+        base.ShouldIgnoreWaypoints(b);
+        if (pathController is not null)
         {
-            this.pathController.getFirstWaypointController().setIgnoreWaypoints(b);
+            if (!ignoreWaypoints)
+            {
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var waypoint = snapController.FindWaypoint(mousePosition);
+                if (waypoint is not null)
+                {
+                    difference = Vector2.zero;
+                    GetEntity().setPosition(waypoint.X, waypoint.Y);
+                    GetEntity().setRotation(waypoint.Rot);
+                }
+                else
+                {
+                    GetEntity().setPosition(mousePosition.x, mousePosition.y);
+                    GetEntity().setRotation(0);
+                }
+                pathController.MoveFirstWaypoint(waypoint.X, waypoint.Y);
+            }
+            WaypointViewController firstWaypoint = pathController.GetFirstWaypointController();
+            firstWaypoint.ShouldIgnoreWaypoints(b);
+            pathController.UpdateAdjacentPaths(firstWaypoint);
         }
     }
 }
