@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -98,7 +99,7 @@ namespace Entity
         /// and all waypoint locations. Needs to be invoked at the end after WayPointList is finished (so when ExportButton is pressed).
         /// </summary>
         /// <param name="spawnpoint">The initial spawnpoint for the Entity.</param>
-        public void InitAssignRouteWaypoint(Location spawnpoint)
+        public void InitAssignRouteWaypoint(Location spawnpoint, WaypointStrategy strategy)
         {
             // Calculate dummy waypoint coordinates 4m after spawn coordinate
             var first = WaypointList[0];
@@ -112,7 +113,7 @@ namespace Entity
             Waypoint assignRouteWaypoint = new Waypoint(
                     originalStartLocation,
                     new ActionType("AssignRouteAction", locations),
-                    new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan") });
+                    new List<TriggerInfo>() { new TriggerInfo("SimulationTimeCondition", 0, "greaterThan")}, strategy);
 
             AssignRouteWaypoint = assignRouteWaypoint;
             WaypointList.Insert(0, AssignRouteWaypoint); // Insert dummy waypoint after spawn waypoint

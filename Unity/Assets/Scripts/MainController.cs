@@ -6,9 +6,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using ExportScenario.XMLBuilder;
 using System.Linq;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using uGUI = UnityEngine.UI;
 using System.IO;
 using Assets.Scripts.ViewControllers.PopupControllers;
