@@ -64,7 +64,6 @@ public class EgoViewController : VehicleViewController
     public void SubmitDestination(Location destination)
     {
         ego.Destination = destination;
-        EventManager.TriggerEvent(new CompletePlacementAction());
     }
 
     /// <summary>
@@ -202,5 +201,6 @@ public class EgoViewController : VehicleViewController
         var destinationGameObject = Instantiate(DestinationPrefab, new Vector3(mousePosition.x, mousePosition.y, -0.1f), Quaternion.identity);
         this.destination = destinationGameObject.GetComponent<DestinationController>();
         this.destination.Init(this, this.sprite.color);
+        EventManager.TriggerEvent(new CompletePlacementAction());
     }
 }
