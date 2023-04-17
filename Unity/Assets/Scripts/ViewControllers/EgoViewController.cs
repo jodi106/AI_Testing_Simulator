@@ -106,7 +106,7 @@ public class EgoViewController : VehicleViewController
         egoSettingsController = GameObject.Find("PopUps").transform.Find("EgoSettingsPopUp").gameObject.GetComponent<EgoSettingsPopupController>();
         egoSettingsController.gameObject.SetActive(true);
         var egoPosition = new Location(transform.position.x, transform.position.y, 0, 0);
-        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), AdversaryCategory.Car, INITIAL_SPEED, color); // TODO initial speed: different default later?
+        ego = new Ego(egoPosition, VehicleModelRepository.getDefaultCarModel(), AdversaryCategory.Car, INITIAL_SPEED, color);
         ego.setView(this);
         ego.setCategory(cat);
         switch (cat)

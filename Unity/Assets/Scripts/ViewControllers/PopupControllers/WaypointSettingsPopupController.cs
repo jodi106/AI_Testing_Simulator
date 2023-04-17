@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -352,7 +349,7 @@ public class WaypointSettingsPopupController : SettingsPopupController
                 }
                 else
                 {
-                    actions[index].RelativeTargetLaneValue = 1; // TODO -1 and 1 correct?
+                    actions[index].RelativeTargetLaneValue = 1; // -1 and 1 seems correct but not 100% tested
                 }
                 //if (startLane.Id > 0) waypoint.Actions[i].RelativeTargetLaneValue = startLane.Id > endLane.Id ? 1 : -1;
                 //if (startLane.Id < 0) waypoint.Actions[i].RelativeTargetLaneValue = startLane.Id > endLane.Id ? -1 : 1;
