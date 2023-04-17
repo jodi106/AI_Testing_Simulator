@@ -101,7 +101,7 @@ MonoBehaviour:
   neighbors: []
   roadType: 8
   width: 34.02
-  height: 37.8
+  height: 34.02
 --- !u!61 &5304581360853174322
 BoxCollider2D:
   m_ObjectHideFlags: 0
