@@ -53,6 +53,8 @@ class RunnerTool(object):
     timeout: int (default: 200)
         scenario timeout in seconds. 10s automaticcaly added to specified value as timeout starts with start of supbprocess which is not necessarily the start of the scenario.
         Does not scale with set speed value.
+	debug: bool
+		prints runner_tool.py output to console
 
 
 
@@ -113,6 +115,7 @@ class RunnerTool(object):
 
         self.sort_maps = args.sortMaps
         self.timeout = args.timeout + 10
+        self.debug = args.debug
 
         # Args for start_carla
         self.host = args.host
@@ -296,9 +299,12 @@ class RunnerTool(object):
                                        camera=self.set_camera_perspective())
                                        
                     try:
-                        result = subprocess.Popen(cmd, shell=True, start_new_session=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                        result.wait(timeout=self.timeout)
-                        
+                        if self.debug:
+                            result = subprocess.Popen(cmd, shell=True, start_new_session=True)
+                            result.wait(timeout=self.timeout)
+                        else:
+                            result = subprocess.Popen(cmd, shell=True, start_new_session=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                            result.wait(timeout=self.timeout)
                     except subprocess.TimeoutExpired:
                         self.log.create_entry(f'Timeout for {file} ({self.timeout-10}s) expired')
                         result.kill()
@@ -636,7 +642,7 @@ def main():
     parser.add_argument('--agent', default=None, type=str, help='Specify agent name (name of Self Driving KI) to run all scenarios in dir')
     parser.add_argument('--sortMaps', action="store_true", help='Sorts xosc files in dir by map name and plays them in ascending order')
     parser.add_argument('--timeout', default=200, type=int, help='Stops scenario on timeout in seconds and runs next scenario (default: 200)')
-
+    parser.add_argument('--debug', action="store_true", help='prints scenario_runner.py stdout and stderr to console')
 
     arguments = parser.parse_args()
 
