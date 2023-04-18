@@ -24,26 +24,16 @@ General Instructions on how to use the Scenario Editor can be found [here (TODO)
 runnerTool User Manual
 Scenario Editor User Manual
 
-
-### How to setup the RunnerTool
-
-
-### How to setup Carla and Scenario Runner (Windows)
+### How to setup Carla (Windows)
 We refer to the official [Carla Documentation](https://carla.readthedocs.io/en/latest/start_quickstart/)
 And the official [Scenario Runner Documentation](https://carla-scenariorunner.readthedocs.io/en/latest/getting_scenariorunner/#a.-download-a-scenariorunner-release)
 
+### How to setup the RunnerTool
+[See runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
+
+
 #### Common Problems
 ##### You need to set the following PATH Variables:
-
-```
-set CARLA_ROOT=/path/to/your/carla/installation
-set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla
-set CARLA_ROOT=\path\to\your\carla\installation
-set SCENARIO_RUNNER_ROOT=\path\to\your\scenario\runner\installation
-set PYTHONPATH=%CARLA_ROOT%\PythonAPI\carla\dist\carla-0.9.13.egg
-set PYTHONPATH=%PYTHONPATH%;%CARLA_ROOT%\PythonAPI\carla\agents
-set PYTHONPATH=%PYTHONPATH%;%CARLA_ROOT%\PythonAPI\carla
-```
 
 ##### If you are using Conda and have problems with shapely and arcade try the following:
 ```
