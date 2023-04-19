@@ -11,7 +11,7 @@ Table of Contents
 
 Description
 ###########
-This manual provides basic guidance on how to use runnerTool as a user. See (insert runnerTool developer manual) developer manual for details on the code.
+This manual provides basic guidance on how to use runnerTool as a user. See `runnerTool developer manual <https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/runnerTool_Developer_Documentation.md>`__ for details on the code structure.
 runnerTool can be used independent of the ScenarioEditor to run any .xosc file compatible with Carlas scenario_runner.py. It was developed for Carla version 0.9.13 but should also support newer versions (not tested).
 
 
