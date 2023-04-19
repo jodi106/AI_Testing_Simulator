@@ -11,12 +11,14 @@ Joint team project of University of Mannheim and the University Babeș-Bolyai of
 
 ## Description
 
-The goal of this international team project is the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following: An easy to use scenario Editor to build simulate short traffic situations to verify if the AI under test is able to safely handle them. A tool which is able to record and process the sensor data which is produced by the simulated cars sensors during the test scenarios. A rudimentary driving AI which can be customized to do several dangerous or faulty behaviors which will be used to check wether sets of test cases are able to detect the dangerous or faulty behavior.
+The goal of this international team project is the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following: 
+1. [ScenarioEditor](https://github.com/jodi106/AI_Testing_Simulator/releases/tag/ScenarioEditor_v1.0): An easy to use OpenSCENARIO format (.xosc) scenario Editor to build short traffic situations to verify if the AI under test is able to safely handle them. 
+2. [runnerTool](https://github.com/jodi106/AI_Testing_Simulator/releases/tag/runnerTool_v1.02): A tool which is able to run and evaluate multiple OpenSCENARIO scenarios in Carla.
 
 ## How to Setup
 
 ### How to setup up the Scenario Editor
-1. Download the latest release (Build_JJJJ.MM.DD.zip) [from here](https://github.com/jodi106/AI_Testing_Simulator/releases/latest)
+1. Download the latest ScenarioEditor release [from here](https://github.com/jodi106/AI_Testing_Simulator/releases/latest)
 2. Extract the .zip file to a directory of your choice
 3. Run the AI_Testing_Simulator.exe file
 
@@ -24,16 +26,19 @@ General Instructions on how to use the Scenario Editor can be found [here (TODO)
 runnerTool User Manual
 Scenario Editor User Manual
 
-### How to setup Carla (Windows)
-We refer to the official [Carla Documentation](https://carla.readthedocs.io/en/latest/start_quickstart/)
-And the official [Scenario Runner Documentation](https://carla-scenariorunner.readthedocs.io/en/latest/getting_scenariorunner/#a.-download-a-scenariorunner-release)
+### How to setup Carla 0.9.13 (Windows)
+We suggest using the Package Installation 0.9.13 for convenient and quick setup. Future verions might cause conflicts (not tested).
+1. Create a new python environment
+2. Read the ["Before you begin"](https://carla.readthedocs.io/en/0.9.13/start_quickstart/) section in the Carla documentation to check prerequisits.
+3. Install python modules "pygame numpy" and "carla" to your python environment. 
+   ```
+   pip3 install --user pygame numpy
+   pip3 install carla
+   ```
+4. Download and unzip the package version 0.9.13 from [Github](https://github.com/carla-simulator/carla/blob/master/Docs/download.md).
+5. Use runnerTool for convenient scenario running.
 
-### How to setup the RunnerTool
-[See runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
-
-
-#### Common Problems
-##### You need to set the following PATH Variables:
+Refer to the official [Carla Documentation](https://carla.readthedocs.io/en/0.9.13/start_quickstart/) for more detailed instructions and Linux setup.
 
 ##### If you are using Conda and have problems with shapely and arcade try the following:
 ```
@@ -41,17 +46,26 @@ conda install -c conda-forge shapely
 pip install arcade
 ```
 
-## How to use
+### How to setup the RunnerTool
+* [See runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
 
-*TODO*
+## How to use
+##### User Manuals:
+* [ScenarioEditor Manual (wip)](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/)
+* [runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
+
+##### Code Documentations for developers only:
+* [ScenarioEditor Developer Documentation (wip)](https://github.com/jodi106/AI_Testing_Simulator/tree/main/Developer-Documentation)
+* [runnerTool Developer Documentation (wip)](https://github.com/jodi106/AI_Testing_Simulator/tree/main/Developer-Documentation)
+* [Docs (wip)](https://github.com/jodi106/AI_Testing_Simulator/tree/main/Docs/html)
 
 ## Credits
 
 This project started in September 2022 as a cooperation of University of Mannheim and UBB Cluj. The team consists of:
 
-- [Armin](https://github.com/ArminT28/)
-- [David](https://github.com/tropper26/)
-- [Felix](https://github.com/felixkroemer/)
-- [Jonas](https://github.com/jodi106/)
-- [Natalie](https://github.com/Natalie-UniMA/)
-- [Stefan](https://github.com/StayFN/)
+- [Felix (Uni MA)](https://github.com/felixkroemer/)
+- [Jonas (Uni MA)](https://github.com/jodi106/)
+- [Natalie (Uni MA)](https://github.com/Natalie-UniMA/)
+- [Stefan (Uni MA)](https://github.com/StayFN/)
+- [Armin (UBB)](https://github.com/ArminT28/)
+- [David (UBB)](https://github.com/tropper26/)
