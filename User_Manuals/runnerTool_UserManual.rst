@@ -18,7 +18,7 @@ runnerTool can be used independent of the ScenarioEditor to run any .xosc file c
 How to set up
 #############
 
-1. Make sure you have installed Carla incl. a python environment with the relevant dependencies to use the Carla python api `See Quickstart Guide <https://carla.readthedocs.io/en/0.9.13/start_quickstart/>`__.
+1. Make sure you have installed Carla `See How To Use <https://github.com/jodi106/AI_Testing_Simulator#how-to-setup>`__.
 2. `Donwload the latest runnerTool version <https://github.com/jodi106/AI_Testing_Simulator/releases>`__ and place the runnerTool folder in a directory of your choosing.
 3. Set paths in the config.json accordingly (use forward slashes to seperate dirs):
 
