@@ -1,20 +1,19 @@
 # runnerTool Developer Documentation
 
-runnerTool is a terminal based python application based on CARLAs scenario_runner.py to run and evaluate multiple openSCENARIO (.xosc) files.
+#### This manual provides basic guidance for developers that want to work with runnerTool. It gives general insight on the code structure and main features. 
 
-This manual provides basic guidance for developers that want to work with runnerTool. It gives general insight on the code structure and main features. 
+
+runnerTool is a terminal based python application based on [CARLA](https://carla.org/) scenario_runner.py to run and evaluate multiple OpenSCENARIO (.xosc) files. See [OpenSCENARIO User Guide](https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_introduction), [OpenSCENARIO Dokumentation](https://releases.asam.net/OpenSCENARIO/1.0.0/Model-Documentation/index.html) for information on the OpenSCENARIO format.
 
 [See runnerTool User Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst) for instructions on how to set up and use runnerTool. 
 runnerTool can be used independent of the ScenarioEditor to run any .xosc file compatible with CARLAs scenario_runner.py. 
-It was developed for CARLA version 0.9.13 but should also support newer versions (not tested).
+It was developed for CARLA version 0.9.13 and OpenSCENARIO 1.0 but should also support newer versions (not tested).
 
 ## Table of Contents
-
 - [General Code Structure](#General-Code-Structure)
 - [runnerTool.py](#runnerTool.py)
 - [scenario_runner.py](#scenario_runner.py)
 - [scenario_manager.py](#scenario_manager.py)
-- [Hints for future implementations/ Changes](#Hints-for-future-implementations/-Changes)
 
 ## General Code Structure
 
@@ -58,7 +57,9 @@ The RunnerTool class includes the most important methods used for runnerTool. Th
 
 * start_carla(): 
 
-   Starts Carla.exe if not already running. To do so the [subprocess](https://docs.python.org/3/library/subprocess.html) module is used. The subprocess module basically executes a command that opens the CarlaUE4.exe in an independet new terminal. Can be started with low or normal ("epic") graphic render quality (Only works if carla is not running when executing runnerTool). To start Carla subprocess.Popen() is used. This method fires the command but doesnt wait for the subprocess to finish (i.e., CarlaUE4.exe to close). This is required because we want to have the CarlaUE4.exe running while executing further commands. At the moment a sleep timer of 10 seconds is hardcoded in the start_carla() method. This means that runnerTool waits 10 seconds for Carla to start. On a computer fulfilling the recommended min system requirements (I7700, 16GB RAM, GTX1070) this is enough (You might want to consider increasing the value if on a weak computer).     
+   Starts Carla.exe if not already running. To do so the [subprocess](https://docs.python.org/3/library/subprocess.html) module is used. The subprocess module basically executes a command that opens the CarlaUE4.exe in an independet new terminal. Can be started with low or normal ("epic") graphic render quality (Only works if carla is not running when executing runnerTool). To start Carla subprocess.Popen() is used. This method fires the command but doesnt wait for the subprocess to finish (i.e., CarlaUE4.exe to close). This is required because we want to have the CarlaUE4.exe running while executing further commands. At the moment a sleep timer of 10 seconds is hardcoded in the start_carla() method. This means that runnerTool waits 10 seconds for Carla to start. On a computer fulfilling the recommended min system requirements (I7700, 16GB RAM, GTX1070) this is enough (You might want to consider increasing the value if on a weak computer).
+   
+   Note, that CarlaUE4.exe sometimes doesn't close correctly when its closed by klicking the close simbol of the top right corner of the window. In that case you will receive an timeout error when trying to start a new CarlaUE4.exe. Close CarlaUE4.exe process in task manager to fix. If this error still occurs try restarting your mashine. If that still doesnt change it, increase the sleep timer in the start_carla() method.
    
 * adjust_speed(): 
 
