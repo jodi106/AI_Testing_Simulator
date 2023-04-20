@@ -24,11 +24,11 @@ How to set up
 2. `Donwload the latest runnerTool version <https://github.com/jodi106/AI_Testing_Simulator/releases>`__ and place the runnerTool folder in a directory of your choosing.
 3. Set paths in the config.json accordingly (use forward slashes to seperate dirs):
 
-   * PATH_TO_CARLA_ROOT: Path to folder containing carla exe. It is located in "XX/CARLA/WindowsNoEditor" depending where you unpacked Carla to.
-   * PATH_TO_SCENARIO_RUNNER_ROOT: Path to runnerTool folder from step 2.
-   * PATH_TO_XOSC_FILES: Path to folder where .xosc files are stored. The default folder is "./scenarios" i.e. the "scenarios" folder in the runnerTool folder.
-   * PATH_TO_PYTHON_ENV: Path to the Carla python env. The folder that contains the python.exe. E.g. "xx/Miniconda/envs/{NAME_OF_ENV}" or "xx/Anaconda3/envs/{NAME_OF_ENV}"
-   * CARLA_VERSION: Carla version you are using. Default: "0.9.13"
+   * **PATH_TO_CARLA_ROOT:** Path to folder containing carla exe. It is located in "XX/CARLA/WindowsNoEditor" depending where you unpacked Carla to.
+   * **PATH_TO_SCENARIO_RUNNER_ROOT:** Path to runnerTool folder from step 2.
+   * **PATH_TO_XOSC_FILES:** Path to folder where .xosc files are stored. The default folder is "./scenarios" i.e. the "scenarios" folder in the runnerTool folder.
+   * **PATH_TO_PYTHON_ENV:** Path to the Carla python env. The folder that contains the python.exe. E.g. "xx/Miniconda/envs/{NAME_OF_ENV}" or "xx/Anaconda3/envs/{NAME_OF_ENV}"
+   * **CARLA_VERSION:** Carla version you are using. Default: "0.9.13"
 4. Place the .xosc files you want to run and evaluate in the Folder you specified (PATH_TO_XOSC_FILES)
    
 runnerTool automatically sets up scenario_runner.py with the paths provided in the config file.
