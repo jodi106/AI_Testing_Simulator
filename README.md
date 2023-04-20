@@ -7,11 +7,12 @@ Joint team project of University of Mannheim and the University Babeș-Bolyai of
 - [Description](#description)
 - [How to setup](#how-to-setup)
 - [How to use](#how-to-use)
+- [Knnown Issues](#known-issues)
 - [Credits](#credits)
 
 ## Description
 
-The goal of this international team project is the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following: 
+The goal of this international team project was the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following: 
 1. [ScenarioEditor](https://github.com/jodi106/AI_Testing_Simulator/releases/tag/ScenarioEditor_v1.0): An easy to use OpenSCENARIO format (.xosc) scenario Editor to build short traffic situations to verify if the AI under test is able to safely handle them. 
 2. [runnerTool](https://github.com/jodi106/AI_Testing_Simulator/releases/tag/runnerTool_v1.02): A tool which is able to run and evaluate multiple OpenSCENARIO scenarios in Carla.
 
@@ -52,10 +53,26 @@ pip install arcade
 * [ScenarioEditor Manual (wip)](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/)
 * [runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
 
-##### Code Documentations for developers only:
+##### Code Documentations for developers:
 * [ScenarioEditor Developer Documentation (wip)](https://github.com/jodi106/AI_Testing_Simulator/tree/main/Developer-Documentation)
 * [runnerTool Developer Documentation](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/runnerTool_Developer_Documentation.md)
 * [Docs (wip)](https://github.com/jodi106/AI_Testing_Simulator/tree/main/Docs/html)
+
+## Known Issues
+* Runtime Error when starting Carla:
+    ```
+    RuntimeError: time-out of 5000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000
+    ```
+    
+    Occurs when starting CarlaUE4.exe. If error occurs check task manager for already running “Carla UE4” background process. Kill it and restart CarlaUE4.exe should fix it.
+    
+* Ego-Vehicle doesn't move although a target has been defined in ScenarioEditor
+
+   ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without any additional parameters as its default KI. On some Spawn-Waypoints set for the ego vehicle, the KI doesn't start driving correctly. Make minor changes to the Spawn-Waypoints x-coordinates to fix that or use a different drivig KI. Might also be a general CARLA problem.
+   
+* Route lane changes sometimes don't work on intersections:
+
+    CARLA has problems with Intersections sometimes. Instead of making the lane change on the intersecttion, the vehicle will do it after it. We are currently not aware of a fix. 
 
 ## Credits
 
