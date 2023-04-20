@@ -37,7 +37,7 @@ The RunnerTool class includes the most important methods used for runnerTool. Th
 
 * set_agent(): 
 
-   Sequentially changes HeroAgent in .xosc file to user specified string. This method allows to change the Agent (self driving AI) that is used for the ego vehicle in all scenarios of a runnerTool run. ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without additional arguments as default agent. So basically it simply enables the ego vehicle to reach the set destination via the road network with a set speed without considering any traffic elements.  
+   Sequentially changes HeroAgent in .xosc file to user specified string. This method allows to change the Agent (self driving AI) that is used for the ego vehicle in all scenarios of a runnerTool run. ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without additional arguments as default agent. So basically it simply enables the ego vehicle to reach the set destination via the road network with a set speed without considering any traffic elements.
    
    Note, that by default no additional parameters are set in the .xosc files created by ScenarioEditor to avoid clash when changing agents. Some agents such as the simple_vehicle_control allow for enabling/disabling certain behaviors of the ego vehicle by adding arguments in the .xosc file. One could extend the set_agent() method to change/add parameters to the .xosc file depending on the selected agent if necessary. **In pricipal one could also set the parameters by hardcoding them directly in the python file of the agent to avoid having to change the .xosc file.** Additional parameters for the simple_vehicle_control can be added to the .xosc files like this (lines enclosed by "*"): 
 
@@ -62,12 +62,29 @@ The RunnerTool class includes the most important methods used for runnerTool. Th
    
 * adjust_speed(): 
 
-   Speed refers to the speed the scenarios are played with. Thereby this doesnt affect the outcome of the scenario evaluation. It simply shows more frames in less time refer to this [Github Issue](https://github.com/carla-simulator/carla/issues/457) for details. Note, that setting the speed to high might cause carla physics bugs, which will effect evaluation outcome. 
+   Speed refers to the speed the scenarios are played with. Thereby this doesnt affect the outcome of the scenario evaluation. It simply shows more frames in less time. Refer to this [Github Issue](https://github.com/carla-simulator/carla/issues/457) for details. Note, that setting the speed too high (500-1000 depending on the map) might cause carla physics bugs, which will effect evaluation outcome.  Note, that changing the speed will not work with the --camera flag when running runnerTool, as the camera forces carla to run in regular speed. 
    
-   The method creates string to adjust play speed of scenario. The string will be addeed as a parser argument to the subprocess command used in the runner() method. The value is passed first to scenario_runner.py via the parser argument and is then further passed on to scenario_manager.py where the change of speed is finally implemented see chapter scenario_manager.py below for details.
+   The method creates string to adjust play speed of scenario. The string will be addeed as a parser argument to the subprocess command used in the runner() method. The value is passed first to scenario_runner.py via the parser argument and is then further passed on to scenario_manager.py where the change of speed is finally implemented. See chapter [scenario_manager.py](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/runnerTool_Developer_Documentation.md#scenario_manager.py) below for details.
 Note that setting speed to 100 again - after it was initially set to some other value - while CarlaUE4.exe is allready running, doesnt work. (simply close carla before new runnerTool session to fix)
-* set_camera_perspective(): wip
-* **runner()**: wip
+
+* set_camera_perspective(): 
+
+    RunnerTool uses the ["visualizer.py"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/visualizer.py) module to create two camera sensors fixed to the ego vehicle (bird and ego perspective) and displays them in a seperate window when the user enabled the flag --camera. 
+    
+    Similar to the adjust_speed() method this methood creates a string aswell that will be addeed as a parser argument to the subprocess command used in the runner() method. The value is also passed first to scenario_runner.py via the parser argument and is then further passed on to scenario_manager.py where the visualilzer module is implemented. See chapter [scenario_manager.py](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/runnerTool_Developer_Documentation.md#scenario_manager.py) below for details. 
+    
+* **runner()**: 
+    This method runs all n .xosc files in specified dir by executing scenario_runner.py in n subsequent subprocesses. First it loads all .xosc files from the directory using get_xosc() method. If specefied by the user the files will be sorted by map names in the .xosc file. Then for each .xosc file it sets the agent via set_agent() if specified by user. Then it will create the cmd string to be used in the subprocess that runs scenario_runner.py. Thereby it uses fixed and optional parser arguments:
+     * #### Fixed (all vanilla scenario_runner parser arguments): 
+       * **--openscenario {file}:** This enables running scenarios of type OpenSCENARIO using as specified .xosc {file}
+       * **--reloadWorld:** This reloads the CARLA world for each new scenario, even if it runs on the same map. This is necessary as broken scenarios stopped by the timeout don't remove all actors from the map. So without reloading the world, new actors of the new scenario would just be spawned additionally - if it runs on the same map.
+       * **--json:** This creates a result overview in json format indicating whether or not the ego vehicle passed all tests in the scenario specified in the .xosc file  
+       * **--outputDir** {result_path}: This sets the output directory for the json file.
+       
+       There are multiple additional parser arguments that runnerTool doesnt use when running scenario_runner in the subprocess. See [scenario_runner.py docstrings](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/scenario_runner.py) for details.
+    * #### Optional (additional parser arguments implemented with runnerTool):
+      * **--speed:** enables setting the scenario speed as described in adjust_speed()
+      * **--camera:** enables using the camera as described in set_camera_perspective() 
 * create_results_overview(): wip
 * user_specific_results(): wip
 
