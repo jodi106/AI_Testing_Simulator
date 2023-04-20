@@ -108,13 +108,13 @@ An object of type Log is created on initialization of a RunnerTool object. It is
 This section only describes changes made to the file by runnerTool. See [CARLA ScenarioRunner](https://carla-scenariorunner.readthedocs.io/en/latest/) for documentation on the vanilla features.
 
 runnerTool adds the following features to scenario_runner.py:
-* set_global_variables() (line 33-51): 
+* set_global_variables() (lines 33-51): 
 
     This method is called directly at the beginning of the script to set the required environment variables for scenario_runner.py. It uses the paths in the runnerTool/config.json file specified by the user. 
-* runnerTool args to parser (line 596-598): 
+* runnerTool args to parser (lines 596-598): 
 
     Adding the arguments "--speed" and "--camera" to the argument parser.
-* adding runnerTool Params (line 104-105,128): 
+* adding runnerTool Params (lines 104-105,128): 
 
     Adding the values from "--speed" and "--camera" to local variables on ScenarioRunner objcet initialisation. Adding runnerTool parameters to the ScenarioManager object constructor.
 
@@ -123,15 +123,18 @@ runnerTool adds the following features to scenario_runner.py:
 This section only describes changes made to the file by runnerTool. See [CARLA ScenarioRunner](https://carla-scenariorunner.readthedocs.io/en/latest/) for documentation on the vanilla features.
 
 runnerTool adds the following features to scenario_manager.py:
-* set_speed():
+* set_speed() (lines 46,71,127-128, 141-150):
 
    Changes scenario display speed using the values described in previous sections that were passed through runnerTool.py and scenario_runner.py. It changes the fixed_delta_seconds parameter of the CARLA world as described in this [Github Issue](https://github.com/carla-simulator/carla/issues/457). To set the frames via this parameter you have to use the reciprocal (1/x) value of the desired frame rate. The default value is around 1/140 FPS. So to adjust the speed, 140 is adjusted by the user passed parameter. E.g., if the user passed "--speed 200" - essentially doubling the speed - the formular would be 1/(140/(200/100)). This essentially halves the amount of time that elapses between two sent frames.
    
    Note that 140 is only approximately the default value, i.e., 100% play speed, and might change depending on the mashine. Therefore the method sends None to the fixed_delta_seconds parameter if the user doesn't change the speed. None will cause the scenario to run exactly at normal speed.
-* get_camera():
+* get_camera() (lines 46,70, 133, 152-158):
 
     This methods creates initial spectator position above ego vehicle upon loading the scenario in CARLA. It is not influenced by the --camera flag. And is not optional. (Can of course be disabled in the code if its not required). It simply gets the coordinates of the ego vehicle and spawns a spectator facing down above it. This method is called in the vanilla load_scenario() method of scenario_manager.py.  
-* reset_camera() (currently not implemeted):
+* reset_camera() (currently not implemeted) (lines: 160-177, 192, 197-200, 207):
 
     Was initially used to update the spectator every k ticks to the new location of the ego vehicle. Very unstable and does not allow user to navigate in the CarlaUE4.exe. Was removed with runnerTool v1.01 and replaced by Visualizer module.
-* Visualizer:
+* Visualizer (lines: 46, 73, 104-106, 130-131, 239-241):
+
+    This module provides an OpenCV based visualizer for camera sensors
+attached to an actor. It exists in the vanilla version of ScenarioRunner but is not implemented directly in the code. Usually it gets called via a parameter in the OpenScenario file. RunnerTool implements it in a way that allows it to be used for every scenario run in runnerTool by simply inputting the --camera argument. See [Visualizer](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/visualizer.py) for description of the Visualizer class.  
