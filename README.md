@@ -46,12 +46,12 @@ pip install arcade
 ```
 
 ### How to setup the RunnerTool
-* [See runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
+* [See runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md)
 
 ## How to use
 ##### User Manuals:
 * [ScenarioEditor Manual (wip)](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/)
-* [runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst)
+* [runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md)
 
 ##### Code Documentations for developers:
 * [ScenarioEditor Developer Documentation (wip)](https://github.com/jodi106/AI_Testing_Simulator/tree/main/Developer-Documentation)
