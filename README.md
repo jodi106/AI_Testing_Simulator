@@ -1,6 +1,8 @@
 # AI Testing Simulator
 
-Joint team project of University of Mannheim and the University Babeș-Bolyai of Cluj-Napoca
+Scenario Editor (create scenarios) |  runnerTool (evaluate a set of scenarios)
+:-------------------------:|:-------------------------:
+![Editor](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/Editor.png)  | ![Runner](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/runnertool.png)
 
 ## Table of Contents
 
