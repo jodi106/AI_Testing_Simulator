@@ -1,4 +1,4 @@
-![ClassDiagram Maincontroller](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-MainController.jpg)
+![ClassDiagram Maincontroller](img/ClassDiagram-MainController.jpg)
 
 
 ## Important classes
@@ -30,11 +30,11 @@ Similar to the other two classes, the WaypointViewController is responsible for 
 ### SnapController
 
 ## MVC-Interactions
-![ClassDiagram Controllers](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-Controllers.jpg)
+![ClassDiagram Controllers](img/ClassDiagram-Controllers.jpg)
 
 ## Converting between Carla and Unity Coordinates
 
 We exported the pngs of the Carla Maps at 25 pixels per meter and are rendering them at 100 pixels per Unit. This means 1 unit in Unity corresponds to 4 meters in Carla. To convert from Unity to Carla we have multiply the coordinates by 4. Additionaly the origin used for the map is different. In Carla the maps origin is near the center of the map. In Unity we are using the top left corner of the Map as the origin. When we exported the maps, we also collected MinX, MinY, MaxX, MaxY values for each map. To convert from Unity to Carla we would have to add (minX + maxX)/2 ((minY + maxY)/2 resp.) to the x and y coordinates. Also, the y Axis is inverted between Carla and Unity. Therefore the y value has to be inverted as well.
 
 ## Interaction between AdversaryViewController, PathController and WaypointViewController
-![ClassDiagram Path Controller](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-PathController.jpg)
+![ClassDiagram Path Controller](img/ClassDiagram-PathController.jpg)
