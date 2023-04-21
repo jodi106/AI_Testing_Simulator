@@ -117,7 +117,7 @@ dark-mode-toggle {
     display: none;
     position: absolute;
     left: 0; top: 0;
-    border: 1px solid #90A6CE;
+    border: 1px solid #90A5CE;
     background-color: #F9FAFC;
     z-index: 10001;
     padding-top: 4px;
@@ -162,7 +162,7 @@ a.SelectItem:active {
 
 a.SelectItem:hover {
     color: white;
-    background-color: #3D598C;
+    background-color: #3D578C;
     outline-style: none;
     text-decoration: none;
     cursor: pointer;
@@ -220,7 +220,7 @@ div.SRPage {
 
 .SRSymbol {
     font-weight: bold;
-    color: #426097;
+    color: #425E97;
     font-family: Arial,Verdana,sans-serif;
     text-decoration: none;
     outline: none;
@@ -228,7 +228,7 @@ div.SRPage {
 
 a.SRScope {
     display: block;
-    color: #426097;
+    color: #425E97;
     font-family: Arial,Verdana,sans-serif;
     font-size: 8pt;
     text-decoration: none;

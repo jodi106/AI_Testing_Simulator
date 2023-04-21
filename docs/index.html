@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>AI Testing Simulator: AI Testing Simulator</title>
+<title>AI Testing Simulator: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,98 +88,49 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">AI Testing Simulator </div></div>
+<div class="header">
+  <div class="headertitle"><div class="title">AI Testing Simulator Documentation</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_C__Users_stefa_source_repos_AI_Testing_Simulator_README"></a> Joint team project of University of Mannheim and the University Babeș-Bolyai of Cluj-Napoca</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Table of Contents</h1>
-<ul>
-<li>Description</li>
-<li>How to setup</li>
-<li>How to use</li>
-<li>Knnown Issues</li>
-<li>Credits</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Description</h1>
-<p>The goal of this international team project was the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following:</p><ol type="1">
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/releases/tag/ScenarioEditor_v1.0">ScenarioEditor</a>: An easy to use OpenSCENARIO format (.xosc) scenario Editor to build short traffic situations to verify if the AI under test is able to safely handle them.</li>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/releases/tag/runnerTool_v1.02">runnerTool</a>: A tool which is able to run and evaluate multiple OpenSCENARIO scenarios in Carla.</li>
-</ol>
-<h1><a class="anchor" id="autotoc_md3"></a>
-How to Setup</h1>
-<h2><a class="anchor" id="autotoc_md4"></a>
-How to setup up the Scenario Editor</h2>
-<ol type="1">
-<li>Download the latest ScenarioEditor release <a href="https://github.com/jodi106/AI_Testing_Simulator/releases/latest">from here</a></li>
-<li>Extract the .zip file to a directory of your choice</li>
-<li>Run the AI_Testing_Simulator.exe file</li>
-</ol>
-<p>General Instructions on how to use the Scenario Editor can be found <a href="https://example.com/">here (TODO)</a></p>
-<h2><a class="anchor" id="autotoc_md5"></a>
-How to setup Carla 0.9.13 (Windows)</h2>
-<p>We suggest using the Package Installation 0.9.13 for convenient and quick setup. Future verions might cause conflicts (not tested).</p><ol type="1">
-<li>Create a new python environment</li>
-<li>Read the <a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/">"Before you begin"</a> section in the Carla documentation to check prerequisits.</li>
-<li>Install python modules "pygame numpy" and "carla" to your python environment. <div class="fragment"><div class="line">pip3 install --user pygame numpy</div>
-<div class="line">pip3 install carla</div>
-</div><!-- fragment --></li>
-<li>Download and unzip the package version 0.9.13 from <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">Github</a>.</li>
-<li>Use runnerTool for convenient scenario running.</li>
-</ol>
-<p>Refer to the official <a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/">Carla Documentation</a> for more detailed instructions and Linux setup.</p>
-<h4><a class="anchor" id="autotoc_md6"></a>
-If you are using Conda and have problems with shapely and arcade try the following:</h4>
-<div class="fragment"><div class="line">conda install -c conda-forge shapely</div>
-<div class="line">pip install arcade</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
-How to setup the RunnerTool</h2>
-<ul>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md">See runnerTool Manual</a></li>
-</ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
-How to use</h1>
-<h4><a class="anchor" id="autotoc_md9"></a>
-User Manuals:</h4>
-<ul>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/">ScenarioEditor Manual (wip)</a></li>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md">runnerTool Manual</a></li>
-</ul>
-<h4><a class="anchor" id="autotoc_md10"></a>
-Code Documentations for developers:</h4>
-<ul>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/tree/main/Developer-Documentation">ScenarioEditor Developer Documentation (wip)</a></li>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/runnerTool_Developer_Documentation.md">runnerTool Developer Documentation</a></li>
-<li><a href="https://github.com/jodi106/AI_Testing_Simulator/tree/main/Docs/html">Docs (wip)</a></li>
-</ul>
-<h1><a class="anchor" id="autotoc_md11"></a>
-Known Issues</h1>
-<ul>
-<li><p class="startli">Runtime Error when starting Carla: </p><div class="fragment"><div class="line">RuntimeError: time-out of 5000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000</div>
-</div><!-- fragment --><p class="startli">Occurs when starting CarlaUE4.exe. If error occurs check task manager for already running “Carla UE4” background process. Kill it and restart CarlaUE4.exe should fix it.</p>
-</li>
-<li><p class="startli">Ego-Vehicle doesn't move although a target has been defined in ScenarioEditor</p>
-<p class="startli">ScenarioEditor uses <a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py">"simple_vehicle_control"</a> without any additional parameters as its default KI. On some Spawn-Waypoints set for the ego vehicle, the KI doesn't start driving correctly. Make minor changes to the Spawn-Waypoints x-coordinates to fix that or use a different drivig KI. Might also be a general CARLA problem.</p>
-</li>
-<li><p class="startli">Route lane changes sometimes don't work on intersections:</p>
-<p class="startli">CARLA has problems with Intersections sometimes. Instead of making the lane change on the intersecttion, the vehicle will do it after it. We are currently not aware of a fix.</p>
-</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
-Credits</h1>
-<p>This project started in September 2022 as a cooperation of University of Mannheim and UBB Cluj. The team consists of:</p>
-<ul>
-<li><a href="https://github.com/felixkroemer/">Felix (Uni MA)</a></li>
-<li><a href="https://github.com/jodi106/">Jonas (Uni MA)</a></li>
-<li><a href="https://github.com/Natalie-UniMA/">Natalie (Uni MA)</a></li>
-<li><a href="https://github.com/StayFN/">Stefan (Uni MA)</a></li>
-<li><a href="https://github.com/ArminT28/">Armin (UBB)</a></li>
-<li><a href="https://github.com/tropper26/">David (UBB)</a> </li>
-</ul>
-</div></div><!-- PageDoc -->
 </div><!-- contents -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">ScenarioEditor Developer Documentation </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><img src="img/ClassDiagram-MainController.jpg" alt="ClassDiagram Maincontroller" class="inline"/> <a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-MainController.jpg">Maincontroller Diagram</a></p>
+<h1><a class="anchor" id="autotoc_md11"></a>
+Important classes</h1>
+<h2><a class="anchor" id="autotoc_md12"></a>
+MainController</h2>
+<p>The Maincontroller is our central component. It has a reference to an ScenarioInfo object which contains the Application's state and acts as the controller for the main GUI elements of our application. As such, it holds references to the buttons which allow the user to spawn entities, remove them, open their settings, open global settings, export the scenario, and much more. Most of the other controllers hold references to the MainControllers instance, which they acquire via Unity's Camera.GetComponent function. The <a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> is attached to Unities main camera. Therefore there will exist only one instance of it over the entire runtime of our application.</p>
+<p>It has a field called 'selectedEntity' to a class implementing the <a class="el" href="interface_i_base_controller.html" title="Represents an interface for a base controller.">IBaseController</a> interface, which contains a reference to the currently selected object. This can either be <a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController</a> or <a class="el" href="class_adversary_view_controller.html" title="Controller for an Adversary.">AdversaryViewController</a> (which both inherit from <a class="el" href="class_vehicle_view_controller.html" title="An abstract base class for a BaseEntity providing shared functionality for handling positions,...">VehicleViewController</a>) or a <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a>. The interface allows the <a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> to select it, deselect it, destroy it, tell it to open its settings, get its location and to query or set whether the object should ignore Waypoints. The following sections will give a brief introductions to the classes implementing <a class="el" href="interface_i_base_controller.html" title="Represents an interface for a base controller.">IBaseController</a>.</p>
+<h2><a class="anchor" id="autotoc_md13"></a>
+VerhicleViewController</h2>
+<p><a class="el" href="class_vehicle_view_controller.html" title="An abstract base class for a BaseEntity providing shared functionality for handling positions,...">VehicleViewController</a> is an abstract class that is responsible for displaying the sprite of an entity and responding to the sprite being clicked on or dragged. It does not have a reference to a model-related class. These are added in the two inheriting classes <a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController</a> and <a class="el" href="class_adversary_view_controller.html" title="Controller for an Adversary.">AdversaryViewController</a>. Besides the sprite itself, other important fields include 'ignoreWaypoints' which determines whether the entity will snap to Waypoints when it is dragged and 'placed' which is set to false intially and becomes true once the user places a newly created entity. In turn, the RegisterEntity() method is called by an inheriting class and the entity will be added to the ScenarioInfo via the <a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> (setEgo or addAdversary). When an entity is clicked, it will apply a different material to the sprite which will add a highlight effect to it.</p>
+<h2><a class="anchor" id="autotoc_md14"></a>
+EgoViewController</h2>
+<p><a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController</a> is the controller of the Ego vehicle, which will be controlled by an AI and therefore does not have a path but only a destination. The controller for the destination (displayed as an X in the application) is called <a class="el" href="class_destination_controller.html" title="Controller for the Destination of the Ego vehicle.">DestinationController</a>. An <a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController</a> has exactly one reference to a <a class="el" href="class_destination_controller.html" title="Controller for the Destination of the Ego vehicle.">DestinationController</a> and vice versa. There can only be one Ego vehicle and therefore only one <a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController</a>. This is ensures by the <a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> which will only instantiate one Ego vehicle.</p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+AdversaryViewController</h2>
+<p>The <a class="el" href="class_adversary_view_controller.html" title="Controller for an Adversary.">AdversaryViewController</a> class is also implementing <a class="el" href="interface_i_base_controller.html" title="Represents an interface for a base controller.">IBaseController</a>. Compared to Ego, an adversary does not have a destination but a path. This path is controlled by the <a class="el" href="class_path_controller.html" title="This class handles the path system for an adversary in a game. It manages waypoints,...">PathController</a> class. As with Ego and <a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController</a>, there is only one <a class="el" href="class_path_controller.html" title="This class handles the path system for an adversary in a game. It manages waypoints,...">PathController</a> for one <a class="el" href="class_adversary_view_controller.html" title="Controller for an Adversary.">AdversaryViewController</a> and vice versa. They also hold references to each other. Once an <a class="el" href="class_adversary_view_controller.html" title="Controller for an Adversary.">AdversaryViewController</a> is placed, its <a class="el" href="class_path_controller.html" title="This class handles the path system for an adversary in a game. It manages waypoints,...">PathController</a> is instantiated. The <a class="el" href="class_path_controller.html" title="This class handles the path system for an adversary in a game. It manages waypoints,...">PathController</a> is then responsible for rendering the path of an adversary. To do so it holds a collection of WaypointViewControllers that controll the interaction with the waypoints. A more detailled explanation of the interaction between AdversaryController, <a class="el" href="class_path_controller.html" title="This class handles the path system for an adversary in a game. It manages waypoints,...">PathController</a> and <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> will follow later.</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+WaypointViewController</h2>
+<p><a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> is the final class implementing <a class="el" href="interface_i_base_controller.html" title="Represents an interface for a base controller.">IBaseController</a>. Compared to <a class="el" href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene.">EgoViewController(Ego)</a> and <a class="el" href="class_adversary_view_controller.html" title="Controller for an Adversary.">AdversaryViewController(Adversary)</a>, a Waypoint is not an <a class="el" href="namespace_entity.html">Entity</a> and the <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> does not implement <a class="el" href="interface_i_base_entity_controller.html" title="Represents an interface for a base entity controller.">IBaseEntityController</a> but only <a class="el" href="interface_i_base_controller.html" title="Represents an interface for a base controller.">IBaseController</a>. Therefore it is missing the getEntity() method. From the perspective of the <a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> this distincion is irrelevant as selectedEntity is defined as <a class="el" href="interface_i_base_controller.html" title="Represents an interface for a base controller.">IBaseController</a>. The reason why <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> does not implement <a class="el" href="interface_i_base_entity_controller.html" title="Represents an interface for a base entity controller.">IBaseEntityController</a> is that an IBaseEntity has fields such as category, model, initialSpeed and color which a Waypoint does not have.</p>
+<p>Similar to the other two classes, the <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> is responsible for handling the clicking and dragging of a Waypoint. It communicates with the <a class="el" href="class_path_controller.html" title="This class handles the path system for an adversary in a game. It manages waypoints,...">PathController</a> to adjust the path.</p>
+<h2><a class="anchor" id="autotoc_md17"></a>
+SnapController</h2>
+<h1><a class="anchor" id="autotoc_md18"></a>
+MVC-Interactions</h1>
+<p><img src="img/ClassDiagram-Controllers.jpg" alt="ClassDiagram Controllers" class="inline"/> <a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-Controllers.jpg">Class Diagram Controllers</a></p>
+<h1><a class="anchor" id="autotoc_md19"></a>
+Converting between Carla and Unity Coordinates</h1>
+<p>We exported the pngs of the Carla Maps at 25 pixels per meter and are rendering them at 100 pixels per Unit. This means 1 unit in Unity corresponds to 4 meters in Carla. To convert from Unity to Carla we have multiply the coordinates by 4. Additionaly the origin used for the map is different. In Carla the maps origin is near the center of the map. In Unity we are using the top left corner of the Map as the origin. When we exported the maps, we also collected MinX, MinY, MaxX, MaxY values for each map. To convert from Unity to Carla we would have to add (minX + maxX)/2 ((minY + maxY)/2 resp.) to the x and y coordinates. Also, the y Axis is inverted between Carla and Unity. Therefore the y value has to be inverted as well.</p>
+<h1><a class="anchor" id="autotoc_md20"></a>
+Interaction between AdversaryViewController, PathController and WaypointViewController</h1>
+<p><img src="img/ClassDiagram-PathController.jpg" alt="ClassDiagram Path Controller" class="inline"/> <a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-PathController.jpg">Class Diagram Controllers</a> </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

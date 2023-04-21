@@ -63,7 +63,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('md__c___users_stefa_source_repos__a_i__testing__simulator__developer__documentation_runner_tool__developer__documentation.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md__developer__documentation_runner_tool__developer__documentation.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -92,11 +92,11 @@ $(document).ready(function(){initNavTree('md__c___users_stefa_source_repos__a_i_
   <div class="headertitle"><div class="title">runnerTool Developer Documentation </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h3><a class="anchor" id="autotoc_md14"></a>
+<div class="textblock"><h3><a class="anchor" id="autotoc_md1"></a>
 This manual provides basic guidance for developers that want to work with runnerTool. It gives general insight on the code structure and main features.</h3>
 <p>runnerTool is a terminal based python application based on <a href="https://carla.org/">CARLA</a> scenario_runner.py to run and evaluate multiple OpenSCENARIO (.xosc) files. See <a href="https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_introduction">OpenSCENARIO User Guide</a>, <a href="https://releases.asam.net/OpenSCENARIO/1.0.0/Model-Documentation/index.html">OpenSCENARIO Dokumentation</a> for information on the OpenSCENARIO format.</p>
 <p><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst">See runnerTool User Manual</a> for instructions on how to set up and use runnerTool. runnerTool can be used independent of the ScenarioEditor to run any .xosc file compatible with CARLAs scenario_runner.py. It was developed for CARLA version 0.9.13 and OpenSCENARIO 1.0 but should also support newer versions (not tested).</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Table of Contents</h1>
 <ul>
 <li>General Code Structure</li>
@@ -104,7 +104,7 @@ Table of Contents</h1>
 <li>scenario_runner.py</li>
 <li>scenario_manager.py</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 General Code Structure</h1>
 <p>runnerTool is build on top of CARLAs scenario_runner.py. See <a href="https://carla-scenariorunner.readthedocs.io/en/latest/">CARLA ScenarioRunner</a> for detailed description of ScenarioRunner. Docstrings are available in the scripts for all implemented methods.</p>
 <p>The following scripts have been added/modified for runnerTool compared to the vanilla CARLA ScenarioRunner:</p><ol type="1">
@@ -112,13 +112,13 @@ General Code Structure</h1>
 <li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/scenario_runner.py">scenario_runner.py</a>: Setting Global Variables and using runnerTool Parser arguments.</li>
 <li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/scenario_manager.py">scenario_manager.py</a>: Camera and Speed settings</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 runnerTool.py</h1>
 <p>This is the main module of runnerTool. Contains main method, RunnerTool class and Log class.</p>
-<h3><a class="anchor" id="autotoc_md18"></a>
+<h3><a class="anchor" id="autotoc_md5"></a>
 Main Method</h3>
 <p>The main method parses the arguments provided by the user, initiates an object of type RunnerTool using the parsed arguments and calls the methods RunnerTool.start_carla() and RunnerTool.runner().</p>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<h3><a class="anchor" id="autotoc_md6"></a>
 RunnerTool</h3>
 <p>The RunnerTool class includes the most important methods used for runnerTool. The following will describe the most important methods. See docstrings in the code for descriptioins of all methods.</p>
 <ul>
@@ -179,10 +179,10 @@ RunnerTool</h3>
 <p class="startli">This method enables terminal based evaluation of the scenario after the runs are finished. It takes different user inputs to show the result overview again, show the failed scenarios, show specific scenarios induvidually in detail and show the available commands to the user. <b>This method runs infinitely until the user enters "0" wich terminates runnerTool.</b></p>
 </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md20"></a>
+<h3><a class="anchor" id="autotoc_md7"></a>
 Log</h3>
 <p>An object of type Log is created on initialization of a RunnerTool object. It is used to log outputs of runnerTool. See docstrings for method descriptions.</p>
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 scenario_runner.py</h1>
 <p>This section only describes changes made to the file by runnerTool. See <a href="https://carla-scenariorunner.readthedocs.io/en/latest/">CARLA ScenarioRunner</a> for documentation on the vanilla features.</p>
 <p>runnerTool adds the following features to scenario_runner.py:</p><ul>
@@ -196,7 +196,7 @@ scenario_runner.py</h1>
 <p class="startli">Adding the values from "--speed" and "--camera" to local variables on ScenarioRunner objcet initialisation. Adding runnerTool parameters to the ScenarioManager object constructor.</p>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 scenario_manager.py</h1>
 <p>This section only describes changes made to the file by runnerTool. See <a href="https://carla-scenariorunner.readthedocs.io/en/latest/">CARLA ScenarioRunner</a> for documentation on the vanilla features.</p>
 <p>runnerTool adds the following features to scenario_manager.py:</p><ul>
