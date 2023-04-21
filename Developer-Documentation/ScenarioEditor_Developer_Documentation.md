@@ -1,5 +1,5 @@
 ![ClassDiagram Maincontroller](img/ClassDiagram-MainController.jpg)
-
+[Maincontroller Diagram](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-MainController.jpg)
 
 ## Important classes
 
@@ -31,6 +31,8 @@ Similar to the other two classes, the WaypointViewController is responsible for 
 
 ## MVC-Interactions
 ![ClassDiagram Controllers](img/ClassDiagram-Controllers.jpg)
+[Class Diagram Controllers](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-Controllers.jpg)
+
 
 ## Converting between Carla and Unity Coordinates
 
@@ -38,3 +40,6 @@ We exported the pngs of the Carla Maps at 25 pixels per meter and are rendering 
 
 ## Interaction between AdversaryViewController, PathController and WaypointViewController
 ![ClassDiagram Path Controller](img/ClassDiagram-PathController.jpg)
+[Class Diagram Controllers](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-PathController.jpg)
+
+
