@@ -2,7 +2,6 @@ var namespace_entity =
 [
     [ "ActionType", "class_entity_1_1_action_type.html", "class_entity_1_1_action_type" ],
     [ "Adversary", "class_entity_1_1_adversary.html", "class_entity_1_1_adversary" ],
-    [ "AStarWaypoint", "class_entity_1_1_a_star_waypoint.html", "class_entity_1_1_a_star_waypoint" ],
     [ "BaseEntity", "class_entity_1_1_base_entity.html", "class_entity_1_1_base_entity" ],
     [ "Ego", "class_entity_1_1_ego.html", "class_entity_1_1_ego" ],
     [ "EntityModel", "class_entity_1_1_entity_model.html", "class_entity_1_1_entity_model" ],

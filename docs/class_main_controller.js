@@ -1,15 +1,12 @@
 var class_main_controller =
 [
-    [ "addAdversary", "class_main_controller.html#a21d89a084c3ddb47399651a895f71cff", null ],
-    [ "createAdversary", "class_main_controller.html#ad96e0b89a65b849502ef470711991a2a", null ],
-    [ "disableButtonBar", "class_main_controller.html#a381d265cd520780e1f94da497d4155f1", null ],
-    [ "enableButtonBar", "class_main_controller.html#a3fc98aadcf44b38f815457cc0dd99477", null ],
-    [ "loadScenarioInfo", "class_main_controller.html#a6df5a19165fe2a411aa5f92f4118ac91", null ],
-    [ "moveActionButtons", "class_main_controller.html#a6472c05b097ea504daa27d275a9b84f0", null ],
-    [ "refreshEntityList", "class_main_controller.html#a1f0e24b3bbc229a01478697278550096", null ],
-    [ "removeAdversary", "class_main_controller.html#a22c21690f75dbc3b6c238f9bb9d8ec2f", null ],
-    [ "setEgo", "class_main_controller.html#a7a62ee02460023f2ae5a52f23bb053a6", null ],
-    [ "setSelectedEntity", "class_main_controller.html#a9ed65e879f5388c5803dae73f712f5c8", null ],
+    [ "AddAdversary", "class_main_controller.html#adfeb7b1b1e200b5796e9fa85d10d4df2", null ],
+    [ "CreateAdversary", "class_main_controller.html#a4dd3c9d37890468182eeedff481bd0a0", null ],
+    [ "MoveActionButtons", "class_main_controller.html#a33b84bf23427d9b5214615610f3f252e", null ],
+    [ "RefreshEntityList", "class_main_controller.html#a603051b423256a24d75d1b09e268720c", null ],
+    [ "RemoveAdversary", "class_main_controller.html#a9da5fd03723d8dc489e82ef7cc2e95a7", null ],
+    [ "SetEgo", "class_main_controller.html#a9b9103e2524fb6519605db71eda57e5f", null ],
+    [ "SetSelectedEntity", "class_main_controller.html#a223fc79513a367f8ef158b1cc57b1fcd", null ],
     [ "Update", "class_main_controller.html#a80c2570e628046b6fe2fd7e58b750027", null ],
-    [ "info", "class_main_controller.html#ad90d39a99e98cb40b7b35d252f266352", null ]
+    [ "Info", "class_main_controller.html#ac268d59c03643a051f0ce8e6353ffb7e", null ]
 ];

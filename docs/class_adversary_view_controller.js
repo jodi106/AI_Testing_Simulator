@@ -1,18 +1,17 @@
 var class_adversary_view_controller =
 [
-    [ "deselect", "class_adversary_view_controller.html#a701b34fae007f60b011c5269b44c750a", null ],
-    [ "destroy", "class_adversary_view_controller.html#a6ba406f5896b1794a291e434e069a704", null ],
-    [ "getCollider", "class_adversary_view_controller.html#ac620cefaafef49e51dd195d93c44762a", null ],
-    [ "getEntity", "class_adversary_view_controller.html#a56cd62493273016f162776662e83aa85", null ],
-    [ "getPathController", "class_adversary_view_controller.html#ab60ebeb097c9f2c3a186b3172418ab25", null ],
-    [ "getSprite", "class_adversary_view_controller.html#a2316944485f4cbed628c3112caf8f776", null ],
-    [ "init", "class_adversary_view_controller.html#a2fcb3535cc9cdfc1010afec9a634f8cb", null ],
-    [ "init", "class_adversary_view_controller.html#a86585c09f4e1783043ce4ab4cd4f1be7", null ],
-    [ "onChangeCategory", "class_adversary_view_controller.html#a5f7e9d3810c0bf0dbb4092e76ee2b274", null ],
-    [ "onChangeColor", "class_adversary_view_controller.html#abdb268c03d022e7273b530759101ee2b", null ],
-    [ "onChangePosition", "class_adversary_view_controller.html#ac8a2dc2189652906a5cb29e75d1cedab", null ],
-    [ "openEditDialog", "class_adversary_view_controller.html#a49648aed831913f80bf95f0866a1f426", null ],
-    [ "registerEntity", "class_adversary_view_controller.html#ac8239cf5f6c41b54ca98b73e39197b33", null ],
-    [ "select", "class_adversary_view_controller.html#a7b19bce105ea5a669f28b604d904e45f", null ],
-    [ "setIgnoreWaypoints", "class_adversary_view_controller.html#a6977e2197207706e9d797044b15adff9", null ]
+    [ "Deselect", "class_adversary_view_controller.html#a72ddd533796ddc41dc9420487582a043", null ],
+    [ "Destroy", "class_adversary_view_controller.html#a7095a4ea5089e3718e8773dd3de5abb7", null ],
+    [ "GetCollider", "class_adversary_view_controller.html#a332efa3ba0414286a299d36f8c37aee7", null ],
+    [ "GetEntity", "class_adversary_view_controller.html#a1f11df490f80cbb0250344949965f33f", null ],
+    [ "GetSprite", "class_adversary_view_controller.html#afe666ecfde2483a6827858dd53be8ceb", null ],
+    [ "Init", "class_adversary_view_controller.html#ad01b21ce00cb801f063e42f00dcd48f1", null ],
+    [ "Init", "class_adversary_view_controller.html#ae6a42fe3e308cd6c892bb65904c1e23a", null ],
+    [ "OnChangeCategory", "class_adversary_view_controller.html#a1302ad9c69c755483b3aad4c485567cc", null ],
+    [ "OnChangeColor", "class_adversary_view_controller.html#a28e1467b8ac60b82400326007b0f96a0", null ],
+    [ "OnChangePosition", "class_adversary_view_controller.html#a068e3190f1466989d8c72f4ea7fa4a57", null ],
+    [ "OpenEditDialog", "class_adversary_view_controller.html#a1f8ae4fc4a50939571da8a1b763d20dc", null ],
+    [ "RegisterEntity", "class_adversary_view_controller.html#a51cdbc89ce9a3eee07ec4a584c310c96", null ],
+    [ "Select", "class_adversary_view_controller.html#a0cac282fa2014f91e48d16a9cbfaef2d", null ],
+    [ "ShouldIgnoreWaypoints", "class_adversary_view_controller.html#a114900b211542320a222911e4cb3582a", null ]
 ];

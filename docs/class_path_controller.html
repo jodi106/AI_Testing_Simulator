@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -109,51 +109,54 @@ Inheritance diagram for PathController:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae1cbe73e0caf115f2f615c73876c0351"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#ae1cbe73e0caf115f2f615c73876c0351">shouldIgnoreWaypoints</a> ()</td></tr>
-<tr class="memdesc:ae1cbe73e0caf115f2f615c73876c0351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the path should ignore waypoints.  <br /></td></tr>
-<tr class="separator:ae1cbe73e0caf115f2f615c73876c0351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e955512e2bd1cb37fa01f867cf6e4de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a2e955512e2bd1cb37fa01f867cf6e4de">isBuilding</a> ()</td></tr>
-<tr class="memdesc:a2e955512e2bd1cb37fa01f867cf6e4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the path is currently in building mode.  <br /></td></tr>
-<tr class="separator:a2e955512e2bd1cb37fa01f867cf6e4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7924a26bf6e8bed4daa1610c42c2296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#af7924a26bf6e8bed4daa1610c42c2296">select</a> (bool forward=false)</td></tr>
-<tr class="memdesc:af7924a26bf6e8bed4daa1610c42c2296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the path and enables building mode.  <br /></td></tr>
-<tr class="separator:af7924a26bf6e8bed4daa1610c42c2296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a250651f4b9c4854601505c1d76de1f3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a250651f4b9c4854601505c1d76de1f3a">adjustHeights</a> (bool selected)</td></tr>
-<tr class="memdesc:a250651f4b9c4854601505c1d76de1f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the heights of the path and waypoints based on the selected state.  <br /></td></tr>
-<tr class="separator:a250651f4b9c4854601505c1d76de1f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c34989f9fd10fa1147410c09682bb5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a3c34989f9fd10fa1147410c09682bb5d">deselect</a> (bool forward=false)</td></tr>
-<tr class="memdesc:a3c34989f9fd10fa1147410c09682bb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deselects the path and disables building mode.  <br /></td></tr>
-<tr class="separator:a3c34989f9fd10fa1147410c09682bb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf6400c313e79b070931b54234f12bf1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#aaf6400c313e79b070931b54234f12bf1">IsIgnoringWaypoints</a> ()</td></tr>
+<tr class="memdesc:aaf6400c313e79b070931b54234f12bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if newly placed Waypoints whould ignore Waypoints based on wether the AdversaryController ignores waypoints.  <br /></td></tr>
+<tr class="separator:aaf6400c313e79b070931b54234f12bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c74baa9893350d6fdf603e377eb865"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a32c74baa9893350d6fdf603e377eb865">IsBuilding</a> ()</td></tr>
+<tr class="memdesc:a32c74baa9893350d6fdf603e377eb865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the path is currently in building mode.  <br /></td></tr>
+<tr class="separator:a32c74baa9893350d6fdf603e377eb865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a678edce5106d55691ad3e600b3c72f7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a678edce5106d55691ad3e600b3c72f7c">Select</a> (bool forward=false)</td></tr>
+<tr class="memdesc:a678edce5106d55691ad3e600b3c72f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the path and enables building mode.  <br /></td></tr>
+<tr class="separator:a678edce5106d55691ad3e600b3c72f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cbf9cbf674de8078b7a95210f41469a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a3cbf9cbf674de8078b7a95210f41469a">AdjustHeights</a> (bool selected)</td></tr>
+<tr class="memdesc:a3cbf9cbf674de8078b7a95210f41469a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjusts the heights of the path and waypoints based on the selected state.  <br /></td></tr>
+<tr class="separator:a3cbf9cbf674de8078b7a95210f41469a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21ceb6a25402e1129f7e363236f4d30f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a21ceb6a25402e1129f7e363236f4d30f">Deselect</a> (bool forward=false)</td></tr>
+<tr class="memdesc:a21ceb6a25402e1129f7e363236f4d30f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deselects the path and disables building mode.  <br /></td></tr>
+<tr class="separator:a21ceb6a25402e1129f7e363236f4d30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bb3be0288daaebda2e8c164da30d3ed"><td class="memItemLeft" align="right" valign="top"><a id="a1bb3be0288daaebda2e8c164da30d3ed" name="a1bb3be0288daaebda2e8c164da30d3ed"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Destroy</b> ()</td></tr>
 <tr class="memdesc:a1bb3be0288daaebda2e8c164da30d3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the path and its associated waypoints. <br /></td></tr>
 <tr class="separator:a1bb3be0288daaebda2e8c164da30d3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b2a46a1a981c95ec742a0b64453b423"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a3b2a46a1a981c95ec742a0b64453b423">Init</a> (<a class="el" href="class_adversary_view_controller.html">AdversaryViewController</a> controller, <a class="el" href="class_entity_1_1_adversary.html">Adversary</a> v, bool building=true)</td></tr>
-<tr class="memdesc:a3b2a46a1a981c95ec742a0b64453b423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the path controller with the specified parameters.  <br /></td></tr>
-<tr class="separator:a3b2a46a1a981c95ec742a0b64453b423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62dd2bacb80a03e6bab166343eccc04f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a62dd2bacb80a03e6bab166343eccc04f">Init</a> (<a class="el" href="class_adversary_view_controller.html">AdversaryViewController</a> controller, Color color, <a class="el" href="class_entity_1_1_path.html">Path</a> path, bool building)</td></tr>
+<tr class="memdesc:a62dd2bacb80a03e6bab166343eccc04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the path controller with the specified parameters.  <br /></td></tr>
+<tr class="separator:a62dd2bacb80a03e6bab166343eccc04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5b06754bce71b2ce2dbf6d7e8b8bf32"><td class="memItemLeft" align="right" valign="top"><a id="aa5b06754bce71b2ce2dbf6d7e8b8bf32" name="aa5b06754bce71b2ce2dbf6d7e8b8bf32"></a>
 <a class="el" href="class_entity_1_1_location.html">Location</a>&#160;</td><td class="memItemRight" valign="bottom"><b>FindMouseTarget</b> (Vector2 mousePosition)</td></tr>
 <tr class="separator:aa5b06754bce71b2ce2dbf6d7e8b8bf32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30bd59029e6c8d6b026cb0620275e241"><td class="memItemLeft" align="right" valign="top"><a id="a30bd59029e6c8d6b026cb0620275e241" name="a30bd59029e6c8d6b026cb0620275e241"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> ()</td></tr>
-<tr class="memdesc:a30bd59029e6c8d6b026cb0620275e241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the preview renderer without changing the model. Displays preview based on different collision types and building state. <br /></td></tr>
+<tr class="memdesc:a30bd59029e6c8d6b026cb0620275e241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the preview renderer without changing the model. Displays preview based on different collision types and building state. Does not change the Path model in any way. <br /></td></tr>
 <tr class="separator:a30bd59029e6c8d6b026cb0620275e241"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e1a1f7e430af93d9dce9bea3dddef15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a8e1a1f7e430af93d9dce9bea3dddef15">AddMoveToWaypoint</a> (Vector2 position, <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> waypoint=null, bool addLaneChanges=true)</td></tr>
 <tr class="memdesc:a8e1a1f7e430af93d9dce9bea3dddef15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a waypoint to the end of the path, either generated or passed as an argument. Keeps waypointViewControllers and pathRenderer in sync.  <br /></td></tr>
 <tr class="separator:a8e1a1f7e430af93d9dce9bea3dddef15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ebc8edf03c222bf84a7262854cf3fbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a2ebc8edf03c222bf84a7262854cf3fbf">addLaneChangeWaypoints</a> (List&lt; int &gt; laneChanges, List&lt; Vector2 &gt; path, LinkedListNode&lt;(<a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a>, int)&gt;? node=null)</td></tr>
-<tr class="memdesc:a2ebc8edf03c222bf84a7262854cf3fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds secondary waypoints for lane changes to the Path and waypointViewControllers. Inserts the generated waypoint and waypointViewController after the specified node, or at the end of both containers if no node is provided.  <br /></td></tr>
-<tr class="separator:a2ebc8edf03c222bf84a7262854cf3fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb2fbac0ba6e5bbed04eb84c2472f975"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#adb2fbac0ba6e5bbed04eb84c2472f975">AddLaneChangeWaypoints</a> (List&lt; int &gt; laneChanges, List&lt; Vector2 &gt; path, LinkedListNode&lt;(<a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a>, int)&gt;? node=null)</td></tr>
+<tr class="memdesc:adb2fbac0ba6e5bbed04eb84c2472f975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds secondary waypoints for lane changes to the Path and waypointViewControllers. Inserts the generated waypoint and waypointViewController after the specified node, or at the end of both containers if no node is provided.  <br /></td></tr>
+<tr class="separator:adb2fbac0ba6e5bbed04eb84c2472f975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0915f7dce77b08f4e65ffe36676c5f9a"><td class="memItemLeft" align="right" valign="top"><a id="a0915f7dce77b08f4e65ffe36676c5f9a" name="a0915f7dce77b08f4e65ffe36676c5f9a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateAdjacentPaths</b> (<a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a> waypointController)</td></tr>
+<tr class="separator:a0915f7dce77b08f4e65ffe36676c5f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acea40323dec1a9ea7ee3bc298e069651"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#acea40323dec1a9ea7ee3bc298e069651">MoveWaypoint</a> (<a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a> waypointController, float x, float y)</td></tr>
 <tr class="memdesc:acea40323dec1a9ea7ee3bc298e069651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the specified waypoint to the new x and y coordinates, updating the path and secondary waypoints as needed.  <br /></td></tr>
 <tr class="separator:acea40323dec1a9ea7ee3bc298e069651"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc681dc733af394363e0d0a21f0a4a1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#abc681dc733af394363e0d0a21f0a4a1b">removeWaypoint</a> (<a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a> controller, bool restorePath=true)</td></tr>
-<tr class="memdesc:abc681dc733af394363e0d0a21f0a4a1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a waypoint from the path and optionally restores the path between the previous and next waypoints.  <br /></td></tr>
-<tr class="separator:abc681dc733af394363e0d0a21f0a4a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f95770d10ae76913a1f16f68da25788"><td class="memItemLeft" align="right" valign="top"><a id="a4f95770d10ae76913a1f16f68da25788" name="a4f95770d10ae76913a1f16f68da25788"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>afterEdit</b> ()</td></tr>
-<tr class="memdesc:a4f95770d10ae76913a1f16f68da25788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the adversary rotation and edge collider after a path edit. <br /></td></tr>
-<tr class="separator:a4f95770d10ae76913a1f16f68da25788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0226267283fba1492f9657c2e9d9256f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a0226267283fba1492f9657c2e9d9256f">RemoveWaypoint</a> (<a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a> controller, bool restorePath=true)</td></tr>
+<tr class="memdesc:a0226267283fba1492f9657c2e9d9256f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a waypoint from the path and optionally restores the path between the previous and next waypoints.  <br /></td></tr>
+<tr class="separator:a0226267283fba1492f9657c2e9d9256f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65fcc1cda84706e33376dabad9a268e7"><td class="memItemLeft" align="right" valign="top"><a id="a65fcc1cda84706e33376dabad9a268e7" name="a65fcc1cda84706e33376dabad9a268e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AfterEdit</b> ()</td></tr>
+<tr class="memdesc:a65fcc1cda84706e33376dabad9a268e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the adversary rotation and edge collider after a path edit. <br /></td></tr>
+<tr class="separator:a65fcc1cda84706e33376dabad9a268e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5779a49c4c055ef74692152abf834834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a5779a49c4c055ef74692152abf834834">MoveFirstWaypoint</a> (float x, float y)</td></tr>
 <tr class="memdesc:a5779a49c4c055ef74692152abf834834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the first waypoint to the specified x and y coordinates.  <br /></td></tr>
 <tr class="separator:a5779a49c4c055ef74692152abf834834"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,9 +167,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>afterEdit</b> ()</td>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>OnMouseDown</b> ()</td></tr>
 <tr class="memdesc:aac3316198d49c3e8129dd872396a9d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles mouse down events on the path, allowing the user to interact with the waypoints and path. <br /></td></tr>
 <tr class="separator:aac3316198d49c3e8129dd872396a9d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d5d622da6f590acee114985ad4e63c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#a8d5d622da6f590acee114985ad4e63c7">getFirstWaypointController</a> ()</td></tr>
-<tr class="memdesc:a8d5d622da6f590acee114985ad4e63c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> for the first waypoint in the path.  <br /></td></tr>
-<tr class="separator:a8d5d622da6f590acee114985ad4e63c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc810c7c2a9162c628dec70a126d4f1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_path_controller.html#adc810c7c2a9162c628dec70a126d4f1f">GetFirstWaypointController</a> ()</td></tr>
+<tr class="memdesc:adc810c7c2a9162c628dec70a126d4f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> for the first waypoint in the path.  <br /></td></tr>
+<tr class="separator:adc810c7c2a9162c628dec70a126d4f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -176,9 +179,9 @@ GameObject&#160;</td><td class="memItemRight" valign="bottom"><b>waypointPrefab<
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a94bfdd2d30f656d1c2e9a971ae30c15a"><td class="memItemLeft" align="right" valign="top"><a id="a94bfdd2d30f656d1c2e9a971ae30c15a" name="a94bfdd2d30f656d1c2e9a971ae30c15a"></a>
-<a class="el" href="class_adversary_view_controller.html">AdversaryViewController</a>&#160;</td><td class="memItemRight" valign="bottom"><b>adversaryViewController</b><code> [get]</code></td></tr>
-<tr class="separator:a94bfdd2d30f656d1c2e9a971ae30c15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ca31643a55c911026022818c27671e8"><td class="memItemLeft" align="right" valign="top"><a id="a2ca31643a55c911026022818c27671e8" name="a2ca31643a55c911026022818c27671e8"></a>
+<a class="el" href="class_adversary_view_controller.html">AdversaryViewController</a>&#160;</td><td class="memItemRight" valign="bottom"><b>AdversaryViewController</b><code> [get]</code></td></tr>
+<tr class="separator:a2ca31643a55c911026022818c27671e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0aebf707e79c4cd17bfc75ff912c6754"><td class="memItemLeft" align="right" valign="top"><a id="a0aebf707e79c4cd17bfc75ff912c6754" name="a0aebf707e79c4cd17bfc75ff912c6754"></a>
 <a class="el" href="class_entity_1_1_path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Path</b><code> [get, set]</code></td></tr>
 <tr class="separator:a0aebf707e79c4cd17bfc75ff912c6754"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,14 +189,17 @@ Properties</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class handles the path system for an adversary in a game. It manages waypoints, line renderers, and interaction with the adversary view controller. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2ebc8edf03c222bf84a7262854cf3fbf" name="a2ebc8edf03c222bf84a7262854cf3fbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ebc8edf03c222bf84a7262854cf3fbf">&#9670;&#160;</a></span>addLaneChangeWaypoints()</h2>
+<a id="adb2fbac0ba6e5bbed04eb84c2472f975" name="adb2fbac0ba6e5bbed04eb84c2472f975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb2fbac0ba6e5bbed04eb84c2472f975">&#9670;&#160;</a></span>AddLaneChangeWaypoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int PathController.addLaneChangeWaypoints </td>
+          <td class="memname">int PathController.AddLaneChangeWaypoints </td>
           <td>(</td>
           <td class="paramtype">List&lt; int &gt;&#160;</td>
           <td class="paramname"><em>laneChanges</em>, </td>
@@ -216,6 +222,11 @@ Properties</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds secondary waypoints for lane changes to the Path and waypointViewControllers. Inserts the generated waypoint and waypointViewController after the specified node, or at the end of both containers if no node is provided. </p>
@@ -236,6 +247,9 @@ Properties</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void PathController.AddMoveToWaypoint </td>
@@ -261,6 +275,11 @@ Properties</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds a waypoint to the end of the path, either generated or passed as an argument. Keeps waypointViewControllers and pathRenderer in sync. </p>
@@ -275,46 +294,62 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a250651f4b9c4854601505c1d76de1f3a" name="a250651f4b9c4854601505c1d76de1f3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a250651f4b9c4854601505c1d76de1f3a">&#9670;&#160;</a></span>adjustHeights()</h2>
+<a id="a3cbf9cbf674de8078b7a95210f41469a" name="a3cbf9cbf674de8078b7a95210f41469a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cbf9cbf674de8078b7a95210f41469a">&#9670;&#160;</a></span>AdjustHeights()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PathController.adjustHeights </td>
+          <td class="memname">void PathController.AdjustHeights </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>selected</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adjusts the heights of the path and waypoints based on the selected state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">selected</td><td>True if the path should be set as selected, otherwise false.</td></tr>
+    <tr><td class="paramname">selected</td><td>True if heights should be adjusted, false otherwise.</td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a3c34989f9fd10fa1147410c09682bb5d" name="a3c34989f9fd10fa1147410c09682bb5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c34989f9fd10fa1147410c09682bb5d">&#9670;&#160;</a></span>deselect()</h2>
+<a id="a21ceb6a25402e1129f7e363236f4d30f" name="a21ceb6a25402e1129f7e363236f4d30f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21ceb6a25402e1129f7e363236f4d30f">&#9670;&#160;</a></span>Deselect()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PathController.deselect </td>
+          <td class="memname">void PathController.Deselect </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>forward</em> = <code>false</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Deselects the path and disables building mode. </p>
@@ -327,19 +362,27 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a8d5d622da6f590acee114985ad4e63c7" name="a8d5d622da6f590acee114985ad4e63c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d5d622da6f590acee114985ad4e63c7">&#9670;&#160;</a></span>getFirstWaypointController()</h2>
+<a id="adc810c7c2a9162c628dec70a126d4f1f" name="adc810c7c2a9162c628dec70a126d4f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc810c7c2a9162c628dec70a126d4f1f">&#9670;&#160;</a></span>GetFirstWaypointController()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a> PathController.getFirstWaypointController </td>
+          <td class="memname"><a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a> PathController.GetFirstWaypointController </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the <a class="el" href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary.">WaypointViewController</a> for the first waypoint in the path. </p>
@@ -347,11 +390,14 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a3b2a46a1a981c95ec742a0b64453b423" name="a3b2a46a1a981c95ec742a0b64453b423"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b2a46a1a981c95ec742a0b64453b423">&#9670;&#160;</a></span>Init()</h2>
+<a id="a62dd2bacb80a03e6bab166343eccc04f" name="a62dd2bacb80a03e6bab166343eccc04f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62dd2bacb80a03e6bab166343eccc04f">&#9670;&#160;</a></span>Init()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void PathController.Init </td>
@@ -362,14 +408,20 @@ Properties</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_entity_1_1_adversary.html">Adversary</a>&#160;</td>
-          <td class="paramname"><em>v</em>, </td>
+          <td class="paramtype">Color&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_entity_1_1_path.html">Path</a>&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>building</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>building</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -377,13 +429,19 @@ Properties</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Initializes the path controller with the specified parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">controller</td><td>The adversary view controller associated with this path.</td></tr>
-    <tr><td class="paramname">v</td><td>The adversary object associated with this path.</td></tr>
+    <tr><td class="paramname">color</td><td>The color for the path.</td></tr>
+    <tr><td class="paramname">path</td><td>The Path for this controller.</td></tr>
     <tr><td class="paramname">building</td><td>Optional parameter to set the initial building state. Default is true.</td></tr>
   </table>
   </dd>
@@ -393,23 +451,59 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a2e955512e2bd1cb37fa01f867cf6e4de" name="a2e955512e2bd1cb37fa01f867cf6e4de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e955512e2bd1cb37fa01f867cf6e4de">&#9670;&#160;</a></span>isBuilding()</h2>
+<a id="a32c74baa9893350d6fdf603e377eb865" name="a32c74baa9893350d6fdf603e377eb865"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32c74baa9893350d6fdf603e377eb865">&#9670;&#160;</a></span>IsBuilding()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool PathController.isBuilding </td>
+          <td class="memname">bool PathController.IsBuilding </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Checks if the path is currently in building mode. </p>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if building, otherwise false.</dd></dl>
+
+</div>
+</div>
+<a id="aaf6400c313e79b070931b54234f12bf1" name="aaf6400c313e79b070931b54234f12bf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf6400c313e79b070931b54234f12bf1">&#9670;&#160;</a></span>IsIgnoringWaypoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PathController.IsIgnoringWaypoints </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if newly placed Waypoints whould ignore Waypoints based on wether the AdversaryController ignores waypoints. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns true if waypoints should be ignored, otherwise false.&lt;/returns </dd></dl>
 
 </div>
 </div>
@@ -418,6 +512,9 @@ Properties</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void PathController.MoveFirstWaypoint </td>
@@ -437,6 +534,11 @@ Properties</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Moves the first waypoint to the specified x and y coordinates. </p>
@@ -455,6 +557,9 @@ Properties</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void PathController.MoveWaypoint </td>
@@ -480,6 +585,11 @@ Properties</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Moves the specified waypoint to the new x and y coordinates, updating the path and secondary waypoints as needed. </p>
@@ -494,14 +604,17 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="abc681dc733af394363e0d0a21f0a4a1b" name="abc681dc733af394363e0d0a21f0a4a1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc681dc733af394363e0d0a21f0a4a1b">&#9670;&#160;</a></span>removeWaypoint()</h2>
+<a id="a0226267283fba1492f9657c2e9d9256f" name="a0226267283fba1492f9657c2e9d9256f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0226267283fba1492f9657c2e9d9256f">&#9670;&#160;</a></span>RemoveWaypoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PathController.removeWaypoint </td>
+          <td class="memname">void PathController.RemoveWaypoint </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_waypoint_view_controller.html">WaypointViewController</a>&#160;</td>
           <td class="paramname"><em>controller</em>, </td>
@@ -518,6 +631,11 @@ Properties</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Removes a waypoint from the path and optionally restores the path between the previous and next waypoints. </p>
@@ -531,20 +649,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="af7924a26bf6e8bed4daa1610c42c2296" name="af7924a26bf6e8bed4daa1610c42c2296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7924a26bf6e8bed4daa1610c42c2296">&#9670;&#160;</a></span>select()</h2>
+<a id="a678edce5106d55691ad3e600b3c72f7c" name="a678edce5106d55691ad3e600b3c72f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a678edce5106d55691ad3e600b3c72f7c">&#9670;&#160;</a></span>Select()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PathController.select </td>
+          <td class="memname">void PathController.Select </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>forward</em> = <code>false</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Selects the path and enables building mode. </p>
@@ -562,6 +688,9 @@ Properties</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void PathController.SetColor </td>
@@ -571,6 +700,11 @@ Properties</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the color of the path, preview, and waypoints. </p>
@@ -580,26 +714,6 @@ Properties</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ae1cbe73e0caf115f2f615c73876c0351" name="ae1cbe73e0caf115f2f615c73876c0351"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1cbe73e0caf115f2f615c73876c0351">&#9670;&#160;</a></span>shouldIgnoreWaypoints()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PathController.shouldIgnoreWaypoints </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Determines if the path should ignore waypoints. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns true if waypoints should be ignored, otherwise false.&lt;/returns </dd></dl>
 
 </div>
 </div>

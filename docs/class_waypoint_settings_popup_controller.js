@@ -1,5 +1,5 @@
 var class_waypoint_settings_popup_controller =
 [
-    [ "Awake", "class_waypoint_settings_popup_controller.html#a38d9db9d5c3986f985af60f62b25257d", null ],
-    [ "open", "class_waypoint_settings_popup_controller.html#a7b4dcda759cf36ae59c91a8a9b080dc5", null ]
+    [ "Awake", "class_waypoint_settings_popup_controller.html#a3464b57c2e5487e1ef481861af9e588f", null ],
+    [ "Open", "class_waypoint_settings_popup_controller.html#a512cd14a55f681a42b3dee7403345e33", null ]
 ];

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('class_main_controller.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#properties">Properties</a> &#124;
@@ -110,43 +111,41 @@ Inheritance diagram for MainController:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6df5a19165fe2a411aa5f92f4118ac91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a6df5a19165fe2a411aa5f92f4118ac91">loadScenarioInfo</a> (<a class="el" href="class_entity_1_1_scenario_info.html">ScenarioInfo</a> <a class="el" href="class_main_controller.html#ad90d39a99e98cb40b7b35d252f266352">info</a>)</td></tr>
-<tr class="memdesc:a6df5a19165fe2a411aa5f92f4118ac91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a ScenarioInfo object into the editor.  <br /></td></tr>
-<tr class="separator:a6df5a19165fe2a411aa5f92f4118ac91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80c2570e628046b6fe2fd7e58b750027"><td class="memItemLeft" align="right" valign="top"><a id="a80c2570e628046b6fe2fd7e58b750027" name="a80c2570e628046b6fe2fd7e58b750027"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> ()</td></tr>
 <tr class="memdesc:a80c2570e628046b6fe2fd7e58b750027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the <a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> and handles user input. <br /></td></tr>
 <tr class="separator:a80c2570e628046b6fe2fd7e58b750027"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ed65e879f5388c5803dae73f712f5c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a9ed65e879f5388c5803dae73f712f5c8">setSelectedEntity</a> (<a class="el" href="interface_i_base_controller.html">IBaseController</a> entity)</td></tr>
-<tr class="memdesc:a9ed65e879f5388c5803dae73f712f5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the selected entity in the scenario editor.  <br /></td></tr>
-<tr class="separator:a9ed65e879f5388c5803dae73f712f5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6472c05b097ea504daa27d275a9b84f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a6472c05b097ea504daa27d275a9b84f0">moveActionButtons</a> (Vector2 pos)</td></tr>
-<tr class="memdesc:a6472c05b097ea504daa27d275a9b84f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the action buttons to the specified position.  <br /></td></tr>
-<tr class="separator:a6472c05b097ea504daa27d275a9b84f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21d89a084c3ddb47399651a895f71cff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a21d89a084c3ddb47399651a895f71cff">addAdversary</a> (<a class="el" href="class_entity_1_1_adversary.html">Adversary</a> entity)</td></tr>
-<tr class="memdesc:a21d89a084c3ddb47399651a895f71cff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an adversary to the scenario.  <br /></td></tr>
-<tr class="separator:a21d89a084c3ddb47399651a895f71cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22c21690f75dbc3b6c238f9bb9d8ec2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a22c21690f75dbc3b6c238f9bb9d8ec2f">removeAdversary</a> (<a class="el" href="class_entity_1_1_adversary.html">Adversary</a> adversary)</td></tr>
-<tr class="memdesc:a22c21690f75dbc3b6c238f9bb9d8ec2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an adversary from the scenario.  <br /></td></tr>
-<tr class="separator:a22c21690f75dbc3b6c238f9bb9d8ec2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a62ee02460023f2ae5a52f23bb053a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a7a62ee02460023f2ae5a52f23bb053a6">setEgo</a> (<a class="el" href="class_entity_1_1_ego.html">Ego</a> ego)</td></tr>
-<tr class="memdesc:a7a62ee02460023f2ae5a52f23bb053a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ego vehicle in the scenario.  <br /></td></tr>
-<tr class="separator:a7a62ee02460023f2ae5a52f23bb053a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad96e0b89a65b849502ef470711991a2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#ad96e0b89a65b849502ef470711991a2a">createAdversary</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> category)</td></tr>
-<tr class="memdesc:ad96e0b89a65b849502ef470711991a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new adversary object without adding it to the scenario model. It will be added to the model once it is placed by the user.  <br /></td></tr>
-<tr class="separator:ad96e0b89a65b849502ef470711991a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381d265cd520780e1f94da497d4155f1"><td class="memItemLeft" align="right" valign="top"><a id="a381d265cd520780e1f94da497d4155f1" name="a381d265cd520780e1f94da497d4155f1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>disableButtonBar</b> ()</td></tr>
-<tr class="memdesc:a381d265cd520780e1f94da497d4155f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the button bar, making all buttons unresponsive. <br /></td></tr>
-<tr class="separator:a381d265cd520780e1f94da497d4155f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fc98aadcf44b38f815457cc0dd99477"><td class="memItemLeft" align="right" valign="top"><a id="a3fc98aadcf44b38f815457cc0dd99477" name="a3fc98aadcf44b38f815457cc0dd99477"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>enableButtonBar</b> ()</td></tr>
-<tr class="memdesc:a3fc98aadcf44b38f815457cc0dd99477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables all buttons in the button bar. <br /></td></tr>
-<tr class="separator:a3fc98aadcf44b38f815457cc0dd99477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f0e24b3bbc229a01478697278550096"><td class="memItemLeft" align="right" valign="top"><a id="a1f0e24b3bbc229a01478697278550096" name="a1f0e24b3bbc229a01478697278550096"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>refreshEntityList</b> ()</td></tr>
-<tr class="memdesc:a1f0e24b3bbc229a01478697278550096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the <a class="el" href="namespace_entity.html">Entity</a> list. <br /></td></tr>
-<tr class="separator:a1f0e24b3bbc229a01478697278550096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223fc79513a367f8ef158b1cc57b1fcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a223fc79513a367f8ef158b1cc57b1fcd">SetSelectedEntity</a> (<a class="el" href="interface_i_base_controller.html">IBaseController</a> controller)</td></tr>
+<tr class="memdesc:a223fc79513a367f8ef158b1cc57b1fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the selected entity in the scenario editor.  <br /></td></tr>
+<tr class="separator:a223fc79513a367f8ef158b1cc57b1fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33b84bf23427d9b5214615610f3f252e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a33b84bf23427d9b5214615610f3f252e">MoveActionButtons</a> (Vector2 pos)</td></tr>
+<tr class="memdesc:a33b84bf23427d9b5214615610f3f252e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the action buttons to the specified position.  <br /></td></tr>
+<tr class="separator:a33b84bf23427d9b5214615610f3f252e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfeb7b1b1e200b5796e9fa85d10d4df2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#adfeb7b1b1e200b5796e9fa85d10d4df2">AddAdversary</a> (<a class="el" href="class_entity_1_1_adversary.html">Adversary</a> adversary)</td></tr>
+<tr class="memdesc:adfeb7b1b1e200b5796e9fa85d10d4df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an adversary to the scenario.  <br /></td></tr>
+<tr class="separator:adfeb7b1b1e200b5796e9fa85d10d4df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9da5fd03723d8dc489e82ef7cc2e95a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a9da5fd03723d8dc489e82ef7cc2e95a7">RemoveAdversary</a> (<a class="el" href="class_entity_1_1_adversary.html">Adversary</a> adversary)</td></tr>
+<tr class="memdesc:a9da5fd03723d8dc489e82ef7cc2e95a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an adversary from the scenario.  <br /></td></tr>
+<tr class="separator:a9da5fd03723d8dc489e82ef7cc2e95a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b9103e2524fb6519605db71eda57e5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a9b9103e2524fb6519605db71eda57e5f">SetEgo</a> (<a class="el" href="class_entity_1_1_ego.html">Ego</a> ego)</td></tr>
+<tr class="memdesc:a9b9103e2524fb6519605db71eda57e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ego vehicle in the scenario.  <br /></td></tr>
+<tr class="separator:a9b9103e2524fb6519605db71eda57e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dd3c9d37890468182eeedff481bd0a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_controller.html#a4dd3c9d37890468182eeedff481bd0a0">CreateAdversary</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> category)</td></tr>
+<tr class="memdesc:a4dd3c9d37890468182eeedff481bd0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new adversary object without adding it to the scenario model. It will be added to the model once it is placed by the user.  <br /></td></tr>
+<tr class="separator:a4dd3c9d37890468182eeedff481bd0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a603051b423256a24d75d1b09e268720c"><td class="memItemLeft" align="right" valign="top"><a id="a603051b423256a24d75d1b09e268720c" name="a603051b423256a24d75d1b09e268720c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RefreshEntityList</b> ()</td></tr>
+<tr class="memdesc:a603051b423256a24d75d1b09e268720c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the <a class="el" href="namespace_entity.html">Entity</a> list. <br /></td></tr>
+<tr class="separator:a603051b423256a24d75d1b09e268720c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac095590b419864ffadcbed69f6c4945c"><td class="memItemLeft" align="right" valign="top"><a id="ac095590b419864ffadcbed69f6c4945c" name="ac095590b419864ffadcbed69f6c4945c"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveToolTip</b> (Vector2 pos, Vector2 direction, String text)</td></tr>
+<tr class="separator:ac095590b419864ffadcbed69f6c4945c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad595096e15bab6ff3fe3e09a5a36a51d"><td class="memItemLeft" align="right" valign="top"><a id="ad595096e15bab6ff3fe3e09a5a36a51d" name="ad595096e15bab6ff3fe3e09a5a36a51d"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>HideToolTip</b> ()</td></tr>
+<tr class="separator:ad595096e15bab6ff3fe3e09a5a36a51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -163,7 +162,7 @@ GameObject&#160;</td><td class="memItemRight" valign="bottom"><b>egoPrefab</b></
 GameObject&#160;</td><td class="memItemRight" valign="bottom"><b>pedPrefab</b></td></tr>
 <tr class="separator:ae155d3a3e723ddfb944b966b6d2f40e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc2fb6af53e7953543f1fdb6b11a660e"><td class="memItemLeft" align="right" valign="top"><a id="abc2fb6af53e7953543f1fdb6b11a660e" name="abc2fb6af53e7953543f1fdb6b11a660e"></a>
-<a class="el" href="class_simple_file_browser_1_1_u_i_skin.html">UISkin</a>&#160;</td><td class="memItemRight" valign="bottom"><b>skin</b></td></tr>
+UISkin&#160;</td><td class="memItemRight" valign="bottom"><b>skin</b></td></tr>
 <tr class="separator:abc2fb6af53e7953543f1fdb6b11a660e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be35ddc459b33b3c1c77a6935a974a9"><td class="memItemLeft" align="right" valign="top"><a id="a8be35ddc459b33b3c1c77a6935a974a9" name="a8be35ddc459b33b3c1c77a6935a974a9"></a>
 <a class="el" href="class_warning_popup_controller.html">WarningPopupController</a>&#160;</td><td class="memItemRight" valign="bottom"><b>warningPopupController</b></td></tr>
@@ -186,28 +185,36 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>freeze</b> = f
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:ad90d39a99e98cb40b7b35d252f266352"><td class="memItemLeft" align="right" valign="top"><a id="ad90d39a99e98cb40b7b35d252f266352" name="ad90d39a99e98cb40b7b35d252f266352"></a>
-<a class="el" href="class_entity_1_1_scenario_info.html">ScenarioInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>info</b><code> [get]</code></td></tr>
-<tr class="memdesc:ad90d39a99e98cb40b7b35d252f266352"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ScenarioInfo for the current scenario being edited. <br /></td></tr>
-<tr class="separator:ad90d39a99e98cb40b7b35d252f266352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac268d59c03643a051f0ce8e6353ffb7e"><td class="memItemLeft" align="right" valign="top"><a id="ac268d59c03643a051f0ce8e6353ffb7e" name="ac268d59c03643a051f0ce8e6353ffb7e"></a>
+<a class="el" href="class_entity_1_1_scenario_info.html">ScenarioInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Info</b><code> [get]</code></td></tr>
+<tr class="memdesc:ac268d59c03643a051f0ce8e6353ffb7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ScenarioInfo for the current scenario being edited. <br /></td></tr>
+<tr class="separator:ac268d59c03643a051f0ce8e6353ffb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_main_controller.html" title="MainController manages the user interface and the interactions with the scenario editor.">MainController</a> manages the user interface and the interactions with the scenario editor. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a21d89a084c3ddb47399651a895f71cff" name="a21d89a084c3ddb47399651a895f71cff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21d89a084c3ddb47399651a895f71cff">&#9670;&#160;</a></span>addAdversary()</h2>
+<a id="adfeb7b1b1e200b5796e9fa85d10d4df2" name="adfeb7b1b1e200b5796e9fa85d10d4df2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfeb7b1b1e200b5796e9fa85d10d4df2">&#9670;&#160;</a></span>AddAdversary()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MainController.addAdversary </td>
+          <td class="memname">void MainController.AddAdversary </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_entity_1_1_adversary.html">Adversary</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td class="paramname"><em>adversary</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds an adversary to the scenario. </p>
@@ -220,20 +227,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="ad96e0b89a65b849502ef470711991a2a" name="ad96e0b89a65b849502ef470711991a2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad96e0b89a65b849502ef470711991a2a">&#9670;&#160;</a></span>createAdversary()</h2>
+<a id="a4dd3c9d37890468182eeedff481bd0a0" name="a4dd3c9d37890468182eeedff481bd0a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dd3c9d37890468182eeedff481bd0a0">&#9670;&#160;</a></span>CreateAdversary()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MainController.createAdversary </td>
+          <td class="memname">void MainController.CreateAdversary </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a>&#160;</td>
           <td class="paramname"><em>category</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a new adversary object without adding it to the scenario model. It will be added to the model once it is placed by the user. </p>
@@ -246,46 +261,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a6df5a19165fe2a411aa5f92f4118ac91" name="a6df5a19165fe2a411aa5f92f4118ac91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6df5a19165fe2a411aa5f92f4118ac91">&#9670;&#160;</a></span>loadScenarioInfo()</h2>
+<a id="a33b84bf23427d9b5214615610f3f252e" name="a33b84bf23427d9b5214615610f3f252e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33b84bf23427d9b5214615610f3f252e">&#9670;&#160;</a></span>MoveActionButtons()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MainController.loadScenarioInfo </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_entity_1_1_scenario_info.html">ScenarioInfo</a>&#160;</td>
-          <td class="paramname"><em>info</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads a ScenarioInfo object into the editor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">info</td><td>The ScenarioInfo object to load.</td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6472c05b097ea504daa27d275a9b84f0" name="a6472c05b097ea504daa27d275a9b84f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6472c05b097ea504daa27d275a9b84f0">&#9670;&#160;</a></span>moveActionButtons()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MainController.moveActionButtons </td>
+          <td class="memname">void MainController.MoveActionButtons </td>
           <td>(</td>
           <td class="paramtype">Vector2&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Moves the action buttons to the specified position. </p>
@@ -298,20 +295,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a22c21690f75dbc3b6c238f9bb9d8ec2f" name="a22c21690f75dbc3b6c238f9bb9d8ec2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22c21690f75dbc3b6c238f9bb9d8ec2f">&#9670;&#160;</a></span>removeAdversary()</h2>
+<a id="a9da5fd03723d8dc489e82ef7cc2e95a7" name="a9da5fd03723d8dc489e82ef7cc2e95a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9da5fd03723d8dc489e82ef7cc2e95a7">&#9670;&#160;</a></span>RemoveAdversary()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MainController.removeAdversary </td>
+          <td class="memname">void MainController.RemoveAdversary </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_entity_1_1_adversary.html">Adversary</a>&#160;</td>
           <td class="paramname"><em>adversary</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Removes an adversary from the scenario. </p>
@@ -324,20 +329,28 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a7a62ee02460023f2ae5a52f23bb053a6" name="a7a62ee02460023f2ae5a52f23bb053a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a62ee02460023f2ae5a52f23bb053a6">&#9670;&#160;</a></span>setEgo()</h2>
+<a id="a9b9103e2524fb6519605db71eda57e5f" name="a9b9103e2524fb6519605db71eda57e5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b9103e2524fb6519605db71eda57e5f">&#9670;&#160;</a></span>SetEgo()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MainController.setEgo </td>
+          <td class="memname">void MainController.SetEgo </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_entity_1_1_ego.html">Ego</a>&#160;</td>
           <td class="paramname"><em>ego</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the ego vehicle in the scenario. </p>
@@ -350,26 +363,34 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a9ed65e879f5388c5803dae73f712f5c8" name="a9ed65e879f5388c5803dae73f712f5c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ed65e879f5388c5803dae73f712f5c8">&#9670;&#160;</a></span>setSelectedEntity()</h2>
+<a id="a223fc79513a367f8ef158b1cc57b1fcd" name="a223fc79513a367f8ef158b1cc57b1fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223fc79513a367f8ef158b1cc57b1fcd">&#9670;&#160;</a></span>SetSelectedEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MainController.setSelectedEntity </td>
+          <td class="memname">void MainController.SetSelectedEntity </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="interface_i_base_controller.html">IBaseController</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td class="paramname"><em>controller</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the selected entity in the scenario editor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to set as the selected entity. Pass null to deselect the current entity.&lt;/param </td></tr>
+    <tr><td class="paramname">controller</td><td>The entity to set as the selected entity. Pass null to deselect the current entity.&lt;/param </td></tr>
   </table>
   </dd>
 </dl>

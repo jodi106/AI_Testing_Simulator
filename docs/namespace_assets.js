@@ -56,6 +56,10 @@ var namespace_assets =
         [ "DistanceCondition", "namespace_assets_1_1_enums.html#ad98b7a93fc98fd7c4fc7ad4fcbacb223a8c201c70afd61108f7961a293e1fa8df", null ],
         [ "ReachPositionCondition", "namespace_assets_1_1_enums.html#ad98b7a93fc98fd7c4fc7ad4fcbacb223ad13459a626cbe630b7fd52bd89e1ebec", null ],
         [ "RelativeDistanceCondition", "namespace_assets_1_1_enums.html#ad98b7a93fc98fd7c4fc7ad4fcbacb223ad27b3f6bdfdfea317634b130eeffb230", null ]
+      ] ],
+      [ "WaypointStrategy", "namespace_assets_1_1_enums.html#afeea7d8ffbe7e35263dca28881a09d27", [
+        [ "FASTEST", "namespace_assets_1_1_enums.html#afeea7d8ffbe7e35263dca28881a09d27ae9db11364fe8c92dbc11297d6f678404", null ],
+        [ "SHORTEST", "namespace_assets_1_1_enums.html#afeea7d8ffbe7e35263dca28881a09d27aa63ddb11bc6cc95583b3f7632a45a16b", null ]
       ] ]
     ] ],
     [ "Helpers", "namespace_assets_1_1_helpers.html", "namespace_assets_1_1_helpers" ],

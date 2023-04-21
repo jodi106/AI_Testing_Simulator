@@ -1,16 +1,15 @@
 var class_ego_view_controller =
 [
-    [ "Awake", "class_ego_view_controller.html#a7afc11065a20dd08c43a9e87ce0ebbaf", null ],
-    [ "deselect", "class_ego_view_controller.html#a7c98a8f62b463439bafec826b17cccc8", null ],
-    [ "destroy", "class_ego_view_controller.html#a84a3f5086a6858975fce50fc65ba7d31", null ],
-    [ "getEntity", "class_ego_view_controller.html#af3c777b7efa0387921e8a5988f4fe955", null ],
-    [ "getSprite", "class_ego_view_controller.html#adfb2f3b262a44c66d265c4f9e092cd89", null ],
-    [ "init", "class_ego_view_controller.html#a41ad8f7289d2b5d7c3a408397e3ec1c7", null ],
-    [ "init", "class_ego_view_controller.html#a2c54906909cb11d44b804687d5511903", null ],
-    [ "onChangeCategory", "class_ego_view_controller.html#acd9a8077d5bf8fab544c42f1bce8df2c", null ],
-    [ "onChangeColor", "class_ego_view_controller.html#a4852c29825234604f14bd3e8c3a83cd6", null ],
-    [ "openEditDialog", "class_ego_view_controller.html#afac0bbb53a2169c602b6713a920bb0b3", null ],
-    [ "registerEntity", "class_ego_view_controller.html#af4ea7b3587e474df62dfc8319d80c1e2", null ],
-    [ "select", "class_ego_view_controller.html#a084f6e8365491dd6bdce2da70d904c93", null ],
-    [ "submitDestination", "class_ego_view_controller.html#a74e6221d46e69af882667cb2ce4bbae1", null ]
+    [ "Deselect", "class_ego_view_controller.html#a5559a538294887d215884aa9a714f6b0", null ],
+    [ "Destroy", "class_ego_view_controller.html#a5a7da9f32673394a9b31236f03c4c931", null ],
+    [ "GetEntity", "class_ego_view_controller.html#a981ee56b9ce7dc64c97185c6f554f8b6", null ],
+    [ "GetSprite", "class_ego_view_controller.html#ae5799479212b99f603b3221650fd4943", null ],
+    [ "Init", "class_ego_view_controller.html#a67bdbdc53f7ef02ac7d1ac6b74dd10a8", null ],
+    [ "Init", "class_ego_view_controller.html#aabe8a7d30cf8489c1dd5ea3ef0303d09", null ],
+    [ "OnChangeCategory", "class_ego_view_controller.html#a16fa4bbaebc333302fe25a1931a30e65", null ],
+    [ "OnChangeColor", "class_ego_view_controller.html#a3bceb05a1214197e1c5212dc4219ac82", null ],
+    [ "OpenEditDialog", "class_ego_view_controller.html#ada4f0e55e71d69dad31eeaf65bee0295", null ],
+    [ "RegisterEntity", "class_ego_view_controller.html#ae35413b708eb141e59bec9659dce07d2", null ],
+    [ "Select", "class_ego_view_controller.html#ac3a56bbdb93f5e6a0e6ed136896e1f2a", null ],
+    [ "SubmitDestination", "class_ego_view_controller.html#a16a057012df69a817332d94f2555441b", null ]
 ];

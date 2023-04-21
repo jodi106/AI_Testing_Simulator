@@ -1,19 +1,15 @@
 var searchData=
 [
-  ['falling_0',['Falling',['../namespace_assets_1_1_enums.html#afb72293a1ae95aee03d51bd9e06af734a0f57d5b441651c57eac9f91efaa5a75a',1,'Assets::Enums']]],
-  ['fasteuclideandistance_1',['FastEuclideanDistance',['../class_snap_controller.html#a080d14e1628d2ab83b70fcd9e6699e65',1,'SnapController']]],
-  ['filebrowser_2',['FileBrowser',['../class_simple_file_browser_1_1_file_browser.html',1,'SimpleFileBrowser']]],
-  ['filebrowseraccessrestrictedpanel_3',['FileBrowserAccessRestrictedPanel',['../class_simple_file_browser_1_1_file_browser_access_restricted_panel.html',1,'SimpleFileBrowser']]],
-  ['filebrowsercontextmenu_4',['FileBrowserContextMenu',['../class_simple_file_browser_1_1_file_browser_context_menu.html',1,'SimpleFileBrowser']]],
-  ['filebrowsercursorhandler_5',['FileBrowserCursorHandler',['../class_simple_file_browser_1_1_file_browser_cursor_handler.html',1,'SimpleFileBrowser']]],
-  ['filebrowserfileoperationconfirmationpanel_6',['FileBrowserFileOperationConfirmationPanel',['../class_simple_file_browser_1_1_file_browser_file_operation_confirmation_panel.html',1,'SimpleFileBrowser']]],
-  ['filebrowseritem_7',['FileBrowserItem',['../class_simple_file_browser_1_1_file_browser_item.html',1,'SimpleFileBrowser']]],
-  ['filebrowsermovement_8',['FileBrowserMovement',['../class_simple_file_browser_1_1_file_browser_movement.html',1,'SimpleFileBrowser']]],
-  ['filebrowserquicklink_9',['FileBrowserQuickLink',['../class_simple_file_browser_1_1_file_browser_quick_link.html',1,'SimpleFileBrowser']]],
-  ['filebrowserrenameditem_10',['FileBrowserRenamedItem',['../class_simple_file_browser_1_1_file_browser_renamed_item.html',1,'SimpleFileBrowser']]],
-  ['filesystementry_11',['FileSystemEntry',['../struct_simple_file_browser_1_1_file_system_entry.html',1,'SimpleFileBrowser']]],
-  ['filetypeicon_12',['FiletypeIcon',['../struct_simple_file_browser_1_1_filetype_icon.html',1,'SimpleFileBrowser']]],
-  ['filter_13',['Filter',['../class_simple_file_browser_1_1_file_browser_1_1_filter.html',1,'SimpleFileBrowser::FileBrowser']]],
-  ['findmodel_14',['findModel',['../class_assets_1_1_repos_1_1_vehicle_model_repository.html#a7bbd7af71e297e957650792fb8d75e1d',1,'Assets::Repos::VehicleModelRepository']]],
-  ['findwaypoint_15',['FindWaypoint',['../class_snap_controller.html#a01a459693d78243e871dd29846512d02',1,'SnapController']]]
+  ['ego_0',['Ego',['../class_entity_1_1_ego.html#a0af45a48fd42da0d8a29d9aeb53aac11',1,'Entity.Ego.Ego(Location spawnPoint, EntityModel model, AdversaryCategory category, double initialSpeedKMH, Color color)'],['../class_entity_1_1_ego.html#ac8cc4996fc91f342d9cc6199564cef93',1,'Entity.Ego.Ego()'],['../class_entity_1_1_ego.html',1,'Entity.Ego']]],
+  ['egosettingspopupcontroller_1',['EgoSettingsPopupController',['../class_ego_settings_popup_controller.html',1,'']]],
+  ['egoviewcontroller_2',['EgoViewController',['../class_ego_view_controller.html',1,'']]],
+  ['enqueue_3',['Enqueue',['../class_priority_queue_1_1_generic_priority_queue.html#ac94b9bde071cb4d4b21068f1e36fa200',1,'PriorityQueue.GenericPriorityQueue.Enqueue()'],['../interface_priority_queue_1_1_i_priority_queue.html#aed2df40dccc4c60e050446d4ace79b0f',1,'PriorityQueue.IPriorityQueue.Enqueue()'],['../class_priority_queue_1_1_simple_priority_queue.html#a7afc442923183619f341da6de5e51283',1,'PriorityQueue.SimplePriorityQueue.Enqueue(TItem item, TPriority priority)']]],
+  ['enqueuewithoutduplicates_4',['EnqueueWithoutDuplicates',['../class_priority_queue_1_1_simple_priority_queue.html#a5336387863d67a074c4c436a5726096a',1,'PriorityQueue::SimplePriorityQueue']]],
+  ['entity_5',['Entity',['../namespace_entity.html',1,'']]],
+  ['entitylistentryclickedaction_6',['EntityListEntryClickedAction',['../class_entity_list_entry_clicked_action.html',1,'']]],
+  ['entitymodel_7',['EntityModel',['../class_entity_1_1_entity_model.html',1,'Entity.EntityModel'],['../class_entity_1_1_entity_model.html#a462cbf61ff05d277fb7f5088b3e2ce10',1,'Entity.EntityModel.EntityModel(string modelName)'],['../class_entity_1_1_entity_model.html#af14927b577c702c11390ad975445db43',1,'Entity.EntityModel.EntityModel(string displayName, string carlaName)'],['../class_entity_1_1_entity_model.html#ab50e4805de82bbc1f9c0aed4fd62346b',1,'Entity.EntityModel.EntityModel()']]],
+  ['eventmanager_8',['EventManager',['../class_event_manager.html',1,'']]],
+  ['exportscenario_9',['ExportScenario',['../namespace_export_scenario.html',1,'']]],
+  ['exportxml_10',['ExportXML',['../class_export_scenario_1_1_x_m_l_builder_1_1_build_x_m_l.html#afb4392bdf47e22149b2276d52a52ae0d',1,'ExportScenario::XMLBuilder::BuildXML']]],
+  ['xmlbuilder_11',['XMLBuilder',['../namespace_export_scenario_1_1_x_m_l_builder.html',1,'ExportScenario']]]
 ];

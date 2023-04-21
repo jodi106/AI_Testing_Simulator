@@ -19,7 +19,6 @@ var annotated_dup =
     [ "Entity", "namespace_entity.html", [
       [ "ActionType", "class_entity_1_1_action_type.html", "class_entity_1_1_action_type" ],
       [ "Adversary", "class_entity_1_1_adversary.html", "class_entity_1_1_adversary" ],
-      [ "AStarWaypoint", "class_entity_1_1_a_star_waypoint.html", "class_entity_1_1_a_star_waypoint" ],
       [ "BaseEntity", "class_entity_1_1_base_entity.html", "class_entity_1_1_base_entity" ],
       [ "Ego", "class_entity_1_1_ego.html", "class_entity_1_1_ego" ],
       [ "EntityModel", "class_entity_1_1_entity_model.html", "class_entity_1_1_entity_model" ],
@@ -41,34 +40,28 @@ var annotated_dup =
     [ "Models", "namespace_models.html", [
       [ "Map", "class_models_1_1_map.html", "class_models_1_1_map" ]
     ] ],
-    [ "SimpleFileBrowser", "namespace_simple_file_browser.html", [
-      [ "EventSystemHandler", "class_simple_file_browser_1_1_event_system_handler.html", null ],
-      [ "FileBrowser", "class_simple_file_browser_1_1_file_browser.html", "class_simple_file_browser_1_1_file_browser" ],
-      [ "FileBrowserAccessRestrictedPanel", "class_simple_file_browser_1_1_file_browser_access_restricted_panel.html", null ],
-      [ "FileBrowserContextMenu", "class_simple_file_browser_1_1_file_browser_context_menu.html", null ],
-      [ "FileBrowserCursorHandler", "class_simple_file_browser_1_1_file_browser_cursor_handler.html", null ],
-      [ "FileBrowserFileOperationConfirmationPanel", "class_simple_file_browser_1_1_file_browser_file_operation_confirmation_panel.html", null ],
-      [ "FileBrowserItem", "class_simple_file_browser_1_1_file_browser_item.html", null ],
-      [ "FileBrowserMovement", "class_simple_file_browser_1_1_file_browser_movement.html", null ],
-      [ "FileBrowserQuickLink", "class_simple_file_browser_1_1_file_browser_quick_link.html", null ],
-      [ "FileBrowserRenamedItem", "class_simple_file_browser_1_1_file_browser_renamed_item.html", null ],
-      [ "FileSystemEntry", "struct_simple_file_browser_1_1_file_system_entry.html", null ],
-      [ "FiletypeIcon", "struct_simple_file_browser_1_1_filetype_icon.html", null ],
-      [ "IListViewAdapter", "interface_simple_file_browser_1_1_i_list_view_adapter.html", null ],
-      [ "ListItem", "class_simple_file_browser_1_1_list_item.html", null ],
-      [ "NonDrawingGraphic", "class_simple_file_browser_1_1_non_drawing_graphic.html", null ],
-      [ "RecycledListView", "class_simple_file_browser_1_1_recycled_list_view.html", null ],
-      [ "UISkin", "class_simple_file_browser_1_1_u_i_skin.html", null ]
+    [ "PriorityQueue", "namespace_priority_queue.html", [
+      [ "GenericPriorityQueue", "class_priority_queue_1_1_generic_priority_queue.html", "class_priority_queue_1_1_generic_priority_queue" ],
+      [ "GenericPriorityQueueNode", "class_priority_queue_1_1_generic_priority_queue_node.html", "class_priority_queue_1_1_generic_priority_queue_node" ],
+      [ "IPriorityQueue", "interface_priority_queue_1_1_i_priority_queue.html", "interface_priority_queue_1_1_i_priority_queue" ],
+      [ "SimplePriorityQueue", "class_priority_queue_1_1_simple_priority_queue.html", "class_priority_queue_1_1_simple_priority_queue" ]
     ] ],
+    [ "runnerTool", null, [
+      [ "Log", "classrunner_tool_1_1_log.html", "classrunner_tool_1_1_log" ],
+      [ "RunnerTool", "classrunner_tool_1_1_runner_tool.html", "classrunner_tool_1_1_runner_tool" ]
+    ] ],
+    [ "ActionButtonMouseOverHandler", "class_action_button_mouse_over_handler.html", null ],
     [ "ActionButtonsAnimation", "class_action_buttons_animation.html", "class_action_buttons_animation" ],
     [ "AdversarySettingsPopupController", "class_adversary_settings_popup_controller.html", "class_adversary_settings_popup_controller" ],
     [ "AdversaryViewController", "class_adversary_view_controller.html", "class_adversary_view_controller" ],
+    [ "AStarWaypoint", "class_a_star_waypoint.html", "class_a_star_waypoint" ],
     [ "CameraMovement", "class_camera_movement.html", "class_camera_movement" ],
     [ "CancelPlacementAction", "class_cancel_placement_action.html", "class_cancel_placement_action" ],
     [ "CompletePlacementAction", "class_complete_placement_action.html", "class_complete_placement_action" ],
     [ "DestinationController", "class_destination_controller.html", "class_destination_controller" ],
     [ "EgoSettingsPopupController", "class_ego_settings_popup_controller.html", "class_ego_settings_popup_controller" ],
     [ "EgoViewController", "class_ego_view_controller.html", "class_ego_view_controller" ],
+    [ "EntityListEntryClickedAction", "class_entity_list_entry_clicked_action.html", "class_entity_list_entry_clicked_action" ],
     [ "EventManager", "class_event_manager.html", null ],
     [ "HelpPopupController", "class_help_popup_controller.html", null ],
     [ "IAction", "interface_i_action.html", "interface_i_action" ],
@@ -84,6 +77,7 @@ var annotated_dup =
     [ "MapPanAction", "class_map_pan_action.html", "class_map_pan_action" ],
     [ "MouseClickAction", "class_mouse_click_action.html", "class_mouse_click_action" ],
     [ "PathController", "class_path_controller.html", "class_path_controller" ],
+    [ "SettingsPopupController", "class_settings_popup_controller.html", null ],
     [ "SnapController", "class_snap_controller.html", "class_snap_controller" ],
     [ "ToolTipManipulator", "class_tool_tip_manipulator.html", "class_tool_tip_manipulator" ],
     [ "VehicleListEntryController", "class_vehicle_list_entry_controller.html", "class_vehicle_list_entry_controller" ],

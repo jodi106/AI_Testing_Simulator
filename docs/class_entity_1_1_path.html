@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -127,9 +127,9 @@ List&lt; <a class="el" href="class_entity_1_1_location.html">Location</a> &gt;&#
 <tr class="memitem:af55e37d6bf19f44c9aebe1811a703dd5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_1_1_path.html#af55e37d6bf19f44c9aebe1811a703dd5">IsEmpty</a> ()</td></tr>
 <tr class="memdesc:af55e37d6bf19f44c9aebe1811a703dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the WaypointList is empty or not.  <br /></td></tr>
 <tr class="separator:af55e37d6bf19f44c9aebe1811a703dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa3c1fa9961d3564e23d7a0eb0aa0a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_1_1_path.html#aaa3c1fa9961d3564e23d7a0eb0aa0a3a">InitAssignRouteWaypoint</a> (<a class="el" href="class_entity_1_1_location.html">Location</a> spawnpoint)</td></tr>
-<tr class="memdesc:aaa3c1fa9961d3564e23d7a0eb0aa0a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the AssignRouteWaypoint at the end of the WaypointList with a Waypoint containing the ActionType "AssignRouteAction" and all waypoint locations. Needs to be invoked at the end after WayPointList is finished (so when ExportButton is pressed).  <br /></td></tr>
-<tr class="separator:aaa3c1fa9961d3564e23d7a0eb0aa0a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9cfe93c4c565335a4c99bf43f0e54ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_1_1_path.html#ae9cfe93c4c565335a4c99bf43f0e54ac">InitAssignRouteWaypoint</a> (<a class="el" href="class_entity_1_1_location.html">Location</a> spawnpoint, <a class="el" href="namespace_assets_1_1_enums.html#afeea7d8ffbe7e35263dca28881a09d27">WaypointStrategy</a> strategy)</td></tr>
+<tr class="memdesc:ae9cfe93c4c565335a4c99bf43f0e54ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the AssignRouteWaypoint at the end of the WaypointList with a Waypoint containing the ActionType "AssignRouteAction" and all waypoint locations. Needs to be invoked at the end after WayPointList is finished (so when ExportButton is pressed).  <br /></td></tr>
+<tr class="separator:ae9cfe93c4c565335a4c99bf43f0e54ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
@@ -154,6 +154,9 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Entity.Path.Path </td>
@@ -179,6 +182,11 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Initializes a new instance of the Path class with the specified WaypointList, OverallStartTrigger, and OverallStopTrigger. </p>
@@ -199,6 +207,9 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">object Entity.Path.Clone </td>
@@ -207,6 +218,11 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a new Path object that is a deepcopy of the current instance. </p>
@@ -219,6 +235,9 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">List&lt; <a class="el" href="class_entity_1_1_location.html">Location</a> &gt; Entity.Path.GetRouteLocations </td>
@@ -227,6 +246,11 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a list of all waypoint locations in the path to define the entity's route via an AssignRouteAction. </p>
@@ -235,20 +259,38 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
 
 </div>
 </div>
-<a id="aaa3c1fa9961d3564e23d7a0eb0aa0a3a" name="aaa3c1fa9961d3564e23d7a0eb0aa0a3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa3c1fa9961d3564e23d7a0eb0aa0a3a">&#9670;&#160;</a></span>InitAssignRouteWaypoint()</h2>
+<a id="ae9cfe93c4c565335a4c99bf43f0e54ac" name="ae9cfe93c4c565335a4c99bf43f0e54ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9cfe93c4c565335a4c99bf43f0e54ac">&#9670;&#160;</a></span>InitAssignRouteWaypoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Entity.Path.InitAssignRouteWaypoint </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_entity_1_1_location.html">Location</a>&#160;</td>
-          <td class="paramname"><em>spawnpoint</em></td><td>)</td>
+          <td class="paramname"><em>spawnpoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespace_assets_1_1_enums.html#afeea7d8ffbe7e35263dca28881a09d27">WaypointStrategy</a>&#160;</td>
+          <td class="paramname"><em>strategy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Initializes the AssignRouteWaypoint at the end of the WaypointList with a Waypoint containing the ActionType "AssignRouteAction" and all waypoint locations. Needs to be invoked at the end after WayPointList is finished (so when ExportButton is pressed). </p>
@@ -266,6 +308,9 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool Entity.Path.IsEmpty </td>
@@ -274,6 +319,11 @@ List&lt; <a class="el" href="class_entity_1_1_waypoint.html">Waypoint</a> &gt;&#
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Determines if the WaypointList is empty or not. </p>

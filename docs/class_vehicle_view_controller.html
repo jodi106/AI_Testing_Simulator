@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('class_vehicle_view_controller.html',''
 </div><!--header-->
 <div class="contents">
 
-<p>An abstract base class for vehicle view controllers, providing shared functionality for handling vehicle positions, rotations, and selections.  
+<p>An abstract base class for a BaseEntity providing shared functionality for handling positions, rotations, and selections.  
  <a href="class_vehicle_view_controller.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for VehicleViewController:</div>
@@ -111,53 +111,52 @@ Inheritance diagram for VehicleViewController:</div>
 <area href="interface_i_base_entity_view.html" title="Represents an interface for a base entity view." alt="IBaseEntityView" shape="rect" coords="332,56,488,80"/>
 <area href="interface_i_base_controller.html" title="Represents an interface for a base controller." alt="IBaseController" shape="rect" coords="166,0,322,24"/>
 <area href="interface_i_base_view.html" title="Represents an interface for a base view." alt="IBaseView" shape="rect" coords="332,0,488,24"/>
-<area href="class_adversary_view_controller.html" title="Controller for the Adversary entity in the scene." alt="AdversaryViewController" shape="rect" coords="83,168,239,192"/>
+<area href="class_adversary_view_controller.html" title="Controller for an Adversary." alt="AdversaryViewController" shape="rect" coords="83,168,239,192"/>
 <area href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene." alt="EgoViewController" shape="rect" coords="249,168,405,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adbfa48d133480eb1e3ccb8a2ebefaa09"><td class="memItemLeft" align="right" valign="top"><a id="adbfa48d133480eb1e3ccb8a2ebefaa09" name="adbfa48d133480eb1e3ccb8a2ebefaa09"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Awake</b> ()</td></tr>
-<tr class="memdesc:adbfa48d133480eb1e3ccb8a2ebefaa09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the vehicle view controller, setting up necessary components, materials, and event listeners. <br /></td></tr>
-<tr class="separator:adbfa48d133480eb1e3ccb8a2ebefaa09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac44a34d6486a3608f487962ad103f83e"><td class="memItemLeft" align="right" valign="top">abstract Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#ac44a34d6486a3608f487962ad103f83e">getSprite</a> ()</td></tr>
-<tr class="memdesc:ac44a34d6486a3608f487962ad103f83e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Sprite associated with the vehicle.  <br /></td></tr>
-<tr class="separator:ac44a34d6486a3608f487962ad103f83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b6cffb5d8630daedcd32b5a43931168"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_entity_1_1_location.html">Location</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a6b6cffb5d8630daedcd32b5a43931168">getLocation</a> ()</td></tr>
-<tr class="memdesc:a6b6cffb5d8630daedcd32b5a43931168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the location of the vehicle.  <br /></td></tr>
-<tr class="separator:a6b6cffb5d8630daedcd32b5a43931168"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0ca7418a53cb751485a4862cfc59ba3"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#af0ca7418a53cb751485a4862cfc59ba3">init</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> cat, Color color)</td></tr>
-<tr class="memdesc:af0ca7418a53cb751485a4862cfc59ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the vehicle view controller with the specified category and color.  <br /></td></tr>
-<tr class="separator:af0ca7418a53cb751485a4862cfc59ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae250a68c505c5e103dcad9dcd33b2f42"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#ae250a68c505c5e103dcad9dcd33b2f42">onChangePosition</a> (float x, float y)</td></tr>
-<tr class="memdesc:ae250a68c505c5e103dcad9dcd33b2f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the position of the entity to the given coordinates.  <br /></td></tr>
-<tr class="separator:ae250a68c505c5e103dcad9dcd33b2f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8978dab1facb0545ee5752179f7afc0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#af8978dab1facb0545ee5752179f7afc0">onChangeRotation</a> (float angle)</td></tr>
-<tr class="memdesc:af8978dab1facb0545ee5752179f7afc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the rotation of the entity to the given angle.  <br /></td></tr>
-<tr class="separator:af8978dab1facb0545ee5752179f7afc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71e3080fc6ab45abc4cca3f2f4f0ef5e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a71e3080fc6ab45abc4cca3f2f4f0ef5e">onChangeCategory</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> cat)</td></tr>
-<tr class="memdesc:a71e3080fc6ab45abc4cca3f2f4f0ef5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the category of the entity to the given category.  <br /></td></tr>
-<tr class="separator:a71e3080fc6ab45abc4cca3f2f4f0ef5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a419ce079f4a755cbd93376762a5a3c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a419ce079f4a755cbd93376762a5a3c5c">onChangeModel</a> (<a class="el" href="class_entity_1_1_entity_model.html">EntityModel</a> model)</td></tr>
-<tr class="memdesc:a419ce079f4a755cbd93376762a5a3c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the model of the entity to the given model.  <br /></td></tr>
-<tr class="separator:a419ce079f4a755cbd93376762a5a3c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c16a1b01255ae05927b61f221ffcb16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a0c16a1b01255ae05927b61f221ffcb16">onChangeID</a> (string id)</td></tr>
-<tr class="memdesc:a0c16a1b01255ae05927b61f221ffcb16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the ID of the entity to the given ID.  <br /></td></tr>
-<tr class="separator:a0c16a1b01255ae05927b61f221ffcb16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a57787942440dac0cf1af70d20a061d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a3a57787942440dac0cf1af70d20a061d">select</a> ()</td></tr>
-<tr class="memdesc:a3a57787942440dac0cf1af70d20a061d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the entity and changes its position and material.  <br /></td></tr>
-<tr class="separator:a3a57787942440dac0cf1af70d20a061d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af24bc854a0471c106caa424d5fbf425f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#af24bc854a0471c106caa424d5fbf425f">deselect</a> ()</td></tr>
-<tr class="memdesc:af24bc854a0471c106caa424d5fbf425f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deselects the entity and changes its position and material.  <br /></td></tr>
-<tr class="separator:af24bc854a0471c106caa424d5fbf425f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a101cd6e552a9e26cc7b9861dea4e5e30"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a101cd6e552a9e26cc7b9861dea4e5e30">destroy</a> ()</td></tr>
-<tr class="memdesc:a101cd6e552a9e26cc7b9861dea4e5e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the entity.  <br /></td></tr>
-<tr class="separator:a101cd6e552a9e26cc7b9861dea4e5e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a015cc88225fbef2cbe4f9c7f7508d673"><td class="memItemLeft" align="right" valign="top">Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a015cc88225fbef2cbe4f9c7f7508d673">getPosition</a> ()</td></tr>
-<tr class="memdesc:a015cc88225fbef2cbe4f9c7f7508d673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the position of the entity.  <br /></td></tr>
-<tr class="separator:a015cc88225fbef2cbe4f9c7f7508d673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af03aa97e01eb4936d0f2cc07311258f4"><td class="memItemLeft" align="right" valign="top"><a id="af03aa97e01eb4936d0f2cc07311258f4" name="af03aa97e01eb4936d0f2cc07311258f4"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Awake</b> ()</td></tr>
+<tr class="separator:af03aa97e01eb4936d0f2cc07311258f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bde1322954c732068a04afb6fe2b2d4"><td class="memItemLeft" align="right" valign="top">abstract Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a5bde1322954c732068a04afb6fe2b2d4">GetSprite</a> ()</td></tr>
+<tr class="memdesc:a5bde1322954c732068a04afb6fe2b2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Sprite associated with the vehicle.  <br /></td></tr>
+<tr class="separator:a5bde1322954c732068a04afb6fe2b2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd5c0466f9b0ad7d28afc9afb247106"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_entity_1_1_location.html">Location</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a7dd5c0466f9b0ad7d28afc9afb247106">GetLocation</a> ()</td></tr>
+<tr class="memdesc:a7dd5c0466f9b0ad7d28afc9afb247106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the location of the vehicle.  <br /></td></tr>
+<tr class="separator:a7dd5c0466f9b0ad7d28afc9afb247106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a772754e84ebafd0a1231a1f0b737e"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a58a772754e84ebafd0a1231a1f0b737e">Init</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> cat, Color color)</td></tr>
+<tr class="memdesc:a58a772754e84ebafd0a1231a1f0b737e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the vehicle view controller with the specified category and color.  <br /></td></tr>
+<tr class="separator:a58a772754e84ebafd0a1231a1f0b737e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa371e46a6a92cb1665d640b7789d410d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#aa371e46a6a92cb1665d640b7789d410d">OnChangePosition</a> (float x, float y)</td></tr>
+<tr class="memdesc:aa371e46a6a92cb1665d640b7789d410d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the position of the entity to the given coordinates.  <br /></td></tr>
+<tr class="separator:aa371e46a6a92cb1665d640b7789d410d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af597b8175fea0f72806185d279dfb08c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#af597b8175fea0f72806185d279dfb08c">OnChangeRotation</a> (float angle)</td></tr>
+<tr class="memdesc:af597b8175fea0f72806185d279dfb08c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the rotation of the entity to the given angle.  <br /></td></tr>
+<tr class="separator:af597b8175fea0f72806185d279dfb08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5a40e756515b04c9031ebbc630b65ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#ae5a40e756515b04c9031ebbc630b65ce">OnChangeCategory</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> cat)</td></tr>
+<tr class="memdesc:ae5a40e756515b04c9031ebbc630b65ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the category of the entity to the given category.  <br /></td></tr>
+<tr class="separator:ae5a40e756515b04c9031ebbc630b65ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc4a27509f37b9bd07c889968874fc99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#acc4a27509f37b9bd07c889968874fc99">OnChangeModel</a> (<a class="el" href="class_entity_1_1_entity_model.html">EntityModel</a> model)</td></tr>
+<tr class="memdesc:acc4a27509f37b9bd07c889968874fc99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the model of the entity to the given model.  <br /></td></tr>
+<tr class="separator:acc4a27509f37b9bd07c889968874fc99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64529b425de600baabcbb88682af6c0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a64529b425de600baabcbb88682af6c0a">OnChangeID</a> (string id)</td></tr>
+<tr class="memdesc:a64529b425de600baabcbb88682af6c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the ID of the entity to the given ID.  <br /></td></tr>
+<tr class="separator:a64529b425de600baabcbb88682af6c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe3d0c333346c826469cb246a0a49c45"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#abe3d0c333346c826469cb246a0a49c45">Select</a> ()</td></tr>
+<tr class="memdesc:abe3d0c333346c826469cb246a0a49c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the entity and changes its position and material.  <br /></td></tr>
+<tr class="separator:abe3d0c333346c826469cb246a0a49c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2b391ed23d3615e260b140be4ac69f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a0a2b391ed23d3615e260b140be4ac69f">Deselect</a> ()</td></tr>
+<tr class="memdesc:a0a2b391ed23d3615e260b140be4ac69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deselects the entity and changes its position and material.  <br /></td></tr>
+<tr class="separator:a0a2b391ed23d3615e260b140be4ac69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbaac065c2bc95ea6307edce918d27e9"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#adbaac065c2bc95ea6307edce918d27e9">Destroy</a> ()</td></tr>
+<tr class="memdesc:adbaac065c2bc95ea6307edce918d27e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the entity.  <br /></td></tr>
+<tr class="separator:adbaac065c2bc95ea6307edce918d27e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa5523821a94d5f65794204b0dc4d525"><td class="memItemLeft" align="right" valign="top">Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#aaa5523821a94d5f65794204b0dc4d525">GetPosition</a> ()</td></tr>
+<tr class="memdesc:aaa5523821a94d5f65794204b0dc4d525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the position of the entity.  <br /></td></tr>
+<tr class="separator:aaa5523821a94d5f65794204b0dc4d525"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7fcb5ad286450a7b480eb47bf7acd8b"><td class="memItemLeft" align="right" valign="top"><a id="af7fcb5ad286450a7b480eb47bf7acd8b" name="af7fcb5ad286450a7b480eb47bf7acd8b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> ()</td></tr>
 <tr class="memdesc:af7fcb5ad286450a7b480eb47bf7acd8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the entity's position and rotation. <br /></td></tr>
@@ -170,69 +169,69 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>OnMouseDrag</b> ()</t
 void&#160;</td><td class="memItemRight" valign="bottom"><b>OnMouseDown</b> ()</td></tr>
 <tr class="memdesc:a4c60c7e7a4cc79e3df02ddc6dbc923ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the OnMouseDown event to select and place the entity. <br /></td></tr>
 <tr class="separator:a4c60c7e7a4cc79e3df02ddc6dbc923ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84af474416ecddf1ca47863a053ca059"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a84af474416ecddf1ca47863a053ca059">shouldIgnoreWaypoints</a> ()</td></tr>
-<tr class="memdesc:a84af474416ecddf1ca47863a053ca059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the entity should ignore waypoints.  <br /></td></tr>
-<tr class="separator:a84af474416ecddf1ca47863a053ca059"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb47621fd13c1d3dfcc426b203dcf29f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#abb47621fd13c1d3dfcc426b203dcf29f">setIgnoreWaypoints</a> (bool b)</td></tr>
-<tr class="memdesc:abb47621fd13c1d3dfcc426b203dcf29f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the entity should ignore waypoints.  <br /></td></tr>
-<tr class="separator:abb47621fd13c1d3dfcc426b203dcf29f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d9aab2573b611a78f3058eca0961fa4"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="class_entity_1_1_base_entity.html">BaseEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a9d9aab2573b611a78f3058eca0961fa4">getEntity</a> ()</td></tr>
-<tr class="memdesc:a9d9aab2573b611a78f3058eca0961fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the BaseEntity instance of the entity.  <br /></td></tr>
-<tr class="separator:a9d9aab2573b611a78f3058eca0961fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4be1c8a2e90a0001b4c10b0babb0fd4b"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a4be1c8a2e90a0001b4c10b0babb0fd4b">openEditDialog</a> ()</td></tr>
-<tr class="memdesc:a4be1c8a2e90a0001b4c10b0babb0fd4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the edit dialog for the entity.  <br /></td></tr>
-<tr class="separator:a4be1c8a2e90a0001b4c10b0babb0fd4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc536a13e2608c511ccaf2c4144ae66a"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#acc536a13e2608c511ccaf2c4144ae66a">onChangeColor</a> (Color c)</td></tr>
-<tr class="memdesc:acc536a13e2608c511ccaf2c4144ae66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the color of the entity.  <br /></td></tr>
-<tr class="separator:acc536a13e2608c511ccaf2c4144ae66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37c1eb3c71a2b91dd35c3f856d03bab4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_entity_1_1_base_entity.html">BaseEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_controller.html#a37c1eb3c71a2b91dd35c3f856d03bab4">getEntity</a> ()</td></tr>
-<tr class="memdesc:a37c1eb3c71a2b91dd35c3f856d03bab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity associated with the controller.  <br /></td></tr>
-<tr class="separator:a37c1eb3c71a2b91dd35c3f856d03bab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82523db5db72257a78ca7b7331fb4951"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a82523db5db72257a78ca7b7331fb4951">select</a> ()</td></tr>
-<tr class="memdesc:a82523db5db72257a78ca7b7331fb4951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the controller.  <br /></td></tr>
-<tr class="separator:a82523db5db72257a78ca7b7331fb4951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abffc39d9d1d1e5d4a96431c63677644e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#abffc39d9d1d1e5d4a96431c63677644e">deselect</a> ()</td></tr>
-<tr class="memdesc:abffc39d9d1d1e5d4a96431c63677644e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deselects the controller.  <br /></td></tr>
-<tr class="separator:abffc39d9d1d1e5d4a96431c63677644e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebb2fed913c655806589891479ee9e40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#aebb2fed913c655806589891479ee9e40">destroy</a> ()</td></tr>
-<tr class="memdesc:aebb2fed913c655806589891479ee9e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the controller.  <br /></td></tr>
-<tr class="separator:aebb2fed913c655806589891479ee9e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a6115bc6837fc36a94601a85a16adba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a6a6115bc6837fc36a94601a85a16adba">openEditDialog</a> ()</td></tr>
-<tr class="memdesc:a6a6115bc6837fc36a94601a85a16adba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the edit dialog for the controller.  <br /></td></tr>
-<tr class="separator:a6a6115bc6837fc36a94601a85a16adba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0a65d89c268bc12f1ee6af898c384b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#ac0a65d89c268bc12f1ee6af898c384b6">shouldIgnoreWaypoints</a> ()</td></tr>
-<tr class="memdesc:ac0a65d89c268bc12f1ee6af898c384b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a boolean indicating whether or not the controller should ignore waypoints.  <br /></td></tr>
-<tr class="separator:ac0a65d89c268bc12f1ee6af898c384b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bf844d20766fb5536fb9faa2ada8b47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a4bf844d20766fb5536fb9faa2ada8b47">setIgnoreWaypoints</a> (bool b)</td></tr>
-<tr class="memdesc:a4bf844d20766fb5536fb9faa2ada8b47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value indicating whether or not the controller should ignore waypoints.  <br /></td></tr>
-<tr class="separator:a4bf844d20766fb5536fb9faa2ada8b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ef7aa8bdfde38a461e1b4291a4d8d20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_entity_1_1_location.html">Location</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a4ef7aa8bdfde38a461e1b4291a4d8d20">getLocation</a> ()</td></tr>
-<tr class="memdesc:a4ef7aa8bdfde38a461e1b4291a4d8d20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the controller.  <br /></td></tr>
-<tr class="separator:a4ef7aa8bdfde38a461e1b4291a4d8d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78c8146944b8f9c0e4ca8f694e88ac72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_view.html#a78c8146944b8f9c0e4ca8f694e88ac72">onChangeCategory</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> cat)</td></tr>
-<tr class="memdesc:a78c8146944b8f9c0e4ca8f694e88ac72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the category of the entity changes. &lt;/summary </p><dl class="params"><dt>Parameters</dt><dd>
+<tr class="memitem:a23708c050a41e52534fed9f06eced515"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a23708c050a41e52534fed9f06eced515">IsIgnoringWaypoints</a> ()</td></tr>
+<tr class="memdesc:a23708c050a41e52534fed9f06eced515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the entity should ignore waypoints.  <br /></td></tr>
+<tr class="separator:a23708c050a41e52534fed9f06eced515"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29a52609927d510972c9fd1199ec13a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#aa29a52609927d510972c9fd1199ec13a">ShouldIgnoreWaypoints</a> (bool b)</td></tr>
+<tr class="memdesc:aa29a52609927d510972c9fd1199ec13a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the entity should ignore waypoints.  <br /></td></tr>
+<tr class="separator:aa29a52609927d510972c9fd1199ec13a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a211ede18808849a01c4f2eb7dab2dae6"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="class_entity_1_1_base_entity.html">BaseEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a211ede18808849a01c4f2eb7dab2dae6">GetEntity</a> ()</td></tr>
+<tr class="memdesc:a211ede18808849a01c4f2eb7dab2dae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the BaseEntity instance of the entity.  <br /></td></tr>
+<tr class="separator:a211ede18808849a01c4f2eb7dab2dae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94535422c9807162732039832e265eed"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a94535422c9807162732039832e265eed">OpenEditDialog</a> ()</td></tr>
+<tr class="memdesc:a94535422c9807162732039832e265eed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the edit dialog for the entity.  <br /></td></tr>
+<tr class="separator:a94535422c9807162732039832e265eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae89fab6b9c8447dacc8f0ed7dae96235"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#ae89fab6b9c8447dacc8f0ed7dae96235">OnChangeColor</a> (Color c)</td></tr>
+<tr class="memdesc:ae89fab6b9c8447dacc8f0ed7dae96235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the color of the entity.  <br /></td></tr>
+<tr class="separator:ae89fab6b9c8447dacc8f0ed7dae96235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abed75c54f54f2166961ac5108d589da6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_entity_1_1_base_entity.html">BaseEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_controller.html#abed75c54f54f2166961ac5108d589da6">GetEntity</a> ()</td></tr>
+<tr class="memdesc:abed75c54f54f2166961ac5108d589da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity associated with the controller. This can be Ego or Adversary.  <br /></td></tr>
+<tr class="separator:abed75c54f54f2166961ac5108d589da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432e3e0c5b8d65a1407c0e0ec35a10c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a432e3e0c5b8d65a1407c0e0ec35a10c7">Select</a> ()</td></tr>
+<tr class="memdesc:a432e3e0c5b8d65a1407c0e0ec35a10c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the controller.  <br /></td></tr>
+<tr class="separator:a432e3e0c5b8d65a1407c0e0ec35a10c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa653ca75f362548936ba060b03b92e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#aaa653ca75f362548936ba060b03b92e7">Deselect</a> ()</td></tr>
+<tr class="memdesc:aaa653ca75f362548936ba060b03b92e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deselects the controller.  <br /></td></tr>
+<tr class="separator:aaa653ca75f362548936ba060b03b92e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9975dee669f290e1b21ae721c7d8fb98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a9975dee669f290e1b21ae721c7d8fb98">Destroy</a> ()</td></tr>
+<tr class="memdesc:a9975dee669f290e1b21ae721c7d8fb98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the controller.  <br /></td></tr>
+<tr class="separator:a9975dee669f290e1b21ae721c7d8fb98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321b31d277df4553a6f8ce2b29602cc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a321b31d277df4553a6f8ce2b29602cc7">OpenEditDialog</a> ()</td></tr>
+<tr class="memdesc:a321b31d277df4553a6f8ce2b29602cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the edit dialog for the controller.  <br /></td></tr>
+<tr class="separator:a321b31d277df4553a6f8ce2b29602cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68d9f171112301de453cc1244f1e7823"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a68d9f171112301de453cc1244f1e7823">IsIgnoringWaypoints</a> ()</td></tr>
+<tr class="memdesc:a68d9f171112301de453cc1244f1e7823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a boolean indicating whether or not the controller ignores waypoints.  <br /></td></tr>
+<tr class="separator:a68d9f171112301de453cc1244f1e7823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd89243e14c5fa4b5f19e59688c2a1e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#acd89243e14c5fa4b5f19e59688c2a1e0">ShouldIgnoreWaypoints</a> (bool b)</td></tr>
+<tr class="memdesc:acd89243e14c5fa4b5f19e59688c2a1e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value indicating whether or not the controller should ignore waypoints.  <br /></td></tr>
+<tr class="separator:acd89243e14c5fa4b5f19e59688c2a1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6420ad560fba6aa66f3127d7ffc4a303"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_entity_1_1_location.html">Location</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_controller.html#a6420ad560fba6aa66f3127d7ffc4a303">GetLocation</a> ()</td></tr>
+<tr class="memdesc:a6420ad560fba6aa66f3127d7ffc4a303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the object that the controller belongs to.  <br /></td></tr>
+<tr class="separator:a6420ad560fba6aa66f3127d7ffc4a303"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0cf648dc3b8376db175543b97de082"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_view.html#a0e0cf648dc3b8376db175543b97de082">OnChangeCategory</a> (<a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a> cat)</td></tr>
+<tr class="memdesc:a0e0cf648dc3b8376db175543b97de082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the category of the entity changes. &lt;/summary </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cat</td><td>The new category of the entity.</td></tr>
   </table>
   </dd>
 </dl>
  <br /></td></tr>
-<tr class="separator:a78c8146944b8f9c0e4ca8f694e88ac72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10098268524d7b95baa17982ebc89d9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_view.html#a10098268524d7b95baa17982ebc89d9a">onChangeModel</a> (<a class="el" href="class_entity_1_1_entity_model.html">EntityModel</a> model)</td></tr>
-<tr class="memdesc:a10098268524d7b95baa17982ebc89d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the model of the entity changes.  <br /></td></tr>
-<tr class="separator:a10098268524d7b95baa17982ebc89d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b86c41b5d481c4b6e9ddae79b1bec89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_view.html#a9b86c41b5d481c4b6e9ddae79b1bec89">onChangeID</a> (string id)</td></tr>
-<tr class="memdesc:a9b86c41b5d481c4b6e9ddae79b1bec89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the ID of the entity changes.  <br /></td></tr>
-<tr class="separator:a9b86c41b5d481c4b6e9ddae79b1bec89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd5f99476949a4740cab1fcc079f059"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#aebd5f99476949a4740cab1fcc079f059">onChangePosition</a> (float x, float y)</td></tr>
-<tr class="memdesc:aebd5f99476949a4740cab1fcc079f059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the position of the view changes.  <br /></td></tr>
-<tr class="separator:aebd5f99476949a4740cab1fcc079f059"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af334eaa77ffa15eb754b1d9b603622da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#af334eaa77ffa15eb754b1d9b603622da">onChangeRotation</a> (float angle)</td></tr>
-<tr class="memdesc:af334eaa77ffa15eb754b1d9b603622da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the rotation of the view changes.  <br /></td></tr>
-<tr class="separator:af334eaa77ffa15eb754b1d9b603622da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd85bc1696447e7ab5ea52859368f761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#abd85bc1696447e7ab5ea52859368f761">onChangeColor</a> (Color c)</td></tr>
-<tr class="memdesc:abd85bc1696447e7ab5ea52859368f761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the color of the view changes.  <br /></td></tr>
-<tr class="separator:abd85bc1696447e7ab5ea52859368f761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a0e0cf648dc3b8376db175543b97de082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a570067d5854c8b6b88109d2c98732487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_view.html#a570067d5854c8b6b88109d2c98732487">OnChangeModel</a> (<a class="el" href="class_entity_1_1_entity_model.html">EntityModel</a> model)</td></tr>
+<tr class="memdesc:a570067d5854c8b6b88109d2c98732487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the model of the entity changes.  <br /></td></tr>
+<tr class="separator:a570067d5854c8b6b88109d2c98732487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d36951933db4ae0afdc7a1a2233c65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_entity_view.html#a87d36951933db4ae0afdc7a1a2233c65">OnChangeID</a> (string id)</td></tr>
+<tr class="memdesc:a87d36951933db4ae0afdc7a1a2233c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the ID of the entity changes.  <br /></td></tr>
+<tr class="separator:a87d36951933db4ae0afdc7a1a2233c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279fb24a9fc728e2692ec74db6fc5a6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#a279fb24a9fc728e2692ec74db6fc5a6e">OnChangePosition</a> (float x, float y)</td></tr>
+<tr class="memdesc:a279fb24a9fc728e2692ec74db6fc5a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the position of the corresponding object changes.  <br /></td></tr>
+<tr class="separator:a279fb24a9fc728e2692ec74db6fc5a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad56a634c9b7266357b25fe543cb88c21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#ad56a634c9b7266357b25fe543cb88c21">OnChangeRotation</a> (float angle)</td></tr>
+<tr class="memdesc:ad56a634c9b7266357b25fe543cb88c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the rotation of the corresponding object changes.  <br /></td></tr>
+<tr class="separator:ad56a634c9b7266357b25fe543cb88c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e32f3f992c6d4dcfb84a83e723808a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#a92e32f3f992c6d4dcfb84a83e723808a">OnChangeColor</a> (Color color)</td></tr>
+<tr class="memdesc:a92e32f3f992c6d4dcfb84a83e723808a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the color of the corresponding object changes.  <br /></td></tr>
+<tr class="separator:a92e32f3f992c6d4dcfb84a83e723808a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -242,18 +241,18 @@ Material&#160;</td><td class="memItemRight" valign="bottom"><b>selectionMaterial
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4dcfbe4708587c13d6d96741cc937005"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a4dcfbe4708587c13d6d96741cc937005">registerEntity</a> ()</td></tr>
-<tr class="memdesc:a4dcfbe4708587c13d6d96741cc937005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the entity with the main controller.  <br /></td></tr>
-<tr class="separator:a4dcfbe4708587c13d6d96741cc937005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6470341995a5516399e0680e9e7ef544"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vehicle_view_controller.html#a6470341995a5516399e0680e9e7ef544">RegisterEntity</a> ()</td></tr>
+<tr class="memdesc:a6470341995a5516399e0680e9e7ef544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the entity with the main controller.  <br /></td></tr>
+<tr class="separator:a6470341995a5516399e0680e9e7ef544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a363a0f66f92b3e34a57a92d3a16404c8"><td class="memItemLeft" align="right" valign="top"><a id="a363a0f66f92b3e34a57a92d3a16404c8" name="a363a0f66f92b3e34a57a92d3a16404c8"></a>
 SpriteRenderer&#160;</td><td class="memItemRight" valign="bottom"><b>sprite</b></td></tr>
 <tr class="separator:a363a0f66f92b3e34a57a92d3a16404c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b8c20b8445d99fe1dd0255c1991a9fd"><td class="memItemLeft" align="right" valign="top"><a id="a0b8c20b8445d99fe1dd0255c1991a9fd" name="a0b8c20b8445d99fe1dd0255c1991a9fd"></a>
-Boolean&#160;</td><td class="memItemRight" valign="bottom"><b>placed</b> = false</td></tr>
-<tr class="separator:a0b8c20b8445d99fe1dd0255c1991a9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78fae4d56fcb2388437a0518089990fe"><td class="memItemLeft" align="right" valign="top"><a id="a78fae4d56fcb2388437a0518089990fe" name="a78fae4d56fcb2388437a0518089990fe"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>placed</b> = false</td></tr>
+<tr class="separator:a78fae4d56fcb2388437a0518089990fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684f5cf596b228bb9db22c29c766dc05"><td class="memItemLeft" align="right" valign="top"><a id="a684f5cf596b228bb9db22c29c766dc05" name="a684f5cf596b228bb9db22c29c766dc05"></a>
 Vector2&#160;</td><td class="memItemRight" valign="bottom"><b>difference</b> = Vector2.zero</td></tr>
 <tr class="separator:a684f5cf596b228bb9db22c29c766dc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -271,10 +270,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
 <tr class="separator:a68d3f3e98f6d10b32a4605fee4665e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An abstract base class for vehicle view controllers, providing shared functionality for handling vehicle positions, rotations, and selections. </p>
+<div class="textblock"><p>An abstract base class for a BaseEntity providing shared functionality for handling positions, rotations, and selections. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="af24bc854a0471c106caa424d5fbf425f" name="af24bc854a0471c106caa424d5fbf425f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af24bc854a0471c106caa424d5fbf425f">&#9670;&#160;</a></span>deselect()</h2>
+<a id="a0a2b391ed23d3615e260b140be4ac69f" name="a0a2b391ed23d3615e260b140be4ac69f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2b391ed23d3615e260b140be4ac69f">&#9670;&#160;</a></span>Deselect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +282,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleViewController.deselect </td>
+          <td class="memname">virtual void VehicleViewController.Deselect </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -291,21 +290,21 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Deselects the entity and changes its position and material. </p>
 
-<p>Implements <a class="el" href="interface_i_base_controller.html#abffc39d9d1d1e5d4a96431c63677644e">IBaseController</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_controller.html#aaa653ca75f362548936ba060b03b92e7">IBaseController</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a701b34fae007f60b011c5269b44c750a">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a7c98a8f62b463439bafec826b17cccc8">EgoViewController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a72ddd533796ddc41dc9420487582a043">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a5559a538294887d215884aa9a714f6b0">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a101cd6e552a9e26cc7b9861dea4e5e30" name="a101cd6e552a9e26cc7b9861dea4e5e30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a101cd6e552a9e26cc7b9861dea4e5e30">&#9670;&#160;</a></span>destroy()</h2>
+<a id="adbaac065c2bc95ea6307edce918d27e9" name="adbaac065c2bc95ea6307edce918d27e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbaac065c2bc95ea6307edce918d27e9">&#9670;&#160;</a></span>Destroy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,7 +313,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract void VehicleViewController.destroy </td>
+          <td class="memname">abstract void VehicleViewController.Destroy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -329,14 +328,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
 
 <p>Destroys the entity. </p>
 
-<p>Implements <a class="el" href="interface_i_base_controller.html#aebb2fed913c655806589891479ee9e40">IBaseController</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_controller.html#a9975dee669f290e1b21ae721c7d8fb98">IBaseController</a>.</p>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a6ba406f5896b1794a291e434e069a704">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a84a3f5086a6858975fce50fc65ba7d31">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a7095a4ea5089e3718e8773dd3de5abb7">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a5a7da9f32673394a9b31236f03c4c931">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a9d9aab2573b611a78f3058eca0961fa4" name="a9d9aab2573b611a78f3058eca0961fa4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d9aab2573b611a78f3058eca0961fa4">&#9670;&#160;</a></span>getEntity()</h2>
+<a id="a211ede18808849a01c4f2eb7dab2dae6" name="a211ede18808849a01c4f2eb7dab2dae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a211ede18808849a01c4f2eb7dab2dae6">&#9670;&#160;</a></span>GetEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,7 +344,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract <a class="el" href="class_entity_1_1_base_entity.html">BaseEntity</a> VehicleViewController.getEntity </td>
+          <td class="memname">abstract <a class="el" href="class_entity_1_1_base_entity.html">BaseEntity</a> VehicleViewController.GetEntity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -361,56 +360,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
 <p>Gets the BaseEntity instance of the entity. </p>
 <dl class="section return"><dt>Returns</dt><dd>The BaseEntity instance of the entity.</dd></dl>
 
-<p>Implements <a class="el" href="interface_i_base_entity_controller.html#a37c1eb3c71a2b91dd35c3f856d03bab4">IBaseEntityController</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_entity_controller.html#abed75c54f54f2166961ac5108d589da6">IBaseEntityController</a>.</p>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a56cd62493273016f162776662e83aa85">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#af3c777b7efa0387921e8a5988f4fe955">EgoViewController</a>.</p>
-
-</div>
-</div>
-<a id="a6b6cffb5d8630daedcd32b5a43931168" name="a6b6cffb5d8630daedcd32b5a43931168"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b6cffb5d8630daedcd32b5a43931168">&#9670;&#160;</a></span>getLocation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_entity_1_1_location.html">Location</a> VehicleViewController.getLocation </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets the location of the vehicle. </p>
-<dl class="section return"><dt>Returns</dt><dd>A Location object representing the vehicle's location.</dd></dl>
-
-<p>Implements <a class="el" href="interface_i_base_controller.html#a4ef7aa8bdfde38a461e1b4291a4d8d20">IBaseController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a1f11df490f80cbb0250344949965f33f">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a981ee56b9ce7dc64c97185c6f554f8b6">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a015cc88225fbef2cbe4f9c7f7508d673" name="a015cc88225fbef2cbe4f9c7f7508d673"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a015cc88225fbef2cbe4f9c7f7508d673">&#9670;&#160;</a></span>getPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Vector2 VehicleViewController.getPosition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets the position of the entity. </p>
-<dl class="section return"><dt>Returns</dt><dd>The position of the entity.</dd></dl>
-
-</div>
-</div>
-<a id="ac44a34d6486a3608f487962ad103f83e" name="ac44a34d6486a3608f487962ad103f83e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac44a34d6486a3608f487962ad103f83e">&#9670;&#160;</a></span>getSprite()</h2>
+<a id="a7dd5c0466f9b0ad7d28afc9afb247106" name="a7dd5c0466f9b0ad7d28afc9afb247106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd5c0466f9b0ad7d28afc9afb247106">&#9670;&#160;</a></span>GetLocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -419,7 +376,65 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract Sprite VehicleViewController.getSprite </td>
+          <td class="memname"><a class="el" href="class_entity_1_1_location.html">Location</a> VehicleViewController.GetLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the location of the vehicle. </p>
+<dl class="section return"><dt>Returns</dt><dd>A Location object representing the vehicle's location.</dd></dl>
+
+<p>Implements <a class="el" href="interface_i_base_controller.html#a6420ad560fba6aa66f3127d7ffc4a303">IBaseController</a>.</p>
+
+</div>
+</div>
+<a id="aaa5523821a94d5f65794204b0dc4d525" name="aaa5523821a94d5f65794204b0dc4d525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa5523821a94d5f65794204b0dc4d525">&#9670;&#160;</a></span>GetPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector2 VehicleViewController.GetPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the position of the entity. </p>
+<dl class="section return"><dt>Returns</dt><dd>The position of the entity.</dd></dl>
+
+</div>
+</div>
+<a id="a5bde1322954c732068a04afb6fe2b2d4" name="a5bde1322954c732068a04afb6fe2b2d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bde1322954c732068a04afb6fe2b2d4">&#9670;&#160;</a></span>GetSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">abstract Sprite VehicleViewController.GetSprite </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -435,12 +450,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
 <p>Returns the Sprite associated with the vehicle. </p>
 <dl class="section return"><dt>Returns</dt><dd>The Sprite associated with the vehicle.</dd></dl>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a2316944485f4cbed628c3112caf8f776">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#adfb2f3b262a44c66d265c4f9e092cd89">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#afe666ecfde2483a6827858dd53be8ceb">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#ae5799479212b99f603b3221650fd4943">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="af0ca7418a53cb751485a4862cfc59ba3" name="af0ca7418a53cb751485a4862cfc59ba3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0ca7418a53cb751485a4862cfc59ba3">&#9670;&#160;</a></span>init()</h2>
+<a id="a58a772754e84ebafd0a1231a1f0b737e" name="a58a772754e84ebafd0a1231a1f0b737e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a772754e84ebafd0a1231a1f0b737e">&#9670;&#160;</a></span>Init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -449,7 +464,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract void VehicleViewController.init </td>
+          <td class="memname">abstract void VehicleViewController.Init </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a>&#160;</td>
           <td class="paramname"><em>cat</em>, </td>
@@ -482,12 +497,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a86585c09f4e1783043ce4ab4cd4f1be7">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a41ad8f7289d2b5d7c3a408397e3ec1c7">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#ae6a42fe3e308cd6c892bb65904c1e23a">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a67bdbdc53f7ef02ac7d1ac6b74dd10a8">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a71e3080fc6ab45abc4cca3f2f4f0ef5e" name="a71e3080fc6ab45abc4cca3f2f4f0ef5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71e3080fc6ab45abc4cca3f2f4f0ef5e">&#9670;&#160;</a></span>onChangeCategory()</h2>
+<a id="a23708c050a41e52534fed9f06eced515" name="a23708c050a41e52534fed9f06eced515"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23708c050a41e52534fed9f06eced515">&#9670;&#160;</a></span>IsIgnoringWaypoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -496,7 +511,37 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleViewController.onChangeCategory </td>
+          <td class="memname">bool VehicleViewController.IsIgnoringWaypoints </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the entity should ignore waypoints. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the entity should ignore waypoints, false otherwise.</dd></dl>
+
+<p>Implements <a class="el" href="interface_i_base_controller.html#a68d9f171112301de453cc1244f1e7823">IBaseController</a>.</p>
+
+</div>
+</div>
+<a id="ae5a40e756515b04c9031ebbc630b65ce" name="ae5a40e756515b04c9031ebbc630b65ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5a40e756515b04c9031ebbc630b65ce">&#9670;&#160;</a></span>OnChangeCategory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void VehicleViewController.OnChangeCategory </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_assets_1_1_enums.html#a10d5fc39c54bbfd39b5aa027e4071e0e">AdversaryCategory</a>&#160;</td>
           <td class="paramname"><em>cat</em></td><td>)</td>
@@ -505,7 +550,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -518,14 +563,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_entity_view.html#a78c8146944b8f9c0e4ca8f694e88ac72">IBaseEntityView</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_entity_view.html#a0e0cf648dc3b8376db175543b97de082">IBaseEntityView</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a5f7e9d3810c0bf0dbb4092e76ee2b274">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#acd9a8077d5bf8fab544c42f1bce8df2c">EgoViewController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a1302ad9c69c755483b3aad4c485567cc">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a16fa4bbaebc333302fe25a1931a30e65">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="acc536a13e2608c511ccaf2c4144ae66a" name="acc536a13e2608c511ccaf2c4144ae66a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc536a13e2608c511ccaf2c4144ae66a">&#9670;&#160;</a></span>onChangeColor()</h2>
+<a id="ae89fab6b9c8447dacc8f0ed7dae96235" name="ae89fab6b9c8447dacc8f0ed7dae96235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae89fab6b9c8447dacc8f0ed7dae96235">&#9670;&#160;</a></span>OnChangeColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -534,7 +579,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract void VehicleViewController.onChangeColor </td>
+          <td class="memname">abstract void VehicleViewController.OnChangeColor </td>
           <td>(</td>
           <td class="paramtype">Color&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
@@ -556,26 +601,34 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_view.html#abd85bc1696447e7ab5ea52859368f761">IBaseView</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_view.html#a92e32f3f992c6d4dcfb84a83e723808a">IBaseView</a>.</p>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#abdb268c03d022e7273b530759101ee2b">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a4852c29825234604f14bd3e8c3a83cd6">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a28e1467b8ac60b82400326007b0f96a0">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a3bceb05a1214197e1c5212dc4219ac82">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a0c16a1b01255ae05927b61f221ffcb16" name="a0c16a1b01255ae05927b61f221ffcb16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c16a1b01255ae05927b61f221ffcb16">&#9670;&#160;</a></span>onChangeID()</h2>
+<a id="a64529b425de600baabcbb88682af6c0a" name="a64529b425de600baabcbb88682af6c0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64529b425de600baabcbb88682af6c0a">&#9670;&#160;</a></span>OnChangeID()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void VehicleViewController.onChangeID </td>
+          <td class="memname">void VehicleViewController.OnChangeID </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>id</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Changes the ID of the entity to the given ID. </p>
@@ -586,24 +639,32 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_entity_view.html#a9b86c41b5d481c4b6e9ddae79b1bec89">IBaseEntityView</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_entity_view.html#a87d36951933db4ae0afdc7a1a2233c65">IBaseEntityView</a>.</p>
 
 </div>
 </div>
-<a id="a419ce079f4a755cbd93376762a5a3c5c" name="a419ce079f4a755cbd93376762a5a3c5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a419ce079f4a755cbd93376762a5a3c5c">&#9670;&#160;</a></span>onChangeModel()</h2>
+<a id="acc4a27509f37b9bd07c889968874fc99" name="acc4a27509f37b9bd07c889968874fc99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc4a27509f37b9bd07c889968874fc99">&#9670;&#160;</a></span>OnChangeModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void VehicleViewController.onChangeModel </td>
+          <td class="memname">void VehicleViewController.OnChangeModel </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_entity_1_1_entity_model.html">EntityModel</a>&#160;</td>
           <td class="paramname"><em>model</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Changes the model of the entity to the given model. </p>
@@ -614,12 +675,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_entity_view.html#a10098268524d7b95baa17982ebc89d9a">IBaseEntityView</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_entity_view.html#a570067d5854c8b6b88109d2c98732487">IBaseEntityView</a>.</p>
 
 </div>
 </div>
-<a id="ae250a68c505c5e103dcad9dcd33b2f42" name="ae250a68c505c5e103dcad9dcd33b2f42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae250a68c505c5e103dcad9dcd33b2f42">&#9670;&#160;</a></span>onChangePosition()</h2>
+<a id="aa371e46a6a92cb1665d640b7789d410d" name="aa371e46a6a92cb1665d640b7789d410d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa371e46a6a92cb1665d640b7789d410d">&#9670;&#160;</a></span>OnChangePosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -628,7 +689,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleViewController.onChangePosition </td>
+          <td class="memname">virtual void VehicleViewController.OnChangePosition </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -647,7 +708,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -661,14 +722,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_view.html#aebd5f99476949a4740cab1fcc079f059">IBaseView</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_view.html#a279fb24a9fc728e2692ec74db6fc5a6e">IBaseView</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#ac8a2dc2189652906a5cb29e75d1cedab">AdversaryViewController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a068e3190f1466989d8c72f4ea7fa4a57">AdversaryViewController</a>.</p>
 
 </div>
 </div>
-<a id="af8978dab1facb0545ee5752179f7afc0" name="af8978dab1facb0545ee5752179f7afc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8978dab1facb0545ee5752179f7afc0">&#9670;&#160;</a></span>onChangeRotation()</h2>
+<a id="af597b8175fea0f72806185d279dfb08c" name="af597b8175fea0f72806185d279dfb08c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af597b8175fea0f72806185d279dfb08c">&#9670;&#160;</a></span>OnChangeRotation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -677,7 +738,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleViewController.onChangeRotation </td>
+          <td class="memname">virtual void VehicleViewController.OnChangeRotation </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>angle</em></td><td>)</td>
@@ -686,7 +747,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -699,12 +760,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_view.html#af334eaa77ffa15eb754b1d9b603622da">IBaseView</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_view.html#ad56a634c9b7266357b25fe543cb88c21">IBaseView</a>.</p>
 
 </div>
 </div>
-<a id="a4be1c8a2e90a0001b4c10b0babb0fd4b" name="a4be1c8a2e90a0001b4c10b0babb0fd4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4be1c8a2e90a0001b4c10b0babb0fd4b">&#9670;&#160;</a></span>openEditDialog()</h2>
+<a id="a94535422c9807162732039832e265eed" name="a94535422c9807162732039832e265eed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94535422c9807162732039832e265eed">&#9670;&#160;</a></span>OpenEditDialog()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -713,7 +774,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract void VehicleViewController.openEditDialog </td>
+          <td class="memname">abstract void VehicleViewController.OpenEditDialog </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -728,14 +789,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
 
 <p>Opens the edit dialog for the entity. </p>
 
-<p>Implements <a class="el" href="interface_i_base_controller.html#a6a6115bc6837fc36a94601a85a16adba">IBaseController</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_controller.html#a321b31d277df4553a6f8ce2b29602cc7">IBaseController</a>.</p>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a49648aed831913f80bf95f0866a1f426">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#afac0bbb53a2169c602b6713a920bb0b3">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a1f8ae4fc4a50939571da8a1b763d20dc">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#ada4f0e55e71d69dad31eeaf65bee0295">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a4dcfbe4708587c13d6d96741cc937005" name="a4dcfbe4708587c13d6d96741cc937005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dcfbe4708587c13d6d96741cc937005">&#9670;&#160;</a></span>registerEntity()</h2>
+<a id="a6470341995a5516399e0680e9e7ef544" name="a6470341995a5516399e0680e9e7ef544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6470341995a5516399e0680e9e7ef544">&#9670;&#160;</a></span>RegisterEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -744,7 +805,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">abstract void VehicleViewController.registerEntity </td>
+          <td class="memname">abstract void VehicleViewController.RegisterEntity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -759,12 +820,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
 
 <p>Registers the entity with the main controller. </p>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#ac8239cf5f6c41b54ca98b73e39197b33">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#af4ea7b3587e474df62dfc8319d80c1e2">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a51cdbc89ce9a3eee07ec4a584c310c96">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#ae35413b708eb141e59bec9659dce07d2">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="a3a57787942440dac0cf1af70d20a061d" name="a3a57787942440dac0cf1af70d20a061d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a57787942440dac0cf1af70d20a061d">&#9670;&#160;</a></span>select()</h2>
+<a id="abe3d0c333346c826469cb246a0a49c45" name="abe3d0c333346c826469cb246a0a49c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe3d0c333346c826469cb246a0a49c45">&#9670;&#160;</a></span>Select()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -773,7 +834,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleViewController.select </td>
+          <td class="memname">virtual void VehicleViewController.Select </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -781,21 +842,21 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Selects the entity and changes its position and material. </p>
 
-<p>Implements <a class="el" href="interface_i_base_controller.html#a82523db5db72257a78ca7b7331fb4951">IBaseController</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_controller.html#a432e3e0c5b8d65a1407c0e0ec35a10c7">IBaseController</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a7b19bce105ea5a669f28b604d904e45f">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a084f6e8365491dd6bdce2da70d904c93">EgoViewController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a0cac282fa2014f91e48d16a9cbfaef2d">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#ac3a56bbdb93f5e6a0e6ed136896e1f2a">EgoViewController</a>.</p>
 
 </div>
 </div>
-<a id="abb47621fd13c1d3dfcc426b203dcf29f" name="abb47621fd13c1d3dfcc426b203dcf29f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb47621fd13c1d3dfcc426b203dcf29f">&#9670;&#160;</a></span>setIgnoreWaypoints()</h2>
+<a id="aa29a52609927d510972c9fd1199ec13a" name="aa29a52609927d510972c9fd1199ec13a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29a52609927d510972c9fd1199ec13a">&#9670;&#160;</a></span>ShouldIgnoreWaypoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -804,7 +865,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void VehicleViewController.setIgnoreWaypoints </td>
+          <td class="memname">virtual void VehicleViewController.ShouldIgnoreWaypoints </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>b</em></td><td>)</td>
@@ -813,7 +874,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -826,31 +887,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreWaypoints</b></
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_i_base_controller.html#a4bf844d20766fb5536fb9faa2ada8b47">IBaseController</a>.</p>
+<p>Implements <a class="el" href="interface_i_base_controller.html#acd89243e14c5fa4b5f19e59688c2a1e0">IBaseController</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a6977e2197207706e9d797044b15adff9">AdversaryViewController</a>.</p>
-
-</div>
-</div>
-<a id="a84af474416ecddf1ca47863a053ca059" name="a84af474416ecddf1ca47863a053ca059"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84af474416ecddf1ca47863a053ca059">&#9670;&#160;</a></span>shouldIgnoreWaypoints()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool VehicleViewController.shouldIgnoreWaypoints </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether the entity should ignore waypoints. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the entity should ignore waypoints, false otherwise.</dd></dl>
-
-<p>Implements <a class="el" href="interface_i_base_controller.html#ac0a65d89c268bc12f1ee6af898c384b6">IBaseController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_adversary_view_controller.html#a114900b211542320a222911e4cb3582a">AdversaryViewController</a>.</p>
 
 </div>
 </div>

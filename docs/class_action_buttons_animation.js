@@ -1,4 +1,4 @@
 var class_action_buttons_animation =
 [
-    [ "onMove", "class_action_buttons_animation.html#aa928c3e0bd8de10e48ea4715f367195c", null ]
+    [ "OnMove", "class_action_buttons_animation.html#a90b855763d6c436c280426773545f9c2", null ]
 ];

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -113,9 +113,9 @@ Inheritance diagram for Entity.BaseEntity:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa2673bb8d65bd22ae375c37ef0037911"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_1_1_base_entity.html#aa2673bb8d65bd22ae375c37ef0037911">BaseEntity</a> (string id, <a class="el" href="class_entity_1_1_location.html">Location</a> spawnPoint, double initialSpeedKMH)</td></tr>
-<tr class="memdesc:aa2673bb8d65bd22ae375c37ef0037911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new BaseEntity object with an Id, SpawnPoint, and initial speed.  <br /></td></tr>
-<tr class="separator:aa2673bb8d65bd22ae375c37ef0037911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c720038d12909bca10621a4bffa221"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_1_1_base_entity.html#ac5c720038d12909bca10621a4bffa221">BaseEntity</a> (string id, <a class="el" href="class_entity_1_1_location.html">Location</a> spawnPoint, double initialSpeedKMH, Color color)</td></tr>
+<tr class="memdesc:ac5c720038d12909bca10621a4bffa221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new BaseEntity object with an Id, SpawnPoint, and initial speed.  <br /></td></tr>
+<tr class="separator:ac5c720038d12909bca10621a4bffa221"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36b00e2214e3280d4934bda843d23ac5"><td class="memItemLeft" align="right" valign="top"><a id="a36b00e2214e3280d4934bda843d23ac5" name="a36b00e2214e3280d4934bda843d23ac5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BaseEntity</b> ()</td></tr>
 <tr class="memdesc:a36b00e2214e3280d4934bda843d23ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new BaseEntity object with empty values. <br /></td></tr>
@@ -161,11 +161,14 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Creates BaseEntity Object which contains Coord3D SpawnPoint for entities (Veh, Ped) </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa2673bb8d65bd22ae375c37ef0037911" name="aa2673bb8d65bd22ae375c37ef0037911"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2673bb8d65bd22ae375c37ef0037911">&#9670;&#160;</a></span>BaseEntity()</h2>
+<a id="ac5c720038d12909bca10621a4bffa221" name="ac5c720038d12909bca10621a4bffa221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5c720038d12909bca10621a4bffa221">&#9670;&#160;</a></span>BaseEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Entity.BaseEntity.BaseEntity </td>
@@ -183,7 +186,13 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>initialSpeedKMH</em>&#160;</td>
+          <td class="paramname"><em>initialSpeedKMH</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Color&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -191,6 +200,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a new BaseEntity object with an Id, SpawnPoint, and initial speed. </p>
@@ -211,6 +225,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_entity_1_1_location.html">Location</a> Entity.BaseEntity.getCarlaLocation </td>
@@ -219,6 +236,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the location of the BaseEntity object in CARLA coordinates. </p>
@@ -231,6 +253,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Entity.BaseEntity.setColor </td>
@@ -240,6 +265,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the color of the BaseEntity object. </p>
@@ -257,6 +287,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Entity.BaseEntity.setPosition </td>
@@ -276,6 +309,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the position of the BaseEntity object. </p>
@@ -294,6 +332,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Entity.BaseEntity.setRotation </td>
@@ -303,6 +344,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the rotation angle of the BaseEntity object. </p>
@@ -322,6 +368,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Entity.BaseEntity.setView </td>
@@ -331,6 +380,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>InitialSpeedKMH</b>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the view of the BaseEntity object. </p>

@@ -1,4 +1,4 @@
 var interface_i_base_entity_controller =
 [
-    [ "getEntity", "interface_i_base_entity_controller.html#a37c1eb3c71a2b91dd35c3f856d03bab4", null ]
+    [ "GetEntity", "interface_i_base_entity_controller.html#abed75c54f54f2166961ac5108d589da6", null ]
 ];

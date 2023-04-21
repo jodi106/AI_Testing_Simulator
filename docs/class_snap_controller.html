@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -113,7 +113,7 @@ Inheritance diagram for SnapController:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab5dcf571af2d77ccb87c5830045c2430"><td class="memItemLeft" align="right" valign="top"><a id="ab5dcf571af2d77ccb87c5830045c2430" name="ab5dcf571af2d77ccb87c5830045c2430"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> ()</td></tr>
-<tr class="memdesc:ab5dcf571af2d77ccb87c5830045c2430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update is called once per frame. <br /></td></tr>
+<tr class="memdesc:ab5dcf571af2d77ccb87c5830045c2430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highlights the waypoint indicator nearest to the mouse position. <br /></td></tr>
 <tr class="separator:ab5dcf571af2d77ccb87c5830045c2430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a953ba95c950a4bb49ca5c2480425878a"><td class="memItemLeft" align="right" valign="top"><a id="a953ba95c950a4bb49ca5c2480425878a" name="a953ba95c950a4bb49ca5c2480425878a"></a>
 <a class="el" href="class_snap_controller.html#a0e90e9b556bac867d0a7c3b725b832e0">int</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetRoadIdAndLaneIdFromString</b> (string laneIdString)</td></tr>
@@ -122,14 +122,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> ()</td></t
 <tr class="memdesc:a01a459693d78243e871dd29846512d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the nearest waypoint to a given mouse position.  <br /></td></tr>
 <tr class="separator:a01a459693d78243e871dd29846512d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7c1c2d790b0bd87b72749ceec3d76f4"><td class="memItemLeft" align="right" valign="top"><a id="ab7c1c2d790b0bd87b72749ceec3d76f4" name="ab7c1c2d790b0bd87b72749ceec3d76f4"></a>
-<a class="el" href="class_entity_1_1_a_star_waypoint.html">AStarWaypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>FindLaneAndWaypoint</b> (Vector2 mousePosition)</td></tr>
+<a class="el" href="class_a_star_waypoint.html">AStarWaypoint</a>&#160;</td><td class="memItemRight" valign="bottom"><b>FindLaneAndWaypoint</b> (Vector2 mousePosition)</td></tr>
 <tr class="separator:ab7c1c2d790b0bd87b72749ceec3d76f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5031535157b8f6cc701edb0a13eeb74d"><td class="memItemLeft" align="right" valign="top"><a id="a5031535157b8f6cc701edb0a13eeb74d" name="a5031535157b8f6cc701edb0a13eeb74d"></a>
-<a class="el" href="class_entity_1_1_lane.html">Lane</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNeighboringLanes</b> (<a class="el" href="class_entity_1_1_lane.html">Lane</a> l)</td></tr>
-<tr class="separator:a5031535157b8f6cc701edb0a13eeb74d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f3abc335e4137e244915883f3be65ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_snap_controller.html#a4f3abc335e4137e244915883f3be65ec">checkLaneChange</a> (<a class="el" href="class_entity_1_1_lane.html">Lane</a> startLane, <a class="el" href="class_entity_1_1_lane.html">Lane</a> endLane, <a class="el" href="class_entity_1_1_a_star_waypoint.html">AStarWaypoint</a> startWaypoint, <a class="el" href="class_entity_1_1_a_star_waypoint.html">AStarWaypoint</a> endWaypoint)</td></tr>
-<tr class="memdesc:a4f3abc335e4137e244915883f3be65ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a lane change is possible between the start and end lanes and waypoints.  <br /></td></tr>
-<tr class="separator:a4f3abc335e4137e244915883f3be65ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349dc59a314b87bec07667619d388914"><td class="memItemLeft" align="right" valign="top"><a id="a349dc59a314b87bec07667619d388914" name="a349dc59a314b87bec07667619d388914"></a>
+<a class="el" href="class_entity_1_1_lane.html">Lane</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetNeighboringLanes</b> (<a class="el" href="class_entity_1_1_lane.html">Lane</a> l)</td></tr>
+<tr class="separator:a349dc59a314b87bec07667619d388914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea18a513f885f28fa5334851162b6482"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_snap_controller.html#aea18a513f885f28fa5334851162b6482">CheckLaneChange</a> (<a class="el" href="class_entity_1_1_lane.html">Lane</a> startLane, <a class="el" href="class_entity_1_1_lane.html">Lane</a> endLane, <a class="el" href="class_a_star_waypoint.html">AStarWaypoint</a> startWaypoint, <a class="el" href="class_a_star_waypoint.html">AStarWaypoint</a> endWaypoint)</td></tr>
+<tr class="memdesc:aea18a513f885f28fa5334851162b6482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a lane change is possible between the start and end lanes and waypoints.  <br /></td></tr>
+<tr class="separator:aea18a513f885f28fa5334851162b6482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add5c8ea97f5d519ed13c93c67a909b7b"><td class="memItemLeft" align="right" valign="top"><a id="add5c8ea97f5d519ed13c93c67a909b7b" name="add5c8ea97f5d519ed13c93c67a909b7b"></a>
 List&lt; <a class="el" href="class_snap_controller.html#a0e90e9b556bac867d0a7c3b725b832e0">int</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>FindPath</b> (Vector2 start, Vector2 end, bool ignoreWaypoints)</td></tr>
 <tr class="separator:add5c8ea97f5d519ed13c93c67a909b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,7 +161,7 @@ Dictionary&lt; <a class="el" href="class_snap_controller.html#a0e90e9b556bac867d
 <tr class="memdesc:a0e90e9b556bac867d0a7c3b725b832e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a lane ID string and returns the corresponding road ID and lane ID as a tuple.  <br /></td></tr>
 <tr class="separator:a0e90e9b556bac867d0a7c3b725b832e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81e48a9c576b8c648c16abe3d04e2bc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_snap_controller.html#a81e48a9c576b8c648c16abe3d04e2bc2">Lane</a></td></tr>
-<tr class="memdesc:a81e48a9c576b8c648c16abe3d04e2bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the closest Lane and AStarWaypoint to the given mouse position.  <br /></td></tr>
+<tr class="memdesc:a81e48a9c576b8c648c16abe3d04e2bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the closest Lane and <a class="el" href="class_a_star_waypoint.html" title="Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest p...">AStarWaypoint</a> to the given mouse position.  <br /></td></tr>
 <tr class="separator:a81e48a9c576b8c648c16abe3d04e2bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29804411128a6aeef050f164f06046b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_snap_controller.html#a29804411128a6aeef050f164f06046b0">List&lt; Vector2 &gt;</a></td></tr>
 <tr class="memdesc:a29804411128a6aeef050f164f06046b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a path between the start and end positions, considering lane changes and optional waypoint ignoring.  <br /></td></tr>
@@ -211,7 +211,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -228,14 +228,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
 
 </div>
 </div>
-<a id="a4f3abc335e4137e244915883f3be65ec" name="a4f3abc335e4137e244915883f3be65ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f3abc335e4137e244915883f3be65ec">&#9670;&#160;</a></span>checkLaneChange()</h2>
+<a id="aea18a513f885f28fa5334851162b6482" name="aea18a513f885f28fa5334851162b6482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea18a513f885f28fa5334851162b6482">&#9670;&#160;</a></span>CheckLaneChange()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SnapController.checkLaneChange </td>
+          <td class="memname">bool SnapController.CheckLaneChange </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_entity_1_1_lane.html">Lane</a>&#160;</td>
           <td class="paramname"><em>startLane</em>, </td>
@@ -249,13 +252,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_entity_1_1_a_star_waypoint.html">AStarWaypoint</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_a_star_waypoint.html">AStarWaypoint</a>&#160;</td>
           <td class="paramname"><em>startWaypoint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_entity_1_1_a_star_waypoint.html">AStarWaypoint</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_a_star_waypoint.html">AStarWaypoint</a>&#160;</td>
           <td class="paramname"><em>endWaypoint</em>&#160;</td>
         </tr>
         <tr>
@@ -264,6 +267,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Checks if a lane change is possible between the start and end lanes and waypoints. </p>
@@ -271,8 +279,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
   <table class="params">
     <tr><td class="paramname">startLane</td><td>The starting Lane.</td></tr>
     <tr><td class="paramname">endLane</td><td>The ending Lane.</td></tr>
-    <tr><td class="paramname">startWaypoint</td><td>The starting AStarWaypoint.</td></tr>
-    <tr><td class="paramname">endWaypoint</td><td>The ending AStarWaypoint.</td></tr>
+    <tr><td class="paramname">startWaypoint</td><td>The starting <a class="el" href="class_a_star_waypoint.html" title="Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest p...">AStarWaypoint</a>.</td></tr>
+    <tr><td class="paramname">endWaypoint</td><td>The ending <a class="el" href="class_a_star_waypoint.html" title="Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest p...">AStarWaypoint</a>.</td></tr>
   </table>
   </dd>
 </dl>
@@ -309,7 +317,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -331,6 +339,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_entity_1_1_location.html">Location</a> SnapController.FindWaypoint </td>
@@ -340,6 +351,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Finds the nearest waypoint to a given mouse position. </p>
@@ -372,7 +388,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -424,7 +440,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
       </table>
 </div><div class="memdoc">
 
-<p>Finds the closest Lane and AStarWaypoint to the given mouse position. </p>
+<p>Finds the closest Lane and <a class="el" href="class_a_star_waypoint.html" title="Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest p...">AStarWaypoint</a> to the given mouse position. </p>
 <p>Returns the neighboring lanes of a given Lane.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -432,7 +448,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IgnoreClicks</b><code
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><p class="startdd">A tuple containing the closest Lane and AStarWaypoint to the given mouse position.&lt;/returns</p>
+<dl class="section return"><dt>Returns</dt><dd><p class="startdd">A tuple containing the closest Lane and <a class="el" href="class_a_star_waypoint.html" title="Represents a Waypoint in A* algorithm with additional properties which is used to find the shortest p...">AStarWaypoint</a> to the given mouse position.&lt;/returns</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">l</td><td>A Lane object.</td></tr>

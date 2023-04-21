@@ -1,4 +1,0 @@
-var namespace_assets_1_1_scripts_1_1_view_controllers_1_1_popup_controllers =
-[
-    [ "YesNoPopupController", "class_assets_1_1_scripts_1_1_view_controllers_1_1_popup_controllers_1_1_yes_no_popup_controller.html", "class_assets_1_1_scripts_1_1_view_controllers_1_1_popup_controllers_1_1_yes_no_popup_controller" ]
-];

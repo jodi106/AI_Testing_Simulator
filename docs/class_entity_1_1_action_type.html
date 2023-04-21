@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -113,15 +113,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad4293a87ed66b1d639fd78602deb4086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac200c123ec0145f214b5dc405aa47b1d"><td class="memItemLeft" align="right" valign="top"><a id="ac200c123ec0145f214b5dc405aa47b1d" name="ac200c123ec0145f214b5dc405aa47b1d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ActionType</b> (string name, double absoluteTargetSpeedValue, string speedActionDynamicsShape=&quot;step&quot;, double speedActionDynamicsValue=0.0, string dynamicsDimension=&quot;time&quot;)</td></tr>
-<tr class="memdesc:ac200c123ec0145f214b5dc405aa47b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">for SpeedAction <br /></td></tr>
+<tr class="memdesc:ac200c123ec0145f214b5dc405aa47b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">for "SpeedAction" <br /></td></tr>
 <tr class="separator:ac200c123ec0145f214b5dc405aa47b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36ef5006b3d85fdb32e294923eb84ff1"><td class="memItemLeft" align="right" valign="top"><a id="a36ef5006b3d85fdb32e294923eb84ff1" name="a36ef5006b3d85fdb32e294923eb84ff1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ActionType</b> (string name, double stopduration, double speedValue, string speedActionDynamicsShape=&quot;step&quot;, double speedActionDynamicsValue=0.0, string dynamicsDimension=&quot;time&quot;)</td></tr>
-<tr class="memdesc:a36ef5006b3d85fdb32e294923eb84ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">for StopAction <br /></td></tr>
+<tr class="memdesc:a36ef5006b3d85fdb32e294923eb84ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">for "StopAction" <br /></td></tr>
 <tr class="separator:a36ef5006b3d85fdb32e294923eb84ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad69efd95938757545f6dc4a8d0afebc"><td class="memItemLeft" align="right" valign="top"><a id="aad69efd95938757545f6dc4a8d0afebc" name="aad69efd95938757545f6dc4a8d0afebc"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ActionType</b> (string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape=&quot;linear&quot;, double laneChangeActionDynamicsValue=13, string dynamicsDimension=&quot;distance&quot;)</td></tr>
-<tr class="memdesc:aad69efd95938757545f6dc4a8d0afebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error <br /></td></tr>
+<tr class="memdesc:aad69efd95938757545f6dc4a8d0afebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">for "LaneChangeAction": laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error <br /></td></tr>
 <tr class="separator:aad69efd95938757545f6dc4a8d0afebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ae800fd89a5ed2e92516cec75b687ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_1_1_action_type.html#a6ae800fd89a5ed2e92516cec75b687ab">ActionType</a> (string name, List&lt; <a class="el" href="class_entity_1_1_location.html">Location</a> &gt; positions)</td></tr>
 <tr class="memdesc:a6ae800fd89a5ed2e92516cec75b687ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of the ActionType class.  <br /></td></tr>
@@ -184,6 +184,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StopDuration</b><co
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Entity.ActionType.ActionType </td>
@@ -203,10 +206,15 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StopDuration</b><co
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a new instance of the ActionType class. </p>
-<p>for AssignRouteAction (List lentgh &gt; 2) or AcquirePositionAction (list length == 2) </p>
+<p>for "AssignRouteAction" (List length &gt; 2) or AcquirePositionAction (list length == 2) </p>
 
 </div>
 </div>
@@ -216,6 +224,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StopDuration</b><co
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Entity.ActionType.CalculateLocationsCarla </td>
@@ -224,6 +235,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StopDuration</b><co
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calculates the corresponding Carla locations for each position in the Positions list, using the <a class="el" href="class_snap_controller.html" title="SnapController class handles loading and updating of road and waypoint data for the map.">SnapController</a> class. </p>
@@ -236,6 +252,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StopDuration</b><co
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">object Entity.ActionType.Clone </td>
@@ -244,6 +263,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StopDuration</b><co
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Creates a deep copy of the current ActionType object. </p>

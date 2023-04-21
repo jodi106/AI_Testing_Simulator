@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -106,63 +106,63 @@ Inheritance diagram for IBaseView:</div>
   <map id="IBaseView_map" name="IBaseView_map">
 <area href="interface_i_base_entity_view.html" title="Represents an interface for a base entity view." alt="IBaseEntityView" shape="rect" coords="83,56,239,80"/>
 <area href="class_waypoint_view_controller.html" title="The WaypointViewController class handles the behavior of a waypoint in the game. &lt;/summary." alt="WaypointViewController" shape="rect" coords="249,56,405,80"/>
-<area href="class_vehicle_view_controller.html" title="An abstract base class for vehicle view controllers, providing shared functionality for handling vehi..." alt="VehicleViewController" shape="rect" coords="83,112,239,136"/>
-<area href="class_adversary_view_controller.html" title="Controller for the Adversary entity in the scene." alt="AdversaryViewController" shape="rect" coords="0,168,156,192"/>
+<area href="class_vehicle_view_controller.html" title="An abstract base class for a BaseEntity providing shared functionality for handling positions,..." alt="VehicleViewController" shape="rect" coords="83,112,239,136"/>
+<area href="class_adversary_view_controller.html" title="Controller for an Adversary." alt="AdversaryViewController" shape="rect" coords="0,168,156,192"/>
 <area href="class_ego_view_controller.html" title="Controller for the Adversary entity in the scene." alt="EgoViewController" shape="rect" coords="166,168,322,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aebd5f99476949a4740cab1fcc079f059"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#aebd5f99476949a4740cab1fcc079f059">onChangePosition</a> (float x, float y)</td></tr>
-<tr class="memdesc:aebd5f99476949a4740cab1fcc079f059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the position of the view changes.  <br /></td></tr>
-<tr class="separator:aebd5f99476949a4740cab1fcc079f059"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af334eaa77ffa15eb754b1d9b603622da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#af334eaa77ffa15eb754b1d9b603622da">onChangeRotation</a> (float angle)</td></tr>
-<tr class="memdesc:af334eaa77ffa15eb754b1d9b603622da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the rotation of the view changes.  <br /></td></tr>
-<tr class="separator:af334eaa77ffa15eb754b1d9b603622da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd85bc1696447e7ab5ea52859368f761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#abd85bc1696447e7ab5ea52859368f761">onChangeColor</a> (Color c)</td></tr>
-<tr class="memdesc:abd85bc1696447e7ab5ea52859368f761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the color of the view changes.  <br /></td></tr>
-<tr class="separator:abd85bc1696447e7ab5ea52859368f761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279fb24a9fc728e2692ec74db6fc5a6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#a279fb24a9fc728e2692ec74db6fc5a6e">OnChangePosition</a> (float x, float y)</td></tr>
+<tr class="memdesc:a279fb24a9fc728e2692ec74db6fc5a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the position of the corresponding object changes.  <br /></td></tr>
+<tr class="separator:a279fb24a9fc728e2692ec74db6fc5a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad56a634c9b7266357b25fe543cb88c21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#ad56a634c9b7266357b25fe543cb88c21">OnChangeRotation</a> (float angle)</td></tr>
+<tr class="memdesc:ad56a634c9b7266357b25fe543cb88c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the rotation of the corresponding object changes.  <br /></td></tr>
+<tr class="separator:ad56a634c9b7266357b25fe543cb88c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e32f3f992c6d4dcfb84a83e723808a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_base_view.html#a92e32f3f992c6d4dcfb84a83e723808a">OnChangeColor</a> (Color color)</td></tr>
+<tr class="memdesc:a92e32f3f992c6d4dcfb84a83e723808a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the color of the corresponding object changes.  <br /></td></tr>
+<tr class="separator:a92e32f3f992c6d4dcfb84a83e723808a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an interface for a base view. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="abd85bc1696447e7ab5ea52859368f761" name="abd85bc1696447e7ab5ea52859368f761"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd85bc1696447e7ab5ea52859368f761">&#9670;&#160;</a></span>onChangeColor()</h2>
+<a id="a92e32f3f992c6d4dcfb84a83e723808a" name="a92e32f3f992c6d4dcfb84a83e723808a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92e32f3f992c6d4dcfb84a83e723808a">&#9670;&#160;</a></span>OnChangeColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IBaseView.onChangeColor </td>
+          <td class="memname">void IBaseView.OnChangeColor </td>
           <td>(</td>
           <td class="paramtype">Color&#160;</td>
-          <td class="paramname"><em>c</em></td><td>)</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Called when the color of the view changes. </p>
+<p>Called when the color of the corresponding object changes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c</td><td>The new color of the view.</td></tr>
+    <tr><td class="paramname">color</td><td>The new color of the view.</td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_vehicle_view_controller.html#acc536a13e2608c511ccaf2c4144ae66a">VehicleViewController</a>, <a class="el" href="class_waypoint_view_controller.html#a3e7f4f79635e6514fcfe911cb553c60d">WaypointViewController</a>, <a class="el" href="class_adversary_view_controller.html#abdb268c03d022e7273b530759101ee2b">AdversaryViewController</a>, and <a class="el" href="class_ego_view_controller.html#a4852c29825234604f14bd3e8c3a83cd6">EgoViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_vehicle_view_controller.html#ae89fab6b9c8447dacc8f0ed7dae96235">VehicleViewController</a>, <a class="el" href="class_adversary_view_controller.html#a28e1467b8ac60b82400326007b0f96a0">AdversaryViewController</a>, <a class="el" href="class_ego_view_controller.html#a3bceb05a1214197e1c5212dc4219ac82">EgoViewController</a>, and <a class="el" href="class_waypoint_view_controller.html#aec7eeeefce34ea86cec22596879c7968">WaypointViewController</a>.</p>
 
 </div>
 </div>
-<a id="aebd5f99476949a4740cab1fcc079f059" name="aebd5f99476949a4740cab1fcc079f059"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd5f99476949a4740cab1fcc079f059">&#9670;&#160;</a></span>onChangePosition()</h2>
+<a id="a279fb24a9fc728e2692ec74db6fc5a6e" name="a279fb24a9fc728e2692ec74db6fc5a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a279fb24a9fc728e2692ec74db6fc5a6e">&#9670;&#160;</a></span>OnChangePosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IBaseView.onChangePosition </td>
+          <td class="memname">void IBaseView.OnChangePosition </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -181,7 +181,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Called when the position of the view changes. </p>
+<p>Called when the position of the corresponding object changes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>The new x-coordinate of the view's position.</td></tr>
@@ -190,18 +190,18 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_adversary_view_controller.html#ac8a2dc2189652906a5cb29e75d1cedab">AdversaryViewController</a>, <a class="el" href="class_vehicle_view_controller.html#ae250a68c505c5e103dcad9dcd33b2f42">VehicleViewController</a>, and <a class="el" href="class_waypoint_view_controller.html#a89943459716c2476d9efd7ad4257fbe0">WaypointViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_adversary_view_controller.html#a068e3190f1466989d8c72f4ea7fa4a57">AdversaryViewController</a>, <a class="el" href="class_vehicle_view_controller.html#aa371e46a6a92cb1665d640b7789d410d">VehicleViewController</a>, and <a class="el" href="class_waypoint_view_controller.html#af8e47e011fe76f08dc591304f1f1311d">WaypointViewController</a>.</p>
 
 </div>
 </div>
-<a id="af334eaa77ffa15eb754b1d9b603622da" name="af334eaa77ffa15eb754b1d9b603622da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af334eaa77ffa15eb754b1d9b603622da">&#9670;&#160;</a></span>onChangeRotation()</h2>
+<a id="ad56a634c9b7266357b25fe543cb88c21" name="ad56a634c9b7266357b25fe543cb88c21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad56a634c9b7266357b25fe543cb88c21">&#9670;&#160;</a></span>OnChangeRotation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IBaseView.onChangeRotation </td>
+          <td class="memname">void IBaseView.OnChangeRotation </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>angle</em></td><td>)</td>
@@ -210,7 +210,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Called when the rotation of the view changes. </p>
+<p>Called when the rotation of the corresponding object changes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">angle</td><td>The new angle of the view's rotation.</td></tr>
@@ -218,7 +218,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_vehicle_view_controller.html#af8978dab1facb0545ee5752179f7afc0">VehicleViewController</a>, and <a class="el" href="class_waypoint_view_controller.html#a0a2a7dcc2bcb049c0f28f2c09a41ff7d">WaypointViewController</a>.</p>
+<p>Implemented in <a class="el" href="class_vehicle_view_controller.html#af597b8175fea0f72806185d279dfb08c">VehicleViewController</a>, and <a class="el" href="class_waypoint_view_controller.html#aa9803d79af85bf1af985b31d2f0713c2">WaypointViewController</a>.</p>
 
 </div>
 </div>

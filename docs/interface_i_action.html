@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -104,31 +104,32 @@ Inheritance diagram for IAction:</div>
  <div class="center">
   <img src="interface_i_action.png" usemap="#IAction_map" alt=""/>
   <map id="IAction_map" name="IAction_map">
-<area href="class_cancel_placement_action.html" title="An action that signals that the placement of a newly created vehicle has been cancelled...." alt="CancelPlacementAction" shape="rect" coords="0,56,158,80"/>
-<area href="class_complete_placement_action.html" title="An action that signals that the placement of a newly created vehicle has been cancelled...." alt="CompletePlacementAction" shape="rect" coords="168,56,326,80"/>
-<area href="class_map_change_action.html" title="Represents a MapChangeAction that implements the IAction interface." alt="MapChangeAction" shape="rect" coords="336,56,494,80"/>
-<area href="class_map_pan_action.html" title="Represents a MapPanAction that implements the IAction interface." alt="MapPanAction" shape="rect" coords="504,56,662,80"/>
-<area href="class_mouse_click_action.html" title="Represents a MouseClickAction that implements the IAction interface." alt="MouseClickAction" shape="rect" coords="672,56,830,80"/>
+<area href="class_cancel_placement_action.html" title="An action that signals that the placement of a newly created vehicle has been cancelled...." alt="CancelPlacementAction" shape="rect" coords="0,56,170,80"/>
+<area href="class_complete_placement_action.html" title="An action that signals that the placement of a newly created vehicle has been completed...." alt="CompletePlacementAction" shape="rect" coords="180,56,350,80"/>
+<area href="class_entity_list_entry_clicked_action.html" title="An action that signals that an entry in the entity list has been clicked. Causes the entity correspon..." alt="EntityListEntryClickedAction" shape="rect" coords="360,56,530,80"/>
+<area href="class_map_change_action.html" title="An action that causes the currently loaded Map to change. All entities will be despawned." alt="MapChangeAction" shape="rect" coords="540,56,710,80"/>
+<area href="class_map_pan_action.html" title="An action that is triggered a drag event on the map occurs. Causes the camera to move." alt="MapPanAction" shape="rect" coords="720,56,890,80"/>
+<area href="class_mouse_click_action.html" title="An action that is triggered when the map is clicked. Can cause a newly created entity to be placed or..." alt="MouseClickAction" shape="rect" coords="900,56,1070,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4e2849471650329a161e2015163c0c27"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, object &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_action.html#a4e2849471650329a161e2015163c0c27">toDict</a> ()</td></tr>
-<tr class="memdesc:a4e2849471650329a161e2015163c0c27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the <a class="el" href="interface_i_action.html" title="Interface for objects that represent an action and can be converted to a dictionary.">IAction</a> object to a dictionary.  <br /></td></tr>
-<tr class="separator:a4e2849471650329a161e2015163c0c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9abfbe7c9e34b64aae1993a8bb644707"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, object &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_i_action.html#a9abfbe7c9e34b64aae1993a8bb644707">ToDict</a> ()</td></tr>
+<tr class="memdesc:a9abfbe7c9e34b64aae1993a8bb644707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the <a class="el" href="interface_i_action.html" title="Interface for objects that represent an action and can be converted to a dictionary.">IAction</a> object to a dictionary.  <br /></td></tr>
+<tr class="separator:a9abfbe7c9e34b64aae1993a8bb644707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for objects that represent an action and can be converted to a dictionary. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4e2849471650329a161e2015163c0c27" name="a4e2849471650329a161e2015163c0c27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e2849471650329a161e2015163c0c27">&#9670;&#160;</a></span>toDict()</h2>
+<a id="a9abfbe7c9e34b64aae1993a8bb644707" name="a9abfbe7c9e34b64aae1993a8bb644707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9abfbe7c9e34b64aae1993a8bb644707">&#9670;&#160;</a></span>ToDict()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Dictionary&lt; string, object &gt; IAction.toDict </td>
+          <td class="memname">Dictionary&lt; string, object &gt; IAction.ToDict </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -141,7 +142,7 @@ Public Member Functions</h2></td></tr>
 <p><br  />
  </p>
 
-<p>Implemented in <a class="el" href="class_cancel_placement_action.html#ab74fdf66fb52e0d595be175b316e6000">CancelPlacementAction</a>, <a class="el" href="class_complete_placement_action.html#a94f314db31fb8f888b3f30b206a3e782">CompletePlacementAction</a>, <a class="el" href="class_map_change_action.html#a19aff8ad114d291547fb036198a60662">MapChangeAction</a>, <a class="el" href="class_map_pan_action.html#af59ccc2db4f2c863e2efb41dbb97e046">MapPanAction</a>, and <a class="el" href="class_mouse_click_action.html#a89c3b394833a7b96e5f671b9e82da8f5">MouseClickAction</a>.</p>
+<p>Implemented in <a class="el" href="class_cancel_placement_action.html#a97a738f0be156d95da85c91c9805c5ba">CancelPlacementAction</a>, <a class="el" href="class_complete_placement_action.html#a6361fc06869c6de9184dc9ab6afcee2b">CompletePlacementAction</a>, <a class="el" href="class_entity_list_entry_clicked_action.html#a14cc86e1ee684a821d2dcfa3e8b03cff">EntityListEntryClickedAction</a>, <a class="el" href="class_map_change_action.html#a4ea4b662152ea7bfdab609e1006f731d">MapChangeAction</a>, <a class="el" href="class_map_pan_action.html#ab228f572e5e5a1e601aa96e8e8af8344">MapPanAction</a>, and <a class="el" href="class_mouse_click_action.html#a6cdd6e5c897ab167199e860436b90161">MouseClickAction</a>.</p>
 
 </div>
 </div>

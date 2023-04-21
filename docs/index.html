@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">AI Testing Simulator<span id="projectnumber">&#160;2023.04.03</span>
+   <div id="projectname">AI Testing Simulator
    </div>
   </td>
  </tr>
@@ -97,33 +97,86 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 Table of Contents</h1>
 <ul>
 <li>Description</li>
-<li>How to setup up</li>
+<li>How to setup</li>
 <li>How to use</li>
+<li>Knnown Issues</li>
 <li>Credits</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Description</h1>
-<p>The goal of this international team project is the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following: An easy to use scenario Editor to build simulate short traffic situations to verify if the AI under test is able to safely handle them. A tool which is able to record and process the sensor data which is produced by the simulated cars sensors during the test scenarios. A rudimentary driving AI which can be customized to do several dangerous or faulty behaviors which will be used to check wether sets of test cases are able to detect the dangerous or faulty behavior.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-How to setup up</h1>
-<p>Follow these steps:</p>
-<ol type="1">
-<li></li>
-<li></li>
-<li></li>
+<p>The goal of this international team project was the development of a simulated testing environment based on an already existing open-source driving simulator for autonomous driving AIs. The key features are the following:</p><ol type="1">
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/releases/tag/ScenarioEditor_v1.0">ScenarioEditor</a>: An easy to use OpenSCENARIO format (.xosc) scenario Editor to build short traffic situations to verify if the AI under test is able to safely handle them.</li>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/releases/tag/runnerTool_v1.02">runnerTool</a>: A tool which is able to run and evaluate multiple OpenSCENARIO scenarios in Carla.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
+How to Setup</h1>
+<h2><a class="anchor" id="autotoc_md4"></a>
+How to setup up the Scenario Editor</h2>
+<ol type="1">
+<li>Download the latest ScenarioEditor release <a href="https://github.com/jodi106/AI_Testing_Simulator/releases/latest">from here</a></li>
+<li>Extract the .zip file to a directory of your choice</li>
+<li>Run the AI_Testing_Simulator.exe file</li>
+</ol>
+<p>General Instructions on how to use the Scenario Editor can be found <a href="https://example.com/">here (TODO)</a></p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+How to setup Carla 0.9.13 (Windows)</h2>
+<p>We suggest using the Package Installation 0.9.13 for convenient and quick setup. Future verions might cause conflicts (not tested).</p><ol type="1">
+<li>Create a new python environment</li>
+<li>Read the <a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/">"Before you begin"</a> section in the Carla documentation to check prerequisits.</li>
+<li>Install python modules "pygame numpy" and "carla" to your python environment. <div class="fragment"><div class="line">pip3 install --user pygame numpy</div>
+<div class="line">pip3 install carla</div>
+</div><!-- fragment --></li>
+<li>Download and unzip the package version 0.9.13 from <a href="https://github.com/carla-simulator/carla/blob/master/Docs/download.md">Github</a>.</li>
+<li>Use runnerTool for convenient scenario running.</li>
+</ol>
+<p>Refer to the official <a href="https://carla.readthedocs.io/en/0.9.13/start_quickstart/">Carla Documentation</a> for more detailed instructions and Linux setup.</p>
+<h4><a class="anchor" id="autotoc_md6"></a>
+If you are using Conda and have problems with shapely and arcade try the following:</h4>
+<div class="fragment"><div class="line">conda install -c conda-forge shapely</div>
+<div class="line">pip install arcade</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+How to setup the RunnerTool</h2>
+<ul>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md">See runnerTool Manual</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md8"></a>
 How to use</h1>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h4><a class="anchor" id="autotoc_md9"></a>
+User Manuals:</h4>
+<ul>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/">ScenarioEditor Manual (wip)</a></li>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md">runnerTool Manual</a></li>
+</ul>
+<h4><a class="anchor" id="autotoc_md10"></a>
+Code Documentations for developers:</h4>
+<ul>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/tree/main/Developer-Documentation">ScenarioEditor Developer Documentation (wip)</a></li>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/runnerTool_Developer_Documentation.md">runnerTool Developer Documentation</a></li>
+<li><a href="https://github.com/jodi106/AI_Testing_Simulator/tree/main/Docs/html">Docs (wip)</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md11"></a>
+Known Issues</h1>
+<ul>
+<li><p class="startli">Runtime Error when starting Carla: </p><div class="fragment"><div class="line">RuntimeError: time-out of 5000ms while waiting for the simulator, make sure the simulator is ready and connected to localhost:2000</div>
+</div><!-- fragment --><p class="startli">Occurs when starting CarlaUE4.exe. If error occurs check task manager for already running “Carla UE4” background process. Kill it and restart CarlaUE4.exe should fix it.</p>
+</li>
+<li><p class="startli">Ego-Vehicle doesn't move although a target has been defined in ScenarioEditor</p>
+<p class="startli">ScenarioEditor uses <a href="https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py">"simple_vehicle_control"</a> without any additional parameters as its default KI. On some Spawn-Waypoints set for the ego vehicle, the KI doesn't start driving correctly. Make minor changes to the Spawn-Waypoints x-coordinates to fix that or use a different drivig KI. Might also be a general CARLA problem.</p>
+</li>
+<li><p class="startli">Route lane changes sometimes don't work on intersections:</p>
+<p class="startli">CARLA has problems with Intersections sometimes. Instead of making the lane change on the intersecttion, the vehicle will do it after it. We are currently not aware of a fix.</p>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Credits</h1>
 <p>This project started in September 2022 as a cooperation of University of Mannheim and UBB Cluj. The team consists of:</p>
 <ul>
-<li><a href="https://github.com/ArminT28/">Armin</a></li>
-<li><a href="https://github.com/tropper26/">David</a></li>
-<li><a href="https://github.com/felixkroemer/">Felix</a></li>
-<li><a href="https://github.com/jodi106/">Jonas</a></li>
-<li><a href="https://github.com/Natalie-UniMA/">Natalie</a></li>
-<li><a href="https://github.com/StayFN/">Stefan</a> </li>
+<li><a href="https://github.com/felixkroemer/">Felix (Uni MA)</a></li>
+<li><a href="https://github.com/jodi106/">Jonas (Uni MA)</a></li>
+<li><a href="https://github.com/Natalie-UniMA/">Natalie (Uni MA)</a></li>
+<li><a href="https://github.com/StayFN/">Stefan (Uni MA)</a></li>
+<li><a href="https://github.com/ArminT28/">Armin (UBB)</a></li>
+<li><a href="https://github.com/tropper26/">David (UBB)</a> </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

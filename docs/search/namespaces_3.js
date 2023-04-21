@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['simplefilebrowser_0',['SimpleFileBrowser',['../namespace_simple_file_browser.html',1,'']]]
+  ['priorityqueue_0',['PriorityQueue',['../namespace_priority_queue.html',1,'']]]
 ];
