@@ -9,7 +9,7 @@ Scenario Editor (create scenarios) |  runnerTool (evaluate a set of scenarios)
 - [Description](#description)
 - [How to setup](#how-to-setup)
 - [How to use](#how-to-use)
-- [Knnown Issues](#known-issues)
+- [Known Issues](#known-issues)
 - [Credits](#credits)
 
 ## Description
@@ -25,12 +25,10 @@ The goal of this international team project was the development of a simulated t
 2. Extract the .zip file to a directory of your choice
 3. Run the AI_Testing_Simulator.exe file
 
-General Instructions on how to use the Scenario Editor can be found [here (TODO)](https://example.com/)
-
 ### How to setup Carla 0.9.13 (Windows)
 We suggest using the Package Installation 0.9.13 for convenient and quick setup. Future verions might cause conflicts (not tested).
 1. Create a new python environment
-2. Read the ["Before you begin"](https://carla.readthedocs.io/en/0.9.13/start_quickstart/) section in the Carla documentation to check prerequisits.
+2. Read the ["Before you begin"](https://carla.readthedocs.io/en/0.9.13/start_quickstart/) section in the Carla documentation to check prerequisites.
 3. Install python modules "pygame numpy" and "carla" to your python environment. 
    ```
    pip3 install --user pygame numpy
@@ -52,7 +50,7 @@ pip install arcade
 
 ## How to use
 ##### User Manuals:
-* [ScenarioEditor Manual (wip)](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/)
+* [ScenarioEditor Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/User%20Manual%20Scenario%20Editor.pdf)
 * [runnerTool Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.md)
 
 ##### Code Documentations for developers:
@@ -70,11 +68,11 @@ pip install arcade
     
 * Ego-Vehicle doesn't move although a target has been defined in ScenarioEditor
 
-   ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without any additional parameters as its default KI. On some Spawn-Waypoints set for the ego vehicle, the KI doesn't start driving correctly. Make minor changes to the Spawn-Waypoints x-coordinates to fix that or use a different drivig KI. Might also be a general CARLA problem.
+   ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without any additional parameters as its default AI. On some Spawn-Waypoints set for the ego vehicle, the AI doesn't start driving correctly. Make minor changes to the Spawn-Waypoints x-coordinates to fix that or use a different driving AI. Might also be a general CARLA problem.
    
 * Route lane changes sometimes don't work on intersections:
 
-    CARLA has problems with Intersections sometimes. Instead of making the lane change on the intersecttion, the vehicle will do it after it. We are currently not aware of a fix. 
+    CARLA has problems with Intersections sometimes. Instead of making the lane change on the intersection, the vehicle will do it after it. We are currently not aware of a fix. 
 
 ## Credits
 
