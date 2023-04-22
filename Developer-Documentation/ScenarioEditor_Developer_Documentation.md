@@ -3,7 +3,7 @@
 ## Important Classes
 
 [Maincontroller Diagram](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-MainController.jpg)
-![ClassDiagram Maincontroller](img/ClassDiagram-MainController.jpg)
+![ClassDiagram Maincontroller](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-MainController.jpg)
 *MainController, along with high-level overview of important Controller classes and their relations*
 
 ### MainController
@@ -36,7 +36,7 @@ The SnapController is responsible for rendering waypoint indicators. These are t
 
 ## MVC Interactions
 [Detailled Controller classes](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-Controllers.jpg)
-![Class Diagram Controllers](img/ClassDiagram-Controllers.jpg)
+![Class Diagram Controllers](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-Controllers.jpg)
 *Expanded views of VehicleViewController, AdversaryViewController and EgoViewController*
 
 Our application builds on top of the MVC pattern to handle the interaction between state, view, and user controls. Our controllers have references to their model counterparts, which in turn have references to the controllers through their view interfaces. We opted to make our Controller classes act both as controllers and views. Therefore, we called them ViewControllers. They are responsible both for handling interactions with their Unity GameObjects (click, drag, etc.) and reacting to changes in the model with the callbacks defined in the View interfaces. When a user interacts with a GameObject, the controller registers this and updates the model accordingly. The model then calls the corresponding callback, which leads the controller to update the GameObject. With this model, we are not limited to changing the state of a model object through the controller. For example, we could alter the state of a model object in the MainController and the changes would still be automatically reflected in the GameObject (what the user sees). MainController has access to the models through its ScenarioInfo instance.
@@ -49,7 +49,7 @@ An AdversaryViewController has a reference to an Adversary, which it either crea
 
 ## Interaction between AdversaryViewController, PathController and WaypointViewController
 [AdversaryController, PathController, WaypointViewController interaction](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-PathController.jpg)
-![Class Diagram Path Controller](img/ClassDiagram-PathController.jpg)
+![Class Diagram Path Controller](https://github.com/jodi106/AI_Testing_Simulator/blob/main/Developer-Documentation/img/ClassDiagram-PathController.jpg)
 
 
 The interaction between AdversaryViewController, PathController, WaypointViewController and their corresponding models Adversary, Path and Waypoint is one of the more complex parts of our application. The AdversaryViewController has a PathController, which is responsible for rendering the path of an Adversary. It has references to all WaypointViewController that define the path. 
