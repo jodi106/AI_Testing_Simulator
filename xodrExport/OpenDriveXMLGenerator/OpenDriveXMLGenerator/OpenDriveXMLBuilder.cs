@@ -13,12 +13,5 @@ namespace OpenDriveXMLGenerator
             RootElement = Document.CreateElement("OpenDRIVE");
             Document.AppendChild(RootElement);
         }
-
-        public XmlDocument Build()
-        {
-            return Document;
-        }
-
-       
     }
 }

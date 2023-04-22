@@ -4,6 +4,16 @@ namespace OpenDriveXMLGenerator
 {
     public static class XMLElementExtentions
     {
+        public static XODRGeometry ToGeometry(this XmlElement element)
+        {
+            return (XODRGeometry)element;
+        }
+
+        public static XODRPlainView ToPlainView(this XmlElement element)
+        {
+            return (XODRPlainView)element;
+        }
+
         public static XmlElement AddElement(this XmlElement parent, string name)
         {
             var element = parent.OwnerDocument.CreateElement(name);
@@ -57,9 +67,9 @@ namespace OpenDriveXMLGenerator
             return vectorScene;
         }
 
-        public static XmlElement AddRoadElement(this XmlElement parent, string name, string length, string id, string junction)
+        public static XODRRoad AddRoadElement(this XmlElement parent, string name, string length, string id, string junction)
         {
-            var road = parent.OwnerDocument.CreateElement("road");
+            var road = (XODRRoad)parent.OwnerDocument.CreateElement("road");
             road.SetAttribute("name", name);
             road.SetAttribute("length", length);
             road.SetAttribute("id", id);
@@ -69,91 +79,54 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public static XmlElement AddLinkElement(this XmlElement parent, string elementType, string elementId)
-        {
-            var link = parent.OwnerDocument.CreateElement("link");
-            var predecessor = parent.OwnerDocument.CreateElement("predecessor");
-            predecessor.SetAttribute("elementType", elementType);
-            predecessor.SetAttribute("elementId", elementId);
-            link.AppendChild(predecessor);
-            parent.AppendChild(link);
+        //public static XmlElement AddTypeElement(this XmlElement parent, string s, string type)
+        //{
+        //    var typeElem = parent.OwnerDocument.CreateElement("type");
+        //    typeElem.SetAttribute("s", s);
+        //    typeElem.SetAttribute("type", type);
+        //    parent.AppendChild(typeElem);
 
-            return link;
-        }
+        //    return typeElem;
+        //}
 
-        public static XmlElement AddTypeElement(this XmlElement parent, string s, string type)
-        {
-            var typeElem = parent.OwnerDocument.CreateElement("type");
-            typeElem.SetAttribute("s", s);
-            typeElem.SetAttribute("type", type);
-            parent.AppendChild(typeElem);
+        //public static XmlElement AddSpeedElement(this XmlElement parent, string max, string unit)
+        //{
+        //    var speed = parent.OwnerDocument.CreateElement("speed");
+        //    speed.SetAttribute("max", max);
+        //    speed.SetAttribute("unit", unit);
+        //    parent.AppendChild(speed);
 
-            return typeElem;
-        }
+        //    return speed;
+        //}
 
-        public static XmlElement AddSpeedElement(this XmlElement parent, string max, string unit)
-        {
-            var speed = parent.OwnerDocument.CreateElement("speed");
-            speed.SetAttribute("max", max);
-            speed.SetAttribute("unit", unit);
-            parent.AppendChild(speed);
 
-            return speed;
-        }
 
-        public static XmlElement AddPlainViewElement(this XmlElement parent)
-        {
-            var planView = parent.OwnerDocument.CreateElement("planView");
-            parent.AppendChild(planView);
 
-            return planView;
-        }
+        //public static XmlElement AddElevationElement(this XmlElement parent, string s, string a, string b, string c)
+        //{
+        //    var elevationProfile = parent.OwnerDocument.CreateElement("elevationProfile");
+        //    parent.AppendChild(elevationProfile);
 
-        public static XmlElement AddGeometryElement(this XmlElement parent, string s, string x, string y, string hdg, string length, string curvature)
-        {
-            var geometry = parent.OwnerDocument.CreateElement("geometry");
-            geometry.SetAttribute("s", s);
-            geometry.SetAttribute("x", x);
-            geometry.SetAttribute("y", y);
-            geometry.SetAttribute("hdg", hdg);
-            geometry.SetAttribute("length", length);
-            parent.AppendChild(geometry);
+        //    var elevation = parent.OwnerDocument.CreateElement("elevation");
+        //    elevationProfile.AppendChild(elevation);
+        //    elevation.SetAttribute("s", s);
 
-            if (curvature != null)
-            {
-                var arc = parent.OwnerDocument.CreateElement("arc");
-                arc.SetAttribute("curvature", curvature);
-                geometry.AppendChild(arc);
-            }
+        //    var shape = parent.OwnerDocument.CreateElement("shape");
+        //    elevation.AppendChild(shape);
 
-            return geometry;
-        }
+        //    var aNode = parent.OwnerDocument.CreateElement("a");
+        //    aNode.InnerText = a;
+        //    shape.AppendChild(aNode);
 
-        public static XmlElement AddElevationElement(this XmlElement parent, string s, string a, string b, string c)
-        {
-            var elevationProfile = parent.OwnerDocument.CreateElement("elevationProfile");
-            parent.AppendChild(elevationProfile);
+        //    var bNode = parent.OwnerDocument.CreateElement("b");
+        //    bNode.InnerText = b;
+        //    shape.AppendChild(bNode);
 
-            var elevation = parent.OwnerDocument.CreateElement("elevation");
-            elevationProfile.AppendChild(elevation);
-            elevation.SetAttribute("s", s);
+        //    var cNode = parent.OwnerDocument.CreateElement("c");
+        //    cNode.InnerText = c;
+        //    shape.AppendChild(cNode);
 
-            var shape = parent.OwnerDocument.CreateElement("shape");
-            elevation.AppendChild(shape);
-
-            var aNode = parent.OwnerDocument.CreateElement("a");
-            aNode.InnerText = a;
-            shape.AppendChild(aNode);
-
-            var bNode = parent.OwnerDocument.CreateElement("b");
-            bNode.InnerText = b;
-            shape.AppendChild(bNode);
-
-            var cNode = parent.OwnerDocument.CreateElement("c");
-            cNode.InnerText = c;
-            shape.AppendChild(cNode);
-
-            return elevation;
-        }
+        //    return elevation;
+        //}
     }
 }
