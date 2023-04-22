@@ -3,7 +3,7 @@
 #### This manual provides basic guidance for developers that want to work with runnerTool. It gives general insight on the code structure and main features. 
 
 
-runnerTool is a terminal based python application based on [CARLA](https://carla.org/) scenario_runner.py to run and evaluate multiple OpenSCENARIO (.xosc) files. See [OpenSCENARIO User Guide](https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_introduction), [OpenSCENARIO Dokumentation](https://releases.asam.net/OpenSCENARIO/1.0.0/Model-Documentation/index.html) for information on the OpenSCENARIO format.
+runnerTool is a terminal based python application based on [CARLA](https://carla.org/) scenario_runner.py to run and evaluate multiple OpenSCENARIO (.xosc) files. See [OpenSCENARIO User Guide](https://releases.asam.net/OpenSCENARIO/1.0.0/ASAM_OpenSCENARIO_BS-1-2_User-Guide_V1-0-0.html#_introduction), [OpenSCENARIO Documentation](https://releases.asam.net/OpenSCENARIO/1.0.0/Model-Documentation/index.html) for information on the OpenSCENARIO format.
 
 [See runnerTool User Manual](https://github.com/jodi106/AI_Testing_Simulator/blob/main/User_Manuals/runnerTool_UserManual.rst) for instructions on how to set up and use runnerTool. 
 runnerTool can be used independent of the ScenarioEditor to run any .xosc file compatible with CARLAs scenario_runner.py. 
@@ -17,7 +17,7 @@ It was developed for CARLA version 0.9.13 and OpenSCENARIO 1.0 but should also s
 
 ## General Code Structure
 
-runnerTool is build on top of CARLAs scenario_runner.py. See [CARLA ScenarioRunner](https://carla-scenariorunner.readthedocs.io/en/latest/) for detailed description of ScenarioRunner. Docstrings are available in the scripts for all implemented methods.
+runnerTool is built on top of CARLAs scenario_runner.py. See [CARLA ScenarioRunner](https://carla-scenariorunner.readthedocs.io/en/latest/) for detailed description of ScenarioRunner. Docstrings are available in the scripts, for all implemented methods.
 
 The following scripts have been added/modified for runnerTool compared to the vanilla CARLA ScenarioRunner:
 1. [runnerTool.py](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/runnerTool.py): The majority of the code for runnerTool is implemented here.
@@ -29,16 +29,16 @@ The following scripts have been added/modified for runnerTool compared to the va
 This is the main module of runnerTool. Contains main method, RunnerTool class and Log class.
 
 #### Main Method
-The main method parses the arguments provided by the user, initiates an object of type RunnerTool using the parsed arguments and calls the methods RunnerTool.start_carla() and RunnerTool.runner().
+The main method parses the arguments provided by the user, initiates an object of type RunnerTool using the parsed arguments and calls the methods RunnerTool.start_carla(), and RunnerTool.runner().
 
 #### RunnerTool
 The RunnerTool class includes the most important methods used for runnerTool. The following will describe the most important methods. See docstrings in the code for descriptioins of all methods.
 
 * set_agent(): 
 
-   Sequentially changes HeroAgent in .xosc file to user specified string. This method allows to change the Agent (self driving AI) that is used for the ego vehicle in all scenarios of a runnerTool run. ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without additional arguments as default agent. So basically it simply enables the ego vehicle to reach the set destination via the road network with a set speed without considering any traffic elements.
+   Sequentially changes HeroAgent in .xosc file to user specified string. This method allows to change the Agent (self driving AI) that is used for the ego vehicle in all scenarios of a runnerTool run. ScenarioEditor uses ["simple_vehicle_control"](https://github.com/jodi106/AI_Testing_Simulator/blob/main/scripts/runnerTool/srunner/scenariomanager/actorcontrols/simple_vehicle_control.py) without additional arguments as default agent. Basically it enables the ego vehicle to reach the set destination via the road network with a set speed without considering any traffic elements.
    
-   Note, that by default no additional parameters are set in the .xosc files created by ScenarioEditor to avoid clash when changing agents. Some agents such as the simple_vehicle_control allow for enabling/disabling certain behaviors of the ego vehicle by adding arguments in the .xosc file. One could extend the set_agent() method to change/add parameters to the .xosc file depending on the selected agent if necessary. **In pricipal one could also set the parameters by hardcoding them directly in the python file of the agent to avoid having to change the .xosc file.** Additional parameters for the simple_vehicle_control can be added to the .xosc files like this (lines enclosed by "*"): 
+   Note, that by default no additional parameters are set in the .xosc files created by ScenarioEditor to avoid clash when changing agents. Some agents such as the simple_vehicle_control allow for enabling/disabling certain behaviors of the ego vehicle by adding arguments in the .xosc file. One could extend the set_agent() method to change/add parameters to the .xosc file depending on the selected agent if necessary. **In principal one could also set the parameters by hardcoding them directly in the python file of the agent to avoid having to change the .xosc file.** Additional parameters for the simple_vehicle_control can be added to the .xosc files like this (lines enclosed by "*"): 
 
    ```
               <AssignControllerAction>
@@ -57,7 +57,7 @@ The RunnerTool class includes the most important methods used for runnerTool. Th
 
 * start_carla(): 
 
-   Starts Carla.exe if not already running. To do so the [subprocess](https://docs.python.org/3/library/subprocess.html) module is used. The subprocess module basically executes a command that opens the CarlaUE4.exe in an independet new terminal. Can be started with low or normal ("epic") graphic render quality (Only works if carla is not running when executing runnerTool). To start Carla subprocess.Popen() is used. This method fires the command but doesnt wait for the subprocess to finish (i.e., CarlaUE4.exe to close). This is required because we want to have the CarlaUE4.exe running while executing further commands. At the moment a sleep timer of 10 seconds is hardcoded in the start_carla() method. This means that runnerTool waits 10 seconds for Carla to start. On a computer fulfilling the recommended min system requirements (I7700, 16GB RAM, GTX1070) this is enough (You might want to consider increasing the value if on a weak computer).
+   Starts Carla.exe if not already running. To do so the [subprocess](https://docs.python.org/3/library/subprocess.html) module is used. The subprocess module basically executes a command that opens the CarlaUE4.exe in an independet new terminal. Can be started with low or normal ("epic") graphic render quality (Only works if carla is not running when executing runnerTool). To start Carla subprocess.Popen() is used. This method fires the command but doesnt wait for the subprocess to finish (i.e., CarlaUE4.exe to close). This is required because we want to have the CarlaUE4.exe running while executing further commands. At the moment a sleep timer of 10 seconds is hardcoded in the start_carla() method. This means that runnerTool waits 10 seconds for Carla to start. On a computer fulfilling the recommended min system requirements (I7700, 16GB RAM, RTX 2070) this is enough (You might want to consider increasing the value when using computer with less powerful hardare).
    
    Note, that CarlaUE4.exe sometimes doesn't close correctly when its closed by klicking the close simbol of the top right corner of the window. In that case you will receive an timeout error when trying to start a new CarlaUE4.exe. Close CarlaUE4.exe process in task manager to fix. If this error still occurs try restarting your mashine. If that still doesnt change it, increase the sleep timer in the start_carla() method.
    
@@ -76,7 +76,7 @@ Note that setting speed to 100 again - after it was initially set to some other 
     
 * **runner()**: 
 
-    This method runs all n .xosc files in specified dir by executing scenario_runner.py in n subsequent subprocesses. First it loads all .xosc files from the directory using get_xosc() method. If specefied by the user the files will be sorted by map names in the .xosc file. Then for each .xosc file it sets the agent via set_agent() if specified by user. Then it will create the cmd string for each file to be used in the subprocess that runs scenario_runner.py. Thereby it uses fixed and optional parser arguments:
+    This method runs all n .xosc files in specified directory by executing scenario_runner.py in n subsequent subprocesses. First it loads all .xosc files from the directory using get_xosc() method. If specefied by the user the files will be sorted by map names in the .xosc file. Then for each .xosc file it sets the agent via set_agent() if specified by user. Then it will create the cmd string for each file to be used in the subprocess that runs scenario_runner.py. Thereby it uses fixed and optional parser arguments:
      * #### Fixed (all vanilla scenario_runner parser arguments): 
        * **--openscenario {file}:** This enables running scenarios of type OpenSCENARIO using as specified .xosc {file}
        * **--reloadWorld:** This reloads the CARLA world for each new scenario, even if it runs on the same map. This is necessary as broken scenarios stopped by the timeout don't remove all actors from the map. So without reloading the world, new actors of the new scenario would just be spawned additionally - if it runs on the same map.
@@ -88,15 +88,15 @@ Note that setting speed to 100 again - after it was initially set to some other 
       * **--speed:** enables setting the scenario speed as described in adjust_speed()
       * **--camera:** enables using the camera as described in set_camera_perspective()
 
-    Using the cmd with above described arguments runner() crates a new subprocess, running the scenario_runner.py with the current .xosc file - with or without the output of the scenario_runnner.py script (user --debug argument). The subprocess will be terminated by defualt after 200 + 10 seconds or after user specified + 10 seconds via the --timeout argument. Thereby 10 seconds are added to account for the time it might take to switch and reload maps. The terminal output in case of scenario output does not include the extra 10 seconds.
+    Using the cmd with above described arguments runner() crates a new subprocess, running the scenario_runner.py with the current .xosc file - with or without the output of the scenario_runnner.py script (user --debug argument). The subprocess will be terminated by defualt after 200 + 10 seconds or after user specified + 10 seconds via the --timeout argument. Thereby 10 seconds are added to account for the time it might take to switch and reload maps. The terminal output, in case of scenario output does not include the extra 10 seconds.
     
     After all scenarios were run runner() calls the create_results_overview() method to display results.
 
 * create_results_overview():
     
-    This method is used to create scenario success overview of all scenario results. To do so it loads the .json files in results dir that have been created by scenario_editor.py using the --json flag. For each scenario it retrieves the overall scenario success status and prints them to the console and stores them in the Log. If a scenario wasn't succesfull it will be written in red. Aterwards the function user_specific_results() is called. 
+    This method is used to create scenario success overview of all scenario results. To do so it loads the .json files in results dir that have been created by scenario_editor.py using the --json flag. For each scenario it retrieves the overall scenario success status and prints them to the console and stores them in the Log. If a scenario wasn't succesfull it will be written in red. Afterwards the function user_specific_results() is called. 
     
-    Note, that create_results_overview() is initialy called by runner(), when this is the case "call" == true. This variable is used to avoid storing the same files multiple times as create_results_overview() can be called multiple times from the user_specific_results() method. In this case "call" == False.
+    Note, that create_results_overview() is initialy called by runner(), when this is the case "call" == true. This variable is used to avoid storing the same files multiple times as create_results_overview() can be called multiple times from the user_specific_results() method. In this case, "call" == False.
     
 * user_specific_results():
     
