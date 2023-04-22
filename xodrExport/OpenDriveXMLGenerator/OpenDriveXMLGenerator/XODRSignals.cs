@@ -2,20 +2,18 @@
 
 namespace OpenDriveXMLGenerator
 {
-    public class XODRSignals : XmlElement
+    public class XODRSignals : XODRBase
     {
-        protected internal XODRSignals(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
+        public XODRSignals(XmlElement element) : base(element) { }
     }
 
     public static class XODRSignalsExtentions
     {
         public static XODRSignal AddSignalElement(this XODRSignals parent)
         {
-            var signal = (XODRSignal)parent.OwnerDocument.CreateElement("signal");
+            var signal = new XODRSignal(parent.OwnerDocument.CreateElement("signal"));
 
-            parent.AppendChild(signal);
+            parent.AppendChild(signal.XmlElement);
 
             return signal;
         }

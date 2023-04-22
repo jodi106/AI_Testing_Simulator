@@ -13,20 +13,18 @@ namespace OpenDriveXMLGenerator
         Right
     }
 
-    public class XODRDirection : XmlElement
+    public class XODRDirection : XODRBase
     {
-        protected internal XODRDirection(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
+        public XODRDirection(XmlElement element) : base(element) { }
     }
 
     public static class XODRDirectionExtentions
     {
         public static XODRLane AddLaneSectionElement(this XODRDirection parent)
         {
-            var lane = (XODRLane)parent.OwnerDocument.CreateElement("lane");
+            var lane = new XODRLane(parent.OwnerDocument.CreateElement("lane"));
 
-            parent.AppendChild(lane);
+            parent.AppendChild(lane.XmlElement);
 
             return lane;
         }

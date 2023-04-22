@@ -2,20 +2,18 @@
 
 namespace OpenDriveXMLGenerator
 {
-    public class XODRObjects : XmlElement
+    public class XODRObjects : XODRBase
     {
-        protected internal XODRObjects(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
+        public XODRObjects(XmlElement element) : base(element) { }
     }
 
     public static class XODRObjectsExtentions
     {
         public static XODRObject AddObjectElement(this XODRObjects parent)
         {
-            var objectElement = (XODRObject)parent.OwnerDocument.CreateElement("object");
+            var objectElement = new XODRObject(parent.OwnerDocument.CreateElement("object"));
 
-            parent.AppendChild(objectElement);
+            parent.AppendChild(objectElement.XmlElement);
 
             return objectElement;
         }

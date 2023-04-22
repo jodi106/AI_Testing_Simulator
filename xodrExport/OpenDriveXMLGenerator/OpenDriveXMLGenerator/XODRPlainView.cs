@@ -2,24 +2,22 @@
 
 namespace OpenDriveXMLGenerator
 {
-    public class XODRPlainView : XmlElement
+    public class XODRPlainView : XODRBase
     {
-        protected internal XODRPlainView(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
+        public XODRPlainView(XmlElement element) : base(element) { }
     }
 
     public static class XODRPlainViewExtentions
     {
         public static XODRGeometry AddGeometryElement(this XODRPlainView parent, string s, string x, string y, string hdg, string length, string curvature)
         {
-            var geometry = (XODRGeometry)parent.OwnerDocument.CreateElement("geometry");
+            var geometry = new XODRGeometry(parent.OwnerDocument.CreateElement("geometry"));
             geometry.SetAttribute("s", s);
             geometry.SetAttribute("x", x);
             geometry.SetAttribute("y", y);
             geometry.SetAttribute("hdg", hdg);
             geometry.SetAttribute("length", length);
-            parent.AppendChild(geometry);
+            parent.AppendChild(geometry.XmlElement);
 
             if (curvature == null)
             {

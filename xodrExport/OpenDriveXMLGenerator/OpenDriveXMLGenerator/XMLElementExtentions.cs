@@ -1,19 +1,11 @@
-﻿using System.Xml;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using System.Xml;
 
 namespace OpenDriveXMLGenerator
 {
     public static class XMLElementExtentions
     {
-        public static XODRGeometry ToGeometry(this XmlElement element)
-        {
-            return (XODRGeometry)element;
-        }
-
-        public static XODRPlainView ToPlainView(this XmlElement element)
-        {
-            return (XODRPlainView)element;
-        }
-
         public static XmlElement AddElement(this XmlElement parent, string name)
         {
             var element = parent.OwnerDocument.CreateElement(name);
@@ -69,12 +61,13 @@ namespace OpenDriveXMLGenerator
 
         public static XODRRoad AddRoadElement(this XmlElement parent, string name, string length, string id, string junction)
         {
-            var road = (XODRRoad)parent.OwnerDocument.CreateElement("road");
+            var road = new XODRRoad(parent.OwnerDocument.CreateElement("road")); 
+
             road.SetAttribute("name", name);
             road.SetAttribute("length", length);
             road.SetAttribute("id", id);
             road.SetAttribute("junction", junction);
-            parent.AppendChild(road);
+            parent.AppendChild(road.XmlElement);
 
             return road;
         }
@@ -98,9 +91,6 @@ namespace OpenDriveXMLGenerator
 
         //    return speed;
         //}
-
-
-
 
         //public static XmlElement AddElevationElement(this XmlElement parent, string s, string a, string b, string c)
         //{

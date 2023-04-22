@@ -2,11 +2,9 @@
 
 namespace OpenDriveXMLGenerator
 {
-    public class XODRGeometry : XmlElement
+    public class XODRGeometry : XODRBase
     {
-        protected internal XODRGeometry(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
+        public XODRGeometry(XmlElement element) : base(element) { }
     }
 
     public static class XODRGeometryExtentions
@@ -15,52 +13,45 @@ namespace OpenDriveXMLGenerator
 
         public static XODRLine AddLineElement(this XODRGeometry parent)
         {
-            var line = (XODRLine)parent.OwnerDocument.CreateElement("line");
+            var line = new XODRLine(parent.OwnerDocument.CreateElement("line"));
 
-            parent.AppendChild(line);
+            parent.AppendChild(line.XmlElement);
 
             return line;
         }
 
         public static XODRArc AddArcElement(this XODRGeometry parent, string curvature)
         {
-            var arc = (XODRArc)parent.OwnerDocument.CreateElement("arc");
+            var arc = new XODRArc(parent.OwnerDocument.CreateElement("arc"));
 
             arc.SetAttribute("curvature", curvature);
-            parent.AppendChild(arc);
+            parent.AppendChild(arc.XmlElement);
 
             return arc;
         }
 
         public static XODRSpiral AddSpiralElement(this XODRGeometry parent, string curvature) //TODO update this
         {
-            var spiral = (XODRSpiral)parent.OwnerDocument.CreateElement("spiral");
+            var spiral = new XODRSpiral(parent.OwnerDocument.CreateElement("spiral"));
 
             spiral.SetAttribute("curvature", curvature);
-            parent.AppendChild(spiral);
+            parent.AppendChild(spiral.XmlElement);
 
             return spiral;
         }
     }
 
-    public class XODRLine : XmlElement
+    public class XODRLine : XODRBase
     {
-        protected internal XODRLine(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
+        public XODRLine(XmlElement element) : base(element) { }
+    }
+    public class XODRSpiral : XODRBase
+    {
+        public XODRSpiral(XmlElement element) : base(element) { }
+    }
+    public class XODRArc : XODRBase
+    {
+        public XODRArc(XmlElement element) : base(element) { }
     }
 
-    public class XODRSpiral : XmlElement
-    {
-        protected internal XODRSpiral(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
-    }
-
-    public class XODRArc : XmlElement
-    {
-        protected internal XODRArc(string prefix, string localName, string? namespaceURI, XmlDocument doc) : base(prefix, localName, namespaceURI, doc)
-        {
-        }
-    }
 }
