@@ -9,9 +9,10 @@ namespace OpenDriveXMLGenerator
 
     public static class XODRLanesExtentions
     {
-        public static XODRLaneSection AddLaneSectionElement(this XODRLanes parent)
+        public static XODRLaneSection AddLaneSectionElement(this XODRLanes parent, string s)
         {
             var laneSection = new XODRLaneSection(parent.OwnerDocument.CreateElement("laneSection"));
+            laneSection.SetAttribute("s", s);
 
             parent.AppendChild(laneSection.XmlElement);
 

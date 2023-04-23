@@ -58,25 +58,12 @@ namespace OpenDriveXMLGenerator
 
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
 
-            var road64 = rootElement.AddRoadElement(
-                name: "Road 64", 
-                length: "1.0234747062906101e+2",
-                id: "64",
-                junction: "-1");
-
-            var plainView = road64.AddPlainViewElement();
-
-            var geometry1 = plainView.AddGeometryElement(
-                s: "0.0",
-                x: "-2.3697531961010279e+2",
-                y: "3.7372531134669975e+0",
-                hdg: "2.9484610789761891e+0",
-                length: "1.4798839982417746e+1",
-                curvature: "-1.0668617530566759e-2");
+            var road64 = builder.AddStraightRoad(length:50);
 
             builder.Document.Save("OpenDrive.xml");
 
             Console.WriteLine("OpenDrive.xml generated");
+
         }
     }
 }

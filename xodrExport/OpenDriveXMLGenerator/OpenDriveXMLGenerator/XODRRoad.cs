@@ -26,12 +26,12 @@ namespace OpenDriveXMLGenerator
             return link;
         }
 
-        public static XODRLane AddLaneElement(this XODRRoad parent)
+        public static XODRLanes AddLanesElement(this XODRRoad parent)
         {
-            var lane = new XODRLane(parent.OwnerDocument.CreateElement("lane"));
-            parent.AppendChild(lane.XmlElement);
+            var lanes = new XODRLanes(parent.OwnerDocument.CreateElement("lanes"));
+            parent.AppendChild(lanes.XmlElement);
 
-            return lane;
+            return lanes;
         }
 
         public static XODRObjects AddObjectsElement(this XODRRoad parent)
