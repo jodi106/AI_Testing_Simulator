@@ -30,11 +30,17 @@ namespace scripts
         // selected Object, not necessarily a road
         GameObject selectedObject;
 
-        //boolean for road validation. If false, certain functions are disabled
+        // boolean for road validation. If false, certain functions are disabled
         public bool inValidPosition = true;
 
         // used to check whether the user is currently dragging. So no other object can be selected during a drag. 
         private bool isDragging = false;
+
+        // Rotating Angle of the Pieces
+        private const int ROTATING_ANGLE = 15;
+
+        // Maximum Snapping Distance between Objects
+        private const float MAX_SNAPPING_DISTANCE = 10;
 
         /*
          * Sets the instance, so other classes can refer
@@ -63,12 +69,12 @@ namespace scripts
             // These conditions checks, whether the user wants to rotate the piece clockwise or counter-clockwise
             if (Input.GetKeyDown(KeyCode.E))
             {
-                rotateRoadPiece(-90);
+                rotateRoadPiece(-ROTATING_ANGLE);
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                rotateRoadPiece(90);
+                rotateRoadPiece(ROTATING_ANGLE);
             }
 
             // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
@@ -158,6 +164,7 @@ namespace scripts
                     {
                         isDragging = true;
                         selectedRoad.transform.position = GetWorldPositionFromMouseClick();
+
                         if (!Input.GetKey(KeyCode.LeftShift))
                         {
                             SnapRoadPiece();
@@ -169,34 +176,93 @@ namespace scripts
             }
         }
 
-
+        /*
+         * Return the closest Piece to the selected Road
+         */
         public RoadPiece GetNearestNeighbor()
         {
             float nearestDistance = -1;
             RoadPiece closestRoad = null;
-            if(roadList.Count > 1)
+            if (roadList.Count > 1)
             {
                 foreach (RoadPiece road in roadList)
                 {
                     if ((nearestDistance == -1 || Vector3.Distance(selectedRoad.transform.position, road.transform.position) < nearestDistance) && road != selectedRoad)
                     {
                         nearestDistance = Vector3.Distance(selectedRoad.transform.position, road.transform.position);
-                        if (nearestDistance < 300.00) {
-                            closestRoad = road;
-                        }
-                        else
-                        {
-                            closestRoad = null;
-                        }
-                       
-                        
+                        closestRoad = road;
                     }
                 }
             }
 
             return closestRoad;
         }
-       
+
+        /*
+         * Method that checks distance between two roads dependent on parameters
+         */
+        public bool checkSnappingDistance(RoadPiece nearestNeighbor, RoadSides roadside)
+        {
+
+            float distance = Vector3.Distance(selectedRoad.transform.position, nearestNeighbor.transform.position);
+
+            if (roadside == RoadSides.top || roadside == RoadSides.bottom)
+            {
+                return distance < selectedRoad.height * selectedRoad.transform.localScale.y / 2 + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 + MAX_SNAPPING_DISTANCE;
+            }
+            else
+            {
+                return distance < selectedRoad.width * selectedRoad.transform.localScale.x / 2 + nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 + MAX_SNAPPING_DISTANCE;
+            }
+        }
+
+        public Vector3 newSnappedPosition(RoadPiece nearestNeighbor, RoadSides roadSide)
+        {
+            var rotationDifference = Math.Abs(selectedRoad.getRotation() - nearestNeighbor.getRotation());
+            if (rotationDifference % 90 == 0)
+            {
+                float rad = nearestNeighbor.getRotation() * Mathf.Deg2Rad;
+                float x = selectedRoad.transform.position.x;
+                float y = selectedRoad.transform.position.y;
+
+                float nearestNeighborX = nearestNeighbor.transform.position.x;
+                float nearestNeighborY = nearestNeighbor.transform.position.y;
+                float nearestNeighborHeight = nearestNeighbor.height * nearestNeighbor.transform.localScale.y;
+                float nearestNeighborWidth = nearestNeighbor.width * nearestNeighbor.transform.localScale.x;
+
+                float selectedRoadHeight = selectedRoad.height * selectedRoad.transform.localScale.y;
+                float selectedRoadWidth = selectedRoad.width * selectedRoad.transform.localScale.x;
+
+                float arithmeticHeight = (selectedRoadHeight + nearestNeighborHeight) / 2;
+                float arithmeticWidth = (selectedRoadWidth + nearestNeighborWidth) / 2;
+
+                if (roadSide == RoadSides.top)
+                {
+                    x = nearestNeighborX - (arithmeticHeight * Mathf.Sin(rad));
+                    y = (nearestNeighborY + arithmeticHeight) - (arithmeticHeight * (1 - Mathf.Cos(rad)));
+                }
+                else if (roadSide == RoadSides.bottom)
+                {
+                    x = nearestNeighborX + (arithmeticHeight * Mathf.Sin(rad));
+                    y = (nearestNeighborY - arithmeticHeight) + (arithmeticHeight * (1 - Mathf.Cos(rad)));
+                }
+                else if (roadSide == RoadSides.left)
+                {
+                    x = (nearestNeighborX - arithmeticWidth) + (arithmeticWidth * (1 - Mathf.Cos(rad)));
+                    y = nearestNeighborY - (arithmeticWidth * Mathf.Sin(rad));
+                }
+                else if (roadSide == RoadSides.right)
+                {
+                    x = (nearestNeighborX + arithmeticWidth) - (arithmeticWidth * (1 - Mathf.Cos(rad)));
+                    y = nearestNeighborY + (arithmeticWidth * Mathf.Sin(rad));
+                }
+
+                return new Vector3(x, y, selectedRoad.transform.position.z);
+            }
+            return selectedRoad.transform.position;
+        }
+
+
         /*
          * Method that will set position of selected road piece according to the nearest road piece. 
          */
@@ -205,35 +271,42 @@ namespace scripts
             RoadPiece nearestNeighbor = GetNearestNeighbor();
             if (nearestNeighbor != null)
             {
+
                 float distanceX = nearestNeighbor.transform.position.x - selectedRoad.transform.position.x;
                 float distanceY = nearestNeighbor.transform.position.y - selectedRoad.transform.position.y;
 
                 // Snapping to left or right
                 if (Math.Abs(distanceX) > Math.Abs(distanceY))
                 {
-                    // Snapping to left
-                    if (distanceX > 0)
+                    if (checkSnappingDistance(nearestNeighbor, RoadSides.left))
                     {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x - nearestNeighbor.GetComponent<Renderer>().bounds.size.x / 2 - selectedObject.GetComponent<Renderer>().bounds.size.x / 2, nearestNeighbor.transform.position.y, 0);
-                    }
-                    // Snapping to right
-                    else
-                    {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x + nearestNeighbor.GetComponent<Renderer>().bounds.size.x / 2 + selectedObject.GetComponent<Renderer>().bounds.size.x / 2, nearestNeighbor.transform.position.y, 0);
+                        // Snapping to left
+                        if (distanceX > 0)
+                        {
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.left);
+                        }
+                        // Snapping to right
+                        else
+                        {
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.right);
+                        }
                     }
                 }
                 // Snapping to top or bottom
                 else
                 {
-                    // Snapping to top
-                    if (distanceY > 0)
+                    if (checkSnappingDistance(nearestNeighbor, RoadSides.top))
                     {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y - nearestNeighbor.GetComponent<Renderer>().bounds.size.y / 2 - selectedObject.GetComponent<Renderer>().bounds.size.y / 2, 0);
-                    }
-                    // Snapping to bottom
-                    else
-                    {
-                        selectedRoad.transform.position = new Vector3(nearestNeighbor.transform.position.x, nearestNeighbor.transform.position.y + nearestNeighbor.GetComponent<Renderer>().bounds.size.y / 2 + selectedObject.GetComponent<Renderer>().bounds.size.y / 2, 0);
+                        // Snapping to top
+                        if (distanceY < 0)
+                        {
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.top);
+                        }
+                        // Snapping to bottom
+                        else
+                        {
+                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.bottom);
+                        }
                     }
                 }
             }
@@ -273,6 +346,7 @@ namespace scripts
             if (selectedRoad != null && !selectedRoad.getIsLocked())
             {
                 selectedRoad.transform.Rotate(new Vector3(0, 0, rotation));
+                selectedRoad.setRotation(selectedRoad.getRotation() + rotation);
             }
         }
 

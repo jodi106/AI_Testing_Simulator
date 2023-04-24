@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 36.34479, y: 3.78}
+  m_Size: {x: 37.8, y: 3.78}
   m_EdgeRadius: 0
 --- !u!114 &3268465651514629649
 MonoBehaviour:
@@ -126,3 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighbors: []
   roadType: 1
+  width: 37.8
+  height: 3.78
