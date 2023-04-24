@@ -58,7 +58,7 @@ namespace OpenDriveXMLGenerator
 
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
 
-            var road64 = builder.AddStraightRoad(length:50);
+            var road64 = builder.AddStraightRoad(length:50, crossing:true);
 
             builder.Document.Save("OpenDrive.xml");
 

@@ -9,7 +9,7 @@ namespace OpenDriveXMLGenerator
 
     public static class XODRObjectExtentions
     {
-         public static XODROutline AddOutlineElement(this XODRObjects parent)
+         public static XODROutline AddOutlineElement(this XODRObject parent)
         {
             var outlineElement = new XODROutline(parent.OwnerDocument.CreateElement("outline"));
 
@@ -21,9 +21,6 @@ namespace OpenDriveXMLGenerator
     }
 
 
-    public class XODROutline : XODRBase
-    {
-        public XODROutline(XmlElement element) : base(element) { }
-    }
+
 
 }

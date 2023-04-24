@@ -28,6 +28,7 @@ namespace OpenDriveXMLGenerator
 
             id++;
                 var plainView = road.AddPlainViewElement();
+                    //TODO modify x and y based on previous road
                     var geometry1 = plainView.AddGeometryElement(
                         s: "0.0",
                         x: startX.ToString(),
@@ -35,7 +36,6 @@ namespace OpenDriveXMLGenerator
                         hdg: "0.0000000000000000e+0",
                         length: length.ToString());
             
-            //TODO add values to functions            
             var lanes = road.AddLanesElement();
                 var laneSection = lanes.AddLaneSectionElement(s:"0.0000000000000000e+000");
                     var left = laneSection.AddDirectionElement(Direction.Left);
@@ -55,9 +55,8 @@ namespace OpenDriveXMLGenerator
             if(crossing){
             
             var objects = road.AddObjectsElement();
-                var obj = objects.AddObjectElement();
-                //TODO add outline object
-                    //var outline = obj.Add
+                var obj = objects.AddObjectElement(s:"35.3000000000000000e+0",t:"99.2300000000000000e-2", zOffset:"-7.3000000000000000e-6");
+                    var outline = obj.AddOutlineElement();
             
             }
             

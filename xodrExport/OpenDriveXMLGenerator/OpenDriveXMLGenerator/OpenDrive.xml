@@ -32,5 +32,10 @@
         </right>
       </laneSection>
     </lanes>
+    <objects>
+      <object hdg="0.0000000000000000e+0" id="0" lenght="8.7373859000000000e+0" name="cross" orientation="-" pitch="0.0000000000000000e+0" roll="0.0000000000000000e+0" s="35.3000000000000000e+0" t="99.2300000000000000e-2" type="crosswalk" width="10.0000000000000000e+0" zOffset="-7.3000000000000000e-6">
+        <outline />
+      </object>
+    </objects>
   </road>
 </OpenDRIVE>
