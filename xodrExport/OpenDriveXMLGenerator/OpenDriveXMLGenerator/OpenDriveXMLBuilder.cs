@@ -16,6 +16,26 @@ namespace OpenDriveXMLGenerator
             Document = new XmlDocument();
             RootElement = Document.CreateElement("OpenDRIVE");
             Document.AppendChild(RootElement);
+
+            var rootElement = this.RootElement;
+
+            rootElement.AddHeaderElement(
+                revMajor: "1", 
+                revMinor: "4", 
+                name: "", 
+                version: "",
+                north: "3.4040445389524979e+2",
+                south: "-2.8943958368362757e+2",
+                east: "3.3085867381572922e+2",
+                west: "-3.1262489222340042e+2",
+                vendor: "VectorZero");
+
+            rootElement.AddGeoReferenceElement( geoRef: "+proj=tmerc +lat_0=0 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m " +
+                                                        "+geoidgrids=egm96_15.gtx +vunits=m +no_defs");
+
+            var userDataElement = rootElement.AddUserDataElement();
+
+            userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
         }
 
         public XODRRoad AddStraightRoad(float startX = 0 , float startY = 0,float length = 0.0f, bool crossing = false){      
