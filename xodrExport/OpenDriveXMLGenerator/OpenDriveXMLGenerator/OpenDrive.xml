@@ -6,12 +6,12 @@
   </userData>
   <road name="Road 0" length="50" id="0" junction="-1">
     <planView>
-      <geometry s="0.0" x="0" y="0" hdg="0.0000000000000000e+0" length="50">
+      <geometry s="0.0" x="0" y="0" hdg="0" length="50">
         <line />
       </geometry>
     </planView>
     <lanes>
-      <laneSection s="0.0000000000000000e+000">
+      <laneSection s="0">
         <left>
           <lane id="1" type="driving" level="false">
             <link />
@@ -21,7 +21,7 @@
         <center>
           <lane id="0" type="none" level="false">
             <link />
-            <width sOffset="0.0000000000000000e+000" a="0.0000000000000000e+000" b="0.0000000000000000e+000" c="0.0000000000000000e+000" d="0.0000000000000000e+000" />
+            <width sOffset="0.0000000000000000e+000" a="0" b="0.0000000000000000e+000" c="0.0000000000000000e+000" d="0.0000000000000000e+000" />
           </lane>
         </center>
         <right>
@@ -33,8 +33,13 @@
       </laneSection>
     </lanes>
     <objects>
-      <object hdg="0.0000000000000000e+0" id="0" lenght="8.7373859000000000e+0" name="cross" orientation="-" pitch="0.0000000000000000e+0" roll="0.0000000000000000e+0" s="35.3000000000000000e+0" t="99.2300000000000000e-2" type="crosswalk" width="10.0000000000000000e+0" zOffset="-7.3000000000000000e-6">
-        <outline />
+      <object hdg="1.57" id="0" lenght="6" name="cross" orientation="-" pitch="0.0000000000000000e+0" roll="0.0000000000000000e+0" s="25" t="0" type="crosswalk" width="10.0000000000000000e+0" zOffset="0">
+        <outline>
+          <cornerLocal u="-3" v="-1,5" />
+          <cornerLocal u="-3" v="1,5" />
+          <cornerLocal u="3" v="1,5" />
+          <cornerLocal u="3" v="-1,5" />
+        </outline>
       </object>
     </objects>
   </road>

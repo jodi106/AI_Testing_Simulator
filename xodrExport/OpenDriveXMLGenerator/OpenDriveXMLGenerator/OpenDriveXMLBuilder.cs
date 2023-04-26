@@ -38,7 +38,7 @@ namespace OpenDriveXMLGenerator
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
         }
 
-        public XODRRoad AddStraightRoad(float startX = 0 , float startY = 0,float length = 0.0f, bool crossing = false){      
+        public XODRRoad AddStraightRoad(float startX = 0 , float startY = 0,float length = 0.0f, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f){      
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(), 
@@ -53,11 +53,11 @@ namespace OpenDriveXMLGenerator
                         s: "0.0",
                         x: startX.ToString(),
                         y: startY.ToString(),
-                        hdg: "0.0000000000000000e+0",
+                        hdg: "0",
                         length: length.ToString());
             
             var lanes = road.AddLanesElement();
-                var laneSection = lanes.AddLaneSectionElement(s:"0.0000000000000000e+000");
+                var laneSection = lanes.AddLaneSectionElement(s:"0");
                     var left = laneSection.AddDirectionElement(Direction.Left);
                         var lane = left.AddLaneElement(id:"1", type:"driving", level:"false");
                             lane.AddLinkElement();
@@ -65,7 +65,7 @@ namespace OpenDriveXMLGenerator
                     var center = laneSection.AddDirectionElement(Direction.Center);
                         var laneCenter = center.AddLaneElement(id:"0", type:"none", level:"false");
                             laneCenter.AddLinkElement();
-                            laneCenter.AddWidthElement(a:"0.0000000000000000e+000");
+                            laneCenter.AddWidthElement(a:"0");
                     var right = laneSection.AddDirectionElement(Direction.Right);
                         var laneRight = right.AddLaneElement(id:"-1", type:"driving", level:"false");
                             laneRight.AddLinkElement();
@@ -73,10 +73,33 @@ namespace OpenDriveXMLGenerator
 
 
             if(crossing){
+
+                if(crossingLength > 6){
+                    throw new ArgumentOutOfRangeException(nameof(crossingLength), "Crosswalk length must pe smaller then road width");
+                }
+
+            float u = 0.0f;
+            float v = 0.0f;
             
             var objects = road.AddObjectsElement();
-                var obj = objects.AddObjectElement(s:"35.3000000000000000e+0",t:"99.2300000000000000e-2", zOffset:"-7.3000000000000000e-6");
+                var obj = objects.AddObjectElement(s:(length/2).ToString(),t:"0", zOffset:"0");
                     var outline = obj.AddOutlineElement();
+                    /*
+                        The order of the corners is important, it draws the shape sequential.
+                    */
+                        if(crossingLength == 0.0f || crossingWidth ==0.0f){
+                            outline.AddCornerLocalElement((-3).ToString(),(-1.5).ToString());
+                            outline.AddCornerLocalElement((-3).ToString(), 1.5.ToString());
+                            outline.AddCornerLocalElement(3.ToString(), 1.5.ToString());
+                            outline.AddCornerLocalElement(3.ToString(), (-1.5).ToString());
+
+                        }else{
+                            outline.AddCornerLocalElement((-crossingLength/2).ToString(), (-crossingWidth/2).ToString());
+                            outline.AddCornerLocalElement((-crossingLength/2).ToString(), (crossingWidth/2).ToString());
+                            outline.AddCornerLocalElement((crossingLength/2).ToString(), (crossingWidth/2).ToString());
+                            outline.AddCornerLocalElement((crossingLength/2).ToString(), (-crossingWidth/2).ToString());    
+                        }
+                        
             
             }
             
