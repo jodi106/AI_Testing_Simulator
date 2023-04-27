@@ -9,6 +9,14 @@ namespace OpenDriveXMLGenerator
 
     public static class XODRLinkExtentions
     {
+        public static XODRLink AddLink()
+        {
+            var link = new XODRLink(parent.OwnerDocument.CreateElement("link"));
+            parent.AppendChild(link.XMLElement);
+
+            return link;
+        }
+
         public static XODRPredecessor AddPredecessor(this XODRLink parent, string elementType, string elementId)
         {
             var predecessor = new XODRPredecessor(parent.OwnerDocument.CreateElement("predecessor"));

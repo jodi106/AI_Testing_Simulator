@@ -8,6 +8,7 @@ namespace OpenDriveXMLGenerator
         public XmlElement RootElement { get; set; }
 
         private int id = 0;
+        private int junctionId = 0;
         private float x;
         private float y;
 
@@ -38,7 +39,7 @@ namespace OpenDriveXMLGenerator
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
         }
 
-        public XODRRoad AddStraightRoad(float startX = 0 , float startY = 0,float length = 0.0f, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f){      
+        public XODRRoad AddStraightRoad(float startX = 0 , float startY = 0, float hdg = 0.0f, float length = 0.0f, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f){      
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(), 
@@ -53,7 +54,7 @@ namespace OpenDriveXMLGenerator
                         s: "0.0",
                         x: startX.ToString(),
                         y: startY.ToString(),
-                        hdg: "0",
+                        hdg: hdg.ToString(),
                         length: length.ToString());
             
             var lanes = road.AddLanesElement();
