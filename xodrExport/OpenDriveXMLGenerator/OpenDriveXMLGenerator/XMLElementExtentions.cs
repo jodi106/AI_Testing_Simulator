@@ -72,7 +72,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public static XODRRoad AddJunctionElement(this XmlElement parent, string name, string length, string id, string junction)
+        public static XODRJunction AddJunctionElement(this XmlElement parent, string name, string length, string id, string junction)
         {
             var junction = new XODRJunction(parent.OwnerDocument.CreateElement("junction")); 
 
@@ -80,7 +80,7 @@ namespace OpenDriveXMLGenerator
             junction.SetAttribute("id", id);
             parent.AppendChild(junction.XmlElement);
 
-            return road;
+            return junction;
         }
 
         //public static XmlElement AddTypeElement(this XmlElement parent, string s, string type)
