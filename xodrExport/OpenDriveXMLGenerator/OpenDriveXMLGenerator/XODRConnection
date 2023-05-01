@@ -11,7 +11,7 @@ namespace OpenDriveXMLGenerator
     {
         public static XODRLaneLink AddLaneLinkElement(this XODRConnection parent, int from, int to)
         {
-            var laneLink = new XODRJunction(parent.OwnerDocument.CreateElement("laneLink"));
+            var laneLink = new XODRLaneLink(parent.OwnerDocument.CreateElement("laneLink"));
             laneLink.SetAttribute("from", from.ToString());
             laneLink.SetAttribute("to", to.ToString());
             parent.AppendChild(laneLink.XmlElement);
