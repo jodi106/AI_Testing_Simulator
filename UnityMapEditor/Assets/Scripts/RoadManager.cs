@@ -37,10 +37,11 @@ namespace scripts
         private bool isDragging = false;
 
         // Rotating Angle of the Pieces
-        private const int ROTATING_ANGLE = 15;
+        private const float ROTATING_ANGLE = 15f;
 
         // Maximum Snapping Distance between Objects
         private const float MAX_SNAPPING_DISTANCE = 10;
+        private const float MAX_SNAPPING_AREA = 140 * 5 + MAX_SNAPPING_DISTANCE;
 
         /*
          * Sets the instance, so other classes can refer
@@ -167,7 +168,8 @@ namespace scripts
 
                         if (!Input.GetKey(KeyCode.LeftShift))
                         {
-                            SnapRoadPiece();
+                            //SnapRoadPiece();
+                            Snap();
                         }
                         validateRoadPosition();
                     }
@@ -176,46 +178,59 @@ namespace scripts
             }
         }
 
-        /*
-         * Return the closest Piece to the selected Road
-         */
-        public RoadPiece GetNearestNeighbor()
+
+        public List<RoadPiece> GetNearestNeighborsInArea()
         {
-            float nearestDistance = -1;
-            RoadPiece closestRoad = null;
+            List<RoadPiece> roadsInArea = new List<RoadPiece>();
             if (roadList.Count > 1)
             {
                 foreach (RoadPiece road in roadList)
                 {
-                    if ((nearestDistance == -1 || Vector3.Distance(selectedRoad.transform.position, road.transform.position) < nearestDistance) && road != selectedRoad)
+                    if (Vector3.Distance(selectedRoad.transform.position, road.transform.position) <= MAX_SNAPPING_AREA && selectedRoad != road)
                     {
-                        nearestDistance = Vector3.Distance(selectedRoad.transform.position, road.transform.position);
-                        closestRoad = road;
+                        roadsInArea.Add(road);
                     }
                 }
             }
 
-            return closestRoad;
+            return roadsInArea;
         }
 
-        /*
-         * Method that checks distance between two roads dependent on parameters
-         */
-        public bool checkSnappingDistance(RoadPiece nearestNeighbor, RoadSides roadside)
+        public (VirtualAnchor selectedRoadVA, VirtualAnchor nearestNeighborVA) GetNearestAnchorPoints(List<RoadPiece> nearestNeighbors)
         {
-
-            float distance = Vector3.Distance(selectedRoad.transform.position, nearestNeighbor.transform.position);
-
-            if (roadside == RoadSides.top || roadside == RoadSides.bottom)
+            float nearestDistance = -1;
+            VirtualAnchor selectedRoadVA = null;
+            VirtualAnchor nearestNeighborVA = null;
+            foreach (RoadPiece roadPiece in nearestNeighbors)
             {
-                return distance < selectedRoad.height * selectedRoad.transform.localScale.y / 2 + nearestNeighbor.height * nearestNeighbor.transform.localScale.y / 2 + MAX_SNAPPING_DISTANCE;
+                foreach (VirtualAnchor neighborVA in roadPiece.anchorPoints)
+                {
+                    foreach (VirtualAnchor selectedVA in selectedRoad.anchorPoints)
+                    {
+                        if ((neighborVA.connectedAnchorPoint == null && (nearestDistance == -1 || Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset) < nearestDistance)))
+                        {
+                            nearestDistance = Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset);
+                            nearestNeighborVA = neighborVA;
+                            selectedRoadVA = selectedVA;
+                        }
+                    }
+                }
             }
-            else
+            return (selectedRoadVA, nearestNeighborVA);
+        }
+
+        public void Snap()
+        {
+            List<RoadPiece> nearestNeighbors = GetNearestNeighborsInArea();
+            var nearestAnchorPoints = GetNearestAnchorPoints(nearestNeighbors);
+
+            if (nearestNeighbors.Count > 0)
             {
-                return distance < selectedRoad.width * selectedRoad.transform.localScale.x / 2 + nearestNeighbor.width * nearestNeighbor.transform.localScale.x / 2 + MAX_SNAPPING_DISTANCE;
+                selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) + nearestAnchorPoints.selectedRoadVA.offset;
             }
         }
 
+        // TODO - TO BE DELETED, AFTER NEW SNAPPING FUNC. HAS BEEN IMPLEMENTED!
         public Vector3 newSnappedPosition(RoadPiece nearestNeighbor, RoadSides roadSide)
         {
             var rotationDifference = Math.Abs(selectedRoad.getRotation() - nearestNeighbor.getRotation());
@@ -262,56 +277,6 @@ namespace scripts
             return selectedRoad.transform.position;
         }
 
-
-        /*
-         * Method that will set position of selected road piece according to the nearest road piece. 
-         */
-        public void SnapRoadPiece()
-        {
-            RoadPiece nearestNeighbor = GetNearestNeighbor();
-            if (nearestNeighbor != null)
-            {
-
-                float distanceX = nearestNeighbor.transform.position.x - selectedRoad.transform.position.x;
-                float distanceY = nearestNeighbor.transform.position.y - selectedRoad.transform.position.y;
-
-                // Snapping to left or right
-                if (Math.Abs(distanceX) > Math.Abs(distanceY))
-                {
-                    if (checkSnappingDistance(nearestNeighbor, RoadSides.left))
-                    {
-                        // Snapping to left
-                        if (distanceX > 0)
-                        {
-                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.left);
-                        }
-                        // Snapping to right
-                        else
-                        {
-                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.right);
-                        }
-                    }
-                }
-                // Snapping to top or bottom
-                else
-                {
-                    if (checkSnappingDistance(nearestNeighbor, RoadSides.top))
-                    {
-                        // Snapping to top
-                        if (distanceY < 0)
-                        {
-                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.top);
-                        }
-                        // Snapping to bottom
-                        else
-                        {
-                            selectedRoad.transform.position = newSnappedPosition(nearestNeighbor, RoadSides.bottom);
-                        }
-                    }
-                }
-            }
-        }
-
         /*
          * This sets the selected road and will change the color of the piece accordingly. Also, it checks the current Road Position. 
          */
@@ -341,12 +306,17 @@ namespace scripts
         /*
          * This rotates the selected roadpiece by a given rotation. Only if the piece is not locked
          */
-        private void rotateRoadPiece(int rotation)
+        private void rotateRoadPiece(float rotation)
         {
             if (selectedRoad != null && !selectedRoad.getIsLocked())
             {
                 selectedRoad.transform.Rotate(new Vector3(0, 0, rotation));
                 selectedRoad.setRotation(selectedRoad.getRotation() + rotation);
+
+                foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                {
+                    va.Update(rotation);
+                }
             }
         }
 
