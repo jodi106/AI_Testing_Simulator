@@ -183,7 +183,7 @@ namespace OpenDriveXMLGenerator
         }
 
 
-        public XODRJunction Add3wayIntersection(float startX = 0, float startY = 0)
+        public void Add3wayIntersection(float startX = 0, float startY = 0)
         {
             float length = 30;
 
@@ -213,11 +213,9 @@ namespace OpenDriveXMLGenerator
             float startX4 = startX + 35;
             float startY4 = startX - 5;
             var connectionRoad1 = this.AddStraightRoad(startX4, startY4, 1.5707963267949, 10, false);
-
-            return junction;
         }
 
-        public XODRJunction Add4wayIntersection(float startX = 0, float startY = 0)
+        public void Add4wayIntersection(float startX = 0, float startY = 0)
         {
             float length = 30;
 
@@ -266,8 +264,6 @@ namespace OpenDriveXMLGenerator
             float startX6 = startX + 35;
             float startY6 = startY - 5;
             var connectionRoad2 = this.AddStraightRoad(startX6, startY6, 1.5707963267949, 10, false);
-
-            return junction;
         }
     }
 }
