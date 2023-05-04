@@ -133,14 +133,14 @@ namespace scripts
             if (selectedRoad != null && !selectedRoad.getIsLocked())
             {
                 // We have to destroy the selectedObject, as the selectedRoad is not a GameObject, but a RoadPiece. The effect will be the same, though. 
-                RemoveRoadFromList(selectedRoad);
-                DeselectRoad();
-                Destroy(selectedObject);
 
                 foreach (VirtualAnchor va in selectedRoad.anchorPoints)
                 {
                     va.RemoveConntectedAnchorPoint();
                 }
+                RemoveRoadFromList(selectedRoad);
+                DeselectRoad();
+                Destroy(selectedObject);
             }
         }
 
