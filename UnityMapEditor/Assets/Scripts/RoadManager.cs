@@ -137,8 +137,6 @@ namespace scripts
                 DeselectRoad();
                 Destroy(selectedObject);
 
-                // To be implemented, as soon as references are implemented. VERY IMPORTANT!
-                // RemoveReferences();
             }
         }
 
@@ -172,7 +170,6 @@ namespace scripts
 
                         if (!Input.GetKey(KeyCode.LeftShift))
                         {
-                            //SnapRoadPiece();
                             Snap();
                         }
 
@@ -234,27 +231,6 @@ namespace scripts
             {
                 selectedRoadVA.ConnectAnchorPoint(nearestNeighborVA);
             }
-            /* foreach (RoadPiece roadPiece in nearestNeighbors)
-            {
-                foreach (VirtualAnchor neighborVA in roadPiece.anchorPoints)
-                {
-                    foreach (VirtualAnchor selectedVA in selectedRoad.anchorPoints)
-                    {
-
-                        if ((neighborVA.connectedAnchorPoint == null && (nearestDistance == -1 || Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset) < nearestDistance)))
-                        {
-                            nearestDistance = Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset);
-                            nearestNeighborVA = neighborVA;
-                            selectedRoadVA = selectedVA;
-                        }
-                    }
-                }
-            }
-            if (selectedRoadVA != null && nearestNeighborVA != null)
-            {
-                selectedRoadVA.ConnectAnchorPoint(nearestNeighborVA);
-            }
-            */
             return (selectedRoadVA, nearestNeighborVA);
         }
 
@@ -268,53 +244,6 @@ namespace scripts
                 selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) + nearestAnchorPoints.selectedRoadVA.offset;
 
             }
-        }
-
-        // TODO - TO BE DELETED, AFTER NEW SNAPPING FUNC. HAS BEEN IMPLEMENTED!
-        public Vector3 newSnappedPosition(RoadPiece nearestNeighbor, RoadSides roadSide)
-        {
-            var rotationDifference = Math.Abs(selectedRoad.getRotation() - nearestNeighbor.getRotation());
-            if (rotationDifference % 90 == 0)
-            {
-                float rad = nearestNeighbor.getRotation() * Mathf.Deg2Rad;
-                float x = selectedRoad.transform.position.x;
-                float y = selectedRoad.transform.position.y;
-
-                float nearestNeighborX = nearestNeighbor.transform.position.x;
-                float nearestNeighborY = nearestNeighbor.transform.position.y;
-                float nearestNeighborHeight = nearestNeighbor.height * nearestNeighbor.transform.localScale.y;
-                float nearestNeighborWidth = nearestNeighbor.width * nearestNeighbor.transform.localScale.x;
-
-                float selectedRoadHeight = selectedRoad.height * selectedRoad.transform.localScale.y;
-                float selectedRoadWidth = selectedRoad.width * selectedRoad.transform.localScale.x;
-
-                float arithmeticHeight = (selectedRoadHeight + nearestNeighborHeight) / 2;
-                float arithmeticWidth = (selectedRoadWidth + nearestNeighborWidth) / 2;
-
-                if (roadSide == RoadSides.top)
-                {
-                    x = nearestNeighborX - (arithmeticHeight * Mathf.Sin(rad));
-                    y = (nearestNeighborY + arithmeticHeight) - (arithmeticHeight * (1 - Mathf.Cos(rad)));
-                }
-                else if (roadSide == RoadSides.bottom)
-                {
-                    x = nearestNeighborX + (arithmeticHeight * Mathf.Sin(rad));
-                    y = (nearestNeighborY - arithmeticHeight) + (arithmeticHeight * (1 - Mathf.Cos(rad)));
-                }
-                else if (roadSide == RoadSides.left)
-                {
-                    x = (nearestNeighborX - arithmeticWidth) + (arithmeticWidth * (1 - Mathf.Cos(rad)));
-                    y = nearestNeighborY - (arithmeticWidth * Mathf.Sin(rad));
-                }
-                else if (roadSide == RoadSides.right)
-                {
-                    x = (nearestNeighborX + arithmeticWidth) - (arithmeticWidth * (1 - Mathf.Cos(rad)));
-                    y = nearestNeighborY + (arithmeticWidth * Mathf.Sin(rad));
-                }
-
-                return new Vector3(x, y, selectedRoad.transform.position.z);
-            }
-            return selectedRoad.transform.position;
         }
 
         /*
