@@ -165,12 +165,17 @@ namespace scripts
                     {
                         isDragging = true;
                         selectedRoad.transform.position = GetWorldPositionFromMouseClick();
+                        foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                        {
+                            va.RemoveConntectedAnchorPoint();
+                        }
 
                         if (!Input.GetKey(KeyCode.LeftShift))
                         {
                             //SnapRoadPiece();
                             Snap();
                         }
+
                         validateRoadPosition();
                     }
 
@@ -201,12 +206,41 @@ namespace scripts
             float nearestDistance = -1;
             VirtualAnchor selectedRoadVA = null;
             VirtualAnchor nearestNeighborVA = null;
+
             foreach (RoadPiece roadPiece in nearestNeighbors)
+            {
+                foreach (VirtualAnchor neighborVA in roadPiece.anchorPoints)
+                {
+                    if (nearestDistance == -1 || Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedRoad.transform.position) < nearestDistance)
+                    {
+                        nearestDistance = Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedRoad.transform.position);
+                        nearestNeighborVA = neighborVA;
+                    }
+                }
+            }
+            float nearestAnchorPoint = -1;
+            if (nearestNeighborVA != null)
+            {
+                foreach (VirtualAnchor selectedVA in selectedRoad.anchorPoints)
+                {
+                    if (nearestNeighborVA.connectedAnchorPoint == null && (nearestAnchorPoint == -1 || Vector3.Distance(nearestNeighborVA.referencedRoadPiece.transform.position + nearestNeighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset) < nearestAnchorPoint))
+                    {
+                        nearestAnchorPoint = Vector3.Distance(nearestNeighborVA.referencedRoadPiece.transform.position + nearestNeighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset);
+                        selectedRoadVA = selectedVA;
+                    }
+                }
+            }
+            if (selectedRoadVA != null && nearestNeighborVA != null)
+            {
+                selectedRoadVA.ConnectAnchorPoint(nearestNeighborVA);
+            }
+            /* foreach (RoadPiece roadPiece in nearestNeighbors)
             {
                 foreach (VirtualAnchor neighborVA in roadPiece.anchorPoints)
                 {
                     foreach (VirtualAnchor selectedVA in selectedRoad.anchorPoints)
                     {
+
                         if ((neighborVA.connectedAnchorPoint == null && (nearestDistance == -1 || Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset) < nearestDistance)))
                         {
                             nearestDistance = Vector3.Distance(neighborVA.referencedRoadPiece.transform.position + neighborVA.offset, selectedVA.referencedRoadPiece.transform.position + selectedVA.offset);
@@ -216,6 +250,11 @@ namespace scripts
                     }
                 }
             }
+            if (selectedRoadVA != null && nearestNeighborVA != null)
+            {
+                selectedRoadVA.ConnectAnchorPoint(nearestNeighborVA);
+            }
+            */
             return (selectedRoadVA, nearestNeighborVA);
         }
 
@@ -224,9 +263,10 @@ namespace scripts
             List<RoadPiece> nearestNeighbors = GetNearestNeighborsInArea();
             var nearestAnchorPoints = GetNearestAnchorPoints(nearestNeighbors);
 
-            if (nearestNeighbors.Count > 0)
+            if (nearestNeighbors.Count > 0 && nearestAnchorPoints.nearestNeighborVA != null && nearestAnchorPoints.selectedRoadVA != null)
             {
                 selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) + nearestAnchorPoints.selectedRoadVA.offset;
+
             }
         }
 

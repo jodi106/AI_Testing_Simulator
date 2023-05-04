@@ -55,7 +55,11 @@ namespace scripts
 
         public void RemoveConntectedAnchorPoint()
         {
-            connectedAnchorPoint = null;
+            if (connectedAnchorPoint != null)
+            {
+                connectedAnchorPoint.connectedAnchorPoint = null;
+                connectedAnchorPoint = null;
+            }
         }
 
 
