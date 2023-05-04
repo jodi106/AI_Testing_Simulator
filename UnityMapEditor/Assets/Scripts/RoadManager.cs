@@ -137,6 +137,10 @@ namespace scripts
                 DeselectRoad();
                 Destroy(selectedObject);
 
+                foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                {
+                    va.RemoveConntectedAnchorPoint();
+                }
             }
         }
 
