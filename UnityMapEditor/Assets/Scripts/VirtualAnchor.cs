@@ -35,7 +35,6 @@ namespace scripts
                     break;
             }
         }
-
         public void Update(float angleOfRotation)
         {
             orientation = (orientation + angleOfRotation) % 360;

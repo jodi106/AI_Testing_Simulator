@@ -240,15 +240,13 @@ namespace scripts
 
         public void CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
         {
-            Debug.Log("N.O. = " + neighbor.orientation);
-            Debug.Log("S.O. = " + selected.orientation);
+
             if (Mathf.Abs(neighbor.orientation - selected.orientation) == 180)
             {
                 return;
             }
             else
             {
-
                 float orientationDifference = Mathf.Abs(neighbor.orientation - selected.orientation);
                 float neededOrientation = orientationDifference - 180;
 
@@ -261,6 +259,7 @@ namespace scripts
                 {
                     rotateRoadPiece(-neededOrientation);
                 }
+
             }
         }
 
