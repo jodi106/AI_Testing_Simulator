@@ -238,6 +238,32 @@ namespace scripts
             return (selectedRoadVA, nearestNeighborVA);
         }
 
+        public void CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
+        {
+            Debug.Log("N.O. = " + neighbor.orientation);
+            Debug.Log("S.O. = " + selected.orientation);
+            if (Mathf.Abs(neighbor.orientation - selected.orientation) == 180)
+            {
+                return;
+            }
+            else
+            {
+
+                float orientationDifference = Mathf.Abs(neighbor.orientation - selected.orientation);
+                float neededOrientation = orientationDifference - 180;
+
+                if (neighbor.orientation >= selected.orientation)
+                {
+
+                    rotateRoadPiece(neededOrientation);
+                }
+                else
+                {
+                    rotateRoadPiece(-neededOrientation);
+                }
+            }
+        }
+
         public void Snap()
         {
             List<RoadPiece> nearestNeighbors = GetNearestNeighborsInArea();
@@ -245,7 +271,8 @@ namespace scripts
 
             if (nearestNeighbors.Count > 0 && nearestAnchorPoints.nearestNeighborVA != null && nearestAnchorPoints.selectedRoadVA != null)
             {
-                selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) + nearestAnchorPoints.selectedRoadVA.offset;
+                CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, nearestAnchorPoints.selectedRoadVA);
+                selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) - nearestAnchorPoints.selectedRoadVA.offset;
 
             }
         }
