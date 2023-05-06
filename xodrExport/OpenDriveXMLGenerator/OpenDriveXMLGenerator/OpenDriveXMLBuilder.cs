@@ -108,7 +108,7 @@ namespace OpenDriveXMLGenerator
         }
 
         
-        public XODRRoad AddLeftCurveToIntersection(float startX = 0, float startY = 0, double arc = 0, double hdg,  int predecessorId, int successorId)
+        public XODRRoad AddLeftCurveToIntersection(float startX = 0, float startY = 0, double arc = 0, double hdg = 0,  int predecessorId = 0, int successorId = 0)
         {
             var curve = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -117,9 +117,9 @@ namespace OpenDriveXMLGenerator
                 junction: "-1");
             id++;
 
-            var link = AddLinkElement(curve);
-                var predecessor = link.AddPredecessor(link, "road", predecessorId.ToString());
-                var successor = link.AddSuccessor(link, "road", successorId.ToString());
+            var link = curve.AddLinkElement();
+                var predecessor = link.AddPredecessor("road", predecessorId.ToString());
+                var successor = link.AddSuccessor("road", successorId.ToString());
 
             var plainView = curve.AddPlainViewElement();
             var geometry = plainView.AddGeometryElement(
@@ -128,7 +128,7 @@ namespace OpenDriveXMLGenerator
                 y: startY.ToString(),
                 hdg: hdg.ToString(),
                 length: "7.8539816339744830e+00");
-                var arc = geometry.AddArcElement(geometry, arc.ToString());
+                var arc1 = geometry.AddArcElement(arc.ToString());
 
             var lanes = curve.AddLanesElement();
                 var laneSection = lanes.AddLaneSectionElement(s: "0");
@@ -145,7 +145,7 @@ namespace OpenDriveXMLGenerator
             
         }
 
-        public XODRRoad AddRightCurveToIntersection(float startX = 0, float startY = 0, double arc = 0, double hdg = 0, int predecessorId, int successorId)
+        public XODRRoad AddRightCurveToIntersection(float startX = 0, float startY = 0, double arc = 0, double hdg = 0, int predecessorId = 0, int successorId = 0)
         {
             var curve = RootElement.AddRoadElement(
                name: "Road " + id.ToString(),
@@ -154,18 +154,18 @@ namespace OpenDriveXMLGenerator
                junction: "-1");
             id++;
 
-            var link = AddLinkElement(curve);
-            var predecessor = link.AddPredecessor(link, "road", predecessorId.toString());
-            var successor = link.AddSuccessor(link, "road", successorId.toString());
+            var link = curve.AddLinkElement();
+            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
+            var successor = link.AddSuccessor("road", successorId.ToString());
 
             var plainView = curve.AddPlainViewElement();
             var geometry = plainView.AddGeometryElement(
                 s: "0.0",
                 x: startX.ToString(),
                 y: startY.ToString(),
-                hdg: hdg.toString(),
+                hdg: hdg.ToString(),
                 length: "7.8539816339744830e+00");
-            var arc = geometry.AddArcElement(geometry, arc.ToString());
+            var arc1 = geometry.AddArcElement(arc.ToString());
 
             var lanes = curve.AddLanesElement();
             var laneSection = lanes.AddLaneSectionElement(s: "0");

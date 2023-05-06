@@ -72,17 +72,6 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public static XODRJunction AddJunctionElement(this XmlElement parent, string name, string length, string id, string junction)
-        {
-            var junction = new XODRJunction(parent.OwnerDocument.CreateElement("junction")); 
-
-            junction.SetAttribute("name", name);
-            junction.SetAttribute("id", id);
-            parent.AppendChild(junction.XmlElement);
-
-            return junction;
-        }
-
         //public static XmlElement AddTypeElement(this XmlElement parent, string s, string type)
         //{
         //    var typeElem = parent.OwnerDocument.CreateElement("type");
