@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5464760638928544233}
   - component: {fileID: 2200703288872540573}
   m_Layer: 0
-  m_Name: Roundabout
+  m_Name: Roundabout 4-Way
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bdf38318071aabf41a164ee654e3d4c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c41ba8a1ecc74a4391070028cc061f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 120.95999, y: 120.95999}
+  m_Size: {x: 86.93, y: 86.93}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,14 +103,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 120.95999, y: 120.95999}
-    newSize: {x: 120.95999, y: 120.95999}
+    oldSize: {x: 86.93, y: 86.93}
+    newSize: {x: 86.93, y: 86.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 120.95999, y: 120.95999}
+  m_Size: {x: 86.93, y: 86.93}
   m_EdgeRadius: 0
 --- !u!114 &2200703288872540573
 MonoBehaviour:
@@ -126,5 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighbors: []
   roadType: 9
-  width: 120.96
-  height: 120.96
+  width: 86.93
+  height: 86.93
