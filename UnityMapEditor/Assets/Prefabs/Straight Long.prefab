@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 34.02, y: 37.8041}
+  m_Size: {x: 37.8, y: 37.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,14 +103,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 34.02, y: 37.8041}
-    newSize: {x: 34.02, y: 37.8041}
+    oldSize: {x: 37.8, y: 37.8}
+    newSize: {x: 37.8, y: 37.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 34.02, y: 37.8}
+  m_Size: {x: 37.8, y: 37.8}
   m_EdgeRadius: 0
 --- !u!114 &3383910417227496093
 MonoBehaviour:
@@ -126,5 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neighbors: []
   roadType: 1
-  width: 34.02
+  width: 37.8
   height: 37.8
