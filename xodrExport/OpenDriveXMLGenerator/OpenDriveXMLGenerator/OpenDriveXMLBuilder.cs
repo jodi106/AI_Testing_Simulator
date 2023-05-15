@@ -58,10 +58,14 @@ namespace OpenDriveXMLGenerator
             
             var lanes = road.AddLanesElement();
                 var laneSection = lanes.AddLaneSectionElement(s:"0");
+                    var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
+                        var laneLeftSidewalk = leftSidewalk.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                            laneLeftSidewalk.AddLinkElement();
+                            laneLeftSidewalk.AddWidthElement();
                     var left = laneSection.AddDirectionElement(Direction.Left);
-                        var lane = left.AddLaneElement(id:"1", type:"driving", level:"false");
-                            lane.AddLinkElement();
-                            lane.AddWidthElement();
+                        var laneLeft = left.AddLaneElement(id:"1", type:"driving", level:"false");
+                            laneLeft.AddLinkElement();
+                            laneLeft.AddWidthElement();
                     var center = laneSection.AddDirectionElement(Direction.Center);
                         var laneCenter = center.AddLaneElement(id:"0", type:"none", level:"false");
                             laneCenter.AddLinkElement();
@@ -70,9 +74,13 @@ namespace OpenDriveXMLGenerator
                         var laneRight = right.AddLaneElement(id:"-1", type:"driving", level:"false");
                             laneRight.AddLinkElement();
                             laneRight.AddWidthElement();
+                    var rightSidewalk = laneSection.AddDirectionElement(Direction.Left);
+                        var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement();
 
 
-            if(crossing){
+            if (crossing){
 
                 if(crossingLength > 6){
                     throw new ArgumentOutOfRangeException(nameof(crossingLength), "Crosswalk length must pe smaller then road width");
@@ -185,20 +193,18 @@ namespace OpenDriveXMLGenerator
 
         public void Add3wayIntersection(float startX = 0, float startY = 0)
         {
-            float length = 3;
-
             var incomingRoadId1 = id;
-            var incomingRoad1 = this.AddStraightRoad(startX, startY, 0, length, false);
+            var incomingRoad1 = this.AddStraightRoad(startX, startY, 0, 5, false);
 
             float startX2 = startX + 8;
             float startY2 = startX - 8;
             var incomingRoadId2 = id;
-            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, 1.5707963267949, length, false);
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, 1.5707963267949, 5, false);
 
             float startX3 = startX;
             float startY3 = startY + 5;
             var incomingRoadId3 = id;
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, 1.5707963267949, length, false);
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, 1.5707963267949, 5, false);
 
             float startXCurve1 = startX + 8;
             float startYCurve1 = startY - 5;
