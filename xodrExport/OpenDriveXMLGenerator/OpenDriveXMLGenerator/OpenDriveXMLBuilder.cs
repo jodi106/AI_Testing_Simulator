@@ -62,7 +62,7 @@ namespace OpenDriveXMLGenerator
             var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
             var laneLeftSidewalk = leftSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
             laneLeftSidewalk.AddLinkElement();
-            laneLeftSidewalk.AddWidthElement();
+            laneLeftSidewalk.AddWidthElement(a: "1.5");
             var left = laneSection.AddDirectionElement(Direction.Left);
             var laneLeft = left.AddLaneElement(id: "-1", type: "driving", level: "false");
             laneLeft.AddLinkElement();
@@ -78,7 +78,7 @@ namespace OpenDriveXMLGenerator
             var rightSidewalk = laneSection.AddDirectionElement(Direction.Left);
             var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "2", type: "sidewalk", level: "false");
             laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement();
+            laneRightSidewalk.AddWidthElement(a: "1.5");
 
 
             if (crossing) {
@@ -112,6 +112,51 @@ namespace OpenDriveXMLGenerator
 
             }
 
+
+            return road;
+        }
+
+        public XODRRoad Add15DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0)
+        {
+
+            var road = RootElement.AddRoadElement(
+                name: "Road " + id.ToString(),
+                length: "1.3089411479932687",
+                id: id.ToString(),
+                junction: "1");
+
+            id++;
+            var plainView = road.AddPlainViewElement();
+            var geometry1 = plainView.AddGeometryElement(
+                s: "0.0",
+                x: startX.ToString(),
+                y: startY.ToString(),
+                hdg: hdg.ToString(),
+                length: "1.3089411479932687",
+                curvature: "0.19999960000121728");
+
+            var lanes = road.AddLanesElement();
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
+            var laneLeftSidewalk = leftSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+            laneLeftSidewalk.AddLinkElement();
+            laneLeftSidewalk.AddWidthElement(a: "1.5");
+            var left = laneSection.AddDirectionElement(Direction.Left);
+            var laneLeft = left.AddLaneElement(id: "-1", type: "driving", level: "false");
+            laneLeft.AddLinkElement();
+            laneLeft.AddWidthElement();
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "1", type: "driving", level: "false");
+            laneRight.AddLinkElement();
+            laneRight.AddWidthElement();
+            var rightSidewalk = laneSection.AddDirectionElement(Direction.Left);
+            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+            laneRightSidewalk.AddLinkElement();
+            laneRightSidewalk.AddWidthElement(a:"1.5");
 
             return road;
         }
