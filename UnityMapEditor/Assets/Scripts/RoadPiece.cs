@@ -12,6 +12,9 @@ namespace scripts
         public RoadType roadType;
         private bool isLocked = false;
 
+        public VirtualAnchor lastNeighborSnappedAnchorPoint = null;
+        public VirtualAnchor lastSelectedSnappedAnchorPoint = null;
+
         public float width;
         public float height;
 

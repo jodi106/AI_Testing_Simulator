@@ -176,7 +176,6 @@ namespace scripts
                         {
                             Snap();
                         }
-
                         validateRoadPosition();
                     }
 
@@ -198,7 +197,6 @@ namespace scripts
                     }
                 }
             }
-
             return roadsInArea;
         }
 
@@ -230,10 +228,6 @@ namespace scripts
                         selectedRoadVA = selectedVA;
                     }
                 }
-            }
-            if (selectedRoadVA != null && nearestNeighborVA != null)
-            {
-                selectedRoadVA.ConnectAnchorPoint(nearestNeighborVA);
             }
             return (selectedRoadVA, nearestNeighborVA);
         }
@@ -267,11 +261,22 @@ namespace scripts
         {
             List<RoadPiece> nearestNeighbors = GetNearestNeighborsInArea();
             var nearestAnchorPoints = GetNearestAnchorPoints(nearestNeighbors);
-
-            if (nearestNeighbors.Count > 0 && nearestAnchorPoints.nearestNeighborVA != null && nearestAnchorPoints.selectedRoadVA != null)
+            if (nearestAnchorPoints.nearestNeighborVA != null && nearestAnchorPoints.selectedRoadVA != null)
             {
-                CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, nearestAnchorPoints.selectedRoadVA);
-                selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) - nearestAnchorPoints.selectedRoadVA.offset;
+                if (selectedRoad.lastNeighborSnappedAnchorPoint != nearestAnchorPoints.nearestNeighborVA)
+                {
+                    CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, nearestAnchorPoints.selectedRoadVA);
+                    selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) - nearestAnchorPoints.selectedRoadVA.offset;
+                    nearestAnchorPoints.selectedRoadVA.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
+                    selectedRoad.lastNeighborSnappedAnchorPoint = nearestAnchorPoints.nearestNeighborVA;
+                    selectedRoad.lastSelectedSnappedAnchorPoint = nearestAnchorPoints.selectedRoadVA;
+                }
+                else
+                {
+                    CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, selectedRoad.lastSelectedSnappedAnchorPoint);
+                    selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) - selectedRoad.lastSelectedSnappedAnchorPoint.offset;
+                    selectedRoad.lastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
+                }
 
             }
         }
