@@ -2,397 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4284a746-f9ff-4311-a40a-d5bfb858444c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario.sln" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/DummyApplication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/DummyApplication.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/ActionType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/ActionType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/BaseEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Coord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Coord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Ego.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Ego.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/EntityModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/EntityModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Path.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Path.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Pedestrian.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Pedestrian.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/ScenarioInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/ScenarioInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/TriggerInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/TriggerInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Vehicle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Vehicle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Waypoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/Waypoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/WorldOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/Entities/WorldOptions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/ExportScenario.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/ExportScenario.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/OurScenario3.xosc" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/OurScenario3.xosc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/ScenarioInfo_for_team_GUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/ScenarioInfo_for_team_GUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildEntities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildEntities.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildInit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildInit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildTrigger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildXML.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/BuildXML.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/ScenarioInfoExample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenario/XMLBuilder/ScenarioInfoExample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenarioTest/ExportScenarioTest.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenarioTest/ExportScenarioTest.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenarioTest/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenarioTest/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C#/ExportScenario/ExportScenarioTest/ScenarioInfoExample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/C#/ExportScenario/ExportScenarioTest/ScenarioInfoExample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OpenSCENARIO.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/OpenSCENARIO.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OurScenario.xosc" beforeDir="false" afterPath="$PROJECT_DIR$/OurScenario.xosc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.rst" beforeDir="false" afterPath="$PROJECT_DIR$/README.rst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/.vsconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/.vsconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/ActionType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/ActionType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/ActionType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/ActionType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/BaseEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/BaseEntity.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/BaseEntity.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Ego.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Ego.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Ego.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Ego.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/EntityModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/EntityModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/EntityModel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/EntityModel.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Lane.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Lane.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Lane.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Lane.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Location.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Location.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Location.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Location.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Map.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Map.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Map.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Path.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Path.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Path.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Path.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Pedestrian.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Pedestrian.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Pedestrian.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Pedestrian.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Road.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Road.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Road.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/ScenarioInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/ScenarioInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/ScenarioInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/ScenarioInfo.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/TriggerInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/TriggerInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/TriggerInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/TriggerInfo.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Vehicle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Vehicle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Vehicle.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Vehicle.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Waypoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Waypoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/Waypoint.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/Waypoint.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/WorldOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/WorldOptions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Entities/WorldOptions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Entities/WorldOptions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/ActionTypeName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/ActionTypeName.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/ActionTypeName.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/ActionTypeName.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/CloudState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/CloudState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/CloudState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/CloudState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/ConditionEdge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/ConditionEdge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/ConditionEdge.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/ConditionEdge.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsDimension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsDimension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsDimension.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsDimension.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsShape.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsShape.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsShape.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/DynamicsShape.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/PedestrianType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/PedestrianType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/PedestrianType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/PedestrianType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/PrecipitationType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/PrecipitationType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/PrecipitationType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/PrecipitationType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/PriorityType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/PriorityType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/PriorityType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/PriorityType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/Rule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/Rule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/Rule.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/Rule.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/TriggerType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/TriggerType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/TriggerType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/TriggerType.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/VehicleCategory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/VehicleCategory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Enums/VehicleCategory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Enums/VehicleCategory.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/CarSettings.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/CarSettings.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/CarSettings.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/CarSettings.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineTrigger.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineTrigger.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineTrigger.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineTrigger.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/BreakAction.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/BreakAction.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/BreakAction.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/BreakAction.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/DefineWaypoint.uss.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/DefineWaypoint.uss.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/DefineWaypoint.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/DefineWaypoint.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/DefineWaypoint.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/DefineWaypoint.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/LaneChangeAction.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/LaneChangeAction.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/LaneChangeAction.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/LaneChangeAction.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/MoveToAction.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/MoveToAction.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/MoveToAction.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/MoveToAction.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/SpeedAction.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/SpeedAction.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/SpeedAction.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/DefineWaypoint/SpeedAction.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/EgoSettings.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/EgoSettings.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/EgoSettings.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/EgoSettings.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/ListEntry.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/ListEntry.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/ListEntry.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/ListEntry.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/MainView.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/MainView.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/MainView.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/MainView.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/PathSettings.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/PathSettings.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/PathSettings.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/PathSettings.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uss" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uss.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uss.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/Popup.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettings.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettings.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettings.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettings.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettingsAdvanced.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettingsAdvanced.uxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettingsAdvanced.uxml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/GUI/WorldSettingsAdvanced.uxml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Helpers.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Helpers.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Helpers/EnumUtil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Helpers/EnumUtil.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Helpers/EnumUtil.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Helpers/EnumUtil.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Helpers/HeightUtil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Helpers/HeightUtil.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Helpers/HeightUtil.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Helpers/HeightUtil.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescr.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescr.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescrOptional.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescrOptional.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescrOptional.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTDescrOptional.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTSeq.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTSeq.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTSeq.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LTSeq.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanAudio.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanAudio.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanSmooth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanSmooth.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanSmooth.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanSmooth.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTest.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTween.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTween.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTween.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTween.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTween.dll.zip.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTween.dll.zip.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTweenExt.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTweenExt.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTweenExt.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/Framework/LeanTweenExt.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/License.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/License.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/License.txt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/License.txt.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/ReadMe.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/ReadMe.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/LeanTween/ReadMe.txt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/LeanTween/ReadMe.txt.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Materials.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Materials.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Materials/vehicleSelectionMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Materials/vehicleSelectionMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Materials/vehicleSelectionMaterial.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Materials/vehicleSelectionMaterial.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Materials/waypointMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Materials/waypointMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Materials/waypointMaterial.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Materials/waypointMaterial.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Destination.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Destination.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Destination.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Destination.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Ego.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Ego.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Ego.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Ego.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Path.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Path.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Path.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Path.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Pedestrian.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Pedestrian.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Pedestrian.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Pedestrian.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Vehicle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Vehicle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Vehicle.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Vehicle.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Waypoint.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Waypoint.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/Waypoint.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/Waypoint.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/WaypointIndicator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/WaypointIndicator.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Prefabs/WaypointIndicator.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Prefabs/WaypointIndicator.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueue.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueue.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueueNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueueNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueueNode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/GenericPriorityQueueNode.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IFixedSizePriorityQueue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IFixedSizePriorityQueue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IFixedSizePriorityQueue.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IFixedSizePriorityQueue.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IPriorityQueue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IPriorityQueue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IPriorityQueue.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/IPriorityQueue.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/SimplePriorityQueue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/SimplePriorityQueue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/SimplePriorityQueue.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/PriorityQueue/SimplePriorityQueue.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos/MapRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos/MapRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos/MapRepository.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos/MapRepository.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos/PedestrianModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos/PedestrianModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos/PedestrianModelRepository.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos/PedestrianModelRepository.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos/VehicleModelRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos/VehicleModelRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Repos/VehicleModelRepository.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Repos/VehicleModelRepository.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Background.jpeg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Background.jpeg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town01.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town01.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town02.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town02.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town03.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town03.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town04.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town04.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town05.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town05.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town10HD#2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town10HD#2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town10HD.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/backgrounds/Town10HD.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/bike.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/bike.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/car.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/car.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/cross.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/cross.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/cross_white.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/cross_white.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/home.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/home.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/motorcycle.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/motorcycle.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/pedestrian.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/pedestrian.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/settings.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/settings.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/icons/world.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/icons/world.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/sprites.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/sprites.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/bike.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/bike.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/ego.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/ego.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/motorcycle.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/motorcycle.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/pedestrian.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/pedestrian.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/vehicle.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/sprites/vehicle.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Map_Dimensions" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Map_Dimensions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Map_Dimensions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Map_Dimensions.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town01.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town01.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town02.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town02.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town03.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town03.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town04.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town04.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town05.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town05.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town10HD.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town10HD.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town10HD.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town10HD.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town10HD_topology.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Resources/waypoints/Town10HD_topology.json.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scenes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scenes.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scenes/TestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scenes/TestScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scenes/TestScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scenes/TestScene.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scenes/WelcomeScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scenes/WelcomeScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scenes/WelcomeScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scenes/WelcomeScene.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ActionButtonsAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ActionButtonsAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ActionButtonsAnimation.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ActionButtonsAnimation.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/IAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/IAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/IAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/IAction.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapChangeAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapChangeAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapChangeAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapChangeAction.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapPanAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapPanAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapPanAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MapPanAction.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MouseClickAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MouseClickAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MouseClickAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/Actions/MouseClickAction.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/CameraMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/CameraMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/CameraMovement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/CameraMovement.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/EventManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/EventManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/EventManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/MainController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/MainController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/MainController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/MainController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/MapController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/MapController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/MapController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/MapController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/SnapController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/SnapController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/SnapController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/SnapController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/VehicleListEntryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/VehicleListEntryController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/VehicleListEntryController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/VehicleListEntryController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/AdversaryViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/AdversaryViewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/AdversaryViewController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/AdversaryViewController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/DestinationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/DestinationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/DestinationController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/DestinationController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/EgoViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/EgoViewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/EgoViewController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/EgoViewController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseEntityView.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/Interfaces/IBaseView.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PathController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PathController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PathController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PathController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PedestrianViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PedestrianViewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PedestrianViewController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PedestrianViewController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/AdversarySettingsPopupController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/AdversarySettingsPopupController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/AdversarySettingsPopupController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/AdversarySettingsPopupController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/EgoSettingsPopupController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/EgoSettingsPopupController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/EgoSettingsPopupController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/EgoSettingsPopupController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/WorldSettingsPopupController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/WorldSettingsPopupController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/WorldSettingsPopupController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/PopupControllers/WorldSettingsPopupController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/VehicleViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/VehicleViewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/VehicleViewController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/VehicleViewController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/WaypointViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/WaypointViewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/WaypointViewController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/Scripts/ViewControllers/WaypointViewController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/SpriteOutline.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/SpriteOutline.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/SpriteOutline/Shaders.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/SpriteOutline/Shaders.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/SpriteOutline/Shaders/SpriteOutline.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/SpriteOutline/Shaders/SpriteOutline.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/SpriteOutline/Shaders/SpriteOutline.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/SpriteOutline/Shaders/SpriteOutline.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/TextMesh Pro.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/TextMesh Pro.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/UI Toolkit.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/UI Toolkit.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/PanelSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/PanelSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/PanelSettings.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/PanelSettings.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/UnityThemes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/UnityThemes.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildAction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildAction.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildEntities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildEntities.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildEntities.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildEntities.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildInit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildInit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildInit.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildInit.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildTrigger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildTrigger.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildTrigger.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildXML.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildXML.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildXML.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/BuildXML.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete).meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete).meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/DummyApplication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/DummyApplication.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/DummyApplication.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/DummyApplication.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/OurScenario3.xosc" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/OurScenario3.xosc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/OurScenario3.xosc.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Assets/XMLBuilder/dummy(delete)/OurScenario3.xosc.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/AudioManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/AudioManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/BurstAotSettings_StandaloneWindows.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/BurstAotSettings_StandaloneWindows.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/BurstAotSettings_WebGL.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/BurstAotSettings_WebGL.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/ClusterInputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/ClusterInputManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/CommonBurstAotSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/CommonBurstAotSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/DynamicsManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/EditorSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/InputManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/MemorySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/MemorySettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/NavMeshAreas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/NavMeshAreas.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/NetworkManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/NetworkManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/PresetManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/PresetManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/QualitySettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/SceneTemplateSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/SceneTemplateSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/TimeManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/TimeManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/TimelineSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/TimelineSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/VFXManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/VFXManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/VersionControlSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/VersionControlSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/ProjectSettings/XRSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/ProjectSettings/XRSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UIElements.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Cloud.Collaborate.Components.ChangeListEntries.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Cloud.Collaborate.Components.ChangeListEntries.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Cloud.Collaborate.Components.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Cloud.Collaborate.Components.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Cloud.Collaborate.Views.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Cloud.Collaborate.Views.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Profiling.Editor.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.Profiling.Editor.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.UI.Builder.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/Unity.UI.Builder.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.Experimental.GraphView.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.Experimental.GraphView.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.Overlays.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.Overlays.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.PackageManager.UI.Internal.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.PackageManager.UI.Internal.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.Search.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.Search.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.ShortcutManagement.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.ShortcutManagement.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.U2D.Animation.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.U2D.Animation.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.U2D.Layout.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.U2D.Layout.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.UIElements.Debugger.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.UIElements.Debugger.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEditor.UIElements.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEngine.UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/Unity/UIElementsSchema/UnityEngine.UIElements.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/basic_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/basic_agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/behavior_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/behavior_agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/behavior_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/behavior_types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/global_route_planner.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/global_route_planner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/local_planner.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/navigation/local_planner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/agents/tools/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/agents/tools/misc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/route_planner.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/route_planner.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RoutePlanner/scene_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RoutePlanner/scene_layout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/EditorToScenario.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/EditorToScenario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/EnableAutopilot4AllVehicles.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/EnableAutopilot4AllVehicles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/HackathonTest.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/HackathonTest.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/carla.service" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/carla.service" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/map_export.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/map_export.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/set_scenario_runner_pythonpath.bat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/set_scenario_runner_pythonpath.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/topology_export.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/topology_export.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/misc/waypoint_export.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/misc/waypoint_export.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/Coordinates.json" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/Coordinates.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/api_scenario.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/api_scenario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/clear_entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/clear_entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/2C2P.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/2C2P.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/2Cars1Pedestrian.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/2Cars1Pedestrian.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/AllEntitiesSet.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/AllEntitiesSet.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/AllEntitiesSet_old.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/AllEntitiesSet_old.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/AlleRechts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/AlleRechts.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/SoWeitVieMoglich.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/SoWeitVieMoglich.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/data/demo_3Cars.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/data/demo_3Cars.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/debug_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/debug_notebook.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/create_xosc_gui_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/create_xosc_gui_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/define_entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/define_entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/init_entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/init_entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/maneuver_entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/maneuver_entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/xosc_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/xosc_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/xosc_main.py.bak" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/openScenario/xosc_main.py.bak" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/scenario_editor/send_to_carla.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scenario_editor/send_to_carla.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UnityMapEditor/Assets/Resources/sprites/Unity Grid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UnityMapEditor/Assets/Resources/sprites/Unity Grid.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnityMapEditor/Assets/Scenes/Editor.unity" beforeDir="false" afterPath="$PROJECT_DIR$/UnityMapEditor/Assets/Scenes/Editor.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnityMapEditor/Assets/Scripts/RoadManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UnityMapEditor/Assets/Scripts/RoadManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnityMapEditor/Assets/Scripts/RoadPiece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/UnityMapEditor/Assets/Scripts/RoadPiece.cs" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -406,13 +22,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
-  }
-}]]></component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="4284a746-f9ff-4311-a40a-d5bfb858444c" name="Changes" comment="" />
@@ -428,7 +53,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

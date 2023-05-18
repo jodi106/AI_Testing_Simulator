@@ -89,7 +89,23 @@ namespace scripts
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                rotateRoadPiece(ROTATING_ANGLE);
+                if (isSnapped)
+                {
+                    int currentIndex = selectedRoad.anchorPoints.FindIndex(anchor => anchor == selectedRoad.lastSelectedSnappedAnchorPoint);
+                    if (currentIndex == 0)
+                    {
+                        currentIndex = selectedRoad.anchorPoints.Count;
+                    }
+                    VirtualAnchor nextAnchor = selectedRoad.anchorPoints[(currentIndex - 1)];
+                    CompareAnchorPointOrientation(selectedRoad.lastNeighborSnappedAnchorPoint, nextAnchor);
+                    selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
+                    selectedRoad.lastSelectedSnappedAnchorPoint = nextAnchor;
+                    Snap();
+                }
+                else
+                {
+                    rotateRoadPiece(-ROTATING_ANGLE);
+                }
             }
 
             // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
