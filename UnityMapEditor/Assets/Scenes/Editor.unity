@@ -528,7 +528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -116, y: -68.99841}
+  m_AnchoredPosition: {x: -116, y: -68.99844}
   m_SizeDelta: {x: 200, y: -182.00317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &195649309
@@ -681,14 +681,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 459ffb60f59e6804c9201e8c7ba2ace7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e5d65389f83dae4a821e35c5d0b0f29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 6202.578, y: 3608.957}
+  m_Size: {x: 7560, y: 7560}
   m_AdaptiveModeThreshold: 1
-  m_SpriteTileMode: 1
+  m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
@@ -722,7 +722,7 @@ RectTransform:
   m_GameObject: {fileID: 360084026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 100}
-  m_LocalScale: {x: 9.4, y: 9.4, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
