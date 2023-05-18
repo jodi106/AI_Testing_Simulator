@@ -80,8 +80,8 @@ namespace scripts
                     anchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayIntersection:
-                    anchorPoints.Add(new VirtualAnchor(this, 180));
                     anchorPoints.Add(new VirtualAnchor(this, 90));
+                    anchorPoints.Add(new VirtualAnchor(this, 180));
                     anchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.FourWayIntersection:
