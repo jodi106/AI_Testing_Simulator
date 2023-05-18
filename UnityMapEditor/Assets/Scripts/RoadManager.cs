@@ -36,6 +36,8 @@ namespace scripts
         // used to check whether the user is currently dragging. So no other object can be selected during a drag. 
         private bool isDragging = false;
 
+        private bool isSnapped = false;
+
         // Rotating Angle of the Pieces
         private const float ROTATING_ANGLE = 15f;
 
@@ -70,7 +72,26 @@ namespace scripts
             // These conditions checks, whether the user wants to rotate the piece clockwise or counter-clockwise
             if (Input.GetKeyDown(KeyCode.E))
             {
-                rotateRoadPiece(-ROTATING_ANGLE);
+                if (isSnapped)
+                {
+                    int currentIndex = selectedRoad.anchorPoints.FindIndex(anchor => anchor == selectedRoad.lastSelectedSnappedAnchorPoint);
+
+                    Debug.Log((currentIndex));
+                    Debug.Log((currentIndex + 1) % selectedRoad.anchorPoints.Count);
+
+
+                    VirtualAnchor nextAnchor = selectedRoad.anchorPoints[(currentIndex + 1) % selectedRoad.anchorPoints.Count];
+                    CompareAnchorPointOrientation(selectedRoad.lastNeighborSnappedAnchorPoint, nextAnchor);
+                    selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
+                    selectedRoad.lastSelectedSnappedAnchorPoint = nextAnchor;
+                    Snap();
+                }
+                else
+                {
+                    rotateRoadPiece(-ROTATING_ANGLE);
+
+
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
@@ -166,6 +187,7 @@ namespace scripts
                     if (!selectedRoad.getIsLocked())
                     {
                         isDragging = true;
+                        isSnapped = false;
                         selectedRoad.transform.position = GetWorldPositionFromMouseClick();
                         foreach (VirtualAnchor va in selectedRoad.anchorPoints)
                         {
@@ -234,7 +256,6 @@ namespace scripts
 
         public void CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
         {
-
             if (Mathf.Abs(neighbor.orientation - selected.orientation) == 180)
             {
                 return;
@@ -242,6 +263,7 @@ namespace scripts
             else
             {
                 float orientationDifference = Mathf.Abs(neighbor.orientation - selected.orientation);
+                Debug.Log(orientationDifference);
                 float neededOrientation = orientationDifference - 180;
 
                 if (neighbor.orientation >= selected.orientation)
@@ -277,6 +299,7 @@ namespace scripts
                     selectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.referencedRoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.offset) - selectedRoad.lastSelectedSnappedAnchorPoint.offset;
                     selectedRoad.lastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
                 }
+                this.isSnapped = true;
 
             }
         }
