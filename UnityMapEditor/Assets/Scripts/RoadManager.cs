@@ -75,11 +75,6 @@ namespace scripts
                 if (isSnapped)
                 {
                     int currentIndex = selectedRoad.anchorPoints.FindIndex(anchor => anchor == selectedRoad.lastSelectedSnappedAnchorPoint);
-
-                    Debug.Log((currentIndex));
-                    Debug.Log((currentIndex + 1) % selectedRoad.anchorPoints.Count);
-
-
                     VirtualAnchor nextAnchor = selectedRoad.anchorPoints[(currentIndex + 1) % selectedRoad.anchorPoints.Count];
                     CompareAnchorPointOrientation(selectedRoad.lastNeighborSnappedAnchorPoint, nextAnchor);
                     selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
@@ -89,8 +84,6 @@ namespace scripts
                 else
                 {
                     rotateRoadPiece(-ROTATING_ANGLE);
-
-
                 }
             }
 
@@ -300,7 +293,7 @@ namespace scripts
                     selectedRoad.lastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
                 }
                 this.isSnapped = true;
-
+                getNeighborsReferences(nearestNeighbors);
             }
         }
 
@@ -344,6 +337,35 @@ namespace scripts
                 {
                     va.Update(rotation);
                 }
+            }
+        }
+
+        /*
+         * Connects by Reference all AnchorPoints of a Piece placed between multiple Pieces
+         */
+        public void getNeighborsReferences(List<RoadPiece> neighborRoads)
+        {
+            bool stop = false;
+            foreach (VirtualAnchor vaS in selectedRoad.anchorPoints)
+            {
+                if (vaS.connectedAnchorPoint == null)
+                {
+                    foreach (RoadPiece neighbor in neighborRoads)
+                    {
+                        foreach (VirtualAnchor vaN in neighbor.anchorPoints)
+                        {
+                            if (vaN.connectedAnchorPoint == null && Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset) < 1)
+                            {
+                                vaS.ConnectAnchorPoint(vaN);
+                                stop = true;
+                                break;
+                            }
+                        }
+                        if (stop == true)
+                            break;
+                    }
+                }
+                stop = false;
             }
         }
 
@@ -415,7 +437,6 @@ namespace scripts
                 default:
                     break;
             }
-
             selectedRoad.GetComponent<SpriteRenderer>().color = color;
         }
     }
