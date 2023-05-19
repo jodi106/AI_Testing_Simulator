@@ -104,7 +104,7 @@ namespace scripts
                 }
                 else
                 {
-                    rotateRoadPiece(-ROTATING_ANGLE);
+                    rotateRoadPiece(ROTATING_ANGLE);
                 }
             }
 
