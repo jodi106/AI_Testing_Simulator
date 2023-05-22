@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Xml;
+﻿using System.Xml;
 
 namespace OpenDriveXMLGenerator
 {
@@ -9,8 +8,6 @@ namespace OpenDriveXMLGenerator
         public XmlElement RootElement { get; set; }
 
         private int id = 0;
-        private float x;
-        private float y;
 
         public OpenDriveXMLBuilder()
         {
@@ -87,8 +84,6 @@ namespace OpenDriveXMLGenerator
                     throw new ArgumentOutOfRangeException(nameof(crossingLength), "Crosswalk length must pe smaller then road width");
                 }
 
-                float u = 0.0f;
-                float v = 0.0f;
 
                 var objects = road.AddObjectsElement();
                 var obj = objects.AddObjectElement(s: (length / 2).ToString(), t: "0", zOffset: "0");
