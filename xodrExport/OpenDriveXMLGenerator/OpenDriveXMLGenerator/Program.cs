@@ -35,10 +35,11 @@ namespace OpenDriveXMLGenerator
         {
             var builder = new OpenDriveXMLBuilder();
 
-            //var road64 = builder.AddStraightRoad(startX:9 ,length:50, crossing:true);
-            //var curve1 = builder.Add15DegreeTurn(startX: 59);
-            builder.Add3wayIntersection(5, 0);
-            //var curve90 = builder.Add90DegreeTurn(0, 0);
+            var road64 = builder.AddStraightRoad(startX:0 ,length:5, crossing:true);
+            var curve1 = builder.Add15DegreeTurn(startX: 5);
+            builder.Add4wayIntersection(-18, 0);
+            builder.Add3wayIntersection(-36, 0);
+            var curve90 = builder.Add90DegreeTurn(-14, -14);
 
             builder.Document.Save("OpenDrive.xml");
 
