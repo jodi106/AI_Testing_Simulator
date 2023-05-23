@@ -77,7 +77,11 @@ namespace scripts
                     int currentIndex = selectedRoad.anchorPoints.FindIndex(anchor => anchor == selectedRoad.lastSelectedSnappedAnchorPoint);
                     VirtualAnchor nextAnchor = selectedRoad.anchorPoints[(currentIndex + 1) % selectedRoad.anchorPoints.Count];
                     CompareAnchorPointOrientation(selectedRoad.lastNeighborSnappedAnchorPoint, nextAnchor);
-                    selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
+                    foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                    {
+                        va.RemoveConntectedAnchorPoint();
+                    }
+                    //selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
                     selectedRoad.lastSelectedSnappedAnchorPoint = nextAnchor;
                     Snap();
                 }
@@ -98,7 +102,11 @@ namespace scripts
                     }
                     VirtualAnchor nextAnchor = selectedRoad.anchorPoints[(currentIndex - 1)];
                     CompareAnchorPointOrientation(selectedRoad.lastNeighborSnappedAnchorPoint, nextAnchor);
-                    selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
+                    foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                    {
+                        va.RemoveConntectedAnchorPoint();
+                    }
+                    //selectedRoad.lastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
                     selectedRoad.lastSelectedSnappedAnchorPoint = nextAnchor;
                     Snap();
                 }
@@ -372,6 +380,7 @@ namespace scripts
                         {
                             if (vaN.connectedAnchorPoint == null && Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset) < 1)
                             {
+                                Debug.Log("Distance " + Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset));
                                 vaS.ConnectAnchorPoint(vaN);
                                 stop = true;
                                 break;

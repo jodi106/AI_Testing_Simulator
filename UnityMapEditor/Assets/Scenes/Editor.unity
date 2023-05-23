@@ -397,7 +397,7 @@ MonoBehaviour:
   dragSpeed: 200
   zoomSpeed: 500
   minZoom: 1
-  maxZoom: 1000
+  maxZoom: 5000
 --- !u!114 &107380167
 MonoBehaviour:
   m_ObjectHideFlags: 0
