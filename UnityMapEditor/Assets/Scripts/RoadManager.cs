@@ -1,11 +1,8 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Xml.Linq;
 using UnityEngine.UIElements;
-using Entity;
+
 
 namespace scripts
 {
@@ -36,6 +33,8 @@ namespace scripts
         // used to check whether the user is currently dragging. So no other object can be selected during a drag. 
         private bool isDragging = false;
 
+        private bool isInStretchArea = false;
+        private bool isStretching = false;
         private bool isSnapped = false;
 
         // Rotating Angle of the Pieces
@@ -43,7 +42,13 @@ namespace scripts
 
         // Maximum Snapping Distance between Objects
         private const float MAX_SNAPPING_DISTANCE = 10;
-        private const float MAX_SNAPPING_AREA = 140 * 5 + MAX_SNAPPING_DISTANCE;
+        private const float MAX_SNAPPING_AREA = 140 * 2 + MAX_SNAPPING_DISTANCE;
+
+        public Texture2D cursorStretchTexture;
+
+        private VirtualAnchor stretchingAnchor;
+
+        private float stretchingDistance = 0;
 
         /*
          * Sets the instance, so other classes can refer
@@ -56,16 +61,29 @@ namespace scripts
         // Update is called once per frame
         void Update()
         {
+            if (selectedRoad != null)
+            {
+                CheckStretchPosition();
+            }
             // This condition checks, whether a tile is being dragged. 
             if (Input.GetMouseButton(0))
             {
-                DragAndDropRoad();
+                if (!isDragging && isInStretchArea)
+                {
+                    StretchRoad();
+                }
+                else
+                {
+                    DragAndDropRoad();
+                }
             }
 
             // This condition checks, when the user releases the drag and checks the road position
             if (Input.GetMouseButtonUp(0))
             {
                 isDragging = false;
+                isStretching = false;
+                stretchingDistance = 0;
                 validateRoadPosition();
             }
 
@@ -133,6 +151,80 @@ namespace scripts
                 DeselectRoad();
             }
         }
+        public void CheckStretchPosition()
+        {
+            GameObject obj = GetMouseObject();
+
+            if (obj != null && obj.GetComponent<RoadPiece>() != null)
+            {
+                RoadPiece road = obj.GetComponent<RoadPiece>();
+
+                foreach (VirtualAnchor anchor in selectedRoad.anchorPoints)
+                {
+                    if (anchor.connectedAnchorPoint == null)
+                    {
+                        if (!isStretching)
+                        {
+
+                            if (Vector3.Distance(GetWorldPositionFromMouse(), road.transform.position + anchor.offset) < 50)
+                            {
+                                //UnityEngine.Cursor.SetCursor(cursorStretchTexture, Vector2.zero, CursorMode.Auto);
+                                colorRoadPiece(SelectionColor.invalid);
+                                isInStretchArea = true;
+                                stretchingAnchor = anchor;
+                                return;
+                            }
+                            else
+                            {
+                                colorRoadPiece(SelectionColor.selected);
+                                isInStretchArea = false;
+                                stretchingAnchor = null;
+                                //UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                            }
+                        }
+                    }
+                }
+
+            }
+            else if (!isStretching)
+            {
+                colorRoadPiece(SelectionColor.selected);
+                isInStretchArea = false;
+                stretchingAnchor = null;
+                //UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            }
+        }
+
+        public void StretchRoad()
+        {
+            isStretching = true;
+            Vector3 origin = selectedRoad.transform.position + stretchingAnchor.offset;
+            Vector3 mousePosition = GetWorldPositionFromMouse();
+
+
+            if (Vector3.Distance(origin, mousePosition) > stretchingDistance + (37.8f * 5) + 20)
+            {
+                stretchingDistance += (37.8f * 5);
+                var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightRoad);
+                if (stretchingDistance == 37.8f * 5)
+                {
+
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x + stretchingDistance / 2, selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
+                    // roadPiece.transform.position = Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * roadPiece.transform.position;
+                }
+                else
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x + stretchingDistance - (37.8f * 5 / 2), selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
+                }
+            }
+            /* if (Vector3.Distance(origin, mousePosition) < stretchingDistance - (37.8f * 2))
+             {
+                 stretchingDistance -= (37.8f * 2);
+                 Debug.Log("Decrease");
+             }
+             */
+
+        }
 
         /*
          * This method will add every created road piece to the list of roads. This way, snapping can be implemented because the positions of roads can be determined. 
@@ -156,7 +248,7 @@ namespace scripts
         {
             // Creates the new roadpiece
             var roadPiece = PrefabManager.Instance.GetPieceOfType(ButtonManager.Instance.getSelectedRoadType());
-            var newRoadPiece = Instantiate(roadPiece, GetWorldPositionFromMouseClick(), Quaternion.identity);
+            var newRoadPiece = Instantiate(roadPiece, GetWorldPositionFromMouse(), Quaternion.identity);
 
             // Sets the valid position to false (As it will always spawn on the sidebar), adds the road to the list of roads and selects the road automatically upon creation, allowing the user to instantly drag it)
             inValidPosition = false;
@@ -187,37 +279,40 @@ namespace scripts
          */
         private void DragAndDropRoad()
         {
-            // This will only check the object at the start of dragging and not check every frame. Prevents the user from going too fast and "Losing" the road. 
-            if (isDragging == false)
+            if (!isStretching)
             {
-                selectedObject = GetClickedObject();
-            }
-
-            // This will, if a road is selected, set dragging to true, deselect previous roads and select the new road. The road is then dragged with the mouse
-            if (selectedObject != null)
-            {
-                if (selectedObject.GetComponent<RoadPiece>() != null)
+                // This will only check the object at the start of dragging and not check every frame. Prevents the user from going too fast and "Losing" the road. 
+                if (isDragging == false)
                 {
-                    DeselectRoad();
-                    SelectRoad(selectedObject.GetComponent<RoadPiece>());
+                    selectedObject = GetMouseObject();
+                }
 
-                    if (!selectedRoad.getIsLocked())
+                // This will, if a road is selected, set dragging to true, deselect previous roads and select the new road. The road is then dragged with the mouse
+                if (selectedObject != null)
+                {
+                    if (selectedObject.GetComponent<RoadPiece>() != null)
                     {
-                        isDragging = true;
-                        isSnapped = false;
-                        selectedRoad.transform.position = GetWorldPositionFromMouseClick();
-                        foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                        DeselectRoad();
+                        SelectRoad(selectedObject.GetComponent<RoadPiece>());
+
+                        if (!selectedRoad.getIsLocked())
                         {
-                            va.RemoveConntectedAnchorPoint();
+                            isDragging = true;
+                            isSnapped = false;
+                            selectedRoad.transform.position = GetWorldPositionFromMouse();
+                            foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+                            {
+                                va.RemoveConntectedAnchorPoint();
+                            }
+
+                            if (!Input.GetKey(KeyCode.LeftShift))
+                            {
+                                Snap();
+                            }
+                            validateRoadPosition();
                         }
 
-                        if (!Input.GetKey(KeyCode.LeftShift))
-                        {
-                            Snap();
-                        }
-                        validateRoadPosition();
                     }
-
                 }
             }
         }
@@ -398,7 +493,7 @@ namespace scripts
         /*
          * This will get the clicked object on the screen. Currently only works for GameObjects. 
          */
-        private GameObject GetClickedObject()
+        private GameObject GetMouseObject()
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
@@ -414,7 +509,7 @@ namespace scripts
         /*
          * This translates px into world position, so the user can only click inside the camera frame
          */
-        private Vector3 GetWorldPositionFromMouseClick()
+        private Vector3 GetWorldPositionFromMouse()
         {
             Vector3 mouseScreenPosition = Input.mousePosition;
             mouseScreenPosition.z = Camera.main.nearClipPlane;

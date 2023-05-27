@@ -1980,6 +1980,7 @@ MonoBehaviour:
   roadList: []
   selectedRoad: {fileID: 0}
   inValidPosition: 1
+  cursorStretchTexture: {fileID: 2800000, guid: a6134240bb4c6ed45a2eab8a06722f42, type: 3}
 --- !u!4 &1415920824
 Transform:
   m_ObjectHideFlags: 0
