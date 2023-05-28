@@ -41,7 +41,7 @@ namespace scripts
         private const float ROTATING_ANGLE = 15f;
 
         // Maximum Snapping Distance between Objects
-        private const float MAX_SNAPPING_DISTANCE = 10;
+        private const float MAX_SNAPPING_DISTANCE = 200;
         private const float MAX_SNAPPING_AREA = 140 * 2 + MAX_SNAPPING_DISTANCE;
 
         public Texture2D cursorStretchTexture;
