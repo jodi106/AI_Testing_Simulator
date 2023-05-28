@@ -36,13 +36,16 @@ namespace OpenDriveXMLGenerator
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
         }
 
+        /**
+         * Generates a straight piece of road
+         */
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, double hdg = 0.0, double length = 0.0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f) {
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
                 length: length.ToString(),
                 id: id.ToString(),
-                junction: "1");
+                junction: "-1");
 
             id++;
             var plainView = road.AddPlainViewElement();
@@ -55,27 +58,25 @@ namespace OpenDriveXMLGenerator
                 length: length.ToString());
 
             var lanes = road.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
-            var laneLeftSidewalk = leftSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-            laneLeftSidewalk.AddLinkElement();
-            laneLeftSidewalk.AddWidthElement(a:"1.5");
-            var left = laneSection.AddDirectionElement(Direction.Left);
-            var laneLeft = left.AddLaneElement(id: "-1", type: "driving", level: "false");
-            laneLeft.AddLinkElement();
-            laneLeft.AddWidthElement();
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
-            var rightSidewalk = laneSection.AddDirectionElement(Direction.Left);
-            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-            laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement(a: "1.5");
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var left = laneSection.AddDirectionElement(Direction.Left);
+                        var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                            laneLeftSidewalk.AddLinkElement();
+                            laneLeftSidewalk.AddWidthElement(a:"1.5");
+                        var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+                            laneLeft.AddLinkElement();
+                            laneLeft.AddWidthElement();
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement();
+                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement(a: "1.5");
 
 
             if (crossing) {
@@ -118,7 +119,7 @@ namespace OpenDriveXMLGenerator
                 name: "Road " + id.ToString(),
                 length: "1.3089411479932687",
                 id: id.ToString(),
-                junction: "1");
+                junction: "-1");
 
             id++;
             var plainView = road.AddPlainViewElement();
@@ -131,27 +132,25 @@ namespace OpenDriveXMLGenerator
                 curvature: "0.19999960000121728");
 
             var lanes = road.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
-            var laneLeftSidewalk = leftSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-            laneLeftSidewalk.AddLinkElement();
-            laneLeftSidewalk.AddWidthElement(a: "1.5");
-            var left = laneSection.AddDirectionElement(Direction.Left);
-            var laneLeft = left.AddLaneElement(id: "-1", type: "driving", level: "false");
-            laneLeft.AddLinkElement();
-            laneLeft.AddWidthElement();
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
-            var rightSidewalk = laneSection.AddDirectionElement(Direction.Left);
-            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-            laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement(a:"1.5");
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var left = laneSection.AddDirectionElement(Direction.Left);
+                        var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                            laneLeftSidewalk.AddLinkElement();
+                            laneLeftSidewalk.AddWidthElement(a: "1.5");
+                        var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+                            laneLeft.AddLinkElement();
+                            laneLeft.AddWidthElement();
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement();
+                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement(a:"1.5");
 
             return road;
         }
@@ -163,7 +162,7 @@ namespace OpenDriveXMLGenerator
                 name: "Road " + id.ToString(),
                 length: "7.8538002104133504",
                 id: id.ToString(),
-                junction: "1");
+                junction: "-1");
 
             id++;
             var plainView = road.AddPlainViewElement();
@@ -176,27 +175,25 @@ namespace OpenDriveXMLGenerator
                 curvature: "0.19999960000121791");
 
             var lanes = road.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
-            var laneLeftSidewalk = leftSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-            laneLeftSidewalk.AddLinkElement();
-            laneLeftSidewalk.AddWidthElement(a: "1.5");
-            var left = laneSection.AddDirectionElement(Direction.Left);
-            var laneLeft = left.AddLaneElement(id: "-1", type: "driving", level: "false");
-            laneLeft.AddLinkElement();
-            laneLeft.AddWidthElement();
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
-            var rightSidewalk = laneSection.AddDirectionElement(Direction.Left);
-            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-            laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement(a: "1.5");
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                var left = laneSection.AddDirectionElement(Direction.Left);
+                    var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                        laneLeftSidewalk.AddLinkElement();
+                        laneLeftSidewalk.AddWidthElement(a: "1.5");
+                    var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+                        laneLeft.AddLinkElement();
+                        laneLeft.AddWidthElement();
+                var center = laneSection.AddDirectionElement(Direction.Center);
+                    var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                        laneCenter.AddLinkElement();
+                        laneCenter.AddWidthElement(a: "0");
+                var right = laneSection.AddDirectionElement(Direction.Right);
+                    var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                        laneRight.AddLinkElement();
+                        laneRight.AddWidthElement();
+                    var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                        laneRightSidewalk.AddLinkElement();
+                        laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return road;
         }
@@ -238,16 +235,15 @@ namespace OpenDriveXMLGenerator
 
             var lanes = curve.AddLanesElement();
                 var laneSection = lanes.AddLaneSectionElement(s: "0");
-                    var right = laneSection.AddDirectionElement(Direction.Right);
-                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-                            laneRight.AddLinkElement();
-                            laneRight.AddWidthElement();
                     var center = laneSection.AddDirectionElement(Direction.Center);
                         var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
                             laneCenter.AddLinkElement();
                             laneCenter.AddWidthElement(a: "0");
-                    var rightSidewalk = laneSection.AddDirectionElement(Direction.Right);
-                        var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement();
+                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
                             laneRightSidewalk.AddLinkElement();
                             laneRightSidewalk.AddWidthElement(a: "1.5");
 
@@ -289,19 +285,18 @@ namespace OpenDriveXMLGenerator
                 length: "0.1455");
 
             var lanes = curve.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var rightSidewalk = laneSection.AddDirectionElement(Direction.Right);
-            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-            laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement(a: "1.5");
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement();
+                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return curve;
         }
@@ -341,19 +336,18 @@ namespace OpenDriveXMLGenerator
                 length: "0.1455");
 
             var lanes = curve.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var rightSidewalk = laneSection.AddDirectionElement(Direction.Right);
-            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-            laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement(a: "1.5");
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement();
+                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return curve;
         }
@@ -393,19 +387,18 @@ namespace OpenDriveXMLGenerator
                 length: "0.1455");
 
             var lanes = curve.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var rightSidewalk = laneSection.AddDirectionElement(Direction.Right);
-            var laneRightSidewalk = rightSidewalk.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-            laneRightSidewalk.AddLinkElement();
-            laneRightSidewalk.AddWidthElement(a: "1.5");
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement();
+                    var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return curve;
         }
@@ -451,15 +444,15 @@ namespace OpenDriveXMLGenerator
                 length: "3.0943650813895953");
 
             var lanes = curve.AddLanesElement();
-            var laneSection = lanes.AddLaneSectionElement(s: "0");
-            var center = laneSection.AddDirectionElement(Direction.Center);
-            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-            laneCenter.AddLinkElement();
-            laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Left);
-            var laneRight = right.AddLaneElement(id: "1", type: "driving", level: "false");
-            laneRight.AddLinkElement();
-            laneRight.AddWidthElement();
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                var left = laneSection.AddDirectionElement(Direction.Left);
+                    var laneRight = left.AddLaneElement(id: "1", type: "driving", level: "false");
+                        laneRight.AddLinkElement();
+                        laneRight.AddWidthElement();
 
             return curve;
 
@@ -511,8 +504,8 @@ namespace OpenDriveXMLGenerator
             var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
             laneCenter.AddLinkElement();
             laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Left);
-            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            var left = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = left.AddLaneElement(id: "-1", type: "driving", level: "false");
             laneRight.AddLinkElement();
             laneRight.AddWidthElement();
 
@@ -566,8 +559,8 @@ namespace OpenDriveXMLGenerator
             var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
             laneCenter.AddLinkElement();
             laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Right);
-            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            var left = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = left.AddLaneElement(id: "-1", type: "driving", level: "false");
             laneRight.AddLinkElement();
             laneRight.AddWidthElement();
 
@@ -621,8 +614,8 @@ namespace OpenDriveXMLGenerator
             var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
             laneCenter.AddLinkElement();
             laneCenter.AddWidthElement(a: "0");
-            var right = laneSection.AddDirectionElement(Direction.Left);
-            var laneRight = right.AddLaneElement(id: "1", type: "driving", level: "false");
+            var left = laneSection.AddDirectionElement(Direction.Left);
+            var laneRight = left.AddLaneElement(id: "1", type: "driving", level: "false");
             laneRight.AddLinkElement();
             laneRight.AddWidthElement();
 
@@ -665,8 +658,7 @@ namespace OpenDriveXMLGenerator
             if (sidewalk == true)
             {
                 laneRight.AddWidthElement();
-                var leftSidewalk = laneSection.AddDirectionElement(Direction.Right);
-                var laneLeft1 = leftSidewalk.AddLaneElement(id: "-2", type: "driving", level: "false");
+                var laneLeft1 = right.AddLaneElement(id: "-2", type: "driving", level: "false");
                 laneLeft1.AddLinkElement();
                 laneLeft1.AddWidthElement(a: "1.5");
             }
@@ -709,8 +701,7 @@ namespace OpenDriveXMLGenerator
             if (sidewalk == true)
             {
                 laneLeft.AddWidthElement();
-                var leftSidewalk = laneSection.AddDirectionElement(Direction.Left);
-                var laneLeft1 = leftSidewalk.AddLaneElement(id: "2", type: "driving", level: "false");
+                var laneLeft1 = left.AddLaneElement(id: "2", type: "driving", level: "false");
                 laneLeft1.AddLinkElement();
                 laneLeft1.AddWidthElement(a: "1.5");
             }

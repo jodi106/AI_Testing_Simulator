@@ -35,8 +35,8 @@ namespace OpenDriveXMLGenerator
         {
             var builder = new OpenDriveXMLBuilder();
 
-            var road1 = builder.AddStraightRoad(length: 20);
-            builder.Add3wayIntersection(10, 0);
+            var road1 = builder.AddStraightRoad(startX: -10, startY: 0,length: 20);
+            builder.Add3wayIntersection(startX: 10, startY: 0);
             var road2 = builder.AddStraightRoad(startX:28, startY:0,length:20);
             builder.Add3wayIntersection(48, 0);
             var road3 = builder.AddStraightRoad(startX: 66, startY: 0, length: 20);
