@@ -32,6 +32,8 @@ namespace scripts
         FourWayRoundAbout,
         [Description("ThreeWayRoundAbout")]
         ThreeWayRoundAbout,
+        [Description("StraightShort")]
+        StraightShort,
     }
     public enum SelectionColor 
     {

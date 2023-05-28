@@ -202,11 +202,11 @@ namespace scripts
             Vector3 mousePosition = GetWorldPositionFromMouse();
 
 
-            if (Vector3.Distance(origin, mousePosition) > stretchingDistance + (37.8f * 5) + 20)
+            if (Vector3.Distance(origin, mousePosition) > stretchingDistance + (3.78f * 5) + 20)
             {
-                stretchingDistance += (37.8f * 5);
-                var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightRoad);
-                if (stretchingDistance == 37.8f * 5)
+                stretchingDistance += (3.78f * 5);
+                var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
+                if (stretchingDistance == 3.78f * 5)
                 {
 
                     Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x + stretchingDistance / 2, selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
@@ -214,7 +214,7 @@ namespace scripts
                 }
                 else
                 {
-                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x + stretchingDistance - (37.8f * 5 / 2), selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x + stretchingDistance - (3.78f * 5 / 2), selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
                 }
             }
             /* if (Vector3.Distance(origin, mousePosition) < stretchingDistance - (37.8f * 2))

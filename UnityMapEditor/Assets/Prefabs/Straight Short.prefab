@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4777127794566381305}
   - component: {fileID: 3268465651514629649}
   m_Layer: 0
-  m_Name: Straight
+  m_Name: Straight Short
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 37.8, y: 3.78}
+  m_Size: {x: 3.78, y: 37.8}
   m_EdgeRadius: 0
 --- !u!114 &3268465651514629649
 MonoBehaviour:
@@ -125,6 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighbors: []
-  roadType: 1
-  width: 37.8
-  height: 3.78
+  roadType: 11
+  width: 3.78
+  height: 37.8

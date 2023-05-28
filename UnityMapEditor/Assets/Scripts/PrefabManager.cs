@@ -25,6 +25,7 @@ namespace scripts
         public RoadPiece Crosswalk;
         public RoadPiece FourWayRoundAbout;
         public RoadPiece ThreeWayRoundAbout;
+        public RoadPiece StraightShort;
 
         // Start is called before the first frame update
         void Start()
@@ -62,6 +63,8 @@ namespace scripts
                     return FourWayRoundAbout;
                 case RoadType.ThreeWayRoundAbout:
                     return ThreeWayRoundAbout;
+                case RoadType.StraightShort:
+                    return StraightShort;
                 default:
                     return null;
             }

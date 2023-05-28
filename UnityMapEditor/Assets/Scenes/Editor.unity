@@ -608,6 +608,7 @@ MonoBehaviour:
   Crosswalk: {fileID: 1758414879012483493, guid: 676d6eb07dd4fb9478c537d7ec7f0fde, type: 3}
   FourWayRoundAbout: {fileID: -1501864468238237680, guid: dededa8433f319e43b1c36f083c4ff44, type: 3}
   ThreeWayRoundAbout: {fileID: 7990396848659306430, guid: dfc5e22c7a1e42f41b231349b32ced20, type: 3}
+  StraightShort: {fileID: 3268465651514629649, guid: 4a0eab48642c5a246b7025345be42f49, type: 3}
 --- !u!4 &291987909
 Transform:
   m_ObjectHideFlags: 0
