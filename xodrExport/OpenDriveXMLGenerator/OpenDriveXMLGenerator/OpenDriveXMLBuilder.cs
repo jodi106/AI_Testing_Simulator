@@ -753,6 +753,111 @@ namespace OpenDriveXMLGenerator
             var connectionRoad2 = this.AddLeftStraight(startX4, startY4, 0, true);
         }
 
+        public void Add3wayIntersectionTop(float startX = 0, float startY = 0)
+        {
+            float startX2 = startX + 8.5f;
+            float startY2 = startY -9;
+            var incomingRoadId2 = id;
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, 0, 0.5f, false);
+
+            float startX3 = startX ;
+            float startY3 = startY - 18;
+            var incomingRoadId3 = id;
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, 1.5707963f, 0.5f, false);
+
+            float startX4 = startX ;
+            float startY4 = startY -0.5f;
+            var incomingRoadId4 = id;
+            var incomingRoad4 = this.AddStraightRoad(startX4, startY4, 1.5707963f, 0.5f, false);
+
+            float startXCurve1 = startX;
+            float startYCurve1 = startY - 17.5f;
+            var curve1Right = this.AddRightCurveToIntersection(startXCurve1, startYCurve1, 1.5707963f, incomingRoadId3, incomingRoadId2);
+            var curve1Left = this.AddLeftCurveToIntersection(startXCurve1, startYCurve1, 1.5707963f, incomingRoadId2, incomingRoadId3);
+
+            float startX6 = startX;
+            float startY6 = startY - 17.5f;
+            var connectionRoad3 = this.AddRightStraight(startX6, startY6, 1.5707963f);
+            var connectionRoad4 = this.AddLeftStraight(startX6, startY6, 1.5707963f, sidewalk: true);
+
+
+            float startXCurve4 = startX + 8.5f;
+            float startYCurve4 = startY -9;
+            var curve4Left = this.AddRightCurveToIntersection4(startXCurve4, startYCurve4, 3.1415926f, incomingRoadId4, incomingRoadId2);
+            var curve4Right = this.AddLeftCurveToIntersection4(startXCurve4, startYCurve4, 3.1415926f, incomingRoadId2, incomingRoadId4);
+
+        }
+
+        public void Add3wayIntersectionBottom(float startX = 0, float startY = 0)
+        {
+            var incomingRoadId1 = id;
+            float startX1 = startX;
+            float startY1 = startY;
+            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, 0, 0.5f, false);
+
+            float startX3 = startX + 9;
+            float startY3 = startY - 9;
+            var incomingRoadId3 = id;
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, 1.5707963f, 0.5f, false);
+
+            float startX4 = startX + 9;
+            float startY4 = startY + 8.5f;
+            var incomingRoadId4 = id;
+            var incomingRoad4 = this.AddStraightRoad(startX4, startY4, 1.5707963f, 0.5f, false);
+
+            float startXCurve1 = startX + 9;
+            float startYCurve1 = startY - 8.5f;
+            float startXCurve2 = startX + 0.5f;
+            float startYCurve2 = startY;
+            var curve2Right = this.AddRightCurveToIntersection2(startXCurve2, startYCurve2, 0, incomingRoadId1, incomingRoadId3);
+            var curve2Left = this.AddLeftCurveToIntersection2(startXCurve1, startYCurve1, 0, incomingRoadId3, incomingRoadId1);
+
+            float startX6 = startX + 9;
+            float startY6 = startY - 8.5f;
+            var connectionRoad3 = this.AddRightStraight(startX6, startY6, 1.5707963f, sidewalk: true);
+            var connectionRoad4 = this.AddLeftStraight(startX6, startY6, 1.5707963f);
+
+            float startXCurve3 = startX + 9;
+            float startYCurve3 = startY + 8.5f;
+            var curve3Left = this.AddRightCurveToIntersection3(startXCurve3, startYCurve3, -1.5707963f, incomingRoadId4, incomingRoadId3);
+            var curve3Right = this.AddLeftCurveToIntersection3((startX + 0.5f), startY, 0, incomingRoadId3, incomingRoadId4);
+
+        }
+
+        public void Add3wayIntersectionLeft(float startX = 0, float startY = 0)
+        {
+            var incomingRoadId1 = id;
+            float startX1 = startX;
+            float startY1 = startY;
+            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, 0, 0.5f, false);
+
+            float startX2 = startX + 17.5f;
+            float startY2 = startY;
+            var incomingRoadId2 = id;
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, 0, 0.5f, false);
+
+            float startX4 = startX + 9;
+            float startY4 = startY + 8.5f;
+            var incomingRoadId4 = id;
+            var incomingRoad4 = this.AddStraightRoad(startX4, startY4, 1.5707963f, 0.5f, false);
+
+            float startX5 = startX + 0.5f;
+            float startY5 = startY;
+            var connectionRoad1 = this.AddRightStraight(startX5, startY5, 0, sidewalk: true);
+            var connectionRoad2 = this.AddLeftStraight(startX5, startY5, 0);
+
+            float startXCurve3 = startX + 9;
+            float startYCurve3 = startY + 8.5f;
+            var curve3Left = this.AddRightCurveToIntersection3(startXCurve3, startYCurve3, -1.5707963f, incomingRoadId4, incomingRoadId2);
+            var curve3Right = this.AddLeftCurveToIntersection3((startX + 0.5f), startY, 0, incomingRoadId2, incomingRoadId4);
+
+            float startXCurve4 = startX + 17.5f;
+            float startYCurve4 = startY;
+            var curve4Left = this.AddRightCurveToIntersection4(startXCurve4, startYCurve4, 3.1415926f, incomingRoadId4, incomingRoadId2);
+            var curve4Right = this.AddLeftCurveToIntersection4(startXCurve4, startYCurve4, 3.1415926f, incomingRoadId2, incomingRoadId4);
+
+        }
+
         public void Add4wayIntersection(float startX = 0, float startY = 0)
         {
             var incomingRoadId1 = id;
