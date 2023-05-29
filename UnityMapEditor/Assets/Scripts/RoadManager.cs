@@ -201,8 +201,8 @@ namespace scripts
             Vector3 origin = selectedRoad.transform.position + stretchingAnchor.offset;
             Vector3 mousePosition = GetWorldPositionFromMouse();
 
-
-            if (Vector3.Distance(origin, mousePosition) > stretchingDistance + (3.78f * 5) + 20)
+            //Stretching right
+            if (stretchingAnchor.orientation == 0 && mousePosition.x - origin.x > stretchingDistance + (3.78f * 5) + 20)
             {
                 stretchingDistance += (3.78f * 5);
                 var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
@@ -217,12 +217,60 @@ namespace scripts
                     Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x + stretchingDistance - (3.78f * 5 / 2), selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
                 }
             }
-            /* if (Vector3.Distance(origin, mousePosition) < stretchingDistance - (37.8f * 2))
+            /* if (Vector3.Distance(origin, mousePosition) < stretchingDistance - (3.78f * 5))
              {
-                 stretchingDistance -= (37.8f * 2);
+                 stretchingDistance -= (3.78f * 5);
                  Debug.Log("Decrease");
              }
              */
+
+            //Stretching left
+            else if (stretchingAnchor.orientation == 180 && origin.x - mousePosition.x > stretchingDistance + (3.78f * 5) + 20)
+            {
+                stretchingDistance += (3.78f * 5);
+                var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
+                if (stretchingDistance == 3.78f * 5)
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x - stretchingDistance / 2, selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
+                    // roadPiece.transform.position = Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * roadPiece.transform.position;
+                }
+                else
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x + stretchingAnchor.offset.x - stretchingDistance + (3.78f * 5 / 2), selectedRoad.transform.position.y, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()));
+                }
+            }
+
+            //Stretching top
+            else if (stretchingAnchor.orientation == 90 && mousePosition.y - origin.y > stretchingDistance + (3.78f * 5) + 20)
+            {
+                stretchingDistance += (3.78f * 5);
+                var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
+                if (stretchingDistance == 3.78f * 5)
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x, selectedRoad.transform.position.y + stretchingAnchor.offset.y + stretchingDistance / 2, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
+                    // roadPiece.transform.position = Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * roadPiece.transform.position;
+                }
+                else
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x, selectedRoad.transform.position.y + stretchingAnchor.offset.y + stretchingDistance - (3.78f * 5 / 2), 0), Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
+                }
+            }
+
+            //Stretching bot
+            else if (stretchingAnchor.orientation == 270 && origin.y - mousePosition.y > stretchingDistance + (3.78f * 5) + 20)
+            {
+                stretchingDistance += (3.78f * 5);
+                var roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
+                if (stretchingDistance == 3.78f * 5)
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x, selectedRoad.transform.position.y + stretchingAnchor.offset.y - stretchingDistance / 2, 0), Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
+                    // roadPiece.transform.position = Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * roadPiece.transform.position;
+                }
+                else
+                {
+                    Instantiate(roadPiece, Quaternion.Euler(0f, 0f, stretchingAnchor.referencedRoadPiece.getRotation()) * new Vector3(selectedRoad.transform.position.x, selectedRoad.transform.position.y + stretchingAnchor.offset.y - stretchingDistance + (3.78f * 5 / 2), 0), Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
+                }
+            }
 
         }
 
@@ -475,7 +523,7 @@ namespace scripts
                         {
                             if (vaN.connectedAnchorPoint == null && Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset) < 1)
                             {
-                                Debug.Log("Distance " + Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset));
+                                //Debug.Log("Distance " + Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset));
                                 vaS.ConnectAnchorPoint(vaN);
                                 stop = true;
                                 break;
