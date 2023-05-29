@@ -47,23 +47,22 @@ namespace OpenDriveXMLGenerator
             var road7 = builder.Add90DegreeTurn(startX: 164, startY: -210);
             var road8 = builder.AddStraightRoad(startX: 164, startY: -210, length: 30, hdg:3.1415);
             var road9 = builder.Add90DegreeTurn(startX: 129, startY: -205, hdg: -1.5707963267949);
-            builder.Add3wayIntersectionTop(startX: 19, startY: -9);
-            builder.Add3wayIntersectionTop(startX: 19, startY: -27);
+            builder.Add3wayIntersection(startX: 19, startY: -27, hdg: 1.57f);
+            builder.Add3wayIntersection(startX: 19, startY: -45, hdg: 1.57f);
             var road10 = builder.AddStraightRoad(startX: 19, startY: -45, hdg: -1.5707963267949, length:60);
             var road11 = builder.Add90DegreeTurn(startX: 19, startY: -105, hdg: -1.5707963267949);
             var road12 = builder.AddStraightRoad(startX: 28, startY: -18, length: 20);
             builder.Add4wayIntersection(startX: 48, startY: -18);
             var road13 = builder.AddStraightRoad(startX: 66, startY: -18, length: 20);
-            builder.Add3wayIntersectionBottom(startX: 86, startY: -18);
+            builder.Add3wayIntersection(startX: 95, startY: -9, hdg: -1.57f);
             var road14 = builder.AddStraightRoad(startX: 28, startY: -36, length: 20);
-            builder.Add3wayIntersectionLeft(startX: 48, startY: -36);
+            builder.Add3wayIntersection(startX: 66, startY: -36, hdg: -3.1415f);
             var road15 = builder.AddStraightRoad(startX: 66, startY: -36, length: 20);
-            builder.Add3wayIntersectionLeft(startX: 86, startY: -36);
+            builder.Add3wayIntersection(startX: 104, startY: -36, hdg: -3.1415f);
             var road16 = builder.AddStraightRoad(startX: 104, startY: -36, length: 20);
             var road17 = builder.Add90DegreeTurn(startX: 129, startY: -41, hdg: 1.5707963267949);
             var road18 = builder.AddStraightRoad(startX: 129, startY: -41, hdg: -1.5707963267949, length: 60);
             var road19 = builder.AddStraightRoad(startX: 129, startY: -205, hdg: 1.5707963267949, length: 60);
-
 
             builder.Document.Save("OpenDrive.xml");
 
