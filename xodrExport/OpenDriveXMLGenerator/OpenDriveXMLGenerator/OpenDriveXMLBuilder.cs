@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Globalization;
+using System.Xml;
 
 namespace OpenDriveXMLGenerator
 {
@@ -8,6 +9,8 @@ namespace OpenDriveXMLGenerator
         public XmlElement RootElement { get; set; }
 
         private int id = 0;
+
+        private int roundid = 0;
 
         public OpenDriveXMLBuilder()
         {
@@ -39,23 +42,32 @@ namespace OpenDriveXMLGenerator
         /**
          * Generates a straight piece of road
          */
-        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, double hdg = 0.0, double length = 0.0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f) {
+        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3", int overId = -1) {
 
+            int idr;
+            
+            if( overId != -1 ) { idr = overId; 
+            } else {
+                idr = this.id;
+            }
+            
             var road = RootElement.AddRoadElement(
-                name: "Road " + id.ToString(),
+                name: "Road " + idr.ToString(),
                 length: length.ToString(),
-                id: id.ToString(),
+                id: idr.ToString(),
                 junction: "-1");
 
-            id++;
+            if(idr!=overId)
+                id++;
+            
             var plainView = road.AddPlainViewElement();
             //TODO modify x and y based on previous road
             var geometry1 = plainView.AddGeometryElement(
                 s: "0.0",
-                x: startX.ToString(),
+                x: startX.ToString(CultureInfo.InvariantCulture),
                 y: startY.ToString(),
                 hdg: hdg.ToString(),
-                length: length.ToString());
+                length: length.ToString(CultureInfo.InvariantCulture));
 
             var lanes = road.AddLanesElement();
                 var laneSection = lanes.AddLaneSectionElement(s: "0");
@@ -65,7 +77,7 @@ namespace OpenDriveXMLGenerator
                             laneLeftSidewalk.AddWidthElement(a:"1.5");
                         var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
                             laneLeft.AddLinkElement();
-                            laneLeft.AddWidthElement();
+                            laneLeft.AddWidthElement(a:laneWidth);
                     var center = laneSection.AddDirectionElement(Direction.Center);
                         var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
                             laneCenter.AddLinkElement();
@@ -73,7 +85,7 @@ namespace OpenDriveXMLGenerator
                     var right = laneSection.AddDirectionElement(Direction.Right);
                         var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
                             laneRight.AddLinkElement();
-                            laneRight.AddWidthElement();
+                            laneRight.AddWidthElement(a:laneWidth);
                         var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
                             laneRightSidewalk.AddLinkElement();
                             laneRightSidewalk.AddWidthElement(a: "1.5");
@@ -198,6 +210,56 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
+        //The custom road has no left lane or left sidewalk
+
+        public XODRRoad AddCustomRoad(int overId = -1, float startX = 0, float startY = 0, float hdg = 0, float length = 0, string laneWidth = "3", string curvature = null){
+
+            int idr;
+
+            if (overId != -1)
+            {
+                idr = overId;
+            }
+            else
+            {
+                idr = this.id;
+            }
+
+            var road = RootElement.AddRoadElement(
+                name: "Road " + idr.ToString(),
+                length: length.ToString(),
+                id: idr.ToString(),
+                junction: "-1");
+
+            if (idr != overId)
+                id++;
+
+            var plainView = road.AddPlainViewElement();
+            var geometry1 = plainView.AddGeometryElement(
+                s: "0.0",
+                x: startX.ToString(),
+                y: startY.ToString(),
+                hdg: hdg.ToString(),
+                length: length.ToString(),
+                curvature: curvature);
+
+            var lanes = road.AddLanesElement();
+                var laneSection = lanes.AddLaneSectionElement(s: "0");
+                    var center = laneSection.AddDirectionElement(Direction.Center);
+                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+                            laneCenter.AddLinkElement();
+                            laneCenter.AddWidthElement(a: "0");
+                    var right = laneSection.AddDirectionElement(Direction.Right);
+                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+                            laneRight.AddLinkElement();
+                            laneRight.AddWidthElement(a: laneWidth);
+                    var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                            laneRightSidewalk.AddLinkElement();
+                            laneRightSidewalk.AddWidthElement(a: "1.5");
+
+
+            return road;
+        }
 
         public XODRRoad AddRightCurveToIntersection(float startX = 0, float startY = 0, double hdg = 0, int predecessorId = 0, int successorId = 0)
         {
@@ -710,23 +772,22 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-
         public void Add3wayIntersection(float startX = 0, float startY = 0)
         {
             var incomingRoadId1 = id;
             float startX1 = startX;
             float startY1 = startY;
-            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, 0, 0.5, false);
+            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, 0, 0.5f, false);
 
             float startX2 = startX + 17.5f;
             float startY2 = startY;
             var incomingRoadId2 = id;
-            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, 0, 0.5, false);
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, 0, 0.5f, false);
 
             float startX3 = startX + 9;
             float startY3 = startY - 9;
             var incomingRoadId3 = id;
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, 1.5707963267949, 0.5, false);
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, 1.5707963267949f, 0.5f, false);
 
             float startXCurve1 = startX + 9;
             float startYCurve1 = startY - 8.5f;
@@ -901,6 +962,18 @@ namespace OpenDriveXMLGenerator
             var curve4Left = this.AddRightCurveToIntersection4(startXCurve4, startYCurve4, 3.1415926f, incomingRoadId4, incomingRoadId2);
             var curve4Right = this.AddLeftCurveToIntersection4(startXCurve4, startYCurve4, 3.1415926f, incomingRoadId2, incomingRoadId4);
 
+        }
+    
+        public XODRRoad AddRoundAbout(float startX = 0, float startY = 0, double hdg = 0.0){
+
+            var road0 = this.AddStraightRoad(overId: 0, startX: -20, startY: 0, hdg: 0, length: 5.5999755859375000e+00, laneWidth: "3.5");
+            var road1 = this.AddStraightRoad(overId: 1, startX: 1.2858939716150483e-16f, startY: -1.4400024414062500e+01f, hdg: -1.5707963267948966e+00f, length: 5.5999755859375000e+00f, laneWidth: "3.5");
+            var road2 = this.AddStraightRoad(overId: 2, startX: 1.4400024414062500e+01f, startY: 0, hdg: 0, length: 5.5999755859375000e+00f, laneWidth: "3.5");
+            var road3 = this.AddStraightRoad(overId: 3, startX: 1.2981407199059296e-16f, startY: 1.4400024414062500e+01f, hdg: 1.5707963267948966e+00f, length: 5.5999755859375000e+00f, laneWidth: "3.5");
+            var road4 = this.AddCustomRoad(overId: 5, startX: -7.8466256351911206e+00f, startY: -2.9984095338145988e+00f, hdg: -1.2057917902788586e+00f, length: 7.0622814306167738e+00f, laneWidth: "3.5", curvature: "1.1904762445393628e-01");
+            
+            return null;
+        
         }
     }
 }
