@@ -9,12 +9,12 @@ namespace OpenDriveXMLGenerator
 
     public static class XODRJunctionExtentions
     {
-        public static XODRConnection AddConnectionElement(this XODRRoad parent, int id,  int incomingRoadId, int connectingRoadId)
+        public static XODRConnection AddConnectionElement(this XODRJunction parent, string id,  string incomingRoadId, string connectingRoadId)
         {
             var connection = new XODRConnection(parent.OwnerDocument.CreateElement("connection"));
-            connection.SetAttribute("id", id.ToString());
-            connection.SetAttribute("incomingRoad", incomingRoadId.ToString());
-            connection.SetAttribute("connectingRoad", connectingRoadId.ToString());
+            connection.SetAttribute("id", id);
+            connection.SetAttribute("incomingRoad", incomingRoadId);
+            connection.SetAttribute("connectingRoad", connectingRoadId);
             parent.AppendChild(connection.XmlElement);
 
             return connection;

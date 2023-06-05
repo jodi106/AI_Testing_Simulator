@@ -9,11 +9,11 @@ namespace OpenDriveXMLGenerator
 
     public static class XODRConnectionExtentions
     {
-        public static XODRLaneLink AddLaneLinkElement(this XODRConnection parent, int from, int to)
+        public static XODRLaneLink AddLaneLinkElement(this XODRConnection parent, string from, string to)
         {
             var laneLink = new XODRLaneLink(parent.OwnerDocument.CreateElement("laneLink"));
-            laneLink.SetAttribute("from", from.ToString());
-            laneLink.SetAttribute("to", to.ToString());
+            laneLink.SetAttribute("from", from);
+            laneLink.SetAttribute("to", to);
             parent.AppendChild(laneLink.XmlElement);
 
             return laneLink;
