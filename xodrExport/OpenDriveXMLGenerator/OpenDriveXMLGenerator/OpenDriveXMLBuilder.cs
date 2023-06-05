@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Xml;
 
 namespace OpenDriveXMLGenerator
@@ -44,7 +45,7 @@ namespace OpenDriveXMLGenerator
         /**
          * Generates a straight piece of road
          */
-        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3", int overId = -1) {
+        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5", int overId = -1) {
 
             int idr;
             
