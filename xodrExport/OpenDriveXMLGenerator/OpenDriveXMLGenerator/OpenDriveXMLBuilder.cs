@@ -45,7 +45,7 @@ namespace OpenDriveXMLGenerator
         /**
          * Generates a straight piece of road
          */
-        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5") {
+        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5", int[] predecessorId = null, int[] successorId = null) {
             
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -54,7 +54,24 @@ namespace OpenDriveXMLGenerator
                 junction: "-1");
 
                 id++;
-            
+
+            var link = road.AddLinkElement();
+            if (predecessorId != null)
+            {
+                foreach (var id in predecessorId)
+                {
+                    var predecessor = link.AddPredecessor("road", id.ToString());
+
+                }
+            }
+            if (successorId != null)
+            {
+                foreach (var id in successorId)
+                {
+                    var successor = link.AddSuccessor("road", id.ToString());
+                }
+            }
+
             var plainView = road.AddPlainViewElement();
             //TODO modify x and y based on previous road
             var geometry1 = plainView.AddGeometryElement(
@@ -207,7 +224,7 @@ namespace OpenDriveXMLGenerator
 
 
         //The custom road has no left lane or left sidewalk
-        public XODRRoad AddLeftLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, float length = 0, string laneWidth = "3.5", string curvature = null, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddLeftLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, float length = 0, string laneWidth = "3.5", string curvature = null, bool sidewalk = false, int[] predecessorId = null, int[] successorId = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -225,8 +242,22 @@ namespace OpenDriveXMLGenerator
 
 
             var link = road.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorId != null)
+            {
+                foreach (var id in predecessorId)
+                {
+                    var predecessor = link.AddPredecessor("road", id.ToString());
+
+                }
+            }
+            if (successorId != null)
+            {
+                foreach (var id in successorId)
+                {
+                    var successor = link.AddSuccessor("road", id.ToString());
+                }
+            }
+
 
             var plainView = road.AddPlainViewElement();
             var geometry1 = plainView.AddGeometryElement(
@@ -586,7 +617,7 @@ namespace OpenDriveXMLGenerator
 
         }
 
-        private XODRRoad AddRoundaboutEntry(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int predecessorId = 0, int successorId = 0)
+        private XODRRoad AddRoundaboutEntry(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int[] predecessorId = null, int[] successorId = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -603,8 +634,21 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorId != null)
+            {
+                foreach (var id in predecessorId)
+                {
+                    var predecessor = link.AddPredecessor("road", id.ToString());
+
+                }
+            }
+            if (successorId != null)
+            {
+                foreach (var id in successorId)
+                {
+                    var successor = link.AddSuccessor("road", id.ToString());
+                }
+            }
 
 
             var plainView = road.AddPlainViewElement();
@@ -651,7 +695,7 @@ namespace OpenDriveXMLGenerator
 
             return road;
         }
-        private XODRRoad AddRoundaboutExit(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int predecessorId = 0, int successorId = 0)
+        private XODRRoad AddRoundaboutExit(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int[] predecessorId = null, int[] successorId = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -669,8 +713,21 @@ namespace OpenDriveXMLGenerator
 
 
             var link = road.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorId != null)
+            {
+                foreach (var id in predecessorId)
+                {
+                    var predecessor = link.AddPredecessor("road", id.ToString());
+
+                }
+            }
+            if (successorId != null)
+            {
+                foreach (var id in successorId)
+                {
+                    var successor = link.AddSuccessor("road", id.ToString());
+                }
+            }
 
             var plainView = road.AddPlainViewElement();
             var geometry4 = plainView.AddGeometryElement(
