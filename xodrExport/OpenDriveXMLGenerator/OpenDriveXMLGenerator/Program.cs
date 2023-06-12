@@ -35,7 +35,7 @@ namespace OpenDriveXMLGenerator
         {
             var builder = new OpenDriveXMLBuilder();
 
-            builder.AddRoundAbout(); 
+            CreateBoschMap(builder);
 
             builder.Document.Save("OpenDrive.xodr");
 
@@ -70,10 +70,11 @@ namespace OpenDriveXMLGenerator
             var road16 = builder.AddStraightRoad(startX: 104, startY: -36, length: 20);
             var road17 = builder.Add90DegreeTurn(startX: 129, startY: -41, hdg: 1.5707963267949);
             var road18 = builder.AddStraightRoad(startX: 129, startY: -41, hdg: -1.5707963267949f, length: 59);
-            var road19 = builder.AddStraightRoad(startX: 129, startY: -205, hdg: 1.5707963267949f, length: 91);
-            var road20 = builder.AddStraightRoad(startX: 24, startY: -109, hdg: 0, length: 96);
-            var road10 = builder.AddStraightRoad(startX: 19, startY: -44, hdg: -1.5707963267949f, length: 60);
-            var road11 = builder.Add90DegreeTurn(startX: 19, startY: -104, hdg: -1.5707963267949);
+            var road19 = builder.AddStraightRoad(startX: 129, startY: -205, hdg: 1.5707963267949f, length: 65);
+            var road20 = builder.AddStraightRoad(startX: 24, startY: -120, hdg: 0, length: 85);
+            var road10 = builder.AddStraightRoad(startX: 19, startY: -44, hdg: -1.5707963267949f, length: 71);
+            var road11 = builder.Add90DegreeTurn(startX: 19, startY: -115, hdg: -1.5707963267949);
+            builder.Add3WayRoundAbout(startX: 129, startY: -100, hdg: -1.5707963267949f);
         }
     }
 }
