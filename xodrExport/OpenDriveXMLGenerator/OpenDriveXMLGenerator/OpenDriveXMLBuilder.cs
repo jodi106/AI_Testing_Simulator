@@ -46,7 +46,7 @@ namespace OpenDriveXMLGenerator
          * Generates a straight piece of road
          */
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5", int[] predecessorId = null, int[] successorId = null) {
-            
+
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
                 length: length.ToString(),
@@ -136,7 +136,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad Add15DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0)
+        public XODRRoad Add15DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0, int[] predecessorId = null, int[] successorId = null)
         {
 
             var road = RootElement.AddRoadElement(
@@ -146,6 +146,24 @@ namespace OpenDriveXMLGenerator
                 junction: "-1");
 
             id++;
+
+            var link = road.AddLinkElement();
+            if (predecessorId != null)
+            {
+                foreach (var id in predecessorId)
+                {
+                    var predecessor = link.AddPredecessor("road", id.ToString());
+
+                }
+            }
+            if (successorId != null)
+            {
+                foreach (var id in successorId)
+                {
+                    var successor = link.AddSuccessor("road", id.ToString());
+                }
+            }
+
             var plainView = road.AddPlainViewElement();
             var geometry1 = plainView.AddGeometryElement(
                 s: "0.0",
@@ -179,7 +197,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad Add90DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0)
+        public XODRRoad Add90DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0, int[] predecessorId = null, int[] successorId = null)
         {
 
             var road = RootElement.AddRoadElement(
@@ -189,6 +207,24 @@ namespace OpenDriveXMLGenerator
                 junction: "-1");
 
             id++;
+
+            var link = road.AddLinkElement();
+            if (predecessorId != null)
+            {
+                foreach (var id in predecessorId)
+                {
+                    var predecessor = link.AddPredecessor("road", id.ToString());
+
+                }
+            }
+            if (successorId != null)
+            {
+                foreach (var id in successorId)
+                {
+                    var successor = link.AddSuccessor("road", id.ToString());
+                }
+            }
+
             var plainView = road.AddPlainViewElement();
             var geometry1 = plainView.AddGeometryElement(
                 s: "0.0",
@@ -226,11 +262,19 @@ namespace OpenDriveXMLGenerator
         //The custom road has no left lane or left sidewalk
         public XODRRoad AddLeftLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, float length = 0, string laneWidth = "3.5", string curvature = null, bool sidewalk = false, int[] predecessorId = null, int[] successorId = null)
         {
-            var connection = junction.AddConnectionElement(
-                id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
-                connectingRoadId: id.ToString());
-            connectionId++;
+            if (predecessorId != null)
+            {
+                foreach (var PreId in predecessorId)
+                {
+                    var connection = junction.AddConnectionElement(
+                                        id: connectionId.ToString(),
+                                        incomingRoadId: PreId.ToString(),
+                                        connectingRoadId: id.ToString());
+                    connectionId++;
+
+                }
+            }
+            
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -289,7 +333,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddRightCurveToIntersection(XODRJunction junction = null, float startX = 0, float startY = 0, double hdg = 0, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, int predecessorId = 0, int successorId = 0)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -345,7 +389,7 @@ namespace OpenDriveXMLGenerator
             return curve;
         }
 
-        public XODRRoad AddLeftCurveToIntersection(XODRJunction junction = null, float startX = 0, float startY = 0,double hdg = 0, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,double hdg = 0, int predecessorId = 0, int successorId = 0)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -407,7 +451,7 @@ namespace OpenDriveXMLGenerator
         }
 
        
-        public XODRRoad AddRightStraight(XODRJunction junction = null, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -455,7 +499,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddLeftStraight(XODRJunction junction = null, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
@@ -617,13 +661,18 @@ namespace OpenDriveXMLGenerator
 
         }
 
-        private XODRRoad AddRoundaboutEntry(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int[] predecessorId = null, int[] successorId = null)
+        private XODRRoad AddRoundaboutEntry(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int predecessorId = -1, int successorId = -1)
         {
-            var connection = junction.AddConnectionElement(
-                id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
-                connectingRoadId: id.ToString());
-            connectionId++;
+            if (predecessorId > -1)
+            {
+                var connection = junction.AddConnectionElement(
+                                        id: connectionId.ToString(),
+                                        incomingRoadId: predecessorId.ToString(),
+                                        connectingRoadId: id.ToString());
+                connectionId++;
+
+
+            }
 
             var road = RootElement.AddRoadElement(
                name: "Road " + id.ToString(),
@@ -634,20 +683,13 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            if (predecessorId != null)
+            if (predecessorId > -1)
             {
-                foreach (var id in predecessorId)
-                {
-                    var predecessor = link.AddPredecessor("road", id.ToString());
-
-                }
+                var predecessor = link.AddPredecessor("road", id.ToString());
             }
-            if (successorId != null)
+            if (successorId > -1)
             {
-                foreach (var id in successorId)
-                {
-                    var successor = link.AddSuccessor("road", id.ToString());
-                }
+                var successor = link.AddSuccessor("road", id.ToString());
             }
 
 
@@ -695,13 +737,18 @@ namespace OpenDriveXMLGenerator
 
             return road;
         }
-        private XODRRoad AddRoundaboutExit(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int[] predecessorId = null, int[] successorId = null)
+        private XODRRoad AddRoundaboutExit(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int predecessorId = -1, int successorId = -1)
         {
-            var connection = junction.AddConnectionElement(
-                id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
-                connectingRoadId: id.ToString());
-            connectionId++;
+            if (predecessorId > -1)
+            {
+                var connection = junction.AddConnectionElement(
+                                        id: connectionId.ToString(),
+                                        incomingRoadId: predecessorId.ToString(),
+                                        connectingRoadId: id.ToString());
+                connectionId++;
+
+                
+            }
 
             var road = RootElement.AddRoadElement(
                name: "Road " + id.ToString(),
@@ -713,20 +760,13 @@ namespace OpenDriveXMLGenerator
 
 
             var link = road.AddLinkElement();
-            if (predecessorId != null)
+            if (predecessorId > -1)
             {
-                foreach (var id in predecessorId)
-                {
-                    var predecessor = link.AddPredecessor("road", id.ToString());
-
-                }
+                var predecessor = link.AddPredecessor("road", id.ToString());
             }
-            if (successorId != null)
+            if (successorId > -1)
             {
-                foreach (var id in successorId)
-                {
-                    var successor = link.AddSuccessor("road", id.ToString());
-                }
+                var successor = link.AddSuccessor("road", id.ToString());
             }
 
             var plainView = road.AddPlainViewElement();
@@ -785,23 +825,23 @@ namespace OpenDriveXMLGenerator
             var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f);
             var road3 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
 
-            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
-            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
-            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 2*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
-            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 3*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
+            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 12, id + 5 });
+            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 12, id + 5 });
+            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 2 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] {id + 5 });
+            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 3 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4}, successorId: new int[] { id + 1, id + 8});
 
-            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01");
-            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01");
-            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01");
-            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
+            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 1 }, successorId: new int[] { id - 4 });
+            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
+            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
+            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
 
-            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg);
-            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f);
-            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f);
+            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id - 11, successorId: id - 8);
+            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 10, successorId: id - 8);
+            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 12, successorId: id - 8);
 
-            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg);
-            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f);
-            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f);
+            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id - 12, successorId: id - 13);
+            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 12, successorId: id - 15);
+            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 8, successorId: id - 14);
 
             junctionId++;
             connectionId = 0;
@@ -819,25 +859,25 @@ namespace OpenDriveXMLGenerator
             var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f);
             var road3 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
 
-            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
-            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
-            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 2*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
-            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 3*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true);
+            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[]{ id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5});
+            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5 });
+            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 2*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[]{ id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5 });
+            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 3*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 1, id + 9 });
 
-            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01");
-            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01");
-            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01");
-            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01");
+            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] {id-1}, successorId: new int[] { id - 4 });
+            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
+            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5}, successorId: new int[] { id - 4 });
+            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 1 }, successorId: new int[] { id - 4 });
 
-            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg);
-            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f);
-            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f);
-            var road15 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f);
+            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id-12, successorId: id-8);
+            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 10, successorId: id - 8);
+            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 12, successorId: id - 8);
+            var road15 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f, predecessorId: id - 14, successorId: id - 7);
 
-            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg);
-            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f);
-            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f);
-            var road19 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f);
+            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id - 9, successorId: id - 16);
+            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 13, successorId: id - 14);
+            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 13, successorId: id - 16);
+            var road19 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f, predecessorId: id - 13, successorId: id - 18);
 
             junctionId++;
             connectionId = 0;
