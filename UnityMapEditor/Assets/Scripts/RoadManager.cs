@@ -49,6 +49,7 @@ namespace scripts
         private VirtualAnchor stretchingAnchor;
 
         private float stretchingDistance = 3.78f * 5;
+        private List<RoadPiece> addedRoadPieces = new List<RoadPiece>();
 
         /*
          * Sets the instance, so other classes can refer
@@ -83,8 +84,8 @@ namespace scripts
             {
                 isDragging = false;
                 isStretching = false;
-                Debug.Log("released");
                 stretchingDistance = 3.78f * 5;
+                addedRoadPieces = new List<RoadPiece>();
                 validateRoadPosition();
             }
 
@@ -198,7 +199,7 @@ namespace scripts
 
         public void StretchRoad()
         {
-            List<RoadPiece> addedRoadPieces = new List<RoadPiece>();
+
 
             isStretching = true;
             Vector3 origin = selectedRoad.transform.position + stretchingAnchor.offset;
@@ -221,17 +222,26 @@ namespace scripts
             // Calculate the distance of that vector which only checks the distance in offset direction. 
             float distance = projectedVector.magnitude;
 
-
             if (dotProduct >= 0 && distance >= stretchingDistance)
             {
-
                 Vector3 newPosition = origin + (offsetNormalized * stretchingDistance) - (offsetNormalized * (3.78f * 5 / 2));
 
                 RoadPiece roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
                 RoadPiece straight = Instantiate(roadPiece, newPosition, Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
-
+                addedRoadPieces.Add(straight);
 
                 stretchingDistance += 3.78f * 5;
+            }
+            else if (dotProduct < stretchingDistance)
+            {
+                if (addedRoadPieces.Count > 0)
+                {
+                    RoadPiece straight = addedRoadPieces[addedRoadPieces.Count - 1];
+                    Destroy(straight.gameObject);
+                    addedRoadPieces.RemoveAt(addedRoadPieces.Count - 1);
+
+                    stretchingDistance -= 3.78f * 5;
+                }
             }
 
         }
