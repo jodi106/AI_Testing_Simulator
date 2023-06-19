@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace scripts
 {
@@ -7,6 +8,7 @@ namespace scripts
         public Vector3 offset;
         public float orientation;
         public RoadPiece referencedRoadPiece;
+        private List<RoadPiece> childStraightPieces = new List<RoadPiece>();
 
 
         public VirtualAnchor connectedAnchorPoint = null;
@@ -59,6 +61,19 @@ namespace scripts
                 connectedAnchorPoint.connectedAnchorPoint = null;
                 connectedAnchorPoint = null;
             }
+        }
+        public List<RoadPiece> GetStretchingStraights()
+        {
+            return childStraightPieces;
+        }
+        public void AddStretchingStraight(RoadPiece road)
+        {
+            childStraightPieces.Add(road);
+        }
+
+        public void RemoveLastStretchingStraight()
+        {
+            childStraightPieces.RemoveAt(childStraightPieces.Count - 1);
         }
 
 

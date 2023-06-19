@@ -44,12 +44,10 @@ namespace scripts
         private const float MAX_SNAPPING_DISTANCE = 200;
         private const float MAX_SNAPPING_AREA = 140 * 2 + MAX_SNAPPING_DISTANCE;
 
-        public Texture2D cursorStretchTexture;
-
         private VirtualAnchor stretchingAnchor;
 
         private float stretchingDistance = 3.78f * 5;
-        private List<RoadPiece> addedRoadPieces = new List<RoadPiece>();
+
 
         /*
          * Sets the instance, so other classes can refer
@@ -83,9 +81,12 @@ namespace scripts
             if (Input.GetMouseButtonUp(0))
             {
                 isDragging = false;
+                if (isStretching)
+                {
+                    GroupToParentRoad();
+                }
                 isStretching = false;
                 stretchingDistance = 3.78f * 5;
-                addedRoadPieces = new List<RoadPiece>();
                 validateRoadPosition();
             }
 
@@ -144,7 +145,7 @@ namespace scripts
 
             if (Input.GetKeyDown(KeyCode.Delete))
             {
-                DeleteRoad();
+                DeleteRoad(this.selectedRoad);
             }
 
             // This condition checks, whether the user wants to deselect the road he has clicked. 
@@ -197,6 +198,10 @@ namespace scripts
             }
         }
 
+        public void GroupToParentRoad()
+        {
+
+        }
         public void StretchRoad()
         {
 
@@ -228,17 +233,18 @@ namespace scripts
 
                 RoadPiece roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
                 RoadPiece straight = Instantiate(roadPiece, newPosition, Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
-                addedRoadPieces.Add(straight);
+                straight.transform.SetParent(stretchingAnchor.referencedRoadPiece.transform);
+                stretchingAnchor.AddStretchingStraight(straight);
 
                 stretchingDistance += 3.78f * 5;
             }
-            else if (dotProduct < stretchingDistance)
+            else if (dotProduct < stretchingDistance - 3.78f * 5)
             {
-                if (addedRoadPieces.Count > 0)
+                if (stretchingAnchor.GetStretchingStraights().Count > 0)
                 {
-                    RoadPiece straight = addedRoadPieces[addedRoadPieces.Count - 1];
-                    Destroy(straight.gameObject);
-                    addedRoadPieces.RemoveAt(addedRoadPieces.Count - 1);
+                    RoadPiece straight = stretchingAnchor.GetStretchingStraights()[stretchingAnchor.GetStretchingStraights().Count - 1];
+                    DeleteRoad(straight);
+                    stretchingAnchor.RemoveLastStretchingStraight();
 
                     stretchingDistance -= 3.78f * 5;
                 }
@@ -278,19 +284,30 @@ namespace scripts
         /*
          * This method deletes the selected road
          */
-        public void DeleteRoad()
+        public void DeleteRoad(RoadPiece road)
         {
-            if (selectedRoad != null && !selectedRoad.getIsLocked())
-            {
-                // We have to destroy the selectedObject, as the selectedRoad is not a GameObject, but a RoadPiece. The effect will be the same, though. 
 
-                foreach (VirtualAnchor va in selectedRoad.anchorPoints)
+            if (road != null && !road.getIsLocked())
+            {
+                // We have to destroy the selectedObject, as the road is not a GameObject, but a RoadPiece. The effect will be the same, though. 
+
+                foreach (VirtualAnchor va in road.anchorPoints)
                 {
                     va.RemoveConntectedAnchorPoint();
                 }
-                RemoveRoadFromList(selectedRoad);
-                DeselectRoad();
-                Destroy(selectedObject);
+                RemoveRoadFromList(road);
+                if (road == selectedRoad)
+                {
+                    DeselectRoad();
+                    foreach (VirtualAnchor va in road.anchorPoints)
+                    {
+                        foreach (RoadPiece stretchingRoad in va.GetStretchingStraights())
+                        {
+                            DeleteRoad(stretchingRoad);
+                        }
+                    }
+                }
+                Destroy(road.gameObject);
             }
         }
 
