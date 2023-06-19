@@ -12,6 +12,9 @@ namespace scripts
         public RoadType roadType;
         private bool isLocked = false;
 
+        public VirtualAnchor lastNeighborSnappedAnchorPoint = null;
+        public VirtualAnchor lastSelectedSnappedAnchorPoint = null;
+
         public float width;
         public float height;
 
@@ -69,6 +72,7 @@ namespace scripts
                 case RoadType.ParkingTop:
                 case RoadType.ParkingBottom:
                 case RoadType.ParkingTopAndBottom:
+                case RoadType.StraightShort:
                     anchorPoints.Add(new VirtualAnchor(this, 0));
                     anchorPoints.Add(new VirtualAnchor(this, 180));
                     break;
@@ -77,14 +81,19 @@ namespace scripts
                     anchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayIntersection:
+                    anchorPoints.Add(new VirtualAnchor(this, 90));
+                    anchorPoints.Add(new VirtualAnchor(this, 180));
+                    anchorPoints.Add(new VirtualAnchor(this, 270));
+                    break;
+                case RoadType.FourWayIntersection:
+                case RoadType.FourWayRoundAbout:
                     anchorPoints.Add(new VirtualAnchor(this, 0));
                     anchorPoints.Add(new VirtualAnchor(this, 90));
                     anchorPoints.Add(new VirtualAnchor(this, 180));
+                    anchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
-                case RoadType.FourWayIntersection:
-                case RoadType.RoundAbout:
+                case RoadType.ThreeWayRoundAbout:
                     anchorPoints.Add(new VirtualAnchor(this, 0));
-                    anchorPoints.Add(new VirtualAnchor(this, 90));
                     anchorPoints.Add(new VirtualAnchor(this, 180));
                     anchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
@@ -93,6 +102,7 @@ namespace scripts
             }
 
         }
+
 
     }
 }

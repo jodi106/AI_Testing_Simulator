@@ -8,7 +8,7 @@ public class CameraMover : MonoBehaviour
     public float dragSpeed = 200f;
     public float zoomSpeed = 500f;
     public float minZoom = 1f;
-    public float maxZoom = 1000f;
+    public float maxZoom = 5000f;
 
     private Camera mainCamera;
     private Vector3 lastMousePosition;

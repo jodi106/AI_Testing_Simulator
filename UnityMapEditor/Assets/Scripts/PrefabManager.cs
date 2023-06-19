@@ -23,7 +23,9 @@ namespace scripts
         public RoadPiece ParkingTopAndBottom;
         public RoadPiece ParkingTop;
         public RoadPiece Crosswalk;
-        public RoadPiece RoundAbout;
+        public RoadPiece FourWayRoundAbout;
+        public RoadPiece ThreeWayRoundAbout;
+        public RoadPiece StraightShort;
 
         // Start is called before the first frame update
         void Start()
@@ -57,8 +59,12 @@ namespace scripts
                     return ParkingTopAndBottom;
                 case RoadType.Crosswalk:
                     return Crosswalk;
-                case RoadType.RoundAbout:
-                    return RoundAbout;
+                case RoadType.FourWayRoundAbout:
+                    return FourWayRoundAbout;
+                case RoadType.ThreeWayRoundAbout:
+                    return ThreeWayRoundAbout;
+                case RoadType.StraightShort:
+                    return StraightShort;
                 default:
                     return null;
             }

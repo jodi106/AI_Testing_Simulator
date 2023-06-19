@@ -64,8 +64,11 @@ namespace scripts
                 case "Crosswalk":
                     selectedRoadType = RoadType.Crosswalk;
                     break;
-                case "Roundabout":
-                    selectedRoadType = RoadType.RoundAbout;
+                case "FourWayRoundAbout":
+                    selectedRoadType = RoadType.FourWayRoundAbout;
+                    break;
+                case "ThreeWayRoundAbout":
+                    selectedRoadType = RoadType.ThreeWayRoundAbout;
                     break;
                 default:
                     break;

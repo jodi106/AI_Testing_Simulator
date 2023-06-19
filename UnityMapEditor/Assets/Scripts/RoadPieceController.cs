@@ -28,8 +28,12 @@ namespace scripts
         ParkingTopAndBottom,
         [Description("Crosswalk")]
         Crosswalk,
-        [Description("RoundAbout")]
-        RoundAbout,
+        [Description("FourWayRoundAbout")]
+        FourWayRoundAbout,
+        [Description("ThreeWayRoundAbout")]
+        ThreeWayRoundAbout,
+        [Description("StraightShort")]
+        StraightShort,
     }
     public enum SelectionColor 
     {
