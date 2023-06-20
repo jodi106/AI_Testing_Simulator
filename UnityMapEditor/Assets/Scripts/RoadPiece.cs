@@ -8,7 +8,6 @@ namespace scripts
 
         private static int idCounter = 0;
         private int id;
-        public List<RoadPiece> neighbors = new List<RoadPiece>();
         public RoadType roadType;
         private bool isLocked = false;
 
