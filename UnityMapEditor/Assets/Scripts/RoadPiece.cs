@@ -64,7 +64,6 @@ namespace scripts
 
         void setVirtualAnchorPoints()
         {
-
             switch (roadType)
             {
                 case RoadType.StraightRoad:
