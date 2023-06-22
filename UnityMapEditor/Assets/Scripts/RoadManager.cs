@@ -83,7 +83,7 @@ namespace scripts
                 isDragging = false;
                 if (isStretching)
                 {
-                    GroupToParentRoad();
+                    GroupToOneRoad();
                 }
                 isStretching = false;
                 stretchingDistance = 3.78f * 5;
@@ -198,10 +198,29 @@ namespace scripts
             }
         }
 
-        public void GroupToParentRoad()
+        public void GroupToOneRoad()
         {
+            if (stretchingAnchor.GetStretchingStraights().Count > 0)
+            {
+                RoadPiece parent = Instantiate(PrefabManager.Instance.GetPieceOfType(RoadType.None), new Vector3((stretchingAnchor.GetStretchingStraights()[0].transform.position.x + stretchingAnchor.GetStretchingStraights()[stretchingAnchor.GetStretchingStraights().Count - 1].transform.position.x) / 2, stretchingAnchor.GetStretchingStraights()[0].transform.position.y, 10), Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
+                BoxCollider2D bc2d = parent.gameObject.AddComponent<BoxCollider2D>();
+                bc2d.size = new Vector2(stretchingAnchor.GetStretchingStraights().Count * 3.78f, 37.8f);
 
+                foreach (GameObject straight in stretchingAnchor.GetStretchingStraights())
+                {
+                    straight.transform.SetParent(parent.gameObject.transform);
+                }
+
+                parent.width = bc2d.size.x;
+                parent.height = bc2d.size.y;
+
+                float actualRotation = parent.getRotation();
+
+            }
+            stretchingAnchor.childStraightPieces = new List<GameObject>();
+            stretchingAnchor = null;
         }
+
         public void StretchRoad()
         {
 
@@ -231,10 +250,17 @@ namespace scripts
             {
                 Vector3 newPosition = origin + (offsetNormalized * stretchingDistance) - (offsetNormalized * (3.78f * 5 / 2));
 
-                RoadPiece roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
+                GameObject go = new GameObject("Straight Stretched" + stretchingAnchor.GetStretchingStraights().Count);
+                go.transform.position = newPosition;
+                go.transform.localScale = new Vector3(5, 5, 1);
+                go.transform.rotation = Quaternion.Euler(0f, 0f, stretchingAnchor.orientation);
+                SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+                sr.sprite = Resources.Load<Sprite>("sprites/StraightShort");
+                /*RoadPiece roadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.StraightShort);
                 RoadPiece straight = Instantiate(roadPiece, newPosition, Quaternion.Euler(0f, 0f, stretchingAnchor.orientation));
-                straight.transform.SetParent(stretchingAnchor.referencedRoadPiece.transform);
-                stretchingAnchor.AddStretchingStraight(straight);
+                */
+                stretchingAnchor.AddStretchingStraight(go);
+
 
                 stretchingDistance += 3.78f * 5;
             }
@@ -242,8 +268,11 @@ namespace scripts
             {
                 if (stretchingAnchor.GetStretchingStraights().Count > 0)
                 {
-                    RoadPiece straight = stretchingAnchor.GetStretchingStraights()[stretchingAnchor.GetStretchingStraights().Count - 1];
+                    /*RoadPiece straight = stretchingAnchor.GetStretchingStraights()[stretchingAnchor.GetStretchingStraights().Count - 1];
                     DeleteRoad(straight);
+                    */
+                    Destroy(stretchingAnchor.GetStretchingStraights()[stretchingAnchor.GetStretchingStraights().Count - 1]);
+
                     stretchingAnchor.RemoveLastStretchingStraight();
 
                     stretchingDistance -= 3.78f * 5;
@@ -299,13 +328,6 @@ namespace scripts
                 if (road == selectedRoad)
                 {
                     DeselectRoad();
-                    foreach (VirtualAnchor va in road.anchorPoints)
-                    {
-                        foreach (RoadPiece stretchingRoad in va.GetStretchingStraights())
-                        {
-                            DeleteRoad(stretchingRoad);
-                        }
-                    }
                 }
                 Destroy(road.gameObject);
             }
@@ -412,7 +434,6 @@ namespace scripts
             else
             {
                 float orientationDifference = Mathf.Abs(neighbor.orientation - selected.orientation);
-                Debug.Log(orientationDifference);
                 float neededOrientation = orientationDifference - 180;
 
                 if (neighbor.orientation >= selected.orientation)
@@ -474,6 +495,7 @@ namespace scripts
             if (selectedRoad != null)
             {
                 colorRoadPiece(selectedRoad.getIsLocked() ? SelectionColor.locked : SelectionColor.normal);
+                selectedRoad.transform.position = new Vector3(selectedRoad.transform.position.x, selectedRoad.transform.position.y, 9);
                 selectedRoad = null;
                 isDragging = false;
             }
@@ -512,7 +534,6 @@ namespace scripts
                         {
                             if (vaN.connectedAnchorPoint == null && Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset) < 1)
                             {
-                                //Debug.Log("Distance " + Vector3.Distance(vaS.referencedRoadPiece.transform.position + vaS.offset, vaN.referencedRoadPiece.transform.position + vaN.offset));
                                 vaS.ConnectAnchorPoint(vaN);
                                 stop = true;
                                 break;
@@ -551,6 +572,7 @@ namespace scripts
             Vector3 mouseScreenPosition = Input.mousePosition;
             mouseScreenPosition.z = Camera.main.nearClipPlane;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+            worldPosition.z = 8;
             return worldPosition;
         }
 

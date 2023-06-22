@@ -61,8 +61,9 @@ namespace scripts
             this.rotation = rotation;
         }
 
-        void setVirtualAnchorPoints()
+        public void setVirtualAnchorPoints()
         {
+            anchorPoints = new List<VirtualAnchor>();
 
             switch (roadType)
             {

@@ -609,6 +609,7 @@ MonoBehaviour:
   FourWayRoundAbout: {fileID: -1501864468238237680, guid: dededa8433f319e43b1c36f083c4ff44, type: 3}
   ThreeWayRoundAbout: {fileID: 7990396848659306430, guid: dfc5e22c7a1e42f41b231349b32ced20, type: 3}
   StraightShort: {fileID: 3268465651514629649, guid: 4a0eab48642c5a246b7025345be42f49, type: 3}
+  None: {fileID: -4687985061363238486, guid: caf312e426ec8cd4db65aa95d4ba116e, type: 3}
 --- !u!4 &291987909
 Transform:
   m_ObjectHideFlags: 0
@@ -1982,7 +1983,6 @@ MonoBehaviour:
   roadList: []
   selectedRoad: {fileID: 0}
   inValidPosition: 1
-  cursorStretchTexture: {fileID: 2800000, guid: a6134240bb4c6ed45a2eab8a06722f42, type: 3}
 --- !u!4 &1415920824
 Transform:
   m_ObjectHideFlags: 0
