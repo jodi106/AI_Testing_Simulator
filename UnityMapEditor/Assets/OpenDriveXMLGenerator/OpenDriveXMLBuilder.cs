@@ -562,33 +562,32 @@ namespace OpenDriveXMLGenerator
             float startY1 = startY;
             var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false);
 
-
-            float startX2 = startX + 17.5f * (float) Math.Cos(hdg);
-            float startY2 = startY + 17.5f * (float) Math.Sin(hdg);
+            float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
+            float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
+            float hdg2 = hdg + 1.5707963267949f;
             var incomingRoadId2 = id;
-            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg, 0.5, false);
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5, false);
 
-            float startX3 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
-            float startY3 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
-            float hdg3 = hdg + 1.5707963267949f;
+            float startX3 = startX + 17.5f * (float) Math.Cos(hdg);
+            float startY3 = startY + 17.5f * (float) Math.Sin(hdg);
             var incomingRoadId3 = id;
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg3, 0.5, false);
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5, false);
 
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
             float startYCurve1 = startY + 9f * (float)Math.Sin(hdg) - 8.5f * (float)Math.Cos(hdg);
             float hdgCurve1 = hdg + 1.5707963267949f;
-            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId3, incomingRoadId2);
-            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId2, incomingRoadId3);
+            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId2, incomingRoadId3);
+            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId3, incomingRoadId2);
 
             float startXCurve2 = startX + 0.5f * (float)Math.Cos(hdg);
             float startYCurve2 = startY + 0.5f * (float)Math.Sin(hdg);
-            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId1, incomingRoadId3);
-            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId3, incomingRoadId1);
+            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId1, incomingRoadId2);
+            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId2, incomingRoadId1);
 
             float startX4 = startX + 0.5f * (float)Math.Cos(hdg);
             float startY4 = startY + 0.5f * (float)Math.Sin(hdg) ;
-            var connectionRoad1 = this.AddRightStraight(junction, startX4, startY4, hdg, false, incomingRoadId1, incomingRoadId2);
-            var connectionRoad2 = this.AddLeftStraight(junction, startX4, startY4, hdg, true, incomingRoadId2, incomingRoadId1);
+            var connectionRoad1 = this.AddRightStraight(junction, startX4, startY4, hdg, false, incomingRoadId1, incomingRoadId3);
+            var connectionRoad2 = this.AddLeftStraight(junction, startX4, startY4, hdg, true, incomingRoadId3, incomingRoadId1);
 
             connectionId = 0;
 
@@ -607,16 +606,16 @@ namespace OpenDriveXMLGenerator
             float startY1 = startY;
             var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5f, false);
 
-            float startX2 = startX + 17.5f * (float)Math.Cos(hdg);
-            float startY2 = startY + 17.5f * (float)Math.Sin(hdg);
+            float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
+            float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
+            float hdg2 = hdg + 1.5707963267949f;
             var incomingRoadId2 = id;
-            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg, 0.5f, false);
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5f, false);
 
-            float startX3 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
-            float startY3 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
-            float hdg3 = hdg + 1.5707963267949f;
+            float startX3 = startX + 17.5f * (float)Math.Cos(hdg);
+            float startY3 = startY + 17.5f * (float)Math.Sin(hdg);
             var incomingRoadId3 = id;
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg3, 0.5f, false);
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5f, false);
 
             float startX4 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
             float startY4 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
@@ -627,36 +626,36 @@ namespace OpenDriveXMLGenerator
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
             float startYCurve1 = startY + 9f * (float)Math.Sin(hdg) - 8.5f * (float)Math.Cos(hdg);
             float hdgCurve1 = hdg + 1.5707963267949f;
-            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId3, incomingRoadId2);
-            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId2, incomingRoadId3);
+            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId2, incomingRoadId3);
+            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId3, incomingRoadId2);
 
             float startXCurve2 = startX + 0.5f * (float)Math.Cos(hdg);
             float startYCurve2 = startY + 0.5f * (float)Math.Sin(hdg);
-            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId1, incomingRoadId3);
-            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId3, incomingRoadId1);
+            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId1, incomingRoadId2);
+            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId2, incomingRoadId1);
 
             float startX5 = startX + 0.5f * (float)Math.Cos(hdg);
             float startY5 = startY + 0.5f * (float)Math.Sin(hdg);
-            var connectionRoad1 = this.AddRightStraight(junction, startX5, startY5, hdg, false, incomingRoadId1, incomingRoadId2);
-            var connectionRoad2 = this.AddLeftStraight(junction, startX5, startY5, hdg, false, incomingRoadId2, incomingRoadId1);
+            var connectionRoad1 = this.AddRightStraight(junction, startX5, startY5, hdg, false, incomingRoadId1, incomingRoadId3);
+            var connectionRoad2 = this.AddLeftStraight(junction, startX5, startY5, hdg, false, incomingRoadId3, incomingRoadId1);
 
             float startX6 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
             float startY6 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
             float hdg6 = hdg - 1.5707963f;
-            var connectionRoad3 = this.AddRightStraight(junction, startX6, startY6, hdg6, false, incomingRoadId3, incomingRoadId4);
-            var connectionRoad4 = this.AddLeftStraight(junction, startX6, startY6, hdg6, false, incomingRoadId4, incomingRoadId3);
+            var connectionRoad3 = this.AddRightStraight(junction, startX6, startY6, hdg6, false, incomingRoadId2, incomingRoadId4);
+            var connectionRoad4 = this.AddLeftStraight(junction, startX6, startY6, hdg6, false, incomingRoadId4, incomingRoadId2);
 
             float startXCurve3 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
             float startYCurve3 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
             float hdgCurve3 = hdg - 1.5707963f;
-            var curve3Left = this.AddRightCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, incomingRoadId4, incomingRoadId3);
-            var curve3Right = this.AddLeftCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, incomingRoadId3, incomingRoadId4);
+            var curve3Left = this.AddRightCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, incomingRoadId4, incomingRoadId2);
+            var curve3Right = this.AddLeftCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, incomingRoadId2, incomingRoadId4);
 
             float startXCurve4 = startX + 17.5f * (float)Math.Cos(hdg);
             float startYCurve4 = startY + 17.5f * (float)Math.Sin(hdg);
             float hdgCurve4 = hdg + 3.1415926f;
-            var curve4Left = this.AddRightCurveToIntersection(junction, startXCurve4, startYCurve4, hdgCurve4, incomingRoadId4, incomingRoadId2);
-            var curve4Right = this.AddLeftCurveToIntersection(junction: junction, startXCurve4, startYCurve4, hdgCurve4, incomingRoadId2, incomingRoadId4);
+            var curve4Left = this.AddRightCurveToIntersection(junction, startXCurve4, startYCurve4, hdgCurve4, incomingRoadId4, incomingRoadId3);
+            var curve4Right = this.AddLeftCurveToIntersection(junction: junction, startXCurve4, startYCurve4, hdgCurve4, incomingRoadId3, incomingRoadId4);
 
             connectionId = 0;
 
@@ -823,8 +822,8 @@ namespace OpenDriveXMLGenerator
                id: junctionId.ToString());
             
             var road0 = this.AddStraightRoad(startX: startX, startY: startY, hdg: hdg, length: 5.5999755859375000e+00);
+            var road1 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
             var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f);
-            var road3 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
 
             var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 12, id + 5 });
             var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 12, id + 5 });
@@ -856,9 +855,9 @@ namespace OpenDriveXMLGenerator
                id: junctionId.ToString());
 
             var road0 = this.AddStraightRoad(startX: startX, startY: startY, hdg: hdg, length: 5.5999755859375000e+00);
-            var road1 = this.AddStraightRoad(startX: startX + 20f * (float)Math.Cos(hdg) - 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 20f * (float)Math.Cos(hdg), hdg: hdg - 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
+            var road1 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
             var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f);
-            var road3 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
+            var road3 = this.AddStraightRoad(startX: startX + 20f * (float)Math.Cos(hdg) - 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 20f * (float)Math.Cos(hdg), hdg: hdg - 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
 
             var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[]{ id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5});
             var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5 });
