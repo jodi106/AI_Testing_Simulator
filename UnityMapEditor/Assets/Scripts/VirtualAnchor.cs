@@ -5,88 +5,67 @@ namespace scripts
 {
     public class VirtualAnchor
     {
-        public Vector3 offset;
-        public float orientation;
-        public RoadPiece referencedRoadPiece;
-        public List<GameObject> childStraightPieces = new List<GameObject>();
+        public Vector3 Offset;
+        public float Orientation;
+        public RoadPiece RoadPiece;
+        public List<GameObject> ChildStraightPieces = new List<GameObject>();
 
+        public VirtualAnchor ConnectedAnchorPoint = null;
 
-        public VirtualAnchor connectedAnchorPoint = null;
-
-        public VirtualAnchor(RoadPiece referencedRoadPiece, float orientation)
+        public VirtualAnchor(RoadPiece roadPiece, float orientation)
         {
-            this.referencedRoadPiece = referencedRoadPiece;
-            this.orientation = orientation;
+            this.RoadPiece = roadPiece;
+            this.Orientation = orientation;
 
-            /*
-                        switch (orientation)
-                        {
-                            case 0:
-                                this.offset = new Vector3(referencedRoadPiece.width * referencedRoadPiece.transform.localScale.x / 2, 0, 0);
-                                break;
-                            case 90:
-                                this.offset = new Vector3(0, referencedRoadPiece.height * referencedRoadPiece.transform.localScale.y / 2, 0);
-                                break;
-                            case 180:
-                                this.offset = new Vector3(-referencedRoadPiece.width * referencedRoadPiece.transform.localScale.x / 2, 0, 0);
-                                break;
-                            case 270:
-                                this.offset = new Vector3(0, -referencedRoadPiece.height * referencedRoadPiece.transform.localScale.y / 2, 0);
-                                break;
-                            default:
-                                Debug.Log("Error when initializing offset. Please make sure, that this Piece is of Type RoadPiece! ");
-                                break;
-                        }
+            float widthScale = roadPiece.width * roadPiece.transform.localScale.x;
+            float heightScale = roadPiece.height * roadPiece.transform.localScale.y;
 
-                        */
-            float widthScale = referencedRoadPiece.width * referencedRoadPiece.transform.localScale.x;
-            float heightScale = referencedRoadPiece.height * referencedRoadPiece.transform.localScale.y;
-
-            float angleInRadians = orientation * Mathf.Deg2Rad;
+            float angleInRadians = Orientation * Mathf.Deg2Rad;
 
             float offsetX = Mathf.Cos(angleInRadians) * widthScale / 2;
             float offsetY = Mathf.Sin(angleInRadians) * heightScale / 2;
 
-            this.offset = new Vector3(offsetX, offsetY, 0);
+            this.Offset = new Vector3(offsetX, offsetY, 0);
 
         }
+
         public void Update(float angleOfRotation)
         {
-            orientation = (orientation + angleOfRotation) % 360;
-            if (orientation < 0)
+            Orientation = (Orientation + angleOfRotation) % 360;
+            if (Orientation < 0)
             {
-                orientation = 360 + orientation;
+                Orientation = 360 + Orientation;
             }
 
-            offset = Quaternion.Euler(0f, 0f, angleOfRotation) * offset;
+            Offset = Quaternion.Euler(0f, 0f, angleOfRotation) * Offset;
         }
 
         public void ConnectAnchorPoint(VirtualAnchor va)
         {
-            connectedAnchorPoint = va;
-            va.connectedAnchorPoint = this;
+            ConnectedAnchorPoint = va;
+            va.ConnectedAnchorPoint = this;
         }
 
         public void RemoveConntectedAnchorPoint()
         {
-            if (connectedAnchorPoint != null)
+            if (ConnectedAnchorPoint != null)
             {
-                connectedAnchorPoint.connectedAnchorPoint = null;
-                connectedAnchorPoint = null;
+                ConnectedAnchorPoint.ConnectedAnchorPoint = null;
+                ConnectedAnchorPoint = null;
             }
         }
         public List<GameObject> GetStretchingStraights()
         {
-            return childStraightPieces;
+            return ChildStraightPieces;
         }
         public void AddStretchingStraight(GameObject road)
         {
-            childStraightPieces.Add(road);
+            ChildStraightPieces.Add(road);
         }
 
         public void RemoveLastStretchingStraight()
         {
-            childStraightPieces.RemoveAt(childStraightPieces.Count - 1);
+            ChildStraightPieces.RemoveAt(ChildStraightPieces.Count - 1);
         }
 
 
