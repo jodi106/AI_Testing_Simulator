@@ -8,13 +8,13 @@ namespace scripts
 {
     public class SidebarButtonHandler : MonoBehaviour, IPointerDownHandler
     {
-        public Button sidebarButton;
+        public Button SidebarButton;
 
 
         void Start()
         {
             //Every button gets added to the list of sidebar buttons at the start
-            ButtonManager.Instance.addSidebarButton(sidebarButton);
+            ButtonManager.Instance.AddSidebarButton(SidebarButton);
         }
 
         /*
@@ -24,16 +24,16 @@ namespace scripts
          */
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (RoadManager.Instance.inValidPosition && eventData.button == PointerEventData.InputButton.Left)
+            if (RoadManager.Instance.InValidPosition && eventData.button == PointerEventData.InputButton.Left)
             {
-                selectRoadType(gameObject.name);
+                SelectRoadType(gameObject.name);
             }
         }
 
         /*
          * This method sets the selected road type according to the button pressed
          */
-        void selectRoadType(string buttonName)
+        void SelectRoadType(string buttonName)
         {
 
             RoadManager.Instance.DeselectRoad();
@@ -73,7 +73,7 @@ namespace scripts
                 default:
                     break;
             }
-            ButtonManager.Instance.handleButtonClick(sidebarButton, selectedRoadType);
+            ButtonManager.Instance.HandleButtonClick(SidebarButton, selectedRoadType);
 
         }
     }

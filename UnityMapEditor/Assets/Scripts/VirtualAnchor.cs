@@ -17,8 +17,8 @@ namespace scripts
             this.RoadPiece = roadPiece;
             this.Orientation = orientation;
 
-            float widthScale = roadPiece.width * roadPiece.transform.localScale.x;
-            float heightScale = roadPiece.height * roadPiece.transform.localScale.y;
+            float widthScale = roadPiece.Width * roadPiece.transform.localScale.x;
+            float heightScale = roadPiece.Height * roadPiece.transform.localScale.y;
 
             float angleInRadians = Orientation * Mathf.Deg2Rad;
 

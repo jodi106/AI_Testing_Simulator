@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d694e0ee49464e8760d714d6a5986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadType: 1
-  width: 0
-  height: 0
+  RoadType: 1
+  Width: 0
+  Height: 0
 --- !u!212 &8055630526733018636
 SpriteRenderer:
   m_ObjectHideFlags: 0
