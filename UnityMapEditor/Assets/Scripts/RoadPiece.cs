@@ -6,66 +6,52 @@ namespace scripts
     public class RoadPiece : MonoBehaviour
     {
 
-        private static int idCounter = 0;
-        private int id;
-        public List<RoadPiece> neighbors = new List<RoadPiece>();
-        public RoadType roadType;
+        private static int IdCounter = 0;
+        public int Id { get; set; }
+        public RoadType RoadType;
+
         private bool isLocked = false;
+        public bool IsLocked
+        {
+            get { return isLocked; }
+            set
+            {
+                isLocked = value;
+                RoadManager.Instance.ColorRoadPiece(isLocked ? SelectionColor.lockedSelected : SelectionColor.selected);
+            }
+        }
 
-        public VirtualAnchor lastNeighborSnappedAnchorPoint = null;
-        public VirtualAnchor lastSelectedSnappedAnchorPoint = null;
+        public VirtualAnchor LastNeighborSnappedAnchorPoint = null;
+        public VirtualAnchor LastSelectedSnappedAnchorPoint = null;
 
-        public float width;
-        public float height;
+        public float Width;
+        public float Height;
 
-        private float rotation = 0;
+        public float Rotation { get; set; } = 0;
 
-        public List<VirtualAnchor> anchorPoints = new List<VirtualAnchor>();
+        public List<VirtualAnchor> AnchorPoints = new List<VirtualAnchor>();
 
         // Awake method is called when instantiated
         void Awake()
         {
-            setVirtualAnchorPoints();
+            PopulateVirtualAnchorPoints();
         }
 
 
         // Start is called before the first frame update
         void Start()
         {
-            id = idCounter++;
-            RoadManager.Instance.AddRoadToList(this);
+            Id = IdCounter++;
+            RoadManager.Instance.RoadList.Add(this);
+            Debug.Log(this.AnchorPoints.Count != 0 ? this.AnchorPoints[0].Offset : null);
         }
 
-        public int getID()
-        {
-            return this.id;
-        }
 
-        public void setIsLocked(bool value)
+        public void PopulateVirtualAnchorPoints()
         {
-            isLocked = value;
-            RoadManager.Instance.colorRoadPiece(isLocked ? SelectionColor.lockedSelected : SelectionColor.selected);
-        }
-
-        public bool getIsLocked()
-        {
-            return isLocked;
-        }
-
-        public float getRotation()
-        {
-            return rotation;
-        }
-
-        public void setRotation(float rotation)
-        {
-            this.rotation = rotation;
-        }
-
-        void setVirtualAnchorPoints()
-        {
-
-            switch (roadType)
+            AnchorPoints = new List<VirtualAnchor>();
+            Debug.Log(RoadType);
+            switch (RoadType)
             {
                 case RoadType.StraightRoad:
                 case RoadType.Crosswalk:
@@ -73,29 +59,29 @@ namespace scripts
                 case RoadType.ParkingBottom:
                 case RoadType.ParkingTopAndBottom:
                 case RoadType.StraightShort:
-                    anchorPoints.Add(new VirtualAnchor(this, 0));
-                    anchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
                     break;
                 case RoadType.Turn:
-                    anchorPoints.Add(new VirtualAnchor(this, 0));
-                    anchorPoints.Add(new VirtualAnchor(this, 270));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
+                    AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayIntersection:
-                    anchorPoints.Add(new VirtualAnchor(this, 90));
-                    anchorPoints.Add(new VirtualAnchor(this, 180));
-                    anchorPoints.Add(new VirtualAnchor(this, 270));
+                    AnchorPoints.Add(new VirtualAnchor(this, 90));
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.FourWayIntersection:
                 case RoadType.FourWayRoundAbout:
-                    anchorPoints.Add(new VirtualAnchor(this, 0));
-                    anchorPoints.Add(new VirtualAnchor(this, 90));
-                    anchorPoints.Add(new VirtualAnchor(this, 180));
-                    anchorPoints.Add(new VirtualAnchor(this, 270));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
+                    AnchorPoints.Add(new VirtualAnchor(this, 90));
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayRoundAbout:
-                    anchorPoints.Add(new VirtualAnchor(this, 0));
-                    anchorPoints.Add(new VirtualAnchor(this, 180));
-                    anchorPoints.Add(new VirtualAnchor(this, 270));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 default:
                     break;

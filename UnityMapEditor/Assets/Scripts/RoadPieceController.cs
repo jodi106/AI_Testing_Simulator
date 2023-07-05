@@ -11,7 +11,7 @@ namespace scripts
     public enum RoadType
     {
         [Description("None")]
-        None, 
+        None,
         [Description("StraightRoad")]
         StraightRoad,
         [Description("Turn")]
@@ -35,7 +35,7 @@ namespace scripts
         [Description("StraightShort")]
         StraightShort,
     }
-    public enum SelectionColor 
+    public enum SelectionColor
     {
         normal,
         selected,
@@ -43,15 +43,15 @@ namespace scripts
         snapped,
         locked,
         lockedSelected,
-        lockedSnapped, 
+        lockedSnapped,
 
     }
 
     public enum RoadSides
     {
-        bottom, 
-        top, 
-        left, 
+        bottom,
+        top,
+        left,
         right,
     }
     public class RoadPieceController : MonoBehaviour

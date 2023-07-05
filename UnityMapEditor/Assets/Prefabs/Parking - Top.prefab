@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d694e0ee49464e8760d714d6a5986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbors: []
-  roadType: 6
-  width: 64.26
-  height: 49.14
+  RoadType: 6
+  Width: 64.26
+  Height: 49.14

@@ -98,10 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d694e0ee49464e8760d714d6a5986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbors: []
-  roadType: 5
-  width: 64.26
-  height: 64.26
+  RoadType: 5
+  Width: 64.26
+  Height: 64.26
 --- !u!61 &3036500841848942160
 BoxCollider2D:
   m_ObjectHideFlags: 0
