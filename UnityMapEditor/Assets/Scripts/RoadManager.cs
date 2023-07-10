@@ -19,10 +19,11 @@ namespace scripts
         }
 
         // List of all roads
-        public List<RoadPiece> RoadList { get; set; } = new List<RoadPiece>();
+        public List<RoadPiece> RoadList = new List<RoadPiece>();
 
         // selected Road
         public RoadPiece SelectedRoad { get; set; } = null;
+        public List<RoadPiece> SelectedRoads { get; set; } = null;
 
         // selected Object, not necessarily a road
         public GameObject SelectedObject { get; set; }
@@ -45,6 +46,9 @@ namespace scripts
 
         private float StretchingDistance { get; set; } = 3.78f * 5;
 
+        public Vector3 InitialPositionOfGroup { get; set; } = new Vector3();
+        public bool IsSnappedGroup { get; set; } = false;
+
 
         /*
          * Sets the instance, so other classes can refer
@@ -64,13 +68,31 @@ namespace scripts
             // This condition checks, whether a tile is being dragged. 
             if (Input.GetMouseButton(0))
             {
-                if (!IsDragging && IsInStretchingArea)
+                if (!Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    StretchRoad();
+                    if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
+                    {
+                        StretchRoad();
+                    }
+                    else if (SelectedRoads != null)
+                    {
+                        DragAndDropRoads();
+                    }
+                    else
+                    {
+                        DragAndDropRoad();
+                    }
                 }
-                else
+                else if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    DragAndDropRoad();
+                    RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                    if (clickedRoad != null)
+                    {
+                        DeselectRoad();
+                        DeselectGroup();
+                        SelectRoad(clickedRoad);
+                        SelectGroupOfRoads(clickedRoad);
+                    }
                 }
             }
 
@@ -149,6 +171,49 @@ namespace scripts
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 DeselectRoad();
+                DeselectGroup();
+            }
+        }
+
+        public void DeselectGroup()
+        {
+            if (SelectedRoads != null)
+            {
+                foreach (RoadPiece road in SelectedRoads)
+                {
+                    ColorRoadPiece(road, SelectionColor.normal);
+                }
+            }
+            SelectedRoads = null;
+        }
+        public List<RoadPiece> SelectGroupOfRoads(RoadPiece clickedRoad)
+        {
+            List<RoadPiece> connectedRoadPieces = new List<RoadPiece>();
+            connectedRoadPieces.Add(clickedRoad);
+            foreach (VirtualAnchor va in clickedRoad.AnchorPoints)
+            {
+                if (va.ConnectedAnchorPoint != null)
+                {
+                    AddRoadToGroup(connectedRoadPieces, va.ConnectedAnchorPoint.RoadPiece);
+                }
+            }
+            SelectedRoads = connectedRoadPieces;
+            return null;
+        }
+
+        public void AddRoadToGroup(List<RoadPiece> roads, RoadPiece roadToCheck)
+        {
+            if (!roads.Contains(roadToCheck))
+            {
+                ColorRoadPiece(roadToCheck, SelectionColor.groupSelected);
+                roads.Add(roadToCheck);
+                foreach (VirtualAnchor va in roadToCheck.AnchorPoints)
+                {
+                    if (va.ConnectedAnchorPoint != null)
+                    {
+                        AddRoadToGroup(roads, va.ConnectedAnchorPoint.RoadPiece);
+                    }
+                }
             }
         }
 
@@ -382,7 +447,7 @@ namespace scripts
                                 va.RemoveConntectedAnchorPoint();
                             }
 
-                            if (!Input.GetKey(KeyCode.LeftShift))
+                            if (!Input.GetKey(KeyCode.LeftAlt))
                             {
                                 Snap();
                             }
@@ -394,16 +459,64 @@ namespace scripts
             }
         }
 
+        private void DragAndDropRoads()
+        {
+            if (IsDragging == false)
+            {
+                SelectedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                InitialPositionOfGroup = SelectedRoad != null ? SelectedRoad.transform.position : InitialPositionOfGroup = new Vector3();
+            }
+            if (SelectedRoads.Contains(SelectedRoad))
+            {
+                IsDragging = true;
+                Vector3 newPosition = GetWorldPositionFromMouse();
 
-        public (List<RoadPiece> snappingNeighbors, List<RoadPiece> referenceNeighbors) GetNearestNeighborsInArea()
+                if (InitialPositionOfGroup != Vector3.zero)
+                {
+                    Vector3 shift = newPosition - InitialPositionOfGroup;
+                    shift.z = 0f;
+                    if (!IsSnappedGroup)
+                    {
+                        foreach (RoadPiece road in SelectedRoads)
+                        {
+                            road.transform.position += shift;
+
+                        }
+                    }
+                    else
+                    {
+                        SelectedRoad.transform.position += shift;
+                    }
+                    InitialPositionOfGroup = SelectedRoad.transform.position;
+
+                    foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                    {
+                        if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                        {
+                            va.RemoveConntectedAnchorPoint();
+                        }
+                    }
+                    if (!Input.GetKey(KeyCode.LeftShift))
+                    {
+                        SnapGroup();
+                    }
+                }
+
+
+
+            }
+        }
+
+
+        public (List<RoadPiece> snappingNeighbors, List<RoadPiece> referenceNeighbors) GetNearestNeighborsInArea(List<RoadPiece> roadList)
         {
             List<RoadPiece> snappingNeighbors = new List<RoadPiece>();
             List<RoadPiece> referenceNeighbors = new List<RoadPiece>();
 
-            if (RoadList.Count > 1)
+            if (roadList.Count > 1)
             {
                 float maxSnappingArea = SelectedRoad.Width * 5f;
-                foreach (RoadPiece road in RoadList)
+                foreach (RoadPiece road in roadList)
                 {
                     float sizePieceFound = road.Width * 5f;
                     if (Vector3.Distance(SelectedRoad.transform.position, road.transform.position) <= maxSnappingArea + SNAPPING_DISTANCE + sizePieceFound && SelectedRoad != road)
@@ -441,7 +554,7 @@ namespace scripts
             {
                 foreach (VirtualAnchor selectedVA in SelectedRoad.AnchorPoints)
                 {
-                    if (nearestNeighborVA.ConnectedAnchorPoint == null && (nearestAnchorPoint == -1 || Vector3.Distance(nearestNeighborVA.RoadPiece.transform.position + nearestNeighborVA.Offset, selectedVA.RoadPiece.transform.position + selectedVA.Offset) < nearestAnchorPoint))
+                    if (selectedVA.ConnectedAnchorPoint == null && nearestNeighborVA.ConnectedAnchorPoint == null && (nearestAnchorPoint == -1 || Vector3.Distance(nearestNeighborVA.RoadPiece.transform.position + nearestNeighborVA.Offset, selectedVA.RoadPiece.transform.position + selectedVA.Offset) < nearestAnchorPoint))
                     {
                         nearestAnchorPoint = Vector3.Distance(nearestNeighborVA.RoadPiece.transform.position + nearestNeighborVA.Offset, selectedVA.RoadPiece.transform.position + selectedVA.Offset);
                         selectedRoadVA = selectedVA;
@@ -451,11 +564,11 @@ namespace scripts
             return (selectedRoadVA, nearestNeighborVA);
         }
 
-        public void CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
+        public float CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
         {
             if (Mathf.Abs(neighbor.Orientation - selected.Orientation) == 180)
             {
-                return;
+                return 0;
             }
             else
             {
@@ -466,18 +579,19 @@ namespace scripts
                 {
 
                     RotateRoadPiece(neededOrientation);
+                    return neededOrientation;
                 }
                 else
                 {
                     RotateRoadPiece(-neededOrientation);
+                    return -neededOrientation;
                 }
-
             }
         }
 
         public void Snap()
         {
-            var nearestNeighbors = GetNearestNeighborsInArea();
+            var nearestNeighbors = GetNearestNeighborsInArea(RoadList);
             var nearestAnchorPoints = GetNearestAnchorPoints(nearestNeighbors.snappingNeighbors);
 
             if (nearestAnchorPoints.nearestNeighborVA != null && nearestAnchorPoints.selectedRoadVA != null)
@@ -499,6 +613,60 @@ namespace scripts
                 this.IsSnapped = true;
                 GetNeighborsReference(nearestNeighbors.referenceNeighbors);
             }
+        }
+
+        public void SnapGroup()
+        {
+            List<RoadPiece> viableNeighbors = new List<RoadPiece>();
+            viableNeighbors.Add(SelectedRoad);
+            foreach (RoadPiece road in RoadList)
+            {
+                if (!SelectedRoads.Contains(road))
+                {
+                    viableNeighbors.Add(road);
+                }
+            }
+
+            var nearestNeighbors = GetNearestNeighborsInArea(viableNeighbors);
+            var nearestAnchorPoints = GetNearestAnchorPoints(nearestNeighbors.snappingNeighbors);
+
+            float rotationForGroup = 0;
+            if (nearestAnchorPoints.nearestNeighborVA != null && nearestAnchorPoints.selectedRoadVA != null)
+            {
+                if (SelectedRoad.LastNeighborSnappedAnchorPoint != nearestAnchorPoints.nearestNeighborVA)
+                {
+                    rotationForGroup = CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, nearestAnchorPoints.selectedRoadVA);
+                    SelectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.RoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.Offset) - nearestAnchorPoints.selectedRoadVA.Offset;
+                    nearestAnchorPoints.selectedRoadVA.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
+                    SelectedRoad.LastNeighborSnappedAnchorPoint = nearestAnchorPoints.nearestNeighborVA;
+                    SelectedRoad.LastSelectedSnappedAnchorPoint = nearestAnchorPoints.selectedRoadVA;
+                }
+                else
+                {
+                    rotationForGroup = CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, SelectedRoad.LastSelectedSnappedAnchorPoint);
+                    SelectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.RoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.Offset) - SelectedRoad.LastSelectedSnappedAnchorPoint.Offset;
+                    SelectedRoad.LastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
+                }
+                this.IsSnapped = true;
+                List<RoadPiece> snappedRoads = new List<RoadPiece>();
+                foreach (RoadPiece road in SelectedRoads)
+                {
+                    foreach (VirtualAnchor va in road.AnchorPoints)
+                    {
+                        if (va.ConnectedAnchorPoint != null && !snappedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece) && SelectedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece))
+                        {
+                            if (va.ConnectedAnchorPoint.RoadPiece != SelectedRoad)
+                            {
+                                RotateRoadPiece(va.ConnectedAnchorPoint.RoadPiece, rotationForGroup);
+                                va.ConnectedAnchorPoint.RoadPiece.transform.position = va.RoadPiece.transform.position + va.Offset - va.ConnectedAnchorPoint.Offset;
+                            }
+                            snappedRoads.Add(va.ConnectedAnchorPoint.RoadPiece);
+                        }
+                    }
+
+                }
+            }
+
         }
 
         /*
@@ -539,6 +707,19 @@ namespace scripts
                 SelectedRoad.Rotation = SelectedRoad.Rotation + rotation;
 
                 foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                {
+                    va.Update(rotation);
+                }
+            }
+        }
+        public void RotateRoadPiece(RoadPiece road, float rotation)
+        {
+            if (road != null)
+            {
+                road.transform.Rotate(new Vector3(0, 0, rotation));
+                road.Rotation = road.Rotation + rotation;
+
+                foreach (VirtualAnchor va in road.AnchorPoints)
                 {
                     va.Update(rotation);
                 }
@@ -652,6 +833,50 @@ namespace scripts
                 for (int i = 0; i < SelectedRoad.gameObject.transform.childCount; i++)
                 {
                     SelectedRoad.gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().color = color;
+                }
+            }
+        }
+        public void ColorRoadPiece(RoadPiece road, SelectionColor sColor)
+        {
+            Color color = new Color();
+            switch (sColor)
+            {
+                case SelectionColor.normal:
+                    color = Color.white;
+                    break;
+                case SelectionColor.selected:
+                    color = new Color(0.49f, 0.85f, 1f, 1f);
+                    break;
+                case SelectionColor.groupSelected:
+                    color = new Color(0f, 0f, 0f);
+                    break;
+                case SelectionColor.invalid:
+                    color = new Color(1f, 0.67f, 0.72f, 1f);
+                    break;
+                case SelectionColor.snapped:
+                    color = new Color(0.72f, 1f, 0.65f, 1f);
+                    break;
+                case SelectionColor.locked:
+                    color = new Color(1f, 1f, 1f, 0.5f);
+                    break;
+                case SelectionColor.lockedSelected:
+                    color = new Color(0f, 0.707f, 1f, 1f);
+                    break;
+                case SelectionColor.lockedSnapped:
+                    color = new Color(0f, 0.7f, 0f, 1f);
+                    break;
+                default:
+                    break;
+            }
+            if (road.gameObject.transform.childCount == 0 || road.gameObject.GetComponent<SpriteRenderer>().sprite != null)
+            {
+                road.GetComponent<SpriteRenderer>().color = color;
+            }
+            else if (road.gameObject.transform.childCount > 0)
+            {
+                for (int i = 0; i < road.gameObject.transform.childCount; i++)
+                {
+                    road.gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().color = color;
                 }
             }
         }

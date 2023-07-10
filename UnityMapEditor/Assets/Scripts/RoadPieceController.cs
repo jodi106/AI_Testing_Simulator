@@ -39,6 +39,7 @@ namespace scripts
     {
         normal,
         selected,
+        groupSelected,
         invalid,
         snapped,
         locked,
