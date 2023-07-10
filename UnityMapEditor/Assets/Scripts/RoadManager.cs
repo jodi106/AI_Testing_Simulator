@@ -848,7 +848,8 @@ namespace scripts
                     color = new Color(0.49f, 0.85f, 1f, 1f);
                     break;
                 case SelectionColor.groupSelected:
-                    color = new Color(0f, 0f, 0f);
+
+                    color = new Color(0.48f, 0.12f, 0.64f, 1f);
                     break;
                 case SelectionColor.invalid:
                     color = new Color(1f, 0.67f, 0.72f, 1f);
