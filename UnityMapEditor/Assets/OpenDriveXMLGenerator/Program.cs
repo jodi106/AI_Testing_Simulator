@@ -44,9 +44,9 @@ namespace OpenDriveXMLGenerator
 
             foreach (var (centerPosition, piece) in pieces)
             {
-                var heading = piece.anchorPoints.First().orientation + 3 * Mathf.PI / 2;
+                var heading = piece.AnchorPoints.First().Orientation + 3 * Mathf.PI / 2;
 
-                switch (piece.roadType)
+                switch (piece.RoadType)
                 {
                     case RoadType.StraightRoad:
                         builder.AddStraightRoad(centerPosition.x, centerPosition.y, heading, 1);
