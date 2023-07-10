@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Xml;
 
@@ -15,6 +17,8 @@ namespace OpenDriveXMLGenerator
         private int junctionId = 0;
 
         private int connectionId = 0;
+
+
 
         public OpenDriveXMLBuilder()
         {
@@ -46,7 +50,8 @@ namespace OpenDriveXMLGenerator
         /**
          * Generates a straight piece of road
          */
-        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5", int[] predecessorId = null, int[] successorId = null) {
+        public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0, bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5", List<SequenceInfo> predecessors = null, List<SequenceInfo> successors = null)
+        {
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -54,22 +59,37 @@ namespace OpenDriveXMLGenerator
                 id: id.ToString(),
                 junction: "-1");
 
-                id++;
+            id++;
 
             var link = road.AddLinkElement();
-            if (predecessorId != null)
+            if (predecessors != null)
             {
-                foreach (var id in predecessorId)
+                foreach (SequenceInfo predecessor in predecessors)
                 {
-                    var predecessor = link.AddPredecessor("road", id.ToString());
+                    if (predecessor.IsJunction == true)
+                    {
+                        var pre = link.AddPredecessor("junction", predecessor.Id.ToString());
+                    }
+                    else
+                    {
+                        var pre = link.AddPredecessor("road", predecessor.Id.ToString());
+                    }
 
                 }
             }
-            if (successorId != null)
+            if (successors != null)
             {
-                foreach (var id in successorId)
+                foreach (SequenceInfo successor in successors)
                 {
-                    var successor = link.AddSuccessor("road", id.ToString());
+                    if (successor.IsJunction == true)
+                    {
+                        var suc = link.AddSuccessor("junction", successor.Id.ToString());
+                    }
+                    else
+                    {
+                        var suc = link.AddSuccessor("road", successor.Id.ToString());
+                    }
+
                 }
             }
 
@@ -83,30 +103,32 @@ namespace OpenDriveXMLGenerator
                 length: length.ToString(CultureInfo.InvariantCulture));
 
             var lanes = road.AddLanesElement();
-                var laneSection = lanes.AddLaneSectionElement(s: "0");
-                    var left = laneSection.AddDirectionElement(Direction.Left);
-                        var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-                            laneLeftSidewalk.AddLinkElement();
-                            laneLeftSidewalk.AddWidthElement(a:"1.5");
-                        var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
-                            laneLeft.AddLinkElement();
-                            laneLeft.AddWidthElement(a:laneWidth);
-                    var center = laneSection.AddDirectionElement(Direction.Center);
-                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-                            laneCenter.AddLinkElement();
-                            laneCenter.AddWidthElement(a: "0");
-                    var right = laneSection.AddDirectionElement(Direction.Right);
-                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-                            laneRight.AddLinkElement();
-                            laneRight.AddWidthElement(a:laneWidth);
-                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-                            laneRightSidewalk.AddLinkElement();
-                            laneRightSidewalk.AddWidthElement(a: "1.5");
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var left = laneSection.AddDirectionElement(Direction.Left);
+            var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+            laneLeftSidewalk.AddLinkElement();
+            laneLeftSidewalk.AddWidthElement(a: "1.5");
+            var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+            laneLeft.AddLinkElement();
+            laneLeft.AddWidthElement(a: laneWidth);
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            laneRight.AddLinkElement();
+            laneRight.AddWidthElement(a: laneWidth);
+            var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+            laneRightSidewalk.AddLinkElement();
+            laneRightSidewalk.AddWidthElement(a: "1.5");
 
 
-            if (crossing) {
+            if (crossing)
+            {
 
-                if (crossingLength > 6) {
+                if (crossingLength > 6)
+                {
                     throw new ArgumentOutOfRangeException(nameof(crossingLength), "Crosswalk length must pe smaller then road width");
                 }
 
@@ -117,13 +139,16 @@ namespace OpenDriveXMLGenerator
                 /*
                     The order of the corners is important, it draws the shape sequential.
                 */
-                if (crossingLength == 0.0f || crossingWidth == 0.0f) {
+                if (crossingLength == 0.0f || crossingWidth == 0.0f)
+                {
                     outline.AddCornerLocalElement((-3).ToString(), (-1.5).ToString());
                     outline.AddCornerLocalElement((-3).ToString(), 1.5.ToString());
                     outline.AddCornerLocalElement(3.ToString(), 1.5.ToString());
                     outline.AddCornerLocalElement(3.ToString(), (-1.5).ToString());
 
-                } else {
+                }
+                else
+                {
                     outline.AddCornerLocalElement((-crossingLength / 2).ToString(), (-crossingWidth / 2).ToString());
                     outline.AddCornerLocalElement((-crossingLength / 2).ToString(), (crossingWidth / 2).ToString());
                     outline.AddCornerLocalElement((crossingLength / 2).ToString(), (crossingWidth / 2).ToString());
@@ -137,7 +162,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad Add15DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0, int[] predecessorId = null, int[] successorId = null)
+        public XODRRoad Add15DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
 
             var road = RootElement.AddRoadElement(
@@ -149,19 +174,26 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            if (predecessorId != null)
+            if (predecessorInfo != null)
             {
-                foreach (var id in predecessorId)
+                if (predecessorInfo.IsJunction == true)
                 {
-                    var predecessor = link.AddPredecessor("road", id.ToString());
-
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
                 }
             }
-            if (successorId != null)
+            if (successorInfo != null)
             {
-                foreach (var id in successorId)
+                if (successorInfo.IsJunction == true)
                 {
-                    var successor = link.AddSuccessor("road", id.ToString());
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
                 }
             }
 
@@ -175,30 +207,30 @@ namespace OpenDriveXMLGenerator
                 curvature: "0.19999960000121728");
 
             var lanes = road.AddLanesElement();
-                var laneSection = lanes.AddLaneSectionElement(s: "0");
-                    var left = laneSection.AddDirectionElement(Direction.Left);
-                        var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-                            laneLeftSidewalk.AddLinkElement();
-                            laneLeftSidewalk.AddWidthElement(a: "1.5");
-                        var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
-                            laneLeft.AddLinkElement();
-                            laneLeft.AddWidthElement();
-                    var center = laneSection.AddDirectionElement(Direction.Center);
-                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-                            laneCenter.AddLinkElement();
-                            laneCenter.AddWidthElement(a: "0");
-                    var right = laneSection.AddDirectionElement(Direction.Right);
-                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-                            laneRight.AddLinkElement();
-                            laneRight.AddWidthElement();
-                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-                            laneRightSidewalk.AddLinkElement();
-                            laneRightSidewalk.AddWidthElement(a:"1.5");
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var left = laneSection.AddDirectionElement(Direction.Left);
+            var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+            laneLeftSidewalk.AddLinkElement();
+            laneLeftSidewalk.AddWidthElement(a: "1.5");
+            var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+            laneLeft.AddLinkElement();
+            laneLeft.AddWidthElement();
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            laneRight.AddLinkElement();
+            laneRight.AddWidthElement();
+            var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+            laneRightSidewalk.AddLinkElement();
+            laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return road;
         }
 
-        public XODRRoad Add90DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0, int[] predecessorId = null, int[] successorId = null)
+        public XODRRoad Add90DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
 
             var road = RootElement.AddRoadElement(
@@ -210,19 +242,26 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            if (predecessorId != null)
+            if (predecessorInfo != null)
             {
-                foreach (var id in predecessorId)
+                if (predecessorInfo.IsJunction == true)
                 {
-                    var predecessor = link.AddPredecessor("road", id.ToString());
-
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
                 }
             }
-            if (successorId != null)
+            if (successorInfo != null)
             {
-                foreach (var id in successorId)
+                if (successorInfo.IsJunction == true)
                 {
-                    var successor = link.AddSuccessor("road", id.ToString());
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
                 }
             }
 
@@ -236,109 +275,34 @@ namespace OpenDriveXMLGenerator
                 curvature: "0.19999960000121791");
 
             var lanes = road.AddLanesElement();
-                var laneSection = lanes.AddLaneSectionElement(s: "0");
-                var left = laneSection.AddDirectionElement(Direction.Left);
-                    var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-                        laneLeftSidewalk.AddLinkElement();
-                        laneLeftSidewalk.AddWidthElement(a: "1.5");
-                    var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
-                        laneLeft.AddLinkElement();
-                        laneLeft.AddWidthElement();
-                var center = laneSection.AddDirectionElement(Direction.Center);
-                    var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-                        laneCenter.AddLinkElement();
-                        laneCenter.AddWidthElement(a: "0");
-                var right = laneSection.AddDirectionElement(Direction.Right);
-                    var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-                        laneRight.AddLinkElement();
-                        laneRight.AddWidthElement();
-                    var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-                        laneRightSidewalk.AddLinkElement();
-                        laneRightSidewalk.AddWidthElement(a: "1.5");
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var left = laneSection.AddDirectionElement(Direction.Left);
+            var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+            laneLeftSidewalk.AddLinkElement();
+            laneLeftSidewalk.AddWidthElement(a: "1.5");
+            var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+            laneLeft.AddLinkElement();
+            laneLeft.AddWidthElement();
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            laneRight.AddLinkElement();
+            laneRight.AddWidthElement();
+            var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+            laneRightSidewalk.AddLinkElement();
+            laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return road;
         }
 
-
-        //The custom road has no left lane or left sidewalk
-        public XODRRoad AddLeftLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, float length = 0, string laneWidth = "3.5", string curvature = null, bool sidewalk = false, int[] predecessorId = null, int[] successorId = null)
-        {
-            if (predecessorId != null)
-            {
-                foreach (var PreId in predecessorId)
-                {
-                    var connection = junction.AddConnectionElement(
-                                        id: connectionId.ToString(),
-                                        incomingRoadId: PreId.ToString(),
-                                        connectingRoadId: id.ToString());
-                    connectionId++;
-
-                }
-            }
-            
-
-            var road = RootElement.AddRoadElement(
-                name: "Road " + id.ToString(),
-                length: length.ToString(),
-                id: id.ToString(),
-                junction: junctionId.ToString());
-
-            id++;
-
-
-            var link = road.AddLinkElement();
-            if (predecessorId != null)
-            {
-                foreach (var id in predecessorId)
-                {
-                    var predecessor = link.AddPredecessor("road", id.ToString());
-
-                }
-            }
-            if (successorId != null)
-            {
-                foreach (var id in successorId)
-                {
-                    var successor = link.AddSuccessor("road", id.ToString());
-                }
-            }
-
-
-            var plainView = road.AddPlainViewElement();
-            var geometry1 = plainView.AddGeometryElement(
-                s: "0.0",
-                x: startX.ToString(),
-                y: startY.ToString(),
-                hdg: hdg.ToString(),
-                length: length.ToString(),
-                curvature: curvature);
-
-            var lanes = road.AddLanesElement();
-                var laneSection = lanes.AddLaneSectionElement(s: "0");
-                    var center = laneSection.AddDirectionElement(Direction.Center);
-                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-                            laneCenter.AddLinkElement();
-                            laneCenter.AddWidthElement(a: "0");
-                    var right = laneSection.AddDirectionElement(Direction.Right);
-                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-                            laneRight.AddLinkElement();
-                            laneRight.AddWidthElement(a: laneWidth);
-
-            if(sidewalk == true)
-            {
-                var laneLeft1 = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-                laneLeft1.AddLinkElement();
-                laneLeft1.AddWidthElement(a: "1.5");
-            }
-
-            return road;
-        }
-
-        public XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
+                incomingRoadId: predecessorInfo.Id.ToString(),
                 connectingRoadId: id.ToString());
             connectionId++;
 
@@ -350,8 +314,28 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = curve.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorInfo != null)
+            {
+                if (predecessorInfo.IsJunction == true)
+                {
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
+                }
+            }
+            if (successorInfo != null)
+            {
+                if (successorInfo.IsJunction == true)
+                {
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
+                }
+            }
 
             var plainView = curve.AddPlainViewElement();
             var geometry1 = plainView.AddGeometryElement(
@@ -363,7 +347,7 @@ namespace OpenDriveXMLGenerator
             var geometry2 = plainView.AddGeometryElement(
                 s: "0.14583694396573854",
                 x: (startX + 0.1458369439657385f * (float)Math.Cos(hdg)).ToString(),
-                y: (startY + 0.1458369439657385f * (float) Math.Sin(hdg)).ToString(),
+                y: (startY + 0.1458369439657385f * (float)Math.Sin(hdg)).ToString(),
                 hdg: hdg.ToString(),
                 length: "13.122688641864244",
                 curvature: "-0.11970079986381091");
@@ -374,27 +358,27 @@ namespace OpenDriveXMLGenerator
                 hdg: (hdg - 1.5707963267948966).ToString(),
                 length: "0.1455");
             var lanes = curve.AddLanesElement();
-                var laneSection = lanes.AddLaneSectionElement(s: "0");
-                    var center = laneSection.AddDirectionElement(Direction.Center);
-                        var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
-                            laneCenter.AddLinkElement();
-                            laneCenter.AddWidthElement(a: "0");
-                    var right = laneSection.AddDirectionElement(Direction.Right);
-                        var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
-                            laneRight.AddLinkElement();
-                            laneRight.AddWidthElement();
-                        var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
-                            laneRightSidewalk.AddLinkElement();
-                            laneRightSidewalk.AddWidthElement(a: "1.5");
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            laneRight.AddLinkElement();
+            laneRight.AddWidthElement();
+            var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+            laneRightSidewalk.AddLinkElement();
+            laneRightSidewalk.AddWidthElement(a: "1.5");
 
             return curve;
         }
 
-        public XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,double hdg = 0, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
+                incomingRoadId: predecessorInfo.Id.ToString(),
                 connectingRoadId: id.ToString());
             connectionId++;
 
@@ -406,8 +390,28 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = curve.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorInfo != null)
+            {
+                if (predecessorInfo.IsJunction == true)
+                {
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
+                }
+            }
+            if (successorInfo != null)
+            {
+                if (successorInfo.IsJunction == true)
+                {
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
+                }
+            }
 
             var plainView = curve.AddPlainViewElement();
             var geometry1 = plainView.AddGeometryElement(
@@ -451,12 +455,12 @@ namespace OpenDriveXMLGenerator
 
         }
 
-       
-        public XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
+
+        public XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
+                incomingRoadId: predecessorInfo.Id.ToString(),
                 connectingRoadId: id.ToString());
             connectionId++;
 
@@ -468,8 +472,28 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorInfo != null)
+            {
+                if (predecessorInfo.IsJunction == true)
+                {
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
+                }
+            }
+            if (successorInfo != null)
+            {
+                if (successorInfo.IsJunction == true)
+                {
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
+                }
+            }
 
             var plainView = road.AddPlainViewElement();
             var geometry = plainView.AddGeometryElement(
@@ -500,14 +524,14 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, int predecessorId = 0, int successorId = 0)
+        public XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0, bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
                 id: connectionId.ToString(),
-                incomingRoadId: predecessorId.ToString(),
+                incomingRoadId: predecessorInfo.Id.ToString(),
                 connectingRoadId: id.ToString());
             connectionId++; 
-            
+
             var road = RootElement.AddRoadElement(
                name: "Road " + id.ToString(),
                length: "17",
@@ -516,8 +540,28 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            var predecessor = link.AddPredecessor("road", predecessorId.ToString());
-            var successor = link.AddSuccessor("road", successorId.ToString());
+            if (predecessorInfo != null)
+            {
+                if (predecessorInfo.IsJunction == true)
+                {
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
+                }
+            }
+            if (successorInfo != null)
+            {
+                if (successorInfo.IsJunction == true)
+                {
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
+                }
+            }
 
             var plainView = road.AddPlainViewElement();
             var geometry = plainView.AddGeometryElement(
@@ -544,130 +588,129 @@ namespace OpenDriveXMLGenerator
                 laneLeft1.AddLinkElement();
                 laneLeft1.AddWidthElement(a: "1.5");
             }
-           
+
 
             return road;
         }
 
 
-        public void Add3wayIntersection(float startX = 0, float startY = 0, float hdg = 0)
+        public void Add3wayIntersection(float startX = 0, float startY = 0, float hdg = 0, List<SequenceInfo> predecessorInfo = null, List<SequenceInfo> successorInfo = null)
         {
             var junction = RootElement.AddJunctionElement(
                name: "Junction " + junctionId.ToString(),
                id: junctionId.ToString());
             junctionId++;
 
-            var incomingRoadId1 = id;
+            int incomingRoadId1 = id;
             float startX1 = startX;
             float startY1 = startY;
-            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false);
+            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(2), successorInfo.ElementAt(2) });
 
             float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
             float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
             float hdg2 = hdg + 1.5707963267949f;
             var incomingRoadId2 = id;
-            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5, false);
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(1), successorInfo.ElementAt(1) });
 
-            float startX3 = startX + 17.5f * (float) Math.Cos(hdg);
-            float startY3 = startY + 17.5f * (float) Math.Sin(hdg);
+            float startX3 = startX + 17.5f * (float)Math.Cos(hdg);
+            float startY3 = startY + 17.5f * (float)Math.Sin(hdg);
             var incomingRoadId3 = id;
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5, false);
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(0), successorInfo.ElementAt(0) });
 
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
             float startYCurve1 = startY + 9f * (float)Math.Sin(hdg) - 8.5f * (float)Math.Cos(hdg);
             float hdgCurve1 = hdg + 1.5707963267949f;
-            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId2, incomingRoadId3);
-            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId3, incomingRoadId2);
+            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 }}, new SequenceInfo{ IsJunction = false, Id = incomingRoadId3, leftLaneIds = null, rightLaneIds = new List<int> { -1 } });
+            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = new List<int> { 1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { 1 }, rightLaneIds = null });
 
             float startXCurve2 = startX + 0.5f * (float)Math.Cos(hdg);
             float startYCurve2 = startY + 0.5f * (float)Math.Sin(hdg);
-            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId1, incomingRoadId2);
-            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId2, incomingRoadId1);
+            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, new SequenceInfo { IsJunction = false,Id = incomingRoadId1, leftLaneIds = null, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false,Id = incomingRoadId2, leftLaneIds = null, rightLaneIds = new List<int> { 1 } });
+            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, new SequenceInfo { IsJunction = false,Id = incomingRoadId2, leftLaneIds = new List<int> { -1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = new List<int> { 1 }, rightLaneIds = null });
 
             float startX4 = startX + 0.5f * (float)Math.Cos(hdg);
-            float startY4 = startY + 0.5f * (float)Math.Sin(hdg) ;
-            var connectionRoad1 = this.AddRightStraight(junction, startX4, startY4, hdg, false, incomingRoadId1, incomingRoadId3);
-            var connectionRoad2 = this.AddLeftStraight(junction, startX4, startY4, hdg, true, incomingRoadId3, incomingRoadId1);
-
+            float startY4 = startY + 0.5f * (float)Math.Sin(hdg);
+            var connectionRoad1 = this.AddRightStraight(junction, startX4, startY4, hdg, false, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = null, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = null, rightLaneIds = new List<int> { -1 } });
+            var connectionRoad2 = this.AddLeftStraight(junction, startX4, startY4, hdg, true, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { 1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = new List<int> { 1 }, rightLaneIds = null });
             connectionId = 0;
 
         }
 
-        
-        public void Add4wayIntersection(float startX = 0, float startY = 0, float hdg = 0)
+
+        public void Add4wayIntersection(float startX = 0, float startY = 0, float hdg = 0, List<SequenceInfo> predecessorInfo = null, List<SequenceInfo> successorInfo = null)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
                name: "Junction " + junctionId.ToString(),
                id: junctionId.ToString());
             junctionId++;
 
-            var incomingRoadId1 = id;
+            int incomingRoadId1 = id;
             float startX1 = startX;
             float startY1 = startY;
-            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5f, false);
+            var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(2), successorInfo.ElementAt(2) });
 
             float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
             float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
             float hdg2 = hdg + 1.5707963267949f;
             var incomingRoadId2 = id;
-            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5f, false);
+            var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(1), successorInfo.ElementAt(1) });
 
             float startX3 = startX + 17.5f * (float)Math.Cos(hdg);
             float startY3 = startY + 17.5f * (float)Math.Sin(hdg);
             var incomingRoadId3 = id;
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5f, false);
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(0), successorInfo.ElementAt(0) });
 
             float startX4 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
             float startY4 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
             float hdg4 = hdg + 1.5707963267949f;
             var incomingRoadId4 = id;
-            var incomingRoad4 = this.AddStraightRoad(startX4, startY4, hdg4, 0.5f, false);
+            var incomingRoad4 = this.AddStraightRoad(startX4, startY4, hdg4, 0.5f, false, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(2), successorInfo.ElementAt(2) });
 
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
             float startYCurve1 = startY + 9f * (float)Math.Sin(hdg) - 8.5f * (float)Math.Cos(hdg);
             float hdgCurve1 = hdg + 1.5707963267949f;
-            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId2, incomingRoadId3);
-            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, incomingRoadId3, incomingRoadId2);
+            var curve1Right = this.AddRightCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = null, rightLaneIds = new List<int> { -1 } });
+            var curve1Left = this.AddLeftCurveToIntersection(junction, startXCurve1, startYCurve1, hdgCurve1, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = new List<int> { 1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { 1 }, rightLaneIds = null });
 
             float startXCurve2 = startX + 0.5f * (float)Math.Cos(hdg);
             float startYCurve2 = startY + 0.5f * (float)Math.Sin(hdg);
-            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId1, incomingRoadId2);
-            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, incomingRoadId2, incomingRoadId1);
+            var curve2Right = this.AddRightCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = null, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = null, rightLaneIds = new List<int> { 1 } });
+            var curve2Left = this.AddLeftCurveToIntersection(junction, startXCurve2, startYCurve2, hdg, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { -1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = new List<int> { 1 }, rightLaneIds = null });
 
             float startX5 = startX + 0.5f * (float)Math.Cos(hdg);
             float startY5 = startY + 0.5f * (float)Math.Sin(hdg);
-            var connectionRoad1 = this.AddRightStraight(junction, startX5, startY5, hdg, false, incomingRoadId1, incomingRoadId3);
-            var connectionRoad2 = this.AddLeftStraight(junction, startX5, startY5, hdg, false, incomingRoadId3, incomingRoadId1);
+            var connectionRoad1 = this.AddRightStraight(junction, startX5, startY5, hdg, false, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = null, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = null, rightLaneIds = new List<int> { -1 } });
+            var connectionRoad2 = this.AddLeftStraight(junction, startX5, startY5, hdg, true, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { 1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId1, leftLaneIds = new List<int> { 1 }, rightLaneIds = null });
 
             float startX6 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
             float startY6 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
             float hdg6 = hdg - 1.5707963f;
-            var connectionRoad3 = this.AddRightStraight(junction, startX6, startY6, hdg6, false, incomingRoadId2, incomingRoadId4);
-            var connectionRoad4 = this.AddLeftStraight(junction, startX6, startY6, hdg6, false, incomingRoadId4, incomingRoadId2);
+            var connectionRoad3 = this.AddRightStraight(junction, startX6, startY6, hdg6, false, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = null, rightLaneIds = new List<int> { 1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId4, leftLaneIds = null, rightLaneIds = new List<int> { -1 } });
+            var connectionRoad4 = this.AddLeftStraight(junction, startX6, startY6, hdg6, false, new SequenceInfo { IsJunction = false, Id = incomingRoadId4, leftLaneIds = new List<int> { 1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = new List<int> { -1 }, rightLaneIds = null });
 
             float startXCurve3 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
             float startYCurve3 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
             float hdgCurve3 = hdg - 1.5707963f;
-            var curve3Left = this.AddRightCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, incomingRoadId4, incomingRoadId2);
-            var curve3Right = this.AddLeftCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, incomingRoadId2, incomingRoadId4);
+            var curve3Left = this.AddRightCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = null, rightLaneIds = new List<int> { 1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId4, leftLaneIds = null, rightLaneIds = new List<int> { -1 } });
+            var curve3Right = this.AddLeftCurveToIntersection(junction, startXCurve3, startYCurve3, hdgCurve3, new SequenceInfo { IsJunction = false, Id = incomingRoadId4, leftLaneIds = new List<int> { 1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId2, leftLaneIds = new List<int> { -1 }, rightLaneIds = null });
 
             float startXCurve4 = startX + 17.5f * (float)Math.Cos(hdg);
             float startYCurve4 = startY + 17.5f * (float)Math.Sin(hdg);
             float hdgCurve4 = hdg + 3.1415926f;
-            var curve4Left = this.AddRightCurveToIntersection(junction, startXCurve4, startYCurve4, hdgCurve4, incomingRoadId4, incomingRoadId3);
-            var curve4Right = this.AddLeftCurveToIntersection(junction: junction, startXCurve4, startYCurve4, hdgCurve4, incomingRoadId3, incomingRoadId4);
+            var curve4Left = this.AddRightCurveToIntersection(junction: junction, startXCurve4, startYCurve4, hdgCurve4, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = null, rightLaneIds = new List<int> { 1 } }, new SequenceInfo { IsJunction = false, Id = incomingRoadId4, leftLaneIds = null, rightLaneIds = new List<int> { 1 } });
+            var curve4Right = this.AddLeftCurveToIntersection(junction: junction, startXCurve4, startYCurve4, hdgCurve4, new SequenceInfo { IsJunction = false, Id = incomingRoadId4, leftLaneIds = new List<int> { -1 }, rightLaneIds = null }, new SequenceInfo { IsJunction = false, Id = incomingRoadId3, leftLaneIds = new List<int> { -1 }, rightLaneIds = null });
 
             connectionId = 0;
 
         }
 
-        private XODRRoad AddRoundaboutEntry(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int predecessorId = -1, int successorId = -1)
+        private XODRRoad AddRoundaboutEntry(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
-            if (predecessorId > -1)
+            if (predecessorInfo != null)
             {
                 var connection = junction.AddConnectionElement(
                                         id: connectionId.ToString(),
-                                        incomingRoadId: predecessorId.ToString(),
+                                        incomingRoadId: predecessorInfo.Id.ToString(),
                                         connectingRoadId: id.ToString());
                 connectionId++;
 
@@ -683,13 +726,27 @@ namespace OpenDriveXMLGenerator
             id++;
 
             var link = road.AddLinkElement();
-            if (predecessorId > -1)
+            if (predecessorInfo != null)
             {
-                var predecessor = link.AddPredecessor("road", id.ToString());
+                if (predecessorInfo.IsJunction == true)
+                {
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
+                }
             }
-            if (successorId > -1)
+            if (successorInfo != null)
             {
-                var successor = link.AddSuccessor("road", id.ToString());
+                if (successorInfo.IsJunction == true)
+                {
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
+                }
             }
 
 
@@ -711,14 +768,14 @@ namespace OpenDriveXMLGenerator
                 s: "4.0150422263549537e+0",
                 x: (startX + 3.9718521088374819 * (float)Math.Cos(hdg) + 4.8943641564075668e-01 * (float)Math.Sin(hdg)).ToString(),
                 y: (startY + 3.9718521088374819 * (float)Math.Sin(hdg) - 4.8943641564075668e-01 * (float)Math.Cos(hdg)).ToString(),
-                hdg: (hdg -2.6411809844406342e-01).ToString(),
+                hdg: (hdg - 2.6411809844406342e-01).ToString(),
                 length: "3.4683764239600299e+00",
                 curvature: "-2.7150009545203924e-01");
             var geometry1 = plainView.AddGeometryElement(
                 s: "7.4832511833263258e+00",
                 x: (startX + 6.45089662102553073 * (float)Math.Cos(hdg) + 2.7301760090773617e+00 * (float)Math.Sin(hdg)).ToString(),
                 y: (startY + 6.45089662102553073 * (float)Math.Sin(hdg) - 2.7301760090773617e+00 * (float)Math.Cos(hdg)).ToString(),
-                hdg: (hdg -1.2057826286128144e+00).ToString(),
+                hdg: (hdg - 1.2057826286128144e+00).ToString(),
                 length: "2.8706087295301153e-01");
 
             var lanes = road.AddLanesElement();
@@ -737,17 +794,17 @@ namespace OpenDriveXMLGenerator
 
             return road;
         }
-        private XODRRoad AddRoundaboutExit(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, int predecessorId = -1, int successorId = -1)
+        private XODRRoad AddRoundaboutExit(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
-            if (predecessorId > -1)
+            if (predecessorInfo != null)
             {
                 var connection = junction.AddConnectionElement(
                                         id: connectionId.ToString(),
-                                        incomingRoadId: predecessorId.ToString(),
+                                        incomingRoadId: predecessorInfo.Id.ToString(),
                                         connectingRoadId: id.ToString());
                 connectionId++;
 
-                
+
             }
 
             var road = RootElement.AddRoadElement(
@@ -760,13 +817,27 @@ namespace OpenDriveXMLGenerator
 
 
             var link = road.AddLinkElement();
-            if (predecessorId > -1)
+            if (predecessorInfo != null)
             {
-                var predecessor = link.AddPredecessor("road", id.ToString());
+                if (predecessorInfo.IsJunction == true)
+                {
+                    var predecessor = link.AddPredecessor("junction", predecessorInfo.Id.ToString());
+                }
+                else
+                {
+                    var predecessor = link.AddPredecessor("road", predecessorInfo.Id.ToString());
+                }
             }
-            if (successorId > -1)
+            if (successorInfo != null)
             {
-                var successor = link.AddSuccessor("road", id.ToString());
+                if (successorInfo.IsJunction == true)
+                {
+                    var successor = link.AddSuccessor("junction", successorInfo.Id.ToString());
+                }
+                else
+                {
+                    var successor = link.AddSuccessor("road", successorInfo.Id.ToString());
+                }
             }
 
             var plainView = road.AddPlainViewElement();
@@ -815,72 +886,161 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public void Add3WayRoundAbout(float startX = 0, float startY = 0, float hdg = 0.0f)
+        //The custom road has no left lane or left sidewalk
+        public XODRRoad AddLeftLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0, float length = 0, string laneWidth = "3.5", string curvature = null, bool sidewalk = false, List<SequenceInfo> predecessors = null, List<SequenceInfo> successors = null)
+        {
+            if (predecessors != null)
+            {
+                foreach (var predecessor in predecessors)
+                {
+                    var connection = junction.AddConnectionElement(
+                                        id: connectionId.ToString(),
+                                        incomingRoadId: predecessor.Id.ToString(),
+                                        connectingRoadId: id.ToString());
+                    connectionId++;
+
+                }
+            }
+
+
+            var road = RootElement.AddRoadElement(
+                name: "Road " + id.ToString(),
+                length: length.ToString(),
+                id: id.ToString(),
+                junction: junctionId.ToString());
+
+            id++;
+
+
+            var link = road.AddLinkElement();
+            if (predecessors != null)
+            {
+                foreach (SequenceInfo predecessor in predecessors)
+                {
+                    if (predecessor.IsJunction == true)
+                    {
+                        var pre = link.AddPredecessor("junction", predecessor.Id.ToString());
+                    }
+                    else
+                    {
+                        var pre = link.AddPredecessor("road", predecessor.Id.ToString());
+                    }
+
+                }
+            }
+            if (successors != null)
+            {
+                foreach (SequenceInfo successor in successors)
+                {
+                    if (successor.IsJunction == true)
+                    {
+                        var suc = link.AddSuccessor("junction", successor.Id.ToString());
+                    }
+                    else
+                    {
+                        var suc = link.AddSuccessor("road", successor.Id.ToString());
+                    }
+
+                }
+            }
+
+
+            var plainView = road.AddPlainViewElement();
+            var geometry1 = plainView.AddGeometryElement(
+                s: "0.0",
+                x: startX.ToString(),
+                y: startY.ToString(),
+                hdg: hdg.ToString(),
+                length: length.ToString(),
+                curvature: curvature);
+
+            var lanes = road.AddLanesElement();
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            laneRight.AddLinkElement();
+            laneRight.AddWidthElement(a: laneWidth);
+
+            if (sidewalk == true)
+            {
+                var laneLeft1 = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                laneLeft1.AddLinkElement();
+                laneLeft1.AddWidthElement(a: "1.5");
+            }
+
+            return road;
+        }
+
+        public void Add3WayRoundAbout(float startX = 0, float startY = 0, float hdg = 0.0f, List<SequenceInfo> predecessorInfo = null, List<SequenceInfo> successorInfo = null)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
                name: "Junction " + junctionId.ToString(),
                id: junctionId.ToString());
-            
-            var road0 = this.AddStraightRoad(startX: startX, startY: startY, hdg: hdg, length: 5.5999755859375000e+00);
-            var road1 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
-            var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f);
+            var road0 = this.AddStraightRoad(startX: startX, startY: startY, hdg: hdg, length: 5.5999755859375000e+00, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(3), successorInfo.ElementAt(3) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
+            var road1 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg: hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(0), successorInfo.ElementAt(0) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
+            var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(2), successorInfo.ElementAt(2) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
 
-            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 12, id + 5 });
-            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 12, id + 5 });
-            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 2 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] {id + 5 });
-            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 3 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4}, successorId: new int[] { id + 1, id + 8});
+            var road3 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 13, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
+            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 13, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
+            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 2 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 3 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 1, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
 
-            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 1 }, successorId: new int[] { id - 4 });
-            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
-            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
-            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
+            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 1, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
 
-            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id - 11, successorId: id - 8);
-            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 10, successorId: id - 8);
-            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 12, successorId: id - 8);
+            var road11 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 11, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
+            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 11, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
+            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 11, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
 
-            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id - 12, successorId: id - 13);
-            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 12, successorId: id - 15);
-            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 8, successorId: id - 14);
+            var road14 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 14, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { 1 } });
+            var road15 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 14, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { 1 } });
+            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 14, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { 1 } });
 
             junctionId++;
             connectionId = 0;
 
         }
 
-        public void Add4WayRoundAbout(float startX = 0, float startY = 0, float hdg = 0.0f)
+    public void Add4WayRoundAbout(float startX = 0, float startY = 0, float hdg = 0.0f, List<SequenceInfo> predecessorInfo = null, List<SequenceInfo> successorInfo = null)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
                name: "Junction " + junctionId.ToString(),
                id: junctionId.ToString());
 
-            var road0 = this.AddStraightRoad(startX: startX, startY: startY, hdg: hdg, length: 5.5999755859375000e+00);
-            var road1 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg:  hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
-            var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f);
-            var road3 = this.AddStraightRoad(startX: startX + 20f * (float)Math.Cos(hdg) - 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 20f * (float)Math.Cos(hdg), hdg: hdg - 1.5707963267948966e+00f, length: 5.5999755859375000e+00f);
+            var road0 = this.AddStraightRoad(startX: startX, startY: startY, hdg: hdg, length: 5.5999755859375000e+00, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(3), successorInfo.ElementAt(3) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
+            var road1 = this.AddStraightRoad(startX: startX + 20 * (float)Math.Cos(hdg) + 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 20 * (float)Math.Cos(hdg), hdg: hdg + 1.5707963267948966e+00f, length: 5.5999755859375000e+00f, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(0), successorInfo.ElementAt(0) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
+            var road2 = this.AddStraightRoad(startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg, length: 5.5999755859375000e+00f, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(2), successorInfo.ElementAt(2) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
+            var road3 = this.AddStraightRoad(startX: startX + 20f * (float)Math.Cos(hdg) - 20f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 20f * (float)Math.Cos(hdg), hdg: hdg - 1.5707963267948966e+00f, length: 5.5999755859375000e+00f, predecessors: new List<SequenceInfo> { predecessorInfo.ElementAt(2), successorInfo.ElementAt(2) }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 16, leftLaneIds = new List<int> { 1 }, rightLaneIds = new List<int> { } } });
 
-            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[]{ id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5});
-            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5 });
-            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 2*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[]{ id + 4, id + 8 }, successorId: new int[] { id + 13, id + 5 });
-            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg -1.2057917902788586e+00f + 3*1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessorId: new int[] { id + 4, id + 8 }, successorId: new int[] { id + 1, id + 9 });
+            var road4 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1533743648088794f * (float)Math.Cos(hdg) + 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 12.1533743648088794f * (float)Math.Sin(hdg) - 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 13, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
+            var road5 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9984095338145988f * (float)Math.Cos(hdg) + 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 22.9984095338145988f * (float)Math.Sin(hdg) - 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 13, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
+            var road6 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) - 2.9984095338145988e+00f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) + 2.9984095338145988e+00f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 2 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 13, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
+            var road7 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0015905f * (float)Math.Cos(hdg) - 7.8466256351911206f * (float)Math.Sin(hdg), startY: startY + 17.0015905f * (float)Math.Sin(hdg) + 7.8466256351911206f * (float)Math.Cos(hdg), hdg: hdg - 1.2057917902788586e+00f + 3 * 1.57f, length: 7.0622814306167738e+00f, curvature: "1.1904762445393628e-01", sidewalk: true, predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id + 1, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, new SequenceInfo { IsJunction = false, Id = id + 9, leftLaneIds = new List<int> {  }, rightLaneIds = new List<int> { 1 } } });
 
-            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] {id-1}, successorId: new int[] { id - 4 });
-            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5 }, successorId: new int[] { id - 4 });
-            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 5}, successorId: new int[] { id - 4 });
-            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg -3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessorId: new int[] { id - 1 }, successorId: new int[] { id - 4 });
+            var road8 = this.AddLeftLaneCurve(junction: junction, startX: startX + 12.1534925868695165f * (float)Math.Cos(hdg) - 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 12.1534925868695165f * (float)Math.Sin(hdg) + 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 3 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 1, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road9 = this.AddLeftLaneCurve(junction: junction, startX: startX + 17.0012811057057851f * (float)Math.Cos(hdg) + 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 17.0012811057057851f * (float)Math.Sin(hdg) - 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f, length: 6.1320759349930771e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road10 = this.AddLeftLaneCurve(junction: junction, startX: startX + 27.8466256351911206f * (float)Math.Cos(hdg) + 2.9987188942942149f * (float)Math.Sin(hdg), startY: startY + 27.8466256351911206f * (float)Math.Sin(hdg) - 2.9987188942942149f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 1 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
+            var road11 = this.AddLeftLaneCurve(junction: junction, startX: startX + 22.9987188942942149f * (float)Math.Cos(hdg) - 7.8465074131304835f * (float)Math.Sin(hdg), startY: startY + 22.9987188942942149f * (float)Math.Sin(hdg) + 7.8465074131304835f * (float)Math.Cos(hdg), hdg: hdg - 3.6504396273878453e-01f + 2 * 1.57f, length: 6.1320759349930780e+00f, curvature: "1.1904762445393628e-01", predecessors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 5, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } }, successors: new List<SequenceInfo> { new SequenceInfo { IsJunction = false, Id = id - 4, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } } });
 
-            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id-12, successorId: id-8);
-            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 10, successorId: id - 8);
-            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 12, successorId: id - 8);
-            var road15 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f, predecessorId: id - 14, successorId: id - 7);
+            var road12 = this.AddRoundaboutEntry(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
+            var road13 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
+            var road14 = this.AddRoundaboutEntry(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
+            var road15 = this.AddRoundaboutEntry(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 12, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 8, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } });
 
-            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorId: id - 9, successorId: id - 16);
-            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorId: id - 13, successorId: id - 14);
-            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorId: id - 13, successorId: id - 16);
-            var road19 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f, predecessorId: id - 13, successorId: id - 18);
+            var road16 = this.AddRoundaboutExit(junction: junction, startX: startX + 5.599975585937500f * (float)Math.Cos(hdg), startY: startY + 5.5999755859375000f * (float)Math.Sin(hdg), hdg: hdg, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 9, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 16, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { 1 } });
+            var road17 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) + 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) - 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 1.57f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 13, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo:  new SequenceInfo { IsJunction = false, Id = id - 16, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { 1 } });
+            var road18 = this.AddRoundaboutExit(junction: junction, startX: startX + 34.4000244140625f * (float)Math.Cos(hdg), startY: startY + 34.4000244140625f * (float)Math.Sin(hdg), hdg: hdg + 3.1415f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 13, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 16, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { 1 } });
+            var road19 = this.AddRoundaboutExit(junction: junction, startX: startX + 20f * (float)Math.Cos(hdg) - 14.4000244140625f * (float)Math.Sin(hdg), startY: startY + 20f * (float)Math.Sin(hdg) + 14.4000244140625f * (float)Math.Cos(hdg), hdg: hdg + 3 * 1.57f, predecessorInfo: new SequenceInfo { IsJunction = false, Id = id - 13, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> { -1 } }, successorInfo: new SequenceInfo { IsJunction = false, Id = id - 16, leftLaneIds = new List<int> { }, rightLaneIds = new List<int> {1 } });
 
             junctionId++;
             connectionId = 0;
         }
+
     }
 }
