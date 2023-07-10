@@ -43,14 +43,12 @@ namespace scripts
         {
             Id = IdCounter++;
             RoadManager.Instance.RoadList.Add(this);
-            Debug.Log(this.AnchorPoints.Count != 0 ? this.AnchorPoints[0].Offset : null);
         }
 
 
         public void PopulateVirtualAnchorPoints()
         {
             AnchorPoints = new List<VirtualAnchor>();
-            Debug.Log(RoadType);
             switch (RoadType)
             {
                 case RoadType.StraightRoad:
