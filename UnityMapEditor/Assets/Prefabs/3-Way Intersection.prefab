@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b60c1ccfd69bb3549947398938a6a223, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e866bf1489aeb494296c247a552520d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,8 +102,8 @@ BoxCollider2D:
   m_Offset: {x: -7.5505285, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.64285713, y: 0.5}
-    oldSize: {x: 52.92369, y: 68.03999}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 68.03999, y: 52.92369}
     newSize: {x: 52.92369, y: 68.03999}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d694e0ee49464e8760d714d6a5986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbors: []
-  roadType: 3
-  width: 68.04
-  height: 68.04
+  RoadType: 3
+  Width: 68.04
+  Height: 68.04

@@ -9,39 +9,41 @@ namespace scripts
     public class ButtonManager : MonoBehaviour
     {
 
-        public List<Button> sidebarButtonList = new List<Button>();
-
-        private static ButtonManager instance; 
-        public static ButtonManager Instance { get
+        public List<Button> sidebarButtonList { get; set; } = new List<Button>();
+        private static ButtonManager instance;
+        public static ButtonManager Instance
+        {
+            get
             {
-                return instance; 
-            } 
+                return instance;
+            }
         }
-        private RoadType selectedRoadType; 
+        private RoadType selectedRoadType { get; set; }
 
         private void Awake()
         {
-            instance = this; 
+            instance = this;
         }
 
-        public void addSidebarButton(Button button) {
+        public void AddSidebarButton(Button button)
+        {
             sidebarButtonList.Add(button);
         }
 
-        public void setSelectedRoadType(RoadType roadType)
+        public void SetSelectedRoadType(RoadType roadType)
         {
             this.selectedRoadType = roadType;
         }
 
-        public RoadType getSelectedRoadType()
+        public RoadType GetSelectedRoadType()
         {
             return this.selectedRoadType;
         }
 
-        public void handleButtonClick(Button button, RoadType roadType)
+        public void HandleButtonClick(Button button, RoadType roadType)
         {
-            setSelectedRoadType(roadType);
-            RoadManager.Instance.createRoad(); 
+            SetSelectedRoadType(roadType);
+            RoadManager.Instance.CreateRoad();
         }
     }
 }
