@@ -29,6 +29,24 @@ namespace OpenDriveXMLGenerator
             return successor;
         }
 
+        public static XODRPredecessor AddLanePredecessor(this XODRLink parent, string elementId)
+        {
+            var predecessor = new XODRPredecessor(parent.OwnerDocument.CreateElement("predecessor"));
+            predecessor.SetAttribute("elementId", elementId);
+            parent.AppendChild(predecessor.XmlElement);
+
+            return predecessor;
+        }
+
+        public static XODRSuccessor AddLaneSuccessor(this XODRLink parent, string elementId)
+        {
+            var successor = new XODRSuccessor(parent.OwnerDocument.CreateElement("successor"));
+            successor.SetAttribute("elementId", elementId);
+            parent.AppendChild(successor.XmlElement);
+
+            return successor;
+        }
+
     }
 
     public class XODRPredecessor : XODRBase
