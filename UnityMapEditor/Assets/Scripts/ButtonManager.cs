@@ -10,7 +10,6 @@ namespace scripts
     {
 
         public List<Button> sidebarButtonList { get; set; } = new List<Button>();
-
         private static ButtonManager instance;
         public static ButtonManager Instance
         {
