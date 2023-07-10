@@ -61,11 +61,11 @@ namespace scripts
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
                     break;
                 case RoadType.Turn:
-                    AnchorPoints.Add(new VirtualAnchor(this, 0));
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayIntersection:
-                    AnchorPoints.Add(new VirtualAnchor(this, 90));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
