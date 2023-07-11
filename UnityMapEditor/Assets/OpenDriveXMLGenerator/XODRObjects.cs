@@ -12,7 +12,7 @@ namespace OpenDriveXMLGenerator
     {
         
 
-        public static XODRObject AddObjectElement(this XODRObjects parent, string zOffset, string s, string t, string hdg = "1.57", string id = null, string lenght = "6", string name = "cross", string orientation = "-", string pitch = "0.0000000000000000e+0", string roll = "0.0000000000000000e+0", string type = "crosswalk", string width = "10.0000000000000000e+0")
+        public static XODRObject AddObjectElement(this XODRObjects parent, string zOffset, string s, string t, string hdg = "1.57", string id = null, string length = "6", string name = "cross", string orientation = "-", string pitch = "0.0000000000000000e+0", string roll = "0.0000000000000000e+0", string type = "crosswalk", string width = "10.0000000000000000e+0")
         {
             var objectElement = new XODRObject(parent.OwnerDocument.CreateElement("object"));
 
@@ -22,7 +22,7 @@ namespace OpenDriveXMLGenerator
                 XODRObjects.objectsID++;
             }
             objectElement.SetAttribute("id", id);
-            objectElement.SetAttribute("lenght", lenght);
+            objectElement.SetAttribute("lenght", length);
             objectElement.SetAttribute("name", name);
             objectElement.SetAttribute("orientation", orientation);
             objectElement.SetAttribute("pitch", pitch);

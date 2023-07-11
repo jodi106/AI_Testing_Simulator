@@ -115,8 +115,8 @@ namespace OpenDriveXMLGenerator
             var laneSection = lanes.AddLaneSectionElement(s: "0");
             var left = laneSection.AddDirectionElement(Direction.Left);
             var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
-            laneLeftSidewalk.AddLinkElement();
-            laneLeftSidewalk.AddWidthElement(a: "1.5");
+                laneLeftSidewalk.AddLinkElement();
+                laneLeftSidewalk.AddWidthElement(a: "1.5");
             var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
             var laneLeftLink = laneLeft.AddLinkElement();
             if (predecessorInfo != null)
@@ -163,7 +163,7 @@ namespace OpenDriveXMLGenerator
             var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
             laneRightSidewalk.AddLinkElement();
             laneRightSidewalk.AddWidthElement(a: "1.5");
-
+            
 
             if (crossing)
             {
@@ -1634,5 +1634,464 @@ namespace OpenDriveXMLGenerator
             junctionId++;
             connectionId = 0;
         }
+
+        public void AddParking(bool topParking, bool bottomParking, float startX = 0, float startY = 0, double hdg = 0, double length = 0, string laneWidth = "3.5", SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+        {
+            //Add straight road
+            var road = RootElement.AddRoadElement(
+                name: "Road " + id.ToString(),
+                length: length.ToString(),
+                id: id.ToString(),
+                junction: "-1");
+
+            id++;
+
+            var link = road.AddLinkElement();
+            if (predecessorInfo != null)
+            {
+                if (predecessorInfo.IsJunction == true)
+                {
+                    foreach (var id in predecessorInfo.Ids)
+                    {
+                        var predecessor = link.AddPredecessor("junction", id.ToString());
+                    }
+                }
+                else
+                {
+                    foreach (var id in predecessorInfo.Ids)
+                    {
+                        var predecessor = link.AddPredecessor("road", id.ToString());
+                    }
+                }
+            }
+
+            if (successorInfo != null)
+            {
+                if (successorInfo.IsJunction == true)
+                {
+                    foreach (var id in successorInfo.Ids)
+                    {
+                        var successor = link.AddSuccessor("junction", id.ToString());
+                    }
+                }
+                else
+                {
+                    foreach (var id in successorInfo.Ids)
+                    {
+                        var successor = link.AddSuccessor("road", id.ToString());
+
+                    }
+                }
+            }
+
+            var plainView = road.AddPlainViewElement();
+            var geometry = plainView.AddGeometryElement(
+                s: "0.0",
+                x: startX.ToString(CultureInfo.InvariantCulture),
+                y: startY.ToString(),
+                hdg: hdg.ToString(),
+                length: length.ToString(CultureInfo.InvariantCulture));
+
+            var lanes = road.AddLanesElement();
+            var laneSection = lanes.AddLaneSectionElement(s: "0");
+            var left = laneSection.AddDirectionElement(Direction.Left);
+            var laneLeft = left.AddLaneElement(id: "1", type: "driving", level: "false");
+            var laneLeftLink = laneLeft.AddLinkElement();
+            if (predecessorInfo != null)
+            {
+                foreach (int leftLaneId in predecessorInfo.leftLaneIds)
+                {
+                    laneLeftLink.AddLanePredecessor(leftLaneId.ToString());
+                }
+            }
+
+            if (successorInfo != null)
+            {
+                foreach (int leftLaneId in successorInfo.leftLaneIds)
+                {
+                    laneLeftLink.AddLaneSuccessor(leftLaneId.ToString());
+                }
+            }
+
+            laneLeft.AddWidthElement(a: laneWidth);
+            var center = laneSection.AddDirectionElement(Direction.Center);
+            var laneCenter = center.AddLaneElement(id: "0", type: "none", level: "false");
+            laneCenter.AddLinkElement();
+            laneCenter.AddWidthElement(a: "0");
+            var right = laneSection.AddDirectionElement(Direction.Right);
+            var laneRight = right.AddLaneElement(id: "-1", type: "driving", level: "false");
+            var laneRightLink = laneRight.AddLinkElement();
+            if (predecessorInfo != null)
+            {
+                foreach (int rightLaneId in predecessorInfo.rightLaneIds)
+                {
+                    laneRightLink.AddLanePredecessor(rightLaneId.ToString());
+                }
+            }
+
+            if (successorInfo != null)
+            {
+                foreach (int rightLaneId in successorInfo.rightLaneIds)
+                {
+                    laneRightLink.AddLaneSuccessor(rightLaneId.ToString());
+                }
+            }
+
+            var objects = road.AddObjectsElement();
+
+            //Add parking spots on the top (parallel to raod)
+            if (topParking == true)
+            {
+                var parkingSpot1 = objects.AddObjectElement(zOffset: "0", s: "5", t: "5", hdg: (hdg + 1.57).ToString(),
+                    id: id.ToString(), length: "3.000375", name: "parkingspot", orientation: "none", pitch: "0.0",
+                    roll: "0.0", type: "parkingSpace", width: "6.930416660");
+                var parkingSpot2 = objects.AddObjectElement(zOffset: "0", s: "12", t: "5", hdg: (hdg + 1.57).ToString(),
+                    id: id.ToString(), length: "3.000375", name: "parkingspot", orientation: "none", pitch: "0.0",
+                    roll: "0.0", type: "parkingSpace", width: "6.930416660");
+
+                //Add sidewalks
+                var topSidewalk = RootElement.AddRoadElement(
+                name: "Road " + id.ToString(),
+                length:  "14",
+                id: id.ToString(),
+                junction: "-1");
+                id++;
+                
+                var plainView1 = topSidewalk.AddPlainViewElement();
+                var geometry1 = plainView1.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 1.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 6.5).ToString(),
+                    hdg: hdg.ToString(),
+                    length: "14");
+
+                var lanes1 = topSidewalk.AddLanesElement();
+                var laneSection1 = lanes1.AddLaneSectionElement(s: "0");
+                var left1 = laneSection1.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk1 = left1.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk1.AddLinkElement();
+                laneLeftSidewalk1.AddWidthElement(a: "1.5");
+
+
+                var topLeftSidewalk = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "1.5",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView2 = topLeftSidewalk.AddPlainViewElement();
+                var geometry2 = plainView2.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 1.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 5).ToString(),
+                    hdg: (hdg + 1.5707963267949).ToString(),
+                    length: "1.5");
+
+                var lanes2 = topLeftSidewalk.AddLanesElement();
+                var laneSection2 = lanes2.AddLaneSectionElement(s: "0");
+                var left2 = laneSection2.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk2 = left2.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk2.AddLinkElement();
+                laneLeftSidewalk2.AddWidthElement(a: "1.5");
+
+
+                var topRightSidewalk = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "1.5",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView3 = topRightSidewalk.AddPlainViewElement();
+                var geometry3 = plainView3.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 17).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 5).ToString(),
+                    hdg: (hdg + 1.5707963267949).ToString(),
+                    length: "1.5");
+
+                var lanes3 = topRightSidewalk.AddLanesElement();
+                var laneSection3 = lanes3.AddLaneSectionElement(s: "0");
+                var left3 = laneSection3.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk3 = left3.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk3.AddLinkElement();
+                laneLeftSidewalk3.AddWidthElement(a: "1.5");
+
+
+                var topLeftSidewalkCurve = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView4 = topLeftSidewalkCurve.AddPlainViewElement();
+                var geometry4 = plainView4.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 1.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 8).ToString(),
+                    hdg: (hdg - 3.1415926535898).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes4 = topLeftSidewalkCurve.AddLanesElement();
+                var laneSection4 = lanes4.AddLaneSectionElement(s: "0");
+                var left4 = laneSection4.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk4 = left4.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk4.AddLinkElement();
+                laneLeftSidewalk4.AddWidthElement(a: "1.5");
+
+
+                var topRightSidewalkCurve = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView5 = topRightSidewalkCurve.AddPlainViewElement();
+                var geometry5 = plainView5.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 17).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 6.5).ToString(),
+                    hdg: (hdg - 1.570796).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes5 = topRightSidewalkCurve.AddLanesElement();
+                var laneSection5 = lanes5.AddLaneSectionElement(s: "0");
+                var left5 = laneSection5.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk5 = left5.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk5.AddLinkElement();
+                laneLeftSidewalk5.AddWidthElement(a: "1.5");
+
+
+                var topCurveContRight = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView6 = topCurveContRight.AddPlainViewElement();
+                var geometry6 = plainView6.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 15.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 5).ToString(),
+                    hdg: (hdg - 1.570796).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes6 = topCurveContRight.AddLanesElement();
+                var laneSection6 = lanes6.AddLaneSectionElement(s: "0");
+                var left6 = laneSection6.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk6 = left6.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk6.AddLinkElement();
+                laneLeftSidewalk6.AddWidthElement(a: "1.5");
+
+
+                var topCurveContLeft = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView7 = topCurveContLeft.AddPlainViewElement();
+                var geometry7 = plainView7.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 3.5).ToString(),
+                    hdg: (hdg).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes7 = topCurveContLeft.AddLanesElement();
+                var laneSection7 = lanes7.AddLaneSectionElement(s: "0");
+                var left7 = laneSection7.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk7 = left7.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk7.AddLinkElement();
+                laneLeftSidewalk7.AddWidthElement(a: "1.5");
+
+            }
+
+            //Add parking spots on the bottom (90 degrees to road)
+            if (bottomParking == true)
+            {
+                var parkingSpot3 = objects.AddObjectElement(zOffset: "0", s: "6", t: "-7", hdg: (hdg + 1.57).ToString(),
+                    id: id.ToString(), length: "7.00087", name: "parkingspot", orientation: "none", pitch: "0.0",
+                    roll: "0.0", type: "parkingSpace", width: "4.902729166");
+                var parkingSpot4 = objects.AddObjectElement(zOffset: "0", s: "11", t: "-7", hdg: (hdg + 1.57).ToString(),
+                    id : id.ToString(), length: "7.00087", name: "parkingspot", orientation: "none", pitch: "0.0", 
+                    roll: "0.0", type: "parkingSpace", width: "4.9027291660");
+
+                //Add sidewalks
+                var bottomSidewalk = RootElement.AddRoadElement(
+                name: "Road " + id.ToString(),
+                length: "10",
+                id: id.ToString(),
+                junction: "-1");
+                id++;
+
+                var plainView8 = bottomSidewalk.AddPlainViewElement();
+                var geometry8 = plainView8.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 3.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 12).ToString(),
+                    hdg: hdg.ToString(),
+                    length: "10");
+
+                var lanes8 = bottomSidewalk.AddLanesElement();
+                var laneSection8 = lanes8.AddLaneSectionElement(s: "0");
+                var left8 = laneSection8.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk8 = left8.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk8.AddLinkElement();
+                laneLeftSidewalk8.AddWidthElement(a: "1.5");
+
+
+                var bottomLeftSidewalk = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "5.5",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView9 = bottomLeftSidewalk.AddPlainViewElement();
+                var geometry9 = plainView9.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 3.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 10.5).ToString(),
+                    hdg: (hdg + 1.570796).ToString(),
+                    length: "5.5");
+
+                var lanes9 = bottomLeftSidewalk.AddLanesElement();
+                var laneSection9 = lanes9.AddLaneSectionElement(s: "0");
+                var left9 = laneSection9.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk9 = left9.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk9.AddLinkElement();
+                laneLeftSidewalk9.AddWidthElement(a: "1.5");
+
+
+                var bottomRightSidewalk = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "5.5",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView10 = bottomRightSidewalk.AddPlainViewElement();
+                var geometry10 = plainView10.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 15).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 10.5).ToString(),
+                    hdg: (hdg + 1.5707963267949).ToString(),
+                    length: "5.5");
+
+                var lanes10 = bottomRightSidewalk.AddLanesElement();
+                var laneSection10 = lanes10.AddLaneSectionElement(s: "0");
+                var left10 = laneSection10.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk10 = left10.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk10.AddLinkElement();
+                laneLeftSidewalk10.AddWidthElement(a: "1.5");
+
+
+                var bottomLeftSidewalkCurve = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView11 = bottomLeftSidewalkCurve.AddPlainViewElement();
+                var geometry11 = plainView11.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 2).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 10.5).ToString(),
+                    hdg: (hdg - 1.570796).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes11 = bottomLeftSidewalkCurve.AddLanesElement();
+                var laneSection11 = lanes11.AddLaneSectionElement(s: "0");
+                var left11 = laneSection11.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk11 = left11.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk11.AddLinkElement();
+                laneLeftSidewalk11.AddWidthElement(a: "1.5");
+
+
+                var bottomRightSidewalkCurve = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView12 = bottomRightSidewalkCurve.AddPlainViewElement();
+                var geometry12 = plainView12.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 13.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 12).ToString(),
+                    hdg: (hdg).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes12 = bottomRightSidewalkCurve.AddLanesElement();
+                var laneSection12 = lanes12.AddLaneSectionElement(s: "0");
+                var left12 = laneSection12.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk12 = left12.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk12.AddLinkElement();
+                laneLeftSidewalk12.AddWidthElement(a: "1.5");
+
+
+                var bottomCurveContRight = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView13 = bottomCurveContRight.AddPlainViewElement();
+                var geometry13 = plainView13.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 15).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 3.5).ToString(),
+                    hdg: (hdg - 3.141592).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes13 = bottomCurveContRight.AddLanesElement();
+                var laneSection13 = lanes13.AddLaneSectionElement(s: "0");
+                var left13 = laneSection13.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk13 = left13.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk13.AddLinkElement();
+                laneLeftSidewalk13.AddWidthElement(a: "1.5");
+
+
+                var bottomCurveContLeft = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView14 = bottomCurveContLeft.AddPlainViewElement();
+                var geometry14 = plainView14.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 3.5).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 5).ToString(),
+                    hdg: (hdg).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes14 = bottomCurveContLeft.AddLanesElement();
+                var laneSection14 = lanes14.AddLaneSectionElement(s: "0");
+                var left14 = laneSection14.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk14 = left14.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk14.AddLinkElement();
+                laneLeftSidewalk14.AddWidthElement(a: "1.5");
+            }
+        }
     }
 }
+    
