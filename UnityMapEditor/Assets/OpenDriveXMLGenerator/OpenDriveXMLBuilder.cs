@@ -103,7 +103,6 @@ namespace OpenDriveXMLGenerator
             }
 
             var plainView = road.AddPlainViewElement();
-            //TODO modify x and y based on previous road
             var geometry1 = plainView.AddGeometryElement(
                 s: "0.0",
                 x: startX.ToString(CultureInfo.InvariantCulture),
@@ -1760,8 +1759,8 @@ namespace OpenDriveXMLGenerator
                 var plainView1 = topSidewalk.AddPlainViewElement();
                 var geometry1 = plainView1.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 1.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 6.5).ToString(),
+                    x: (startX + 1.5f * (float)Math.Cos(hdg) - 6.5f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 6.5f * (float)Math.Sin(hdg) + 1.5f * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
                     hdg: hdg.ToString(),
                     length: "14");
 
@@ -1783,8 +1782,8 @@ namespace OpenDriveXMLGenerator
                 var plainView2 = topLeftSidewalk.AddPlainViewElement();
                 var geometry2 = plainView2.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 1.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 5).ToString(),
+                    x: (startX + 1.5f * (float)Math.Cos(hdg + 1.5707963267949) - 5f * (float)Math.Sin(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 5f * (float)Math.Sin(hdg + 1.5707963267949) + 1.5f * (float)Math.Cos(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg + 1.5707963267949).ToString(),
                     length: "1.5");
 
@@ -1806,8 +1805,8 @@ namespace OpenDriveXMLGenerator
                 var plainView3 = topRightSidewalk.AddPlainViewElement();
                 var geometry3 = plainView3.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 17).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 5).ToString(),
+                    x: (startX + 17f * (float)Math.Cos(hdg + 1.5707963267949) - 5f * (float)Math.Sin(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 5f * (float)Math.Sin(hdg + 1.5707963267949) + 17f * (float)Math.Cos(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg + 1.5707963267949).ToString(),
                     length: "1.5");
 
@@ -1829,8 +1828,8 @@ namespace OpenDriveXMLGenerator
                 var plainView4 = topLeftSidewalkCurve.AddPlainViewElement();
                 var geometry4 = plainView4.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 1.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 8).ToString(),
+                    x: (startX + 1.5f * (float)Math.Cos(hdg - 3.1415926535898) - 8f * (float)Math.Sin(hdg - 3.1415926535898)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 8f * (float)Math.Sin(hdg - 3.1415926535898) + 1.5f * (float)Math.Cos(hdg - 3.1415926535898)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg - 3.1415926535898).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -1853,8 +1852,8 @@ namespace OpenDriveXMLGenerator
                 var plainView5 = topRightSidewalkCurve.AddPlainViewElement();
                 var geometry5 = plainView5.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 17).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 6.5).ToString(),
+                    x: (startX + 17f * (float)Math.Cos(hdg - 1.5707963267949) - 6.5f * (float)Math.Sin(hdg - 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 6.5f * (float)Math.Sin(hdg - 1.5707963267949) + 17f * (float)Math.Cos(hdg - 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg - 1.570796).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -1877,8 +1876,8 @@ namespace OpenDriveXMLGenerator
                 var plainView6 = topCurveContRight.AddPlainViewElement();
                 var geometry6 = plainView6.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 15.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 5).ToString(),
+                    x: (startX + 15.5f * (float)Math.Cos(hdg - 1.5707963267949) - 5f * (float)Math.Sin(hdg - 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 5f * (float)Math.Sin(hdg - 1.5707963267949) + 15.5f * (float)Math.Cos(hdg - 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg - 1.570796).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -1901,8 +1900,8 @@ namespace OpenDriveXMLGenerator
                 var plainView7 = topCurveContLeft.AddPlainViewElement();
                 var geometry7 = plainView7.AddGeometryElement(
                     s: "0.0",
-                    x: (startX).ToString(CultureInfo.InvariantCulture),
-                    y: (startY + 3.5).ToString(),
+                    x: (startX - 3.5f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY + 3.5f * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -1937,8 +1936,8 @@ namespace OpenDriveXMLGenerator
                 var plainView8 = bottomSidewalk.AddPlainViewElement();
                 var geometry8 = plainView8.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 3.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 12).ToString(),
+                    x: (startX + 3.5f * (float)Math.Cos(hdg) + 12f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 12f * (float)Math.Sin(hdg) + 3.5f * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
                     hdg: hdg.ToString(),
                     length: "10");
 
@@ -1960,8 +1959,8 @@ namespace OpenDriveXMLGenerator
                 var plainView9 = bottomLeftSidewalk.AddPlainViewElement();
                 var geometry9 = plainView9.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 3.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 10.5).ToString(),
+                    x: (startX + 3.5f * (float)Math.Cos(hdg + 1.5707963267949) + 10.5f * (float)Math.Sin(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 10.5f * (float)Math.Sin(hdg + 1.5707963267949) + 3.5f * (float)Math.Cos(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg + 1.570796).ToString(),
                     length: "5.5");
 
@@ -1983,8 +1982,8 @@ namespace OpenDriveXMLGenerator
                 var plainView10 = bottomRightSidewalk.AddPlainViewElement();
                 var geometry10 = plainView10.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 15).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 10.5).ToString(),
+                    x: (startX + 15f * (float)Math.Cos(hdg + 1.5707963267949) + 10.5f * (float)Math.Sin(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 10.5f * (float)Math.Sin(hdg + 1.5707963267949) + 15f * (float)Math.Cos(hdg + 1.5707963267949)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg + 1.5707963267949).ToString(),
                     length: "5.5");
 
@@ -2006,8 +2005,8 @@ namespace OpenDriveXMLGenerator
                 var plainView11 = bottomLeftSidewalkCurve.AddPlainViewElement();
                 var geometry11 = plainView11.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 2).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 10.5).ToString(),
+                    x: (startX + 2f * (float)Math.Cos(hdg - 1.570796) + 10.5f * (float)Math.Sin(hdg - 1.570796)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 10.5f * (float)Math.Sin(hdg - 1.570796) + 2f * (float)Math.Cos(hdg - 1.570796)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg - 1.570796).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -2030,8 +2029,8 @@ namespace OpenDriveXMLGenerator
                 var plainView12 = bottomRightSidewalkCurve.AddPlainViewElement();
                 var geometry12 = plainView12.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 13.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 12).ToString(),
+                    x: (startX + 13.5f * (float)Math.Cos(hdg) + 12f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 12f * (float)Math.Sin(hdg) + 13.5f * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -2054,8 +2053,8 @@ namespace OpenDriveXMLGenerator
                 var plainView13 = bottomCurveContRight.AddPlainViewElement();
                 var geometry13 = plainView13.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 15).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 3.5).ToString(),
+                    x: (startX + 15f * (float)Math.Cos(hdg - 3.141592) + 3.5f * (float)Math.Sin(hdg - 3.141592)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 3.5f * (float)Math.Sin(hdg - 3.141592) + 15f * (float)Math.Cos(hdg - 3.141592)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg - 3.141592).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -2078,8 +2077,8 @@ namespace OpenDriveXMLGenerator
                 var plainView14 = bottomCurveContLeft.AddPlainViewElement();
                 var geometry14 = plainView14.AddGeometryElement(
                     s: "0.0",
-                    x: (startX + 3.5).ToString(CultureInfo.InvariantCulture),
-                    y: (startY - 5).ToString(),
+                    x: (startX + 3.5f * (float)Math.Cos(hdg) + 5f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 5 *(float)Math.Sin(hdg) + 3.5f * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
                     hdg: (hdg).ToString(),
                     length: "2.3561944901923",
                     curvature: "0.66666666667");
@@ -2090,6 +2089,54 @@ namespace OpenDriveXMLGenerator
                 var laneLeftSidewalk14 = left14.AddLaneElement(id: "2", type: "sidewalk", level: "false");
                 laneLeftSidewalk14.AddLinkElement();
                 laneLeftSidewalk14.AddWidthElement(a: "1.5");
+
+
+                var bottomLeftStraight = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView15 = bottomLeftStraight.AddPlainViewElement();
+                var geometry15 = plainView15.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 5f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 5  * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
+                    hdg: (hdg).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes15 = bottomLeftStraight.AddLanesElement();
+                var laneSection15 = lanes15.AddLaneSectionElement(s: "0");
+                var left15 = laneSection15.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk15 = left15.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk15.AddLinkElement();
+                laneLeftSidewalk15.AddWidthElement(a: "1.5");
+
+
+                var bottomRightStraight = RootElement.AddRoadElement(
+                    name: "Road " + id.ToString(),
+                    length: "2.3561944901923",
+                    id: id.ToString(),
+                    junction: "-1");
+                id++;
+
+                var plainView16 = bottomRightStraight.AddPlainViewElement();
+                var geometry16 = plainView16.AddGeometryElement(
+                    s: "0.0",
+                    x: (startX + 15f * (float)Math.Cos(hdg) + 5f * (float)Math.Sin(hdg)).ToString(CultureInfo.InvariantCulture),
+                    y: (startY - 5 * (float)Math.Sin(hdg) + 15f * (float)Math.Cos(hdg)).ToString(CultureInfo.InvariantCulture),
+                    hdg: (hdg).ToString(),
+                    length: "2.3561944901923",
+                    curvature: "0.66666666667");
+
+                var lanes16 = bottomRightStraight.AddLanesElement();
+                var laneSection16 = lanes16.AddLaneSectionElement(s: "0");
+                var left16 = laneSection16.AddDirectionElement(Direction.Left);
+                var laneLeftSidewalk16 = left16.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk16.AddLinkElement();
+                laneLeftSidewalk16.AddWidthElement(a: "1.5");
             }
         }
     }
