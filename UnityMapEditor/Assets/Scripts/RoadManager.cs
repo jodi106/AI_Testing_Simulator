@@ -543,42 +543,42 @@ namespace scripts
         {
             if (IsDragging == false)
             {
-                SelectedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                SelectedObject = GetMouseObject();
                 InitialPositionOfGroup = SelectedRoad != null ? SelectedRoad.transform.position : InitialPositionOfGroup = new Vector3();
             }
-            if (SelectedRoads.Contains(SelectedRoad))
+            if (SelectedObject != null && SelectedObject.GetComponent<RoadPiece>() != null)
             {
-                IsDragging = true;
-                IsSnappedGroup = false;
-                Vector3 newPosition = GetWorldPositionFromMouse();
-
-                if (InitialPositionOfGroup != Vector3.zero)
+                if (SelectedRoads.Contains(SelectedRoad))
                 {
-                    Vector3 shift = newPosition - InitialPositionOfGroup;
-                    shift.z = 0f;
+                    IsDragging = true;
+                    IsSnappedGroup = false;
+                    Vector3 newPosition = GetWorldPositionFromMouse();
 
-                    foreach (RoadPiece road in SelectedRoads)
+                    if (InitialPositionOfGroup != Vector3.zero)
                     {
-                        road.transform.position += shift;
+                        Vector3 shift = newPosition - InitialPositionOfGroup;
+                        shift.z = 0f;
 
-                    }
-                    InitialPositionOfGroup = SelectedRoad.transform.position;
-
-                    foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
-                    {
-                        if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                        foreach (RoadPiece road in SelectedRoads)
                         {
-                            va.RemoveConntectedAnchorPoint();
+                            road.transform.position += shift;
+
+                        }
+                        InitialPositionOfGroup = SelectedRoad.transform.position;
+
+                        foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                        {
+                            if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                            {
+                                va.RemoveConntectedAnchorPoint();
+                            }
+                        }
+                        if (!Input.GetKey(KeyCode.LeftShift))
+                        {
+                            SnapGroup();
                         }
                     }
-                    if (!Input.GetKey(KeyCode.LeftShift))
-                    {
-                        SnapGroup();
-                    }
                 }
-
-
-
             }
         }
 
@@ -786,8 +786,10 @@ namespace scripts
         /*
          * This rotates the selected roadpiece by a given rotation. Only if the piece is not locked
          */
-        private void RotateRoadPiece(float rotation, bool manualRotation)
+        public void RotateRoadPiece(float rotation, bool manualRotation)
         {
+            Debug.Log(RoadManager.Instance.SelectedRoad);
+            Debug.Log(RoadManager.Instance.SelectedRoad.IsLocked);
             if (SelectedRoad != null && !SelectedRoad.IsLocked)
             {
                 SelectedRoad.transform.Rotate(new Vector3(0, 0, rotation));
