@@ -211,7 +211,17 @@ namespace scripts
             // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
             if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
             {
-                SelectedRoad.IsLocked = !SelectedRoad.IsLocked;
+                if (SelectedRoads == null)
+                {
+                    LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
+                }
+                else
+                {
+                    foreach (RoadPiece road in SelectedRoads)
+                    {
+                        LockRoad(road, !road.IsLocked);
+                    }
+                }
             }
 
             if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
@@ -221,7 +231,18 @@ namespace scripts
 
             if (Input.GetKeyDown(KeyCode.Delete))
             {
-                DeleteRoad(this.SelectedRoad);
+                if (SelectedRoads == null)
+                {
+                    DeleteRoad(this.SelectedRoad);
+                }
+                else
+                {
+                    foreach (RoadPiece road in SelectedRoads)
+                    {
+                        DeleteRoad(road);
+                    }
+                    SelectedRoads = null;
+                }
             }
 
             // This condition checks, whether the user wants to deselect the road he has clicked. 
@@ -231,6 +252,7 @@ namespace scripts
                 DeselectGroup();
             }
         }
+
 
         public void ControlSelectRoadPiece()
         {
@@ -546,15 +568,21 @@ namespace scripts
                 SelectedObject = GetMouseObject();
                 InitialPositionOfGroup = SelectedRoad != null ? SelectedRoad.transform.position : InitialPositionOfGroup = new Vector3();
             }
+
             if (SelectedObject != null && SelectedObject.GetComponent<RoadPiece>() != null)
             {
+                SelectedRoad = SelectedObject.GetComponent<RoadPiece>();
+                foreach (RoadPiece r in SelectedRoads)
+                {
+                    Debug.Log(r.IsLocked);
+                }
                 if (SelectedRoads.Contains(SelectedRoad))
                 {
                     IsDragging = true;
                     IsSnappedGroup = false;
                     Vector3 newPosition = GetWorldPositionFromMouse();
 
-                    if (InitialPositionOfGroup != Vector3.zero)
+                    if (InitialPositionOfGroup != Vector3.zero && SelectedRoads.Find(road => road.IsLocked == true) == null)
                     {
                         Vector3 shift = newPosition - InitialPositionOfGroup;
                         shift.z = 0f;
@@ -578,6 +606,12 @@ namespace scripts
                             SnapGroup();
                         }
                     }
+                }
+                else
+                {
+                    DeselectRoad();
+                    DeselectGroup();
+                    SelectedRoads = null;
                 }
             }
         }
@@ -788,8 +822,6 @@ namespace scripts
          */
         public void RotateRoadPiece(float rotation, bool manualRotation)
         {
-            Debug.Log(RoadManager.Instance.SelectedRoad);
-            Debug.Log(RoadManager.Instance.SelectedRoad.IsLocked);
             if (SelectedRoad != null && !SelectedRoad.IsLocked)
             {
                 SelectedRoad.transform.Rotate(new Vector3(0, 0, rotation));
@@ -976,5 +1008,11 @@ namespace scripts
                 }
             }
         }
+
+        public void LockRoad(RoadPiece road, bool locked)
+        {
+            road.IsLocked = locked;
+        }
+
     }
 }

@@ -55,9 +55,6 @@ namespace scripts
         }
         public void RotateLeft()
         {
-            Debug.Log(RoadManager.Instance.SelectedRoad);
-            Debug.Log(RoadManager.Instance.SelectedRoad.IsLocked);
-
             RoadManager.Instance.RotateRoadPiece(15f, true);
         }
         public void RotateRight()
@@ -66,7 +63,7 @@ namespace scripts
         }
         public void LockRoad()
         {
-            RoadManager.Instance.SelectedRoad.IsLocked = !RoadManager.Instance.SelectedRoad.IsLocked;
+            RoadManager.Instance.LockRoad(RoadManager.Instance.SelectedRoad, !RoadManager.Instance.SelectedRoad.IsLocked);
         }
         public void DeleteRoad()
         {
