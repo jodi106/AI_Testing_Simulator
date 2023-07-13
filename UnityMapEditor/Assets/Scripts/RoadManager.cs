@@ -49,7 +49,6 @@ namespace scripts
         public Vector3 InitialPositionOfGroup { get; set; } = new Vector3();
         public bool IsSnappedGroup { get; set; } = false;
 
-
         /*
          * Sets the instance, so other classes can refer
          */
@@ -66,7 +65,7 @@ namespace scripts
                 CheckStretchPosition();
             }
             // This condition checks, whether a tile is being dragged. 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl))
             {
                 if (!Input.GetKeyDown(KeyCode.LeftShift))
                 {
@@ -112,8 +111,9 @@ namespace scripts
             // These conditions checks, whether the user wants to rotate the piece clockwise or counter-clockwise
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (IsSnapped)
+                if (IsSnapped && SelectedRoads == null)
                 {
+
                     int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
                     VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + 1) % SelectedRoad.AnchorPoints.Count];
                     CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
@@ -125,15 +125,41 @@ namespace scripts
                     SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
                     Snap();
                 }
-                else
+                else if (SelectedRoads != null && IsSnappedGroup == true)
                 {
-                    RotateRoadPiece(-ROTATING_ANGLE);
+                    int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
+                    VirtualAnchor nextAnchor = null;
+                    for (int i = 1; i < SelectedRoad.AnchorPoints.Count && nextAnchor == null; i++)
+                    {
+                        VirtualAnchor candidate = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                        if (!SelectedRoads.Contains(candidate.ConnectedAnchorPoint?.RoadPiece) || candidate.ConnectedAnchorPoint == null)
+                        {
+                            nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                        }
+                    }
+                    if (nextAnchor != null)
+                    {
+                        float test = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                        foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                        {
+                            if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                            {
+                                va.RemoveConntectedAnchorPoint();
+                            }
+                        }
+                        SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
+                        AlignGroupPiecesToEachOther(test);
+                    }
+                }
+                else if (SelectedRoads != null)
+                {
+                    RotateRoadPiece(-ROTATING_ANGLE, true);
                 }
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (IsSnapped)
+                if (IsSnapped && SelectedRoads == null)
                 {
                     int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
                     if (currentIndex == 0)
@@ -150,9 +176,35 @@ namespace scripts
                     SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
                     Snap();
                 }
+                else if (SelectedRoads != null && IsSnappedGroup == true)
+                {
+                    int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
+                    VirtualAnchor nextAnchor = null;
+                    for (int i = 1; i < SelectedRoad.AnchorPoints.Count && nextAnchor == null; i++)
+                    {
+                        VirtualAnchor candidate = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                        if (!SelectedRoads.Contains(candidate.ConnectedAnchorPoint?.RoadPiece) || candidate.ConnectedAnchorPoint == null)
+                        {
+                            nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                        }
+                    }
+                    if (nextAnchor != null)
+                    {
+                        float test = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                        foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                        {
+                            if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                            {
+                                va.RemoveConntectedAnchorPoint();
+                            }
+                        }
+                        SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
+                        AlignGroupPiecesToEachOther(test);
+                    }
+                }
                 else
                 {
-                    RotateRoadPiece(ROTATING_ANGLE);
+                    RotateRoadPiece(ROTATING_ANGLE, true);
                 }
             }
 
@@ -160,6 +212,11 @@ namespace scripts
             if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
             {
                 SelectedRoad.IsLocked = !SelectedRoad.IsLocked;
+            }
+
+            if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
+            {
+                ControlSelectRoadPiece();
             }
 
             if (Input.GetKeyDown(KeyCode.Delete))
@@ -175,6 +232,29 @@ namespace scripts
             }
         }
 
+        public void ControlSelectRoadPiece()
+        {
+            RoadPiece road = GetMouseObject()?.GetComponent<RoadPiece>();
+            if (road != null && SelectedRoads.Contains(road))
+            {
+
+                foreach (VirtualAnchor va in road.AnchorPoints)
+                {
+                    if (SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                    {
+                        va.RemoveConntectedAnchorPoint();
+                    }
+                }
+
+                SelectedRoads.Remove(road);
+                ColorRoadPiece(road, SelectionColor.normal);
+            }
+            else if (road != null && !SelectedRoads.Contains(road))
+            {
+                SelectedRoads.Add(road);
+                ColorRoadPiece(road, SelectionColor.groupSelected);
+            }
+        }
         public void DeselectGroup()
         {
             if (SelectedRoads != null)
@@ -290,7 +370,7 @@ namespace scripts
                 {
                     va.Update(StretchingAnchor.Orientation);
                 }
-                GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece });
+                GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
 
 
 
@@ -469,23 +549,18 @@ namespace scripts
             if (SelectedRoads.Contains(SelectedRoad))
             {
                 IsDragging = true;
+                IsSnappedGroup = false;
                 Vector3 newPosition = GetWorldPositionFromMouse();
 
                 if (InitialPositionOfGroup != Vector3.zero)
                 {
                     Vector3 shift = newPosition - InitialPositionOfGroup;
                     shift.z = 0f;
-                    if (!IsSnappedGroup)
-                    {
-                        foreach (RoadPiece road in SelectedRoads)
-                        {
-                            road.transform.position += shift;
 
-                        }
-                    }
-                    else
+                    foreach (RoadPiece road in SelectedRoads)
                     {
-                        SelectedRoad.transform.position += shift;
+                        road.transform.position += shift;
+
                     }
                     InitialPositionOfGroup = SelectedRoad.transform.position;
 
@@ -578,12 +653,12 @@ namespace scripts
                 if (neighbor.Orientation >= selected.Orientation)
                 {
 
-                    RotateRoadPiece(neededOrientation);
+                    RotateRoadPiece(neededOrientation, false);
                     return neededOrientation;
                 }
                 else
                 {
-                    RotateRoadPiece(-neededOrientation);
+                    RotateRoadPiece(-neededOrientation, false);
                     return -neededOrientation;
                 }
             }
@@ -611,7 +686,7 @@ namespace scripts
                     SelectedRoad.LastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
                 }
                 this.IsSnapped = true;
-                GetNeighborsReference(nearestNeighbors.referenceNeighbors);
+                GetNeighborsReference(nearestNeighbors.referenceNeighbors, SelectedRoad);
             }
         }
 
@@ -644,29 +719,41 @@ namespace scripts
                 else
                 {
                     rotationForGroup = CompareAnchorPointOrientation(nearestAnchorPoints.nearestNeighborVA, SelectedRoad.LastSelectedSnappedAnchorPoint);
+
                     SelectedRoad.transform.position = (nearestAnchorPoints.nearestNeighborVA.RoadPiece.transform.position + nearestAnchorPoints.nearestNeighborVA.Offset) - SelectedRoad.LastSelectedSnappedAnchorPoint.Offset;
                     SelectedRoad.LastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
                 }
-                this.IsSnapped = true;
-                List<RoadPiece> snappedRoads = new List<RoadPiece>();
+
+                AlignGroupPiecesToEachOther(rotationForGroup);
+                IsSnappedGroup = true;
                 foreach (RoadPiece road in SelectedRoads)
                 {
-                    foreach (VirtualAnchor va in road.AnchorPoints)
-                    {
-                        if (va.ConnectedAnchorPoint != null && !snappedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece) && SelectedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece))
-                        {
-                            if (va.ConnectedAnchorPoint.RoadPiece != SelectedRoad)
-                            {
-                                RotateRoadPiece(va.ConnectedAnchorPoint.RoadPiece, rotationForGroup);
-                                va.ConnectedAnchorPoint.RoadPiece.transform.position = va.RoadPiece.transform.position + va.Offset - va.ConnectedAnchorPoint.Offset;
-                            }
-                            snappedRoads.Add(va.ConnectedAnchorPoint.RoadPiece);
-                        }
-                    }
-
+                    List<RoadPiece> neighborRoads = RoadList.FindAll(r => !SelectedRoads.Contains(r));
+                    Debug.Log(neighborRoads.Count);
+                    GetNeighborsReference(neighborRoads, road);
                 }
             }
+        }
 
+        public void AlignGroupPiecesToEachOther(float rotationForGroup)
+        {
+            List<RoadPiece> snappedRoads = new List<RoadPiece>();
+            foreach (RoadPiece road in SelectedRoads)
+            {
+                foreach (VirtualAnchor va in road.AnchorPoints)
+                {
+                    if (va.ConnectedAnchorPoint != null && !snappedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece) && SelectedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece))
+                    {
+                        if (va.ConnectedAnchorPoint.RoadPiece != SelectedRoad)
+                        {
+                            RotateRoadPiece(va.ConnectedAnchorPoint.RoadPiece, rotationForGroup);
+                            va.ConnectedAnchorPoint.RoadPiece.transform.position = va.RoadPiece.transform.position + va.Offset - va.ConnectedAnchorPoint.Offset;
+                        }
+                        snappedRoads.Add(va.ConnectedAnchorPoint.RoadPiece);
+                    }
+                }
+
+            }
         }
 
         /*
@@ -699,7 +786,7 @@ namespace scripts
         /*
          * This rotates the selected roadpiece by a given rotation. Only if the piece is not locked
          */
-        private void RotateRoadPiece(float rotation)
+        private void RotateRoadPiece(float rotation, bool manualRotation)
         {
             if (SelectedRoad != null && !SelectedRoad.IsLocked)
             {
@@ -710,6 +797,12 @@ namespace scripts
                 {
                     va.Update(rotation);
                 }
+                if (SelectedRoads != null && manualRotation)
+                {
+                    AlignGroupPiecesToEachOther(rotation);
+                }
+
+
             }
         }
         public void RotateRoadPiece(RoadPiece road, float rotation)
@@ -729,10 +822,10 @@ namespace scripts
         /*
          * Connects by Reference all AnchorPoints of a Piece placed between multiple Pieces
          */
-        public void GetNeighborsReference(List<RoadPiece> neighborRoads)
+        public void GetNeighborsReference(List<RoadPiece> neighborRoads, RoadPiece road)
         {
             bool stop = false;
-            foreach (VirtualAnchor vaS in SelectedRoad.AnchorPoints)
+            foreach (VirtualAnchor vaS in road.AnchorPoints)
             {
                 if (vaS.ConnectedAnchorPoint == null)
                 {
