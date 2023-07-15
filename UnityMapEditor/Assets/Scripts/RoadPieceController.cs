@@ -40,11 +40,10 @@ namespace scripts
         normal,
         selected,
         groupSelected,
-        invalid,
         snapped,
-        locked,
-        lockedSelected,
-        lockedSnapped,
+        groupSnapped,
+        stretching,
+        invalid,
 
     }
 

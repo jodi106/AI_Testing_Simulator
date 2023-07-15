@@ -113,9 +113,12 @@ namespace scripts
             {
                 if (IsSnapped && SelectedRoads == null)
                 {
-
                     int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
-                    VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + 1) % SelectedRoad.AnchorPoints.Count];
+                    if (currentIndex == 0)
+                    {
+                        currentIndex = SelectedRoad.AnchorPoints.Count;
+                    }
+                    VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex - 1)];
                     CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
                     foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
                     {
@@ -139,7 +142,7 @@ namespace scripts
                     }
                     if (nextAnchor != null)
                     {
-                        float test = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                        float rotation = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
                         foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
                         {
                             if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
@@ -148,10 +151,10 @@ namespace scripts
                             }
                         }
                         SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
-                        AlignGroupPiecesToEachOther(test);
+                        AlignGroupPiecesToEachOther(rotation);
                     }
                 }
-                else if (SelectedRoads != null)
+                else
                 {
                     RotateRoadPiece(-ROTATING_ANGLE, true);
                 }
@@ -190,7 +193,7 @@ namespace scripts
                     }
                     if (nextAnchor != null)
                     {
-                        float test = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                        float rotation = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
                         foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
                         {
                             if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
@@ -199,7 +202,7 @@ namespace scripts
                             }
                         }
                         SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
-                        AlignGroupPiecesToEachOther(test);
+                        AlignGroupPiecesToEachOther(rotation);
                     }
                 }
                 else
@@ -217,10 +220,12 @@ namespace scripts
                 }
                 else
                 {
+                    bool locked = !SelectedRoad.IsLocked;
                     foreach (RoadPiece road in SelectedRoads)
                     {
-                        LockRoad(road, !road.IsLocked);
+                        LockRoad(road, locked);
                     }
+                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
                 }
             }
 
@@ -322,44 +327,47 @@ namespace scripts
         public void CheckStretchPosition()
         {
             GameObject obj = GetMouseObject();
-
-            if (obj != null && obj.GetComponent<RoadPiece>() != null)
+            if (SelectedRoads == null && SelectedRoad.IsLocked == false)
             {
-                RoadPiece road = obj.GetComponent<RoadPiece>();
 
-                foreach (VirtualAnchor anchor in SelectedRoad.AnchorPoints)
+                if (obj != null && obj.GetComponent<RoadPiece>() != null)
                 {
-                    if (anchor.ConnectedAnchorPoint == null)
-                    {
-                        if (!IsStretching)
-                        {
+                    RoadPiece road = obj.GetComponent<RoadPiece>();
 
-                            if (Vector3.Distance(GetWorldPositionFromMouse(), road.transform.position + anchor.Offset) < 50)
+                    foreach (VirtualAnchor anchor in SelectedRoad.AnchorPoints)
+                    {
+                        if (anchor.ConnectedAnchorPoint == null)
+                        {
+                            if (!IsStretching)
                             {
-                                //UnityEngine.Cursor.SetCursor(cursorStretchTexture, Vector2.zero, CursorMode.Auto);
-                                ColorRoadPiece(SelectionColor.invalid);
-                                IsInStretchingArea = true;
-                                StretchingAnchor = anchor;
-                                return;
-                            }
-                            else
-                            {
-                                ColorRoadPiece(SelectionColor.selected);
-                                IsInStretchingArea = false;
-                                StretchingAnchor = null;
-                                //UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
+                                if (Vector3.Distance(GetWorldPositionFromMouse(), road.transform.position + anchor.Offset) < 50)
+                                {
+                                    //UnityEngine.Cursor.SetCursor(cursorStretchTexture, Vector2.zero, CursorMode.Auto);
+                                    ColorRoadPiece(SelectedRoad, SelectionColor.invalid);
+                                    IsInStretchingArea = true;
+                                    StretchingAnchor = anchor;
+                                    return;
+                                }
+                                else
+                                {
+                                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
+                                    IsInStretchingArea = false;
+                                    StretchingAnchor = null;
+                                    //UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                                }
                             }
                         }
                     }
-                }
 
-            }
-            else if (!IsStretching)
-            {
-                ColorRoadPiece(SelectionColor.selected);
-                IsInStretchingArea = false;
-                StretchingAnchor = null;
-                //UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                }
+                else if (!IsStretching)
+                {
+                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
+                    IsInStretchingArea = false;
+                    StretchingAnchor = null;
+                    //UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                }
             }
         }
 
@@ -571,11 +579,19 @@ namespace scripts
 
             if (SelectedObject != null && SelectedObject.GetComponent<RoadPiece>() != null)
             {
-                SelectedRoad = SelectedObject.GetComponent<RoadPiece>();
-                foreach (RoadPiece r in SelectedRoads)
+                if (SelectedRoad != SelectedObject.GetComponent<RoadPiece>())
                 {
-                    Debug.Log(r.IsLocked);
+                    if (SelectedRoad.IsLocked)
+                    {
+                        ColorRoadPiece(SelectedRoad, SelectionColor.groupSelected);
+                    }
+                    else
+                    {
+                        ColorRoadPiece(SelectedRoad, SelectionColor.groupSelected);
+                    }
                 }
+                DeselectRoad();
+                SelectRoad(SelectedObject.GetComponent<RoadPiece>());
                 if (SelectedRoads.Contains(SelectedRoad))
                 {
                     IsDragging = true;
@@ -720,6 +736,7 @@ namespace scripts
                     SelectedRoad.LastSelectedSnappedAnchorPoint.ConnectAnchorPoint(nearestAnchorPoints.nearestNeighborVA);
                 }
                 this.IsSnapped = true;
+                ColorRoadPiece(SelectedRoad, SelectionColor.snapped);
                 GetNeighborsReference(nearestNeighbors.referenceNeighbors, SelectedRoad);
             }
         }
@@ -766,6 +783,7 @@ namespace scripts
                     Debug.Log(neighborRoads.Count);
                     GetNeighborsReference(neighborRoads, road);
                 }
+                ColorRoadPiece(SelectedRoad, SelectionColor.snapped);
             }
         }
 
@@ -799,7 +817,7 @@ namespace scripts
             {
                 SelectedRoad = road;
                 ValidateRoadPosition();
-                ColorRoadPiece(SelectedRoad.IsLocked ? SelectionColor.lockedSelected : SelectionColor.selected);
+                ColorRoadPiece(SelectedRoad, SelectionColor.selected);
             }
         }
 
@@ -810,7 +828,7 @@ namespace scripts
         {
             if (SelectedRoad != null)
             {
-                ColorRoadPiece(SelectedRoad.IsLocked ? SelectionColor.locked : SelectionColor.normal);
+                ColorRoadPiece(SelectedRoad, SelectionColor.normal);
                 SelectedRoad.transform.position = new Vector3(SelectedRoad.transform.position.x, SelectedRoad.transform.position.y, 9);
                 SelectedRoad = null;
                 IsDragging = false;
@@ -919,82 +937,67 @@ namespace scripts
             InValidPosition = true;
         }
 
-        /*
-         * This will color the road piece dependend on the status the road currently has. 
-         */
-        public void ColorRoadPiece(SelectionColor sColor)
-        {
-            Color color = new Color();
-            switch (sColor)
-            {
-                case SelectionColor.normal:
-                    color = Color.white;
-                    break;
-                case SelectionColor.selected:
-                    color = new Color(0.49f, 0.85f, 1f, 1f);
-                    break;
-                case SelectionColor.invalid:
-                    color = new Color(1f, 0.67f, 0.72f, 1f);
-                    break;
-                case SelectionColor.snapped:
-                    color = new Color(0.72f, 1f, 0.65f, 1f);
-                    break;
-                case SelectionColor.locked:
-                    color = new Color(1f, 1f, 1f, 0.5f);
-                    break;
-                case SelectionColor.lockedSelected:
-                    color = new Color(0f, 0.707f, 1f, 1f);
-                    break;
-                case SelectionColor.lockedSnapped:
-                    color = new Color(0f, 0.7f, 0f, 1f);
-                    break;
-                default:
-                    break;
-            }
-            if (SelectedRoad.gameObject.transform.childCount == 0 || SelectedRoad.gameObject.GetComponent<SpriteRenderer>().sprite != null)
-            {
-                SelectedRoad.GetComponent<SpriteRenderer>().color = color;
-            }
-            else if (SelectedRoad.gameObject.transform.childCount > 0)
-            {
-                for (int i = 0; i < SelectedRoad.gameObject.transform.childCount; i++)
-                {
-                    SelectedRoad.gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().color = color;
-                }
-            }
-        }
         public void ColorRoadPiece(RoadPiece road, SelectionColor sColor)
         {
             Color color = new Color();
-            switch (sColor)
+            if (!road.IsLocked)
             {
-                case SelectionColor.normal:
-                    color = Color.white;
-                    break;
-                case SelectionColor.selected:
-                    color = new Color(0.49f, 0.85f, 1f, 1f);
-                    break;
-                case SelectionColor.groupSelected:
+                switch (sColor)
+                {
+                    case SelectionColor.normal:
+                        color = Color.white;
+                        break;
+                    case SelectionColor.selected:
+                        color = new Color(0.475f, 0.714f, 0.851f, 1f);
+                        break;
+                    case SelectionColor.groupSelected:
+                        color = new Color(0f, 1f, 0.75f, 1f);
+                        break;
+                    case SelectionColor.snapped:
+                        color = new Color(0.72f, 1f, 0.65f, 1f);
+                        break;
+                    case SelectionColor.groupSnapped:
+                        color = new Color(0.22f, 0.91f, 0.247f, 1f);
+                        break;
+                    case SelectionColor.stretching:
+                        color = new Color(0.823f, 0.792f, 0.337f, 1f);
+                        break;
+                    case SelectionColor.invalid:
+                        color = new Color(0.84f, 0.145f, 0.145f, 1f);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
 
-                    color = new Color(0.48f, 0.12f, 0.64f, 1f);
-                    break;
-                case SelectionColor.invalid:
-                    color = new Color(1f, 0.67f, 0.72f, 1f);
-                    break;
-                case SelectionColor.snapped:
-                    color = new Color(0.72f, 1f, 0.65f, 1f);
-                    break;
-                case SelectionColor.locked:
-                    color = new Color(1f, 1f, 1f, 0.5f);
-                    break;
-                case SelectionColor.lockedSelected:
-                    color = new Color(0f, 0.707f, 1f, 1f);
-                    break;
-                case SelectionColor.lockedSnapped:
-                    color = new Color(0f, 0.7f, 0f, 1f);
-                    break;
-                default:
-                    break;
+                switch (sColor)
+                {
+                    case SelectionColor.normal:
+                        color = new Color(1f, 1f, 1f, 0.5f);
+                        break;
+                    case SelectionColor.selected:
+                        color = new Color(0.475f, 0.714f, 0.851f, 0.5f);
+                        break;
+                    case SelectionColor.groupSelected:
+                        color = new Color(0f, 1f, 0.75f, 0.5f);
+                        break;
+                    case SelectionColor.groupSnapped:
+                        color = new Color(0.22f, 0.91f, 0.247f, 1f);
+                        break;
+                    case SelectionColor.snapped:
+                        color = new Color(0.72f, 1f, 0.65f, 0.5f);
+                        break;
+                    case SelectionColor.stretching:
+                        color = new Color(0.823f, 0.792f, 0.337f, 0.5f);
+                        break;
+                    case SelectionColor.invalid:
+                        color = new Color(0.84f, 0.145f, 0.145f, 0.5f);
+                        break;
+                    default:
+                        break;
+                }
             }
             if (road.gameObject.transform.childCount == 0 || road.gameObject.GetComponent<SpriteRenderer>().sprite != null)
             {
@@ -1012,6 +1015,16 @@ namespace scripts
         public void LockRoad(RoadPiece road, bool locked)
         {
             road.IsLocked = locked;
+            if (SelectedRoads != null && SelectedRoads.Contains(road))
+            {
+                ColorRoadPiece(road, SelectionColor.groupSelected);
+            }
+            else if (SelectedRoads == null)
+            {
+                ColorRoadPiece(road, SelectionColor.selected);
+            }
+
+
         }
 
     }

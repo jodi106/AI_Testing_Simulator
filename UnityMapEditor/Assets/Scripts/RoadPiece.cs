@@ -17,7 +17,7 @@ namespace scripts
             set
             {
                 isLocked = value;
-                RoadManager.Instance.ColorRoadPiece(isLocked ? SelectionColor.lockedSelected : SelectionColor.selected);
+                RoadManager.Instance.ColorRoadPiece(this, SelectionColor.normal);
             }
         }
 

@@ -63,7 +63,18 @@ namespace scripts
         }
         public void LockRoad()
         {
-            RoadManager.Instance.LockRoad(RoadManager.Instance.SelectedRoad, !RoadManager.Instance.SelectedRoad.IsLocked);
+            bool locked = !RoadManager.Instance.SelectedRoad.IsLocked;
+            if (RoadManager.Instance.SelectedRoads != null)
+            {
+                foreach (RoadPiece road in RoadManager.Instance.SelectedRoads)
+                {
+                    RoadManager.Instance.LockRoad(road, locked);
+                }
+            }
+            else
+            {
+                RoadManager.Instance.LockRoad(RoadManager.Instance.SelectedRoad, locked);
+            }
         }
         public void DeleteRoad()
         {
