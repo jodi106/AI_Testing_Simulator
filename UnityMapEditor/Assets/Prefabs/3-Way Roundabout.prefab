@@ -75,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cedcb93d96f529a4690c6b241924c938, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e9893beafa6eaf4eb2b4cfc9a128cec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 86.94, y: 86.94}
+  m_Size: {x: 90.72, y: 90.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,14 +103,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 86.94, y: 86.94}
-    newSize: {x: 86.94, y: 86.94}
+    oldSize: {x: 90.72, y: 90.72}
+    newSize: {x: 90.72, y: 90.72}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 86.94, y: 86.94}
+  m_Size: {x: 90.72, y: 90.72}
   m_EdgeRadius: 0
 --- !u!114 &7990396848659306430
 MonoBehaviour:
@@ -125,5 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadType: 4
-  Width: 86.94
-  Height: 86.94
+  Width: 90.72
+  Height: 90.72
