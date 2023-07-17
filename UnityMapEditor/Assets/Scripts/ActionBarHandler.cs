@@ -55,11 +55,11 @@ namespace scripts
         }
         public void RotateLeft()
         {
-            RoadManager.Instance.RotateRoadPiece(15f, true);
+            RoadManager.Instance.RotateClockwise();
         }
         public void RotateRight()
         {
-            RoadManager.Instance.RotateRoadPiece(-15f, true);
+            RoadManager.Instance.RotateCounterClockwise();
         }
         public void LockRoad()
         {

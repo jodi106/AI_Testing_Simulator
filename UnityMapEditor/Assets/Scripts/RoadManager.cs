@@ -155,7 +155,60 @@ namespace scripts
             // These conditions checks, whether the user presses the "E" Key
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // this condition checks, whether the selected road is snapped and no group has been selected
+                RotateClockwise();
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+               RotateCounterClockwise(); 
+            }
+
+            // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
+            if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
+            {
+                if (SelectedRoads == null)
+                {
+                    LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
+                }
+                else
+                {
+                    bool locked = !SelectedRoad.IsLocked;
+                    foreach (RoadPiece road in SelectedRoads)
+                    {
+                        LockRoad(road, locked);
+
+                    }
+                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                if (SelectedRoads == null)
+                {
+                    DeleteRoad(this.SelectedRoad);
+                }
+                else
+                {
+                    foreach (RoadPiece road in SelectedRoads)
+                    {
+                        DeleteRoad(road);
+                    }
+                    SelectedRoads = null;
+                }
+            }
+
+            // This condition checks, whether the user wants to deselect the road he has clicked. 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                DeselectRoad();
+                DeselectGroup();
+            }
+        }
+
+        public void RotateClockwise(){
+                 // this condition checks, whether the selected road is snapped and no group has been selected
                 if (IsSnapped && SelectedRoads == null)
                 {
                     // If that is the case, we first find the current index of our anchor in the list of anchor points of the selected road
@@ -230,12 +283,9 @@ namespace scripts
                 {
                     RotateRoadPiece(-ROTATING_ANGLE, true);
                 }
-            }
-
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (IsSnapped && SelectedRoads == null)
+}
+public void RotateCounterClockwise(){ 
+ if (IsSnapped && SelectedRoads == null)
                 {
                     int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
                     if (currentIndex == 0)
@@ -282,51 +332,7 @@ namespace scripts
                 {
                     RotateRoadPiece(ROTATING_ANGLE, true);
                 }
-            }
-
-            // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
-            if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
-            {
-                if (SelectedRoads == null)
-                {
-                    LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
-                }
-                else
-                {
-                    bool locked = !SelectedRoad.IsLocked;
-                    foreach (RoadPiece road in SelectedRoads)
-                    {
-                        LockRoad(road, locked);
-
-                    }
-                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Delete))
-            {
-                if (SelectedRoads == null)
-                {
-                    DeleteRoad(this.SelectedRoad);
-                }
-                else
-                {
-                    foreach (RoadPiece road in SelectedRoads)
-                    {
-                        DeleteRoad(road);
-                    }
-                    SelectedRoads = null;
-                }
-            }
-
-            // This condition checks, whether the user wants to deselect the road he has clicked. 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                DeselectRoad();
-                DeselectGroup();
-            }
-        }
-
+}
 
         public void ControlSelectRoadPiece()
         {
