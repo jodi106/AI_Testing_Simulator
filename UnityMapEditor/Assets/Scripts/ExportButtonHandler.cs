@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using OpenDriveXMLGenerator;
 
 
 namespace scripts
@@ -24,6 +26,10 @@ namespace scripts
         public void InitiateExport()
         {
             //  RoadManager.Instance.RoadList.Add(this);
+            //var builder = new OpenDriveXMLBuilder();
+            //builder.AddParking(true, true, 0, 0, 2);
+            //builder.Document.Save("OpenDrive.xodr");
+
             Debug.Log("Waiting for Program to be in code");
         }
     }

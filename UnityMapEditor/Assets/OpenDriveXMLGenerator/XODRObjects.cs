@@ -16,22 +16,24 @@ namespace OpenDriveXMLGenerator
         {
             var objectElement = new XODRObject(parent.OwnerDocument.CreateElement("object"));
 
+            
+            objectElement.SetAttribute("type", type);
+            objectElement.SetAttribute("id", id);
+            objectElement.SetAttribute("s", s);
+            objectElement.SetAttribute("t", t);
+            objectElement.SetAttribute("zOffset", zOffset);
+            objectElement.SetAttribute("orientation", orientation);
+            objectElement.SetAttribute("length", length);
+            objectElement.SetAttribute("width", width);
             objectElement.SetAttribute("hdg", hdg);
-            if(id == null){
+            if (id == null)
+            {
                 id = XODRObjects.objectsID.ToString();
                 XODRObjects.objectsID++;
             }
-            objectElement.SetAttribute("id", id);
-            objectElement.SetAttribute("lenght", length);
-            objectElement.SetAttribute("name", name);
-            objectElement.SetAttribute("orientation", orientation);
             objectElement.SetAttribute("pitch", pitch);
             objectElement.SetAttribute("roll", roll);
-            objectElement.SetAttribute("s", s);
-            objectElement.SetAttribute("t", t);
-            objectElement.SetAttribute("type", type);
-            objectElement.SetAttribute("width", width);
-            objectElement.SetAttribute("zOffset", zOffset);
+            objectElement.SetAttribute("name", name);
 
             parent.AppendChild(objectElement.XmlElement);
 
