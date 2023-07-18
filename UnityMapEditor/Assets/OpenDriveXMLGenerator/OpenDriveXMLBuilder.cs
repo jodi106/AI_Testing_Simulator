@@ -1636,13 +1636,18 @@ namespace OpenDriveXMLGenerator
 
         public void AddParking(bool topParking, bool bottomParking, float startX = 0, float startY = 0, double hdg = 0, double length = 17, string laneWidth = "3.5", SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
+            //Add junction
+            XODRJunction junction = RootElement.AddJunctionElement(
+               name: "Junction " + junctionId.ToString(),
+               id: junctionId.ToString());
+            
             //Add straight road
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
                 length: length.ToString(),
                 id: id.ToString(),
-                junction: "-1");
-
+                junction: junctionId.ToString());
+            var mainRoadId = id;
             id++;
 
             var link = road.AddLinkElement();
@@ -1754,7 +1759,8 @@ namespace OpenDriveXMLGenerator
                 name: "Road " + id.ToString(),
                 length: "14",
                 id: id.ToString(),
-                junction: "-1");
+                junction: junctionId.ToString());
+                var roadParkingTopId = id;
                 id++;
                 var linkParkingTop = roadParkingTop.AddLinkElement();
                 var plainViewParkingTop = roadParkingTop.AddPlainViewElement();
@@ -1767,13 +1773,20 @@ namespace OpenDriveXMLGenerator
                 var lanesParkingTop = roadParkingTop.AddLanesElement();
                 var laneSectionParkingTop = lanesParkingTop.AddLaneSectionElement(s: "0");
                 var leftParkingTop = laneSectionParkingTop.AddDirectionElement(Direction.Left);
-                var laneLeftParkingTop = leftParkingTop.AddLaneElement(id: "1", type: "parking", level: "false");
+                var laneLeftParkingTop = leftParkingTop.AddLaneElement(id: "1", type: "driving", level: "false");
                 var laneLeftLinkParkingTop = laneLeftParkingTop.AddLinkElement();
                 laneLeftParkingTop.AddWidthElement(a: "3");
                 var centerParkingTop = laneSectionParkingTop.AddDirectionElement(Direction.Center);
                 var laneCenterParkingTop = centerParkingTop.AddLaneElement(id: "0", type: "none", level: "false");
                 laneCenterParkingTop.AddLinkElement();
                 laneCenterParkingTop.AddWidthElement(a: "0");
+
+                //Add connection
+                var connection = junction.AddConnectionElement(
+                    id: "0",
+                    incomingRoadId: roadParkingTopId.ToString(),
+                    connectingRoadId: mainRoadId.ToString());
+                connectionId++;
 
                 //Add sidewalks
                 var topSidewalk = RootElement.AddRoadElement(
@@ -1984,7 +1997,8 @@ namespace OpenDriveXMLGenerator
                 name: "Road " + id.ToString(),
                 length: "7.000875",
                 id: id.ToString(),
-                junction: "-1");
+                junction: junctionId.ToString());
+                var roadParkingBottomId = id;
                 id++;
                 var linkParkingTop = roadParkingTop.AddLinkElement();
                 var plainViewParkingTop = roadParkingTop.AddPlainViewElement();
@@ -1997,7 +2011,7 @@ namespace OpenDriveXMLGenerator
                 var lanesParkingBottom = roadParkingTop.AddLanesElement();
                 var laneSectionParkingBottom = lanesParkingBottom.AddLaneSectionElement(s: "0");
                 var leftParkingBottom = laneSectionParkingBottom.AddDirectionElement(Direction.Left);
-                var laneLeftParkingBottom = leftParkingBottom.AddLaneElement(id: "1", type: "parking", level: "false");
+                var laneLeftParkingBottom = leftParkingBottom.AddLaneElement(id: "1", type: "driving", level: "false");
                 var laneLeftLinkParkingBottom = laneLeftParkingBottom.AddLinkElement();
                 laneLeftParkingBottom.AddWidthElement(a: "5");
                 var centerParkingBottom = laneSectionParkingBottom.AddDirectionElement(Direction.Center);
@@ -2005,9 +2019,16 @@ namespace OpenDriveXMLGenerator
                 laneCenterParkingBottom.AddLinkElement();
                 laneCenterParkingBottom.AddWidthElement(a: "0");
                 var rightParkingBottom = laneSectionParkingBottom.AddDirectionElement(Direction.Right);
-                var laneRightParkingBottom = rightParkingBottom.AddLaneElement(id: "-1", type: "parking", level: "false");
+                var laneRightParkingBottom = rightParkingBottom.AddLaneElement(id: "-1", type: "driving", level: "false");
                 var laneRightLinkParkingBottom = laneRightParkingBottom.AddLinkElement();
                 laneRightParkingBottom.AddWidthElement(a: "5");
+
+                //Add connection
+                var connection = junction.AddConnectionElement(
+                    id: "1",
+                    incomingRoadId: roadParkingBottomId.ToString(),
+                    connectingRoadId: mainRoadId.ToString());
+                connectionId++;
 
                 //Add sidewalks
                 var bottomSidewalk = RootElement.AddRoadElement(
@@ -2256,6 +2277,7 @@ namespace OpenDriveXMLGenerator
                 laneCenter16.AddLinkElement();
                 laneCenter16.AddWidthElement(a: "0");
             }
+            junctionId++;
         }
     }
 }
