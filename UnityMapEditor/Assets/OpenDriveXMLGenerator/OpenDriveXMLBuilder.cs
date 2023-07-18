@@ -882,12 +882,12 @@ namespace OpenDriveXMLGenerator
             var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5, false,
                 predecessorInfo: predecessorRoad2);
 
-            float startX3 = startX + 17.5f * (float)Math.Cos(hdg);
-            float startY3 = startY + 17.5f * (float)Math.Sin(hdg);
+            float startX3 = startX + 18f * (float)Math.Cos(hdg);
+            float startY3 = startY + 18f * (float)Math.Sin(hdg);
             var incomingRoadId3 = id;
             SequenceInfo predecessorRoad3 = predecessorInfo;
             predecessorRoad3.Ids = new List<int> { predecessorInfo.Ids.ElementAt(0)};
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5, false,
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg + 3.14f, 0.5, false,
                 predecessorInfo: predecessorRoad3);
 
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
@@ -994,17 +994,17 @@ namespace OpenDriveXMLGenerator
             var incomingRoad2 = this.AddStraightRoad(startX2, startY2, hdg2, 0.5, false,
                 predecessorInfo: predecessorRoad2);
 
-            float startX3 = startX + 17.5f * (float)Math.Cos(hdg);
-            float startY3 = startY + 17.5f * (float)Math.Sin(hdg);
+            float startX3 = startX + 18f * (float)Math.Cos(hdg);
+            float startY3 = startY + 18f * (float)Math.Sin(hdg);
             var incomingRoadId3 = id;
             SequenceInfo predecessorRoad3 = predecessorInfo;
             predecessorRoad3.Ids = new List<int> { predecessorInfo.Ids.ElementAt(1)};
-            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg, 0.5, false,
+            var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg + 3.14f, 0.5, false,
                 predecessorInfo: predecessorRoad3);
 
-            float startX4 = startX + 9f * (float)Math.Cos(hdg) - 8.5f * (float)Math.Sin(hdg);
-            float startY4 = startY + 9f * (float)Math.Sin(hdg) + 8.5f * (float)Math.Cos(hdg);
-            float hdg4 = hdg + 1.5707963267949f;
+            float startX4 = startX + 9f * (float)Math.Cos(hdg) - 9f * (float)Math.Sin(hdg);
+            float startY4 = startY + 9f * (float)Math.Sin(hdg) + 9f * (float)Math.Cos(hdg);
+            float hdg4 = hdg - 1.5707963267949f;
             var incomingRoadId4 = id;
             SequenceInfo predecessorRoad4 = predecessorInfo;
             predecessorRoad4.Ids = new List<int> { predecessorInfo.Ids.ElementAt(4)};
