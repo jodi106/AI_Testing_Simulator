@@ -95,6 +95,7 @@ namespace scripts
                     {
                         // If that is the case, dragging the mouse will stretch the road
                         StretchRoad();
+                       // Debug.Log("l");
                     }
                     // Else, it will check whether a group is selected
                     else if (SelectedRoads != null)
@@ -131,7 +132,10 @@ namespace scripts
             if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
             {
                 // If that is the case, then the selected RoadPiece is deselected from the group
-                ControlSelectRoadPiece();
+                if (SelectedRoads != null)
+                {
+                    ControlSelectRoadPiece();
+                }
             }
 
             // This condition checks, whether the user released the mouse click
@@ -146,6 +150,7 @@ namespace scripts
                 {
                     // if that is the case, then a new custom road is created
                     CreateCustomStraightRoad();
+                    Snap();
                 }
                 IsStretching = false;
                 StretchingDistance = 3.78f * 5;
@@ -340,17 +345,34 @@ public void RotateCounterClockwise(){
             if (road != null && SelectedRoads.Contains(road))
             {
                 CtrlDeselectedRoads.Add(road);
-                SelectedRoads.Remove(road);
-                ColorRoadPiece(road, SelectionColor.normal);
+                DeselectGroup();
+                ColorRoadPiece(SelectedRoad, SelectionColor.selected);
+                SelectGroupOfRoads(SelectedRoad);
+                //SelectedRoads.Remove(road);
+                //ColorRoadPiece(road, SelectionColor.normal);
             }
             else if (road != null && !SelectedRoads.Contains(road))
             {
-                SelectedRoads.Add(road);
-                if (CtrlDeselectedRoads.Contains(road))
+                bool roadIsConnectedToTheGroup = false;
+                foreach (VirtualAnchor va in road.AnchorPoints)
                 {
-                    CtrlDeselectedRoads.Remove(road);
+                    if (va.ConnectedAnchorPoint != null)
+                    {
+                        if (SelectedRoads.Contains(va.ConnectedAnchorPoint.RoadPiece))
+                        {
+                            roadIsConnectedToTheGroup = true;
+                        }
+                    }
                 }
-                ColorRoadPiece(road, SelectionColor.groupSelected);
+                if (roadIsConnectedToTheGroup)
+                {
+                    SelectedRoads.Add(road);
+                    if (CtrlDeselectedRoads.Contains(road))
+                    {
+                        CtrlDeselectedRoads.Remove(road);
+                    }
+                    ColorRoadPiece(road, SelectionColor.groupSelected);
+                }
             }
         }
         public void DeselectGroup()
@@ -381,7 +403,7 @@ public void RotateCounterClockwise(){
 
         public void AddRoadToGroup(List<RoadPiece> roads, RoadPiece roadToCheck)
         {
-            if (!roads.Contains(roadToCheck))
+            if (!roads.Contains(roadToCheck) && !CtrlDeselectedRoads.Contains(roadToCheck))
             {
                 ColorRoadPiece(roadToCheck, SelectionColor.groupSelected);
                 roads.Add(roadToCheck);
@@ -472,6 +494,10 @@ public void RotateCounterClockwise(){
                     va.Update(StretchingAnchor.Orientation);
                 }
                 GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
+               // Snap();
+                Debug.Log(1);
+               // GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
+
 
 
 
@@ -486,8 +512,6 @@ public void RotateCounterClockwise(){
 
         public void StretchRoad()
         {
-
-
             IsStretching = true;
             Vector3 origin = SelectedRoad.transform.position + StretchingAnchor.Offset;
 
@@ -672,7 +696,10 @@ public void RotateCounterClockwise(){
                         {
                             foreach (VirtualAnchor va in road.AnchorPoints)
                             {
-                                va.RemoveConntectedAnchorPoint();
+                                if (SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                                {
+                                    va.RemoveConntectedAnchorPoint();
+                                }
                             }
                         }
                         CtrlDeselectedRoads = new List<RoadPiece>();
@@ -680,6 +707,17 @@ public void RotateCounterClockwise(){
                     }
                     IsDragging = true;
                     IsSnappedGroup = false;
+
+                    foreach (RoadPiece road in SelectedRoads)
+                    { 
+                        foreach (VirtualAnchor va in road.AnchorPoints)
+                        {
+                            if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                            {
+                                va.RemoveConntectedAnchorPoint();
+                            }
+                        }
+                    }
                     Vector3 newPosition = GetWorldPositionFromMouse();
 
                     if (InitialPositionOfGroup != Vector3.zero && SelectedRoads.Find(road => road.IsLocked == true) == null)
@@ -864,7 +902,6 @@ public void RotateCounterClockwise(){
                 foreach (RoadPiece road in SelectedRoads)
                 {
                     List<RoadPiece> neighborRoads = RoadList.FindAll(r => !SelectedRoads.Contains(r));
-                    Debug.Log(neighborRoads.Count);
                     GetNeighborsReference(neighborRoads, road);
                 }
                 ColorRoadPiece(SelectedRoad, SelectionColor.snapped);
@@ -900,6 +937,8 @@ public void RotateCounterClockwise(){
             if (SelectedRoad == null)
             {
                 SelectedRoad = road;
+                //SelectedRoads = new List<RoadPiece>();
+                //SelectedRoads.Add(SelectedRoad);
                 ValidateRoadPosition();
                 ColorRoadPiece(SelectedRoad, SelectionColor.selected);
             }
