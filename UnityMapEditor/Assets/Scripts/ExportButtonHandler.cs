@@ -43,8 +43,8 @@ namespace scripts
                 switch (piece.RoadType)
                 {
                     case RoadType.StraightRoad:
-                        builder.AddStraightRoad(startX: centerPosition.x, startY: centerPosition.y, 
-                                                hdg: heading, length: 1, predecessorInfo:  ,successorInfo:);
+                        builder.AddStraightRoad(startX: centerPosition.x, startY: centerPosition.y,
+                                                hdg: heading, length: 1);
                         break;
                     case RoadType.Crosswalk:
                         builder.AddStraightRoad(centerPosition.x, centerPosition.y, heading, 1, crossing: true);

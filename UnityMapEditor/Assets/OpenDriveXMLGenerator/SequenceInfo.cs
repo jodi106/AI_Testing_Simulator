@@ -41,8 +41,8 @@ namespace OpenDriveXMLGenerator
         {
             IsJunction = isJunction;
             Ids = ids;
-            LeftLaneIds = leftLaneIds;
-            RightLaneIds = rightLaneIds;
+            this.LeftLaneIds = leftLaneIds;
+            this.RightLaneIds = rightLaneIds;
         }
     }
 }
