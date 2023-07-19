@@ -90,7 +90,8 @@ namespace OpenDriveXMLGenerator
 
             builder.Add3wayIntersection(startX: 0, startY: 0, hdg: 1.57f, traffic_light: true);
             var road1 = builder.AddStraightRoad(startX: 0, startY: 18, hdg: 1.5707963267949f, length: 20);
-            builder.Add4wayIntersection(startX: 0, startY: 38, hdg: 1.57f, traffic_light: true);
+            
+            builder.Add4wayIntersection(startX: 0, startY: 38, hdg: 0, traffic_light: true);
 
 
         }

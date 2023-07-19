@@ -680,21 +680,21 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "-5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
 
                 signalId++;
@@ -712,21 +712,21 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "-5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
 
                 signalId++;
@@ -745,21 +745,21 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
 
                 signalId++;
@@ -804,22 +804,23 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
+
 
                 signalId++;
             }
@@ -835,21 +836,21 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
 
                 signalId++;
@@ -867,21 +868,21 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
 
                 signalId++;
@@ -899,21 +900,21 @@ namespace OpenDriveXMLGenerator
                 signals.AddSignalElement(
                     country: "OpenDRIVE",
                     dynamic: "yes",
-                    hOffset: "-1.5577535629272461",
+                    hOffset: "0.0",
                     height: "1.1595988571643829",
                     id: signalId.ToString(),
                     name: "Signal_3Light_Post01",
-                    orientation: "-",
+                    orientation: "+",
                     pitch: "0",
-                    roll: "0",
+                    roll: "1.57079632679",
                     s: "4.7935599305216234",
                     subtype: "-1",
-                    t: "-5.1619093414594488",
+                    t: "5",
                     text: "",
                     type: "1000001",
                     value: "-1",
                     width: "0.5249232020563757",
-                    zOffset: "-0.5466467142105101"
+                    zOffset: "0.0"
                 );
 
                 signalId++;
