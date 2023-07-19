@@ -32,20 +32,23 @@ namespace scripts
             {
                 var heading = piece.Rotation;
 
-                var startingPosition = piece.transform.position + piece.AnchorPoints.First().Offset;
+                var startingPosition = (piece.transform.position + piece.AnchorPoints.First().Offset ) * 0.0264583333f;
+
+                var length = piece.Width * 0.0264583333 * 5;
+
                 Debug.Log("Starting Position: " + startingPosition);
 
                 switch (piece.RoadType)
                 {
                     case RoadType.StraightRoad:
-                        builder.AddStraightRoad(startX: startingPosition.x * 0.0264583333f, startY: startingPosition.y * 0.0264583333f,
-                                                hdg: heading, length: piece.Width * 0.0264583333 * 5);
+                        builder.AddStraightRoad(startX: startingPosition.x , startY: startingPosition.y,
+                                                hdg: heading, length: length);
                         break;
                     case RoadType.Crosswalk:
-                        builder.AddStraightRoad(startingPosition.x, startingPosition.y, heading, 1, crossing: true);
+                        builder.AddStraightRoad(startingPosition.x, startingPosition.y, heading, length, crossing: true);
                         break;
                     case RoadType.Turn:
-                        builder.Add90DegreeTurn(startingPosition.x * 0.0264583333f, startingPosition.y * 0.0264583333f, heading);
+                        builder.Add90DegreeTurn(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.ThreeWayIntersection:
                         builder.Add3wayIntersection(startingPosition.x, startingPosition.y, heading);
