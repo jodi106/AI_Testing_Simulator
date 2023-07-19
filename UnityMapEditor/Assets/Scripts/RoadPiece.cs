@@ -48,6 +48,11 @@ namespace scripts
         */
         public List<VirtualAnchor> AnchorPoints = new List<VirtualAnchor>();
 
+        /*
+        * This property refers to an enum, that will hold the value for the traffic sign, this piece is holding
+        */
+        public TrafficSign TrafficSign = TrafficSign.None; 
+
         /* 
         * The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
         * This method will call "PopulateVirtualAnchorPoints"

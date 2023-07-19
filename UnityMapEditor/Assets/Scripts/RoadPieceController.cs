@@ -47,6 +47,16 @@ namespace scripts
 
     }
 
+    public enum TrafficSign{
+        None, 
+        Stop, 
+        Yield, 
+        Limit30, 
+        Limit60, 
+        Limit90,
+        TrafficLight,
+    }
+
     public enum RoadSides
     {
         bottom,
