@@ -14,38 +14,22 @@ namespace OpenDriveXMLGenerator
          * describes what type of predecessor/successor is
          * true: junction, false: road
          */
-        public bool IsJunction
-        {
-            get { return this.IsJunction; }
-            set { this.IsJunction = value; }
-        }
+        public bool IsJunction { get; set; }
 
         /**
          * List of all the ids of the predecessors/successors
          */
-        public List<int> Ids
-        {
-            get { return this.Ids; }
-            set { this.Ids = value; }
-        }
+        public List<int> Ids { get; set; }
 
         /**
          * List of all the lane ids of the predecessors/successors lanes for the left lane
          */
-        public List<int> leftLaneIds
-        {
-            get { return this.leftLaneIds; }
-            set { this.leftLaneIds = value; }
-        }
+        public List<int> LeftLaneIds { get; set; }
 
         /**
          * List of all the lane ids of the predecessors/successors lanes for the right lane
          */
-        public List<int> rightLaneIds
-        {
-            get { return this.rightLaneIds; }
-            set { this.rightLaneIds = value; }
-        }
+        public List<int> RightLaneIds { get; set; }
 
 
         public SequenceInfo()
@@ -53,13 +37,12 @@ namespace OpenDriveXMLGenerator
 
         }
 
-        public SequenceInfo(bool IsJunction, List<int> Ids, List<int> leftLaneIds, List<int> rightLaneIds)
+        public SequenceInfo(bool isJunction, List<int> ids, List<int> leftLaneIds, List<int> rightLaneIds)
         {
-            this.IsJunction = IsJunction;
-            this.Ids = Ids;
-            this.leftLaneIds = leftLaneIds;
-            this.rightLaneIds = rightLaneIds;
-
+            IsJunction = isJunction;
+            Ids = ids;
+            LeftLaneIds = leftLaneIds;
+            RightLaneIds = rightLaneIds;
         }
     }
 }
