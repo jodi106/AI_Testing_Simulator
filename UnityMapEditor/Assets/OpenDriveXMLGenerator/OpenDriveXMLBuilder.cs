@@ -520,7 +520,7 @@ namespace OpenDriveXMLGenerator
             var laneRightLink = laneRight.AddLinkElement();
             if (predecessorInfo != null)
             {
-                foreach (int rightLaneId in predecessorInfo.LeftLaneIds)
+                foreach (int rightLaneId in predecessorInfo.RightLaneIds)
                 {
                     laneRightLink.AddLanePredecessor(rightLaneId.ToString());
                 }
@@ -528,7 +528,7 @@ namespace OpenDriveXMLGenerator
 
             if (successorInfo != null)
             {
-                foreach (int rightLaneId in successorInfo.LeftLaneIds)
+                foreach (int rightLaneId in successorInfo.RightLaneIds)
                 {
                     laneRightLink.AddLaneSuccessor(rightLaneId.ToString());
                 }
@@ -730,7 +730,7 @@ namespace OpenDriveXMLGenerator
             var laneRightLink = laneRight.AddLinkElement();
             if (predecessorInfo != null)
             {
-                foreach (int rightLaneId in predecessorInfo.LeftLaneIds)
+                foreach (int rightLaneId in predecessorInfo.RightLaneIds)
                 {
                     laneRightLink.AddLanePredecessor(rightLaneId.ToString());
                 }
@@ -738,7 +738,7 @@ namespace OpenDriveXMLGenerator
 
             if (successorInfo != null)
             {
-                foreach (int rightLaneId in successorInfo.LeftLaneIds)
+                foreach (int rightLaneId in successorInfo.RightLaneIds)
                 {
                     laneRightLink.AddLaneSuccessor(rightLaneId.ToString());
                 }
