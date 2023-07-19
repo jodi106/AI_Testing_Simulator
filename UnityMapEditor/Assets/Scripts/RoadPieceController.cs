@@ -1,40 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Entity;
-using System.ComponentModel;
 using System.Linq;
-using UnityEngine.UIElements;
 using System;
 
 namespace scripts
 {
-    public enum RoadType
-    {
-        [Description("None")]
-        None,
-        [Description("StraightRoad")]
-        StraightRoad,
-        [Description("Turn")]
-        Turn,
-        [Description("ThreeWayIntersection")]
-        ThreeWayIntersection,
-        [Description("FourWayIntersection")]
-        FourWayIntersection,
-        [Description("ParkingBottom")]
-        ParkingBottom,
-        [Description("ParkingTop")]
-        ParkingTop,
-        [Description("ParkingTopAndBottom")]
-        ParkingTopAndBottom,
-        [Description("Crosswalk")]
-        Crosswalk,
-        [Description("FourWayRoundAbout")]
-        FourWayRoundAbout,
-        [Description("ThreeWayRoundAbout")]
-        ThreeWayRoundAbout,
-        [Description("StraightShort")]
-        StraightShort,
-    }
+   
     public enum SelectionColor
     {
         normal,
