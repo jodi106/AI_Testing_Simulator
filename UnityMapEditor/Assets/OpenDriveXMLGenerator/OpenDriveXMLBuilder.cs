@@ -260,7 +260,7 @@ namespace OpenDriveXMLGenerator
                 y: startY.ToString(),
                 hdg: hdg.ToString(),
                 length: "1.3089411479932687",
-                curvature: "0.19999960000121728");
+                curvature: "-0.19999960000121728");
 
             var lanes = road.AddLanesElement();
             var laneSection = lanes.AddLaneSectionElement(s: "0");
@@ -375,7 +375,7 @@ namespace OpenDriveXMLGenerator
                 y: startY.ToString(),
                 hdg: hdg.ToString(),
                 length: "7.8538002104133504",
-                curvature: "0.19999960000121791");
+                curvature: "-0.19999960000121791");
 
             var lanes = road.AddLanesElement();
             var laneSection = lanes.AddLaneSectionElement(s: "0");
