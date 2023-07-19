@@ -1,4 +1,5 @@
-﻿using scripts;
+﻿using Assets.Enums;
+using scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,26 +43,26 @@ namespace OpenDriveXMLGenerator
 
             Dictionary<Vector2, RoadPiece> pieces = new();
 
-            foreach (var (centerPosition, piece) in pieces)
+            foreach (var (startingPosition, piece) in pieces)
             {
                 var heading = piece.AnchorPoints.First().Orientation + 3 * Mathf.PI / 2;
 
                 switch (piece.RoadType)
                 {
                     case RoadType.StraightRoad:
-                        builder.AddStraightRoad(centerPosition.x, centerPosition.y, heading, 1);
+                        builder.AddStraightRoad(startingPosition.x, startingPosition.y, heading, 1);
                         break;
                     case RoadType.Crosswalk:
-                        builder.AddStraightRoad(centerPosition.x, centerPosition.y, heading, 1, crossing: true);
+                        builder.AddStraightRoad(startingPosition.x, startingPosition.y, heading, 1, crossing: true);
                         break;
                     case RoadType.Turn:
-                        builder.Add90DegreeTurn(centerPosition.x, centerPosition.y, heading);
+                        builder.Add90DegreeTurn(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.ThreeWayIntersection:
-                        builder.Add3wayIntersection(centerPosition.x, centerPosition.y, heading);
+                        builder.Add3wayIntersection(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.FourWayIntersection:
-                        builder.Add4wayIntersection(centerPosition.x, centerPosition.y, heading);
+                        builder.Add4wayIntersection(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.ParkingBottom:
                         throw new Exception("Not implemented");
@@ -73,10 +74,10 @@ namespace OpenDriveXMLGenerator
                         throw new Exception("Not implemented");
                         break;
                     case RoadType.ThreeWayRoundAbout:
-                        builder.Add3WayRoundAbout(centerPosition.x, centerPosition.y, heading);
+                        builder.Add3WayRoundAbout(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.FourWayRoundAbout:
-                        builder.Add4WayRoundAbout(centerPosition.x, centerPosition.y, heading);
+                        builder.Add4WayRoundAbout(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.StraightShort: // This type should not exist
                     default:

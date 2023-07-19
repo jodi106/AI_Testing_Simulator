@@ -3,6 +3,7 @@ using UnityEngine;
 using Entity;
 using System.Linq;
 using System;
+using Assets.Enums;
 
 namespace scripts
 {
