@@ -1,3 +1,4 @@
+using Assets.Enums;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -88,28 +89,28 @@ namespace scripts
                 case RoadType.ParkingBottom:
                 case RoadType.ParkingTopAndBottom:
                 case RoadType.StraightShort:
-                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     break;
                 case RoadType.Turn:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayIntersection:
-                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.FourWayIntersection:
                 case RoadType.FourWayRoundAbout:
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 90));
-                    AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayRoundAbout:
-                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 default:
