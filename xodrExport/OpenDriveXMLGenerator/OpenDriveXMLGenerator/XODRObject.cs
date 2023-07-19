@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System.ComponentModel;
 
 namespace OpenDriveXMLGenerator
 {
@@ -19,8 +20,5 @@ namespace OpenDriveXMLGenerator
         }
 
     }
-
-
-
 
 }
