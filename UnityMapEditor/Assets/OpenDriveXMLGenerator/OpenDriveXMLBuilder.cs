@@ -436,11 +436,11 @@ namespace OpenDriveXMLGenerator
         public XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
             double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
-            //var connection = junction.AddConnectionElement(
-            //    id: connectionId.ToString(),
-            //    incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
-            //    connectingRoadId: id.ToString());
-            //connectionId++;
+            var connection = junction.AddConnectionElement(
+                id: connectionId.ToString(),
+                incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
+                connectingRoadId: id.ToString());
+            connectionId++;
 
             var curve = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -545,11 +545,11 @@ namespace OpenDriveXMLGenerator
         public XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
             double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
-            //var connection = junction.AddConnectionElement(
-            //    id: connectionId.ToString(),
-            //    incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
-            //    connectingRoadId: id.ToString());
-            //connectionId++;
+            var connection = junction.AddConnectionElement(
+                id: connectionId.ToString(),
+                incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
+                connectingRoadId: id.ToString());
+            connectionId++;
 
             var curve = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -660,11 +660,11 @@ namespace OpenDriveXMLGenerator
         public XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
             bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
-            //var connection = junction.AddConnectionElement(
-            //    id: connectionId.ToString(),
-            //    incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
-            //    connectingRoadId: id.ToString());
-            //connectionId++;
+            var connection = junction.AddConnectionElement(
+                id: connectionId.ToString(),
+                incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
+                connectingRoadId: id.ToString());
+            connectionId++;
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -759,11 +759,11 @@ namespace OpenDriveXMLGenerator
         public XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
             bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
-            //var connection = junction.AddConnectionElement(
-            //    id: connectionId.ToString(),
-            //    incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
-            //    connectingRoadId: id.ToString());
-            //connectionId++;
+            var connection = junction.AddConnectionElement(
+                id: connectionId.ToString(),
+                incomingRoadId: predecessorInfo.Ids.ElementAt(0).ToString(),
+                connectingRoadId: id.ToString());
+            connectionId++;
 
             var road = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
