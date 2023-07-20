@@ -30,13 +30,11 @@ namespace scripts
             var pieces = RoadManager.Instance.RoadList;
             foreach (var piece in pieces)
             {
-                var heading = piece.Rotation;
+                var heading = (float) (piece.Rotation * Math.PI / 180f);
 
-                var startingPosition = (piece.transform.position + piece.AnchorPoints.First().Offset ) * 0.0264583333f;
+                var startingPosition = (piece.transform.position + piece.AnchorPoints.First().Offset ) * 0.0264583333f * 2f;
 
-                var length = piece.Width * 0.0264583333 * 5;
-
-                Debug.Log("Starting Position: " + startingPosition);
+                var length = piece.Width * 0.0264583333 * 10;
 
                 switch (piece.RoadType)
                 {
