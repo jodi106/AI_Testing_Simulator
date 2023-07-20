@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using TMPro; 
 using Assets.Enums;
 
 namespace scripts
@@ -43,7 +43,7 @@ namespace scripts
         void Update()
         { 
             SetVisibilityOfActionBar();
-            
+            SetPreselectedValues(); 
         }
 
         public void SetVisibilityOfActionBar()
@@ -99,14 +99,57 @@ namespace scripts
             }
 
         }
+        
+        public void SetPreselectedValues()
+        {
+            if(RoadManager.Instance.SelectedRoad != null) { 
+            int value = 0;
+            switch (RoadManager.Instance.SelectedRoad.TrafficSign)
+            {
+                case TrafficSign.None: 
+                    value = 0; 
+                    break; 
+                case TrafficSign.Stop: 
+                    value = 1; 
+                    break; 
+                case TrafficSign.Yield:
+                    value = 2; 
+                    break;
+                case TrafficSign.Limit30: 
+                    value = 3; 
+                    break;
+                case TrafficSign.Limit60: 
+                    value = 4; 
+                    break;
+                case TrafficSign.Limit90: 
+                    value = 5; 
+                    break;
+                default: 
+                    break; 
+            }
+            SignDropdown.value = value; 
+
+            if(RoadManager.Instance.SelectedRoad.TrafficSign == TrafficSign.TrafficLight)
+            {
+                TrafficLight.isOn = true;
+            }
+            else
+            {
+                TrafficLight.isOn = false;
+            }
+        }
+            }
+
         public void RotateLeft()
         {
             RoadManager.Instance.RotateClockwise();
         }
+        
         public void RotateRight()
         {
             RoadManager.Instance.RotateCounterClockwise();
         }
+       
         public void LockRoad()
         {
             bool locked = !RoadManager.Instance.SelectedRoad.IsLocked;
@@ -122,6 +165,7 @@ namespace scripts
                 RoadManager.Instance.LockRoad(RoadManager.Instance.SelectedRoad, locked);
             }
         }
+      
         public void DeleteRoad()
         {
             RoadManager.Instance.DeleteRoad(RoadManager.Instance.SelectedRoad);
@@ -165,24 +209,28 @@ namespace scripts
                 if(RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
                 {
                     RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/TrafficLight3Way");
+                    RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.TrafficLight;
                 }
-                else
+                else if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection)
                 {
                     RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/TrafficLight4Way");
+                    RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.TrafficLight;
                 }
-                RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.TrafficLight;
+                
             }
             else
             {
                 if(RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
                 {
                     RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/3-Way Intersection");
+                    RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
                 }
-                else
+                else if(RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection)
                 {
                     RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/4-Way Intersection");
+                    RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
+                    
                 }
-                RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
             }
             
         }
