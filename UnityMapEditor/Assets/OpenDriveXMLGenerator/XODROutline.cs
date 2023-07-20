@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using System.ComponentModel;
 
 namespace OpenDriveXMLGenerator
 {
@@ -30,6 +29,4 @@ namespace OpenDriveXMLGenerator
         public XODRCornerLocal(XmlElement element) : base(element) { }
     }
 
-
-   
 }

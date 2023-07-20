@@ -44,7 +44,7 @@ namespace OpenDriveXMLGenerator
 
         public static XODRSignals AddSignalsElement(this XODRRoad parent)
         {
-            var signals = new XODRSignals(parent.OwnerDocument.CreateElement("signals"));
+            var signals = new XODRSignals(parent.OwnerDocument.CreateElement("Signals"));
             parent.AppendChild(signals.XmlElement);
 
             return signals;
