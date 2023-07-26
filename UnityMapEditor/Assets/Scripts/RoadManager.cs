@@ -676,19 +676,18 @@ namespace scripts
 
             if (SelectedObject != null && SelectedObject.GetComponent<RoadPiece>() != null)
             {
+                RoadPiece previouslySelectedRoad = null;
                 if (SelectedRoad != SelectedObject.GetComponent<RoadPiece>())
                 {
-                    if (SelectedRoad.IsLocked)
-                    {
-                        ColorRoadPiece(SelectedRoad, SelectionColor.groupSelected);
-                    }
-                    else
-                    {
-                        ColorRoadPiece(SelectedRoad, SelectionColor.groupSelected);
-                    }
+                    previouslySelectedRoad = SelectedRoad;
                 }
                 DeselectRoad();
                 SelectRoad(SelectedObject.GetComponent<RoadPiece>());
+
+                if (previouslySelectedRoad != null)
+                {
+                    ColorRoadPiece(previouslySelectedRoad, SelectionColor.groupSelected);
+                }
 
                 if (SelectedRoads.Contains(SelectedRoad))
                 {
