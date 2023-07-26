@@ -680,12 +680,19 @@ namespace scripts
                 if (SelectedRoad != SelectedObject.GetComponent<RoadPiece>())
                 {
                     previouslySelectedRoad = SelectedRoad;
+
                 }
                 DeselectRoad();
                 SelectRoad(SelectedObject.GetComponent<RoadPiece>());
 
+
                 if (previouslySelectedRoad != null)
                 {
+                    if (SelectedRoads.Contains(SelectedRoad) && SelectedRoads.Contains(previouslySelectedRoad))
+                    {
+                        DeselectGroup();
+                        SelectGroupOfRoads(SelectedRoad);
+                    }
                     ColorRoadPiece(previouslySelectedRoad, SelectionColor.groupSelected);
                 }
 
