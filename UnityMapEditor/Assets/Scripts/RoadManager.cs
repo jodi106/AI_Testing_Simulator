@@ -222,11 +222,11 @@ namespace scripts
                 int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
                 // if our anchor Point is the first anchor point in the list, we set the currentIndex to the count of the list to 
                 // retrieve the previous anchor point, which is the last
-                if (currentIndex == 0)
+                if (currentIndex == SelectedRoad.AnchorPoints.Count - 1)
                 {
-                    currentIndex = SelectedRoad.AnchorPoints.Count;
+                    currentIndex = -1;
                 }
-                VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex - 1)];
+                VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[currentIndex + 1];
 
                 // We then compare the orientation between the new anchor point and the anchor point we want to snap to and rotate the piece
                 CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
