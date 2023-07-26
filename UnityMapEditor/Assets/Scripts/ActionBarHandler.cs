@@ -177,70 +177,74 @@ namespace scripts
 
         public void SelectTrafficSign(int value)
         {
-            if (RoadManager.Instance.SelectedRoad.transform.childCount < 1)
+            if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.StraightRoad)
             {
-                switch (value)
-                {
-                    case 0:
-                        RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StraightLong");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
-                        break;
-                    case 1:
-                        RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StopRoad");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Stop;
-                        break;
-                    case 2:
-                        RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/YieldRoad");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Yield;
-                        break;
-                    case 3:
-                        RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit30Road");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit30;
-                        break;
-                    case 4:
-                        RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit60Road");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit60;
-                        break;
-                    case 5:
-                        RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit90Road");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit90;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                GameObject go = RoadManager.Instance.SelectedRoad.transform.GetChild(RoadManager.Instance.SelectedRoad.transform.childCount - 1).gameObject;
 
-                switch (value)
+                if (RoadManager.Instance.SelectedRoad.transform.childCount < 1)
                 {
-                    case 0:
-                        go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StraightShort");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
-                        break;
-                    case 1:
-                        go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StopRoadShort");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Stop;
-                        break;
-                    case 2:
-                        go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/YieldRoadShort");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Yield;
-                        break;
-                    case 3:
-                        go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit30RoadShort");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit30;
-                        break;
-                    case 4:
-                        go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit60RoadShort");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit60;
-                        break;
-                    case 5:
-                        go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit90RoadShort");
-                        RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit90;
-                        break;
-                    default:
-                        break;
+                    switch (value)
+                    {
+                        case 0:
+                            RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StraightLong");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
+                            break;
+                        case 1:
+                            RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StopRoad");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Stop;
+                            break;
+                        case 2:
+                            RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/YieldRoad");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Yield;
+                            break;
+                        case 3:
+                            RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit30Road");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit30;
+                            break;
+                        case 4:
+                            RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit60Road");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit60;
+                            break;
+                        case 5:
+                            RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit90Road");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit90;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    GameObject go = RoadManager.Instance.SelectedRoad.transform.GetChild(RoadManager.Instance.SelectedRoad.transform.childCount - 1).gameObject;
+
+                    switch (value)
+                    {
+                        case 0:
+                            go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StraightShort");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
+                            break;
+                        case 1:
+                            go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/StopRoadShort");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Stop;
+                            break;
+                        case 2:
+                            go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/YieldRoadShort");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Yield;
+                            break;
+                        case 3:
+                            go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit30RoadShort");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit30;
+                            break;
+                        case 4:
+                            go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit60RoadShort");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit60;
+                            break;
+                        case 5:
+                            go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/Limit90RoadShort");
+                            RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.Limit90;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
