@@ -142,12 +142,12 @@ namespace scripts
 
         public void RotateLeft()
         {
-            RoadManager.Instance.RotateClockwise();
+            RoadManager.Instance.RotateCounterClockwise();
         }
         
         public void RotateRight()
         {
-            RoadManager.Instance.RotateCounterClockwise();
+            RoadManager.Instance.RotateClockwise();
         }
        
         public void LockRoad()
