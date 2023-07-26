@@ -495,7 +495,8 @@ namespace scripts
                 {
                     va.Update(StretchingAnchor.Orientation);
                 }
-                GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
+                List<RoadPiece> roadsInArea = GetNearestNeighborsInArea(RoadList).referenceNeighbors;
+                GetNeighborsReference(roadsInArea, SelectedRoad);
                 // Snap();
                 Debug.Log(1);
                 // GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
