@@ -86,7 +86,7 @@ namespace scripts
             }
 
             // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
-            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift))
             {
                 // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
                 if (!Input.GetKeyDown(KeyCode.LeftShift))
@@ -111,23 +111,23 @@ namespace scripts
                         DragAndDropRoad();
                     }
                 }
-                // Else, it will check whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
-                else if (Input.GetKeyDown(KeyCode.LeftShift))
+            }
+            if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftShift))
+            {
+                // If that is the case, then the clicked road will be retrieved. 
+                RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                // This condition checks, whether the user has actually clicked a RoadPiece 
+                if (clickedRoad != null)
                 {
-                    // If that is the case, then the clicked road will be retrieved. 
-                    RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
-                    // This condition checks, whether the user has actually clicked a RoadPiece 
-                    if (clickedRoad != null)
-                    {
-                        // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
-                        // and the group of roads is selected
-                        DeselectRoad();
-                        DeselectGroup();
-                        SelectRoad(clickedRoad);
-                        SelectGroupOfRoads(clickedRoad);
-                    }
+                    // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
+                    // and the group of roads is selected
+                    DeselectRoad();
+                    DeselectGroup();
+                    SelectRoad(clickedRoad);
+                    SelectGroupOfRoads(clickedRoad);
                 }
             }
+
 
             // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
             if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
