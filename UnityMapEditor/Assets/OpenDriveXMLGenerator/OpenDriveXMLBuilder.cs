@@ -7,6 +7,9 @@ using System.Xml;
 
 namespace OpenDriveXMLGenerator
 {
+    /// <summary>
+    /// OpenDriveXMLBuilder class contains functions which create code for each possible road piece
+    /// </summary>
     public class OpenDriveXMLBuilder
     {
         public XmlDocument Document { get; set; }
