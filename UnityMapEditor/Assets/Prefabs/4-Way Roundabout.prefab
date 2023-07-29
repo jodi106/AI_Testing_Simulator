@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d694e0ee49464e8760d714d6a5986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoadType: 9
+  RoadType: 10
   Width: 151.2
   Height: 151.2
   TrafficSign: 0

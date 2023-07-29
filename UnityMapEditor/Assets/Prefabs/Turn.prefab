@@ -127,3 +127,4 @@ MonoBehaviour:
   RoadType: 2
   Width: 37.8
   Height: 37.8
+  TrafficSign: 0

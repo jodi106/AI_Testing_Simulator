@@ -10,6 +10,8 @@ namespace Assets.Enums
         StraightRoad,
         [Description("Turn")]
         Turn,
+        [Description("Turn15")]
+        Turn15,
         [Description("ThreeWayIntersection")]
         ThreeWayIntersection,
         [Description("FourWayIntersection")]
@@ -46,5 +48,4 @@ namespace Assets.Enums
             }
         }
     }
-
 }

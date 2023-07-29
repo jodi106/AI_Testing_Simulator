@@ -46,6 +46,9 @@ namespace scripts
                 case "Turn":
                     selectedRoadType = RoadType.Turn;
                     break;
+                case "15Turn":
+                    selectedRoadType = RoadType.Turn15;
+                    break;
                 case "ThreeWayIntersection":
                     selectedRoadType = RoadType.ThreeWayIntersection;
                     break;

@@ -113,7 +113,5 @@ namespace scripts
         {
             ChildStraightPieces.RemoveAt(ChildStraightPieces.Count - 1);
         }
-
-
     }
 }
