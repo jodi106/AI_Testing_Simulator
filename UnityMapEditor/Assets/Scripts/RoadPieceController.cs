@@ -225,7 +225,6 @@ namespace scripts
             return (x, y);
         }
 
-
         //Only for Town06 later do as extension method for Vector3Ser or Location
         public static (float x, float y) UnityToCarla(float x, float y)
         {
@@ -252,9 +251,5 @@ namespace scripts
         {
             return Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2);
         }
-
-
-
     }
-
 }

@@ -79,137 +79,140 @@ namespace scripts
         */
         void Update()
         {
-            // This condition checks, whether the user has selected a road to then check the stretching position
-            if (SelectedRoad != null)
+            if (!ScrollViewOpener.IsUserGuideOpen())
             {
-                CheckStretchPosition();
-            }
-
-            // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
-            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl))
-            {
-                // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
-                if (!Input.GetKeyDown(KeyCode.LeftShift))
+                // This condition checks, whether the user has selected a road to then check the stretching position
+                if (SelectedRoad != null)
                 {
-                    // This conditions checks, whether the user is NOT dragging, is in the Stretching Area and there is no group selection
-                    if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
+                    CheckStretchPosition();
+                }
+
+                // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
+                if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl))
+                {
+                    // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
+                    if (!Input.GetKeyDown(KeyCode.LeftShift))
                     {
-                        // If that is the case, dragging the mouse will stretch the road
-                        StretchRoad();
-                       // Debug.Log("l");
+                        // This conditions checks, whether the user is NOT dragging, is in the Stretching Area and there is no group selection
+                        if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
+                        {
+                            // If that is the case, dragging the mouse will stretch the road
+                            StretchRoad();
+                            // Debug.Log("l");
+                        }
+                        // Else, it will check whether a group is selected
+                        else if (SelectedRoads != null)
+                        {
+                            // if that is the case, dragging the mouse will move a group of roads
+                            DragAndDropRoads();
+                        }
+                        // Else
+                        else
+                        {
+                            // Dragging the mouse will move the selected road. 
+                            DragAndDropRoad();
+                        }
                     }
-                    // Else, it will check whether a group is selected
-                    else if (SelectedRoads != null)
+                    // Else, it will check whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
+                    else if (Input.GetKeyDown(KeyCode.LeftShift))
                     {
-                        // if that is the case, dragging the mouse will move a group of roads
-                        DragAndDropRoads();
+                        // If that is the case, then the clicked road will be retrieved. 
+                        RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                        // This condition checks, whether the user has actually clicked a RoadPiece 
+                        if (clickedRoad != null)
+                        {
+                            // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
+                            // and the group of roads is selected
+                            DeselectRoad();
+                            DeselectGroup();
+                            SelectRoad(clickedRoad);
+                            SelectGroupOfRoads(clickedRoad);
+                        }
                     }
-                    // Else
+                }
+
+                // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
+                if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
+                {
+                    // If that is the case, then the selected RoadPiece is deselected from the group
+                    if (SelectedRoads != null)
+                    {
+                        ControlSelectRoadPiece();
+                    }
+                }
+
+                // This condition checks, whether the user released the mouse click
+                if (Input.GetMouseButtonUp(0))
+                {
+                    // If that is the case, the dragging stops, the stretching stops, the stretching distance is reset and the position of a roadPiec
+                    // is validated
+                    IsDragging = false;
+
+                    //This conditions checks, whether the user has been stretching a road
+                    if (IsStretching)
+                    {
+                        // if that is the case, then a new custom road is created
+                        CreateCustomStraightRoad();
+                        Snap();
+                    }
+                    IsStretching = false;
+                    StretchingDistance = 3.78f * 5;
+                    ValidateRoadPosition();
+                }
+
+                // These conditions checks, whether the user presses the "E" Key
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    RotateClockwise();
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    RotateCounterClockwise();
+                }
+
+                // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
+                if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
+                {
+                    if (SelectedRoads == null)
+                    {
+                        LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
+                    }
                     else
                     {
-                        // Dragging the mouse will move the selected road. 
-                        DragAndDropRoad();
+                        bool locked = !SelectedRoad.IsLocked;
+                        foreach (RoadPiece road in SelectedRoads)
+                        {
+                            LockRoad(road, locked);
+
+                        }
+                        ColorRoadPiece(SelectedRoad, SelectionColor.selected);
                     }
                 }
-                // Else, it will check whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
-                else if (Input.GetKeyDown(KeyCode.LeftShift))
+
+                if (Input.GetKeyDown(KeyCode.Delete))
                 {
-                    // If that is the case, then the clicked road will be retrieved. 
-                    RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
-                    // This condition checks, whether the user has actually clicked a RoadPiece 
-                    if (clickedRoad != null)
+                    if (SelectedRoads == null)
                     {
-                        // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
-                        // and the group of roads is selected
-                        DeselectRoad();
-                        DeselectGroup();
-                        SelectRoad(clickedRoad);
-                        SelectGroupOfRoads(clickedRoad);
+                        DeleteRoad(this.SelectedRoad);
                     }
-                }
-            }
-
-            // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
-            if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
-            {
-                // If that is the case, then the selected RoadPiece is deselected from the group
-                if (SelectedRoads != null)
-                {
-                    ControlSelectRoadPiece();
-                }
-            }
-
-            // This condition checks, whether the user released the mouse click
-            if (Input.GetMouseButtonUp(0))
-            {
-                // If that is the case, the dragging stops, the stretching stops, the stretching distance is reset and the position of a roadPiec
-                // is validated
-                IsDragging = false;
-
-                //This conditions checks, whether the user has been stretching a road
-                if (IsStretching)
-                {
-                    // if that is the case, then a new custom road is created
-                    CreateCustomStraightRoad();
-                    Snap();
-                }
-                IsStretching = false;
-                StretchingDistance = 3.78f * 5;
-                ValidateRoadPosition();
-            }
-
-            // These conditions checks, whether the user presses the "E" Key
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                RotateClockwise();
-            }
-
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-               RotateCounterClockwise(); 
-            }
-
-            // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
-            if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
-            {
-                if (SelectedRoads == null)
-                {
-                    LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
-                }
-                else
-                {
-                    bool locked = !SelectedRoad.IsLocked;
-                    foreach (RoadPiece road in SelectedRoads)
+                    else
                     {
-                        LockRoad(road, locked);
-
+                        foreach (RoadPiece road in SelectedRoads)
+                        {
+                            DeleteRoad(road);
+                        }
+                        SelectedRoads = null;
                     }
-                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
                 }
-            }
 
-            if (Input.GetKeyDown(KeyCode.Delete))
-            {
-                if (SelectedRoads == null)
+                // This condition checks, whether the user wants to deselect the road he has clicked. 
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    DeleteRoad(this.SelectedRoad);
+                    DeselectRoad();
+                    DeselectGroup();
                 }
-                else
-                {
-                    foreach (RoadPiece road in SelectedRoads)
-                    {
-                        DeleteRoad(road);
-                    }
-                    SelectedRoads = null;
-                }
-            }
-
-            // This condition checks, whether the user wants to deselect the road he has clicked. 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                DeselectRoad();
-                DeselectGroup();
             }
         }
 
@@ -977,10 +980,9 @@ public void RotateCounterClockwise(){
                 {
                     AlignGroupPiecesToEachOther(rotation);
                 }
-
-
             }
         }
+
         public void RotateRoadPiece(RoadPiece road, float rotation)
         {
             if (road != null)
@@ -1023,7 +1025,6 @@ public void RotateCounterClockwise(){
                 stop = false;
             }
         }
-
 
         /*
          * This will get the clicked object on the screen. Currently only works for GameObjects. 
@@ -1150,6 +1151,5 @@ public void RotateCounterClockwise(){
 
 
         }
-
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; 
 using Assets.Enums;
+using System.Diagnostics;
 
 namespace scripts
 {
@@ -18,11 +19,7 @@ namespace scripts
         public Image LockImage;
 
         public TMP_Dropdown SignDropdown; 
-        public Toggle TrafficLight; 
-
-        public RoadPiece SelectedRoadClone { get; set; } = null; 
-
-
+        public Toggle TrafficLight;  
 
         // Start is called before the first frame update
         void Start()
@@ -34,46 +31,43 @@ namespace scripts
 
             SignDropdown.onValueChanged.AddListener(SelectTrafficSign); 
            
-             TrafficLight.isOn = false;
+            TrafficLight.isOn = false;
             TrafficLight.onValueChanged.AddListener(ToggleTrafficLight);
         }
 
 
         // Update is called once per frame
         void Update()
-        { 
+        {
             SetVisibilityOfActionBar();
-            SetPreselectedValues(); 
+            SetPreselectedValues();
         }
 
         public void SetVisibilityOfActionBar()
         {
-            if(SelectedRoadClone == null)
+            if (ScrollViewOpener.IsUserGuideOpen())
             {
-                SelectedRoadClone = RoadManager.Instance.SelectedRoad; 
+                ActionBar.GetComponent<CanvasGroup>().interactable = false;
             }
-            else
-            {
-                if(SelectedRoadClone != RoadManager.Instance.SelectedRoad)
-                {
-
-                }
-            }
-            if (RoadManager.Instance.SelectedRoad == null && RoadManager.Instance.SelectedRoads == null)
+            else if (RoadManager.Instance.SelectedRoad == null && RoadManager.Instance.SelectedRoads == null)
             {
                 ActionBar.GetComponent<CanvasGroup>().alpha = 0;
                 ActionBar.GetComponent<CanvasGroup>().interactable = false;
             }
             else
             { 
-                if(RoadManager.Instance.SelectedRoad.RoadType != RoadType.StraightRoad){
+                if (RoadManager.Instance.SelectedRoad.RoadType != RoadType.StraightRoad)
+                {
                     SignDropdown.GetComponent<CanvasGroup>().alpha = 0; 
                     SignDropdown.GetComponent<CanvasGroup>().interactable = false;
-                }else{
+                } 
+                else 
+                {
                     SignDropdown.GetComponent<CanvasGroup>().alpha = 1; 
                     SignDropdown.GetComponent<CanvasGroup>().interactable = true; 
                 }
-                if(RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection || RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
+
+                if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection || RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
                 {
                     TrafficLight.GetComponent<CanvasGroup>().alpha = 1; 
                     TrafficLight.GetComponent<CanvasGroup>().interactable = true;
@@ -88,7 +82,6 @@ namespace scripts
 
             }
 
-
             if (RoadManager.Instance.SelectedRoad?.IsLocked == true)
             {
                 LockImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("sprites/lock-open");
@@ -97,48 +90,48 @@ namespace scripts
             {
                 LockImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("sprites/lock");
             }
-
         }
         
         public void SetPreselectedValues()
         {
-            if(RoadManager.Instance.SelectedRoad != null) { 
-            int value = 0;
-            switch (RoadManager.Instance.SelectedRoad.TrafficSign)
+            if (RoadManager.Instance.SelectedRoad != null)
             {
-                case TrafficSign.None: 
-                    value = 0; 
-                    break; 
-                case TrafficSign.Stop: 
-                    value = 1; 
-                    break; 
-                case TrafficSign.Yield:
-                    value = 2; 
-                    break;
-                case TrafficSign.Limit30: 
-                    value = 3; 
-                    break;
-                case TrafficSign.Limit60: 
-                    value = 4; 
-                    break;
-                case TrafficSign.Limit90: 
-                    value = 5; 
-                    break;
-                default: 
-                    break; 
-            }
-            SignDropdown.value = value; 
+                int value = 0;
+                switch (RoadManager.Instance.SelectedRoad.TrafficSign)
+                {
+                    case TrafficSign.None:
+                        value = 0;
+                        break;
+                    case TrafficSign.Stop:
+                        value = 1;
+                        break;
+                    case TrafficSign.Yield:
+                        value = 2;
+                        break;
+                    case TrafficSign.Limit30:
+                        value = 3;
+                        break;
+                    case TrafficSign.Limit60:
+                        value = 4;
+                        break;
+                    case TrafficSign.Limit90:
+                        value = 5;
+                        break;
+                    default:
+                        break;
+                }
+                SignDropdown.value = value;
 
-            if(RoadManager.Instance.SelectedRoad.TrafficSign == TrafficSign.TrafficLight)
-            {
-                TrafficLight.isOn = true;
-            }
-            else
-            {
-                TrafficLight.isOn = false;
+                if (RoadManager.Instance.SelectedRoad.TrafficSign == TrafficSign.TrafficLight)
+                {
+                    TrafficLight.isOn = true;
+                }
+                else
+                {
+                    TrafficLight.isOn = false;
+                }
             }
         }
-            }
 
         public void RotateLeft()
         {
@@ -220,12 +213,12 @@ namespace scripts
             }
             else
             {
-                if(RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
+                if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
                 {
                     RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/3-Way Intersection");
                     RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
                 }
-                else if(RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection)
+                else if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection)
                 {
                     RoadManager.Instance.SelectedRoad.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("sprites/4-Way Intersection");
                     RoadManager.Instance.SelectedRoad.TrafficSign = TrafficSign.None;
