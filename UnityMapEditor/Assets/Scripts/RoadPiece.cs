@@ -52,7 +52,7 @@ namespace scripts
         /*
         * This property refers to an enum, that will hold the value for the traffic sign, this piece is holding
         */
-        public TrafficSign TrafficSign = TrafficSign.None; 
+        public TrafficSign TrafficSign = TrafficSign.None;
 
         /* 
         * The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
@@ -98,20 +98,20 @@ namespace scripts
                     break;
                 case RoadType.ThreeWayIntersection:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
-                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     break;
                 case RoadType.FourWayIntersection:
                 case RoadType.FourWayRoundAbout:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 270));
                     AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 90));
-                    AnchorPoints.Add(new VirtualAnchor(this, 270));
                     break;
                 case RoadType.ThreeWayRoundAbout:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
-                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
+                    AnchorPoints.Add(new VirtualAnchor(this, 0));
                     break;
                 default:
                     break;
