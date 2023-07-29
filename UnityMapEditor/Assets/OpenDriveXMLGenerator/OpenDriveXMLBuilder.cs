@@ -436,7 +436,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
+        private XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
             double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -545,7 +545,7 @@ namespace OpenDriveXMLGenerator
             return curve;
         }
 
-        public XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
+        private XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
             double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -660,7 +660,7 @@ namespace OpenDriveXMLGenerator
         }
 
 
-        public XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
+        private XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
             bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -759,7 +759,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
+        private XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
             bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -1517,7 +1517,7 @@ namespace OpenDriveXMLGenerator
         }
 
         //The custom road has no left lane or left sidewalk
-        public XODRRoad AddRightLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0,
+        private XODRRoad AddRightLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0,
             float length = 0, string laneWidth = "4", string curvature = null, bool sidewalk = false,
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
