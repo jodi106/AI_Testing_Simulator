@@ -56,7 +56,7 @@ namespace OpenDriveXMLGenerator
         /// </summary>
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0,
             bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5",
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, trafficSignal = TrafficSignal.None)
         {
 
             var road = RootElement.AddRoadElement(
@@ -201,6 +201,114 @@ namespace OpenDriveXMLGenerator
 
 
             }
+
+            if (trafficSignal == TrafficSignal.Stop)
+            {
+                var signals = road.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "no",
+                    hOffset: "-1.5577535629272461",
+                    height: "5.0",
+                    id: signalId.ToString(),
+                    name: "StopSign",
+                    orientation: "-90",
+                    pitch: "0",
+                    roll: "90",
+                    s: "0",
+                    subtype: "-1",
+                    t: "0",
+                    text: "",
+                    type: "206",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "-0.5466467142105101"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Speed30)
+            {
+                var objects = road.AddObjectsElement();
+                objects.AddObjectElement(
+                    zOffset: "0.0",
+                    s: "0",
+                    t: "4",
+                    hdg: hdg.ToString(),
+                    id: signalId.ToString(),
+                    name: "Speed_30",
+                    orientation: "+",
+                    pitch: "0.0",
+                    roll: "0.0",
+                    type: "-1",
+                    width: "0.0"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Speed60)
+            {
+                var objects = road.AddObjectsElement();
+                objects.AddObjectElement(
+                    zOffset: "0.0",
+                    s: "0",
+                    t: "4",
+                    hdg: hdg.ToString(),
+                    id: signalId.ToString(),
+                    name: "Speed_60",
+                    orientation: "+",
+                    pitch: "0.0",
+                    roll: "0.0",
+                    type: "-1",
+                    width: "0.0"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Speed90)
+            {
+                var objects = road.AddObjectsElement();
+                objects.AddObjectElement(
+                    zOffset: "0.0",
+                    s: "0",
+                    t: "4",
+                    hdg: hdg.ToString(),
+                    id: signalId.ToString(),
+                    name: "Speed_90",
+                    orientation: "+",
+                    pitch: "0.0",
+                    roll: "0.0",
+                    type: "-1",
+                    width: "0.0"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Yield)
+            {
+                var signals = road.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "no",
+                    hOffset: "-1.5577535629272461",
+                    height: "5.0",
+                    id: signalId.ToString(),
+                    name: "YieldSign",
+                    orientation: "-90",
+                    pitch: "0",
+                    roll: "90",
+                    s: "0",
+                    subtype: "-1",
+                    t: "4",
+                    text: "",
+                    type: "205",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "-0.5466467142105101"
+                );
+                signalId++;
+            }
+
 
 
             return road;
