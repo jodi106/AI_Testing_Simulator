@@ -12,8 +12,9 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('C:\Users\ebeha\Documents\GitHub\Autonomous-Driving-Simulation-Environment'))
+sys.path.insert(0, os.path.abspath('.'))
 
+import OpenDriveXODRBuilder
 
 # -- Project information -----------------------------------------------------
 
@@ -33,6 +34,10 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.extlinks',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
