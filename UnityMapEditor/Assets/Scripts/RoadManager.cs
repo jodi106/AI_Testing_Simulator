@@ -79,7 +79,9 @@ namespace scripts
         */
         void Update()
         {
-            // This condition checks, whether the user has selected a road to then check the stretching position
+            if (!ScrollViewOpener.IsUserGuideOpen())
+            {
+                          // This condition checks, whether the user has selected a road to then check the stretching position
             if (SelectedRoad != null)
             {
                 CheckStretchPosition();
@@ -210,6 +212,7 @@ namespace scripts
             {
                 DeselectRoad();
                 DeselectGroup();
+            }
             }
         }
 
@@ -985,10 +988,9 @@ namespace scripts
                 {
                     AlignGroupPiecesToEachOther(rotation);
                 }
-
-
             }
         }
+
         public void RotateRoadPiece(RoadPiece road, float rotation)
         {
             if (road != null)
@@ -1031,7 +1033,6 @@ namespace scripts
                 stop = false;
             }
         }
-
 
         /*
          * This will get the clicked object on the screen. Currently only works for GameObjects. 
@@ -1158,6 +1159,5 @@ namespace scripts
 
 
         }
-
     }
 }

@@ -1,6 +1,7 @@
 using Assets.Enums;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,8 +44,11 @@ namespace scripts
 
         public void HandleButtonClick(Button button, RoadType roadType)
         {
-            SetSelectedRoadType(roadType);
-            RoadManager.Instance.CreateRoad();
+            if (!ScrollViewOpener.IsUserGuideOpen())
+            {
+                SetSelectedRoadType(roadType);
+                RoadManager.Instance.CreateRoad();
+            }
         }
     }
 }

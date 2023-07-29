@@ -36,7 +36,6 @@ namespace scripts
          */
         void SelectRoadType(string buttonName)
         {
-
             RoadManager.Instance.DeselectRoad();
             var selectedRoadType = RoadType.None;
             switch (buttonName)
@@ -75,9 +74,6 @@ namespace scripts
                     break;
             }
             ButtonManager.Instance.HandleButtonClick(SidebarButton, selectedRoadType);
-
         }
     }
-
-
 }
