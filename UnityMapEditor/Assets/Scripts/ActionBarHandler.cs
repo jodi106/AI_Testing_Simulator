@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Assets.Enums;
+using System.Diagnostics;
 
 namespace scripts
 {
@@ -17,12 +18,8 @@ namespace scripts
 
         public Image LockImage;
 
-        public TMP_Dropdown SignDropdown;
+        public TMP_Dropdown SignDropdown; 
         public Toggle TrafficLight;
-
-        public RoadPiece SelectedRoadClone { get; set; } = null;
-
-
 
         // Start is called before the first frame update
         void Start()
@@ -33,7 +30,6 @@ namespace scripts
             Delete.onClick.AddListener(DeleteRoad);
 
             SignDropdown.onValueChanged.AddListener(SelectTrafficSign);
-
             TrafficLight.isOn = false;
             TrafficLight.onValueChanged.AddListener(ToggleTrafficLight);
         }
@@ -48,33 +44,26 @@ namespace scripts
 
         public void SetVisibilityOfActionBar()
         {
-            if (SelectedRoadClone == null)
+            if (ScrollViewOpener.IsUserGuideOpen())
             {
-                SelectedRoadClone = RoadManager.Instance.SelectedRoad;
+                ActionBar.GetComponent<CanvasGroup>().interactable = false;
             }
-            else
-            {
-                if (SelectedRoadClone != RoadManager.Instance.SelectedRoad)
-                {
-
-                }
-            }
-            if (RoadManager.Instance.SelectedRoad == null && RoadManager.Instance.SelectedRoads == null)
+            else if (RoadManager.Instance.SelectedRoad == null && RoadManager.Instance.SelectedRoads == null)
             {
                 ActionBar.GetComponent<CanvasGroup>().alpha = 0;
                 ActionBar.GetComponent<CanvasGroup>().interactable = false;
             }
             else
-            {
+            { 
                 if (RoadManager.Instance.SelectedRoad.RoadType != RoadType.StraightRoad)
                 {
-                    SignDropdown.GetComponent<CanvasGroup>().alpha = 0;
+                    SignDropdown.GetComponent<CanvasGroup>().alpha = 0; 
                     SignDropdown.GetComponent<CanvasGroup>().interactable = false;
-                }
-                else
+                } 
+                else 
                 {
-                    SignDropdown.GetComponent<CanvasGroup>().alpha = 1;
-                    SignDropdown.GetComponent<CanvasGroup>().interactable = true;
+                    SignDropdown.GetComponent<CanvasGroup>().alpha = 1; 
+                    SignDropdown.GetComponent<CanvasGroup>().interactable = true; 
                 }
                 if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection || RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
                 {
@@ -91,7 +80,6 @@ namespace scripts
 
             }
 
-
             if (RoadManager.Instance.SelectedRoad?.IsLocked == true)
             {
                 LockImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("sprites/lock-open");
@@ -100,7 +88,6 @@ namespace scripts
             {
                 LockImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("sprites/lock");
             }
-
         }
 
         public void SetPreselectedValues()
@@ -146,12 +133,12 @@ namespace scripts
 
         public void RotateLeft()
         {
-            RoadManager.Instance.RotateClockwise();
+            RoadManager.Instance.RotateCounterClockwise();
         }
 
         public void RotateRight()
         {
-            RoadManager.Instance.RotateCounterClockwise();
+            RoadManager.Instance.RotateClockwise();
         }
 
         public void LockRoad()

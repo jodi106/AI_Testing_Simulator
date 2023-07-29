@@ -39,10 +39,18 @@ public class CameraMover : MonoBehaviour
             }
         }
 
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        float newZoom = mainCamera.orthographicSize - scrollInput * zoomSpeed;
-        mainCamera.orthographicSize = Mathf.Clamp(newZoom, minZoom, maxZoom);
-
+        // Zoom in
+        if (Input.GetKeyDown(KeyCode.Equals) || Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            float newZoom = mainCamera.orthographicSize - 0.1f * zoomSpeed;
+            mainCamera.orthographicSize = Mathf.Clamp(newZoom, minZoom, maxZoom);
+        }
+        // Zoom out
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            float newZoom = mainCamera.orthographicSize + 0.1f * zoomSpeed;
+            mainCamera.orthographicSize = Mathf.Clamp(newZoom, minZoom, maxZoom);
+        }
     }
 
     private bool IsPointerOverGameObject()
