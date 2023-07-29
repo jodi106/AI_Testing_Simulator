@@ -21,7 +21,7 @@ namespace OpenDriveXMLGenerator
 
         private int connectionId = 0;
 
-
+        private float signalId = 0;
 
         public OpenDriveXMLBuilder()
         {
@@ -861,7 +861,7 @@ namespace OpenDriveXMLGenerator
 
 
         public void Add3wayIntersection(float startX = 0, float startY = 0, float hdg = 0,
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, bool traffic_light = false)
         {
             var junction = RootElement.AddJunctionElement(
                 name: "Junction " + junctionId.ToString(),
@@ -878,6 +878,32 @@ namespace OpenDriveXMLGenerator
             }
             
             var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad1.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+                signalId++;
+            }
 
             float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
             float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
@@ -900,6 +926,32 @@ namespace OpenDriveXMLGenerator
             }
   
             var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg + 3.14f, 0.5, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad3.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+                signalId++;
+            }
 
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
             float startYCurve1 = startY + 9f * (float)Math.Sin(hdg) - 8.5f * (float)Math.Cos(hdg);
@@ -1006,7 +1058,7 @@ namespace OpenDriveXMLGenerator
 
 
         public void Add4wayIntersection(float startX = 0, float startY = 0, float hdg = 0,
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, bool traffic_light = false)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
                 name: "Junction " + junctionId.ToString(),
@@ -1023,6 +1075,33 @@ namespace OpenDriveXMLGenerator
             }
 
             var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad1.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+
+                signalId++;
+            }
 
             float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
             float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
@@ -1045,6 +1124,32 @@ namespace OpenDriveXMLGenerator
                 predecessorRoad3.Ids = new List<int> { predecessorInfo.Ids.ElementAt(0) };
             }
             var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg3, 0.5f, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad3.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+                signalId++;
+            }
 
             float startX4 = startX + 9f * (float)Math.Cos(hdg) - 9f * (float)Math.Sin(hdg);
             float startY4 = startY + 9f * (float)Math.Sin(hdg) + 9f * (float)Math.Cos(hdg);
