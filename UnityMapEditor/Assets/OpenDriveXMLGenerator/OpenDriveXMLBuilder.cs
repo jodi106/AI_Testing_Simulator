@@ -51,9 +51,9 @@ namespace OpenDriveXMLGenerator
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
         }
 
-        /**
-         * Generates a straight piece of road
-         */
+        /// <summary>
+        /// Test
+        /// </summary>
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0,
             bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5",
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)

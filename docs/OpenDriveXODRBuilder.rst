@@ -3,18 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Autonomous Driving Simulation Environment's documentation!
+OpenDriveXODRBuilder
 =====================================================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   OpenDriveXODRBuilder 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Functions
+----------
+ ..currentmodule:: Autonomous-Driving-Simulation-Environment.OpenDriveXODRBuilder
+ ..autofunction:: AddStraightroad
