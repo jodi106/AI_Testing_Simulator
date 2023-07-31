@@ -10,6 +10,5 @@ namespace Assets.Enums
         groupSnapped,
         stretching,
         invalid,
-
     }
 }

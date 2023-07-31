@@ -19,20 +19,4 @@ namespace Assets.Enums
         [Description("trafficlight")]
         TrafficLight,
     }
-
-    public static class TrafficSignExtensions
-    {
-        public static string GetDescription(this TrafficSign TrafficSign)
-        {
-            var fieldInfo = TrafficSign.GetType().GetField(TrafficSign.ToString());
-            var attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-
-            if (attributes != null && attributes.Length > 0)
-            {
-                return attributes[0].Description;
-            }
-
-            return TrafficSign.ToString();
-        }
-    }
 }
