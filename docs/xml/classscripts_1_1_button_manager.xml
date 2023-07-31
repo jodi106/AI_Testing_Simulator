@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="classscripts_1_1_button_manager" kind="class" language="C#" prot="public">
+    <compoundname>scripts::ButtonManager</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="classscripts_1_1_button_manager_1a41f655e6d63ac74bf5e93557f31f8715" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Button &gt;</type>
+        <definition>List&lt;Button&gt; scripts.ButtonManager.sidebarButtonList</definition>
+        <argsstring></argsstring>
+        <name>sidebarButtonList</name>
+        <qualifiedname>scripts.ButtonManager.sidebarButtonList</qualifiedname>
+        <initializer>= new List&lt;Button&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="14" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="property" id="classscripts_1_1_button_manager_1adca675dc9367346005c4ffa97deb83bb" prot="public" static="yes" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type><ref refid="classscripts_1_1_button_manager" kindref="compound">ButtonManager</ref></type>
+        <definition>ButtonManager scripts.ButtonManager.Instance</definition>
+        <argsstring></argsstring>
+        <name>Instance</name>
+        <qualifiedname>scripts.ButtonManager.Instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="16" column="37" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="17" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="property" id="classscripts_1_1_button_manager_1a3de54b4b38de78b40fbcb0aa41a98e27" prot="private" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>RoadType</type>
+        <definition>RoadType scripts.ButtonManager.selectedRoadType</definition>
+        <argsstring></argsstring>
+        <name>selectedRoadType</name>
+        <qualifiedname>scripts.ButtonManager.selectedRoadType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="23" column="26" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="23" bodyend="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classscripts_1_1_button_manager_1a4cb558b8730b55edbf7e8dc97c47f447" prot="private" static="yes" mutable="no">
+        <type><ref refid="classscripts_1_1_button_manager" kindref="compound">ButtonManager</ref></type>
+        <definition>ButtonManager scripts.ButtonManager.instance</definition>
+        <argsstring></argsstring>
+        <name>instance</name>
+        <qualifiedname>scripts.ButtonManager.instance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="15" column="38" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classscripts_1_1_button_manager_1a802acbd3046c019abbb5140e46dfd849" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ButtonManager.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <qualifiedname>scripts.ButtonManager.Awake</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="25" column="22" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classscripts_1_1_button_manager_1aea12b7ab2cac968f07e96f90c18f7e86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ButtonManager.AddSidebarButton</definition>
+        <argsstring>(Button button)</argsstring>
+        <name>AddSidebarButton</name>
+        <qualifiedname>scripts.ButtonManager.AddSidebarButton</qualifiedname>
+        <param>
+          <type>Button</type>
+          <declname>button</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="30" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="30" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_button_manager_1aba05487b4d6c61eb10b7344c1d33e3d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ButtonManager.SetSelectedRoadType</definition>
+        <argsstring>(RoadType roadType)</argsstring>
+        <name>SetSelectedRoadType</name>
+        <qualifiedname>scripts.ButtonManager.SetSelectedRoadType</qualifiedname>
+        <param>
+          <type>RoadType</type>
+          <declname>roadType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="35" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_button_manager_1a258e66e2fd252167c9a3cd956d942cd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>RoadType</type>
+        <definition>RoadType scripts.ButtonManager.GetSelectedRoadType</definition>
+        <argsstring>()</argsstring>
+        <name>GetSelectedRoadType</name>
+        <qualifiedname>scripts.ButtonManager.GetSelectedRoadType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="40" column="25" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="40" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_button_manager_1afc224bf8474b4e85fadfda1b1921995c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ButtonManager.HandleButtonClick</definition>
+        <argsstring>(Button button, RoadType roadType)</argsstring>
+        <name>HandleButtonClick</name>
+        <qualifiedname>scripts.ButtonManager.HandleButtonClick</qualifiedname>
+        <param>
+          <type>Button</type>
+          <declname>button</declname>
+        </param>
+        <param>
+          <type>RoadType</type>
+          <declname>roadType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="45" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="45" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>scripts.ButtonManager</label>
+        <link refid="classscripts_1_1_button_manager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>scripts.ButtonManager</label>
+        <link refid="classscripts_1_1_button_manager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Scripts/ButtonManager.cs" line="11" column="11" bodyfile="UnityMapEditor/Assets/Scripts/ButtonManager.cs" bodystart="12" bodyend="53"/>
+    <listofallmembers>
+      <member refid="classscripts_1_1_button_manager_1aea12b7ab2cac968f07e96f90c18f7e86" prot="public" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>AddSidebarButton</name></member>
+      <member refid="classscripts_1_1_button_manager_1a802acbd3046c019abbb5140e46dfd849" prot="private" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>Awake</name></member>
+      <member refid="classscripts_1_1_button_manager_1a258e66e2fd252167c9a3cd956d942cd1" prot="public" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>GetSelectedRoadType</name></member>
+      <member refid="classscripts_1_1_button_manager_1afc224bf8474b4e85fadfda1b1921995c" prot="public" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>HandleButtonClick</name></member>
+      <member refid="classscripts_1_1_button_manager_1a4cb558b8730b55edbf7e8dc97c47f447" prot="private" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>instance</name></member>
+      <member refid="classscripts_1_1_button_manager_1adca675dc9367346005c4ffa97deb83bb" prot="public" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>Instance</name></member>
+      <member refid="classscripts_1_1_button_manager_1a3de54b4b38de78b40fbcb0aa41a98e27" prot="private" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>selectedRoadType</name></member>
+      <member refid="classscripts_1_1_button_manager_1aba05487b4d6c61eb10b7344c1d33e3d5" prot="public" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>SetSelectedRoadType</name></member>
+      <member refid="classscripts_1_1_button_manager_1a41f655e6d63ac74bf5e93557f31f8715" prot="public" virt="non-virtual"><scope>scripts::ButtonManager</scope><name>sidebarButtonList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

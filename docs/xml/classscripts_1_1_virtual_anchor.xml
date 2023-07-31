@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="classscripts_1_1_virtual_anchor" kind="class" language="C#" prot="public">
+    <compoundname>scripts::VirtualAnchor</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classscripts_1_1_virtual_anchor_1a3651a2a1dfeb8267158f87c30c55f5f1" prot="public" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 scripts.VirtualAnchor.Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <qualifiedname>scripts.VirtualAnchor.Offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="13" column="24" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_virtual_anchor_1affff9d45b77e055fb9906aa2533ed919" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float scripts.VirtualAnchor.Orientation</definition>
+        <argsstring></argsstring>
+        <name>Orientation</name>
+        <qualifiedname>scripts.VirtualAnchor.Orientation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="16" column="22" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_virtual_anchor_1a7fc09e31e4c636c69a80481f99066cce" prot="public" static="no" mutable="no">
+        <type><ref refid="classscripts_1_1_road_piece" kindref="compound">RoadPiece</ref></type>
+        <definition>RoadPiece scripts.VirtualAnchor.RoadPiece</definition>
+        <argsstring></argsstring>
+        <name>RoadPiece</name>
+        <qualifiedname>scripts.VirtualAnchor.RoadPiece</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="19" column="26" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_virtual_anchor_1a604c0ceb7d01694ef3901e0a9457ba6b" prot="public" static="no" mutable="no">
+        <type>List&lt; GameObject &gt;</type>
+        <definition>List&lt;GameObject&gt; scripts.VirtualAnchor.ChildStraightPieces</definition>
+        <argsstring></argsstring>
+        <name>ChildStraightPieces</name>
+        <qualifiedname>scripts.VirtualAnchor.ChildStraightPieces</qualifiedname>
+        <initializer>= new List&lt;GameObject&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="22" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_virtual_anchor_1a1c83bbedf1ac7098716c274de564f0f6" prot="public" static="no" mutable="no">
+        <type><ref refid="classscripts_1_1_virtual_anchor" kindref="compound">VirtualAnchor</ref></type>
+        <definition>VirtualAnchor scripts.VirtualAnchor.ConnectedAnchorPoint</definition>
+        <argsstring></argsstring>
+        <name>ConnectedAnchorPoint</name>
+        <qualifiedname>scripts.VirtualAnchor.ConnectedAnchorPoint</qualifiedname>
+        <initializer>= null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="25" column="30" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1a8950bdb2a80dfbb01b891af54d6a85d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>scripts.VirtualAnchor.VirtualAnchor</definition>
+        <argsstring>(RoadPiece roadPiece, float orientation)</argsstring>
+        <name>VirtualAnchor</name>
+        <qualifiedname>scripts.VirtualAnchor.VirtualAnchor</qualifiedname>
+        <param>
+          <type><ref refid="classscripts_1_1_road_piece" kindref="compound">RoadPiece</ref></type>
+          <declname>roadPiece</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>orientation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="31" column="16" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="31" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1a730b99d09778ad49d0cafd454b704715" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.VirtualAnchor.Update</definition>
+        <argsstring>(float angleOfRotation)</argsstring>
+        <name>Update</name>
+        <qualifiedname>scripts.VirtualAnchor.Update</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>angleOfRotation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="57" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="57" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1a4795882de5be602e0ca851ba2226f324" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.VirtualAnchor.ConnectAnchorPoint</definition>
+        <argsstring>(VirtualAnchor va)</argsstring>
+        <name>ConnectAnchorPoint</name>
+        <qualifiedname>scripts.VirtualAnchor.ConnectAnchorPoint</qualifiedname>
+        <param>
+          <type><ref refid="classscripts_1_1_virtual_anchor" kindref="compound">VirtualAnchor</ref></type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="74" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="74" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1a68ba16da9624a8306faca72baa47338b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.VirtualAnchor.RemoveConntectedAnchorPoint</definition>
+        <argsstring>()</argsstring>
+        <name>RemoveConntectedAnchorPoint</name>
+        <qualifiedname>scripts.VirtualAnchor.RemoveConntectedAnchorPoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="84" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="84" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1a2a42ecda0fe52ebd617284d8e37466ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>List&lt; GameObject &gt;</type>
+        <definition>List&lt; GameObject &gt; scripts.VirtualAnchor.GetStretchingStraights</definition>
+        <argsstring>()</argsstring>
+        <name>GetStretchingStraights</name>
+        <qualifiedname>scripts.VirtualAnchor.GetStretchingStraights</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="96" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="96" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1a704de9f1008198c3ce6939a5b4217f8d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.VirtualAnchor.AddStretchingStraight</definition>
+        <argsstring>(GameObject road)</argsstring>
+        <name>AddStretchingStraight</name>
+        <qualifiedname>scripts.VirtualAnchor.AddStretchingStraight</qualifiedname>
+        <param>
+          <type>GameObject</type>
+          <declname>road</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="104" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_virtual_anchor_1aee52f2706da6f69f3dcbaf069a122989" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.VirtualAnchor.RemoveLastStretchingStraight</definition>
+        <argsstring>()</argsstring>
+        <name>RemoveLastStretchingStraight</name>
+        <qualifiedname>scripts.VirtualAnchor.RemoveLastStretchingStraight</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="112" column="21" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="112" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>scripts.VirtualAnchor</label>
+        <link refid="classscripts_1_1_virtual_anchor"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>RoadPiece</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ConnectedAnchorPoint</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>scripts.RoadPiece</label>
+        <link refid="classscripts_1_1_road_piece"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>LastNeighborSnappedAnchorPoint</edgelabel>
+          <edgelabel>LastSelectedSnappedAnchorPoint</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>scripts.VirtualAnchor</label>
+        <link refid="classscripts_1_1_virtual_anchor"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>RoadPiece</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ConnectedAnchorPoint</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" line="10" column="11" bodyfile="UnityMapEditor/Assets/Scripts/VirtualAnchor.cs" bodystart="11" bodyend="118"/>
+    <listofallmembers>
+      <member refid="classscripts_1_1_virtual_anchor_1a704de9f1008198c3ce6939a5b4217f8d" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>AddStretchingStraight</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a604c0ceb7d01694ef3901e0a9457ba6b" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>ChildStraightPieces</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a4795882de5be602e0ca851ba2226f324" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>ConnectAnchorPoint</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a1c83bbedf1ac7098716c274de564f0f6" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>ConnectedAnchorPoint</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a2a42ecda0fe52ebd617284d8e37466ca" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>GetStretchingStraights</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a3651a2a1dfeb8267158f87c30c55f5f1" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>Offset</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1affff9d45b77e055fb9906aa2533ed919" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>Orientation</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a68ba16da9624a8306faca72baa47338b" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>RemoveConntectedAnchorPoint</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1aee52f2706da6f69f3dcbaf069a122989" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>RemoveLastStretchingStraight</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a7fc09e31e4c636c69a80481f99066cce" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>RoadPiece</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a730b99d09778ad49d0cafd454b704715" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>Update</name></member>
+      <member refid="classscripts_1_1_virtual_anchor_1a8950bdb2a80dfbb01b891af54d6a85d1" prot="public" virt="non-virtual"><scope>scripts::VirtualAnchor</scope><name>VirtualAnchor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
