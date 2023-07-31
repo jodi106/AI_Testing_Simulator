@@ -2125,6 +2125,10 @@ namespace OpenDriveXMLGenerator
                     id: "1", length: "3.000375", name: "parkingspot", orientation: "none", pitch: "0.0",
                     roll: "0.0", type: "parkingSpace", width: "6.930416660");
 
+                var laneRightSidewalk = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
+                laneRightSidewalk.AddLinkElement();
+                laneRightSidewalk.AddWidthElement(a: "1.5");
+
 
                 var roadParkingTop = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
@@ -2363,6 +2367,10 @@ namespace OpenDriveXMLGenerator
                 var parkingSpot4 = objects.AddObjectElement(zOffset: "0", s: "11", t: "-7", hdg: (1.57).ToString(),
                     id: "3", length: "7.00087", name: "parkingspot", orientation: "none", pitch: "0.0",
                     roll: "0.0", type: "parkingSpace", width: "4.9027291660");
+
+                var laneLeftSidewalk = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
+                laneLeftSidewalk.AddLinkElement();
+                laneLeftSidewalk.AddWidthElement(a: "1.5");
 
                 var roadParkingTop = RootElement.AddRoadElement(
                 name: "Road " + id.ToString(),
