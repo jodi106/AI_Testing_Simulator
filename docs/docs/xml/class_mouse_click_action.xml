@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_mouse_click_action" kind="class" language="C#" prot="public">
+    <compoundname>MouseClickAction</compoundname>
+    <basecompoundref refid="interface_i_action" prot="public" virt="non-virtual">IAction</basecompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_mouse_click_action_1a08fcfd24a3a9e38265b3ac841682ce78" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>Vector3</type>
+        <definition>Vector3 MouseClickAction.position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <qualifiedname>MouseClickAction.position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" line="10" column="20" bodyfile="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" bodystart="10" bodyend="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mouse_click_action_1af7b9dc29b960310e991fdb2a62da9be4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MouseClickAction.MouseClickAction</definition>
+        <argsstring>(Vector3 dragOrigin)</argsstring>
+        <name>MouseClickAction</name>
+        <qualifiedname>MouseClickAction.MouseClickAction</qualifiedname>
+        <param>
+          <type>Vector3</type>
+          <declname>dragOrigin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" line="12" column="12" bodyfile="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" bodystart="12" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mouse_click_action_1af8a9cc10f62d5ff9f6db7b5cab7f96f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MouseClickAction.MouseClickAction</definition>
+        <argsstring>(Dictionary&lt; string, object &gt; dict)</argsstring>
+        <name>MouseClickAction</name>
+        <qualifiedname>MouseClickAction.MouseClickAction</qualifiedname>
+        <param>
+          <type>Dictionary&lt; string, object &gt;</type>
+          <declname>dict</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" line="16" column="12" bodyfile="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mouse_click_action_1a89c3b394833a7b96e5f671b9e82da8f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Dictionary&lt; string, object &gt;</type>
+        <definition>Dictionary&lt; string, object &gt; MouseClickAction.toDict</definition>
+        <argsstring>()</argsstring>
+        <name>toDict</name>
+        <qualifiedname>MouseClickAction.toDict</qualifiedname>
+        <reimplements refid="interface_i_action_1a4e2849471650329a161e2015163c0c27">toDict</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" line="21" column="23" bodyfile="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" bodystart="21" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>IAction</label>
+        <link refid="interface_i_action"/>
+      </node>
+      <node id="1">
+        <label>MouseClickAction</label>
+        <link refid="class_mouse_click_action"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>IAction</label>
+        <link refid="interface_i_action"/>
+      </node>
+      <node id="1">
+        <label>MouseClickAction</label>
+        <link refid="class_mouse_click_action"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" line="7" column="7" bodyfile="UnityMapEditor/Assets/Scripts/Actions/MouseClickAction.cs" bodystart="8" bodyend="28"/>
+    <listofallmembers>
+      <member refid="class_mouse_click_action_1af7b9dc29b960310e991fdb2a62da9be4" prot="public" virt="non-virtual"><scope>MouseClickAction</scope><name>MouseClickAction</name></member>
+      <member refid="class_mouse_click_action_1af8a9cc10f62d5ff9f6db7b5cab7f96f6" prot="public" virt="non-virtual"><scope>MouseClickAction</scope><name>MouseClickAction</name></member>
+      <member refid="class_mouse_click_action_1a08fcfd24a3a9e38265b3ac841682ce78" prot="public" virt="non-virtual"><scope>MouseClickAction</scope><name>position</name></member>
+      <member refid="class_mouse_click_action_1a89c3b394833a7b96e5f671b9e82da8f5" prot="public" virt="non-virtual"><scope>MouseClickAction</scope><name>toDict</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

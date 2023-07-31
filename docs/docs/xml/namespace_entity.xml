@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_entity" kind="namespace" language="C#">
+    <compoundname>Entity</compoundname>
+    <innerclass refid="class_entity_1_1_action_type" prot="public">Entity::ActionType</innerclass>
+    <innerclass refid="class_entity_1_1_adversary" prot="public">Entity::Adversary</innerclass>
+    <innerclass refid="class_entity_1_1_a_star_waypoint" prot="public">Entity::AStarWaypoint</innerclass>
+    <innerclass refid="class_entity_1_1_base_entity" prot="public">Entity::BaseEntity</innerclass>
+    <innerclass refid="class_entity_1_1_ego" prot="public">Entity::Ego</innerclass>
+    <innerclass refid="class_entity_1_1_entity_model" prot="public">Entity::EntityModel</innerclass>
+    <innerclass refid="class_entity_1_1_lane" prot="public">Entity::Lane</innerclass>
+    <innerclass refid="class_entity_1_1_location" prot="public">Entity::Location</innerclass>
+    <innerclass refid="class_entity_1_1_path" prot="public">Entity::Path</innerclass>
+    <innerclass refid="class_entity_1_1_road" prot="public">Entity::Road</innerclass>
+    <innerclass refid="class_entity_1_1_scenario_info" prot="public">Entity::ScenarioInfo</innerclass>
+    <innerclass refid="class_entity_1_1_start_route_info" prot="public">Entity::StartRouteInfo</innerclass>
+    <innerclass refid="class_entity_1_1_trigger_info" prot="public">Entity::TriggerInfo</innerclass>
+    <innerclass refid="class_entity_1_1_waypoint" prot="public">Entity::Waypoint</innerclass>
+    <innerclass refid="class_entity_1_1_world_options" prot="public">Entity::WorldOptions</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_entity_1_1_adversary" kindref="compound">Adversary</ref> := Vehicle, Motorcycle, Bike, or Pedestrian that has a pre-defined behavior (simulation vehicles, not AI) </para>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="6" column="1"/>
+  </compounddef>
+</doxygen>

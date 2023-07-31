@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_open_drive_x_m_l_generator" kind="namespace" language="C#">
+    <compoundname>OpenDriveXMLGenerator</compoundname>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_open_drive_x_m_l_builder" prot="public">OpenDriveXMLGenerator::OpenDriveXMLBuilder</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_program" prot="public">OpenDriveXMLGenerator::Program</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_sequence_info" prot="public">OpenDriveXMLGenerator::SequenceInfo</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_traffic_signal_extensions" prot="public">OpenDriveXMLGenerator::TrafficSignalExtensions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions" prot="public">OpenDriveXMLGenerator::XMLElementExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_arc" prot="public">OpenDriveXMLGenerator::XODRArc</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base" prot="public">OpenDriveXMLGenerator::XODRBase</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection" prot="public">OpenDriveXMLGenerator::XODRConnection</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection_extentions" prot="public">OpenDriveXMLGenerator::XODRConnectionExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_corner_local" prot="public">OpenDriveXMLGenerator::XODRCornerLocal</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_direction" prot="public">OpenDriveXMLGenerator::XODRDirection</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_direction_extentions" prot="public">OpenDriveXMLGenerator::XODRDirectionExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_geometry" prot="public">OpenDriveXMLGenerator::XODRGeometry</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_geometry_extentions" prot="public">OpenDriveXMLGenerator::XODRGeometryExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction" prot="public">OpenDriveXMLGenerator::XODRJunction</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction_extentions" prot="public">OpenDriveXMLGenerator::XODRJunctionExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane" prot="public">OpenDriveXMLGenerator::XODRLane</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane_extentions" prot="public">OpenDriveXMLGenerator::XODRLaneExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane_link" prot="public">OpenDriveXMLGenerator::XODRLaneLink</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lanes" prot="public">OpenDriveXMLGenerator::XODRLanes</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane_section" prot="public">OpenDriveXMLGenerator::XODRLaneSection</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane_section_extentions" prot="public">OpenDriveXMLGenerator::XODRLaneSectionExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lanes_extentions" prot="public">OpenDriveXMLGenerator::XODRLanesExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_line" prot="public">OpenDriveXMLGenerator::XODRLine</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link" prot="public">OpenDriveXMLGenerator::XODRLink</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link_extentions" prot="public">OpenDriveXMLGenerator::XODRLinkExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_object" prot="public">OpenDriveXMLGenerator::XODRObject</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_object_extentions" prot="public">OpenDriveXMLGenerator::XODRObjectExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_objects" prot="public">OpenDriveXMLGenerator::XODRObjects</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_objects_extentions" prot="public">OpenDriveXMLGenerator::XODRObjectsExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_outline" prot="public">OpenDriveXMLGenerator::XODROutline</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_outline_extentions" prot="public">OpenDriveXMLGenerator::XODROutlineExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_plain_view" prot="public">OpenDriveXMLGenerator::XODRPlainView</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_plain_view_extentions" prot="public">OpenDriveXMLGenerator::XODRPlainViewExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_predecessor" prot="public">OpenDriveXMLGenerator::XODRPredecessor</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_road" prot="public">OpenDriveXMLGenerator::XODRRoad</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_road_extentions" prot="public">OpenDriveXMLGenerator::XODRRoadExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_road_mark" prot="public">OpenDriveXMLGenerator::XODRRoadMark</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_signal" prot="public">OpenDriveXMLGenerator::XODRSignal</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_signals" prot="public">OpenDriveXMLGenerator::XODRSignals</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_signals_extentions" prot="public">OpenDriveXMLGenerator::XODRSignalsExtentions</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_spiral" prot="public">OpenDriveXMLGenerator::XODRSpiral</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_successor" prot="public">OpenDriveXMLGenerator::XODRSuccessor</innerclass>
+    <innerclass refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_width" prot="public">OpenDriveXMLGenerator::XODRWidth</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespace_open_drive_x_m_l_generator_1aaf1c50fe65a1bd422a83791fa26b88e9" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>Direction</name>
+        <qualifiedname>OpenDriveXMLGenerator.Direction</qualifiedname>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1aaf1c50fe65a1bd422a83791fa26b88e9a945d5e233cf7d6240f6b783b36a374ff" prot="public">
+          <name>Left</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1aaf1c50fe65a1bd422a83791fa26b88e9a4f1f6016fc9f3f2353c0cc7c67b292bd" prot="public">
+          <name>Center</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1aaf1c50fe65a1bd422a83791fa26b88e9a92b09c7c48c520c3c55e497875da437c" prot="public">
+          <name>Right</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRDirection.cs" line="6" column="11" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRDirection.cs" bodystart="7" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831ee" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TrafficSignal</name>
+        <qualifiedname>OpenDriveXMLGenerator.TrafficSignal</qualifiedname>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831eea6adf97f83acf6453d4a6a4b1070f3754" prot="public">
+          <name>None</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831eea11a755d598c0c417f9a36758c3da7481" prot="public">
+          <name>Stop</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831eeaee16b16a2b4a1dfe237ddf798cf6226b" prot="public">
+          <name>Speed30</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831eea2c75f606b16465d79955744c68ad7acc" prot="public">
+          <name>Speed60</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831eeafad5e5665ff23757ac3b9153fb2be4f6" prot="public">
+          <name>Speed90</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_open_drive_x_m_l_generator_1ac78f97c9521f0d42eb4db58eebc831eea97345487190c327e1e3ac998e4bf4d08" prot="public">
+          <name>Yield</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRSignal.cs" line="11" column="11" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRSignal.cs" bodystart="12" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/OpenDriveXMLBuilder.cs" line="8" column="1"/>
+  </compounddef>
+</doxygen>

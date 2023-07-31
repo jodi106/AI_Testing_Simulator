@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_entity_1_1_lane" kind="class" language="C#" prot="public">
+    <compoundname>Entity::Lane</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_entity_1_1_lane_1a2eb7abca262a9d7a1373ab2a1fc8d3ad" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.Lane.Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <qualifiedname>Entity.Lane.Id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="39" column="20" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_lane_1a990dfbe6aef5eeb4ca7d5347432edd16" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.Lane.RoadId</definition>
+        <argsstring></argsstring>
+        <name>RoadId</name>
+        <qualifiedname>Entity.Lane.RoadId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="41" column="20" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_lane_1a444da633dfd2b1067d045981ad23f0a1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_entity_1_1_a_star_waypoint" kindref="compound">AStarWaypoint</ref> &gt;</type>
+        <definition>List&lt;AStarWaypoint&gt; Entity.Lane.Waypoints</definition>
+        <argsstring></argsstring>
+        <name>Waypoints</name>
+        <qualifiedname>Entity.Lane.Waypoints</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="43" column="21" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_lane_1acea71547eb55f8d8095e801432c13dbb" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>List&lt;(int, int)&gt;</type>
+        <definition>List&lt;(int, int)&gt; Entity.Lane.NextRoadAndLaneIds</definition>
+        <argsstring></argsstring>
+        <name>NextRoadAndLaneIds</name>
+        <qualifiedname>Entity.Lane.NextRoadAndLaneIds</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="45" column="21" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_lane_1ab21202149df8dd471c584e8128ea1cc1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>List&lt;(int, int)&gt;</type>
+        <definition>List&lt;(int, int)&gt; Entity.Lane.PhysicalNextRoadAndLaneIds</definition>
+        <argsstring></argsstring>
+        <name>PhysicalNextRoadAndLaneIds</name>
+        <qualifiedname>Entity.Lane.PhysicalNextRoadAndLaneIds</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="47" column="21" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_lane_1a994fd3473240d465d234a6756501afc8" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>float</type>
+        <definition>float Entity.Lane.AngularOffset</definition>
+        <argsstring></argsstring>
+        <name>AngularOffset</name>
+        <qualifiedname>Entity.Lane.AngularOffset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="49" column="22" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="49" bodyend="49"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_entity_1_1_lane_1a746e02a111cae82294bc198f1f3d9e3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.Lane.Lane</definition>
+        <argsstring>()</argsstring>
+        <name>Lane</name>
+        <qualifiedname>Entity.Lane.Lane</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="9" column="16" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="9" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_lane_1abedeec84c7e4ec7375b2501b33231d39" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.Lane.Lane</definition>
+        <argsstring>(int id, int roadId, float angularOffset=0)</argsstring>
+        <name>Lane</name>
+        <qualifiedname>Entity.Lane.Lane</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>roadId</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angularOffset</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="13" column="16" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_lane_1ae540f9a9125f5ad21a908a80cd08cc25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.Lane.Lane</definition>
+        <argsstring>(int id, int roadId, List&lt;(int, int)&gt; nextRoadAndLaneIds, List&lt;(int, int)&gt; physicalNextRoadAndLaneIds, float angularOffset=0)</argsstring>
+        <name>Lane</name>
+        <qualifiedname>Entity.Lane.Lane</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>roadId</declname>
+        </param>
+        <param>
+          <type>List&lt;(int, int)&gt;</type>
+          <declname>nextRoadAndLaneIds</declname>
+        </param>
+        <param>
+          <type>List&lt;(int, int)&gt;</type>
+          <declname>physicalNextRoadAndLaneIds</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angularOffset</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="20" column="16" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="20" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_lane_1a4c0e0ae7aac5352e068b60d0a3ffd29c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.Lane.Lane</definition>
+        <argsstring>(int id, int roadId, List&lt; AStarWaypoint &gt; waypoints, List&lt;(int, int)&gt; nextRoadAndLaneIds, float angularOffset=0)</argsstring>
+        <name>Lane</name>
+        <qualifiedname>Entity.Lane.Lane</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>roadId</declname>
+        </param>
+        <param>
+          <type>List&lt; <ref refid="class_entity_1_1_a_star_waypoint" kindref="compound">AStarWaypoint</ref> &gt;</type>
+          <declname>waypoints</declname>
+        </param>
+        <param>
+          <type>List&lt;(int, int)&gt;</type>
+          <declname>nextRoadAndLaneIds</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>angularOffset</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="30" column="16" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="30" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Entities/Lane.cs" line="7" column="11" bodyfile="UnityMapEditor/Assets/Entities/Lane.cs" bodystart="8" bodyend="51"/>
+    <listofallmembers>
+      <member refid="class_entity_1_1_lane_1a994fd3473240d465d234a6756501afc8" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>AngularOffset</name></member>
+      <member refid="class_entity_1_1_lane_1a2eb7abca262a9d7a1373ab2a1fc8d3ad" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>Id</name></member>
+      <member refid="class_entity_1_1_lane_1a746e02a111cae82294bc198f1f3d9e3d" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>Lane</name></member>
+      <member refid="class_entity_1_1_lane_1abedeec84c7e4ec7375b2501b33231d39" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>Lane</name></member>
+      <member refid="class_entity_1_1_lane_1ae540f9a9125f5ad21a908a80cd08cc25" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>Lane</name></member>
+      <member refid="class_entity_1_1_lane_1a4c0e0ae7aac5352e068b60d0a3ffd29c" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>Lane</name></member>
+      <member refid="class_entity_1_1_lane_1acea71547eb55f8d8095e801432c13dbb" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>NextRoadAndLaneIds</name></member>
+      <member refid="class_entity_1_1_lane_1ab21202149df8dd471c584e8128ea1cc1" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>PhysicalNextRoadAndLaneIds</name></member>
+      <member refid="class_entity_1_1_lane_1a990dfbe6aef5eeb4ca7d5347432edd16" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>RoadId</name></member>
+      <member refid="class_entity_1_1_lane_1a444da633dfd2b1067d045981ad23f0a1" prot="public" virt="non-virtual"><scope>Entity::Lane</scope><name>Waypoints</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

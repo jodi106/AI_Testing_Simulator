@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rightlaneids_0',['RightLaneIds',['../class_open_drive_x_m_l_generator_1_1_sequence_info.html#a3f7faca359856e75402824f48864c15f',1,'OpenDriveXMLGenerator::SequenceInfo']]]
+  ['getclosestpiece_0',['GetClosestPiece',['../classscripts_1_1_road_piece_controller.html#aa5ad58cf306f3162bcbba9947296d505',1,'scripts::RoadPieceController']]],
+  ['getroutelocations_1',['GetRouteLocations',['../class_entity_1_1_path.html#a84fb048d17e4f27a4c6ed254f1df1d25',1,'Entity::Path']]]
 ];

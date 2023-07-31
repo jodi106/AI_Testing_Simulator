@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_assets_1_1_enums_1_1_road_type_extensions" kind="class" language="C#" prot="public">
+    <compoundname>Assets::Enums::RoadTypeExtensions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_assets_1_1_enums_1_1_road_type_extensions_1ad2989f44e7e4702aff2b1549751d247b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool Assets.Enums.RoadTypeExtensions.IsJunction</definition>
+        <argsstring>(this RoadType roadType)</argsstring>
+        <name>IsJunction</name>
+        <qualifiedname>Assets.Enums.RoadTypeExtensions.IsJunction</qualifiedname>
+        <param>
+          <type>this RoadType</type>
+          <declname>roadType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Enums/RoadType.cs" line="35" column="28" bodyfile="UnityMapEditor/Assets/Enums/RoadType.cs" bodystart="35" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Enums/RoadType.cs" line="33" column="19" bodyfile="UnityMapEditor/Assets/Enums/RoadType.cs" bodystart="34" bodyend="48"/>
+    <listofallmembers>
+      <member refid="class_assets_1_1_enums_1_1_road_type_extensions_1ad2989f44e7e4702aff2b1549751d247b" prot="public" virt="non-virtual"><scope>Assets::Enums::RoadTypeExtensions</scope><name>IsJunction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

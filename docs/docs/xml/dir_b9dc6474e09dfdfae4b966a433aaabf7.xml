@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_b9dc6474e09dfdfae4b966a433aaabf7" kind="dir">
+    <compoundname>UnityMapEditor/Assets/Scripts/Actions</compoundname>
+    <innerfile refid="_i_action_8cs">IAction.cs</innerfile>
+    <innerfile refid="_mouse_click_action_8cs">MouseClickAction.cs</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Scripts/Actions/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::Benchmark01_UGUI</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a51ddf99f4bea063d19d029efbc672ea8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TMPro.Examples.Benchmark01_UGUI.BenchmarkType</definition>
+        <argsstring></argsstring>
+        <name>BenchmarkType</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.BenchmarkType</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="12" column="20" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a02cfe9754494cce88d818ab75c1da2d9" prot="public" static="no" mutable="no">
+        <type>Canvas</type>
+        <definition>Canvas TMPro.Examples.Benchmark01_UGUI.canvas</definition>
+        <argsstring></argsstring>
+        <name>canvas</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.canvas</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="14" column="23" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a00697aa21ceb618628b504467e786a94" prot="public" static="no" mutable="no">
+        <type>TMP_FontAsset</type>
+        <definition>TMP_FontAsset TMPro.Examples.Benchmark01_UGUI.TMProFont</definition>
+        <argsstring></argsstring>
+        <name>TMProFont</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.TMProFont</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="15" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a76855aada34fa968c4a26cbe7be9d180" prot="public" static="no" mutable="no">
+        <type>Font</type>
+        <definition>Font TMPro.Examples.Benchmark01_UGUI.TextMeshFont</definition>
+        <argsstring></argsstring>
+        <name>TextMeshFont</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.TextMeshFont</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="16" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a138cb98358634c40efb0e35e4b8d2da0" prot="private" static="no" mutable="no">
+        <type>TextMeshProUGUI</type>
+        <definition>TextMeshProUGUI TMPro.Examples.Benchmark01_UGUI.m_textMeshPro</definition>
+        <argsstring></argsstring>
+        <name>m_textMeshPro</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.m_textMeshPro</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="18" column="33" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a9eb879cfb947c40a33a8a7f5bbf18661" prot="private" static="no" mutable="no">
+        <type>Text</type>
+        <definition>Text TMPro.Examples.Benchmark01_UGUI.m_textMesh</definition>
+        <argsstring></argsstring>
+        <name>m_textMesh</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.m_textMesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="20" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a27552373f2d542929f2ab2b92e09db80" prot="private" static="no" mutable="no">
+        <type>Material</type>
+        <definition>Material TMPro.Examples.Benchmark01_UGUI.m_material01</definition>
+        <argsstring></argsstring>
+        <name>m_material01</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.m_material01</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="31" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a95ca6bf5a7d5f8cd4eeef51bdbf0e864" prot="private" static="no" mutable="no">
+        <type>Material</type>
+        <definition>Material TMPro.Examples.Benchmark01_UGUI.m_material02</definition>
+        <argsstring></argsstring>
+        <name>m_material02</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.m_material02</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="32" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a8bba7d6079aca832612a80f4ae68b2db" prot="private" static="yes" mutable="no">
+        <type>const string</type>
+        <definition>const string TMPro.Examples.Benchmark01_UGUI.label01</definition>
+        <argsstring></argsstring>
+        <name>label01</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.label01</qualifiedname>
+        <initializer>= &quot;The &lt;#0050FF&gt;count is: &lt;/color&gt;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="22" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1abfd96548cfc3d7a5c2bed80aa4f4a00f" prot="private" static="yes" mutable="no">
+        <type>const string</type>
+        <definition>const string TMPro.Examples.Benchmark01_UGUI.label02</definition>
+        <argsstring></argsstring>
+        <name>label02</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.label02</qualifiedname>
+        <initializer>= &quot;The &lt;color=#0050FF&gt;count is: &lt;/color&gt;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="23" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a72bbcf307e7a9a4fb28edf0e4865b619" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator TMPro.Examples.Benchmark01_UGUI.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>TMPro.Examples.Benchmark01_UGUI.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="36" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="36" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.Benchmark01_UGUI</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.Benchmark01_UGUI</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" line="9" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" bodystart="10" bodyend="133"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a51ddf99f4bea063d19d029efbc672ea8" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>BenchmarkType</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a02cfe9754494cce88d818ab75c1da2d9" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>canvas</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a8bba7d6079aca832612a80f4ae68b2db" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>label01</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1abfd96548cfc3d7a5c2bed80aa4f4a00f" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>label02</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a27552373f2d542929f2ab2b92e09db80" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>m_material01</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a95ca6bf5a7d5f8cd4eeef51bdbf0e864" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>m_material02</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a9eb879cfb947c40a33a8a7f5bbf18661" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>m_textMesh</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a138cb98358634c40efb0e35e4b8d2da0" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>m_textMeshPro</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a72bbcf307e7a9a4fb28edf0e4865b619" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>Start</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a76855aada34fa968c4a26cbe7be9d180" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>TextMeshFont</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01___u_g_u_i_1a00697aa21ceb618628b504467e786a94" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01_UGUI</scope><name>TMProFont</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

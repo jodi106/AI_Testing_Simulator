@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_models_1_1_map" kind="class" language="C#" prot="public">
+    <compoundname>Models::Map</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_models_1_1_map_1ab3ace2960fb4ee6453608684a93a5234" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>Vector2</type>
+        <definition>Vector2 Models.Map.TopLeft</definition>
+        <argsstring></argsstring>
+        <name>TopLeft</name>
+        <qualifiedname>Models.Map.TopLeft</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="26" column="24" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="property" id="class_models_1_1_map_1a9b49a91480c109634e4cf3f3c53bc257" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>Vector2</type>
+        <definition>Vector2 Models.Map.BottomRight</definition>
+        <argsstring></argsstring>
+        <name>BottomRight</name>
+        <qualifiedname>Models.Map.BottomRight</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="27" column="24" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="property" id="class_models_1_1_map_1a1ae2c9914fd82034cdd6072d25c1527b" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Models.Map.Url</definition>
+        <argsstring></argsstring>
+        <name>Url</name>
+        <qualifiedname>Models.Map.Url</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="28" column="23" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="property" id="class_models_1_1_map_1a6b816fc0f270125a1ae005dc9c1fc05d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Models.Map.xConversionConstant</definition>
+        <argsstring></argsstring>
+        <name>xConversionConstant</name>
+        <qualifiedname>Models.Map.xConversionConstant</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="30" column="23" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="property" id="class_models_1_1_map_1a3549c2ec62cf84bf1dd2d8fb347f8ef8" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Models.Map.yConversionConstant</definition>
+        <argsstring></argsstring>
+        <name>yConversionConstant</name>
+        <qualifiedname>Models.Map.yConversionConstant</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="31" column="23" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="property" id="class_models_1_1_map_1a247b87b4cd0278aa2dba5fb77895e72d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Models.Map.xcenterOffset</definition>
+        <argsstring></argsstring>
+        <name>xcenterOffset</name>
+        <qualifiedname>Models.Map.xcenterOffset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="33" column="23" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="property" id="class_models_1_1_map_1a80f2cc70e5eedc7b143f3d96b8df9cec" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Models.Map.ycenterOffset</definition>
+        <argsstring></argsstring>
+        <name>ycenterOffset</name>
+        <qualifiedname>Models.Map.ycenterOffset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="34" column="23" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_models_1_1_map_1a639063d7fe8ff154298566a9b6bbdb92" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models.Map.Map</definition>
+        <argsstring>(Vector2 topLeft, Vector2 bottomRight, string url)</argsstring>
+        <name>Map</name>
+        <qualifiedname>Models.Map.Map</qualifiedname>
+        <param>
+          <type>Vector2</type>
+          <declname>topLeft</declname>
+        </param>
+        <param>
+          <type>Vector2</type>
+          <declname>bottomRight</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="9" column="16" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="9" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_map_1afef625a7020438fc86cc6360b09afeb7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models.Map.Map</definition>
+        <argsstring>(Vector2 topLeft, Vector2 bottomRight, string url, double xConversionConstant, double yConversionConstant)</argsstring>
+        <name>Map</name>
+        <qualifiedname>Models.Map.Map</qualifiedname>
+        <param>
+          <type>Vector2</type>
+          <declname>topLeft</declname>
+        </param>
+        <param>
+          <type>Vector2</type>
+          <declname>bottomRight</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>url</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>xConversionConstant</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>yConversionConstant</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Map.cs" line="16" column="16" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="16" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Entities/Map.cs" line="7" column="11" bodyfile="UnityMapEditor/Assets/Entities/Map.cs" bodystart="8" bodyend="35"/>
+    <listofallmembers>
+      <member refid="class_models_1_1_map_1a9b49a91480c109634e4cf3f3c53bc257" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>BottomRight</name></member>
+      <member refid="class_models_1_1_map_1a639063d7fe8ff154298566a9b6bbdb92" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>Map</name></member>
+      <member refid="class_models_1_1_map_1afef625a7020438fc86cc6360b09afeb7" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>Map</name></member>
+      <member refid="class_models_1_1_map_1ab3ace2960fb4ee6453608684a93a5234" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>TopLeft</name></member>
+      <member refid="class_models_1_1_map_1a1ae2c9914fd82034cdd6072d25c1527b" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>Url</name></member>
+      <member refid="class_models_1_1_map_1a247b87b4cd0278aa2dba5fb77895e72d" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>xcenterOffset</name></member>
+      <member refid="class_models_1_1_map_1a6b816fc0f270125a1ae005dc9c1fc05d" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>xConversionConstant</name></member>
+      <member refid="class_models_1_1_map_1a80f2cc70e5eedc7b143f3d96b8df9cec" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>ycenterOffset</name></member>
+      <member refid="class_models_1_1_map_1a3549c2ec62cf84bf1dd2d8fb347f8ef8" prot="public" virt="non-virtual"><scope>Models::Map</scope><name>yConversionConstant</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

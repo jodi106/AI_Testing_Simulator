@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_entity_1_1_trigger_info" kind="class" language="C#" prot="public">
+    <compoundname>Entity::TriggerInfo</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ICloneable</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_entity_1_1_trigger_info_1a48131d0b15603d637769efa9b7bf88fc" prot="private" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int Entity.TriggerInfo.autoIncrementId</definition>
+        <argsstring></argsstring>
+        <name>autoIncrementId</name>
+        <qualifiedname>Entity.TriggerInfo.autoIncrementId</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="11" column="28" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1a0a601b738812a668afae2b05060e65e9" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.TriggerInfo.ID</definition>
+        <argsstring></argsstring>
+        <name>ID</name>
+        <qualifiedname>Entity.TriggerInfo.ID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="76" column="20" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1a607b0cc1f3940eedf3f0a8f5a2af1f1c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.TriggerInfo.TriggerType</definition>
+        <argsstring></argsstring>
+        <name>TriggerType</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="77" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1ae8e52a4821764f62fc2c4585fae126fd" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.TriggerInfo.Delay</definition>
+        <argsstring></argsstring>
+        <name>Delay</name>
+        <qualifiedname>Entity.TriggerInfo.Delay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="78" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1a72b2bdaff5908e8b4905ea2f3667c377" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.TriggerInfo.ConditionEdge</definition>
+        <argsstring></argsstring>
+        <name>ConditionEdge</name>
+        <qualifiedname>Entity.TriggerInfo.ConditionEdge</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="79" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1aff8d84d886e3ce441b0a063412dcc6ec" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.TriggerInfo.EntityRef</definition>
+        <argsstring></argsstring>
+        <name>EntityRef</name>
+        <qualifiedname>Entity.TriggerInfo.EntityRef</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="80" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1a7a2f0bb6bfeacda182a3073b48d5fc5a" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.TriggerInfo.SimulationTimeValue</definition>
+        <argsstring></argsstring>
+        <name>SimulationTimeValue</name>
+        <qualifiedname>Entity.TriggerInfo.SimulationTimeValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="81" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1ae343fbc074e73c63c93c83abf4a2da2c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.TriggerInfo.Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <qualifiedname>Entity.TriggerInfo.Value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="82" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="82" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1ae18f884cda0d08e030475bb045543fb7" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.TriggerInfo.Rule</definition>
+        <argsstring></argsstring>
+        <name>Rule</name>
+        <qualifiedname>Entity.TriggerInfo.Rule</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="83" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1a7427540bf6896cfe0f6fa211c89448f5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+        <definition>Location Entity.TriggerInfo.WorldPosition</definition>
+        <argsstring></argsstring>
+        <name>WorldPosition</name>
+        <qualifiedname>Entity.TriggerInfo.WorldPosition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="84" column="25" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="84" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1a50b1c29aa67748fd416498b6e9b43526" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+        <definition>Location Entity.TriggerInfo.WorldPositionCarla</definition>
+        <argsstring></argsstring>
+        <name>WorldPositionCarla</name>
+        <qualifiedname>Entity.TriggerInfo.WorldPositionCarla</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="85" column="25" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_trigger_info_1ac41f4dd3d71ed27dcd83e278b62a58a4" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_entity_1_1_action_type" kindref="compound">ActionType</ref></type>
+        <definition>ActionType Entity.TriggerInfo.AfterAction</definition>
+        <argsstring></argsstring>
+        <name>AfterAction</name>
+        <qualifiedname>Entity.TriggerInfo.AfterAction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="86" column="27" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="86" bodyend="86"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1a97bbbbadf0d9bdfc3bb3aff7e24323eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.TriggerInfo.TriggerInfo</definition>
+        <argsstring>()</argsstring>
+        <name>TriggerInfo</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="13" column="16" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="13" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1ad072eeaca4009da416a33b0bb9cd29ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.TriggerInfo.TriggerInfo</definition>
+        <argsstring>(string triggerType, double simulationTimeValue, string rule, double delay=0, string conditionEdge=&quot;rising&quot;)</argsstring>
+        <name>TriggerInfo</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerInfo</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>triggerType</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>simulationTimeValue</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>rule</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>delay</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>conditionEdge</declname>
+          <defval>&quot;rising&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Constructor for &quot;SimulationTimeCondition&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="18" column="16" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="18" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1a684098cca1a1719b5b890f178f1a58d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.TriggerInfo.TriggerInfo</definition>
+        <argsstring>(string triggerType, string entityRef, string rule, double value, Location worldPosition, double delay=0, string conditionEdge=&quot;rising&quot;)</argsstring>
+        <name>TriggerInfo</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerInfo</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>triggerType</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>entityRef</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>rule</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+          <declname>worldPosition</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>delay</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>conditionEdge</declname>
+          <defval>&quot;rising&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Constructor for &quot;DistanceCondition&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="29" column="16" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="29" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1aef41d5097ec88a56bb6d4cc40aa6331a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.TriggerInfo.TriggerInfo</definition>
+        <argsstring>(string triggerType, string entityRef, double value, Location worldPosition, string conditionEdge=&quot;rising&quot;)</argsstring>
+        <name>TriggerInfo</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerInfo</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>triggerType</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>entityRef</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+          <declname>worldPosition</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>conditionEdge</declname>
+          <defval>&quot;rising&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Constructor for &quot;ReachPositionCondition&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="43" column="16" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="43" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1a04119f126d0cd4b066ae2b57b9fa01d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.TriggerInfo.TriggerInfo</definition>
+        <argsstring>(string triggerType, string entityRef, double duration, double delay=0, string conditionEdge=&quot;rising&quot;)</argsstring>
+        <name>TriggerInfo</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerInfo</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>triggerType</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>entityRef</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>duration</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>delay</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>conditionEdge</declname>
+          <defval>&quot;rising&quot;</defval>
+        </param>
+        <briefdescription>
+<para>for StandStillCondition </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="55" column="16" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="55" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1a9135de7b497dfd7477e8ec121aa24315" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.TriggerInfo.TriggerInfo</definition>
+        <argsstring>(string triggerType, ActionType afterAction, string state=&quot;completeState&quot;, double delay=0, string conditionEdge=&quot;rising&quot;)</argsstring>
+        <name>TriggerInfo</name>
+        <qualifiedname>Entity.TriggerInfo.TriggerInfo</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>triggerType</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_action_type" kindref="compound">ActionType</ref></type>
+          <declname>afterAction</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>state</declname>
+          <defval>&quot;completeState&quot;</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>delay</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>conditionEdge</declname>
+          <defval>&quot;rising&quot;</defval>
+        </param>
+        <briefdescription>
+<para>for StoryboardElementStateCondition </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="66" column="16" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="66" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1a22135985c58a07a62ee403f73cfe53cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Entity.TriggerInfo.CalculateLocationCarla</definition>
+        <argsstring>()</argsstring>
+        <name>CalculateLocationCarla</name>
+        <qualifiedname>Entity.TriggerInfo.CalculateLocationCarla</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="88" column="21" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="88" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_trigger_info_1a8297156d6d5fad6585b1e74ea73dc600" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>object Entity.TriggerInfo.Clone</definition>
+        <argsstring>()</argsstring>
+        <name>Clone</name>
+        <qualifiedname>Entity.TriggerInfo.Clone</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="94" column="23" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="94" bodyend="123"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains information about the Trigger of an ActionType in a Waypoint Object. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Entity.TriggerInfo</label>
+        <link refid="class_entity_1_1_trigger_info"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICloneable</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Entity.TriggerInfo</label>
+        <link refid="class_entity_1_1_trigger_info"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICloneable</label>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Entities/TriggerInfo.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/Entities/TriggerInfo.cs" bodystart="10" bodyend="124"/>
+    <listofallmembers>
+      <member refid="class_entity_1_1_trigger_info_1ac41f4dd3d71ed27dcd83e278b62a58a4" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>AfterAction</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a48131d0b15603d637769efa9b7bf88fc" prot="private" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>autoIncrementId</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a22135985c58a07a62ee403f73cfe53cc" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>CalculateLocationCarla</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a8297156d6d5fad6585b1e74ea73dc600" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>Clone</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a72b2bdaff5908e8b4905ea2f3667c377" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>ConditionEdge</name></member>
+      <member refid="class_entity_1_1_trigger_info_1ae8e52a4821764f62fc2c4585fae126fd" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>Delay</name></member>
+      <member refid="class_entity_1_1_trigger_info_1aff8d84d886e3ce441b0a063412dcc6ec" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>EntityRef</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a0a601b738812a668afae2b05060e65e9" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>ID</name></member>
+      <member refid="class_entity_1_1_trigger_info_1ae18f884cda0d08e030475bb045543fb7" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>Rule</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a7a2f0bb6bfeacda182a3073b48d5fc5a" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>SimulationTimeValue</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a97bbbbadf0d9bdfc3bb3aff7e24323eb" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerInfo</name></member>
+      <member refid="class_entity_1_1_trigger_info_1ad072eeaca4009da416a33b0bb9cd29ca" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerInfo</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a684098cca1a1719b5b890f178f1a58d2" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerInfo</name></member>
+      <member refid="class_entity_1_1_trigger_info_1aef41d5097ec88a56bb6d4cc40aa6331a" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerInfo</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a04119f126d0cd4b066ae2b57b9fa01d5" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerInfo</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a9135de7b497dfd7477e8ec121aa24315" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerInfo</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a607b0cc1f3940eedf3f0a8f5a2af1f1c" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>TriggerType</name></member>
+      <member refid="class_entity_1_1_trigger_info_1ae343fbc074e73c63c93c83abf4a2da2c" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>Value</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a7427540bf6896cfe0f6fa211c89448f5" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>WorldPosition</name></member>
+      <member refid="class_entity_1_1_trigger_info_1a50b1c29aa67748fd416498b6e9b43526" prot="public" virt="non-virtual"><scope>Entity::TriggerInfo</scope><name>WorldPositionCarla</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

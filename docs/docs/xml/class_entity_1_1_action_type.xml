@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_entity_1_1_action_type" kind="class" language="C#" prot="public">
+    <compoundname>Entity::ActionType</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">ICloneable</basecompoundref>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_entity_1_1_action_type_1ab37d8a37aff0c40a9d6b5672dacc701c" prot="private" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int Entity.ActionType.autoIncrementId</definition>
+        <argsstring></argsstring>
+        <name>autoIncrementId</name>
+        <qualifiedname>Entity.ActionType.autoIncrementId</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="12" column="28" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a707fa5cf4b376defac93dbdfad1c5a7c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="yes" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.ActionType.ID</definition>
+        <argsstring></argsstring>
+        <name>ID</name>
+        <qualifiedname>Entity.ActionType.ID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="67" column="20" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a1643745968581e0ce0a4f8c3c50c2cbe" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.ActionType.Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <qualifiedname>Entity.ActionType.Name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="68" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="68" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a93aa940c388a711a7c574340d53f5dc2" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.ActionType.AbsoluteTargetSpeedValueKMH</definition>
+        <argsstring></argsstring>
+        <name>AbsoluteTargetSpeedValueKMH</name>
+        <qualifiedname>Entity.ActionType.AbsoluteTargetSpeedValueKMH</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="69" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a0429504b512017f33b413a5430209691" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.ActionType.DynamicsShape</definition>
+        <argsstring></argsstring>
+        <name>DynamicsShape</name>
+        <qualifiedname>Entity.ActionType.DynamicsShape</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="70" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a2a2259f9fa7891d26299d4f91e79a329" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.ActionType.SpeedActionDynamicsValue</definition>
+        <argsstring></argsstring>
+        <name>SpeedActionDynamicsValue</name>
+        <qualifiedname>Entity.ActionType.SpeedActionDynamicsValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="71" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a6bf686cc3920f04d1f6e8af34ab9de3e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.ActionType.LaneChangeActionDynamicsValue</definition>
+        <argsstring></argsstring>
+        <name>LaneChangeActionDynamicsValue</name>
+        <qualifiedname>Entity.ActionType.LaneChangeActionDynamicsValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="72" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a3a70634e8e883f4215757e3f05c30d42" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.ActionType.DynamicDimensions</definition>
+        <argsstring></argsstring>
+        <name>DynamicDimensions</name>
+        <qualifiedname>Entity.ActionType.DynamicDimensions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="73" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a7bac1638bdadd0c2e4a6795241fb92d2" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_entity_1_1_location" kindref="compound">Location</ref> &gt;</type>
+        <definition>List&lt;Location&gt; Entity.ActionType.Positions</definition>
+        <argsstring></argsstring>
+        <name>Positions</name>
+        <qualifiedname>Entity.ActionType.Positions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="74" column="21" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a2d9e1980a99e6d619f070d8163111c51" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_entity_1_1_location" kindref="compound">Location</ref> &gt;</type>
+        <definition>List&lt;Location&gt; Entity.ActionType.PositionsCarla</definition>
+        <argsstring></argsstring>
+        <name>PositionsCarla</name>
+        <qualifiedname>Entity.ActionType.PositionsCarla</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="75" column="21" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="75" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a67082bc731900bbda34f7c0f755641be" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.ActionType.EntityRef</definition>
+        <argsstring></argsstring>
+        <name>EntityRef</name>
+        <qualifiedname>Entity.ActionType.EntityRef</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="76" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1ac658d7e2555b40c28068e70e65895637" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.ActionType.RelativeTargetLaneValue</definition>
+        <argsstring></argsstring>
+        <name>RelativeTargetLaneValue</name>
+        <qualifiedname>Entity.ActionType.RelativeTargetLaneValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="77" column="20" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_action_type_1a7a44951c3c1ee126c8f50b41fec86844" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double Entity.ActionType.StopDuration</definition>
+        <argsstring></argsstring>
+        <name>StopDuration</name>
+        <qualifiedname>Entity.ActionType.StopDuration</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="78" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="78" bodyend="78"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_entity_1_1_action_type_1ad4293a87ed66b1d639fd78602deb4086" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.ActionType.ActionType</definition>
+        <argsstring>(string name)</argsstring>
+        <name>ActionType</name>
+        <qualifiedname>Entity.ActionType.ActionType</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="13" column="16" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="13" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_action_type_1ac200c123ec0145f214b5dc405aa47b1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.ActionType.ActionType</definition>
+        <argsstring>(string name, double absoluteTargetSpeedValue, string speedActionDynamicsShape=&quot;step&quot;, double speedActionDynamicsValue=0.0, string dynamicsDimension=&quot;time&quot;)</argsstring>
+        <name>ActionType</name>
+        <qualifiedname>Entity.ActionType.ActionType</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>absoluteTargetSpeedValue</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>speedActionDynamicsShape</declname>
+          <defval>&quot;step&quot;</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>speedActionDynamicsValue</declname>
+          <defval>0.0</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>dynamicsDimension</declname>
+          <defval>&quot;time&quot;</defval>
+        </param>
+        <briefdescription>
+<para>for SpeedAction </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="18" column="16" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="18" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_action_type_1a36ef5006b3d85fdb32e294923eb84ff1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.ActionType.ActionType</definition>
+        <argsstring>(string name, double stopduration, double speedValue, string speedActionDynamicsShape=&quot;step&quot;, double speedActionDynamicsValue=0.0, string dynamicsDimension=&quot;time&quot;)</argsstring>
+        <name>ActionType</name>
+        <qualifiedname>Entity.ActionType.ActionType</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>stopduration</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>speedValue</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>speedActionDynamicsShape</declname>
+          <defval>&quot;step&quot;</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>speedActionDynamicsValue</declname>
+          <defval>0.0</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>dynamicsDimension</declname>
+          <defval>&quot;time&quot;</defval>
+        </param>
+        <briefdescription>
+<para>for StopAction </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="28" column="16" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="28" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_action_type_1aad69efd95938757545f6dc4a8d0afebc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.ActionType.ActionType</definition>
+        <argsstring>(string name, string entityRef, int relativeTargetLaneValue, string dynamicsShape=&quot;linear&quot;, double laneChangeActionDynamicsValue=13, string dynamicsDimension=&quot;distance&quot;)</argsstring>
+        <name>ActionType</name>
+        <qualifiedname>Entity.ActionType.ActionType</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>entityRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>relativeTargetLaneValue</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>dynamicsShape</declname>
+          <defval>&quot;linear&quot;</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>laneChangeActionDynamicsValue</declname>
+          <defval>13</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>dynamicsDimension</declname>
+          <defval>&quot;distance&quot;</defval>
+        </param>
+        <briefdescription>
+<para>for LaneChangeAction: laneChangeActionDynamicsValue must be bigger than 0, otherwise runtime error </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="41" column="16" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="41" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_action_type_1a6ae800fd89a5ed2e92516cec75b687ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.ActionType.ActionType</definition>
+        <argsstring>(string name, List&lt; Location &gt; positions)</argsstring>
+        <name>ActionType</name>
+        <qualifiedname>Entity.ActionType.ActionType</qualifiedname>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>List&lt; <ref refid="class_entity_1_1_location" kindref="compound">Location</ref> &gt;</type>
+          <declname>positions</declname>
+        </param>
+        <briefdescription>
+<para>for AssignRouteAction (List lentgh &gt; 2) or AcquirePositionAction (list length == 2) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="53" column="16" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="53" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_action_type_1a5d475a6b6ce7eb642223661c3a719f41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.ActionType.ActionType</definition>
+        <argsstring>()</argsstring>
+        <name>ActionType</name>
+        <qualifiedname>Entity.ActionType.ActionType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="62" column="16" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="62" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_action_type_1a4bef6621a7a702c29b4348620efcd977" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>object Entity.ActionType.Clone</definition>
+        <argsstring>()</argsstring>
+        <name>Clone</name>
+        <qualifiedname>Entity.ActionType.Clone</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="83" column="23" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="83" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines a user specified action for a Waypoint object. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Entity.ActionType</label>
+        <link refid="class_entity_1_1_action_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICloneable</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Entity.ActionType</label>
+        <link refid="class_entity_1_1_action_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ICloneable</label>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Entities/ActionType.cs" line="9" column="11" bodyfile="UnityMapEditor/Assets/Entities/ActionType.cs" bodystart="11" bodyend="110"/>
+    <listofallmembers>
+      <member refid="class_entity_1_1_action_type_1a93aa940c388a711a7c574340d53f5dc2" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>AbsoluteTargetSpeedValueKMH</name></member>
+      <member refid="class_entity_1_1_action_type_1ad4293a87ed66b1d639fd78602deb4086" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ActionType</name></member>
+      <member refid="class_entity_1_1_action_type_1ac200c123ec0145f214b5dc405aa47b1d" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ActionType</name></member>
+      <member refid="class_entity_1_1_action_type_1a36ef5006b3d85fdb32e294923eb84ff1" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ActionType</name></member>
+      <member refid="class_entity_1_1_action_type_1aad69efd95938757545f6dc4a8d0afebc" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ActionType</name></member>
+      <member refid="class_entity_1_1_action_type_1a6ae800fd89a5ed2e92516cec75b687ab" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ActionType</name></member>
+      <member refid="class_entity_1_1_action_type_1a5d475a6b6ce7eb642223661c3a719f41" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ActionType</name></member>
+      <member refid="class_entity_1_1_action_type_1ab37d8a37aff0c40a9d6b5672dacc701c" prot="private" virt="non-virtual"><scope>Entity::ActionType</scope><name>autoIncrementId</name></member>
+      <member refid="class_entity_1_1_action_type_1a4bef6621a7a702c29b4348620efcd977" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>Clone</name></member>
+      <member refid="class_entity_1_1_action_type_1a3a70634e8e883f4215757e3f05c30d42" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>DynamicDimensions</name></member>
+      <member refid="class_entity_1_1_action_type_1a0429504b512017f33b413a5430209691" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>DynamicsShape</name></member>
+      <member refid="class_entity_1_1_action_type_1a67082bc731900bbda34f7c0f755641be" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>EntityRef</name></member>
+      <member refid="class_entity_1_1_action_type_1a707fa5cf4b376defac93dbdfad1c5a7c" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>ID</name></member>
+      <member refid="class_entity_1_1_action_type_1a6bf686cc3920f04d1f6e8af34ab9de3e" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>LaneChangeActionDynamicsValue</name></member>
+      <member refid="class_entity_1_1_action_type_1a1643745968581e0ce0a4f8c3c50c2cbe" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>Name</name></member>
+      <member refid="class_entity_1_1_action_type_1a7bac1638bdadd0c2e4a6795241fb92d2" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>Positions</name></member>
+      <member refid="class_entity_1_1_action_type_1a2d9e1980a99e6d619f070d8163111c51" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>PositionsCarla</name></member>
+      <member refid="class_entity_1_1_action_type_1ac658d7e2555b40c28068e70e65895637" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>RelativeTargetLaneValue</name></member>
+      <member refid="class_entity_1_1_action_type_1a2a2259f9fa7891d26299d4f91e79a329" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>SpeedActionDynamicsValue</name></member>
+      <member refid="class_entity_1_1_action_type_1a7a44951c3c1ee126c8f50b41fec86844" prot="public" virt="non-virtual"><scope>Entity::ActionType</scope><name>StopDuration</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

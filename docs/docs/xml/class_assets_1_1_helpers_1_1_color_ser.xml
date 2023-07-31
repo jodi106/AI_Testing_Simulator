@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_assets_1_1_helpers_1_1_color_ser" kind="class" language="C#" prot="public">
+    <compoundname>Assets::Helpers::ColorSer</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_assets_1_1_helpers_1_1_color_ser_1a31a5283a35b6ebd72b4ce546a8faa577" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Assets.Helpers.ColorSer.r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <qualifiedname>Assets.Helpers.ColorSer.r</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="14" column="22" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_assets_1_1_helpers_1_1_color_ser_1abc55373b0655d5208c1d652b572508f9" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Assets.Helpers.ColorSer.g</definition>
+        <argsstring></argsstring>
+        <name>g</name>
+        <qualifiedname>Assets.Helpers.ColorSer.g</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="15" column="22" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_assets_1_1_helpers_1_1_color_ser_1adfd577d123e2dfbd5bfe8a5d7216fd91" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Assets.Helpers.ColorSer.b</definition>
+        <argsstring></argsstring>
+        <name>b</name>
+        <qualifiedname>Assets.Helpers.ColorSer.b</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="16" column="22" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_assets_1_1_helpers_1_1_color_ser_1a09843f41a94a870beac52064a983f59d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Assets.Helpers.ColorSer.a</definition>
+        <argsstring></argsstring>
+        <name>a</name>
+        <qualifiedname>Assets.Helpers.ColorSer.a</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="17" column="22" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_assets_1_1_helpers_1_1_color_ser_1a34d69c5950e39637ffaadce8ee3b0455" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Assets.Helpers.ColorSer.ColorSer</definition>
+        <argsstring>(float r, float g, float b, float a)</argsstring>
+        <name>ColorSer</name>
+        <qualifiedname>Assets.Helpers.ColorSer.ColorSer</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>g</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="19" column="16" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="19" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_assets_1_1_helpers_1_1_color_ser_1a1e9c7e29e3f74ed9eab53fa0dffbed24" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Assets.Helpers.ColorSer.ColorSer</definition>
+        <argsstring>(float r, float g, float b)</argsstring>
+        <name>ColorSer</name>
+        <qualifiedname>Assets.Helpers.ColorSer.ColorSer</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>g</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="27" column="16" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="27" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_assets_1_1_helpers_1_1_color_ser_1ace33c4774dd410fd1aab633d96dd6c68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Assets.Helpers.ColorSer.ColorSer</definition>
+        <argsstring>(Color color)</argsstring>
+        <name>ColorSer</name>
+        <qualifiedname>Assets.Helpers.ColorSer.ColorSer</qualifiedname>
+        <param>
+          <type>Color</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="35" column="16" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="35" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="class_assets_1_1_helpers_1_1_color_ser_1a27d83f9c5c3a3f79390b98faae7ebada" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Color</type>
+        <definition>Color Assets.Helpers.ColorSer.ToUnityColor</definition>
+        <argsstring>()</argsstring>
+        <name>ToUnityColor</name>
+        <qualifiedname>Assets.Helpers.ColorSer.ToUnityColor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="43" column="22" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="43" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Helpers/ColorSer.cs" line="12" column="11" bodyfile="UnityMapEditor/Assets/Helpers/ColorSer.cs" bodystart="13" bodyend="47"/>
+    <listofallmembers>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1a09843f41a94a870beac52064a983f59d" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>a</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1adfd577d123e2dfbd5bfe8a5d7216fd91" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>b</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1a34d69c5950e39637ffaadce8ee3b0455" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>ColorSer</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1a1e9c7e29e3f74ed9eab53fa0dffbed24" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>ColorSer</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1ace33c4774dd410fd1aab633d96dd6c68" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>ColorSer</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1abc55373b0655d5208c1d652b572508f9" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>g</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1a31a5283a35b6ebd72b4ce546a8faa577" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>r</name></member>
+      <member refid="class_assets_1_1_helpers_1_1_color_ser_1a27d83f9c5c3a3f79390b98faae7ebada" prot="public" virt="non-virtual"><scope>Assets::Helpers::ColorSer</scope><name>ToUnityColor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

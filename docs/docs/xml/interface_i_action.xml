@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="interface_i_action" kind="interface" language="C#" prot="public">
+    <compoundname>IAction</compoundname>
+    <derivedcompoundref refid="class_mouse_click_action" prot="public" virt="non-virtual">MouseClickAction</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="interface_i_action_1a4e2849471650329a161e2015163c0c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Dictionary&lt; string, object &gt;</type>
+        <definition>Dictionary&lt; string, object &gt; IAction.toDict</definition>
+        <argsstring>()</argsstring>
+        <name>toDict</name>
+        <qualifiedname>IAction.toDict</qualifiedname>
+        <reimplementedby refid="class_mouse_click_action_1a89c3b394833a7b96e5f671b9e82da8f5">toDict</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/Actions/IAction.cs" line="5" column="23"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>IAction</label>
+        <link refid="interface_i_action"/>
+      </node>
+      <node id="2">
+        <label>MouseClickAction</label>
+        <link refid="class_mouse_click_action"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="UnityMapEditor/Assets/Scripts/Actions/IAction.cs" line="3" column="18" bodyfile="UnityMapEditor/Assets/Scripts/Actions/IAction.cs" bodystart="4" bodyend="6"/>
+    <listofallmembers>
+      <member refid="interface_i_action_1a4e2849471650329a161e2015163c0c27" prot="public" virt="non-virtual"><scope>IAction</scope><name>toDict</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

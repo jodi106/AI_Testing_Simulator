@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection_extentions" kind="class" language="C#" prot="public">
+    <compoundname>OpenDriveXMLGenerator::XODRConnectionExtentions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection_extentions_1a12f8149ddddb4a4b9a1ad74fef0015fd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane_link" kindref="compound">XODRLaneLink</ref></type>
+        <definition>static XODRLaneLink OpenDriveXMLGenerator.XODRConnectionExtentions.AddLaneLinkElement</definition>
+        <argsstring>(this XODRConnection parent, string from, string to)</argsstring>
+        <name>AddLaneLinkElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XODRConnectionExtentions.AddLaneLinkElement</qualifiedname>
+        <param>
+          <type>this <ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection" kindref="compound">XODRConnection</ref></type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRConnection.cs" line="12" column="36" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRConnection.cs" bodystart="12" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRConnection.cs" line="10" column="19" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRConnection.cs" bodystart="11" bodyend="21"/>
+    <listofallmembers>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection_extentions_1a12f8149ddddb4a4b9a1ad74fef0015fd" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRConnectionExtentions</scope><name>AddLaneLinkElement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

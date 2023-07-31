@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_entity_1_1_a_star_waypoint" kind="class" language="C#" prot="public">
+    <compoundname>Entity::AStarWaypoint</compoundname>
+    <basecompoundref refid="class_entity_1_1_waypoint" prot="public" virt="non-virtual">Entity.Waypoint</basecompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_entity_1_1_a_star_waypoint_1aec8ae05038c3e99488f1fd2ea434fe72" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.AStarWaypoint.IndexInLane</definition>
+        <argsstring></argsstring>
+        <name>IndexInLane</name>
+        <qualifiedname>Entity.AStarWaypoint.IndexInLane</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Waypoint.cs" line="93" column="20" bodyfile="UnityMapEditor/Assets/Entities/Waypoint.cs" bodystart="93" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_a_star_waypoint_1a8c1e1aca8771b2dfa507f730deebf335" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Entity.AStarWaypoint.LaneId</definition>
+        <argsstring></argsstring>
+        <name>LaneId</name>
+        <qualifiedname>Entity.AStarWaypoint.LaneId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Waypoint.cs" line="95" column="20" bodyfile="UnityMapEditor/Assets/Entities/Waypoint.cs" bodystart="95" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_entity_1_1_a_star_waypoint_1a882ed52006b1ec654b12e5b774e1453e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.AStarWaypoint.AStarWaypoint</definition>
+        <argsstring>(int indexInLane, int laneId, Location location, ActionType actionTypeInfo, List&lt; TriggerInfo &gt; triggerList, string priority=&quot;overwrite&quot;)</argsstring>
+        <name>AStarWaypoint</name>
+        <qualifiedname>Entity.AStarWaypoint.AStarWaypoint</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>indexInLane</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>laneId</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+          <declname>location</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_action_type" kindref="compound">ActionType</ref></type>
+          <declname>actionTypeInfo</declname>
+        </param>
+        <param>
+          <type>List&lt; <ref refid="class_entity_1_1_trigger_info" kindref="compound">TriggerInfo</ref> &gt;</type>
+          <declname>triggerList</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>priority</declname>
+          <defval>&quot;overwrite&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Waypoint.cs" line="76" column="16" bodyfile="UnityMapEditor/Assets/Entities/Waypoint.cs" bodystart="76" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_a_star_waypoint_1a311d4725921acca333cc1c8660f619f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.AStarWaypoint.AStarWaypoint</definition>
+        <argsstring>(int indexInLane, int laneId, Location location)</argsstring>
+        <name>AStarWaypoint</name>
+        <qualifiedname>Entity.AStarWaypoint.AStarWaypoint</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>indexInLane</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>laneId</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+          <declname>location</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Waypoint.cs" line="83" column="16" bodyfile="UnityMapEditor/Assets/Entities/Waypoint.cs" bodystart="83" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_a_star_waypoint_1ab66c75134dc66fe21b1b49a26d2f57ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.AStarWaypoint.AStarWaypoint</definition>
+        <argsstring>(float x, float y)</argsstring>
+        <name>AStarWaypoint</name>
+        <qualifiedname>Entity.AStarWaypoint.AStarWaypoint</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Waypoint.cs" line="89" column="16" bodyfile="UnityMapEditor/Assets/Entities/Waypoint.cs" bodystart="89" bodyend="91"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Entity.AStarWaypoint</label>
+        <link refid="class_entity_1_1_a_star_waypoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ICloneable</label>
+      </node>
+      <node id="2">
+        <label>Waypoint</label>
+        <link refid="class_entity_1_1_waypoint"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Entity.AStarWaypoint</label>
+        <link refid="class_entity_1_1_a_star_waypoint"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ICloneable</label>
+      </node>
+      <node id="2">
+        <label>Waypoint</label>
+        <link refid="class_entity_1_1_waypoint"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Entities/Waypoint.cs" line="74" column="11" bodyfile="UnityMapEditor/Assets/Entities/Waypoint.cs" bodystart="75" bodyend="96"/>
+    <listofallmembers>
+      <member refid="class_entity_1_1_waypoint_1a05a464eb6dda6ec101cda97c1e8e64a3" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Actions</name></member>
+      <member refid="class_entity_1_1_waypoint_1aac8f73549545d51034050cdcdba507e9" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>ActionTypeInfo</name></member>
+      <member refid="class_entity_1_1_a_star_waypoint_1a882ed52006b1ec654b12e5b774e1453e" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>AStarWaypoint</name></member>
+      <member refid="class_entity_1_1_a_star_waypoint_1a311d4725921acca333cc1c8660f619f2" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>AStarWaypoint</name></member>
+      <member refid="class_entity_1_1_a_star_waypoint_1ab66c75134dc66fe21b1b49a26d2f57ef" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>AStarWaypoint</name></member>
+      <member refid="class_entity_1_1_waypoint_1a3aee4ee5b4480617a8c6dcb154ac2f8f" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Clone</name></member>
+      <member refid="class_entity_1_1_a_star_waypoint_1aec8ae05038c3e99488f1fd2ea434fe72" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>IndexInLane</name></member>
+      <member refid="class_entity_1_1_a_star_waypoint_1a8c1e1aca8771b2dfa507f730deebf335" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>LaneId</name></member>
+      <member refid="class_entity_1_1_waypoint_1a17d48e260bee0a1735a57e575c94bf24" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Location</name></member>
+      <member refid="class_entity_1_1_waypoint_1a32035ea9a55fca556f294851362a260f" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>LocationCarla</name></member>
+      <member refid="class_entity_1_1_waypoint_1a0f2526314ff4ed396268a2f0f06cea71" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Priority</name></member>
+      <member refid="class_entity_1_1_waypoint_1a6b9bc965c0cba7b65fbaa6e6cc594a9c" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>StartRouteOfOtherVehicle</name></member>
+      <member refid="class_entity_1_1_waypoint_1acaf783a816e4d06314e5ae9ac98e71be" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>TriggerList</name></member>
+      <member refid="class_entity_1_1_waypoint_1a98ecf475569439fe8b5409e8d5ed4a73" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Waypoint</name></member>
+      <member refid="class_entity_1_1_waypoint_1ac7bdc1bf19fd9e754db810aa9755e71e" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Waypoint</name></member>
+      <member refid="class_entity_1_1_waypoint_1a7329fbbbe1b7934f12780c5215c6ba4e" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Waypoint</name></member>
+      <member refid="class_entity_1_1_waypoint_1a781364e8ff73dbb7e222de084bcf9248" prot="public" virt="non-virtual"><scope>Entity::AStarWaypoint</scope><name>Waypoint</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

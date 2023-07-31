@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::VertexColorCycler</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1abb28c5b9ecd666852945c364b21ebfc4" prot="private" static="no" mutable="no">
+        <type>TMP_Text</type>
+        <definition>TMP_Text TMPro.Examples.VertexColorCycler.m_TextComponent</definition>
+        <argsstring></argsstring>
+        <name>m_TextComponent</name>
+        <qualifiedname>TMPro.Examples.VertexColorCycler.m_TextComponent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" line="11" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1a1803068f22f82161b412719efc891367" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.VertexColorCycler.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <qualifiedname>TMPro.Examples.VertexColorCycler.Awake</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" line="13" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" bodystart="13" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1a057df06b22c8de255d8d191ae6313e6a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.VertexColorCycler.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>TMPro.Examples.VertexColorCycler.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" line="19" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1a22a41f2f64cdf007330973d283d61d8e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator TMPro.Examples.VertexColorCycler.AnimateVertexColors</definition>
+        <argsstring>()</argsstring>
+        <name>AnimateVertexColors</name>
+        <qualifiedname>TMPro.Examples.VertexColorCycler.AnimateVertexColors</qualifiedname>
+        <briefdescription>
+<para>Method to animate vertex colors of a TMP Text object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para></para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" line="29" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" bodystart="29" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.VertexColorCycler</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.VertexColorCycler</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" bodystart="9" bodyend="83"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1a22a41f2f64cdf007330973d283d61d8e" prot="private" virt="non-virtual"><scope>TMPro::Examples::VertexColorCycler</scope><name>AnimateVertexColors</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1a1803068f22f82161b412719efc891367" prot="private" virt="non-virtual"><scope>TMPro::Examples::VertexColorCycler</scope><name>Awake</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1abb28c5b9ecd666852945c364b21ebfc4" prot="private" virt="non-virtual"><scope>TMPro::Examples::VertexColorCycler</scope><name>m_TextComponent</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_vertex_color_cycler_1a057df06b22c8de255d8d191ae6313e6a" prot="private" virt="non-virtual"><scope>TMPro::Examples::VertexColorCycler</scope><name>Start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
