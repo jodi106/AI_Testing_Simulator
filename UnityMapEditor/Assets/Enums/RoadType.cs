@@ -10,6 +10,8 @@ namespace Assets.Enums
         StraightRoad,
         [Description("Turn")]
         Turn,
+        [Description("Turn15")]
+        Turn15,
         [Description("ThreeWayIntersection")]
         ThreeWayIntersection,
         [Description("FourWayIntersection")]
@@ -25,9 +27,7 @@ namespace Assets.Enums
         [Description("FourWayRoundAbout")]
         FourWayRoundAbout,
         [Description("ThreeWayRoundAbout")]
-        ThreeWayRoundAbout,
-        [Description("StraightShort")]
-        StraightShort
+        ThreeWayRoundAbout
     }
 
     public static class RoadTypeExtensions
@@ -46,5 +46,4 @@ namespace Assets.Enums
             }
         }
     }
-
 }

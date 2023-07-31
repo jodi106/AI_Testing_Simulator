@@ -113,12 +113,13 @@ namespace scripts
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     AnchorPoints.Add(new VirtualAnchor(this, 0));
                     break;
+                case RoadType.Turn15:
+                    AnchorPoints.Add(new VirtualAnchor(this, 180));
+                    AnchorPoints.Add(new VirtualAnchor(this, 345));
+                    break;
                 default:
                     break;
             }
-
         }
-
-
     }
 }

@@ -1,6 +1,7 @@
 using Assets.Enums;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace scripts
@@ -18,6 +19,7 @@ namespace scripts
 
         public RoadPiece Straight;
         public RoadPiece Turn;
+        public RoadPiece Turn15;
         public RoadPiece ThreeWayIntersection;
         public RoadPiece FourWayIntersection;
         public RoadPiece ParkingBottom;
@@ -49,6 +51,8 @@ namespace scripts
                     return Straight;
                 case RoadType.Turn:
                     return Turn;
+                case RoadType.Turn15:
+                    return Turn15;
                 case RoadType.ThreeWayIntersection:
                     return ThreeWayIntersection;
                 case RoadType.FourWayIntersection:

@@ -46,7 +46,6 @@ namespace scripts
 
             // Initialize the offset with the values previously calculated
             this.Offset = new Vector3(offsetX, offsetY, 0);
-
         }
 
         /*  
@@ -113,7 +112,5 @@ namespace scripts
         {
             ChildStraightPieces.RemoveAt(ChildStraightPieces.Count - 1);
         }
-
-
     }
 }

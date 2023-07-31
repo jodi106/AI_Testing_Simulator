@@ -48,6 +48,9 @@ namespace scripts
                     case RoadType.Turn:
                         builder.Add90DegreeTurn(startingPosition.x, startingPosition.y, heading);
                         break;
+                    case RoadType.Turn15:
+                        builder.Add15DegreeTurn(startingPosition.x, startingPosition.y, heading);
+                        break;
                     case RoadType.ThreeWayIntersection:
                         builder.Add3wayIntersection(startingPosition.x, startingPosition.y, heading);
                         break;
@@ -69,7 +72,6 @@ namespace scripts
                     case RoadType.FourWayRoundAbout:
                         builder.Add4WayRoundAbout(startingPosition.x, startingPosition.y, heading);
                         break;
-                    case RoadType.StraightShort: // This type should not exist
                     default:
                         break;
                 }

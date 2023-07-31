@@ -594,14 +594,16 @@ namespace scripts
          */
         public void CreateRoad()
         {
-
             // Creates the new roadpiece
             var RoadPiece = PrefabManager.Instance.GetPieceOfType(ButtonManager.Instance.GetSelectedRoadType());
+            //var RoadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.Turn15);
             var newRoadPiece = Instantiate(RoadPiece, GetWorldPositionFromMouse(), Quaternion.identity);
 
             // Sets the valid position to false (As it will always spawn on the sidebar), adds the road to the list of roads and selects the road automatically upon creation, allowing the user to instantly drag it)
             InValidPosition = false;
             SelectRoad(newRoadPiece);
+
+            UnityEngine.Debug.Log(newRoadPiece.RoadType);
         }
 
         /*
