@@ -8,7 +8,7 @@ using System.Xml;
 namespace OpenDriveXMLGenerator
 {
     /// <summary>
-    /// OpenDriveXMLBuilder class contains functions which create code for each possible road piece
+    /// OpenDriveXMLBuilder class contains functions which create xml code for each road piece
     /// </summary>
     public class OpenDriveXMLBuilder
     {
@@ -52,8 +52,21 @@ namespace OpenDriveXMLGenerator
         }
 
         /// <summary>
-        /// Test
+        /// This method creates the xml code for a single straight road.
         /// </summary>
+        /// <param name="startX">The x value of the starting position of the straight road.</param>
+        /// <param name="startY">The y value of the starting position of the straight road.</param>
+        /// <param name="hdg">The rotation of the straight road in radian.</param>
+        /// <param name="length">The length of the straight road.</param>
+        /// <param name="crossing">A boolean whether the the straight road contains a crosswalk.</param>
+        /// <param name="crossingLength">If a straight road contains a crosswalk, this value defines the length of the crosswalk.</param>
+        /// <param name="crossingWidth">If a straight road contains a crosswalk, this value defines the width of the crosswalk.</param>
+        /// <param name="crossingWidth">If a straight road contains a crosswalk, this value defines the width of the crosswalk.</param>
+        /// <param name="laneWidth">The width of the straight road.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the straight road.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the straight road.</param>
+        /// <param name="trafficSignal">Information of the type of the traffic signs the straight road contains.</param>
+        /// <returns>A XODRRoad object.</returns>
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0,
             bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5",
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, trafficSignal = TrafficSignal.None)
@@ -314,7 +327,15 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-
+        /// <summary>
+        /// This method creates the xml code for a 15 degree turn.
+        /// </summary>
+        /// <param name="startX">The x value of the starting position of the turn.</param>
+        /// <param name="startY">The y value of the starting position of the turn.</param>
+        /// <param name="hdg">The rotation of the turn in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the turn.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the turn.</param>
+        /// <returns>A XODRRoad object.</returns>
         public XODRRoad Add15DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0,
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
@@ -430,6 +451,15 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
+        /// <summary>
+        /// This method creates the xml code for a 90 degree turn.
+        /// </summary>
+        /// <param name="startX">The x value of the starting position of the turn.</param>
+        /// <param name="startY">The y value of the starting position of the turn.</param>
+        /// <param name="hdg">The rotation of the turn in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the turn.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the turn.</param>
+        /// <returns>A XODRRoad object.</returns>
         public XODRRoad Add90DegreeTurn(float startX = 0, float startY = 0, double hdg = 0.0,
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
@@ -968,7 +998,15 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-
+        /// <summary>
+        /// This method creates the xml code for 3 way intersection.
+        /// </summary>
+        /// <param name="startX">The x value of the starting position of the intersection.</param>
+        /// <param name="startY">The y value of the starting position of the intersection.</param>
+        /// <param name="hdg">The rotation of the intersection in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the intersection.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the intersection.</param>
+        /// <param name="traffic_light">If this boolean is true the intersection contains traffic lights.</param>
         public void Add3wayIntersection(float startX = 0, float startY = 0, float hdg = 0,
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, bool traffic_light = false)
         {
@@ -1165,7 +1203,15 @@ namespace OpenDriveXMLGenerator
 
         }
 
-
+        /// <summary>
+        /// This method creates the xml code for 4 way intersection.
+        /// </summary>
+        /// <param name="startX">The x value of the starting position of the intersection.</param>
+        /// <param name="startY">The y value of the starting position of the intersection.</param>
+        /// <param name="hdg">The rotation of the intersection in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the intersection.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the intersection.</param>
+        /// <param name="traffic_light">If this boolean is true the intersection contains traffic lights.</param>
         public void Add4wayIntersection(float startX = 0, float startY = 0, float hdg = 0,
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, bool traffic_light = false)
         {
@@ -1842,7 +1888,14 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-
+        /// <summary>
+        /// This method creates the xml code for 3 way roundabout.
+        /// </summary>
+        /// <param name="startX">The x value of the starting position of the roundabout.</param>
+        /// <param name="startY">The y value of the starting position of the roundabout.</param>
+        /// <param name="hdg">The rotation of the roundabout in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the roundabout.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the roundabout.</param>
         public void Add3WayRoundAbout(float startX = 0, float startY = 0, float hdg = 0.0f, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
@@ -1886,6 +1939,16 @@ namespace OpenDriveXMLGenerator
 
         }
 
+        /// <summary>
+        /// This method creates the xml code for 4 way roundabout.
+        /// </summary>
+        /// <param name="startX">The x value of the starting position of the roundabout.</param>
+        /// <param name="startY">The y value of the starting position of the roundabout.</param>
+        /// <param name="hdg">The rotation of the roundabout in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the roundabout.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the roundabout.</param>
+        /// <param name="length">The length of the straight road.</param>
+        /// <param name="laneWidth">The width of the straight road.</param>
         public void Add4WayRoundAbout(float startX = 0, float startY = 0, float hdg = 0.0f, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
@@ -1932,6 +1995,16 @@ namespace OpenDriveXMLGenerator
             connectionId = 0;
         }
 
+        /// <summary>
+        /// This method creates the xml code for a straight road which has either two parking spots on the top, on the bottom or both.
+        /// </summary>
+        /// <param name="topParking">The straight road has two parking spots on the top of the road, if this is set to true.</param>
+        /// <param name="bottomParking">The straight road has two parking spots on the bottom of the road, if this is set to true.</param>
+        /// <param name="startX">The x value of the starting position of the roundabout.</param>
+        /// <param name="startY">The y value of the starting position of the roundabout.</param>
+        /// <param name="hdg">The rotation of the roundabout in radian.</param>
+        /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the roundabout.</param>
+        /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the roundabout.</param>
         public void AddParking(bool topParking, bool bottomParking, float startX = 0, float startY = 0, double hdg = 0, double length = 17, string laneWidth = "3.5", SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             //Add junction
