@@ -88,7 +88,6 @@ namespace scripts
                 case RoadType.ParkingTop:
                 case RoadType.ParkingBottom:
                 case RoadType.ParkingTopAndBottom:
-                case RoadType.StraightShort:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 0));
                     break;

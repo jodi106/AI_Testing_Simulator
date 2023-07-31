@@ -69,8 +69,6 @@ namespace scripts
                     return FourWayRoundAbout;
                 case RoadType.ThreeWayRoundAbout:
                     return ThreeWayRoundAbout;
-                case RoadType.StraightShort:
-                    return StraightShort;
                 case RoadType.None:
                     return None;
                 default:
