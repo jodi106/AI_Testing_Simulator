@@ -81,266 +81,269 @@ namespace scripts
         {
             if (!ScrollViewOpener.IsUserGuideOpen())
             {
-                // This condition checks, whether the user has selected a road to then check the stretching position
-                if (SelectedRoad != null)
-                {
-                    CheckStretchPosition();
-                }
+                          // This condition checks, whether the user has selected a road to then check the stretching position
+            if (SelectedRoad != null)
+            {
+                CheckStretchPosition();
+            }
 
-                // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
-                if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl))
+            // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
+            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift))
+            {
+                // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
+                if (!Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
-                    if (!Input.GetKeyDown(KeyCode.LeftShift))
+                    // This conditions checks, whether the user is NOT dragging, is in the Stretching Area and there is no group selection
+                    if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
                     {
-                        // This conditions checks, whether the user is NOT dragging, is in the Stretching Area and there is no group selection
-                        if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
-                        {
-                            // If that is the case, dragging the mouse will stretch the road
-                            StretchRoad();
-                            // Debug.Log("l");
-                        }
-                        // Else, it will check whether a group is selected
-                        else if (SelectedRoads != null)
-                        {
-                            // if that is the case, dragging the mouse will move a group of roads
-                            DragAndDropRoads();
-                        }
-                        // Else
-                        else
-                        {
-                            // Dragging the mouse will move the selected road. 
-                            DragAndDropRoad();
-                        }
+                        // If that is the case, dragging the mouse will stretch the road
+                        StretchRoad();
+                        // Debug.Log("l");
                     }
-                    // Else, it will check whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
-                    else if (Input.GetKeyDown(KeyCode.LeftShift))
+                    // Else, it will check whether a group is selected
+                    else if (SelectedRoads != null)
                     {
-                        // If that is the case, then the clicked road will be retrieved. 
-                        RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
-                        // This condition checks, whether the user has actually clicked a RoadPiece 
-                        if (clickedRoad != null)
-                        {
-                            // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
-                            // and the group of roads is selected
-                            DeselectRoad();
-                            DeselectGroup();
-                            SelectRoad(clickedRoad);
-                            SelectGroupOfRoads(clickedRoad);
-                        }
+                        // if that is the case, dragging the mouse will move a group of roads
+                        DragAndDropRoads();
                     }
-                }
-
-                // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
-                if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
-                {
-                    // If that is the case, then the selected RoadPiece is deselected from the group
-                    if (SelectedRoads != null)
-                    {
-                        ControlSelectRoadPiece();
-                    }
-                }
-
-                // This condition checks, whether the user released the mouse click
-                if (Input.GetMouseButtonUp(0))
-                {
-                    // If that is the case, the dragging stops, the stretching stops, the stretching distance is reset and the position of a roadPiec
-                    // is validated
-                    IsDragging = false;
-
-                    //This conditions checks, whether the user has been stretching a road
-                    if (IsStretching)
-                    {
-                        // if that is the case, then a new custom road is created
-                        CreateCustomStraightRoad();
-                        Snap();
-                    }
-                    IsStretching = false;
-                    StretchingDistance = 3.78f * 5;
-                    ValidateRoadPosition();
-                }
-
-                // These conditions checks, whether the user presses the "E" Key
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    RotateClockwise();
-                }
-
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    RotateCounterClockwise();
-                }
-
-                // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
-                if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
-                {
-                    if (SelectedRoads == null)
-                    {
-                        LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
-                    }
+                    // Else
                     else
                     {
-                        bool locked = !SelectedRoad.IsLocked;
-                        foreach (RoadPiece road in SelectedRoads)
-                        {
-                            LockRoad(road, locked);
-
-                        }
-                        ColorRoadPiece(SelectedRoad, SelectionColor.selected);
+                        // Dragging the mouse will move the selected road. 
+                        DragAndDropRoad();
                     }
                 }
-
-                if (Input.GetKeyDown(KeyCode.Delete))
+            }
+            if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftShift))
+            {
+                // If that is the case, then the clicked road will be retrieved. 
+                RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                // This condition checks, whether the user has actually clicked a RoadPiece 
+                if (clickedRoad != null)
                 {
-                    if (SelectedRoads == null)
-                    {
-                        DeleteRoad(this.SelectedRoad);
-                    }
-                    else
-                    {
-                        foreach (RoadPiece road in SelectedRoads)
-                        {
-                            DeleteRoad(road);
-                        }
-                        SelectedRoads = null;
-                    }
-                }
-
-                // This condition checks, whether the user wants to deselect the road he has clicked. 
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
+                    // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
+                    // and the group of roads is selected
                     DeselectRoad();
                     DeselectGroup();
+                    SelectRoad(clickedRoad);
+                    SelectGroupOfRoads(clickedRoad);
                 }
+            }
+
+
+            // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
+            if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
+            {
+                // If that is the case, then the selected RoadPiece is deselected from the group
+                if (SelectedRoads != null)
+                {
+                    ControlSelectRoadPiece();
+                }
+            }
+
+            // This condition checks, whether the user released the mouse click
+            if (Input.GetMouseButtonUp(0))
+            {
+                // If that is the case, the dragging stops, the stretching stops, the stretching distance is reset and the position of a roadPiec
+                // is validated
+                IsDragging = false;
+
+                //This conditions checks, whether the user has been stretching a road
+                if (IsStretching)
+                {
+                    // if that is the case, then a new custom road is created
+                    CreateCustomStraightRoad();
+                    Snap();
+                }
+                IsStretching = false;
+                StretchingDistance = 3.78f * 5;
+                ValidateRoadPosition();
+            }
+
+            // These conditions checks, whether the user presses the "E" Key
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                RotateClockwise();
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                RotateCounterClockwise();
+            }
+
+            // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
+            if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
+            {
+                if (SelectedRoads == null)
+                {
+                    LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
+                }
+                else
+                {
+                    bool locked = !SelectedRoad.IsLocked;
+                    foreach (RoadPiece road in SelectedRoads)
+                    {
+                        LockRoad(road, locked);
+
+                    }
+                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                if (SelectedRoads == null)
+                {
+                    DeleteRoad(this.SelectedRoad);
+                }
+                else
+                {
+                    foreach (RoadPiece road in SelectedRoads)
+                    {
+                        DeleteRoad(road);
+                    }
+                    SelectedRoads = null;
+                }
+            }
+
+            // This condition checks, whether the user wants to deselect the road he has clicked. 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                DeselectRoad();
+                DeselectGroup();
+            }
             }
         }
 
-        public void RotateClockwise(){
-                 // this condition checks, whether the selected road is snapped and no group has been selected
-                if (IsSnapped && SelectedRoads == null)
+        public void RotateClockwise()
+        {
+            // this condition checks, whether the selected road is snapped and no group has been selected
+            if (IsSnapped && SelectedRoads == null)
+            {
+                // If that is the case, we first find the current index of our anchor in the list of anchor points of the selected road
+                int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
+                // if our anchor Point is the first anchor point in the list, we set the currentIndex to the count of the list to 
+                // retrieve the previous anchor point, which is the last
+                if (currentIndex == SelectedRoad.AnchorPoints.Count - 1)
                 {
-                    // If that is the case, we first find the current index of our anchor in the list of anchor points of the selected road
-                    int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
-                    // if our anchor Point is the first anchor point in the list, we set the currentIndex to the count of the list to 
-                    // retrieve the previous anchor point, which is the last
-                    if (currentIndex == 0)
-                    {
-                        currentIndex = SelectedRoad.AnchorPoints.Count;
-                    }
-                    VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex - 1)];
+                    currentIndex = -1;
+                }
+                VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[currentIndex + 1];
 
-                    // We then compare the orientation between the new anchor point and the anchor point we want to snap to and rotate the piece
-                    CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                // We then compare the orientation between the new anchor point and the anchor point we want to snap to and rotate the piece
+                CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                {
+                    // For each anchor point of our selcted road, we remove all connections they have to other anchor points
+                    // (as through rotation, there are no connections anymore)
+                    va.RemoveConntectedAnchorPoint();
+                }
+                // Our Last selected snapped anchor point is now our new anchor point, so we have a new index, if we rotate again
+                SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
+
+                //At last we snap the piece to all roadpiece in the area to connect the Anchor Points back to other anchor points
+                Snap();
+            }
+            // Else, it will check, if we have a group selected and the group is snapped to another road piece
+            else if (SelectedRoads != null && IsSnappedGroup == true)
+            {
+                // if that is the case, we again retrieve the index of our currently connected anchorPoint. 
+                int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
+                VirtualAnchor nextAnchor = null;
+
+                //For every AnchorPoint we check, whether we have found a candidate to rotate to 
+                for (int i = 1; i < SelectedRoad.AnchorPoints.Count && nextAnchor == null; i++)
+                {
+                    // As we rotate an entire group, we only want to rotate to anchor Points which are not connected to other roads of our group
+                    VirtualAnchor candidate = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                    // This condition will check, whether the connected Anchor Point of the candidate in in the group
+                    // or if it has no connection
+                    if (!SelectedRoads.Contains(candidate.ConnectedAnchorPoint?.RoadPiece) || candidate.ConnectedAnchorPoint == null)
+                    {
+                        // If this is the case, then the next anchor point is the next anchor we rotate to
+                        nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                    }
+                }
+                // This condition checks, whether there is a next anchor we can snap to when rotating (Not the case, when all anchor points are 
+                // connected to roads of the group)
+                if (nextAnchor != null)
+                {
+                    // If that is the case, then we compare the rotations again and save the rotation value
+                    float rotation = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+
                     foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
                     {
-                        // For each anchor point of our selcted road, we remove all connections they have to other anchor points
-                        // (as through rotation, there are no connections anymore)
-                        va.RemoveConntectedAnchorPoint();
+                        // For each Virtual Anchor in our Selected Road, we check if the connected virtual anchor is NOT in the group
+                        if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                        {
+                            // if that is the case, we remove the connection to that anchor point
+                            va.RemoveConntectedAnchorPoint();
+                        }
                     }
+
                     // Our Last selected snapped anchor point is now our new anchor point, so we have a new index, if we rotate again
                     SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
 
-                    //At last we snap the piece to all roadpiece in the area to connect the Anchor Points back to other anchor points
-                    Snap();
+                    // we then align our group pieces to our selected road, so they rotate with the selected road. 
+                    AlignGroupPiecesToEachOther(rotation);
                 }
-                // Else, it will check, if we have a group selected and the group is snapped to another road piece
-                else if (SelectedRoads != null && IsSnappedGroup == true)
+            }
+            else
+            {
+                RotateRoadPiece(-ROTATING_ANGLE, true);
+            }
+        }
+        public void RotateCounterClockwise()
+        {
+            if (IsSnapped && SelectedRoads == null)
+            {
+                int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
+                if (currentIndex == 0)
                 {
-                    // if that is the case, we again retrieve the index of our currently connected anchorPoint. 
-                    int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
-                    VirtualAnchor nextAnchor = null;
-
-                    //For every AnchorPoint we check, whether we have found a candidate to rotate to 
-                    for (int i = 1; i < SelectedRoad.AnchorPoints.Count && nextAnchor == null; i++)
+                    currentIndex = SelectedRoad.AnchorPoints.Count;
+                }
+                VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex - 1)];
+                CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                {
+                    va.RemoveConntectedAnchorPoint();
+                }
+                //SelectedRoad.LastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
+                SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
+                Snap();
+            }
+            else if (SelectedRoads != null && IsSnappedGroup == true)
+            {
+                int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
+                VirtualAnchor nextAnchor = null;
+                for (int i = 1; i < SelectedRoad.AnchorPoints.Count && nextAnchor == null; i++)
+                {
+                    VirtualAnchor candidate = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
+                    if (!SelectedRoads.Contains(candidate.ConnectedAnchorPoint?.RoadPiece) || candidate.ConnectedAnchorPoint == null)
                     {
-                        // As we rotate an entire group, we only want to rotate to anchor Points which are not connected to other roads of our group
-                        VirtualAnchor candidate = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
-                        // This condition will check, whether the connected Anchor Point of the candidate in in the group
-                        // or if it has no connection
-                        if (!SelectedRoads.Contains(candidate.ConnectedAnchorPoint?.RoadPiece) || candidate.ConnectedAnchorPoint == null)
-                        {
-                            // If this is the case, then the next anchor point is the next anchor we rotate to
-                            nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
-                        }
-                    }
-                    // This condition checks, whether there is a next anchor we can snap to when rotating (Not the case, when all anchor points are 
-                    // connected to roads of the group)
-                    if (nextAnchor != null)
-                    {
-                        // If that is the case, then we compare the rotations again and save the rotation value
-                        float rotation = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
-
-                        foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
-                        {
-                            // For each Virtual Anchor in our Selected Road, we check if the connected virtual anchor is NOT in the group
-                            if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
-                            {
-                                // if that is the case, we remove the connection to that anchor point
-                                va.RemoveConntectedAnchorPoint();
-                            }
-                        }
-
-                        // Our Last selected snapped anchor point is now our new anchor point, so we have a new index, if we rotate again
-                        SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
-
-                        // we then align our group pieces to our selected road, so they rotate with the selected road. 
-                        AlignGroupPiecesToEachOther(rotation);
+                        nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
                     }
                 }
-                else
+                if (nextAnchor != null)
                 {
-                    RotateRoadPiece(-ROTATING_ANGLE, true);
-                }
-}
-public void RotateCounterClockwise(){ 
- if (IsSnapped && SelectedRoads == null)
-                {
-                    int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
-                    if (currentIndex == 0)
-                    {
-                        currentIndex = SelectedRoad.AnchorPoints.Count;
-                    }
-                    VirtualAnchor nextAnchor = SelectedRoad.AnchorPoints[(currentIndex - 1)];
-                    CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
+                    float rotation = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
                     foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
                     {
-                        va.RemoveConntectedAnchorPoint();
+                        if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
+                        {
+                            va.RemoveConntectedAnchorPoint();
+                        }
                     }
-                    //SelectedRoad.LastSelectedSnappedAnchorPoint.RemoveConntectedAnchorPoint();
                     SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
-                    Snap();
+                    AlignGroupPiecesToEachOther(rotation);
                 }
-                else if (SelectedRoads != null && IsSnappedGroup == true)
-                {
-                    int currentIndex = SelectedRoad.AnchorPoints.FindIndex(anchor => anchor == SelectedRoad.LastSelectedSnappedAnchorPoint);
-                    VirtualAnchor nextAnchor = null;
-                    for (int i = 1; i < SelectedRoad.AnchorPoints.Count && nextAnchor == null; i++)
-                    {
-                        VirtualAnchor candidate = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
-                        if (!SelectedRoads.Contains(candidate.ConnectedAnchorPoint?.RoadPiece) || candidate.ConnectedAnchorPoint == null)
-                        {
-                            nextAnchor = SelectedRoad.AnchorPoints[(currentIndex + i) % SelectedRoad.AnchorPoints.Count];
-                        }
-                    }
-                    if (nextAnchor != null)
-                    {
-                        float rotation = CompareAnchorPointOrientation(SelectedRoad.LastNeighborSnappedAnchorPoint, nextAnchor);
-                        foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
-                        {
-                            if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))
-                            {
-                                va.RemoveConntectedAnchorPoint();
-                            }
-                        }
-                        SelectedRoad.LastSelectedSnappedAnchorPoint = nextAnchor;
-                        AlignGroupPiecesToEachOther(rotation);
-                    }
-                }
-                else
-                {
-                    RotateRoadPiece(ROTATING_ANGLE, true);
-                }
-}
+            }
+            else
+            {
+                RotateRoadPiece(ROTATING_ANGLE, true);
+            }
+        }
 
         public void ControlSelectRoadPiece()
         {
@@ -423,13 +426,12 @@ public void RotateCounterClockwise(){
         public void CheckStretchPosition()
         {
             GameObject obj = GetMouseObject();
-            if (SelectedRoads == null && SelectedRoad.IsLocked == false)
+            RoadPiece road = obj?.GetComponent<RoadPiece>();
+            if (SelectedRoads == null && SelectedRoad.IsLocked == false && SelectedRoad != null)
             {
 
-                if (obj != null && obj.GetComponent<RoadPiece>() != null)
+                if (obj != null && road != null && road == SelectedRoad)
                 {
-                    RoadPiece road = obj.GetComponent<RoadPiece>();
-
                     foreach (VirtualAnchor anchor in SelectedRoad.AnchorPoints)
                     {
                         if (anchor.ConnectedAnchorPoint == null)
@@ -437,7 +439,7 @@ public void RotateCounterClockwise(){
                             if (!IsStretching)
                             {
 
-                                if (Vector3.Distance(GetWorldPositionFromMouse(), road.transform.position + anchor.Offset) < 50)
+                                if (Vector3.Distance(GetWorldPositionFromMouse(), SelectedRoad.transform.position + anchor.Offset) < 20)
                                 {
                                     //UnityEngine.Cursor.SetCursor(cursorStretchTexture, Vector2.zero, CursorMode.Auto);
                                     ColorRoadPiece(SelectedRoad, SelectionColor.invalid);
@@ -496,10 +498,11 @@ public void RotateCounterClockwise(){
                 {
                     va.Update(StretchingAnchor.Orientation);
                 }
-                GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
-               // Snap();
+                List<RoadPiece> roadsInArea = GetNearestNeighborsInArea(RoadList).referenceNeighbors;
+                GetNeighborsReference(roadsInArea, SelectedRoad);
+                // Snap();
                 Debug.Log(1);
-               // GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
+                // GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
 
 
 
@@ -679,19 +682,25 @@ public void RotateCounterClockwise(){
 
             if (SelectedObject != null && SelectedObject.GetComponent<RoadPiece>() != null)
             {
+                RoadPiece previouslySelectedRoad = null;
                 if (SelectedRoad != SelectedObject.GetComponent<RoadPiece>())
                 {
-                    if (SelectedRoad.IsLocked)
-                    {
-                        ColorRoadPiece(SelectedRoad, SelectionColor.groupSelected);
-                    }
-                    else
-                    {
-                        ColorRoadPiece(SelectedRoad, SelectionColor.groupSelected);
-                    }
+                    previouslySelectedRoad = SelectedRoad;
+
                 }
                 DeselectRoad();
                 SelectRoad(SelectedObject.GetComponent<RoadPiece>());
+
+
+                if (previouslySelectedRoad != null)
+                {
+                    if (SelectedRoads.Contains(SelectedRoad) && SelectedRoads.Contains(previouslySelectedRoad))
+                    {
+                        DeselectGroup();
+                        SelectGroupOfRoads(SelectedRoad);
+                    }
+                    ColorRoadPiece(previouslySelectedRoad, SelectionColor.groupSelected);
+                }
 
                 if (SelectedRoads.Contains(SelectedRoad))
                 {
@@ -714,7 +723,7 @@ public void RotateCounterClockwise(){
                     IsSnappedGroup = false;
 
                     foreach (RoadPiece road in SelectedRoads)
-                    { 
+                    {
                         foreach (VirtualAnchor va in road.AnchorPoints)
                         {
                             if (!SelectedRoads.Contains(va.ConnectedAnchorPoint?.RoadPiece))

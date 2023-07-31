@@ -7,6 +7,9 @@ using System.Xml;
 
 namespace OpenDriveXMLGenerator
 {
+    /// <summary>
+    /// OpenDriveXMLBuilder class contains functions which create code for each possible road piece
+    /// </summary>
     public class OpenDriveXMLBuilder
     {
         public XmlDocument Document { get; set; }
@@ -18,7 +21,7 @@ namespace OpenDriveXMLGenerator
 
         private int connectionId = 0;
 
-
+        private float signalId = 0;
 
         public OpenDriveXMLBuilder()
         {
@@ -48,12 +51,12 @@ namespace OpenDriveXMLGenerator
             userDataElement.AddVectorSceneElement(program: "RoadRunner", version: "2019.2.12 (build 5161c15)");
         }
 
-        /**
-         * Generates a straight piece of road
-         */
+        /// <summary>
+        /// Test
+        /// </summary>
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0,
             bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5",
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, trafficSignal = TrafficSignal.None)
         {
 
             var road = RootElement.AddRoadElement(
@@ -198,6 +201,114 @@ namespace OpenDriveXMLGenerator
 
 
             }
+
+            if (trafficSignal == TrafficSignal.Stop)
+            {
+                var signals = road.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "no",
+                    hOffset: "-1.5577535629272461",
+                    height: "5.0",
+                    id: signalId.ToString(),
+                    name: "StopSign",
+                    orientation: "-90",
+                    pitch: "0",
+                    roll: "90",
+                    s: "0",
+                    subtype: "-1",
+                    t: "0",
+                    text: "",
+                    type: "206",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "-0.5466467142105101"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Speed30)
+            {
+                var objects = road.AddObjectsElement();
+                objects.AddObjectElement(
+                    zOffset: "0.0",
+                    s: "0",
+                    t: "4",
+                    hdg: hdg.ToString(),
+                    id: signalId.ToString(),
+                    name: "Speed_30",
+                    orientation: "+",
+                    pitch: "0.0",
+                    roll: "0.0",
+                    type: "-1",
+                    width: "0.0"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Speed60)
+            {
+                var objects = road.AddObjectsElement();
+                objects.AddObjectElement(
+                    zOffset: "0.0",
+                    s: "0",
+                    t: "4",
+                    hdg: hdg.ToString(),
+                    id: signalId.ToString(),
+                    name: "Speed_60",
+                    orientation: "+",
+                    pitch: "0.0",
+                    roll: "0.0",
+                    type: "-1",
+                    width: "0.0"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Speed90)
+            {
+                var objects = road.AddObjectsElement();
+                objects.AddObjectElement(
+                    zOffset: "0.0",
+                    s: "0",
+                    t: "4",
+                    hdg: hdg.ToString(),
+                    id: signalId.ToString(),
+                    name: "Speed_90",
+                    orientation: "+",
+                    pitch: "0.0",
+                    roll: "0.0",
+                    type: "-1",
+                    width: "0.0"
+                );
+
+                signalId++;
+            }
+            else if (trafficSignal == TrafficSignal.Yield)
+            {
+                var signals = road.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "no",
+                    hOffset: "-1.5577535629272461",
+                    height: "5.0",
+                    id: signalId.ToString(),
+                    name: "YieldSign",
+                    orientation: "-90",
+                    pitch: "0",
+                    roll: "90",
+                    s: "0",
+                    subtype: "-1",
+                    t: "4",
+                    text: "",
+                    type: "205",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "-0.5466467142105101"
+                );
+                signalId++;
+            }
+
 
 
             return road;
@@ -433,7 +544,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
+        private XODRRoad AddRightCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
             double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -542,7 +653,7 @@ namespace OpenDriveXMLGenerator
             return curve;
         }
 
-        public XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
+        private XODRRoad AddLeftCurveToIntersection(XODRJunction junction, float startX = 0, float startY = 0,
             double hdg = 0, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -657,7 +768,7 @@ namespace OpenDriveXMLGenerator
         }
 
 
-        public XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
+        private XODRRoad AddRightStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
             bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -756,7 +867,7 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
-        public XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
+        private XODRRoad AddLeftStraight(XODRJunction junction, float startX = 0, float startY = 0, double hdg = 0,
             bool sidewalk = false, SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             var connection = junction.AddConnectionElement(
@@ -858,7 +969,7 @@ namespace OpenDriveXMLGenerator
 
 
         public void Add3wayIntersection(float startX = 0, float startY = 0, float hdg = 0,
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, bool traffic_light = false)
         {
             var junction = RootElement.AddJunctionElement(
                 name: "Junction " + junctionId.ToString(),
@@ -875,6 +986,32 @@ namespace OpenDriveXMLGenerator
             }
             
             var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad1.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+                signalId++;
+            }
 
             float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
             float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
@@ -897,6 +1034,32 @@ namespace OpenDriveXMLGenerator
             }
   
             var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg + 3.14f, 0.5, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad3.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+                signalId++;
+            }
 
             float startXCurve1 = startX + 9f * (float)Math.Cos(hdg) + 8.5f * (float)Math.Sin(hdg);
             float startYCurve1 = startY + 9f * (float)Math.Sin(hdg) - 8.5f * (float)Math.Cos(hdg);
@@ -1003,7 +1166,7 @@ namespace OpenDriveXMLGenerator
 
 
         public void Add4wayIntersection(float startX = 0, float startY = 0, float hdg = 0,
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, bool traffic_light = false)
         {
             XODRJunction junction = RootElement.AddJunctionElement(
                 name: "Junction " + junctionId.ToString(),
@@ -1020,6 +1183,33 @@ namespace OpenDriveXMLGenerator
             }
 
             var incomingRoad1 = this.AddStraightRoad(startX1, startY1, hdg, 0.5, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad1.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+
+                signalId++;
+            }
 
             float startX2 = startX + 9f * (float)Math.Cos(hdg) + 9f * (float)Math.Sin(hdg);
             float startY2 = startY + 9f * (float)Math.Sin(hdg) - 9f * (float)Math.Cos(hdg);
@@ -1042,6 +1232,32 @@ namespace OpenDriveXMLGenerator
                 predecessorRoad3.Ids = new List<int> { predecessorInfo.Ids.ElementAt(0) };
             }
             var incomingRoad3 = this.AddStraightRoad(startX3, startY3, hdg3, 0.5f, false);
+
+            if (traffic_light)
+            {
+                var signals = incomingRoad3.AddSignalsElement();
+                signals.AddSignalElement(
+                    country: "OpenDRIVE",
+                    dynamic: "yes",
+                    hOffset: "0.0",
+                    height: "1.1595988571643829",
+                    id: signalId.ToString(),
+                    name: "Signal_3Light_Post01",
+                    orientation: "+",
+                    pitch: "0",
+                    roll: "1.57079632679",
+                    s: "4.7935599305216234",
+                    subtype: "-1",
+                    t: "-5",
+                    text: "",
+                    type: "1000001",
+                    value: "-1",
+                    width: "0.5249232020563757",
+                    zOffset: "0.0"
+                );
+
+                signalId++;
+            }
 
             float startX4 = startX + 9f * (float)Math.Cos(hdg) - 9f * (float)Math.Sin(hdg);
             float startY4 = startY + 9f * (float)Math.Sin(hdg) + 9f * (float)Math.Cos(hdg);
@@ -1378,7 +1594,7 @@ namespace OpenDriveXMLGenerator
                 }
             }
 
-            laneRight.AddWidthElement();
+            laneRight.AddWidthElement(a: "3.5000000000000000e+00", b: "0.0000000000000000e+00", c: "2.4842518299085264e-02", d: "-2.1313586653776513e-03");
             var laneRight2 = right.AddLaneElement(id: "-2", type: "driving", level: "false");
             laneRight2.AddLinkElement();
             laneRight2.AddWidthElement(a: "1.5");
@@ -1505,8 +1721,7 @@ namespace OpenDriveXMLGenerator
                 }
             }
 
-            laneLeft.AddWidthElement();
-            laneLeft.AddWidthElement();
+            laneLeft.AddWidthElement(a: "3.500000000000000e+00", b:"0.0000000000000000e+00", c: "2.4842518299085271e-02", d: "-2.1313586653776521e-03");
             var laneLeft2 = left.AddLaneElement(id: "2", type: "driving", level: "false");
             laneLeft2.AddLinkElement();
             laneLeft2.AddWidthElement(a: "1.5");
@@ -1515,8 +1730,8 @@ namespace OpenDriveXMLGenerator
         }
 
         //The custom road has no left lane or left sidewalk
-        public XODRRoad AddRightLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0,
-            float length = 0, string laneWidth = "3.5", string curvature = null, bool sidewalk = false,
+        private XODRRoad AddRightLaneCurve(XODRJunction junction, float startX = 0, float startY = 0, float hdg = 0,
+            float length = 0, string laneWidth = "4", string curvature = null, bool sidewalk = false,
             SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null)
         {
             if (predecessorInfo != null)
