@@ -1,0 +1,5 @@
+site_name: My Docs
+
+nav:
+  - Home: index.md
+  - Documentation: 'index.html'  
