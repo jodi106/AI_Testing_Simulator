@@ -959,7 +959,7 @@ namespace OpenDriveXMLGenerator
 
             if (sidewalk == true)
             {
-                var laneLeft2 = left.AddLaneElement(id: "2", type: "driving", level: "false");
+                var laneLeft2 = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
                 laneLeft2.AddLinkElement();
                 laneLeft2.AddWidthElement(a: "1.5");
             }
