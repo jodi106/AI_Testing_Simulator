@@ -27,9 +27,7 @@ namespace Assets.Enums
         [Description("FourWayRoundAbout")]
         FourWayRoundAbout,
         [Description("ThreeWayRoundAbout")]
-        ThreeWayRoundAbout,
-        [Description("StraightShort")]
-        StraightShort
+        ThreeWayRoundAbout
     }
 
     public static class RoadTypeExtensions
