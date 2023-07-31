@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_114ad7845e892cf539b01eea808c2eae" kind="dir">
+    <compoundname>UnityMapEditor/Assets</compoundname>
+    <innerdir refid="dir_f81ecaa493a061d9333ccbe7f7218120">UnityMapEditor/Assets/OpenDriveXMLGenerator</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/"/>
+  </compounddef>
+</doxygen>

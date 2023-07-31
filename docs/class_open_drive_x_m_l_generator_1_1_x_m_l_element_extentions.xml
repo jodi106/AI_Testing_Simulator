@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions" kind="class" language="C#" prot="public">
+    <compoundname>OpenDriveXMLGenerator::XMLElementExtentions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1ac1c60fb697e593f263fdfeb158a620cf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>XmlElement</type>
+        <definition>static XmlElement OpenDriveXMLGenerator.XMLElementExtentions.AddElement</definition>
+        <argsstring>(this XmlElement parent, string name)</argsstring>
+        <name>AddElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="7" column="34" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="7" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1aeaa30d67165dfb0ac210b9d364aeebcc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>XmlElement</type>
+        <definition>static XmlElement OpenDriveXMLGenerator.XMLElementExtentions.AddHeaderElement</definition>
+        <argsstring>(this XmlElement parent, string revMajor, string revMinor, string name, string version, string north, string south, string east, string west, string vendor)</argsstring>
+        <name>AddHeaderElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddHeaderElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>revMajor</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>revMinor</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>version</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>north</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>south</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>east</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>west</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>vendor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="14" column="34" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="14" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1ab910a2553136e829c57a9e5e3c9e6077" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>XmlElement</type>
+        <definition>static XmlElement OpenDriveXMLGenerator.XMLElementExtentions.AddGeoReferenceElement</definition>
+        <argsstring>(this XmlElement parent, string geoRef)</argsstring>
+        <name>AddGeoReferenceElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddGeoReferenceElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>geoRef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="33" column="34" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="33" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1a4047a1d443cac4e1a60b9504f9b2f918" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>XmlElement</type>
+        <definition>static XmlElement OpenDriveXMLGenerator.XMLElementExtentions.AddUserDataElement</definition>
+        <argsstring>(this XmlElement parent)</argsstring>
+        <name>AddUserDataElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddUserDataElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="42" column="34" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="42" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1aa4e7bd51d58de0b9301f032b7899c656" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>XmlElement</type>
+        <definition>static XmlElement OpenDriveXMLGenerator.XMLElementExtentions.AddVectorSceneElement</definition>
+        <argsstring>(this XmlElement parent, string program, string version)</argsstring>
+        <name>AddVectorSceneElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddVectorSceneElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>program</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="50" column="34" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="50" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1a7bc9a00b5366ed7ef16c6e3aaac493de" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_road" kindref="compound">XODRRoad</ref></type>
+        <definition>static XODRRoad OpenDriveXMLGenerator.XMLElementExtentions.AddRoadElement</definition>
+        <argsstring>(this XmlElement parent, string name, string length, string id, string junction)</argsstring>
+        <name>AddRoadElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddRoadElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>junction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="60" column="32" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="60" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1a8c3b2732c747f3185fc179a1f479057a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction" kindref="compound">XODRJunction</ref></type>
+        <definition>static XODRJunction OpenDriveXMLGenerator.XMLElementExtentions.AddJunctionElement</definition>
+        <argsstring>(this XmlElement parent, string name, string id)</argsstring>
+        <name>AddJunctionElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XMLElementExtentions.AddJunctionElement</qualifiedname>
+        <param>
+          <type>this XmlElement</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="73" column="36" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="73" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" line="5" column="19" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XMLElementExtentions.cs" bodystart="6" bodyend="130"/>
+    <listofallmembers>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1ac1c60fb697e593f263fdfeb158a620cf" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1ab910a2553136e829c57a9e5e3c9e6077" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddGeoReferenceElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1aeaa30d67165dfb0ac210b9d364aeebcc" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddHeaderElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1a8c3b2732c747f3185fc179a1f479057a" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddJunctionElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1a7bc9a00b5366ed7ef16c6e3aaac493de" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddRoadElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1a4047a1d443cac4e1a60b9504f9b2f918" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddUserDataElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_m_l_element_extentions_1aa4e7bd51d58de0b9301f032b7899c656" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XMLElementExtentions</scope><name>AddVectorSceneElement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

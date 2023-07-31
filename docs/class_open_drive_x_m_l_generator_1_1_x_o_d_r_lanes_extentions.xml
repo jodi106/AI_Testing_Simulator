@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lanes_extentions" kind="class" language="C#" prot="public">
+    <compoundname>OpenDriveXMLGenerator::XODRLanesExtentions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lanes_extentions_1a0ce7bc9a70c9f0f0b2e8485433b5dbdb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lane_section" kindref="compound">XODRLaneSection</ref></type>
+        <definition>static XODRLaneSection OpenDriveXMLGenerator.XODRLanesExtentions.AddLaneSectionElement</definition>
+        <argsstring>(this XODRLanes parent, string s)</argsstring>
+        <name>AddLaneSectionElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XODRLanesExtentions.AddLaneSectionElement</qualifiedname>
+        <param>
+          <type>this <ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lanes" kindref="compound">XODRLanes</ref></type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLanes.cs" line="12" column="39" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLanes.cs" bodystart="12" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLanes.cs" line="10" column="19" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLanes.cs" bodystart="11" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_lanes_extentions_1a0ce7bc9a70c9f0f0b2e8485433b5dbdb" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLanesExtentions</scope><name>AddLaneSectionElement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
