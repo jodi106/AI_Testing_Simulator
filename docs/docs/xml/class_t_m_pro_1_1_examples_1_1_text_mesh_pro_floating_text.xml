@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::TextMeshProFloatingText</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a9bb498ea133aa1535bc4a6bdc76fa533" prot="public" static="no" mutable="no">
+        <type>Font</type>
+        <definition>Font TMPro.Examples.TextMeshProFloatingText.TheFont</definition>
+        <argsstring></argsstring>
+        <name>TheFont</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.TheFont</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="10" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1afa4a7158646022f85c2961f4a0edfb61" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TMPro.Examples.TextMeshProFloatingText.SpawnType</definition>
+        <argsstring></argsstring>
+        <name>SpawnType</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.SpawnType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="23" column="20" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1ad56f2733da1ac56f0779cd3e78806daf" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TMPro.Examples.TextMeshProFloatingText.IsTextObjectScaleStatic</definition>
+        <argsstring></argsstring>
+        <name>IsTextObjectScaleStatic</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.IsTextObjectScaleStatic</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="24" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a301544d6e8c542a6ed7faaaadaf2a6b3" prot="private" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject TMPro.Examples.TextMeshProFloatingText.m_floatingText</definition>
+        <argsstring></argsstring>
+        <name>m_floatingText</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.m_floatingText</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="12" column="28" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a508d4d049c49e74757b0c9c662ba0f4f" prot="private" static="no" mutable="no">
+        <type>TextMeshPro</type>
+        <definition>TextMeshPro TMPro.Examples.TextMeshProFloatingText.m_textMeshPro</definition>
+        <argsstring></argsstring>
+        <name>m_textMeshPro</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.m_textMeshPro</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="13" column="29" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a3ce8ff1ed7fa3998263d6a0a9855f1c7" prot="private" static="no" mutable="no">
+        <type>TextMesh</type>
+        <definition>TextMesh TMPro.Examples.TextMeshProFloatingText.m_textMesh</definition>
+        <argsstring></argsstring>
+        <name>m_textMesh</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.m_textMesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="14" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a16373b0064a29ebb506bcd293f28f8c6" prot="private" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.TextMeshProFloatingText.m_transform</definition>
+        <argsstring></argsstring>
+        <name>m_transform</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.m_transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="16" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a7ca532aa895847c94e8274018b6b7fe4" prot="private" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.TextMeshProFloatingText.m_floatingText_Transform</definition>
+        <argsstring></argsstring>
+        <name>m_floatingText_Transform</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.m_floatingText_Transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="17" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a11ed6f58b4ccee4bbd07753374f1b9d0" prot="private" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.TextMeshProFloatingText.m_cameraTransform</definition>
+        <argsstring></argsstring>
+        <name>m_cameraTransform</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.m_cameraTransform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="18" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1ac92be106c6daad064bf2c1a8275a5b4f" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.TextMeshProFloatingText.lastPOS</definition>
+        <argsstring></argsstring>
+        <name>lastPOS</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.lastPOS</qualifiedname>
+        <initializer>= Vector3.zero</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="20" column="17" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a0b00a2ba65cce9026243a1d2b5329eb9" prot="private" static="no" mutable="no">
+        <type>Quaternion</type>
+        <definition>Quaternion TMPro.Examples.TextMeshProFloatingText.lastRotation</definition>
+        <argsstring></argsstring>
+        <name>lastRotation</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.lastRotation</qualifiedname>
+        <initializer>= Quaternion.identity</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="21" column="20" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a3f7d9117169a2876eec2235f1d28c9c5" prot="private" static="yes" mutable="no">
+        <type>WaitForEndOfFrame</type>
+        <definition>WaitForEndOfFrame TMPro.Examples.TextMeshProFloatingText.k_WaitForEndOfFrame</definition>
+        <argsstring></argsstring>
+        <name>k_WaitForEndOfFrame</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.k_WaitForEndOfFrame</qualifiedname>
+        <initializer>= new WaitForEndOfFrame()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="28" column="34" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a272c2e548bf4a814599fb1d49f2626ed" prot="private" static="yes" mutable="no">
+        <type>WaitForSeconds[]</type>
+        <definition>WaitForSeconds [] TMPro.Examples.TextMeshProFloatingText.k_WaitForSecondsRandom</definition>
+        <argsstring></argsstring>
+        <name>k_WaitForSecondsRandom</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.k_WaitForSecondsRandom</qualifiedname>
+        <initializer>= new WaitForSeconds[]
+        {
+            new WaitForSeconds(0.05f), new WaitForSeconds(0.1f), new WaitForSeconds(0.15f), new WaitForSeconds(0.2f), new WaitForSeconds(0.25f),
+            new WaitForSeconds(0.3f), new WaitForSeconds(0.35f), new WaitForSeconds(0.4f), new WaitForSeconds(0.45f), new WaitForSeconds(0.5f),
+            new WaitForSeconds(0.55f), new WaitForSeconds(0.6f), new WaitForSeconds(0.65f), new WaitForSeconds(0.7f), new WaitForSeconds(0.75f),
+            new WaitForSeconds(0.8f), new WaitForSeconds(0.85f), new WaitForSeconds(0.9f), new WaitForSeconds(0.95f), new WaitForSeconds(1.0f),
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="29" column="31" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a1fa7fb625c94c5c07325020bca35da52" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.TextMeshProFloatingText.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.Awake</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="37" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="37" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1adf09f894fc266a9d626e18ce2ef3a1f3" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.TextMeshProFloatingText.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="49" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="49" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a2d85960b568e04dd6dcd05db9c65fe69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator TMPro.Examples.TextMeshProFloatingText.DisplayTextMeshProFloatingText</definition>
+        <argsstring>()</argsstring>
+        <name>DisplayTextMeshProFloatingText</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.DisplayTextMeshProFloatingText</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="113" column="28" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="113" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a44484a164aa2ba2f4826a1d060a7ae5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator TMPro.Examples.TextMeshProFloatingText.DisplayTextMeshFloatingText</definition>
+        <argsstring>()</argsstring>
+        <name>DisplayTextMeshFloatingText</name>
+        <qualifiedname>TMPro.Examples.TextMeshProFloatingText.DisplayTextMeshFloatingText</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="169" column="28" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="169" bodyend="221"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.TextMeshProFloatingText</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.TextMeshProFloatingText</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" bodystart="9" bodyend="222"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a1fa7fb625c94c5c07325020bca35da52" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>Awake</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a44484a164aa2ba2f4826a1d060a7ae5b" prot="public" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>DisplayTextMeshFloatingText</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a2d85960b568e04dd6dcd05db9c65fe69" prot="public" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>DisplayTextMeshProFloatingText</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1ad56f2733da1ac56f0779cd3e78806daf" prot="public" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>IsTextObjectScaleStatic</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a3f7d9117169a2876eec2235f1d28c9c5" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>k_WaitForEndOfFrame</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a272c2e548bf4a814599fb1d49f2626ed" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>k_WaitForSecondsRandom</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1ac92be106c6daad064bf2c1a8275a5b4f" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>lastPOS</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a0b00a2ba65cce9026243a1d2b5329eb9" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>lastRotation</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a11ed6f58b4ccee4bbd07753374f1b9d0" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>m_cameraTransform</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a301544d6e8c542a6ed7faaaadaf2a6b3" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>m_floatingText</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a7ca532aa895847c94e8274018b6b7fe4" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>m_floatingText_Transform</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a3ce8ff1ed7fa3998263d6a0a9855f1c7" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>m_textMesh</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a508d4d049c49e74757b0c9c662ba0f4f" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>m_textMeshPro</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a16373b0064a29ebb506bcd293f28f8c6" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>m_transform</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1afa4a7158646022f85c2961f4a0edfb61" prot="public" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>SpawnType</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1adf09f894fc266a9d626e18ce2ef3a1f3" prot="private" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>Start</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text_1a9bb498ea133aa1535bc4a6bdc76fa533" prot="public" virt="non-virtual"><scope>TMPro::Examples::TextMeshProFloatingText</scope><name>TheFont</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

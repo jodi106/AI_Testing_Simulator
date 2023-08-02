@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction_extentions" kind="class" language="C#" prot="public">
+    <compoundname>OpenDriveXMLGenerator::XODRJunctionExtentions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction_extentions_1a870e50a015a13747dfeabfe260218518" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_connection" kindref="compound">XODRConnection</ref></type>
+        <definition>static XODRConnection OpenDriveXMLGenerator.XODRJunctionExtentions.AddConnectionElement</definition>
+        <argsstring>(this XODRJunction parent, string id, string incomingRoadId, string connectingRoadId)</argsstring>
+        <name>AddConnectionElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XODRJunctionExtentions.AddConnectionElement</qualifiedname>
+        <param>
+          <type>this <ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction" kindref="compound">XODRJunction</ref></type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>incomingRoadId</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>connectingRoadId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRJunction.cs" line="12" column="38" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRJunction.cs" bodystart="12" bodyend="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRJunction.cs" line="10" column="19" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRJunction.cs" bodystart="11" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_junction_extentions_1a870e50a015a13747dfeabfe260218518" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRJunctionExtentions</scope><name>AddConnectionElement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

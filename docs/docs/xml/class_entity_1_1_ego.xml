@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_entity_1_1_ego" kind="class" language="C#" prot="public">
+    <compoundname>Entity::Ego</compoundname>
+    <basecompoundref refid="class_entity_1_1_base_entity" prot="public" virt="non-virtual">Entity.BaseEntity</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">ICloneable</basecompoundref>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_entity_1_1_ego_1a95c739386d57171a96dac0109e16397c" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+        <definition>Location Entity.Ego.Destination</definition>
+        <argsstring></argsstring>
+        <name>Destination</name>
+        <qualifiedname>Entity.Ego.Destination</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="48" column="25" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_ego_1a016b051051aa97749fc942b872269883" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="yes" protectedsettable="no">
+        <type><ref refid="class_entity_1_1_entity_model" kindref="compound">EntityModel</ref></type>
+        <definition>EntityModel Entity.Ego.Model</definition>
+        <argsstring></argsstring>
+        <name>Model</name>
+        <qualifiedname>Entity.Ego.Model</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="49" column="28" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_ego_1a21253b0ba466eb966b65f71fb4f2fcda" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>VehicleCategory</type>
+        <definition>VehicleCategory Entity.Ego.Category</definition>
+        <argsstring></argsstring>
+        <name>Category</name>
+        <qualifiedname>Entity.Ego.Category</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="50" column="32" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="property" id="class_entity_1_1_ego_1a3457fa029354fa9eb4eaacfce62657d6" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string Entity.Ego.Agent</definition>
+        <argsstring></argsstring>
+        <name>Agent</name>
+        <qualifiedname>Entity.Ego.Agent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="51" column="23" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="51" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_entity_1_1_ego_1a5089a09ed6be36ed3d0d3c3deba88956" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.Ego.Ego</definition>
+        <argsstring>(Location spawnPoint, EntityModel model, VehicleCategory category=VehicleCategory.Null, double initialSpeedKMH=0)</argsstring>
+        <name>Ego</name>
+        <qualifiedname>Entity.Ego.Ego</qualifiedname>
+        <param>
+          <type><ref refid="class_entity_1_1_location" kindref="compound">Location</ref></type>
+          <declname>spawnPoint</declname>
+        </param>
+        <param>
+          <type><ref refid="class_entity_1_1_entity_model" kindref="compound">EntityModel</ref></type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>VehicleCategory</type>
+          <declname>category</declname>
+          <defval>VehicleCategory.Null</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>initialSpeedKMH</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="12" column="16" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="12" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_ego_1ac8cc4996fc91f342d9cc6199564cef93" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Entity.Ego.Ego</definition>
+        <argsstring>()</argsstring>
+        <name>Ego</name>
+        <qualifiedname>Entity.Ego.Ego</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="19" column="16" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_entity_1_1_ego_1a69a3f9af8e17333f46d411adb7963ed1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>object</type>
+        <definition>object Entity.Ego.Clone</definition>
+        <argsstring>()</argsstring>
+        <name>Clone</name>
+        <qualifiedname>Entity.Ego.Clone</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="37" column="23" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="37" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Create Ego vehicle. Object has no actions, only start point and destination. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>ToDo: Implement AI driving </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>BaseEntity</label>
+        <link refid="class_entity_1_1_base_entity"/>
+      </node>
+      <node id="1">
+        <label>Entity.Ego</label>
+        <link refid="class_entity_1_1_ego"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ICloneable</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>Assets.Helpers.ColorSer</label>
+        <link refid="class_assets_1_1_helpers_1_1_color_ser"/>
+      </node>
+      <node id="2">
+        <label>BaseEntity</label>
+        <link refid="class_entity_1_1_base_entity"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Color</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Entity.Ego</label>
+        <link refid="class_entity_1_1_ego"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ICloneable</label>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Entities/Ego.cs" line="7" column="11" bodyfile="UnityMapEditor/Assets/Entities/Ego.cs" bodystart="10" bodyend="52"/>
+    <listofallmembers>
+      <member refid="class_entity_1_1_ego_1a3457fa029354fa9eb4eaacfce62657d6" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Agent</name></member>
+      <member refid="class_entity_1_1_base_entity_1aa2673bb8d65bd22ae375c37ef0037911" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>BaseEntity</name></member>
+      <member refid="class_entity_1_1_base_entity_1a36b00e2214e3280d4934bda843d23ac5" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>BaseEntity</name></member>
+      <member refid="class_entity_1_1_ego_1a21253b0ba466eb966b65f71fb4f2fcda" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Category</name></member>
+      <member refid="class_entity_1_1_ego_1a69a3f9af8e17333f46d411adb7963ed1" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Clone</name></member>
+      <member refid="class_entity_1_1_base_entity_1af4fc8d1aa77f1cfd11893b3b479c87c5" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Color</name></member>
+      <member refid="class_entity_1_1_ego_1a95c739386d57171a96dac0109e16397c" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Destination</name></member>
+      <member refid="class_entity_1_1_ego_1a5089a09ed6be36ed3d0d3c3deba88956" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Ego</name></member>
+      <member refid="class_entity_1_1_ego_1ac8cc4996fc91f342d9cc6199564cef93" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Ego</name></member>
+      <member refid="class_entity_1_1_base_entity_1a960af147366004db358db41d400e18b3" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Id</name></member>
+      <member refid="class_entity_1_1_base_entity_1aa1d57f04a92c6c70c3946b7df7f284d7" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>InitialSpeedKMH</name></member>
+      <member refid="class_entity_1_1_ego_1a016b051051aa97749fc942b872269883" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>Model</name></member>
+      <member refid="class_entity_1_1_base_entity_1af6f8ee169ed75a926b8e5f392d7d2281" prot="public" virt="non-virtual"><scope>Entity::Ego</scope><name>SpawnPoint</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

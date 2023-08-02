@@ -1,5 +1,5 @@
 .. Autonomous Driving Simulation Environment documentation master file, created by
-   sphinx-quickstart on Fri Jul 28 14:54:27 2023.
+   sphinx-quickstart on Mon Jul 31 12:27:47 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -10,7 +10,7 @@ Welcome to Autonomous Driving Simulation Environment's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   OpenDriveXODRBuilder 
+
 
 Indices and tables
 ==================

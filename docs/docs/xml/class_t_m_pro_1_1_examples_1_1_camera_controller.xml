@@ -1,0 +1,531 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_camera_controller" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::CameraController</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8180251e92d62266c8a026f0b77452ce" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>CameraModes</name>
+        <qualifiedname>TMPro.Examples.CameraController.CameraModes</qualifiedname>
+        <enumvalue id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8180251e92d62266c8a026f0b77452cea3903aab323863bd2e9b68218a7a65ebd" prot="public">
+          <name>Follow</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8180251e92d62266c8a026f0b77452cea93fe1f7c5ca2e09af063aca96d0625cc" prot="public">
+          <name>Isometric</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8180251e92d62266c8a026f0b77452ceab24ce0cd392a5b0b8dedc66c25213594" prot="public">
+          <name>Free</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="10" column="15" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="10" bodyend="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1ac36764811b8b0bf7bc28f5d94652c86c" prot="private" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.CameraController.cameraTransform</definition>
+        <argsstring></argsstring>
+        <name>cameraTransform</name>
+        <qualifiedname>TMPro.Examples.CameraController.cameraTransform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="12" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a04361574aff357dcec41a4bafbce5b1d" prot="private" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.CameraController.dummyTarget</definition>
+        <argsstring></argsstring>
+        <name>dummyTarget</name>
+        <qualifiedname>TMPro.Examples.CameraController.dummyTarget</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="13" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1adc57f6832421a8925cb6af0278644c96" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TMPro.Examples.CameraController.previousSmoothing</definition>
+        <argsstring></argsstring>
+        <name>previousSmoothing</name>
+        <qualifiedname>TMPro.Examples.CameraController.previousSmoothing</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="31" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a3e6b37b51a026049ac063a651f95f56c" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.CameraController.currentVelocity</definition>
+        <argsstring></argsstring>
+        <name>currentVelocity</name>
+        <qualifiedname>TMPro.Examples.CameraController.currentVelocity</qualifiedname>
+        <initializer>= Vector3.zero</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="38" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a7c67314ea5cfdc0491ccd5915eb22927" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.CameraController.desiredPosition</definition>
+        <argsstring></argsstring>
+        <name>desiredPosition</name>
+        <qualifiedname>TMPro.Examples.CameraController.desiredPosition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="39" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1aa108422dd9ec2db51e4a51b6fa49eda6" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.mouseX</definition>
+        <argsstring></argsstring>
+        <name>mouseX</name>
+        <qualifiedname>TMPro.Examples.CameraController.mouseX</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="40" column="23" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1aecf20a7e35c36a8cc228863cb31e3fbe" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.mouseY</definition>
+        <argsstring></argsstring>
+        <name>mouseY</name>
+        <qualifiedname>TMPro.Examples.CameraController.mouseY</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="41" column="23" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1adfb1f4f8bb0f1c536914e4e8c63300b3" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.CameraController.moveVector</definition>
+        <argsstring></argsstring>
+        <name>moveVector</name>
+        <qualifiedname>TMPro.Examples.CameraController.moveVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="42" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1aca728ed124c5bc66514cac1c92dfcae2" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.mouseWheel</definition>
+        <argsstring></argsstring>
+        <name>mouseWheel</name>
+        <qualifiedname>TMPro.Examples.CameraController.mouseWheel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="43" column="23" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a185480dc2cf1a5f480549dfebc0ee8e7" prot="public" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.CameraController.CameraTarget</definition>
+        <argsstring></argsstring>
+        <name>CameraTarget</name>
+        <qualifiedname>TMPro.Examples.CameraController.CameraTarget</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="15" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a63f61961e47e5d7068e6ce65be83cc36" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.FollowDistance</definition>
+        <argsstring></argsstring>
+        <name>FollowDistance</name>
+        <qualifiedname>TMPro.Examples.CameraController.FollowDistance</qualifiedname>
+        <initializer>= 30.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="17" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a794f2217e529fa239e65463612bd78ca" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.MaxFollowDistance</definition>
+        <argsstring></argsstring>
+        <name>MaxFollowDistance</name>
+        <qualifiedname>TMPro.Examples.CameraController.MaxFollowDistance</qualifiedname>
+        <initializer>= 100.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="18" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1af54c30206b387c4cdb03d8c894aee65e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.MinFollowDistance</definition>
+        <argsstring></argsstring>
+        <name>MinFollowDistance</name>
+        <qualifiedname>TMPro.Examples.CameraController.MinFollowDistance</qualifiedname>
+        <initializer>= 2.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="19" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8709e27c129e088a6da0f43c119d835a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.ElevationAngle</definition>
+        <argsstring></argsstring>
+        <name>ElevationAngle</name>
+        <qualifiedname>TMPro.Examples.CameraController.ElevationAngle</qualifiedname>
+        <initializer>= 30.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="21" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a33b43fba4e4a426db3cf907e875a579a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.MaxElevationAngle</definition>
+        <argsstring></argsstring>
+        <name>MaxElevationAngle</name>
+        <qualifiedname>TMPro.Examples.CameraController.MaxElevationAngle</qualifiedname>
+        <initializer>= 85.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="22" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1ab56a8533afb8ddf74cf4f28403db0c9e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.MinElevationAngle</definition>
+        <argsstring></argsstring>
+        <name>MinElevationAngle</name>
+        <qualifiedname>TMPro.Examples.CameraController.MinElevationAngle</qualifiedname>
+        <initializer>= 0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="23" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1ac480ba2a3715f19d27dabb126ebb9a55" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.OrbitalAngle</definition>
+        <argsstring></argsstring>
+        <name>OrbitalAngle</name>
+        <qualifiedname>TMPro.Examples.CameraController.OrbitalAngle</qualifiedname>
+        <initializer>= 0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="25" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a27513135088672400a14f64275a45190" prot="public" static="no" mutable="no">
+        <type>CameraModes</type>
+        <definition>CameraModes TMPro.Examples.CameraController.CameraMode</definition>
+        <argsstring></argsstring>
+        <name>CameraMode</name>
+        <qualifiedname>TMPro.Examples.CameraController.CameraMode</qualifiedname>
+        <initializer>= CameraModes.Follow</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="27" column="28" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a88aeb1dacfab4311497e12b63d9a0ead" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TMPro.Examples.CameraController.MovementSmoothing</definition>
+        <argsstring></argsstring>
+        <name>MovementSmoothing</name>
+        <qualifiedname>TMPro.Examples.CameraController.MovementSmoothing</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="29" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a3e2c0e89101934e95f27fa271ff05d14" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TMPro.Examples.CameraController.RotationSmoothing</definition>
+        <argsstring></argsstring>
+        <name>RotationSmoothing</name>
+        <qualifiedname>TMPro.Examples.CameraController.RotationSmoothing</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="30" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1add5727218e5af8bf5c4d50ecbc69eff2" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.MovementSmoothingValue</definition>
+        <argsstring></argsstring>
+        <name>MovementSmoothingValue</name>
+        <qualifiedname>TMPro.Examples.CameraController.MovementSmoothingValue</qualifiedname>
+        <initializer>= 25f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="33" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a004e199cff2c8738cc9584087357444d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.RotationSmoothingValue</definition>
+        <argsstring></argsstring>
+        <name>RotationSmoothingValue</name>
+        <qualifiedname>TMPro.Examples.CameraController.RotationSmoothingValue</qualifiedname>
+        <initializer>= 5.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="34" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1af5ce7ae7b15ae2b86b4d7b4ad077d71a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.CameraController.MoveSensitivity</definition>
+        <argsstring></argsstring>
+        <name>MoveSensitivity</name>
+        <qualifiedname>TMPro.Examples.CameraController.MoveSensitivity</qualifiedname>
+        <initializer>= 2.0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="36" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1afad7b776c032f00b6ea912bc0a3fdd3a" prot="private" static="yes" mutable="no">
+        <type>const string</type>
+        <definition>const string TMPro.Examples.CameraController.event_SmoothingValue</definition>
+        <argsstring></argsstring>
+        <name>event_SmoothingValue</name>
+        <qualifiedname>TMPro.Examples.CameraController.event_SmoothingValue</qualifiedname>
+        <initializer>= &quot;Slider - Smoothing Value&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="49" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1aa11c6325e2887eb4939340b36a86f07e" prot="private" static="yes" mutable="no">
+        <type>const string</type>
+        <definition>const string TMPro.Examples.CameraController.event_FollowDistance</definition>
+        <argsstring></argsstring>
+        <name>event_FollowDistance</name>
+        <qualifiedname>TMPro.Examples.CameraController.event_FollowDistance</qualifiedname>
+        <initializer>= &quot;Slider - Camera Zoom&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="50" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1ababc2f74b5580b96a5b15259eec5759a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.CameraController.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <qualifiedname>TMPro.Examples.CameraController.Awake</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="53" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="53" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1ae3e24286c2245dd641957f886af00335" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.CameraController.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>TMPro.Examples.CameraController.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="69" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="69" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1a9f5da05c646aad22ad84d5f8fa4a135c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.CameraController.LateUpdate</definition>
+        <argsstring>()</argsstring>
+        <name>LateUpdate</name>
+        <qualifiedname>TMPro.Examples.CameraController.LateUpdate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="80" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="80" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_camera_controller_1aee18ca227c7c36eef5c5c21e07f0473b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.CameraController.GetPlayerInput</definition>
+        <argsstring>()</argsstring>
+        <name>GetPlayerInput</name>
+        <qualifiedname>TMPro.Examples.CameraController.GetPlayerInput</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="126" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="126" bodyend="290"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.CameraController</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_camera_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.CameraController</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_camera_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/CameraController.cs" bodystart="9" bodyend="291"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1ababc2f74b5580b96a5b15259eec5759a" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>Awake</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a27513135088672400a14f64275a45190" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>CameraMode</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8180251e92d62266c8a026f0b77452ce" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>CameraModes</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a185480dc2cf1a5f480549dfebc0ee8e7" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>CameraTarget</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1ac36764811b8b0bf7bc28f5d94652c86c" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>cameraTransform</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a3e6b37b51a026049ac063a651f95f56c" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>currentVelocity</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a7c67314ea5cfdc0491ccd5915eb22927" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>desiredPosition</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a04361574aff357dcec41a4bafbce5b1d" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>dummyTarget</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a8709e27c129e088a6da0f43c119d835a" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>ElevationAngle</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1aa11c6325e2887eb4939340b36a86f07e" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>event_FollowDistance</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1afad7b776c032f00b6ea912bc0a3fdd3a" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>event_SmoothingValue</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a63f61961e47e5d7068e6ce65be83cc36" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>FollowDistance</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1aee18ca227c7c36eef5c5c21e07f0473b" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>GetPlayerInput</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a9f5da05c646aad22ad84d5f8fa4a135c" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>LateUpdate</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a33b43fba4e4a426db3cf907e875a579a" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MaxElevationAngle</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a794f2217e529fa239e65463612bd78ca" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MaxFollowDistance</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1ab56a8533afb8ddf74cf4f28403db0c9e" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MinElevationAngle</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1af54c30206b387c4cdb03d8c894aee65e" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MinFollowDistance</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1aca728ed124c5bc66514cac1c92dfcae2" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>mouseWheel</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1aa108422dd9ec2db51e4a51b6fa49eda6" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>mouseX</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1aecf20a7e35c36a8cc228863cb31e3fbe" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>mouseY</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a88aeb1dacfab4311497e12b63d9a0ead" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MovementSmoothing</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1add5727218e5af8bf5c4d50ecbc69eff2" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MovementSmoothingValue</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1af5ce7ae7b15ae2b86b4d7b4ad077d71a" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>MoveSensitivity</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1adfb1f4f8bb0f1c536914e4e8c63300b3" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>moveVector</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1ac480ba2a3715f19d27dabb126ebb9a55" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>OrbitalAngle</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1adc57f6832421a8925cb6af0278644c96" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>previousSmoothing</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a3e2c0e89101934e95f27fa271ff05d14" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>RotationSmoothing</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1a004e199cff2c8738cc9584087357444d" prot="public" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>RotationSmoothingValue</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_camera_controller_1ae3e24286c2245dd641957f886af00335" prot="private" virt="non-virtual"><scope>TMPro::Examples::CameraController</scope><name>Start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

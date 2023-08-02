@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_object_spin" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::ObjectSpin</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a45f51bc7820e9bbc91c1806bcaded7fc" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>MotionType</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.MotionType</qualifiedname>
+        <enumvalue id="class_t_m_pro_1_1_examples_1_1_object_spin_1a45f51bc7820e9bbc91c1806bcaded7fcaf1a42bd417390fc63b030a519624607a" prot="public">
+          <name>Rotation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_t_m_pro_1_1_examples_1_1_object_spin_1a45f51bc7820e9bbc91c1806bcaded7fcad64312a309fe3d4d870a2afbd94d5ec3" prot="public">
+          <name>BackAndForth</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_t_m_pro_1_1_examples_1_1_object_spin_1a45f51bc7820e9bbc91c1806bcaded7fca6dd08874f83507e9c7b23f1a46b7fa7c" prot="public">
+          <name>Translation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="24" column="15" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="24" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a4b1d0b19553122b485c5878fe45ea0b3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.ObjectSpin.SpinSpeed</definition>
+        <argsstring></argsstring>
+        <name>SpinSpeed</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.SpinSpeed</qualifiedname>
+        <initializer>= 5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="13" column="22" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a802c4f5441264532dd2b379c48dfa012" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TMPro.Examples.ObjectSpin.RotationRange</definition>
+        <argsstring></argsstring>
+        <name>RotationRange</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.RotationRange</qualifiedname>
+        <initializer>= 15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="14" column="20" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1ae422bdffcabfc75fae2c0bad902124f1" prot="public" static="no" mutable="no">
+        <type>MotionType</type>
+        <definition>MotionType TMPro.Examples.ObjectSpin.Motion</definition>
+        <argsstring></argsstring>
+        <name>Motion</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.Motion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="25" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1aa4c3f81d6599f7413b15b6506ec43c13" prot="private" static="no" mutable="no">
+        <type>Transform</type>
+        <definition>Transform TMPro.Examples.ObjectSpin.m_transform</definition>
+        <argsstring></argsstring>
+        <name>m_transform</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.m_transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="15" column="27" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a654490f014827216fcf23ef71e98999f" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TMPro.Examples.ObjectSpin.m_time</definition>
+        <argsstring></argsstring>
+        <name>m_time</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.m_time</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="17" column="23" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a0138defc93d0f01ae2ead2e1c3797ac5" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.ObjectSpin.m_prevPOS</definition>
+        <argsstring></argsstring>
+        <name>m_prevPOS</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.m_prevPOS</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="18" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a9a1322b6bd1252329a536606100e6dd6" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.ObjectSpin.m_initial_Rotation</definition>
+        <argsstring></argsstring>
+        <name>m_initial_Rotation</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.m_initial_Rotation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="19" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a8b1e3a08cdae0b3e63197580206dc2b8" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 TMPro.Examples.ObjectSpin.m_initial_Position</definition>
+        <argsstring></argsstring>
+        <name>m_initial_Position</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.m_initial_Position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="20" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a96280fca56fbe192706a8d12072231e7" prot="private" static="no" mutable="no">
+        <type>Color32</type>
+        <definition>Color32 TMPro.Examples.ObjectSpin.m_lightColor</definition>
+        <argsstring></argsstring>
+        <name>m_lightColor</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.m_lightColor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="21" column="25" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_object_spin_1a7bac58b20ea632aef69eb77bb156bd30" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TMPro.Examples.ObjectSpin.frames</definition>
+        <argsstring></argsstring>
+        <name>frames</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.frames</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="22" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_object_spin_1ae9048c02ad22ba858707c6c9dfdef6aa" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.ObjectSpin.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.Awake</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="27" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="27" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_object_spin_1acd1a3c2ffda7ea557363743b96329119" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.ObjectSpin.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <qualifiedname>TMPro.Examples.ObjectSpin.Update</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="39" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="39" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.ObjectSpin</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_object_spin"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.ObjectSpin</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_object_spin"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" bodystart="9" bodyend="68"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1ae9048c02ad22ba858707c6c9dfdef6aa" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>Awake</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a7bac58b20ea632aef69eb77bb156bd30" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>frames</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a8b1e3a08cdae0b3e63197580206dc2b8" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>m_initial_Position</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a9a1322b6bd1252329a536606100e6dd6" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>m_initial_Rotation</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a96280fca56fbe192706a8d12072231e7" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>m_lightColor</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a0138defc93d0f01ae2ead2e1c3797ac5" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>m_prevPOS</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a654490f014827216fcf23ef71e98999f" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>m_time</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1aa4c3f81d6599f7413b15b6506ec43c13" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>m_transform</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1ae422bdffcabfc75fae2c0bad902124f1" prot="public" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>Motion</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a45f51bc7820e9bbc91c1806bcaded7fc" prot="public" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>MotionType</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a802c4f5441264532dd2b379c48dfa012" prot="public" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>RotationRange</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1a4b1d0b19553122b485c5878fe45ea0b3" prot="public" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>SpinSpeed</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_object_spin_1acd1a3c2ffda7ea557363743b96329119" prot="private" virt="non-virtual"><scope>TMPro::Examples::ObjectSpin</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

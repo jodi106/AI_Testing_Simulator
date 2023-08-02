@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_assets" kind="namespace" language="C#">
+    <compoundname>Assets</compoundname>
+    <innernamespace refid="namespace_assets_1_1_entities">Assets::Entities</innernamespace>
+    <innernamespace refid="namespace_assets_1_1_enums">Assets::Enums</innernamespace>
+    <innernamespace refid="namespace_assets_1_1_helpers">Assets::Helpers</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/Entities/MenuOptions.cs" line="3" column="1"/>
+  </compounddef>
+</doxygen>

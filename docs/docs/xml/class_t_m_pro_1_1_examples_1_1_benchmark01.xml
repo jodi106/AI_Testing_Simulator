@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_benchmark01" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::Benchmark01</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1adb8b4f7e8213b2c146e8d8e1b88180dc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TMPro.Examples.Benchmark01.BenchmarkType</definition>
+        <argsstring></argsstring>
+        <name>BenchmarkType</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.BenchmarkType</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="11" column="20" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1ac150b09608aaf2f8e06fa0703496c864" prot="public" static="no" mutable="no">
+        <type>TMP_FontAsset</type>
+        <definition>TMP_FontAsset TMPro.Examples.Benchmark01.TMProFont</definition>
+        <argsstring></argsstring>
+        <name>TMProFont</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.TMProFont</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="13" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1a8e58d54eac5c21bc055263ff7689322f" prot="public" static="no" mutable="no">
+        <type>Font</type>
+        <definition>Font TMPro.Examples.Benchmark01.TextMeshFont</definition>
+        <argsstring></argsstring>
+        <name>TextMeshFont</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.TextMeshFont</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="14" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1aeffa4ceaf4dc78bbe7ea5edb00ade157" prot="private" static="no" mutable="no">
+        <type>TextMeshPro</type>
+        <definition>TextMeshPro TMPro.Examples.Benchmark01.m_textMeshPro</definition>
+        <argsstring></argsstring>
+        <name>m_textMeshPro</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.m_textMeshPro</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="16" column="29" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1a8e52e91b8d83663ccef6e11f6f9cee38" prot="private" static="no" mutable="no">
+        <type>TextContainer</type>
+        <definition>TextContainer TMPro.Examples.Benchmark01.m_textContainer</definition>
+        <argsstring></argsstring>
+        <name>m_textContainer</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.m_textContainer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="17" column="31" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1a1fc13c5132d5561cbacf7854754a14a7" prot="private" static="no" mutable="no">
+        <type>TextMesh</type>
+        <definition>TextMesh TMPro.Examples.Benchmark01.m_textMesh</definition>
+        <argsstring></argsstring>
+        <name>m_textMesh</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.m_textMesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="18" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1a2c178228c97f2aa9e5f8e48a62c85810" prot="private" static="no" mutable="no">
+        <type>Material</type>
+        <definition>Material TMPro.Examples.Benchmark01.m_material01</definition>
+        <argsstring></argsstring>
+        <name>m_material01</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.m_material01</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="26" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1a0dc7f445e129a625644c411430b4be40" prot="private" static="no" mutable="no">
+        <type>Material</type>
+        <definition>Material TMPro.Examples.Benchmark01.m_material02</definition>
+        <argsstring></argsstring>
+        <name>m_material02</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.m_material02</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="27" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1a77be73d3b7e00ba36cf8996a0f4ecf3a" prot="private" static="yes" mutable="no">
+        <type>const string</type>
+        <definition>const string TMPro.Examples.Benchmark01.label01</definition>
+        <argsstring></argsstring>
+        <name>label01</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.label01</qualifiedname>
+        <initializer>= &quot;The &lt;#0050FF&gt;count is: &lt;/color&gt;{0}&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="20" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1ad592c85a36ff01c147af5953b647e721" prot="private" static="yes" mutable="no">
+        <type>const string</type>
+        <definition>const string TMPro.Examples.Benchmark01.label02</definition>
+        <argsstring></argsstring>
+        <name>label02</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.label02</qualifiedname>
+        <initializer>= &quot;The &lt;color=#0050FF&gt;count is: &lt;/color&gt;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="21" column="30" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_benchmark01_1aa55f468ecf85b127e95cff7bcccf1db9" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator TMPro.Examples.Benchmark01.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>TMPro.Examples.Benchmark01.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="31" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="31" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.Benchmark01</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_benchmark01"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.Benchmark01</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_benchmark01"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" bodystart="9" bodyend="127"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1adb8b4f7e8213b2c146e8d8e1b88180dc" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>BenchmarkType</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1a77be73d3b7e00ba36cf8996a0f4ecf3a" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>label01</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1ad592c85a36ff01c147af5953b647e721" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>label02</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1a2c178228c97f2aa9e5f8e48a62c85810" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>m_material01</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1a0dc7f445e129a625644c411430b4be40" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>m_material02</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1a8e52e91b8d83663ccef6e11f6f9cee38" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>m_textContainer</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1a1fc13c5132d5561cbacf7854754a14a7" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>m_textMesh</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1aeffa4ceaf4dc78bbe7ea5edb00ade157" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>m_textMeshPro</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1aa55f468ecf85b127e95cff7bcccf1db9" prot="private" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>Start</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1a8e58d54eac5c21bc055263ff7689322f" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>TextMeshFont</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_benchmark01_1ac150b09608aaf2f8e06fa0703496c864" prot="public" virt="non-virtual"><scope>TMPro::Examples::Benchmark01</scope><name>TMProFont</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

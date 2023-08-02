@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_t_m_pro_1_1_examples_1_1_tele_type" kind="class" language="C#" prot="public">
+    <compoundname>TMPro::Examples::TeleType</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_tele_type_1a51dff8db56be78d4bc721ca16e185b8c" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string TMPro.Examples.TeleType.label01</definition>
+        <argsstring></argsstring>
+        <name>label01</name>
+        <qualifiedname>TMPro.Examples.TeleType.label01</qualifiedname>
+        <initializer>= &quot;Example &lt;sprite=2&gt; of using &lt;sprite=7&gt; &lt;#ffa000&gt;Graphics Inline&lt;/color&gt; &lt;sprite=5&gt; with Text in &lt;font=\&quot;Bangers SDF\&quot; material=\&quot;Bangers SDF - Drop Shadow\&quot;&gt;TextMesh&lt;#40a0ff&gt;Pro&lt;/color&gt;&lt;/font&gt;&lt;sprite=0&gt; and Unity&lt;sprite=1&gt;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" line="15" column="24" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_tele_type_1a33c3497dfd3bd9a94d59e8e6dc3a4d8d" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string TMPro.Examples.TeleType.label02</definition>
+        <argsstring></argsstring>
+        <name>label02</name>
+        <qualifiedname>TMPro.Examples.TeleType.label02</qualifiedname>
+        <initializer>= &quot;Example &lt;sprite=2&gt; of using &lt;sprite=7&gt; &lt;#ffa000&gt;Graphics Inline&lt;/color&gt; &lt;sprite=5&gt; with Text in &lt;font=\&quot;Bangers SDF\&quot; material=\&quot;Bangers SDF - Drop Shadow\&quot;&gt;TextMesh&lt;#40a0ff&gt;Pro&lt;/color&gt;&lt;/font&gt;&lt;sprite=0&gt; and Unity&lt;sprite=2&gt;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" line="16" column="24" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_t_m_pro_1_1_examples_1_1_tele_type_1aaa5fbd230494861742a944fe80f1226b" prot="private" static="no" mutable="no">
+        <type>TMP_Text</type>
+        <definition>TMP_Text TMPro.Examples.TeleType.m_textMeshPro</definition>
+        <argsstring></argsstring>
+        <name>m_textMeshPro</name>
+        <qualifiedname>TMPro.Examples.TeleType.m_textMeshPro</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" line="19" column="26" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_tele_type_1a2941c99e0e5b66827cab3c48df12278a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void TMPro.Examples.TeleType.Awake</definition>
+        <argsstring>()</argsstring>
+        <name>Awake</name>
+        <qualifiedname>TMPro.Examples.TeleType.Awake</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" line="22" column="14" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" bodystart="22" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_t_m_pro_1_1_examples_1_1_tele_type_1ab60c17eaa598b380cb7ea3d0346f35fd" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IEnumerator</type>
+        <definition>IEnumerator TMPro.Examples.TeleType.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>TMPro.Examples.TeleType.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" line="47" column="21" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" bodystart="47" bodyend="80"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.TeleType</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_tele_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>TMPro.Examples.TeleType</label>
+        <link refid="class_t_m_pro_1_1_examples_1_1_tele_type"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" line="8" column="11" bodyfile="UnityMapEditor/Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" bodystart="9" bodyend="82"/>
+    <listofallmembers>
+      <member refid="class_t_m_pro_1_1_examples_1_1_tele_type_1a2941c99e0e5b66827cab3c48df12278a" prot="private" virt="non-virtual"><scope>TMPro::Examples::TeleType</scope><name>Awake</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_tele_type_1a51dff8db56be78d4bc721ca16e185b8c" prot="private" virt="non-virtual"><scope>TMPro::Examples::TeleType</scope><name>label01</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_tele_type_1a33c3497dfd3bd9a94d59e8e6dc3a4d8d" prot="private" virt="non-virtual"><scope>TMPro::Examples::TeleType</scope><name>label02</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_tele_type_1aaa5fbd230494861742a944fe80f1226b" prot="private" virt="non-virtual"><scope>TMPro::Examples::TeleType</scope><name>m_textMeshPro</name></member>
+      <member refid="class_t_m_pro_1_1_examples_1_1_tele_type_1ab60c17eaa598b380cb7ea3d0346f35fd" prot="private" virt="non-virtual"><scope>TMPro::Examples::TeleType</scope><name>Start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_objects_extentions" kind="class" language="C#" prot="public">
+    <compoundname>OpenDriveXMLGenerator::XODRObjectsExtentions</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_objects_extentions_1ab35bb35f287dc07593ab60673ab8c9f0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_object" kindref="compound">XODRObject</ref></type>
+        <definition>static XODRObject OpenDriveXMLGenerator.XODRObjectsExtentions.AddObjectElement</definition>
+        <argsstring>(this XODRObjects parent, string zOffset, string s, string t, string hdg=&quot;1.57&quot;, string id=null, string length=&quot;6&quot;, string name=&quot;cross&quot;, string orientation=&quot;-&quot;, string pitch=&quot;0.0000000000000000e+0&quot;, string roll=&quot;0.0000000000000000e+0&quot;, string type=&quot;crosswalk&quot;, string width=&quot;10.0000000000000000e+0&quot;)</argsstring>
+        <name>AddObjectElement</name>
+        <qualifiedname>OpenDriveXMLGenerator.XODRObjectsExtentions.AddObjectElement</qualifiedname>
+        <param>
+          <type>this <ref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_objects" kindref="compound">XODRObjects</ref></type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>zOffset</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>hdg</declname>
+          <defval>&quot;1.57&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>id</declname>
+          <defval>null</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>length</declname>
+          <defval>&quot;6&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+          <defval>&quot;cross&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>orientation</declname>
+          <defval>&quot;-&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>pitch</declname>
+          <defval>&quot;0.0000000000000000e+0&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>roll</declname>
+          <defval>&quot;0.0000000000000000e+0&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>type</declname>
+          <defval>&quot;crosswalk&quot;</defval>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>width</declname>
+          <defval>&quot;10.0000000000000000e+0&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRObjects.cs" line="15" column="34" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRObjects.cs" bodystart="15" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRObjects.cs" line="11" column="19" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRObjects.cs" bodystart="12" bodyend="43"/>
+    <listofallmembers>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_objects_extentions_1ab35bb35f287dc07593ab60673ab8c9f0" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRObjectsExtentions</scope><name>AddObjectElement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

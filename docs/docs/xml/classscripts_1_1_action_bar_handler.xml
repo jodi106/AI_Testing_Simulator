@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="classscripts_1_1_action_bar_handler" kind="class" language="C#" prot="public">
+    <compoundname>scripts::ActionBarHandler</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1ae482eb06d109d65af77c455959e01039" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject scripts.ActionBarHandler.ActionBar</definition>
+        <argsstring></argsstring>
+        <name>ActionBar</name>
+        <qualifiedname>scripts.ActionBarHandler.ActionBar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="13" column="27" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1aafbf25342b7d0bb01e9e32b5949dbf7f" prot="public" static="no" mutable="no">
+        <type>Button</type>
+        <definition>Button scripts.ActionBarHandler.LeftRotate</definition>
+        <argsstring></argsstring>
+        <name>LeftRotate</name>
+        <qualifiedname>scripts.ActionBarHandler.LeftRotate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="14" column="23" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1a11cc11d88cbabce2d034077eedc332ab" prot="public" static="no" mutable="no">
+        <type>Button</type>
+        <definition>Button scripts.ActionBarHandler.RightRotate</definition>
+        <argsstring></argsstring>
+        <name>RightRotate</name>
+        <qualifiedname>scripts.ActionBarHandler.RightRotate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="15" column="23" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1a9e1c3bf82ecfa170824ae1f870679033" prot="public" static="no" mutable="no">
+        <type>Button</type>
+        <definition>Button scripts.ActionBarHandler.Lock</definition>
+        <argsstring></argsstring>
+        <name>Lock</name>
+        <qualifiedname>scripts.ActionBarHandler.Lock</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="16" column="23" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1a99a59982c43a090f2d16771d89197c34" prot="public" static="no" mutable="no">
+        <type>Button</type>
+        <definition>Button scripts.ActionBarHandler.Delete</definition>
+        <argsstring></argsstring>
+        <name>Delete</name>
+        <qualifiedname>scripts.ActionBarHandler.Delete</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="17" column="23" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1ae9b182d511b700c01e5b6703fcf81722" prot="public" static="no" mutable="no">
+        <type>Image</type>
+        <definition>Image scripts.ActionBarHandler.LockImage</definition>
+        <argsstring></argsstring>
+        <name>LockImage</name>
+        <qualifiedname>scripts.ActionBarHandler.LockImage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="19" column="22" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1add960cefa27c98540133f1d56c4cdee9" prot="public" static="no" mutable="no">
+        <type>TMP_Dropdown</type>
+        <definition>TMP_Dropdown scripts.ActionBarHandler.SignDropdown</definition>
+        <argsstring></argsstring>
+        <name>SignDropdown</name>
+        <qualifiedname>scripts.ActionBarHandler.SignDropdown</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="21" column="29" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classscripts_1_1_action_bar_handler_1a8d81e5edb44435476be8b6c942ef8a9a" prot="public" static="no" mutable="no">
+        <type>Toggle</type>
+        <definition>Toggle scripts.ActionBarHandler.TrafficLight</definition>
+        <argsstring></argsstring>
+        <name>TrafficLight</name>
+        <qualifiedname>scripts.ActionBarHandler.TrafficLight</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="22" column="23" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1ab9d847dd9b6f8028ab5be44a1f7fc277" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <qualifiedname>scripts.ActionBarHandler.Start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="25" column="14" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="25" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1a1ac8f4b847f64bd2ae367b2c178b93aa" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <qualifiedname>scripts.ActionBarHandler.Update</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="39" column="14" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="39" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1af79b49787993f2e073587d75c1964e22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.SetVisibilityOfActionBar</definition>
+        <argsstring>()</argsstring>
+        <name>SetVisibilityOfActionBar</name>
+        <qualifiedname>scripts.ActionBarHandler.SetVisibilityOfActionBar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="45" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="45" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1a565e8dd6cf541f6d9d888e77aacf15f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.SetPreselectedValues</definition>
+        <argsstring>()</argsstring>
+        <name>SetPreselectedValues</name>
+        <qualifiedname>scripts.ActionBarHandler.SetPreselectedValues</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="93" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="93" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1a90cb9249ba01dcbe18a52fd68e61c738" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.RotateLeft</definition>
+        <argsstring>()</argsstring>
+        <name>RotateLeft</name>
+        <qualifiedname>scripts.ActionBarHandler.RotateLeft</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="134" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1a5835dfc05e541e1184158be9faf5bede" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.RotateRight</definition>
+        <argsstring>()</argsstring>
+        <name>RotateRight</name>
+        <qualifiedname>scripts.ActionBarHandler.RotateRight</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="139" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1ab2aee8b2d40e826dcfb6a5cb6212be87" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.LockRoad</definition>
+        <argsstring>()</argsstring>
+        <name>LockRoad</name>
+        <qualifiedname>scripts.ActionBarHandler.LockRoad</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="144" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="144" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1aef354d783598f182e50e526250d1c727" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.DeleteRoad</definition>
+        <argsstring>()</argsstring>
+        <name>DeleteRoad</name>
+        <qualifiedname>scripts.ActionBarHandler.DeleteRoad</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="160" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1adcbbd2d31cc5e08021037b6dbc58731e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.SelectTrafficSign</definition>
+        <argsstring>(int value)</argsstring>
+        <name>SelectTrafficSign</name>
+        <qualifiedname>scripts.ActionBarHandler.SelectTrafficSign</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="165" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="165" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="classscripts_1_1_action_bar_handler_1aa4518a874526cde6ed4301951d692c8f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void scripts.ActionBarHandler.ToggleTrafficLight</definition>
+        <argsstring>(bool On)</argsstring>
+        <name>ToggleTrafficLight</name>
+        <qualifiedname>scripts.ActionBarHandler.ToggleTrafficLight</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>On</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="239" column="21" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="239" bodyend="270"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>scripts.ActionBarHandler</label>
+        <link refid="classscripts_1_1_action_bar_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>scripts.ActionBarHandler</label>
+        <link refid="classscripts_1_1_action_bar_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" line="11" column="11" bodyfile="UnityMapEditor/Assets/Scripts/ActionBarHandler.cs" bodystart="12" bodyend="271"/>
+    <listofallmembers>
+      <member refid="classscripts_1_1_action_bar_handler_1ae482eb06d109d65af77c455959e01039" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>ActionBar</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a99a59982c43a090f2d16771d89197c34" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>Delete</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1aef354d783598f182e50e526250d1c727" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>DeleteRoad</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1aafbf25342b7d0bb01e9e32b5949dbf7f" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>LeftRotate</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a9e1c3bf82ecfa170824ae1f870679033" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>Lock</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1ae9b182d511b700c01e5b6703fcf81722" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>LockImage</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1ab2aee8b2d40e826dcfb6a5cb6212be87" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>LockRoad</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a11cc11d88cbabce2d034077eedc332ab" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>RightRotate</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a90cb9249ba01dcbe18a52fd68e61c738" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>RotateLeft</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a5835dfc05e541e1184158be9faf5bede" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>RotateRight</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1adcbbd2d31cc5e08021037b6dbc58731e" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>SelectTrafficSign</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a565e8dd6cf541f6d9d888e77aacf15f9" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>SetPreselectedValues</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1af79b49787993f2e073587d75c1964e22" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>SetVisibilityOfActionBar</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1add960cefa27c98540133f1d56c4cdee9" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>SignDropdown</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1ab9d847dd9b6f8028ab5be44a1f7fc277" prot="private" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>Start</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1aa4518a874526cde6ed4301951d692c8f" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>ToggleTrafficLight</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a8d81e5edb44435476be8b6c942ef8a9a" prot="public" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>TrafficLight</name></member>
+      <member refid="classscripts_1_1_action_bar_handler_1a1ac8f4b847f64bd2ae367b2c178b93aa" prot="private" virt="non-virtual"><scope>scripts::ActionBarHandler</scope><name>Update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

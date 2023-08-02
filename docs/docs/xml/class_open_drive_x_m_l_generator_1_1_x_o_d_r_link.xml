@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link" kind="class" language="C#" prot="public">
+    <compoundname>OpenDriveXMLGenerator::XODRLink</compoundname>
+    <basecompoundref refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base" prot="public" virt="non-virtual">OpenDriveXMLGenerator.XODRBase</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link_1aebfc3a98b212b24b0af6b408e34cf052" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OpenDriveXMLGenerator.XODRLink.XODRLink</definition>
+        <argsstring>(XmlElement element)</argsstring>
+        <name>XODRLink</name>
+        <qualifiedname>OpenDriveXMLGenerator.XODRLink.XODRLink</qualifiedname>
+        <param>
+          <type>XmlElement</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLink.cs" line="7" column="16" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLink.cs" bodystart="7" bodyend="7"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>OpenDriveXMLGenerator.XODRLink</label>
+        <link refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XODRBase</label>
+        <link refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>OpenDriveXMLGenerator.XODRLink</label>
+        <link refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XODRBase</label>
+        <link refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base"/>
+      </node>
+    </collaborationgraph>
+    <location file="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLink.cs" line="5" column="11" bodyfile="UnityMapEditor/Assets/OpenDriveXMLGenerator/XODRLink.cs" bodystart="6" bodyend="8"/>
+    <listofallmembers>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base_1a44a50fc61b5e87a5c339497f7e5dec5c" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>AppendChild</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base_1a5ca2a6e047f68b34f1f1ea4ab7e7d890" prot="protected" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>element</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base_1adeec6f4b7a395c3c97e04d9ce0575ae7" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>OwnerDocument</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base_1a6d8aaffcb76c5e037d301c6cedb1eeb2" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>SetAttribute</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base_1a2d208ae0767f311f7bb2562f90057d45" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>XmlElement</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_base_1ab228e5e940b46f51dea30e147521fdac" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>XODRBase</name></member>
+      <member refid="class_open_drive_x_m_l_generator_1_1_x_o_d_r_link_1aebfc3a98b212b24b0af6b408e34cf052" prot="public" virt="non-virtual"><scope>OpenDriveXMLGenerator::XODRLink</scope><name>XODRLink</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

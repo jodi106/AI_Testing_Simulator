@@ -10,17 +10,16 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-sys.path.insert(0, os.path.abspath('.'))
-
+# import os
+# import sys
+# sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'Autonomous Driving Simulation Environment'
-copyright = '2023, Eva Beha, Andrada Demian, Dragos Hulea, Mircea Ilina, Yannick Laudenbach, David Szilagyi'
-author = 'Eva Beha, Andrada Demian, Dragos Hulea, Mircea Ilina, Yannick Laudenbach, David Szilagyi'
+copyright = '2023, test'
+author = 'test'
 
 
 # -- General configuration ---------------------------------------------------
@@ -29,15 +28,6 @@ author = 'Eva Beha, Andrada Demian, Dragos Hulea, Mircea Ilina, Yannick Laudenba
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.duration',
-    'sphinx.ext.doctest',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.extlinks',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
