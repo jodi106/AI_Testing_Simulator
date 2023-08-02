@@ -70,7 +70,7 @@ namespace OpenDriveXMLGenerator
         /// <returns>A XODRRoad object.</returns>
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0,
             bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5",
-            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, TrafficSign TrafficSign = TrafficSign.None)
+            SequenceInfo predecessorInfo = null, SequenceInfo successorInfo = null, TrafficSign trafficSign = TrafficSign.None)
         {
 
             var road = RootElement.AddRoadElement(
@@ -216,7 +216,7 @@ namespace OpenDriveXMLGenerator
 
             }
 
-            if (TrafficSign == TrafficSign.Stop)
+            if (trafficSign == TrafficSign.Stop)
             {
                 var signals = road.AddSignalsElement();
                 signals.AddSignalElement(
@@ -241,7 +241,7 @@ namespace OpenDriveXMLGenerator
 
                 signalId++;
             }
-            else if (TrafficSign == TrafficSign.Limit30)
+            else if (trafficSign == TrafficSign.Limit30)
             {
                 var objects = road.AddObjectsElement();
                 objects.AddObjectElement(
@@ -260,7 +260,7 @@ namespace OpenDriveXMLGenerator
 
                 signalId++;
             }
-            else if (TrafficSign == TrafficSign.Limit60)
+            else if (trafficSign == TrafficSign.Limit60)
             {
                 var objects = road.AddObjectsElement();
                 objects.AddObjectElement(
@@ -279,7 +279,7 @@ namespace OpenDriveXMLGenerator
 
                 signalId++;
             }
-            else if (TrafficSign == TrafficSign.Limit90)
+            else if (trafficSign == TrafficSign.Limit90)
             {
                 var objects = road.AddObjectsElement();
                 objects.AddObjectElement(
@@ -298,7 +298,7 @@ namespace OpenDriveXMLGenerator
 
                 signalId++;
             }
-            else if (TrafficSign == TrafficSign.Yield)
+            else if (trafficSign == TrafficSign.Yield)
             {
                 var signals = road.AddSignalsElement();
                 signals.AddSignalElement(

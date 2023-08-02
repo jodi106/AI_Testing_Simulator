@@ -40,7 +40,7 @@ namespace scripts
                 {
                     case RoadType.StraightRoad:
                         builder.AddStraightRoad(startX: startingPosition.x , startY: startingPosition.y,
-                                                hdg: heading, length: length);
+                                                hdg: heading, length: length, trafficSign: piece.TrafficSign);
                         break;
                     case RoadType.Crosswalk:
                         builder.AddStraightRoad(startingPosition.x, startingPosition.y, heading, length, crossing: true);
@@ -52,10 +52,10 @@ namespace scripts
                         builder.Add15DegreeTurn(startingPosition.x, startingPosition.y, heading);
                         break;
                     case RoadType.ThreeWayIntersection:
-                        builder.Add3wayIntersection(startingPosition.x, startingPosition.y, heading);
+                        builder.Add3wayIntersection(startingPosition.x, startingPosition.y, heading, traffic_light: piece.TrafficSign == TrafficSign.TrafficLight);
                         break;
                     case RoadType.FourWayIntersection:
-                        builder.Add4wayIntersection(startingPosition.x, startingPosition.y, heading);
+                        builder.Add4wayIntersection(startingPosition.x, startingPosition.y, heading, traffic_light: piece.TrafficSign == TrafficSign.TrafficLight);
                         break;
                     case RoadType.ParkingBottom:
                         builder.AddParking(false, true, startingPosition.x, startingPosition.y, heading);
