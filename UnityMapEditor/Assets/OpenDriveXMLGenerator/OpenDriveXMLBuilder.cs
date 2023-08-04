@@ -1643,7 +1643,7 @@ namespace OpenDriveXMLGenerator
             }
 
             laneRight.AddWidthElement(a: "3.5000000000000000e+00", b: "0.0000000000000000e+00", c: "2.4842518299085264e-02", d: "-2.1313586653776513e-03");
-            var laneRight2 = right.AddLaneElement(id: "-2", type: "driving", level: "false");
+            var laneRight2 = right.AddLaneElement(id: "-2", type: "sidewalk", level: "false");
             laneRight2.AddLinkElement();
             laneRight2.AddWidthElement(a: "1.5");
 
@@ -1770,7 +1770,7 @@ namespace OpenDriveXMLGenerator
             }
 
             laneLeft.AddWidthElement(a: "3.500000000000000e+00", b: "0.0000000000000000e+00", c: "2.4842518299085271e-02", d: "-2.1313586653776521e-03");
-            var laneLeft2 = left.AddLaneElement(id: "2", type: "driving", level: "false");
+            var laneLeft2 = left.AddLaneElement(id: "2", type: "sidewalk", level: "false");
             laneLeft2.AddLinkElement();
             laneLeft2.AddWidthElement(a: "1.5");
 
