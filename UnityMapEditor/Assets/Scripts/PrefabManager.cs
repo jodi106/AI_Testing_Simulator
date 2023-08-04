@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace scripts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PrefabManager : MonoBehaviour
     {
         private static PrefabManager instance;
@@ -32,17 +35,28 @@ namespace scripts
         public RoadPiece None;
 
         // Start is called before the first frame update
+        /// <summary>
+        /// 
+        /// </summary>
         void Start()
         {
             instance = this;
         }
 
         // Update is called once per frame
+        /// <summary>
+        /// 
+        /// </summary>
         void Update()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roadType"> </param>
+        /// <returns> </returns>
         public RoadPiece GetPieceOfType(RoadType roadType)
         {
             switch (roadType)

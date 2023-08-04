@@ -11,6 +11,9 @@ namespace scripts
     * This class is the heart of the program. It contains all roads created, selected RoadPieces and operations for rotating and snapping. 
     * It manages all RoadPieces and their interactions with other pieces and the Unity Editor. 
     */
+    /// <summary>
+    /// 
+    /// </summary>
     public class RoadManager : MonoBehaviour
     {
 
@@ -68,6 +71,9 @@ namespace scripts
         * The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
         * This method initialize an instance for other classes to gain access to its properties and methods
         */
+        /// <summary>
+        /// 
+        /// </summary>
         private void Awake()
         {
             instance = this;
@@ -77,6 +83,9 @@ namespace scripts
         * The Update method is a "Monobehavior" method from Unity, which is automaticlly called every frame. 
         * This method is used to check for user input from mouse or keyboard. 
         */
+        /// <summary>
+        /// 
+        /// </summary>
         void Update()
         {
             if (!ScrollViewOpener.IsUserGuideOpen())
@@ -216,6 +225,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RotateClockwise()
         {
             // this condition checks, whether the selected road is snapped and no group has been selected
@@ -294,6 +306,10 @@ namespace scripts
                 RotateRoadPiece(-ROTATING_ANGLE, true);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void RotateCounterClockwise()
         {
             if (IsSnapped && SelectedRoads == null)
@@ -345,6 +361,10 @@ namespace scripts
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void ControlSelectRoadPiece()
         {
             RoadPiece road = GetMouseObject()?.GetComponent<RoadPiece>();
@@ -381,6 +401,10 @@ namespace scripts
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeselectGroup()
         {
             if (SelectedRoads != null)
@@ -392,6 +416,12 @@ namespace scripts
             }
             SelectedRoads = null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clickedRoad"> </param>
+        /// <returns> </returns>
         public List<RoadPiece> SelectGroupOfRoads(RoadPiece clickedRoad)
         {
             List<RoadPiece> connectedRoadPieces = new List<RoadPiece>();
@@ -407,6 +437,12 @@ namespace scripts
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roads"> </param>
+        /// <param name="roadToCheck"> </param>
+        /// <returns> </returns>
         public void AddRoadToGroup(List<RoadPiece> roads, RoadPiece roadToCheck)
         {
             if (!roads.Contains(roadToCheck) && !CtrlDeselectedRoads.Contains(roadToCheck))
@@ -423,6 +459,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void CheckStretchPosition()
         {
             GameObject obj = GetMouseObject();
@@ -469,6 +508,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void CreateCustomStraightRoad()
         {
             if (StretchingAnchor.GetStretchingStraights().Count > 0)
@@ -516,6 +558,9 @@ namespace scripts
             StretchingAnchor = null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void StretchRoad()
         {
             IsStretching = true;
@@ -577,6 +622,10 @@ namespace scripts
         /*
          * This method will add every created road piece to the list of roads. This way, snapping can be implemented because the positions of roads can be determined. 
          */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
         public void AddRoadToList(RoadPiece road)
         {
             RoadList.Add(road);
@@ -585,13 +634,21 @@ namespace scripts
         /*
          * Removes a road from the Roads List
          */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
         public void RemoveRoadFromList(RoadPiece road)
         {
             RoadList.Remove(road);
         }
+
         /* 
          * This method creates a new road piece. It gets the selected road type from the sidebar and creates the corresponding prefab on the screen. 
          */
+        /// <summary>
+        /// 
+        /// </summary>
         public void CreateRoad()
         {
             // Creates the new roadpiece
@@ -609,6 +666,10 @@ namespace scripts
         /*
          * This method deletes the selected road
          */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
         public void DeleteRoad(RoadPiece road)
         {
 
@@ -632,6 +693,9 @@ namespace scripts
         /*
          * This method drags a road across the screen. When the user drags a piece, it will follow the cursor of the mouse. This is only the case, if the road piece is not locked
          */
+        /// <summary>
+        /// 
+        /// </summary>
         private void DragAndDropRoad()
         {
             if (!IsStretching)
@@ -672,6 +736,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void DragAndDropRoads()
         {
             if (IsDragging == false)
@@ -768,7 +835,6 @@ namespace scripts
             }
         }
 
-
         public (List<RoadPiece> snappingNeighbors, List<RoadPiece> referenceNeighbors) GetNearestNeighborsInArea(List<RoadPiece> roadList)
         {
             List<RoadPiece> snappingNeighbors = new List<RoadPiece>();
@@ -825,6 +891,12 @@ namespace scripts
             return (selectedRoadVA, nearestNeighborVA);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="neighbor"> </param>
+        /// <param name="selected"> </param>
+        /// <returns> </returns>
         public float CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
         {
             if (Mathf.Abs(neighbor.Orientation - selected.Orientation) == 180)
@@ -850,6 +922,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Snap()
         {
             var nearestNeighbors = GetNearestNeighborsInArea(RoadList);
@@ -877,6 +952,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SnapGroup()
         {
             List<RoadPiece> viableNeighbors = new List<RoadPiece>();
@@ -922,6 +1000,10 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rotationForGroup"> </param>
         public void AlignGroupPiecesToEachOther(float rotationForGroup)
         {
             List<RoadPiece> snappedRoads = new List<RoadPiece>();
@@ -946,6 +1028,10 @@ namespace scripts
         /*
          * This sets the selected road and will change the color of the piece accordingly. Also, it checks the current Road Position. 
          */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
         public void SelectRoad(RoadPiece road)
         {
             if (SelectedRoad == null)
@@ -961,6 +1047,9 @@ namespace scripts
         /*
          * This deselect any road currently selected and changes the color accordingly. 
          */
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeselectRoad()
         {
             if (SelectedRoad != null)
@@ -975,6 +1064,11 @@ namespace scripts
         /*
          * This rotates the selected roadpiece by a given rotation. Only if the piece is not locked
          */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rotation"> </param>
+        /// <param name="manualRotation"> </param>
         public void RotateRoadPiece(float rotation, bool manualRotation)
         {
             if (SelectedRoad != null && !SelectedRoad.IsLocked)
@@ -993,6 +1087,11 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
+        /// <param name="rotation"> </param>
         public void RotateRoadPiece(RoadPiece road, float rotation)
         {
             if (road != null)
@@ -1010,6 +1109,11 @@ namespace scripts
         /*
          * Connects by Reference all AnchorPoints of a Piece placed between multiple Pieces
          */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="neighborRoads"> </param>
+        /// <param name="road"> </param>
         public void GetNeighborsReference(List<RoadPiece> neighborRoads, RoadPiece road)
         {
             bool stop = false;
@@ -1039,6 +1143,9 @@ namespace scripts
         /*
          * This will get the clicked object on the screen. Currently only works for GameObjects. 
          */
+        /// <summary>
+        /// 
+        /// </summary>
         private GameObject GetMouseObject()
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -1055,6 +1162,9 @@ namespace scripts
         /*
          * This translates px into world position, so the user can only click inside the camera frame
          */
+        /// <summary>
+        /// 
+        /// </summary>
         private Vector3 GetWorldPositionFromMouse()
         {
             Vector3 mouseScreenPosition = Input.mousePosition;
@@ -1067,6 +1177,9 @@ namespace scripts
         /*
          * This method validates the road position. Currently always true, as not implemented yet. 
          */
+        /// <summary>
+        /// 
+        /// </summary>
         private void ValidateRoadPosition()
         {
             InValidPosition = true;
@@ -1147,6 +1260,11 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
+        /// <param name="locked"> </param>
         public void LockRoad(RoadPiece road, bool locked)
         {
             road.IsLocked = locked;

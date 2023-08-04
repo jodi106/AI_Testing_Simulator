@@ -7,6 +7,10 @@ namespace scripts
     * This class is the VirtualAnchor class. A VirtualAnchor (or also AnchorPoint) is a point on a RoadPiece where other RoadPieces can connect to. 
     * It is used as a virtual anchor to create a reference to other RoadPieces and to align RoadPieces to each other. 
     */
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class VirtualAnchor
     {
         // The Offset describes the position of the AnchorPoint relative to the center of the RoadPiece it belongs to as a 3D-Vector. 
@@ -28,6 +32,11 @@ namespace scripts
         * This method is the constructor. It receives the parent RoadPiece for future backwards reference and the orientation of the AnchorPoint
         * Also, this method automatically calculates the offset of the AnchorPoint based on its orientation and the size of the parent RoadPiece. 
         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roadPiece"> </param>
+        /// <param name="orientation"> </param>
         public VirtualAnchor(RoadPiece roadPiece, float orientation)
         {
             this.RoadPiece = roadPiece;
@@ -53,6 +62,10 @@ namespace scripts
         * For example: If a RoadPiece has a rotation of 0°, then the offset is (1,0,0). But when we rotate the roadpiece by 90°, then the Offset is not (1,0,0) anymore
         * but changes to (0,1,0).  
         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angleOfRotation"> </param>
         public void Update(float angleOfRotation)
         {
             //This will check whether a piece will have an orientation higher than 360°, and uses modulo to keep the range of orientation from 0°-360°
@@ -70,6 +83,10 @@ namespace scripts
         /*
         * This method connects a VirtualAnchor to another VirtualAnchor. It automatically creates a 2-Way-Reference as well. 
         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="va"> </param>
         public void ConnectAnchorPoint(VirtualAnchor va)
         {
             ConnectedAnchorPoint = va;
@@ -80,6 +97,9 @@ namespace scripts
         * This method disconnects the reference to another AnchorPoints, in case there is a connection. It automatically removes the reference of itself to the other
         * AnchorPoint aswell. 
         */
+        /// <summary>
+        /// 
+        /// </summary>
         public void RemoveConntectedAnchorPoint()
         {
             if (ConnectedAnchorPoint != null)
@@ -92,6 +112,10 @@ namespace scripts
         /*
         * TO BE MOVED TO ROADMANAGER
         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns> </returns>
         public List<GameObject> GetStretchingStraights()
         {
             return ChildStraightPieces;
@@ -100,6 +124,10 @@ namespace scripts
         /*
         * TO BE MOVED TO ROADMANAGER
         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="road"> </param>
         public void AddStretchingStraight(GameObject road)
         {
             ChildStraightPieces.Add(road);
@@ -108,6 +136,9 @@ namespace scripts
         /*
         * TO BE MOVED TO ROADMANAGER
         */
+        /// <summary>
+        /// 
+        /// </summary>
         public void RemoveLastStretchingStraight()
         {
             ChildStraightPieces.RemoveAt(ChildStraightPieces.Count - 1);

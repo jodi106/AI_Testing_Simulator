@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace scripts
 {
-    /*
-    * This class is the RoadPiece Class. It contains the necessary properties for RoadPieces. 
-    * A RoadPiece is a GameObject from Unity, which has the RoadPiece properties 
-    */
+    /// <summary>
+    /// This class is the RoadPiece Class. It contains the necessary properties for RoadPieces. 
+    /// A RoadPiece is a GameObject from Unity, which has the RoadPiece properties
+    /// </summary>
     public class RoadPiece : MonoBehaviour
     {
 
@@ -54,30 +54,29 @@ namespace scripts
         */
         public TrafficSign TrafficSign = TrafficSign.None;
 
-        /* 
-        * The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
-        * This method will call "PopulateVirtualAnchorPoints"
-        */
+        /// <summary>
+        /// The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
+        /// This method will call "PopulateVirtualAnchorPoints"
+        /// </summary>
         void Awake()
         {
             PopulateVirtualAnchorPoints();
         }
 
-
-        /* 
-        * The Start method is a "MonoBehavior" method from Unity, which is automatically called before the first frame update
-        *   This method will increase the count of RoadPieces and add the Road to a List of all Roads in the RoadManager
-        */
+        /// <summary>
+        /// The Start method is a "MonoBehavior" method from Unity, which is automatically called before the first frame update
+        /// This method will increase the count of RoadPieces and add the Road to a List of all Roads in the RoadManager
+        /// </summary>
         void Start()
         {
             Id = IdCounter++;
             RoadManager.Instance.RoadList.Add(this);
         }
 
-        /*
-        *   This method initializes the AnchorPoints for a RoadPiece based on its RoadType. For example, a Straight will have 2 AP and an Intersection can have 3 or 4 AP. 
-        *   Also, each Anchor Points will receive an orientation based on its location of the RoadPiece
-        */
+        /// <summary>
+        /// This method initializes the AnchorPoints for a RoadPiece based on its RoadType. For example, a Straight will have 2 AP and an Intersection can have 3 or 4 AP. 
+        /// Also, each Anchor Points will receive an orientation based on its location of the RoadPiece.
+        /// </summary>
         public void PopulateVirtualAnchorPoints()
         {
             AnchorPoints = new List<VirtualAnchor>();

@@ -8,17 +8,28 @@ using Assets.Enums;
 
 namespace scripts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ExportButtonHandler : MonoBehaviour
     {
 
         public Button ExportButton;
+
+
         // Start is called before the first frame update
+        /// <summary>
+        /// 
+        /// </summary>
         void Start()
         {
             ExportButton.onClick.AddListener(InitiateExport);
         }
 
         // Update is called once per frame
+        /// <summary>
+        /// 
+        /// </summary>
         void Update()
         {
 

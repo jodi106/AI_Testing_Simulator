@@ -8,6 +8,9 @@ using System.Diagnostics;
 
 namespace scripts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ActionBarHandler : MonoBehaviour
     {
         public GameObject ActionBar;
@@ -22,6 +25,9 @@ namespace scripts
         public Toggle TrafficLight;
 
         // Start is called before the first frame update
+        /// <summary>
+        /// 
+        /// </summary>
         void Start()
         {
             LeftRotate.onClick.AddListener(RotateLeft);
@@ -36,11 +42,15 @@ namespace scripts
 
 
         // Update is called once per frame
+        /// <summary>
+        /// 
+        /// </summary>
         void Update()
         {
             SetVisibilityOfActionBar();
             SetPreselectedValues();
         }
+
 
         public void SetVisibilityOfActionBar()
         {
@@ -90,6 +100,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SetPreselectedValues()
         {
             if (RoadManager.Instance.SelectedRoad != null)
@@ -131,16 +144,25 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// test
+        /// </summary>
         public void RotateLeft()
         {
             RoadManager.Instance.RotateCounterClockwise();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RotateRight()
         {
             RoadManager.Instance.RotateClockwise();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void LockRoad()
         {
             bool locked = !RoadManager.Instance.SelectedRoad.IsLocked;
@@ -157,11 +179,18 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeleteRoad()
         {
             RoadManager.Instance.DeleteRoad(RoadManager.Instance.SelectedRoad);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"> </param>
         public void SelectTrafficSign(int value)
         {
             if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.StraightRoad)
@@ -236,6 +265,10 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="On"> </param>
         public void ToggleTrafficLight(bool On)
         {
             if (On)
