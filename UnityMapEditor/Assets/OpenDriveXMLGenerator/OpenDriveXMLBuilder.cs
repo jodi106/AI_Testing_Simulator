@@ -1402,7 +1402,7 @@ namespace OpenDriveXMLGenerator
                     LeftLaneIds = null,
                     RightLaneIds = new List<int> { -1 }
                 });
-            var connectionRoad2 = this.AddLeftStraight(junction, startX5, startY5, hdg, true,
+            var connectionRoad2 = this.AddLeftStraight(junction, startX5, startY5, hdg, false,
                 new SequenceInfo
                 {
                     IsJunction = false,
