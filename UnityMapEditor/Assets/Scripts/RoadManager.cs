@@ -79,154 +79,150 @@ namespace scripts
             instance = this;
         }
 
-        /*
-        * The Update method is a "Monobehavior" method from Unity, which is automaticlly called every frame. 
-        * This method is used to check for user input from mouse or keyboard. 
-        */
         /// <summary>
-        /// 
+        /// The Update method is a "Monobehavior" method from Unity, which is automaticlly called every frame. 
+        ///  This method will constantly check the user inputs from mouse and keyboard to check whether the user is interacting with a Road Piece
         /// </summary>
         void Update()
         {
             if (!ScrollViewOpener.IsUserGuideOpen())
             {
-                          // This condition checks, whether the user has selected a road to then check the stretching position
-            if (SelectedRoad != null)
-            {
-                CheckStretchPosition();
-            }
-
-            // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
-            if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift))
-            {
-                // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
-                if (!Input.GetKeyDown(KeyCode.LeftShift))
+                // This condition checks, whether the user has selected a road to then check the stretching position
+                if (SelectedRoad != null)
                 {
-                    // This conditions checks, whether the user is NOT dragging, is in the Stretching Area and there is no group selection
-                    if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
+                    CheckStretchPosition();
+                }
+
+                // This condition checks, whether the User has pressed the Left Mouse Button (Also holding it) and has not pressed the Left Control Button 
+                if (Input.GetMouseButton(0) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift))
+                {
+                    // This condition checks, whether the user has pressed Left Shift (while pressing the LMB from the previous condition)
+                    if (!Input.GetKeyDown(KeyCode.LeftShift))
                     {
-                        // If that is the case, dragging the mouse will stretch the road
-                        StretchRoad();
-                        // Debug.Log("l");
+                        // This conditions checks, whether the user is NOT dragging, is in the Stretching Area and there is no group selection
+                        if (!IsDragging && IsInStretchingArea && SelectedRoads == null)
+                        {
+                            // If that is the case, dragging the mouse will stretch the road
+                            StretchRoad();
+                            // Debug.Log("l");
+                        }
+                        // Else, it will check whether a group is selected
+                        else if (SelectedRoads != null)
+                        {
+                            // if that is the case, dragging the mouse will move a group of roads
+                            DragAndDropRoads();
+                        }
+                        // Else
+                        else
+                        {
+                            // Dragging the mouse will move the selected road. 
+                            DragAndDropRoad();
+                        }
                     }
-                    // Else, it will check whether a group is selected
-                    else if (SelectedRoads != null)
+                }
+                if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftShift))
+                {
+                    // If that is the case, then the clicked road will be retrieved. 
+                    RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
+                    // This condition checks, whether the user has actually clicked a RoadPiece 
+                    if (clickedRoad != null)
                     {
-                        // if that is the case, dragging the mouse will move a group of roads
-                        DragAndDropRoads();
+                        // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
+                        // and the group of roads is selected
+                        DeselectRoad();
+                        DeselectGroup();
+                        SelectRoad(clickedRoad);
+                        SelectGroupOfRoads(clickedRoad);
                     }
-                    // Else
+                }
+
+
+                // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
+                if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
+                {
+                    // If that is the case, then the selected RoadPiece is deselected from the group
+                    if (SelectedRoads != null)
+                    {
+                        ControlSelectRoadPiece();
+                    }
+                }
+
+                // This condition checks, whether the user released the mouse click
+                if (Input.GetMouseButtonUp(0))
+                {
+                    // If that is the case, the dragging stops, the stretching stops, the stretching distance is reset and the position of a roadPiec
+                    // is validated
+                    IsDragging = false;
+
+                    //This conditions checks, whether the user has been stretching a road
+                    if (IsStretching)
+                    {
+                        // if that is the case, then a new custom road is created
+                        CreateCustomStraightRoad();
+                        Snap();
+                    }
+                    IsStretching = false;
+                    StretchingDistance = 3.78f * 5;
+                }
+
+                // These conditions checks, whether the user presses the "E" Key
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    RotateClockwise();
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    RotateCounterClockwise();
+                }
+
+                // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
+                if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
+                {
+                    if (SelectedRoads == null)
+                    {
+                        LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
+                    }
                     else
                     {
-                        // Dragging the mouse will move the selected road. 
-                        DragAndDropRoad();
+                        bool locked = !SelectedRoad.IsLocked;
+                        foreach (RoadPiece road in SelectedRoads)
+                        {
+                            LockRoad(road, locked);
+
+                        }
+                        ColorRoadPiece(SelectedRoad, SelectionColor.selected);
                     }
                 }
-            }
-            if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftShift))
-            {
-                // If that is the case, then the clicked road will be retrieved. 
-                RoadPiece clickedRoad = GetMouseObject()?.GetComponent<RoadPiece>();
-                // This condition checks, whether the user has actually clicked a RoadPiece 
-                if (clickedRoad != null)
+
+                if (Input.GetKeyDown(KeyCode.Delete))
                 {
-                    // If that is the case, then all currently selected things are deselected, the selected road is the new SelectedRoad
-                    // and the group of roads is selected
+                    if (SelectedRoads == null)
+                    {
+                        DeleteRoad(this.SelectedRoad);
+                    }
+                    else
+                    {
+                        foreach (RoadPiece road in SelectedRoads)
+                        {
+                            DeleteRoad(road);
+                        }
+                        SelectedRoads = null;
+                    }
+                }
+
+                // This condition checks, whether the user wants to deselect the road he has clicked. 
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
                     DeselectRoad();
                     DeselectGroup();
-                    SelectRoad(clickedRoad);
-                    SelectGroupOfRoads(clickedRoad);
                 }
-            }
-
-
-            // This condition checks, whether the user has clicked the Left Mouse Button (no holding) and has simultaneaously pressed the Left CTRL button
-            if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftControl))
-            {
-                // If that is the case, then the selected RoadPiece is deselected from the group
-                if (SelectedRoads != null)
-                {
-                    ControlSelectRoadPiece();
-                }
-            }
-
-            // This condition checks, whether the user released the mouse click
-            if (Input.GetMouseButtonUp(0))
-            {
-                // If that is the case, the dragging stops, the stretching stops, the stretching distance is reset and the position of a roadPiec
-                // is validated
-                IsDragging = false;
-
-                //This conditions checks, whether the user has been stretching a road
-                if (IsStretching)
-                {
-                    // if that is the case, then a new custom road is created
-                    CreateCustomStraightRoad();
-                    Snap();
-                }
-                IsStretching = false;
-                StretchingDistance = 3.78f * 5;
-                ValidateRoadPosition();
-            }
-
-            // These conditions checks, whether the user presses the "E" Key
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                RotateClockwise();
-            }
-
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                RotateCounterClockwise();
-            }
-
-            // This condition checks, whether the user wants to lock a road piece. This can only be applied, when a road is selected. 
-            if (Input.GetKeyDown(KeyCode.L) && SelectedRoad != null)
-            {
-                if (SelectedRoads == null)
-                {
-                    LockRoad(SelectedRoad, !SelectedRoad.IsLocked);
-                }
-                else
-                {
-                    bool locked = !SelectedRoad.IsLocked;
-                    foreach (RoadPiece road in SelectedRoads)
-                    {
-                        LockRoad(road, locked);
-
-                    }
-                    ColorRoadPiece(SelectedRoad, SelectionColor.selected);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Delete))
-            {
-                if (SelectedRoads == null)
-                {
-                    DeleteRoad(this.SelectedRoad);
-                }
-                else
-                {
-                    foreach (RoadPiece road in SelectedRoads)
-                    {
-                        DeleteRoad(road);
-                    }
-                    SelectedRoads = null;
-                }
-            }
-
-            // This condition checks, whether the user wants to deselect the road he has clicked. 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                DeselectRoad();
-                DeselectGroup();
-            }
             }
         }
 
         /// <summary>
-        /// 
+        /// This method will rotate the selected road or the selected group clockwise. Either by 15° or to the next available anchor point
         /// </summary>
         public void RotateClockwise()
         {
@@ -308,7 +304,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        ///  This method will rotate the selected road or the selected group counter-clockwise. Either by 15° or to the next available anchor point
         /// </summary>
         public void RotateCounterClockwise()
         {
@@ -363,7 +359,7 @@ namespace scripts
 
 
         /// <summary>
-        /// 
+        /// This method will either add or remove a road piece from a group, when the user CTRL + clicked a road piece
         /// </summary>
         public void ControlSelectRoadPiece()
         {
@@ -403,7 +399,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will deselect the selected group, if there has been a group selected
         /// </summary>
         public void DeselectGroup()
         {
@@ -418,9 +414,9 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will select all roads with are connected to the selected group and group them
         /// </summary>
-        /// <param name="clickedRoad"> </param>
+        /// <param name="clickedRoad"> clicked Road is the road that has been selcted for grouping from </param>
         /// <returns> </returns>
         public List<RoadPiece> SelectGroupOfRoads(RoadPiece clickedRoad)
         {
@@ -438,10 +434,10 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will add a road to the group if the road has not been added yet. Also, it will add all roads that are connected to it
         /// </summary>
-        /// <param name="roads"> </param>
-        /// <param name="roadToCheck"> </param>
+        /// <param name="roads"> the list of roads in which the roads of the group are saved. </param>
+        /// <param name="roadToCheck"> The road piece that is supposed to be added </param>
         /// <returns> </returns>
         public void AddRoadToGroup(List<RoadPiece> roads, RoadPiece roadToCheck)
         {
@@ -460,7 +456,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method checks, whether the mouse of the user is hovering over an anchor point of a piece which indicated, that the user wants to stretch the road piece
         /// </summary>
         public void CheckStretchPosition()
         {
@@ -509,7 +505,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will create a straight road from the stretched roads that have been added to a road piece after stretching it. 
         /// </summary>
         public void CreateCustomStraightRoad()
         {
@@ -559,7 +555,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will visually add straight roads, as the user stretches a road piece
         /// </summary>
         public void StretchRoad()
         {
@@ -619,35 +615,27 @@ namespace scripts
 
         }
 
-        /*
-         * This method will add every created road piece to the list of roads. This way, snapping can be implemented because the positions of roads can be determined. 
-         */
         /// <summary>
-        /// 
+        /// This method will add a new road to the list of roads. This list contains all roads existing. 
         /// </summary>
-        /// <param name="road"> </param>
+        /// <param name="road"> The road to be added to the list </param>
         public void AddRoadToList(RoadPiece road)
         {
             RoadList.Add(road);
         }
 
-        /*
-         * Removes a road from the Roads List
-         */
         /// <summary>
-        /// 
+        /// Removes a road from the Roads List
         /// </summary>
-        /// <param name="road"> </param>
+        /// <param name="road"> The road to be removed from the list </param>
         public void RemoveRoadFromList(RoadPiece road)
         {
             RoadList.Remove(road);
         }
 
-        /* 
-         * This method creates a new road piece. It gets the selected road type from the sidebar and creates the corresponding prefab on the screen. 
-         */
+
         /// <summary>
-        /// 
+        /// This method will create a new road piece when the user selects a road piece from the piece menu. It will automatically assign it its road type.
         /// </summary>
         public void CreateRoad()
         {
@@ -663,13 +651,10 @@ namespace scripts
             UnityEngine.Debug.Log(newRoadPiece.RoadType);
         }
 
-        /*
-         * This method deletes the selected road
-         */
         /// <summary>
-        /// 
+        /// This method will delete the road that has been given as a parameter
         /// </summary>
-        /// <param name="road"> </param>
+        /// <param name="road"> The road to be deleted</param>
         public void DeleteRoad(RoadPiece road)
         {
 
@@ -694,7 +679,7 @@ namespace scripts
          * This method drags a road across the screen. When the user drags a piece, it will follow the cursor of the mouse. This is only the case, if the road piece is not locked
          */
         /// <summary>
-        /// 
+        /// This method will check, whether the user has selected a road piece and will move the road piece with the position of the mouse to imitate a drag functionality. 
         /// </summary>
         private void DragAndDropRoad()
         {
@@ -728,7 +713,6 @@ namespace scripts
                             {
                                 Snap();
                             }
-                            ValidateRoadPosition();
                         }
 
                     }
@@ -737,7 +721,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will check, whether the user has selected a group and will move the entire group with the position of the mouse to imitate a drag functionality. 
         /// </summary>
         private void DragAndDropRoads()
         {
@@ -834,7 +818,7 @@ namespace scripts
                 }
             }
         }
-
+        //Eva
         public (List<RoadPiece> snappingNeighbors, List<RoadPiece> referenceNeighbors) GetNearestNeighborsInArea(List<RoadPiece> roadList)
         {
             List<RoadPiece> snappingNeighbors = new List<RoadPiece>();
@@ -858,7 +842,7 @@ namespace scripts
             }
             return (snappingNeighbors, referenceNeighbors);
         }
-
+        // Eva
         public (VirtualAnchor selectedRoadVA, VirtualAnchor nearestNeighborVA) GetNearestAnchorPoints(List<RoadPiece> nearestNeighbors)
         {
             float nearestDistance = -1;
@@ -892,11 +876,11 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This mehtod compares the orientation of two road pieces to match the rotation when they are being snapped to each other
         /// </summary>
-        /// <param name="neighbor"> </param>
-        /// <param name="selected"> </param>
-        /// <returns> </returns>
+        /// <param name="neighbor"> The road that is being snapped to </param>
+        /// <param name="selected"> The road that should be snapped </param>
+        /// <returns> returns the difference in orientation (rotation) </returns>
         public float CompareAnchorPointOrientation(VirtualAnchor neighbor, VirtualAnchor selected)
         {
             if (Mathf.Abs(neighbor.Orientation - selected.Orientation) == 180)
@@ -923,7 +907,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will snap two road pieces that are close to each other together and will match their orientation
         /// </summary>
         public void Snap()
         {
@@ -953,7 +937,7 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will snap a group to another road piece. The snapping will originate from the selected road of the group
         /// </summary>
         public void SnapGroup()
         {
@@ -1001,9 +985,9 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will align the group pieces to each other, so that when the selected road of a group is snapped or rotated, the connected road pieces are aligned and repositioned. 
         /// </summary>
-        /// <param name="rotationForGroup"> </param>
+        /// <param name="rotationForGroup"> This is the rotation by which the rest of the group has to be rotated to match the selected roads rotation </param>
         public void AlignGroupPiecesToEachOther(float rotationForGroup)
         {
             List<RoadPiece> snappedRoads = new List<RoadPiece>();
@@ -1025,30 +1009,21 @@ namespace scripts
             }
         }
 
-        /*
-         * This sets the selected road and will change the color of the piece accordingly. Also, it checks the current Road Position. 
-         */
         /// <summary>
-        /// 
+        /// This sets the selected road and will change the color of the piece accordingly.
         /// </summary>
-        /// <param name="road"> </param>
+        /// <param name="road"> The road to be selected </param>
         public void SelectRoad(RoadPiece road)
         {
             if (SelectedRoad == null)
             {
                 SelectedRoad = road;
-                //SelectedRoads = new List<RoadPiece>();
-                //SelectedRoads.Add(SelectedRoad);
-                ValidateRoadPosition();
                 ColorRoadPiece(SelectedRoad, SelectionColor.selected);
             }
         }
 
-        /*
-         * This deselect any road currently selected and changes the color accordingly. 
-         */
         /// <summary>
-        /// 
+        ///  This deselects the currently selected road and changes the color accordingly. 
         /// </summary>
         public void DeselectRoad()
         {
@@ -1065,10 +1040,10 @@ namespace scripts
          * This rotates the selected roadpiece by a given rotation. Only if the piece is not locked
          */
         /// <summary>
-        /// 
+        /// This will rotate the selected roadpiece or group by the specified rotation
         /// </summary>
-        /// <param name="rotation"> </param>
-        /// <param name="manualRotation"> </param>
+        /// <param name="rotation"> Rotation by which the selected road piece or group should be rotated </param>
+        /// <param name="manualRotation"> This boolean defines, if the rotation is prompted by the user or not (e.g., by snapping) </param>
         public void RotateRoadPiece(float rotation, bool manualRotation)
         {
             if (SelectedRoad != null && !SelectedRoad.IsLocked)
@@ -1088,10 +1063,10 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will not rotate the selected road, but a specified road by a specified rotation
         /// </summary>
-        /// <param name="road"> </param>
-        /// <param name="rotation"> </param>
+        /// <param name="road"> The road to be rotated </param>
+        /// <param name="rotation"> The degree by which the road should be rotated </param>
         public void RotateRoadPiece(RoadPiece road, float rotation)
         {
             if (road != null)
@@ -1110,10 +1085,10 @@ namespace scripts
          * Connects by Reference all AnchorPoints of a Piece placed between multiple Pieces
          */
         /// <summary>
-        /// 
+        /// This method will connect a piece to all piece it is connected to, even if it only snapped to one. 
         /// </summary>
-        /// <param name="neighborRoads"> </param>
-        /// <param name="road"> </param>
+        /// <param name="neighborRoads"> The roads that are in a specific area of the snapped road </param>
+        /// <param name="road"> the road, that has been snapped </param>
         public void GetNeighborsReference(List<RoadPiece> neighborRoads, RoadPiece road)
         {
             bool stop = false;
@@ -1140,12 +1115,11 @@ namespace scripts
             }
         }
 
-        /*
-         * This will get the clicked object on the screen. Currently only works for GameObjects. 
-         */
         /// <summary>
-        /// 
+        /// This method will return the clicked object when the user presses the mouse button on the screen.
         /// </summary>
+        /// <returns> Return the GameObject, if the user has clicked one (rotation) </returns>
+
         private GameObject GetMouseObject()
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -1159,12 +1133,10 @@ namespace scripts
             return null;
         }
 
-        /*
-         * This translates px into world position, so the user can only click inside the camera frame
-         */
         /// <summary>
-        /// 
+        /// This method gets the position of the mouse relative to the world, not to the screen
         /// </summary>
+        /// <returns> returns a Vector3 that represents a position  </returns>        
         private Vector3 GetWorldPositionFromMouse()
         {
             Vector3 mouseScreenPosition = Input.mousePosition;
@@ -1174,17 +1146,9 @@ namespace scripts
             return worldPosition;
         }
 
-        /*
-         * This method validates the road position. Currently always true, as not implemented yet. 
-         */
         /// <summary>
-        /// 
+        /// This method colors road pieces based on the state of this piece (clicked, snapped, grouped, etc.) and the locked attribute of the road piece
         /// </summary>
-        private void ValidateRoadPosition()
-        {
-            InValidPosition = true;
-        }
-
         public void ColorRoadPiece(RoadPiece road, SelectionColor sColor)
         {
             Color color = new Color();
@@ -1261,10 +1225,10 @@ namespace scripts
         }
 
         /// <summary>
-        /// 
+        /// This method will lock or unlock a road and color the road piece based on the locked attribute
         /// </summary>
-        /// <param name="road"> </param>
-        /// <param name="locked"> </param>
+        /// <param name="road"> The road to be locked and colored </param>
+        /// <param name="locked"> boolean, that states the new locked state of the road</param>
         public void LockRoad(RoadPiece road, bool locked)
         {
             road.IsLocked = locked;
@@ -1276,8 +1240,6 @@ namespace scripts
             {
                 ColorRoadPiece(road, SelectionColor.selected);
             }
-
-
         }
     }
 }

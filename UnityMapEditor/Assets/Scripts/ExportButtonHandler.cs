@@ -9,7 +9,7 @@ using Assets.Enums;
 namespace scripts
 {
     /// <summary>
-    /// 
+    /// This method will handle the export button functionality
     /// </summary>
     public class ExportButtonHandler : MonoBehaviour
     {
@@ -17,23 +17,17 @@ namespace scripts
         public Button ExportButton;
 
 
-        // Start is called before the first frame update
         /// <summary>
-        /// 
+        /// This method is called before the first frame update. It will add the export button on click functionality. 
         /// </summary>
         void Start()
         {
             ExportButton.onClick.AddListener(InitiateExport);
         }
 
-        // Update is called once per frame
         /// <summary>
-        /// 
+        /// This will intitiate the export to create a XODR file 
         /// </summary>
-        void Update()
-        {
-
-        }
         public void InitiateExport()
         {
             var builder = new OpenDriveXMLBuilder();
@@ -41,16 +35,16 @@ namespace scripts
             var pieces = RoadManager.Instance.RoadList;
             foreach (var piece in pieces)
             {
-                var heading = (float) (piece.Rotation * Math.PI / 180f);
+                var heading = (float)(piece.Rotation * Math.PI / 180f);
 
-                var startingPosition = (piece.transform.position + piece.AnchorPoints.First().Offset ) * 0.0264583333f * 2f;
+                var startingPosition = (piece.transform.position + piece.AnchorPoints.First().Offset) * 0.0264583333f * 2f;
 
                 var length = piece.Width * 0.0264583333 * 10;
 
                 switch (piece.RoadType)
                 {
                     case RoadType.StraightRoad:
-                        builder.AddStraightRoad(startX: startingPosition.x , startY: startingPosition.y,
+                        builder.AddStraightRoad(startX: startingPosition.x, startY: startingPosition.y,
                                                 hdg: heading, length: length, trafficSign: piece.TrafficSign);
                         break;
                     case RoadType.Crosswalk:

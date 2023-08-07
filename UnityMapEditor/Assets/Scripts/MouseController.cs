@@ -25,7 +25,7 @@ namespace scripts
         /// </summary>
         void Update()
         {
-           
+
         }
 
         /// <summary>
