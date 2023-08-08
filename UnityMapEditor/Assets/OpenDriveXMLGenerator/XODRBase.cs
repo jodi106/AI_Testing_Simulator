@@ -16,6 +16,10 @@ namespace OpenDriveXMLGenerator
             get { return element.OwnerDocument; }
         }
 
+        /// <summary>
+        /// Constructor of the class XODRBase.
+        /// </summary>
+        /// <param name="element">The XML element.</param>
         public XODRBase(XmlElement element)
         {
             this.element = element;
