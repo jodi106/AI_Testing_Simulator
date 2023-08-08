@@ -2,8 +2,18 @@
 
 namespace OpenDriveXMLGenerator
 {
+    /// <summary>
+    /// This class contains methods to create beads of level 1 of an Opendrive file of the version 1.4.
+    /// </summary>
     public static class XMLElementExtentions
     {
+
+        /// <summary>
+        /// This method creates the XML code of an element.
+        /// </summary>
+        /// <param name="parent">The parent element of the XML elements of which the XML element is a child.</param>
+        /// <param name="name">The name of the XML element.</param>
+        /// <returns>The created XML element.</returns>
         public static XmlElement AddElement(this XmlElement parent, string name)
         {
             var element = parent.OwnerDocument.CreateElement(name);
@@ -11,6 +21,20 @@ namespace OpenDriveXMLGenerator
             return element;
         }
 
+        /// <summary>
+        /// This method creates the XML code the header of an Opendrive file.
+        /// </summary>
+        /// <param name="parent">The parent element of the header element.</param>
+        /// <param name="revMajor">The major revision number of Opendrive format.</param>
+        /// <param name="revMinor">The minor revision number of Opendrive format.</param>
+        /// <param name="name">The name of the header element.</param>
+        /// <param name="version">The version of the header element.</param>
+        /// <param name="north">The maximum inertial y value.</param>
+        /// <param name="south">The minimum inertial y value.</param>
+        /// <param name="east">The maximum inertial x value.</param>
+        /// <param name="west">The minimum inertial x value.</param>
+        /// <param name="vendor">The vendor name.</param>
+        /// <returns>The created header element.</returns>
         public static XmlElement AddHeaderElement(this XmlElement parent, string revMajor, string revMinor, string name, string version,
            string north, string south, string east, string west, string vendor)
         {
@@ -30,6 +54,12 @@ namespace OpenDriveXMLGenerator
             return header;
         }
 
+        /// <summary>
+        /// This method creates the XML code of the geo reference of the header of an Opendrive file.
+        /// </summary>
+        /// <param name="parent">The parent element of the geo reference element.</param>
+        /// <param name="geoRef">The geographic location of the Opendrive map.</param>
+        /// <returns>The created geo reference element.</returns>
         public static XmlElement AddGeoReferenceElement(this XmlElement parent, string geoRef)
         {
             var geoReference = parent.OwnerDocument.CreateElement("geoReference");
@@ -39,6 +69,11 @@ namespace OpenDriveXMLGenerator
             return geoReference;
         }
 
+        /// <summary>
+        /// This method creates the XML code the user data of an XML element. A user data element can exist on any level.
+        /// </summary>
+        /// <param name="parent">The parent element of the user data element.</param>
+        /// <returns>The created user data element.</returns>
         public static XmlElement AddUserDataElement(this XmlElement parent)
         {
             var userData = parent.OwnerDocument.CreateElement("userData");
@@ -47,6 +82,13 @@ namespace OpenDriveXMLGenerator
             return userData;
         }
 
+        /// <summary>
+        /// This method creates the XML code the vector scene of and OpenDrive file.
+        /// </summary>
+        /// <param name="parent">The parent element of the vector scene element.</param>
+        /// <param name="program">The program which was used to create the XML file.</param>
+        /// <param name="version">THe version of the program.</param>
+        /// <returns>The created vector scene element.</returns>
         public static XmlElement AddVectorSceneElement(this XmlElement parent, string program, string version)
         {
             var vectorScene = parent.OwnerDocument.CreateElement("vectorScene");
@@ -57,6 +99,16 @@ namespace OpenDriveXMLGenerator
             return vectorScene;
         }
 
+        /// <summary>
+        /// This method creates the XML code of a road element in XML.
+        /// </summary>
+        /// <param name="parent">The parent element of the road element.</param>
+        /// <param name="name">The name of the road.</param>
+        /// <param name="length">The length of the road.</param>
+        /// <param name="id">The id of the road.</param>
+        /// <param name="junction">The id of the junction the road is a part of. If the road is not part of any junction, this
+        /// value is "-1".</param>
+        /// <returns>The created vector scene element.</returns>
         public static XODRRoad AddRoadElement(this XmlElement parent, string name, string length, string id, string junction)
         {
             var road = new XODRRoad(parent.OwnerDocument.CreateElement("road")); 
@@ -70,6 +122,13 @@ namespace OpenDriveXMLGenerator
             return road;
         }
 
+        /// <summary>
+        /// This method creates the XML code for a junction element in XML.
+        /// </summary>
+        /// <param name="parent">The parent element of the juction.</param>
+        /// <param name="name">The name of the junction.</param>
+        /// <param name="id">The id of the junction element.</param>
+        /// <returns>The created junction element.</returns>
         public static XODRJunction AddJunctionElement(this XmlElement parent, string name, string id)
         {
             var junction = new XODRJunction(parent.OwnerDocument.CreateElement("junction"));
