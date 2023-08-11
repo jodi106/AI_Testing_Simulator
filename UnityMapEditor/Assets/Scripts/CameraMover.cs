@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// 
+/// This class will allow the user to move the camera freely to create a larger editor area, and to zoom in and out
 /// </summary>
 public class CameraMover : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class CameraMover : MonoBehaviour
     private Vector3 lastMousePosition;
 
     /// <summary>
-    /// 
+    /// This mehtod is called before the first frame and retrieves the Camera
     /// </summary>
     void Start()
     {
@@ -25,7 +25,7 @@ public class CameraMover : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// This method is called with every frame and will check for input of the user that could trigger camera effects, such as Zooming and moving
     /// </summary>
     void Update()
     {
@@ -63,9 +63,9 @@ public class CameraMover : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// This method will check, whether the users cursor is currently over a gameobject. If there is a gameobject with a collider, then this method will return true
     /// </summary>
-    /// <returns> </returns>
+    /// <returns> True, if the mouse of the user is currently over a gameobject with a collider </returns>
     private bool IsPointerOverGameObject()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);

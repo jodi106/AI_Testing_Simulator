@@ -7,7 +7,7 @@ using UnityEngine;
 namespace scripts
 {
     /// <summary>
-    /// 
+    /// This class handles the prefabs that are spawned on the map, once the user selects a road piece from the bottom bar
     /// </summary>
     public class PrefabManager : MonoBehaviour
     {
