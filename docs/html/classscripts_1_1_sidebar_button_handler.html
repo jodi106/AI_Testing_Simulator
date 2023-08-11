@@ -80,6 +80,9 @@ $(function() {
   <div class="headertitle"><div class="title">scripts.SidebarButtonHandler Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This method will handle the buttons of the bottom bar when dragging a piece onto the map.  
+ <a href="classscripts_1_1_sidebar_button_handler.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for scripts.SidebarButtonHandler:</div>
 <div class="dyncontent">
@@ -90,6 +93,7 @@ Inheritance diagram for scripts.SidebarButtonHandler:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa0e9e6a7fba9b793f2c946b7db140df4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_sidebar_button_handler.html#aa0e9e6a7fba9b793f2c946b7db140df4">OnPointerDown</a> (PointerEventData eventData)</td></tr>
+<tr class="memdesc:aa0e9e6a7fba9b793f2c946b7db140df4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method reacts to a mouse button down event on a button. This is necessary, because we want to click, hold and instantly drag a new road. With a "onClickEvent" we would have to perform an entire click.  <br /></td></tr>
 <tr class="separator:aa0e9e6a7fba9b793f2c946b7db140df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -98,7 +102,9 @@ Public Attributes</h2></td></tr>
 Button&#160;</td><td class="memItemRight" valign="bottom"><b>SidebarButton</b></td></tr>
 <tr class="separator:ab0fb6e396b4cbc178843bb13e45dfaf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This method will handle the buttons of the bottom bar when dragging a piece onto the map. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa0e9e6a7fba9b793f2c946b7db140df4" name="aa0e9e6a7fba9b793f2c946b7db140df4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa0e9e6a7fba9b793f2c946b7db140df4">&#9670;&#160;</a></span>OnPointerDown()</h2>
 
@@ -114,9 +120,11 @@ Button&#160;</td><td class="memItemRight" valign="bottom"><b>SidebarButton</b></
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method reacts to a mouse button down event on a button. This is necessary, because we want to click, hold and instantly drag a new road. With a "onClickEvent" we would have to perform an entire click. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">eventData</td><td></td></tr>
+    <tr><td class="paramname">eventData</td><td>the event that is triggered, which, in this context, is a click</td></tr>
   </table>
   </dd>
 </dl>

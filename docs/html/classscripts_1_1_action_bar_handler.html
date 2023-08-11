@@ -80,6 +80,9 @@ $(function() {
   <div class="headertitle"><div class="title">scripts.ActionBarHandler Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class handles all actions performed by the user on the sidebar. This includes rotating, locking, deleting and adding traffic signs and lights.  
+ <a href="classscripts_1_1_action_bar_handler.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for scripts.ActionBarHandler:</div>
 <div class="dyncontent">
@@ -91,26 +94,34 @@ Inheritance diagram for scripts.ActionBarHandler:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af79b49787993f2e073587d75c1964e22"><td class="memItemLeft" align="right" valign="top"><a id="af79b49787993f2e073587d75c1964e22" name="af79b49787993f2e073587d75c1964e22"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetVisibilityOfActionBar</b> ()</td></tr>
+<tr class="memdesc:af79b49787993f2e073587d75c1964e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will toggle the visibility of the Action bar. When a road piece is selected, then the sidebar is visible. If a straight road is selected, <br  />
+ it will show a dropdown to select a road sign in addition. If an intersection is selected, then the sidebar will additionally show a checkbox to activate traffic lights. <br /></td></tr>
 <tr class="separator:af79b49787993f2e073587d75c1964e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a565e8dd6cf541f6d9d888e77aacf15f9"><td class="memItemLeft" align="right" valign="top"><a id="a565e8dd6cf541f6d9d888e77aacf15f9" name="a565e8dd6cf541f6d9d888e77aacf15f9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPreselectedValues</b> ()</td></tr>
+<tr class="memdesc:a565e8dd6cf541f6d9d888e77aacf15f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will preset the values of the sidebar, based on the state of the road piece. <br /></td></tr>
 <tr class="separator:a565e8dd6cf541f6d9d888e77aacf15f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90cb9249ba01dcbe18a52fd68e61c738"><td class="memItemLeft" align="right" valign="top"><a id="a90cb9249ba01dcbe18a52fd68e61c738" name="a90cb9249ba01dcbe18a52fd68e61c738"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>RotateLeft</b> ()</td></tr>
-<tr class="memdesc:a90cb9249ba01dcbe18a52fd68e61c738"><td class="mdescLeft">&#160;</td><td class="mdescRight">test <br /></td></tr>
+<tr class="memdesc:a90cb9249ba01dcbe18a52fd68e61c738"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will call the rotate method in Road Manager to rotate the piece counter-clockwise. <br /></td></tr>
 <tr class="separator:a90cb9249ba01dcbe18a52fd68e61c738"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5835dfc05e541e1184158be9faf5bede"><td class="memItemLeft" align="right" valign="top"><a id="a5835dfc05e541e1184158be9faf5bede" name="a5835dfc05e541e1184158be9faf5bede"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>RotateRight</b> ()</td></tr>
+<tr class="memdesc:a5835dfc05e541e1184158be9faf5bede"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will call the rotate method in Road Manager to rotate the piece clockwise. <br /></td></tr>
 <tr class="separator:a5835dfc05e541e1184158be9faf5bede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2aee8b2d40e826dcfb6a5cb6212be87"><td class="memItemLeft" align="right" valign="top"><a id="ab2aee8b2d40e826dcfb6a5cb6212be87" name="ab2aee8b2d40e826dcfb6a5cb6212be87"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>LockRoad</b> ()</td></tr>
+<tr class="memdesc:ab2aee8b2d40e826dcfb6a5cb6212be87"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will call the lock method in Road Manager to lock or unlock a road piece or group. <br /></td></tr>
 <tr class="separator:ab2aee8b2d40e826dcfb6a5cb6212be87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef354d783598f182e50e526250d1c727"><td class="memItemLeft" align="right" valign="top"><a id="aef354d783598f182e50e526250d1c727" name="aef354d783598f182e50e526250d1c727"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteRoad</b> ()</td></tr>
+<tr class="memdesc:aef354d783598f182e50e526250d1c727"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will call the delete method in Road Manager to delete a road or group. <br /></td></tr>
 <tr class="separator:aef354d783598f182e50e526250d1c727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcbbd2d31cc5e08021037b6dbc58731e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_action_bar_handler.html#adcbbd2d31cc5e08021037b6dbc58731e">SelectTrafficSign</a> (int value)</td></tr>
+<tr class="memdesc:adcbbd2d31cc5e08021037b6dbc58731e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method selects the traffic sign that the user has selected in the dropdown menu from the sidebar.  <br /></td></tr>
 <tr class="separator:adcbbd2d31cc5e08021037b6dbc58731e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4518a874526cde6ed4301951d692c8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_action_bar_handler.html#aa4518a874526cde6ed4301951d692c8f">ToggleTrafficLight</a> (bool On)</td></tr>
+<tr class="memdesc:aa4518a874526cde6ed4301951d692c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will toggle the traffic light on intersections.  <br /></td></tr>
 <tr class="separator:aa4518a874526cde6ed4301951d692c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -140,7 +151,9 @@ TMP_Dropdown&#160;</td><td class="memItemRight" valign="bottom"><b>SignDropdown<
 Toggle&#160;</td><td class="memItemRight" valign="bottom"><b>TrafficLight</b></td></tr>
 <tr class="separator:a8d81e5edb44435476be8b6c942ef8a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class handles all actions performed by the user on the sidebar. This includes rotating, locking, deleting and adding traffic signs and lights. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="adcbbd2d31cc5e08021037b6dbc58731e" name="adcbbd2d31cc5e08021037b6dbc58731e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adcbbd2d31cc5e08021037b6dbc58731e">&#9670;&#160;</a></span>SelectTrafficSign()</h2>
 
@@ -156,9 +169,11 @@ Toggle&#160;</td><td class="memItemRight" valign="bottom"><b>TrafficLight</b></t
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method selects the traffic sign that the user has selected in the dropdown menu from the sidebar. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td></td></tr>
+    <tr><td class="paramname">value</td><td>the selected value in the dropdown menu </td></tr>
   </table>
   </dd>
 </dl>
@@ -180,9 +195,11 @@ Toggle&#160;</td><td class="memItemRight" valign="bottom"><b>TrafficLight</b></t
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method will toggle the traffic light on intersections. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">On</td><td></td></tr>
+    <tr><td class="paramname">On</td><td>the value of the checkbox - true, if traffic light selected</td></tr>
   </table>
   </dd>
 </dl>

@@ -81,6 +81,9 @@ $(function() {
   <div class="headertitle"><div class="title">scripts.PrefabManager Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class handles the prefabs that are spawned on the map, once the user selects a road piece from the bottom bar.  
+ <a href="classscripts_1_1_prefab_manager.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for scripts.PrefabManager:</div>
 <div class="dyncontent">
@@ -91,6 +94,7 @@ Inheritance diagram for scripts.PrefabManager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4ea795becbed37bc7487cd52338e763f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classscripts_1_1_road_piece.html">RoadPiece</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_prefab_manager.html#a4ea795becbed37bc7487cd52338e763f">GetPieceOfType</a> (RoadType roadType)</td></tr>
+<tr class="memdesc:a4ea795becbed37bc7487cd52338e763f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will return the road piece from the prefab based on the road type.  <br /></td></tr>
 <tr class="separator:a4ea795becbed37bc7487cd52338e763f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -141,7 +145,9 @@ Properties</h2></td></tr>
 static <a class="el" href="classscripts_1_1_prefab_manager.html">PrefabManager</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b><code> [get]</code></td></tr>
 <tr class="separator:adc0632cc3be5126497aba9caaaffd63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class handles the prefabs that are spawned on the map, once the user selects a road piece from the bottom bar. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4ea795becbed37bc7487cd52338e763f" name="a4ea795becbed37bc7487cd52338e763f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ea795becbed37bc7487cd52338e763f">&#9670;&#160;</a></span>GetPieceOfType()</h2>
 
@@ -157,13 +163,15 @@ static <a class="el" href="classscripts_1_1_prefab_manager.html">PrefabManager</
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method will return the road piece from the prefab based on the road type. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">roadType</td><td></td></tr>
+    <tr><td class="paramname">roadType</td><td>The roadtype that the prefab has and on which the road is genereated from </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The road piece from the corresponding type </dd></dl>
 
 </div>
 </div>

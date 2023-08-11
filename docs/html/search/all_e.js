@@ -1,21 +1,4 @@
 var searchData=
 [
-  ['examples_0',['Examples',['../namespace_t_m_pro_1_1_examples.html',1,'TMPro']]],
-  ['teletype_1',['TeleType',['../class_t_m_pro_1_1_examples_1_1_tele_type.html',1,'TMPro::Examples']]],
-  ['textconsolesimulator_2',['TextConsoleSimulator',['../class_t_m_pro_1_1_examples_1_1_text_console_simulator.html',1,'TMPro::Examples']]],
-  ['textmeshprofloatingtext_3',['TextMeshProFloatingText',['../class_t_m_pro_1_1_examples_1_1_text_mesh_pro_floating_text.html',1,'TMPro::Examples']]],
-  ['textmeshspawner_4',['TextMeshSpawner',['../class_t_m_pro_1_1_examples_1_1_text_mesh_spawner.html',1,'TMPro::Examples']]],
-  ['tmp_5fdigitvalidator_5',['TMP_DigitValidator',['../class_t_m_pro_1_1_t_m_p___digit_validator.html',1,'TMPro']]],
-  ['tmp_5fexamplescript_5f01_6',['TMP_ExampleScript_01',['../class_t_m_pro_1_1_examples_1_1_t_m_p___example_script__01.html',1,'TMPro::Examples']]],
-  ['tmp_5fframeratecounter_7',['TMP_FrameRateCounter',['../class_t_m_pro_1_1_examples_1_1_t_m_p___frame_rate_counter.html',1,'TMPro::Examples']]],
-  ['tmp_5fphonenumbervalidator_8',['TMP_PhoneNumberValidator',['../class_t_m_pro_1_1_t_m_p___phone_number_validator.html',1,'TMPro']]],
-  ['tmp_5ftexteventcheck_9',['TMP_TextEventCheck',['../class_t_m_pro_1_1_examples_1_1_t_m_p___text_event_check.html',1,'TMPro::Examples']]],
-  ['tmp_5ftexteventhandler_10',['TMP_TextEventHandler',['../class_t_m_pro_1_1_t_m_p___text_event_handler.html',1,'TMPro']]],
-  ['tmp_5ftextinfodebugtool_11',['TMP_TextInfoDebugTool',['../class_t_m_pro_1_1_examples_1_1_t_m_p___text_info_debug_tool.html',1,'TMPro::Examples']]],
-  ['tmp_5ftextselector_5fa_12',['TMP_TextSelector_A',['../class_t_m_pro_1_1_examples_1_1_t_m_p___text_selector___a.html',1,'TMPro::Examples']]],
-  ['tmp_5ftextselector_5fb_13',['TMP_TextSelector_B',['../class_t_m_pro_1_1_examples_1_1_t_m_p___text_selector___b.html',1,'TMPro::Examples']]],
-  ['tmp_5fuiframeratecounter_14',['TMP_UiFrameRateCounter',['../class_t_m_pro_1_1_examples_1_1_t_m_p___ui_frame_rate_counter.html',1,'TMPro::Examples']]],
-  ['tmpro_15',['TMPro',['../namespace_t_m_pro.html',1,'']]],
-  ['tmpro_5finstructionoverlay_16',['TMPro_InstructionOverlay',['../class_t_m_pro_1_1_examples_1_1_t_m_pro___instruction_overlay.html',1,'TMPro::Examples']]],
-  ['toggletrafficlight_17',['ToggleTrafficLight',['../classscripts_1_1_action_bar_handler.html#aa4518a874526cde6ed4301951d692c8f',1,'scripts::ActionBarHandler']]]
+  ['toggletrafficlight_0',['ToggleTrafficLight',['../classscripts_1_1_action_bar_handler.html#aa4518a874526cde6ed4301951d692c8f',1,'scripts::ActionBarHandler']]]
 ];

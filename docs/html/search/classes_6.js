@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mousecontroller_0',['MouseController',['../classscripts_1_1_mouse_controller.html',1,'scripts']]]
+  ['prefabmanager_0',['PrefabManager',['../classscripts_1_1_prefab_manager.html',1,'scripts']]]
 ];

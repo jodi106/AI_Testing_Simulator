@@ -12,5 +12,6 @@ var searchData=
   ['addsidebarbutton_9',['AddSidebarButton',['../classscripts_1_1_button_manager.html#aea12b7ab2cac968f07e96f90c18f7e86',1,'scripts::ButtonManager']]],
   ['addstraightroad_10',['AddStraightRoad',['../class_open_drive_x_m_l_generator_1_1_open_drive_x_m_l_builder.html#af2e86d9686b700a1776516a17075f6c9',1,'OpenDriveXMLGenerator::OpenDriveXMLBuilder']]],
   ['addstretchingstraight_11',['AddStretchingStraight',['../classscripts_1_1_virtual_anchor.html#a704de9f1008198c3ce6939a5b4217f8d',1,'scripts::VirtualAnchor']]],
-  ['aligngrouppiecestoeachother_12',['AlignGroupPiecesToEachOther',['../classscripts_1_1_road_manager.html#aadc71e844d67979cc75ea48d1fba3008',1,'scripts::RoadManager']]]
+  ['aligngrouppiecestoeachother_12',['AlignGroupPiecesToEachOther',['../classscripts_1_1_road_manager.html#aadc71e844d67979cc75ea48d1fba3008',1,'scripts::RoadManager']]],
+  ['appendchild_13',['AppendChild',['../class_open_drive_x_m_l_generator_1_1_x_o_d_r_base.html#a44a50fc61b5e87a5c339497f7e5dec5c',1,'OpenDriveXMLGenerator::XODRBase']]]
 ];

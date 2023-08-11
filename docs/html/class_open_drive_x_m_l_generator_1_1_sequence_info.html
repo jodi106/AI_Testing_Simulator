@@ -80,27 +80,90 @@ $(function() {
   <div class="headertitle"><div class="title">OpenDriveXMLGenerator.SequenceInfo Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Each piece of road has two objects of the type SequenceInfo. One which contains the predecessors of the road piece for all lanes and one which contains the successors of the road piece of all lanes. The object SequenceInfo contains all needed information of the predecessor/successor, which is needed to connect the road piece to them.  
+ <a href="class_open_drive_x_m_l_generator_1_1_sequence_info.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0d3cbd0b3060050238593f37f1537317"><td class="memItemLeft" align="right" valign="top"><a id="a0d3cbd0b3060050238593f37f1537317" name="a0d3cbd0b3060050238593f37f1537317"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SequenceInfo</b> (bool isJunction, List&lt; int &gt; ids, List&lt; int &gt; leftLaneIds, List&lt; int &gt; rightLaneIds)</td></tr>
+<tr class="memitem:acb3a29e7ab401e6bd582a24d43157b3b"><td class="memItemLeft" align="right" valign="top"><a id="acb3a29e7ab401e6bd582a24d43157b3b" name="acb3a29e7ab401e6bd582a24d43157b3b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SequenceInfo</b> ()</td></tr>
+<tr class="memdesc:acb3a29e7ab401e6bd582a24d43157b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor of the object SequenceInfo. <br /></td></tr>
+<tr class="separator:acb3a29e7ab401e6bd582a24d43157b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d3cbd0b3060050238593f37f1537317"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_drive_x_m_l_generator_1_1_sequence_info.html#a0d3cbd0b3060050238593f37f1537317">SequenceInfo</a> (bool isJunction, List&lt; int &gt; ids, List&lt; int &gt; leftLaneIds, List&lt; int &gt; rightLaneIds)</td></tr>
+<tr class="memdesc:a0d3cbd0b3060050238593f37f1537317"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default constructor of the object SequenceInfo.  <br /></td></tr>
 <tr class="separator:a0d3cbd0b3060050238593f37f1537317"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a742d73e304104623d3005d29bc6776fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_drive_x_m_l_generator_1_1_sequence_info.html#a742d73e304104623d3005d29bc6776fc">IsJunction</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a742d73e304104623d3005d29bc6776fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The attribute isJunction identifies whether the predecessor/successor is part of a junction.  <br /></td></tr>
 <tr class="separator:a742d73e304104623d3005d29bc6776fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35e94c4d0899efff52608efd9b1baf47"><td class="memItemLeft" align="right" valign="top">List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_drive_x_m_l_generator_1_1_sequence_info.html#a35e94c4d0899efff52608efd9b1baf47">Ids</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a35e94c4d0899efff52608efd9b1baf47"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list Ids contains all the ids of the predecessors/successors of the road piece.  <br /></td></tr>
 <tr class="separator:a35e94c4d0899efff52608efd9b1baf47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e06b5bb321a08acacf05540baa65ba8"><td class="memItemLeft" align="right" valign="top">List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_drive_x_m_l_generator_1_1_sequence_info.html#a2e06b5bb321a08acacf05540baa65ba8">LeftLaneIds</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2e06b5bb321a08acacf05540baa65ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list LeftLaneIds contains all the lane ids of predecessor/successor lanes for the left lane of the road piece.  <br /></td></tr>
 <tr class="separator:a2e06b5bb321a08acacf05540baa65ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f7faca359856e75402824f48864c15f"><td class="memItemLeft" align="right" valign="top">List&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_drive_x_m_l_generator_1_1_sequence_info.html#a3f7faca359856e75402824f48864c15f">RightLaneIds</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a3f7faca359856e75402824f48864c15f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list RightLaneIds contains all the lane ids of predecessor/successor lanes for the right lane of the road piece.  <br /></td></tr>
 <tr class="separator:a3f7faca359856e75402824f48864c15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Each piece of road has two objects of the type SequenceInfo. One which contains the predecessors of the road piece for all lanes and one which contains the successors of the road piece of all lanes. </p>
-</div><h2 class="groupheader">Property Documentation</h2>
+<div class="textblock"><p>Each piece of road has two objects of the type SequenceInfo. One which contains the predecessors of the road piece for all lanes and one which contains the successors of the road piece of all lanes. The object SequenceInfo contains all needed information of the predecessor/successor, which is needed to connect the road piece to them. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0d3cbd0b3060050238593f37f1537317" name="a0d3cbd0b3060050238593f37f1537317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d3cbd0b3060050238593f37f1537317">&#9670;&#160;</a></span>SequenceInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenDriveXMLGenerator.SequenceInfo.SequenceInfo </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isJunction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>leftLaneIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>rightLaneIds</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The default constructor of the object SequenceInfo. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isJunction</td><td>Information whether the predecessor/successor is part of a junction.</td></tr>
+    <tr><td class="paramname">ids</td><td>Ids of the predecessors/successors of the raod piece.</td></tr>
+    <tr><td class="paramname">leftLaneIds</td><td>Lane ids of the predecessors/successors for the left lane of the road piece.</td></tr>
+    <tr><td class="paramname">rightLaneIds</td><td>Lane ids of the predecessors/successors for the right lane of the road piece.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
 <a id="a35e94c4d0899efff52608efd9b1baf47" name="a35e94c4d0899efff52608efd9b1baf47"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35e94c4d0899efff52608efd9b1baf47">&#9670;&#160;</a></span>Ids</h2>
 
@@ -120,7 +183,9 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>List of all the ids of the predecessors/successors </p>
+
+<p>The list Ids contains all the ids of the predecessors/successors of the road piece. </p>
+<dl class="section return"><dt>Returns</dt><dd>The setter gives back the list of ids of the predecessor/successor.</dd></dl>
 
 </div>
 </div>
@@ -143,7 +208,9 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>describes what type of predecessor/successor is true: junction, false: road </p>
+
+<p>The attribute isJunction identifies whether the predecessor/successor is part of a junction. </p>
+<dl class="section return"><dt>Returns</dt><dd>The setter gives back a boolean value, whether the predecessor/successor road is part of a junction (true) or not (false).</dd></dl>
 
 </div>
 </div>
@@ -166,7 +233,9 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>List of all the lane ids of the predecessors/successors lanes for the left lane </p>
+
+<p>The list LeftLaneIds contains all the lane ids of predecessor/successor lanes for the left lane of the road piece. </p>
+<dl class="section return"><dt>Returns</dt><dd>The setter gives back the list of the lane ids of the predecessor/successor.</dd></dl>
 
 </div>
 </div>
@@ -189,7 +258,9 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>List of all the lane ids of the predecessors/successors lanes for the right lane </p>
+
+<p>The list RightLaneIds contains all the lane ids of predecessor/successor lanes for the right lane of the road piece. </p>
+<dl class="section return"><dt>Returns</dt><dd>The setter gives back the list of the lane ids of the predecessor/successor.</dd></dl>
 
 </div>
 </div>
