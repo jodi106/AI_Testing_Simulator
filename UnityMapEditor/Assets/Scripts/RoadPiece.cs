@@ -30,9 +30,7 @@ namespace scripts
             }
         }
 
-        // TODO
         public VirtualAnchor LastNeighborSnappedAnchorPoint = null;
-        //TODO
         public VirtualAnchor LastSelectedSnappedAnchorPoint = null;
 
         // This is a manual width, which is necessary, because rotating will change the width given from Unity

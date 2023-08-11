@@ -7,12 +7,10 @@ using UnityEngine.UIElements;
 
 namespace scripts
 {
-    /* 
-    * This class is the heart of the program. It contains all roads created, selected RoadPieces and operations for rotating and snapping. 
-    * It manages all RoadPieces and their interactions with other pieces and the Unity Editor. 
-    */
+
     /// <summary>
-    /// 
+    /// This class is the heart of the program. It contains all roads created, selected RoadPieces and operations for rotating and snapping. 
+    /// It manages all RoadPieces and their interactions with other pieces and the Unity Editor. 
     /// </summary>
     public class RoadManager : MonoBehaviour
     {
@@ -71,12 +69,9 @@ namespace scripts
         // This contant describes the angle at which RoadPieces should be rotated on user input
         private const float ROTATING_ANGLE = 15f;
 
-        /* 
-        * The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
-        * This method initialize an instance for other classes to gain access to its properties and methods
-        */
         /// <summary>
-        /// 
+        /// The Awake method is a "Monobehavior" method from Unity, which is automaticlly called when instantiated. 
+        ///This method initialize an instance for other classes to gain access to its properties and methods
         /// </summary>
         private void Awake()
         {
@@ -669,9 +664,6 @@ namespace scripts
             }
         }
 
-        /*
-         * This method drags a road across the screen. When the user drags a piece, it will follow the cursor of the mouse. This is only the case, if the road piece is not locked
-         */
         /// <summary>
         /// This method will check, whether the user has selected a road piece and will move the road piece with the position of the mouse to imitate a drag functionality. 
         /// </summary>
@@ -849,7 +841,14 @@ namespace scripts
                 }
             }
         }
-        //Eva
+
+        /// <summary>
+        /// This method will get the nearest neighbors in the area of the selected road piece, when dragging it around
+        /// </summary>
+        /// <param name="roadList">A list of roads that is supposed to be checked. For a single part this contains all roads. For a group, this contains all roads not contained in the group</param>
+        /// <returns> snappingNeighbors: All roads that are closest to the currently dragged piece
+        /// referenceNeighbors: All roads which are close to the currently dragged road, even if they are not the closest. (within range)
+        ///</returns>
         public (List<RoadPiece> snappingNeighbors, List<RoadPiece> referenceNeighbors) GetNearestNeighborsInArea(List<RoadPiece> roadList)
         {
             List<RoadPiece> snappingNeighbors = new List<RoadPiece>();
@@ -873,7 +872,14 @@ namespace scripts
             }
             return (snappingNeighbors, referenceNeighbors);
         }
-        // Eva
+
+        /// <summary>
+        /// This method will get the nearest Virtual Anchors from the closest neighbors that have been evaluated. This way, the road pieces can be snapped together at the correct places
+        /// </summary>
+        /// <param name="nearestNeighbors">The list of nearest neighbors</param>
+        /// <returns> selectedRoadVA: The Virtual Anchor of the selected Road which is being snapped
+        /// nearestNeighborVA: The closest Virtual Anchor, which the selected Road Virtual Anchor should snap to
+        /// </returns>
         public (VirtualAnchor selectedRoadVA, VirtualAnchor nearestNeighborVA) GetNearestAnchorPoints(List<RoadPiece> nearestNeighbors)
         {
             float nearestDistance = -1;
