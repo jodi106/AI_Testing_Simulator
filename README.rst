@@ -30,8 +30,7 @@ Follow these steps:
 How to use
 ##########
 
-[Code Documentation](https://github.com/tropper26/Autonomous-Driving-Simulation-Environment/blob/main/docs/html/index.html)
-
+`Code documentation <https://github.com/tropper26/Autonomous-Driving-Simulation-Environment/blob/main/docs/html/index.html>`__
 
 Credits
 #######
