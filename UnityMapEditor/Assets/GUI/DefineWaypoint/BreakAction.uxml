@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="BreakAction_VisualElement" style="padding-left: 10px; padding-top: 10px;">
-        <uie:IntegerField label="Break Duration [s]" value="5" tooltip="Specify standstill time " name="BreakAction_StopDuration" />
-        <ui:Label text="info: Start breaking for specified time. If Speed is 0 before " display-tooltip-when-elided="true" name="BreakAction_info" style="font-size: 8px; -unity-text-align: upper-center; padding-top: 20px;" />
-    </ui:VisualElement>
-</ui:UXML>
