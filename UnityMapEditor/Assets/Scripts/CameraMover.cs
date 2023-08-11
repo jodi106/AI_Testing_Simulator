@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 
+/// </summary>
 public class CameraMover : MonoBehaviour
 {
     public float dragSpeed = 200f;
@@ -13,11 +16,17 @@ public class CameraMover : MonoBehaviour
     private Camera mainCamera;
     private Vector3 lastMousePosition;
 
+    /// <summary>
+    /// 
+    /// </summary>
     void Start()
     {
         mainCamera = GetComponent<Camera>();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     void Update()
     {
         if (Input.GetMouseButtonDown(2))
@@ -53,6 +62,10 @@ public class CameraMover : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns> </returns>
     private bool IsPointerOverGameObject()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current);

@@ -8,6 +8,9 @@ using System.Diagnostics;
 
 namespace scripts
 {
+    /// <summary>
+    /// This class handles all actions performed by the user on the sidebar. This includes rotating, locking, deleting and adding traffic signs and lights
+    /// </summary>
     public class ActionBarHandler : MonoBehaviour
     {
         public GameObject ActionBar;
@@ -18,10 +21,12 @@ namespace scripts
 
         public Image LockImage;
 
-        public TMP_Dropdown SignDropdown; 
+        public TMP_Dropdown SignDropdown;
         public Toggle TrafficLight;
 
-        // Start is called before the first frame update
+        /// <summary>
+        /// This method is called before the first frame update and will initialize all buttons and input fields. 
+        /// </summary>
         void Start()
         {
             LeftRotate.onClick.AddListener(RotateLeft);
@@ -35,13 +40,22 @@ namespace scripts
         }
 
 
-        // Update is called once per frame
+        /// <summary>
+        /// This method is called every frame and will call a method for setting the visibility of the sidebar and a method to preset their values
+        /// </summary>
         void Update()
         {
             SetVisibilityOfActionBar();
             SetPreselectedValues();
         }
 
+
+
+        /// <summary> 
+        /// This method will toggle the visibility of the Action bar. When a road piece is selected, then the sidebar is visible. If a straight road is selected,  
+        /// it will show a dropdown to select a road sign in addition. If an intersection is selected, then the sidebar will additionally show a checkbox to activate 
+        /// traffic lights
+        /// </summary>
         public void SetVisibilityOfActionBar()
         {
             if (ScrollViewOpener.IsUserGuideOpen())
@@ -54,16 +68,16 @@ namespace scripts
                 ActionBar.GetComponent<CanvasGroup>().interactable = false;
             }
             else
-            { 
+            {
                 if (RoadManager.Instance.SelectedRoad.RoadType != RoadType.StraightRoad)
                 {
-                    SignDropdown.GetComponent<CanvasGroup>().alpha = 0; 
+                    SignDropdown.GetComponent<CanvasGroup>().alpha = 0;
                     SignDropdown.GetComponent<CanvasGroup>().interactable = false;
-                } 
-                else 
+                }
+                else
                 {
-                    SignDropdown.GetComponent<CanvasGroup>().alpha = 1; 
-                    SignDropdown.GetComponent<CanvasGroup>().interactable = true; 
+                    SignDropdown.GetComponent<CanvasGroup>().alpha = 1;
+                    SignDropdown.GetComponent<CanvasGroup>().interactable = true;
                 }
                 if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.FourWayIntersection || RoadManager.Instance.SelectedRoad.RoadType == RoadType.ThreeWayIntersection)
                 {
@@ -90,6 +104,9 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// This method will preset the values of the sidebar, based on the state of the road piece
+        /// </summary>
         public void SetPreselectedValues()
         {
             if (RoadManager.Instance.SelectedRoad != null)
@@ -131,16 +148,25 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// This will call the rotate method in Road Manager to rotate the piece counter-clockwise
+        /// </summary>
         public void RotateLeft()
         {
             RoadManager.Instance.RotateCounterClockwise();
         }
 
+        /// <summary>
+        /// This will call the rotate method in Road Manager to rotate the piece clockwise
+        /// </summary>
         public void RotateRight()
         {
             RoadManager.Instance.RotateClockwise();
         }
 
+        /// <summary>
+        /// This will call the lock method in Road Manager to lock or unlock a road piece or group
+        /// </summary>
         public void LockRoad()
         {
             bool locked = !RoadManager.Instance.SelectedRoad.IsLocked;
@@ -157,11 +183,18 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// This will call the delete method in Road Manager to delete a road or group
+        /// </summary>
         public void DeleteRoad()
         {
             RoadManager.Instance.DeleteRoad(RoadManager.Instance.SelectedRoad);
         }
 
+        /// <summary>
+        /// This method selects the traffic sign that the user has selected in the dropdown menu from the sidebar
+        /// </summary>
+        /// <param name="value"> the selected value in the dropdown menu </param>
         public void SelectTrafficSign(int value)
         {
             if (RoadManager.Instance.SelectedRoad.RoadType == RoadType.StraightRoad)
@@ -236,6 +269,10 @@ namespace scripts
             }
         }
 
+        /// <summary>
+        /// This method will toggle the traffic light on intersections
+        /// </summary>
+        /// <param name="On"> the value of the checkbox - true, if traffic light selected</param>
         public void ToggleTrafficLight(bool On)
         {
             if (On)

@@ -7,22 +7,28 @@ using Assets.Enums;
 
 namespace scripts
 {
+    /// <summary>
+    /// This method will handle the buttons of the bottom bar when dragging a piece onto the map
+    /// </summary>
     public class SidebarButtonHandler : MonoBehaviour, IPointerDownHandler
     {
         public Button SidebarButton;
 
-
+        /// <summary>
+        /// This method is called before the first frame update. This will add the button for the road piece to the list of buttons
+        /// </summary>
         void Start()
         {
-            //Every button gets added to the list of sidebar buttons at the start
             ButtonManager.Instance.AddSidebarButton(SidebarButton);
         }
 
-        /*
-         * This method reacts to a mouse button down event on a button. 
-         * This is necessary, because we want to click, hold and instantly drag a new road. 
-         * With a "onClickEvent" we would have to perform an entire click.
-         */
+
+        /// <summary>
+        /// This method reacts to a mouse button down event on a button. 
+        /// This is necessary, because we want to click, hold and instantly drag a new road. 
+        /// With a "onClickEvent" we would have to perform an entire click.
+        /// </summary>
+        /// <param name="eventData"> the event that is triggered, which, in this context, is a click</param>
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
@@ -31,9 +37,10 @@ namespace scripts
             }
         }
 
-        /*
-         * This method sets the selected road type according to the button pressed
-         */
+        /// <summary>
+        /// This method sets the selected road type according to the button pressed
+        /// </summary>
+        /// <param name="buttonName"> the name of the button </param>
         void SelectRoadType(string buttonName)
         {
             RoadManager.Instance.DeselectRoad();

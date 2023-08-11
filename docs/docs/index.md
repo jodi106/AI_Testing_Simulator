@@ -1,3 +1,0 @@
-# Autonomous Driving Simulation Environment
-
-

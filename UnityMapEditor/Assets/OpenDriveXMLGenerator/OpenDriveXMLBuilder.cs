@@ -66,7 +66,7 @@ namespace OpenDriveXMLGenerator
         /// <param name="laneWidth">The width of the straight road.</param>
         /// <param name="predecessorInfo">This object contains the ids and lane ids of the predecessors of the straight road.</param>
         /// <param name="successorInfo">This object contains the ids and lane ids of the successors of the straight road.</param>
-        /// <param name="trafficSignal">Information of the type of the traffic signs the straight road contains.</param>
+        /// <param name="trafficSign">Information of the type of the traffic signs the straight road contains.</param>
         /// <returns>A XODRRoad object.</returns>
         public XODRRoad AddStraightRoad(float startX = 0, float startY = 0, float hdg = 0, double length = 0,
             bool crossing = false, float crossingLength = 0.0f, float crossingWidth = 0.0f, string laneWidth = "3.5",

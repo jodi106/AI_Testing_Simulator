@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace scripts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PrefabManager : MonoBehaviour
     {
         private static PrefabManager instance;
@@ -31,18 +34,19 @@ namespace scripts
         public RoadPiece StraightShort;
         public RoadPiece None;
 
-        // Start is called before the first frame update
+        /// <summary>
+        /// This method is called before the first frame update and will initialize the prefab manager
+        /// </summary>
         void Start()
         {
             instance = this;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        /// <summary>
+        /// This method will return the road piece from the prefab based on the road type
+        /// </summary>
+        /// <param name="roadType"> The roadtype that the prefab has and on which the road is genereated from </param>
+        /// <returns> The road piece from the corresponding type </returns>
         public RoadPiece GetPieceOfType(RoadType roadType)
         {
             switch (roadType)
