@@ -25,7 +25,7 @@ namespace scripts
          */
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (RoadManager.Instance.InValidPosition && eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left)
             {
                 SelectRoadType(gameObject.name);
             }
