@@ -27,6 +27,10 @@ namespace scripts
             }
         }
 
+        // Enumeration of all Side and Bottom Panels
+        public GameObject Sidebar;
+        public GameObject Bottombar;
+
         // This List is a List of all roads currently created in the Editor. 
         public List<RoadPiece> RoadList = new List<RoadPiece>();
 
@@ -42,11 +46,11 @@ namespace scripts
         // This List describes the roads that have been chosen by the user to deselect them from the selected group
         public List<RoadPiece> CtrlDeselectedRoads { get; set; } = new List<RoadPiece>();
 
-        // TO BE USED SOMEWHERE - This is a boolean for road validation. If false, certain functions are disabled
-        public bool InValidPosition { get; set; } = true;
-
         // This boolean is used to check whether the user is currently dragging. So no other object can be selected during a drag. 
         private bool IsDragging { get; set; } = false;
+
+        // This boolean indicates, that a new road has been created
+        private bool NewRoadCreated { get; set; } = false;
 
         // This boolean checks, whether the selected road is snapped to another piece
         private bool IsSnapped { get; set; } = false;
@@ -104,7 +108,6 @@ namespace scripts
                         {
                             // If that is the case, dragging the mouse will stretch the road
                             StretchRoad();
-                            // Debug.Log("l");
                         }
                         // Else, it will check whether a group is selected
                         else if (SelectedRoads != null)
@@ -154,6 +157,8 @@ namespace scripts
                     // is validated
                     IsDragging = false;
 
+                    NewRoadCreated = false;
+
                     //This conditions checks, whether the user has been stretching a road
                     if (IsStretching)
                     {
@@ -186,6 +191,7 @@ namespace scripts
                     }
                     else
                     {
+
                         bool locked = !SelectedRoad.IsLocked;
                         foreach (RoadPiece road in SelectedRoads)
                         {
@@ -462,7 +468,7 @@ namespace scripts
         {
             GameObject obj = GetMouseObject();
             RoadPiece road = obj?.GetComponent<RoadPiece>();
-            if (SelectedRoads == null && SelectedRoad.IsLocked == false && SelectedRoad != null)
+            if (SelectedRoads == null && SelectedRoad.IsLocked == false && SelectedRoad != null && !IsDragging && !NewRoadCreated)
             {
 
                 if (obj != null && road != null && road == SelectedRoad)
@@ -538,16 +544,6 @@ namespace scripts
                 }
                 List<RoadPiece> roadsInArea = GetNearestNeighborsInArea(RoadList).referenceNeighbors;
                 GetNeighborsReference(roadsInArea, SelectedRoad);
-                // Snap();
-                Debug.Log(1);
-                // GetNeighborsReference(new List<RoadPiece> { StretchingAnchor.RoadPiece }, SelectedRoad);
-
-
-
-
-
-
-                //TODO Implement Snapping here. SO when we create the piece we also check, whether the piece is connected.  
 
             }
             StretchingAnchor.ChildStraightPieces = new List<GameObject>();
@@ -639,16 +635,14 @@ namespace scripts
         /// </summary>
         public void CreateRoad()
         {
+
             // Creates the new roadpiece
             var RoadPiece = PrefabManager.Instance.GetPieceOfType(ButtonManager.Instance.GetSelectedRoadType());
-            //var RoadPiece = PrefabManager.Instance.GetPieceOfType(RoadType.Turn15);
             var newRoadPiece = Instantiate(RoadPiece, GetWorldPositionFromMouse(), Quaternion.identity);
+            newRoadPiece.transform.position = new Vector3(newRoadPiece.transform.position.x, Bottombar.GetComponent<BoxCollider2D>().bounds.center.y + Bottombar.GetComponent<BoxCollider2D>().bounds.extents.y + newRoadPiece.GetComponent<BoxCollider2D>().bounds.extents.y, newRoadPiece.transform.position.z);
+            NewRoadCreated = true;
 
-            // Sets the valid position to false (As it will always spawn on the sidebar), adds the road to the list of roads and selects the road automatically upon creation, allowing the user to instantly drag it)
-            InValidPosition = false;
             SelectRoad(newRoadPiece);
-
-            UnityEngine.Debug.Log(newRoadPiece.RoadType);
         }
 
         /// <summary>
@@ -690,7 +684,6 @@ namespace scripts
                 {
                     SelectedObject = GetMouseObject();
                 }
-
                 // This will, if a road is selected, set dragging to true, deselect previous roads and select the new road. The road is then dragged with the mouse
                 if (SelectedObject != null)
                 {
@@ -699,26 +692,64 @@ namespace scripts
                         DeselectRoad();
                         SelectRoad(SelectedObject.GetComponent<RoadPiece>());
 
-                        if (!SelectedRoad.IsLocked)
+                        if (!CheckMouseCollisionWithPanels())
                         {
-                            IsDragging = true;
-                            IsSnapped = false;
-                            SelectedRoad.transform.position = GetWorldPositionFromMouse();
-                            foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                            if (!SelectedRoad.IsLocked)
                             {
-                                va.RemoveConntectedAnchorPoint();
-                            }
+                                IsDragging = true;
+                                IsSnapped = false;
+                                SelectedRoad.transform.position = GetWorldPositionFromMouse();
 
-                            if (!Input.GetKey(KeyCode.LeftAlt))
-                            {
-                                Snap();
+                                foreach (VirtualAnchor va in SelectedRoad.AnchorPoints)
+                                {
+                                    va.RemoveConntectedAnchorPoint();
+                                }
+
+                                if (!Input.GetKey(KeyCode.LeftAlt))
+                                {
+                                    Snap();
+                                }
                             }
                         }
-
+                        else
+                        {
+                            IsDragging = true;
+                        }
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// This method will check whether the mouse position is over the side or bottom bar to restrict the movement of the roadpiece over the side or bottom bar
+        /// </summary>
+        public bool CheckMouseCollisionWithPanels()
+        {
+            BoxCollider2D road = SelectedRoad.gameObject.GetComponent<BoxCollider2D>();
+            Vector3 mousePosition = GetWorldPositionFromMouse();
+            BoxCollider2D sidebar = Sidebar.GetComponent<BoxCollider2D>();
+            BoxCollider2D bottombar = Bottombar.GetComponent<BoxCollider2D>();
+
+            if (mousePosition.x > sidebar.bounds.center.x - sidebar.bounds.extents.x - road.bounds.extents.x)
+            {
+                if (!(mousePosition.y < bottombar.bounds.center.y + bottombar.bounds.extents.y + road.bounds.extents.y))
+                {
+                    SelectedRoad.transform.position = new Vector3(SelectedRoad.transform.position.x, mousePosition.y, SelectedRoad.transform.position.z);
+                }
+                return true;
+            }
+            if (mousePosition.y < bottombar.bounds.center.y + bottombar.bounds.extents.y + road.bounds.extents.y)
+            {
+                if (!(mousePosition.x > sidebar.bounds.center.x - sidebar.bounds.extents.x - road.bounds.extents.x))
+                {
+                    SelectedRoad.transform.position = new Vector3(mousePosition.x, SelectedRoad.transform.position.y, SelectedRoad.transform.position.z);
+                }
+                return true;
+            }
+
+            return false;
+        }
+
 
         /// <summary>
         /// This method will check, whether the user has selected a group and will move the entire group with the position of the mouse to imitate a drag functionality. 
@@ -1149,6 +1180,7 @@ namespace scripts
         /// <summary>
         /// This method colors road pieces based on the state of this piece (clicked, snapped, grouped, etc.) and the locked attribute of the road piece
         /// </summary>
+
         public void ColorRoadPiece(RoadPiece road, SelectionColor sColor)
         {
             Color color = new Color();

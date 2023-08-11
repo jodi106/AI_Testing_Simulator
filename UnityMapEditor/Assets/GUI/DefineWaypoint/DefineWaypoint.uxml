@@ -1,8 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Assets/GUI/DefineWaypoint/DefineWaypoint.uss?fileID=7433441132597879392&amp;guid=1212f070dd1433e4487002747a3f91bd&amp;type=3#DefineWaypoint" />
-    <ui:VisualElement name="DefineWaypoint_MainVisualElement" style="height: 443px; width: 346px; background-color: rgb(192, 192, 192);">
-        <ui:Label text="Define Waypoint" display-tooltip-when-elided="true" name="DefineWaypoint_header" />
-        <ui:DropdownField label="Action Type" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="DefineWaypoint_Drowdown" />
-        <ui:VisualElement name="DefineWaypoint_VisualElement_suboptions" style="padding-left: 10px; padding-top: 10px;" />
-    </ui:VisualElement>
-</ui:UXML>

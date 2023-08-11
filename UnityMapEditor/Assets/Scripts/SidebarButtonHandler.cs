@@ -31,7 +31,7 @@ namespace scripts
         /// <param name="eventData"> the event that is triggered, which, in this context, is a click</param>
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (RoadManager.Instance.InValidPosition && eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left)
             {
                 SelectRoadType(gameObject.name);
             }
