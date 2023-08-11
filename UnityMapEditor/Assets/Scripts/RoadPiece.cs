@@ -101,12 +101,14 @@ namespace scripts
                     break;
                 case RoadType.FourWayIntersection:
                 case RoadType.FourWayRoundAbout:
+                case RoadType.FourWayRoundAboutAdvanced:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     AnchorPoints.Add(new VirtualAnchor(this, 0));
                     AnchorPoints.Add(new VirtualAnchor(this, 90));
                     break;
                 case RoadType.ThreeWayRoundAbout:
+                case RoadType.ThreeWayRoundAboutAdvanced:
                     AnchorPoints.Add(new VirtualAnchor(this, 180));
                     AnchorPoints.Add(new VirtualAnchor(this, 270));
                     AnchorPoints.Add(new VirtualAnchor(this, 0));

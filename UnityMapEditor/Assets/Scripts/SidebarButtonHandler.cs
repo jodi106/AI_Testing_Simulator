@@ -80,6 +80,12 @@ namespace scripts
                 case "ThreeWayRoundAbout":
                     selectedRoadType = RoadType.ThreeWayRoundAbout;
                     break;
+                case "ThreeWayRoundAboutAdvanced":
+                    selectedRoadType = RoadType.ThreeWayRoundAboutAdvanced;
+                    break;
+                case "FourWayRoundAboutAdvanced":
+                    selectedRoadType = RoadType.FourWayRoundAboutAdvanced;
+                    break;
                 default:
                     break;
             }
