@@ -231,7 +231,7 @@ namespace OpenDriveXMLGenerator
                     roll: "90",
                     s: "0",
                     subtype: "-1",
-                    t: "0",
+                    t: "4",
                     text: "",
                     type: "206",
                     value: "-1",
