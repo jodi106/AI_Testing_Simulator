@@ -80,6 +80,9 @@ $(function() {
   <div class="headertitle"><div class="title">scripts.ButtonManager Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class handles the buttons in the bottom bar where the user can select a road piece to drag onto the map.  
+ <a href="classscripts_1_1_button_manager.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for scripts.ButtonManager:</div>
 <div class="dyncontent">
@@ -90,12 +93,16 @@ Inheritance diagram for scripts.ButtonManager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aea12b7ab2cac968f07e96f90c18f7e86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_button_manager.html#aea12b7ab2cac968f07e96f90c18f7e86">AddSidebarButton</a> (Button button)</td></tr>
+<tr class="memdesc:aea12b7ab2cac968f07e96f90c18f7e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method adds the button to the list of buttons.  <br /></td></tr>
 <tr class="separator:aea12b7ab2cac968f07e96f90c18f7e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba05487b4d6c61eb10b7344c1d33e3d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_button_manager.html#aba05487b4d6c61eb10b7344c1d33e3d5">SetSelectedRoadType</a> (RoadType roadType)</td></tr>
+<tr class="memdesc:aba05487b4d6c61eb10b7344c1d33e3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method sets the roadtype of the road that is being created.  <br /></td></tr>
 <tr class="separator:aba05487b4d6c61eb10b7344c1d33e3d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a258e66e2fd252167c9a3cd956d942cd1"><td class="memItemLeft" align="right" valign="top">RoadType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_button_manager.html#a258e66e2fd252167c9a3cd956d942cd1">GetSelectedRoadType</a> ()</td></tr>
+<tr class="memdesc:a258e66e2fd252167c9a3cd956d942cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets the road type of the selected road.  <br /></td></tr>
 <tr class="separator:a258e66e2fd252167c9a3cd956d942cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc224bf8474b4e85fadfda1b1921995c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classscripts_1_1_button_manager.html#afc224bf8474b4e85fadfda1b1921995c">HandleButtonClick</a> (Button button, RoadType roadType)</td></tr>
+<tr class="memdesc:afc224bf8474b4e85fadfda1b1921995c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method handles the button click on the buttons and creates a road.  <br /></td></tr>
 <tr class="separator:afc224bf8474b4e85fadfda1b1921995c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
@@ -107,7 +114,9 @@ List&lt; Button &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sideb
 static <a class="el" href="classscripts_1_1_button_manager.html">ButtonManager</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b><code> [get]</code></td></tr>
 <tr class="separator:adca675dc9367346005c4ffa97deb83bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class handles the buttons in the bottom bar where the user can select a road piece to drag onto the map. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aea12b7ab2cac968f07e96f90c18f7e86" name="aea12b7ab2cac968f07e96f90c18f7e86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea12b7ab2cac968f07e96f90c18f7e86">&#9670;&#160;</a></span>AddSidebarButton()</h2>
 
@@ -123,9 +132,11 @@ static <a class="el" href="classscripts_1_1_button_manager.html">ButtonManager</
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method adds the button to the list of buttons. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">button</td><td></td></tr>
+    <tr><td class="paramname">button</td><td>The button to be added </td></tr>
   </table>
   </dd>
 </dl>
@@ -146,7 +157,9 @@ static <a class="el" href="classscripts_1_1_button_manager.html">ButtonManager</
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p>This method gets the road type of the selected road. </p>
+<dl class="section return"><dt>Returns</dt><dd>The Road type of the selected road </dd></dl>
 
 </div>
 </div>
@@ -175,10 +188,12 @@ static <a class="el" href="classscripts_1_1_button_manager.html">ButtonManager</
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method handles the button click on the buttons and creates a road. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">button</td><td></td></tr>
-    <tr><td class="paramname">roadType</td><td></td></tr>
+    <tr><td class="paramname">button</td><td>The clicked button </td></tr>
+    <tr><td class="paramname">roadType</td><td>The roadtype the created piece should be assigned </td></tr>
   </table>
   </dd>
 </dl>
@@ -200,9 +215,11 @@ static <a class="el" href="classscripts_1_1_button_manager.html">ButtonManager</
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This method sets the roadtype of the road that is being created. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">roadType</td><td></td></tr>
+    <tr><td class="paramname">roadType</td><td>the roadtype that the piece should be assigned </td></tr>
   </table>
   </dd>
 </dl>

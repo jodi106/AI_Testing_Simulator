@@ -14,7 +14,7 @@ var searchData=
   ['addstraightroad_11',['AddStraightRoad',['../class_open_drive_x_m_l_generator_1_1_open_drive_x_m_l_builder.html#af2e86d9686b700a1776516a17075f6c9',1,'OpenDriveXMLGenerator::OpenDriveXMLBuilder']]],
   ['addstretchingstraight_12',['AddStretchingStraight',['../classscripts_1_1_virtual_anchor.html#a704de9f1008198c3ce6939a5b4217f8d',1,'scripts::VirtualAnchor']]],
   ['aligngrouppiecestoeachother_13',['AlignGroupPiecesToEachOther',['../classscripts_1_1_road_manager.html#aadc71e844d67979cc75ea48d1fba3008',1,'scripts::RoadManager']]],
-  ['assets_14',['Assets',['../namespace_assets.html',1,'']]],
-  ['enums_15',['Enums',['../namespace_assets_1_1_enums.html',1,'Assets']]],
-  ['helpers_16',['Helpers',['../namespace_assets_1_1_helpers.html',1,'Assets']]]
+  ['appendchild_14',['AppendChild',['../class_open_drive_x_m_l_generator_1_1_x_o_d_r_base.html#a44a50fc61b5e87a5c339497f7e5dec5c',1,'OpenDriveXMLGenerator::XODRBase']]],
+  ['assets_15',['Assets',['../namespace_assets.html',1,'']]],
+  ['enums_16',['Enums',['../namespace_assets_1_1_enums.html',1,'Assets']]]
 ];
