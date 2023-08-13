@@ -4,7 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 
 /// <summary>
-/// This method handles the user guide, once the user presses on the help button.It will either show, or hide the guide
+/// This class handles the user guide, once the user presses on the help button.It will either show, or hide the guide
 /// </summary>
 public class ScrollViewOpener : MonoBehaviour
 {

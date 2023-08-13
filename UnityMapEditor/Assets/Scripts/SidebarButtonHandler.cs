@@ -8,7 +8,7 @@ using Assets.Enums;
 namespace scripts
 {
     /// <summary>
-    /// This method will handle the buttons of the bottom bar when dragging a piece onto the map
+    /// This class will handle the buttons of the bottom bar when dragging a piece onto the map
     /// </summary>
     public class SidebarButtonHandler : MonoBehaviour, IPointerDownHandler
     {
