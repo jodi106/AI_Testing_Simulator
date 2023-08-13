@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Assets.Helpers.EnumUtil" Collapsed="true">
+    <Position X="56.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Helpers\EnumUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.OpenDriveXMLBuilder">
+    <Position X="54.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAMBAgABgAAAAAIAAAAIAEBADCoAAAAIEQAgA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\OpenDriveXMLBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.SequenceInfo">
+    <Position X="57.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAQAAAAAAAAAAAACAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\SequenceInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRBase" Collapsed="true">
+    <Position X="48.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAIAAAAAAAAQAAAAAICAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRConnection" Collapsed="true">
+    <Position X="52.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRLaneLink" Collapsed="true">
+    <Position X="52.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRDirection" Collapsed="true">
+    <Position X="46.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRDirection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRGeometry" Collapsed="true">
+    <Position X="44.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRGeometry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRLine" Collapsed="true">
+    <Position X="44.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRGeometry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRSpiral" Collapsed="true">
+    <Position X="44.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRGeometry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRArc" Collapsed="true">
+    <Position X="44.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRGeometry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRJunction" Collapsed="true">
+    <Position X="51.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRJunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRLane" Collapsed="true">
+    <Position X="47" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRRoadMark" Collapsed="true">
+    <Position X="47.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRWidth" Collapsed="true">
+    <Position X="47.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRLanes" Collapsed="true">
+    <Position X="46" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLanes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRLaneSection" Collapsed="true">
+    <Position X="46.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLaneSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRLink" Collapsed="true">
+    <Position X="42" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRPredecessor" Collapsed="true">
+    <Position X="42.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRSuccessor" Collapsed="true">
+    <Position X="42.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRObject" Collapsed="true">
+    <Position X="48.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRObjects" Collapsed="true">
+    <Position X="48" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODROutline" Collapsed="true">
+    <Position X="48.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODROutline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRCornerLocal" Collapsed="true">
+    <Position X="49" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODROutline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRPlainView" Collapsed="true">
+    <Position X="44" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRPlainView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRRoad" Collapsed="true">
+    <Position X="45.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRRoad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRSignal" Collapsed="true">
+    <Position X="50.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRSignal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenDriveXMLGenerator.XODRSignals" Collapsed="true">
+    <Position X="50" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\OpenDriveXMLGenerator\XODRSignals.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.ActionBarHandler">
+    <Position X="64.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gASQAAACACgAAEAQAAAAAAAIAgEAAAAQAIAAAAgApAA=</HashCode>
+      <FileName>Assets\Scripts\ActionBarHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.ButtonManager">
+    <Position X="62" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAEAAAAgAAEAAAAAAARAAAAAQAAAAACAAEA=</HashCode>
+      <FileName>Assets\Scripts\ButtonManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.ExportButtonHandler">
+    <Position X="62" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQBACAAAAAAAACAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\ExportButtonHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.PrefabManager">
+    <Position X="67.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAABBAAACACAAAAAAACEAABQABAAAAQQAAAAIEABgA=</HashCode>
+      <FileName>Assets\Scripts\PrefabManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.RoadManager">
+    <Position X="58" Y="3" Width="2.25" />
+    <Members>
+      <Method Name="AddRoadToGroup" Hidden="true" />
+      <Method Name="AddRoadToList" Hidden="true" />
+      <Method Name="AlignGroupPiecesToEachOther" Hidden="true" />
+      <Method Name="Awake" Hidden="true" />
+      <Method Name="CheckMouseCollisionWithPanels" Hidden="true" />
+      <Method Name="CheckStretchPosition" Hidden="true" />
+      <Method Name="ColorRoadPiece" Hidden="true" />
+      <Method Name="CompareAnchorPointOrientation" Hidden="true" />
+      <Method Name="ControlSelectRoadPiece" Hidden="true" />
+      <Method Name="CreateCustomStraightRoad" Hidden="true" />
+      <Method Name="CreateRoad" Hidden="true" />
+      <Method Name="DeleteRoad" Hidden="true" />
+      <Method Name="DeselectGroup" Hidden="true" />
+      <Method Name="DeselectRoad" Hidden="true" />
+      <Method Name="DragAndDropRoad" Hidden="true" />
+      <Method Name="DragAndDropRoads" Hidden="true" />
+      <Method Name="GetMouseObject" Hidden="true" />
+      <Method Name="GetNearestAnchorPoints" Hidden="true" />
+      <Method Name="GetNearestNeighborsInArea" Hidden="true" />
+      <Method Name="GetNeighborsReference" Hidden="true" />
+      <Method Name="GetWorldPositionFromMouse" Hidden="true" />
+      <Method Name="LockRoad" Hidden="true" />
+      <Method Name="RemoveRoadFromList" Hidden="true" />
+      <Method Name="RotateClockwise" Hidden="true" />
+      <Method Name="RotateCounterClockwise" Hidden="true" />
+      <Method Name="RotateRoadPiece" Hidden="true" />
+      <Method Name="SelectGroupOfRoads" Hidden="true" />
+      <Method Name="SelectRoad" Hidden="true" />
+      <Method Name="Snap" Hidden="true" />
+      <Method Name="SnapGroup" Hidden="true" />
+      <Method Name="StretchRoad" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gIUTAAkAABAAAAMkQFACiQISElJABJkESAAIACAxAkI=</HashCode>
+      <FileName>Assets\Scripts\RoadManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.RoadPiece">
+    <Position X="60.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAEABCAAIIAAAAABAEAAAAAAEAAAAAAAAAAEAkg=</HashCode>
+      <FileName>Assets\Scripts\RoadPiece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="scripts.SidebarButtonHandler" BaseTypeListCollapsed="true">
+    <Position X="62" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAIAAAAACAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SidebarButtonHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="scripts.VirtualAnchor">
+    <Position X="60.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAAQAAIAAAAAABEAAAAAgIAAAAAQAAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\VirtualAnchor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraMover">
+    <Position X="67.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAgCAAAAAAAAAEAAgBAAAAEEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\CameraMover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Assets.Enums.RoadType" Collapsed="true">
+    <Position X="56.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAABBAAAAACAAAAAAACEAAAQABAAAAQAAAAAIEAAgA=</HashCode>
+      <FileName>Assets\Enums\RoadType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Assets.Enums.SelectionColor" Collapsed="true">
+    <Position X="54.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAARAAAAAAAAgAAAAAAgAAAAABAgAAAAE=</HashCode>
+      <FileName>Assets\Enums\SelectionColor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Assets.Enums.TrafficSign" Collapsed="true">
+    <Position X="54.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAQIAAAAQEAAAA=</HashCode>
+      <FileName>Assets\Enums\TrafficSign.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

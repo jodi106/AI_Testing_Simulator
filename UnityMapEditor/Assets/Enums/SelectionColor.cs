@@ -1,5 +1,4 @@
-﻿
-namespace Assets.Enums
+﻿namespace Assets.Enums
 {
     public enum SelectionColor
     {
