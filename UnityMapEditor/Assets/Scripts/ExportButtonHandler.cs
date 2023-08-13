@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenDriveXMLGenerator;
@@ -15,6 +15,7 @@ namespace scripts
     {
 
         public Button ExportButton;
+        public GameObject SuccessMessage;
 
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace scripts
         /// <summary>
         /// This will intitiate the export to create a XODR file 
         /// </summary>
-        public void InitiateExport()
+        public async void InitiateExport()
         {
             var builder = new OpenDriveXMLBuilder();
 
@@ -82,9 +83,31 @@ namespace scripts
                 }
             }
 
-            Debug.Log("Waiting for Program to be in code");
+            StartCoroutine(ShowSuccessMessage());
+            int year = System.DateTime.Now.Year;
+            int month = System.DateTime.Now.Month;
+            int day = System.DateTime.Now.Day;
+            int hour = System.DateTime.Now.Hour;
+            int minute = System.DateTime.Now.Minute;
+            int second = System.DateTime.Now.Second;
 
-            builder.Document.Save("OpenDrive.xodr");
+            string path = Path.Combine(Environment.CurrentDirectory, "Maps");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            // builder.Document.Save(path + "/" + year + "_" + month + "_" + day + " - " + hour + ":" + minute + ":" + second);
+            string documentFileName = $"{year}_{month:D2}_{day:D2} - {hour:D2}_{minute:D2}_{second:D2}.xodr";
+            string documentPath = Path.Combine(path, documentFileName);
+            builder.Document.Save(documentPath);
+        }
+
+        public System.Collections.IEnumerator ShowSuccessMessage()
+        {
+            SuccessMessage.GetComponent<CanvasGroup>().alpha = 1;
+            yield return new WaitForSeconds(5);
+            SuccessMessage.GetComponent<CanvasGroup>().alpha = 0;
         }
     }
 }

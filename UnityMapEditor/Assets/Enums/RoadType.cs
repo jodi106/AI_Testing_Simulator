@@ -27,7 +27,11 @@ namespace Assets.Enums
         [Description("FourWayRoundAbout")]
         FourWayRoundAbout,
         [Description("ThreeWayRoundAbout")]
-        ThreeWayRoundAbout
+        ThreeWayRoundAbout,
+        [Description("ThreeWayRoundAboutAdvanced")]
+        ThreeWayRoundAboutAdvanced,
+        [Description("FourWayRoundAboutAdvanced")]
+        FourWayRoundAboutAdvanced,
     }
 
     public static class RoadTypeExtensions
@@ -40,6 +44,8 @@ namespace Assets.Enums
                 case RoadType.FourWayIntersection:
                 case RoadType.FourWayRoundAbout:
                 case RoadType.ThreeWayRoundAbout:
+                case RoadType.ThreeWayRoundAboutAdvanced:
+                case RoadType.FourWayRoundAboutAdvanced:
                     return true;
                 default:
                     return false;

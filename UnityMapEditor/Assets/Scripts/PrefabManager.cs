@@ -31,6 +31,8 @@ namespace scripts
         public RoadPiece Crosswalk;
         public RoadPiece FourWayRoundAbout;
         public RoadPiece ThreeWayRoundAbout;
+        public RoadPiece ThreeWayRoundAboutAdvanced;
+        public RoadPiece FourWayRoundAboutAdvanced;
         public RoadPiece StraightShort;
         public RoadPiece None;
 
@@ -73,6 +75,10 @@ namespace scripts
                     return FourWayRoundAbout;
                 case RoadType.ThreeWayRoundAbout:
                     return ThreeWayRoundAbout;
+                case RoadType.ThreeWayRoundAboutAdvanced:
+                    return ThreeWayRoundAboutAdvanced;
+                case RoadType.FourWayRoundAboutAdvanced:
+                    return FourWayRoundAboutAdvanced;
                 case RoadType.None:
                     return None;
                 default:
