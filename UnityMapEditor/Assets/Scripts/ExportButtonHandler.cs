@@ -9,7 +9,7 @@ using Assets.Enums;
 namespace scripts
 {
     /// <summary>
-    /// This method will handle the export button functionality
+    /// This class will handle the export button functionality
     /// </summary>
     public class ExportButtonHandler : MonoBehaviour
     {
